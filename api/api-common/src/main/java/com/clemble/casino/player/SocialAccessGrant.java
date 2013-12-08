@@ -81,6 +81,6 @@ public class SocialAccessGrant implements Serializable {
      * @return AccessGrant presentation of the token
      */
     public AccessGrant toAccessGrant(){
-        return new AccessGrant(accessToken, scope, refreshToken, TimeUnit.MILLISECONDS.toSeconds(expireTime - System.currentTimeMillis()));
+        return new AccessGrant(accessToken, scope, refreshToken, expireTime != null ? TimeUnit.MILLISECONDS.toSeconds(expireTime - System.currentTimeMillis()) : 600);
     }
 }
