@@ -15,6 +15,7 @@ import com.clemble.casino.player.security.PlayerToken;
 import com.clemble.casino.player.service.PlayerRegistrationService;
 import com.clemble.casino.player.web.PlayerLoginRequest;
 import com.clemble.casino.player.web.PlayerRegistrationRequest;
+import com.clemble.casino.player.web.PlayerSocialGrantRegistrationRequest;
 import com.clemble.casino.player.web.PlayerSocialRegistrationRequest;
 import com.clemble.casino.web.management.ManagementWebMapping;
 
@@ -49,6 +50,11 @@ public class AndroidPlayerRegistrationService implements PlayerRegistrationServi
     @Override
     public PlayerToken createSocialPlayer(PlayerSocialRegistrationRequest socialConnectionData) {
         return restTemplate.postForEntity(managementUrl + ManagementWebMapping.MANAGEMENT_PLAYER_REGISTRATION_SOCIAL, socialConnectionData, PlayerToken.class).getBody();
+    }
+
+    @Override
+    public PlayerToken createSocialGrantPlayer(PlayerSocialGrantRegistrationRequest socialConnectionData) {
+        return restTemplate.postForEntity(managementUrl + ManagementWebMapping.MANAGEMENT_PLAYER_REGISTRATION_SOCIAL_GRANT, socialConnectionData, PlayerToken.class).getBody();
     }
 
 }

@@ -6,4 +6,6 @@ public interface NotificationMapping {
 
     final public String PLAYER_PRESENCE_NOTIFICATION = ".presence";
 
+    final public String TABLE_NOTIFICATION = ".table";
+
 }

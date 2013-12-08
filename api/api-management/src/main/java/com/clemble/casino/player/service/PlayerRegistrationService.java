@@ -3,6 +3,7 @@ package com.clemble.casino.player.service;
 import com.clemble.casino.player.security.PlayerToken;
 import com.clemble.casino.player.web.PlayerLoginRequest;
 import com.clemble.casino.player.web.PlayerRegistrationRequest;
+import com.clemble.casino.player.web.PlayerSocialGrantRegistrationRequest;
 import com.clemble.casino.player.web.PlayerSocialRegistrationRequest;
 
 public interface PlayerRegistrationService {
@@ -12,5 +13,7 @@ public interface PlayerRegistrationService {
     public PlayerToken createPlayer(final PlayerRegistrationRequest registrationRequest);
 
     public PlayerToken createSocialPlayer(final PlayerSocialRegistrationRequest socialConnectionData);
+
+    public PlayerToken createSocialGrantPlayer(final PlayerSocialGrantRegistrationRequest socialConnectionData);
 
 }

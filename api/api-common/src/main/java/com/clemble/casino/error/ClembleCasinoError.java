@@ -54,6 +54,7 @@ public enum ClembleCasinoError {
     SocialConnectionProviderIdNull(Code.SOCIAL_CONNECTION_PROVIDER_ID_NULL_CODE, "Social connection provider ID can't be NULL"),
     SocialConnectionInvalid(Code.SOCIAL_CONNECTION_INVALID_CODE, "Social connection is invalid"),
     SocialConnectionAlreadyRegistered(Code.SOCIAL_CONNECTION_ALREADY_REGISTERED, "Social connection already registered"),
+    SocialConnectionProviderNotSupported(Code.SOCIAL_CONNECTION_PROVIDER_NOT_SUPPORTED, "Social connection provider not supported"),
 
     ClientJsonInvalidError(Code.CLIENT_JSON_INVALID_ERROR_CODE, "Invalid Json"),
     ClientJsonFormatError(Code.CLIENT_JSON_FORMAT_ERROR_CODE, "Incorrect Json"),
@@ -210,6 +211,7 @@ public enum ClembleCasinoError {
         final public static String SOCIAL_CONNECTION_INVALID_CODE = "091";
         final public static String SOCIAL_CONNECTION_PROVIDER_USER_NULL_CODE = "092";
         final public static String SOCIAL_CONNECTION_ALREADY_REGISTERED = "093";
+        final public static String SOCIAL_CONNECTION_PROVIDER_NOT_SUPPORTED = "094";
         // Generic Client errors
         final public static String CLIENT_JSON_INVALID_ERROR_CODE = "0D0";
         final public static String CLIENT_JSON_FORMAT_ERROR_CODE = "0D1";
