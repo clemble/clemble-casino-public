@@ -8,12 +8,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import com.clemble.casino.error.ClembleCasinoError.Code;
+
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = AgeConstraintValidator.class)
-public @interface AgeConstraint {
+@Constraint(validatedBy = DebitMatchCreditConstraintValidator.class)
+public @interface DebitMatchCreditConstraint {
 
-    String message();
+    String message() default Code.PAYMENT_TRANSACTION_DEBIT_AND_CREDIT_NOT_MATCHED;
 
     Class<?>[] groups() default {};
 

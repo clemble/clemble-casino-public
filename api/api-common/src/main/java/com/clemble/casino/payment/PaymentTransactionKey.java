@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import com.clemble.casino.money.MoneySource;
 
@@ -20,26 +18,25 @@ public class PaymentTransactionKey implements Serializable {
     @Column(name = "TRANSACTION_ID")
     private String transaction;
 
-    @Column(name = "MONEY_SOURCE")
-    @Enumerated(EnumType.STRING)
-    private MoneySource source;
+    @Column(name = "TRANSACTION_SOURCE")
+    private String source;
 
     public PaymentTransactionKey() {
     }
 
     public PaymentTransactionKey(String source, long transactionId) {
-        this(MoneySource.valueOf(source), transactionId);
+        this(source, String.valueOf(transactionId));
     }
 
     public PaymentTransactionKey(MoneySource source, long transactionId) {
         this(source, String.valueOf(transactionId));
     }
 
-    public PaymentTransactionKey(String source, String transactionId) {
-        this(MoneySource.valueOf(source), transactionId);
+    public PaymentTransactionKey(MoneySource source, String transactionId) {
+        this(source.name(), String.valueOf(transactionId));
     }
 
-    public PaymentTransactionKey(MoneySource source, String transactionId) {
+    public PaymentTransactionKey(String source, String transactionId) {
         this.source = source;
         this.transaction = transactionId;
     }
@@ -53,11 +50,11 @@ public class PaymentTransactionKey implements Serializable {
         return this;
     }
 
-    public MoneySource getSource() {
+    public String getSource() {
         return source;
     }
 
-    public PaymentTransactionKey setSource(MoneySource source) {
+    public PaymentTransactionKey setSource(String source) {
         this.source = source;
         return this;
     }

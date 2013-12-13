@@ -1,12 +1,12 @@
 package com.clemble.casino.player;
 
-import java.io.Serializable;
-import java.util.concurrent.TimeUnit;
-
-import org.springframework.social.oauth2.AccessGrant;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.social.oauth1.OAuthToken;
+import org.springframework.social.oauth2.AccessGrant;
+
+import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
 
 public class SocialAccessGrant implements Serializable {
 
@@ -19,6 +19,8 @@ public class SocialAccessGrant implements Serializable {
     
     private final String accessToken;
 
+    private final String secret;
+
     private final String scope;
 
     private final String refreshToken;
@@ -26,17 +28,19 @@ public class SocialAccessGrant implements Serializable {
     private final Long expireTime;
 
     public SocialAccessGrant(String provider, String accessToken) {
-        this(provider, accessToken, null, null, null);
+        this(provider, accessToken, null, null, null, null);
     }
 
     @JsonCreator
     public SocialAccessGrant(@JsonProperty("provider") String provider,
             @JsonProperty("accessToken") String accessToken,
+            @JsonProperty("secret") String secret,
             @JsonProperty("scope") String scope,
             @JsonProperty("refreshToken") String refreshToken,
             @JsonProperty("expireTime") Long expireTime) {
         this.provider = provider;
         this.accessToken = accessToken;
+        this.secret = secret;
         this.scope = scope;
         this.refreshToken = refreshToken;
         this.expireTime = expireTime;
@@ -82,5 +86,12 @@ public class SocialAccessGrant implements Serializable {
      */
     public AccessGrant toAccessGrant(){
         return new AccessGrant(accessToken, scope, refreshToken, expireTime != null ? TimeUnit.MILLISECONDS.toSeconds(expireTime - System.currentTimeMillis()) : 600);
+    }
+
+    /**
+     * @return OAuthToken presentation of the token
+     */
+    public OAuthToken toOAuthToken() {
+        return new OAuthToken(accessToken, secret);
     }
 }

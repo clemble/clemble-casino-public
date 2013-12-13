@@ -22,6 +22,9 @@ abstract public class PlayerProfile implements PlayerAware, CountryAware, Versio
     @JsonProperty("country")
     private String country;
 
+    @JsonProperty("type")
+    private PlayerType type = PlayerType.free;
+
     @Override
     public String getPlayer() {
         return player;
@@ -32,12 +35,22 @@ abstract public class PlayerProfile implements PlayerAware, CountryAware, Versio
         return this;
     }
 
+    public PlayerType getType() {
+        return type;
+    }
+
+    public PlayerProfile setType(PlayerType type) {
+        this.type = type;
+        return this;
+    }
+
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public PlayerProfile setCountry(String country) {
         this.country = country;
+        return this;
     }
 
     @Override

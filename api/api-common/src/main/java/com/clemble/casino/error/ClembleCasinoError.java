@@ -93,6 +93,9 @@ public enum ClembleCasinoError {
     PaymentTransactionUnknownPlayers(Code.PAYMENT_TRANSACTION_UNKNWON_PLAYERS_ERROR_CODE, "Players are not registered in the system"),
     PaymentTransactionAccessDenied(Code.PAYMENT_TRANSACTION_ACCESS_DENIED, "Player payment transaction access denied"),
     PaymentTransactionNotExists(Code.PAYMENT_TRANSACTION_DOES_NOT_EXISTS, "Player payment transaction does not exists"),
+    PaymentTransactionDebitAndCreditNotMatched(Code.PAYMENT_TRANSACTION_DEBIT_AND_CREDIT_NOT_MATCHED, "Payment credit and debit must match"),
+    PaymentTransactionTransactionDateMissing(Code.PAYMENT_TRANSACTION_TRANSACTION_DATE_MISSING, "Payment transaction date missing"),
+    PaymentTransactionProcessingDateMissing(Code.PAYMENT_TRANSACTION_PROCESSING_DATE_MISSING, "Payment transaction processing date missing"),
 
     TimeoutProcessingFailure(Code.TIMEOUT_PROCESSING_FAILURE_CODE, "Failed to invoke timeout events in Scheduler"),
 
@@ -250,6 +253,9 @@ public enum ClembleCasinoError {
         final public static String PAYMENT_TRANSACTION_UNKNWON_PLAYERS_ERROR_CODE = "0I2";
         final public static String PAYMENT_TRANSACTION_ACCESS_DENIED = "0I3";
         final public static String PAYMENT_TRANSACTION_DOES_NOT_EXISTS = "0I4";
+        final public static String PAYMENT_TRANSACTION_DEBIT_AND_CREDIT_NOT_MATCHED = "0I5";
+        final public static String PAYMENT_TRANSACTION_TRANSACTION_DATE_MISSING = "0I6";
+        final public static String PAYMENT_TRANSACTION_PROCESSING_DATE_MISSING = "0I7";
         // Player id description
         final public static String BAD_REQUEST_PLAYER_ID_HEADER_MISSING = "0J0";
         final public static String BAD_REQUEST_SESSION_ID_HEADER_MISSING = "0J1";

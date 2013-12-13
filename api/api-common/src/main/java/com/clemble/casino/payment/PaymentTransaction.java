@@ -13,9 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import com.clemble.casino.payment.money.Currency;
-import com.clemble.casino.payment.money.Money;
+import com.clemble.casino.error.ClembleCasinoError.Code;
+import com.clemble.casino.error.validation.DebitMatchCreditConstraint;
 
 @Entity
 @Table(name = "PAYMENT_TRANSACTION")
@@ -29,12 +30,18 @@ public class PaymentTransaction implements Serializable {
     @EmbeddedId
     private PaymentTransactionKey transactionId;
 
+    @DebitMatchCreditConstraint
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PAYMENT_TRANSACTION_OPERATION", joinColumns = { @JoinColumn(name = "TRANSACTION_ID"), @JoinColumn(name = "MONEY_SOURCE") })
     private Set<PaymentOperation> paymentOperations = new HashSet<PaymentOperation>();
 
+    @NotNull(message = Code.PAYMENT_TRANSACTION_TRANSACTION_DATE_MISSING)
     @Column(name = "TRANSACTION_DATE")
     private Date transactionDate;
+
+    @NotNull(message = Code.PAYMENT_TRANSACTION_PROCESSING_DATE_MISSING)
+    @Column(name = "TRANSACTION_PROCESSING_DATE")
+    private Date processingDate = new Date();
 
     public PaymentTransactionKey getTransactionKey() {
         return transactionId;
@@ -76,45 +83,13 @@ public class PaymentTransaction implements Serializable {
         return this;
     }
 
-    public boolean valid() {
-        // Step 1. Checking currency
-        Currency currency = null;
-        for (PaymentOperation paymentOperation : paymentOperations) {
-            if (currency == null) {
-                currency = paymentOperation.getAmount().getCurrency();
-            } else if (currency != paymentOperation.getAmount().getCurrency()) {
-                return false;
-            }
-        }
-        // Step 2. Checking credit and debit amount match up
-        Money creditAmount = null;
-        Money debitAmount = null;
-        for (PaymentOperation paymentOperation : paymentOperations) {
-            Money amount = paymentOperation.getAmount();
-            if (amount.getAmount() > 0) {
-                switch (paymentOperation.getOperation()) {
-                case Credit:
-                    creditAmount = creditAmount == null ? paymentOperation.getAmount() : creditAmount.add(amount);
-                    break;
-                case Debit:
-                    debitAmount = debitAmount == null ? paymentOperation.getAmount() : debitAmount.add(paymentOperation.getAmount());
-                    break;
-                }
-            } else {
-                amount = amount.negate();
-                switch (paymentOperation.getOperation()) {
-                case Credit:
-                    debitAmount = debitAmount == null ? paymentOperation.getAmount() : debitAmount.add(paymentOperation.getAmount());
-                    break;
-                case Debit:
-                    creditAmount = creditAmount == null ? paymentOperation.getAmount() : creditAmount.add(amount);
-                    break;
-                }
-            }
-        }
-        return (creditAmount != null && debitAmount != null)
-                && creditAmount.getAmount() == debitAmount.getAmount()
-                && creditAmount.getCurrency() == debitAmount.getCurrency();
+    public Date getProcessingDate() {
+        return processingDate;
+    }
+
+    public PaymentTransaction setProcessingDate(Date processingDate) {
+        this.processingDate = processingDate;
+        return this;
     }
 
     @Override

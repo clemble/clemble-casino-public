@@ -1,6 +1,5 @@
 package com.clemble.casino.error;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -18,16 +17,14 @@ public class ClembleCasinoValidationService {
 
     public <T> void validate(T object) {
         // Step 1. Validating provided input
-        Set<ConstraintViolation<T>> errors = validatorFactory.getValidator().validate(object);
-        if (errors.isEmpty())
+        Set<ConstraintViolation<T>> violations = validatorFactory.getValidator().validate(object);
+        if (violations.isEmpty())
             return;
         // Step 2. Accumulating error codes
-        Set<String> errorCodes = new HashSet<String>();
-        for (ConstraintViolation<T> error : errors) {
-            errorCodes.add(error.getMessage());
-        }
-        // Step 3. Generating Gogomaya error
-        if (errorCodes.size() > 0)
-            throw ClembleCasinoException.fromCodes(errorCodes);
+        ClembleCasinoException exception = ClembleCasinoException.fromConstraintViolations(violations);
+        // Step 3. Generating Clemble error
+        if (exception != null)
+            throw exception;
     }
+
 }
