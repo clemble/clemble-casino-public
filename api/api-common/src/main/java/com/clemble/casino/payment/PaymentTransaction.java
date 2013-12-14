@@ -28,7 +28,7 @@ public class PaymentTransaction implements Serializable {
     private static final long serialVersionUID = 2610517770966910840L;
 
     @EmbeddedId
-    private PaymentTransactionKey transactionId;
+    private PaymentTransactionKey transactionKey;
 
     @DebitMatchCreditConstraint
     @ElementCollection(fetch = FetchType.EAGER)
@@ -44,11 +44,11 @@ public class PaymentTransaction implements Serializable {
     private Date processingDate = new Date();
 
     public PaymentTransactionKey getTransactionKey() {
-        return transactionId;
+        return transactionKey;
     }
 
     public PaymentTransaction setTransactionKey(PaymentTransactionKey transactionId) {
-        this.transactionId = transactionId;
+        this.transactionKey = transactionId;
         return this;
     }
 
@@ -97,7 +97,7 @@ public class PaymentTransaction implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((transactionDate == null) ? 0 : transactionDate.hashCode());
-        result = prime * result + ((transactionId == null) ? 0 : transactionId.hashCode());
+        result = prime * result + ((transactionKey == null) ? 0 : transactionKey.hashCode());
         result = prime * result + ((paymentOperations == null) ? 0 : paymentOperations.hashCode());
         return result;
     }
@@ -116,10 +116,10 @@ public class PaymentTransaction implements Serializable {
                 return false;
         } else if (!transactionDate.equals(other.transactionDate))
             return false;
-        if (transactionId == null) {
-            if (other.transactionId != null)
+        if (transactionKey == null) {
+            if (other.transactionKey != null)
                 return false;
-        } else if (!transactionId.equals(other.transactionId))
+        } else if (!transactionKey.equals(other.transactionKey))
             return false;
         if (paymentOperations == null) {
             if (other.paymentOperations != null)
@@ -131,7 +131,7 @@ public class PaymentTransaction implements Serializable {
 
     @Override
     public String toString() {
-        return "PaymentTransaction [transactionId=" + transactionId + ", paymentOperations=" + paymentOperations + ", transactionDate=" + transactionDate + "]";
+        return "payment:" + transactionKey + ":" + paymentOperations + ":" + transactionDate + ":" + processingDate;
     }
 
 }

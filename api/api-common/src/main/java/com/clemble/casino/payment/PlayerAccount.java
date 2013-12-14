@@ -38,6 +38,13 @@ public class PlayerAccount implements PlayerAware {
     @Columns(columns = { @Column(name = "CURRENCY"), @Column(name = "AMOUNT") })
     private Set<Money> playerMoney = new HashSet<Money>();
 
+    public PlayerAccount() {
+    }
+
+    public PlayerAccount(String player) {
+        this.player = player;
+    }
+
     @Override
     public String getPlayer() {
         return player;

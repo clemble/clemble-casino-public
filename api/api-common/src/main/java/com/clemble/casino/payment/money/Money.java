@@ -51,8 +51,8 @@ public class Money implements Serializable {
         return Money.create(currency, amount + more.amount);
     }
 
-    public Money add(long amount) {
-        return Money.create(currency, amount + amount);
+    public Money add(long additionalAmount) {
+        return Money.create(currency, this.amount + additionalAmount);
     }
 
     public Money subtract(Money minus) {

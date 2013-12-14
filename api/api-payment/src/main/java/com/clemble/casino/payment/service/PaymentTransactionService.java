@@ -6,8 +6,10 @@ import com.clemble.casino.payment.PaymentTransaction;
 
 public interface PaymentTransactionService {
 
-    public PaymentTransaction getPaymentTransaction(String source, String transactionId);
+    public PaymentTransaction getTransaction(String source, String transactionId);
 
-    public List<PaymentTransaction> getPaymentTransactions(String player);
+    public List<PaymentTransaction> getPlayerTransactions(String player);
+
+    public List<PaymentTransaction> getPlayerTransactionsWithSource(String player, String source);
 
 }

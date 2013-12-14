@@ -72,7 +72,7 @@ public class PaymentOperation implements PlayerAware, Serializable {
 
     @Override
     public String toString() {
-        return "WalletOperation [playerId=" + player + ", amount=" + amount + ", operation=" + operation + "]";
+        return operation + ":" + player + ":" + amount;
     }
 
     @Override

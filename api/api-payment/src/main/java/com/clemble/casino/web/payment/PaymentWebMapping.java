@@ -14,6 +14,7 @@ public interface PaymentWebMapping extends WebMapping {
      */
     final public static String PAYMENT_ACCOUNTS_PLAYER = "/account/{player}";
     final public static String PAYMENT_ACCOUNTS_PLAYER_TRANSACTIONS = "/account/{player}/transaction";
+    final public static String PAYMENT_ACCOUNTS_PLAYER_TRANSACTION_SOURCE = "/account/{player}/transaction/{source}";
 
     /**
      * Supports POST, that can only be used by the server

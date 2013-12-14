@@ -17,4 +17,8 @@ public interface PaymentOperations extends PlayerAware {
 
     public PaymentTransaction getPaymentTransaction(String source, String transactionId);
 
+    public List<PaymentTransaction> getPaymentTransactions(String source);
+
+    public List<PaymentTransaction> getPaymentTransactions(MoneySource source);
+
 }

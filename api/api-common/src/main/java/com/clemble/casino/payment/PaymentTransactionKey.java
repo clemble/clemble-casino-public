@@ -32,7 +32,7 @@ public class PaymentTransactionKey implements Serializable {
         this(source, String.valueOf(transactionId));
     }
 
-    public PaymentTransactionKey(MoneySource source, String transactionId) {
+    public PaymentTransactionKey(Enum<?> source, String transactionId) {
         this(source.name(), String.valueOf(transactionId));
     }
 
@@ -84,7 +84,7 @@ public class PaymentTransactionKey implements Serializable {
 
     @Override
     public String toString() {
-        return "transaction:" + source + ":" + transaction;
+        return "pt:" + source + ":" + transaction;
     }
 
 }

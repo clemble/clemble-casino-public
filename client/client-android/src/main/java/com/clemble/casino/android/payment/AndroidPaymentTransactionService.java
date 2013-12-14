@@ -23,7 +23,7 @@ public class AndroidPaymentTransactionService extends AbstractClembleCasinoOpera
     }
 
     @Override
-    public PaymentTransaction getPaymentTransaction(String source, String transactionId) {
+    public PaymentTransaction getTransaction(String source, String transactionId) {
         return restTemplate
                 .getForEntity(buildUriWith(PaymentWebMapping.PAYMENT_TRANSACTIONS_TRANSACTION, source, transactionId), PaymentTransaction.class)
                 .getBody();
@@ -31,7 +31,7 @@ public class AndroidPaymentTransactionService extends AbstractClembleCasinoOpera
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<PaymentTransaction> getPaymentTransactions(String player) {
+    public List<PaymentTransaction> getPlayerTransactions(String player) {
         return restTemplate
             .getForEntity(buildUriWith(PaymentWebMapping.PAYMENT_ACCOUNTS_PLAYER_TRANSACTIONS, player), List.class)
             .getBody();
@@ -42,6 +42,14 @@ public class AndroidPaymentTransactionService extends AbstractClembleCasinoOpera
         return restTemplate
             .getForEntity(buildUriWith(PaymentWebMapping.PAYMENT_ACCOUNTS_PLAYER, player), PlayerAccount.class)
             .getBody();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<PaymentTransaction> getPlayerTransactionsWithSource(String player, String source) {
+        return restTemplate
+                .getForEntity(buildUriWith(PaymentWebMapping.PAYMENT_ACCOUNTS_PLAYER_TRANSACTION_SOURCE, player, source), List.class)
+                .getBody();
     }
 
 }
