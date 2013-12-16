@@ -77,9 +77,7 @@ public class PaymentTransactionKey implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         PaymentTransactionKey other = (PaymentTransactionKey) obj;
-        if (source != other.source)
-            return false;
-        return transaction.equals(other.transaction);
+        return source.equals(other.source) && transaction.equals(other.transaction);
     }
 
     @Override

@@ -11,6 +11,7 @@ public class ObjectMapperUtils {
         loadJsonModule("com.clemble.casino.json.CommonJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.json.GameJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.json.GameCellJsonModule", objectMapper);
+        loadJsonModule("com.clemble.casino.json.PaymentJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.json.ExtenstionJsonModule", objectMapper);
         // Step 1.1. Initializing Facebook module if available
         loadJsonModule("org.springframework.social.facebook.api.impl.json.FacebookModule", objectMapper);

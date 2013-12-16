@@ -2,6 +2,7 @@ package com.clemble.casino.android.payment;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
@@ -30,11 +31,11 @@ public class AndroidPaymentTransactionService extends AbstractClembleCasinoOpera
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<PaymentTransaction> getPlayerTransactions(String player) {
-        return restTemplate
-            .getForEntity(buildUriWith(PaymentWebMapping.PAYMENT_ACCOUNTS_PLAYER_TRANSACTIONS, player), List.class)
+        PaymentTransaction[] transactions = restTemplate
+            .getForEntity(buildUriWith(PaymentWebMapping.PAYMENT_ACCOUNTS_PLAYER_TRANSACTIONS, player), PaymentTransaction[].class)
             .getBody();
+        return Arrays.asList(transactions);
     }
 
     @Override
@@ -45,11 +46,11 @@ public class AndroidPaymentTransactionService extends AbstractClembleCasinoOpera
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<PaymentTransaction> getPlayerTransactionsWithSource(String player, String source) {
-        return restTemplate
-                .getForEntity(buildUriWith(PaymentWebMapping.PAYMENT_ACCOUNTS_PLAYER_TRANSACTION_SOURCE, player, source), List.class)
+        PaymentTransaction[] transactions = restTemplate
+                .getForEntity(buildUriWith(PaymentWebMapping.PAYMENT_ACCOUNTS_PLAYER_TRANSACTION_SOURCE, player, source), PaymentTransaction[].class)
                 .getBody();
+        return Arrays.asList(transactions);
     }
 
 }

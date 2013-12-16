@@ -58,7 +58,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     private static final long serialVersionUID = 103204849955372481L;
 
     final private String player;
-    final private EventListenerOperations eventListenersManager;
+    final private EventListenerOperations eventListenerOperations;
     final private PlayerSessionOperations playerSessionOperations;
     final private PlayerProfileOperations playerProfileOperations;
     final private PlayerPresenceOperations playerPresenceOperations;
@@ -81,17 +81,17 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         ResourceLocations resourceLocations = checkNotNull(playerSessionOperations.create().getResourceLocations());
         ServerRegistryConfiguration registryConfiguration = resourceLocations.getServerRegistryConfiguration();
 
-        this.eventListenersManager = new RabbitEventListenerTemplate(player, resourceLocations.getNotificationConfiguration(), ClembleCasinoConstants.OBJECT_MAPPER);
+        this.eventListenerOperations = new RabbitEventListenerTemplate(player, resourceLocations.getNotificationConfiguration(), ClembleCasinoConstants.OBJECT_MAPPER);
         // Step 1. Creating PlayerProfile service
         PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
         this.playerProfileOperations = new PlayerProfileTemplate(player, playerProfileService);
         // Step 2. Creating PlayerPresence service
         PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
-        this.playerPresenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, eventListenersManager);
+        this.playerPresenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, eventListenerOperations);
         // Step 3. Creating PaymentTransaction service
         ServerRegistry paymentServerRegistry = registryConfiguration.getPaymentRegistry();
         PaymentService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), paymentServerRegistry);
-        this.paymentTransactionOperations = new PaymentTemplate(player, paymentTransactionService);
+        this.paymentTransactionOperations = new PaymentTemplate(player, paymentTransactionService, eventListenerOperations);
         // Step 4. Creating GameConstruction services
         Map<Game, GameConstructionOperations<?>> gameToConstructor = new EnumMap<Game, GameConstructionOperations<?>>(Game.class);
         for (Game game : resourceLocations.getGames()) {
@@ -99,9 +99,9 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
             GameConstructionService constructionService = new AndroidGameConstructionService(getRestTemplate(), gameRegistry);
             GameSpecificationService specificationService = new AndroidGameSpecificationService(getRestTemplate(), gameRegistry);
             GameActionService<?> actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
-            GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, eventListenersManager, actionService);
+            GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, eventListenerOperations, actionService);
             GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService,
-                    specificationService, eventListenersManager);
+                    specificationService, eventListenerOperations);
             gameToConstructor.put(game, constructionOperations);
         }
         this.gameToConstructionOperations = CollectionUtils.immutableMap(gameToConstructor);
@@ -154,7 +154,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     @Override
     public EventListenerOperations listenerOperations() {
-        return eventListenersManager;
+        return eventListenerOperations;
     }
 
     /**
@@ -176,7 +176,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     @Override
     public void close() {
-        if(eventListenersManager != null)
-            eventListenersManager.close();
+        if(eventListenerOperations != null)
+            eventListenerOperations.close();
     }
 }
