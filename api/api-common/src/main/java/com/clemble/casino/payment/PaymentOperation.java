@@ -15,7 +15,7 @@ import com.clemble.casino.payment.money.Operation;
 import com.clemble.casino.player.PlayerAware;
 
 @Embeddable
-public class PaymentOperation implements PlayerAware, Serializable {
+public class PaymentOperation implements PlayerAware, AmountAware {
 
     /**
      * Generated 05/05/13
@@ -52,6 +52,7 @@ public class PaymentOperation implements PlayerAware, Serializable {
         return this;
     }
 
+    @Override
     public Money getAmount() {
         return amount;
     }
