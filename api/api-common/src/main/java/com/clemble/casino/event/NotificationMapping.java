@@ -1,11 +1,30 @@
 package com.clemble.casino.event;
 
-public interface NotificationMapping {
+import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.player.PlayerAware;
 
-    final public String PLAYER_NOTIFICATION = "";
+final public class NotificationMapping {
 
-    final public String PLAYER_PRESENCE_NOTIFICATION = ".presence";
+    final public static String PLAYER_CHANNEL_POSTFIX = "";
 
-    final public String TABLE_NOTIFICATION = ".table";
+    final public static String PRESENCE_CHANNEL_POSTFIX = ".presence";
+
+    final public static String TABLE_CHANNEL_POSTFIX = ".table";
+
+    public static String toPlayerChannel(PlayerAware playerAware) {
+        return playerAware.getPlayer();
+    }
+
+    public static String toPresenceChannel(String player){
+        return player + PRESENCE_CHANNEL_POSTFIX;
+    }
+    
+    public static String toPresenceChannel(PlayerAware playerAware) {
+        return toPresenceChannel(playerAware.getPlayer());
+    }
+
+    public static String toTable(GameSessionKey sessionKey) {
+        return sessionKey.getSession().substring(0, 5) + NotificationMapping.TABLE_CHANNEL_POSTFIX;
+    }
 
 }

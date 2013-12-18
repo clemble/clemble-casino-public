@@ -4,10 +4,10 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
 
-import com.clemble.casino.client.event.ConstructionEventSelector;
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.event.ClientEvent;
+import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
@@ -105,8 +105,12 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public void subscribe(String session, EventListener constructionListener) {
-        listenersManager.subscribe(new ConstructionEventSelector(toSessionKey(session)), constructionListener);
+    public void watch(String session, EventListener constructionListener) {
+        // Step 1. Sanity checks
+        if(session == null || constructionListener == null)
+            return;
+        // Step 2. Subscribing to specific table
+        listenersManager.subscribe(NotificationMapping.toTable(toSessionKey(session)), constructionListener);
     }
 
     @Override

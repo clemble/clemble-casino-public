@@ -1,8 +1,8 @@
 package com.clemble.casino.client;
 
-import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.SocialAccessGrant;
 import com.clemble.casino.player.SocialConnectionData;
+import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.security.PlayerCredential;
 
 public interface ClembleCasinoRegistrationOperations {

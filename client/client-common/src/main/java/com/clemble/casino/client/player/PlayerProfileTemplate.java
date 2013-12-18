@@ -6,7 +6,7 @@ import com.clemble.casino.player.service.PlayerProfileService;
 public class PlayerProfileTemplate implements PlayerProfileOperations {
 
     /**
-     * 
+     * Generated 15/12/13
      */
     private static final long serialVersionUID = 2044631083380608080L;
 
@@ -24,22 +24,19 @@ public class PlayerProfileTemplate implements PlayerProfileOperations {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T extends PlayerProfile> T getPlayerProfile() {
-        return (T) playerProfileService.getPlayerProfile(player);
+    public PlayerProfile getPlayerProfile() {
+        return playerProfileService.getPlayerProfile(player);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T extends PlayerProfile> T getPlayerProfile(String player) {
-        return (T) playerProfileService.getPlayerProfile(player);
+    public PlayerProfile getPlayerProfile(String player) {
+        return playerProfileService.getPlayerProfile(player);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T extends PlayerProfile> T updatePlayerProfile(PlayerProfile playerProfile) {
+    public PlayerProfile updatePlayerProfile(PlayerProfile playerProfile) {
         playerProfile.setPlayer(player);
-        return (T) playerProfileService.updatePlayerProfile(player, playerProfile);
+        return playerProfileService.updatePlayerProfile(player, playerProfile);
     }
 
 }

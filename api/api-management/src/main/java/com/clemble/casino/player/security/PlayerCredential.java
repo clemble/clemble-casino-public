@@ -42,6 +42,14 @@ public class PlayerCredential implements PlayerAware {
     @NotNull(message = Code.PASSWORD_MISSING_CODE)
     private String password;
 
+    public PlayerCredential() {
+    }
+
+    public PlayerCredential(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     @Override
     public String getPlayer() {
         return player;

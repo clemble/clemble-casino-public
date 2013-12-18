@@ -47,7 +47,7 @@ public class PlayerPresenceTemplate implements PlayerPresenceOperations {
     public void subscribe(String player, EventListener listener) {
         if(player == null || listener == null)
             throw new IllegalArgumentException();
-        listenerOperations.subscribe(player + NotificationMapping.PLAYER_PRESENCE_NOTIFICATION, listener);
+        listenerOperations.subscribe(NotificationMapping.toPresenceChannel(player), listener);
     }
 
     @Override

@@ -29,8 +29,8 @@ public interface GameConstructionOperations<T extends GameState> extends GameSpe
 
     public GameConstruction response(final String session, final InvitationResponseEvent gameRequest);
 
-    public void subscribe(String session, EventListener constructionListener);
-
     public GameActionOperations<T> getActionOperations(String session);
+
+    public void watch(String session, EventListener constructionListener);
 
 }
