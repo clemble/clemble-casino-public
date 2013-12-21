@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import com.clemble.casino.game.cell.CellState;
-import com.clemble.casino.game.cell.event.SelectCellEvent;
+import com.clemble.casino.game.cell.event.SelectCellAction;
 import com.clemble.casino.game.cell.ExposedCellState;
 
 class GameCellJsonModule implements ClembleJsonModule {
@@ -15,7 +15,7 @@ class GameCellJsonModule implements ClembleJsonModule {
     public Module construct() {
         SimpleModule module = new SimpleModule("GameCell");
         module.registerSubtypes(new NamedType(CellState.class, CellState.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(SelectCellEvent.class, SelectCellEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(SelectCellAction.class, SelectCellAction.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(ExposedCellState.class, ExposedCellState.class.getAnnotation(JsonTypeName.class).value()));
         return module;
     }

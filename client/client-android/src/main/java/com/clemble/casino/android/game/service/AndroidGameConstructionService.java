@@ -4,7 +4,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.event.ClientEvent;
+import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construct.GameConstruction;
@@ -37,9 +37,9 @@ public class AndroidGameConstructionService<T extends GameState> extends Abstrac
     }
 
     @Override
-    public ClientEvent getResponce(Game game, String session, String player) {
+    public PlayerAwareEvent getResponce(Game game, String session, String player) {
         return restTemplate
-            .getForEntity(buildUriWith(GameWebMapping.GAME_CONSTRUCTION_RESPONSES_PLAYER, game, session, player), ClientEvent.class)
+            .getForEntity(buildUriWith(GameWebMapping.GAME_CONSTRUCTION_RESPONSES_PLAYER, game, session, player), PlayerAwareEvent.class)
             .getBody();
     }
 

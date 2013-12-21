@@ -5,17 +5,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("totalTimeBreached")
-public class TotalTimeoutSurrenderEvent extends SurrenderEvent {
+@JsonTypeName("moveTimeout")
+public class MoveTimeoutSurrenderAction extends SurrenderAction {
 
     /**
      * Generated 10/06/13
      */
-    private static final long serialVersionUID = 6999945454488627240L;
+    private static final long serialVersionUID = -3052155086475447441L;
 
     @JsonCreator
-    public TotalTimeoutSurrenderEvent(@JsonProperty(PlayerAware.JSON_ID) String playerId) {
-        super(playerId);
+    public MoveTimeoutSurrenderAction(@JsonProperty(PlayerAware.JSON_ID) String player) {
+        super(player);
     }
 
 }

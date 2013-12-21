@@ -16,7 +16,7 @@ import org.hibernate.annotations.Type;
 
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
-import com.clemble.casino.event.ClientEvent;
+import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
@@ -94,9 +94,9 @@ public class GameConstruction implements GameSessionAware, VersionAware {
     }
 
     public List<String> fetchAcceptedParticipants() {
-        List<String> acceptedParticipants = new ArrayList<>(responses.fetchParticipants().size());
+        List<String> acceptedParticipants = new ArrayList<String>(responses.fetchParticipants().size());
 
-        for (Entry<String, ClientEvent> responseEntry : responses.fetchActionsMap().entrySet()) {
+        for (Entry<String, PlayerAwareEvent> responseEntry : responses.fetchActionsMap().entrySet()) {
             if (responseEntry.getValue() instanceof InvitationAcceptedEvent)
                 acceptedParticipants.add(responseEntry.getKey());
         }

@@ -2,7 +2,7 @@ package com.clemble.casino.game.cell;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.event.client.BetEvent;
+import com.clemble.casino.game.event.client.BetAction;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,24 +11,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("exposed")
 public class ExposedCellState extends CellState {
 
-    final private Collection<BetEvent> bets;
+    final private Collection<BetAction> bets;
 
     @JsonCreator
-    public ExposedCellState(@JsonProperty("owner") String owner, @JsonProperty("bets") Collection<BetEvent> bets) {
+    public ExposedCellState(@JsonProperty("owner") String owner, @JsonProperty("bets") Collection<BetAction> bets) {
         super(owner);
-        this.bets = CollectionUtils.<BetEvent>immutableList(bets);
+        this.bets = CollectionUtils.<BetAction>immutableList(bets);
     }
 
-    public ExposedCellState(Collection<BetEvent> bets) {
-        this(bets.toArray(new BetEvent[0]));
+    public ExposedCellState(Collection<BetAction> bets) {
+        this(bets.toArray(new BetAction[0]));
     }
 
-    public ExposedCellState(BetEvent... bets) {
-        super(BetEvent.whoBetMore(bets));
-        this.bets = CollectionUtils.<BetEvent>immutableList(bets);
+    public ExposedCellState(BetAction... bets) {
+        super(BetAction.whoBetMore(bets));
+        this.bets = CollectionUtils.<BetAction>immutableList(bets);
     }
 
-    public Collection<BetEvent> getBets() {
+    public Collection<BetAction> getBets() {
         return bets;
     }
 

@@ -5,9 +5,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-import com.clemble.casino.event.ClientEvent;
 import com.clemble.casino.game.configuration.GameRuleOptions;
-import com.clemble.casino.game.event.client.surrender.TotalTimeoutSurrenderEvent;
+import com.clemble.casino.game.event.client.GameAction;
+import com.clemble.casino.game.event.client.surrender.TotalTimeoutSurrenderAction;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Embeddable
@@ -52,8 +52,8 @@ public class TotalTimeRule implements TimeRule {
     }
 
     @Override
-    public ClientEvent toTimeBreachedEvent(String player) {
-        return new TotalTimeoutSurrenderEvent(player);
+    public GameAction toTimeBreachedEvent(String player) {
+        return new TotalTimeoutSurrenderAction(player);
     }
 
     public TotalTimeRule setLimit(int limit) {

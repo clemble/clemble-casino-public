@@ -1,13 +1,14 @@
 package com.clemble.casino.base;
 
-import com.clemble.casino.event.ClientEvent;
+import com.clemble.casino.event.Event;
+import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("expected")
-public class ExpectedAction implements ClientEvent {
+public class ExpectedEvent implements PlayerAwareEvent {
 
     /**
      * Generated 02/07/13
@@ -18,7 +19,7 @@ public class ExpectedAction implements ClientEvent {
     final private String action;
 
     @JsonCreator
-    public ExpectedAction(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("action") String action) {
+    public ExpectedEvent(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("action") String action) {
         this.player = player;
         this.action = action;
     }
@@ -49,7 +50,7 @@ public class ExpectedAction implements ClientEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ExpectedAction other = (ExpectedAction) obj;
+        ExpectedEvent other = (ExpectedEvent) obj;
         if (action == null) {
             if (other.action != null)
                 return false;

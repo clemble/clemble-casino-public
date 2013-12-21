@@ -1,9 +1,9 @@
 package com.clemble.casino.game.event.client;
 
-import com.clemble.casino.event.ClientEvent;
+import com.clemble.casino.event.GameEvent;
+import com.clemble.casino.event.PlayerAwareEvent;
 
-
-abstract public class GameClientEvent implements ClientEvent {
+abstract public class GameAction implements PlayerAwareEvent, GameEvent {
 
     /**
      * Generated 02/04/13
@@ -12,7 +12,7 @@ abstract public class GameClientEvent implements ClientEvent {
 
     final private String player;
 
-    public GameClientEvent(final String player) {
+    public GameAction(final String player) {
         this.player = player;
     }
 
@@ -33,7 +33,7 @@ abstract public class GameClientEvent implements ClientEvent {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof GameClientEvent && player.equals(((GameClientEvent) obj).getPlayer());
+        return obj instanceof GameAction && player.equals(((GameAction) obj).getPlayer());
     }
 
 }

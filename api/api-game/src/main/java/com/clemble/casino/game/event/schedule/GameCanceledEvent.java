@@ -1,6 +1,6 @@
 package com.clemble.casino.game.event.schedule;
 
-import com.clemble.casino.event.ConstructionEvent;
+import com.clemble.casino.event.GameConstructionEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("canceled")
-public class GameCanceledEvent implements ConstructionEvent, PlayerAware {
+public class GameCanceledEvent implements GameConstructionEvent, PlayerAware {
 
     /**
      * Generated 10/06/13

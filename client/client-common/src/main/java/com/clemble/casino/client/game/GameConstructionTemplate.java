@@ -6,8 +6,8 @@ import java.util.Collection;
 
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.event.ClientEvent;
 import com.clemble.casino.event.NotificationMapping;
+import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
@@ -100,7 +100,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public ClientEvent getResponce(String session, String fromPlayer) {
+    public PlayerAwareEvent getResponce(String session, String fromPlayer) {
         return constructionService.getResponce(game, session, fromPlayer);
     }
 

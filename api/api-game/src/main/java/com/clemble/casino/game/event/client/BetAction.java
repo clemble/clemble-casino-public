@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("bet")
-public class BetEvent extends GameClientEvent {
+public class BetAction extends GameAction {
 
     /**
      * Generated 10/06/13
@@ -19,7 +19,7 @@ public class BetEvent extends GameClientEvent {
     final private long bet;
 
     @JsonCreator
-    public BetEvent(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("bet") long bet) {
+    public BetAction(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("bet") long bet) {
         super(player);
         this.bet = bet;
         if (bet < 0)
@@ -31,17 +31,17 @@ public class BetEvent extends GameClientEvent {
         return bet;
     }
 
-    static public String whoBetMore(BetEvent[] bets) {
+    static public String whoBetMore(BetAction[] bets) {
         return whoBetMore(Arrays.asList(bets));
     }
 
-    static public String whoBetMore(Collection<BetEvent> bets) {
+    static public String whoBetMore(Collection<BetAction> bets) {
         if (bets == null || bets.size() == 0)
             return PlayerAware.DEFAULT_PLAYER;
 
         long maxBet = 0;
         String playerWithMaxBet = null;
-        for (BetEvent bet : bets) {
+        for (BetAction bet : bets) {
             if (bet.getBet() > maxBet) {
                 maxBet = bet.getBet();
                 playerWithMaxBet = bet.getPlayer();
@@ -67,7 +67,7 @@ public class BetEvent extends GameClientEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        BetEvent other = (BetEvent) obj;
+        BetAction other = (BetAction) obj;
         if (bet != other.bet)
             return false;
         return true;

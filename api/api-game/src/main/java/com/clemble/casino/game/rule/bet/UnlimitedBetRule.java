@@ -1,6 +1,6 @@
 package com.clemble.casino.game.rule.bet;
 
-import com.clemble.casino.game.event.client.BetEvent;
+import com.clemble.casino.game.event.client.BetAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +21,7 @@ final public class UnlimitedBetRule implements BetRule {
     public static UnlimitedBetRule INSTANCE = new UnlimitedBetRule();
 
     @Override
-    public boolean isValid(BetEvent betEvent) {
+    public boolean isValid(BetAction betEvent) {
         return true;
     }
 

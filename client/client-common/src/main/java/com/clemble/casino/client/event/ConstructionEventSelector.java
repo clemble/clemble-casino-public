@@ -1,6 +1,6 @@
 package com.clemble.casino.client.event;
 
-import com.clemble.casino.event.ConstructionEvent;
+import com.clemble.casino.event.GameConstructionEvent;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
@@ -20,7 +20,7 @@ public class ConstructionEventSelector implements EventSelector, GameSessionAwar
 
     @Override
     public boolean filter(Event event) {
-        return event instanceof ConstructionEvent && ((ConstructionEvent) event).getSession().equals(sessionKey);
+        return event instanceof GameConstructionEvent && ((GameConstructionEvent) event).getSession().equals(sessionKey);
     }
 
     @Override

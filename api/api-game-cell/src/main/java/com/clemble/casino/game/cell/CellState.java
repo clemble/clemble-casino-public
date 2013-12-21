@@ -2,7 +2,7 @@ package com.clemble.casino.game.cell;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.event.client.BetEvent;
+import com.clemble.casino.game.event.client.BetAction;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,12 +22,12 @@ public class CellState {
         this.owner = owner;
     }
 
-    public CellState(Collection<BetEvent> bets) {
-        this(bets.toArray(new BetEvent[0]));
+    public CellState(Collection<BetAction> bets) {
+        this(bets.toArray(new BetAction[0]));
     }
 
-    public CellState(BetEvent... bets) {
-        this(BetEvent.whoBetMore(bets));
+    public CellState(BetAction... bets) {
+        this(BetAction.whoBetMore(bets));
     }
 
     public String getOwner() {

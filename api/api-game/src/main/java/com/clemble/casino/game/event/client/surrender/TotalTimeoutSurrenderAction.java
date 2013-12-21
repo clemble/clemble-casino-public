@@ -5,16 +5,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("giveUp")
-public class GiveUpEvent extends SurrenderEvent {
+@JsonTypeName("totalTimeBreached")
+public class TotalTimeoutSurrenderAction extends SurrenderAction {
 
     /**
-     * Generated 29/05/13
+     * Generated 10/06/13
      */
-    private static final long serialVersionUID = 4501169964446540650L;
+    private static final long serialVersionUID = 6999945454488627240L;
 
     @JsonCreator
-    public GiveUpEvent(@JsonProperty(PlayerAware.JSON_ID) String playerId) {
+    public TotalTimeoutSurrenderAction(@JsonProperty(PlayerAware.JSON_ID) String playerId) {
         super(playerId);
     }
 

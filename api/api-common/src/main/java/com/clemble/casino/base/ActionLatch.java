@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
-import com.clemble.casino.event.ClientEvent;
+import com.clemble.casino.event.PlayerAwareEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,7 +19,7 @@ public class ActionLatch implements Serializable {
      */
     private static final long serialVersionUID = -7689529505293361503L;
 
-    final private Map<String, ClientEvent> actions = new HashMap<String, ClientEvent>();
+    final private Map<String, PlayerAwareEvent> actions = new HashMap<String, PlayerAwareEvent>();
     final private Class<?> expectedClass;
 
     public ActionLatch(final String player, final String action) {
@@ -27,20 +27,20 @@ public class ActionLatch implements Serializable {
     }
 
     public ActionLatch(final String player, String action, Class<?> expectedClass) {
-        this.actions.put(player, new ExpectedAction(player, action));
+        this.actions.put(player, new ExpectedEvent(player, action));
         this.expectedClass = expectedClass;
     }
 
     public ActionLatch(final Collection<String> participants, final String action) {
         for (String participant : participants) {
-            this.actions.put(participant, new ExpectedAction(participant, action));
+            this.actions.put(participant, new ExpectedEvent(participant, action));
         }
         this.expectedClass = null;
     }
 
     public ActionLatch(final Collection<String> participants, final String action, Class<?> expectedClass) {
         for (String participant : participants) {
-            this.actions.put(participant, new ExpectedAction(participant, action));
+            this.actions.put(participant, new ExpectedEvent(participant, action));
         }
         this.expectedClass = expectedClass;
     }
@@ -48,20 +48,19 @@ public class ActionLatch implements Serializable {
     public ActionLatch(final String player, final Collection<String> participants, final String action) {
         this(player, participants, action, null);
     }
-    
+
     public ActionLatch(final String player, final Collection<String> participants, final String action, final Class<?> expectedClass) {
         this.expectedClass = expectedClass;
-        this.actions.put(player, new ExpectedAction(player, action));
+        this.actions.put(player, new ExpectedEvent(player, action));
         for (String participant : participants) {
-            this.actions.put(participant, new ExpectedAction(participant, action));
+            this.actions.put(participant, new ExpectedEvent(participant, action));
         }
     }
 
-
     @JsonCreator
-    public ActionLatch(@JsonProperty("actions") final Collection<ClientEvent> expectedActions) {
+    public ActionLatch(@JsonProperty("actions") final Collection<? extends PlayerAwareEvent> expectedActions) {
         this.expectedClass = null;
-        for (ClientEvent expectedAction : expectedActions) {
+        for (PlayerAwareEvent expectedAction : expectedActions) {
             actions.put(expectedAction.getPlayer(), expectedAction);
         }
     }
@@ -71,7 +70,7 @@ public class ActionLatch implements Serializable {
     }
 
     public boolean acted(String player) {
-        return !(actions.get(player) instanceof ExpectedAction);
+        return !(actions.get(player) instanceof ExpectedEvent);
     }
 
     public Set<String> fetchParticipants() {
@@ -79,24 +78,24 @@ public class ActionLatch implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends ClientEvent> Collection<T> getActions() {
+    public <T extends PlayerAwareEvent> Collection<T> getActions() {
         return (Collection<T>) actions.values();
     }
 
-    public Map<String, ClientEvent> fetchActionsMap() {
+    public Map<String, PlayerAwareEvent> fetchActionsMap() {
         return actions;
     }
 
-    public ClientEvent fetchAction(String player) {
+    public PlayerAwareEvent fetchAction(String player) {
         return actions.get(player);
     }
 
-    public ClientEvent put(String participant, ClientEvent action) {
-        ClientEvent event = actions.get(participant);
-        if (event instanceof ExpectedAction) {
+    public <T extends PlayerAwareEvent> PlayerAwareEvent put(T action) {
+        PlayerAwareEvent event = actions.get(action.getPlayer());
+        if (event instanceof ExpectedEvent) {
             if (expectedClass != null && action.getClass() != expectedClass)
                 throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType);
-            return actions.put(participant, action);
+            return actions.put(action.getPlayer(), action);
         } else if (event != null) {
             throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayMoveAlreadyMade);
         }
@@ -104,8 +103,8 @@ public class ActionLatch implements Serializable {
     }
 
     public boolean complete() {
-        for (ClientEvent action : actions.values())
-            if (action instanceof ExpectedAction)
+        for (PlayerAwareEvent action : actions.values())
+            if (action instanceof ExpectedEvent)
                 return false;
         return true;
     }

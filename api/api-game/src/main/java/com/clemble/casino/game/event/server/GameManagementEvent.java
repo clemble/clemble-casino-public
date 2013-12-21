@@ -2,7 +2,7 @@ package com.clemble.casino.game.event.server;
 
 import java.io.Serializable;
 
-import com.clemble.casino.event.ServerEvent;
+import com.clemble.casino.event.GameEvent;
 import com.clemble.casino.game.GameSession;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
@@ -10,7 +10,7 @@ import com.clemble.casino.game.GameSessionAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-abstract public class GameServerEvent<State extends GameState> implements GameSessionAware, ServerEvent, Serializable {
+abstract public class GameManagementEvent<State extends GameState> implements GameSessionAware, GameEvent, Serializable {
 
     /**
      * Generated 07/05/13
@@ -20,13 +20,13 @@ abstract public class GameServerEvent<State extends GameState> implements GameSe
     final private GameSessionKey session;
     final private State state;
 
-    public GameServerEvent(GameSession<State> session) {
+    public GameManagementEvent(GameSession<State> session) {
         this.session = session.getSession();
         this.state = session.getState();
     }
 
     @JsonCreator
-    public GameServerEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") State state) {
+    public GameManagementEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") State state) {
         this.session = sessionKey;
         this.state = state;
     }
@@ -57,7 +57,7 @@ abstract public class GameServerEvent<State extends GameState> implements GameSe
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameServerEvent<?> other = (GameServerEvent<?>) obj;
+        GameManagementEvent<?> other = (GameManagementEvent<?>) obj;
         if (session == null) {
             if (other.session != null)
                 return false;

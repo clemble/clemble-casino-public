@@ -1,14 +1,14 @@
 package com.clemble.casino.game.cell.event;
 
 import com.clemble.casino.game.cell.Cell;
-import com.clemble.casino.game.event.client.GameClientEvent;
+import com.clemble.casino.game.event.client.GameAction;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("select")
-public class SelectCellEvent extends GameClientEvent {
+public class SelectCellAction extends GameAction {
 
     /**
      * Generated 02/04/13
@@ -18,7 +18,7 @@ public class SelectCellEvent extends GameClientEvent {
     final private Cell cell;
 
     @JsonCreator
-    public SelectCellEvent(@JsonProperty(PlayerAware.JSON_ID) final String player, @JsonProperty("cell") final Cell cell) {
+    public SelectCellAction(@JsonProperty(PlayerAware.JSON_ID) final String player, @JsonProperty("cell") final Cell cell) {
         super(player);
         this.cell = cell;
     }
@@ -48,7 +48,7 @@ public class SelectCellEvent extends GameClientEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        SelectCellEvent other = (SelectCellEvent) obj;
+        SelectCellAction other = (SelectCellAction) obj;
         if (cell == null) {
             if (other.cell != null)
                 return false;

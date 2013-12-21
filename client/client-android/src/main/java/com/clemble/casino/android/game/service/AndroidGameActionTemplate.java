@@ -7,9 +7,9 @@ import org.springframework.web.client.RestTemplate;
 import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.client.game.ClientGameActionOperations;
-import com.clemble.casino.event.ClientEvent;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.event.client.GameAction;
 import com.clemble.casino.game.event.client.MadeMove;
 import com.clemble.casino.web.game.GameWebMapping;
 
@@ -32,7 +32,7 @@ public class AndroidGameActionTemplate<State extends GameState> extends Abstract
 
     @Override
     @SuppressWarnings("unchecked")
-    public State process(Game game, String session, ClientEvent move) {
+    public State process(Game game, String session, GameAction move) {
         return (State) restTemplate
             .postForEntity(buildUriWith(GameWebMapping.GAME_SESSIONS_ACTIONS, game, session), move, GameState.class)
             .getBody();

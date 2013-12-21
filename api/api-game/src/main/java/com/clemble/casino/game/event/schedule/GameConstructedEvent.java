@@ -1,13 +1,13 @@
 package com.clemble.casino.game.event.schedule;
 
-import com.clemble.casino.event.ConstructionEvent;
+import com.clemble.casino.event.GameConstructionEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("gameConstructed")
-public class GameConstructedEvent implements ConstructionEvent {
+public class GameConstructedEvent implements GameConstructionEvent {
 
     /**
      * Generated 24/06/13

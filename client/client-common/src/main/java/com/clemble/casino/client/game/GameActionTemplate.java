@@ -4,9 +4,9 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.event.ClientEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.event.client.GameAction;
 import com.clemble.casino.game.event.client.MadeMove;
 import com.clemble.casino.game.service.GameActionService;
 
@@ -32,7 +32,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public State process(ClientEvent move) {
+    public State process(GameAction move) {
         return gameActionService.process(session.getGame(), session.getSession(), move);
     }
 

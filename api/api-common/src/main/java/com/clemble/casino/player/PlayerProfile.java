@@ -17,13 +17,14 @@ import com.clemble.casino.error.ClembleCasinoError.Code;
 import com.clemble.casino.error.validation.AgeConstraint;
 import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.NickNameConstraint;
+import com.clemble.casino.player.event.PlayerConnection;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Dropped Guest PlayerProfile, and RelocatedPlayerProfile, need to find a way to revive them in the future
  * 
  * @author mavarazy
- *
+ * 
  */
 public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
 
@@ -69,11 +70,11 @@ public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
     @JsonProperty("category")
     private PlayerCategory category = PlayerCategory.Novice;
 
+    private Set<ConnectionKey> socialConnections = new HashSet<>();
+
     @Version
     @JsonProperty("version")
     private int version;
-
-    private Set<ConnectionKey> socialConnections = new HashSet<>();
 
     public PlayerProfile() {
     }

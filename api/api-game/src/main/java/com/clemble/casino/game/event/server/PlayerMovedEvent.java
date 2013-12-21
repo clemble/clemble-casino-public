@@ -1,24 +1,24 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.event.ClientEvent;
 import com.clemble.casino.game.GameSession;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.event.client.GameAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("playerMoved")
-public class PlayerMovedEvent<State extends GameState> extends GameServerEvent<State> {
+public class PlayerMovedEvent<State extends GameState> extends GameManagementEvent<State> {
 
     /**
      * Generated 07/05/2013
      */
     private static final long serialVersionUID = -3272848407005579296L;
 
-    final private ClientEvent madeMove;
+    final private GameAction madeMove;
 
-    public PlayerMovedEvent(GameSession<State> session, ClientEvent madeMove) {
+    public PlayerMovedEvent(GameSession<State> session, GameAction madeMove) {
         super(session);
         this.madeMove = madeMove;
     }
@@ -26,12 +26,12 @@ public class PlayerMovedEvent<State extends GameState> extends GameServerEvent<S
     @JsonCreator
     public PlayerMovedEvent(@JsonProperty("session") GameSessionKey sessionKey,
             @JsonProperty("state") State state,
-            @JsonProperty("madeMove") ClientEvent madeMove) {
+            @JsonProperty("madeMove") GameAction madeMove) {
         super(sessionKey, state);
         this.madeMove = madeMove;
     }
 
-    public ClientEvent getMadeMove() {
+    public GameAction getMadeMove() {
         return madeMove;
     }
 

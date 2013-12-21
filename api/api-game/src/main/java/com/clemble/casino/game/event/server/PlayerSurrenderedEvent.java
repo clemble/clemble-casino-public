@@ -3,22 +3,22 @@ package com.clemble.casino.game.event.server;
 import com.clemble.casino.game.GameSession;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.client.surrender.SurrenderEvent;
+import com.clemble.casino.game.event.client.surrender.SurrenderAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("playerGaveUp")
-public class PlayerSurrenderedEvent<State extends GameState> extends GameServerEvent<State> {
+public class PlayerSurrenderedEvent<State extends GameState> extends GameManagementEvent<State> {
 
     /**
      * Generated 07/05/13
      */
     private static final long serialVersionUID = 8613548852525073195L;
 
-    final private SurrenderEvent reason;
+    final private SurrenderAction reason;
 
-    public PlayerSurrenderedEvent(GameSession<State> session, SurrenderEvent reason) {
+    public PlayerSurrenderedEvent(GameSession<State> session, SurrenderAction reason) {
         super(session);
         this.reason = reason;
     }
@@ -26,12 +26,12 @@ public class PlayerSurrenderedEvent<State extends GameState> extends GameServerE
     @JsonCreator
     public PlayerSurrenderedEvent(@JsonProperty("session") GameSessionKey sessionKey,
             @JsonProperty("state") State state,
-            @JsonProperty("reason") SurrenderEvent reason) {
+            @JsonProperty("reason") SurrenderAction reason) {
         super(sessionKey, state);
         this.reason = reason;
     }
 
-    public SurrenderEvent getReason() {
+    public SurrenderAction getReason() {
         return reason;
     }
 

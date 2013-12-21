@@ -1,10 +1,5 @@
 package com.clemble.casino.json;
 
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.jsontype.NamedType;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-
 import com.clemble.casino.game.account.InvisibleGameAccount;
 import com.clemble.casino.game.account.VisibleGameAccount;
 import com.clemble.casino.game.configuration.SelectRuleOptions;
@@ -13,11 +8,10 @@ import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.ManagerGameConstructionRequest;
 import com.clemble.casino.game.construct.ScheduledGameRequest;
-import com.clemble.casino.game.event.client.BetEvent;
-import com.clemble.casino.game.event.client.management.LeaveTableEvent;
-import com.clemble.casino.game.event.client.surrender.GiveUpEvent;
-import com.clemble.casino.game.event.client.surrender.MoveTimeoutSurrenderEvent;
-import com.clemble.casino.game.event.client.surrender.TotalTimeoutSurrenderEvent;
+import com.clemble.casino.game.event.client.BetAction;
+import com.clemble.casino.game.event.client.surrender.GiveUpAction;
+import com.clemble.casino.game.event.client.surrender.MoveTimeoutSurrenderAction;
+import com.clemble.casino.game.event.client.surrender.TotalTimeoutSurrenderAction;
 import com.clemble.casino.game.event.schedule.GameCanceledEvent;
 import com.clemble.casino.game.event.schedule.GameConstructedEvent;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
@@ -40,6 +34,10 @@ import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.jsontype.NamedType;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 class GameJsonModule implements ClembleJsonModule {
 
@@ -54,11 +52,10 @@ class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(AvailabilityGameRequest.class, AvailabilityGameRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(ManagerGameConstructionRequest.class, ManagerGameConstructionRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(ScheduledGameRequest.class, ScheduledGameRequest.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(BetEvent.class, BetEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(LeaveTableEvent.class, LeaveTableEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GiveUpEvent.class, GiveUpEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(MoveTimeoutSurrenderEvent.class, MoveTimeoutSurrenderEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(TotalTimeoutSurrenderEvent.class, TotalTimeoutSurrenderEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(BetAction.class, BetAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MoveTimeoutSurrenderAction.class, MoveTimeoutSurrenderAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(TotalTimeoutSurrenderAction.class, TotalTimeoutSurrenderAction.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameCanceledEvent.class, GameCanceledEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameConstructedEvent.class, GameConstructedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(InvitationAcceptedEvent.class, InvitationAcceptedEvent.class.getAnnotation(JsonTypeName.class).value()));

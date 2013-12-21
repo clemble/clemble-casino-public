@@ -8,8 +8,6 @@ import javax.persistence.Embeddable;
 
 import org.hibernate.annotations.Type;
 
-import com.clemble.casino.event.ClientEvent;
-
 @Embeddable
 public class MadeMove implements Serializable {
 
@@ -23,7 +21,7 @@ public class MadeMove implements Serializable {
 
     @Type(type = "com.clemble.casino.event.ClientEventHibernate")
     @Column(name = "GAME_MOVE", length = 512)
-    private ClientEvent move;
+    private GameAction move;
 
     @Column(name = "MOVE_TIME")
     private long processingTime;
@@ -37,11 +35,11 @@ public class MadeMove implements Serializable {
         return this;
     }
 
-    public ClientEvent getMove() {
+    public GameAction getMove() {
         return move;
     }
 
-    public MadeMove setMove(ClientEvent move) {
+    public MadeMove setMove(GameAction move) {
         this.move = move;
         return this;
     }

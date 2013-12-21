@@ -21,8 +21,8 @@ import javax.persistence.Version;
 import org.hibernate.annotations.Type;
 
 import com.clemble.casino.VersionAware;
-import com.clemble.casino.event.ClientEvent;
 import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.event.client.GameAction;
 import com.clemble.casino.game.event.client.MadeMove;
 import com.clemble.casino.game.specification.GameSpecification;
 import com.clemble.casino.game.specification.GameSpecificationAware;
@@ -119,7 +119,7 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
         return madeMoves;
     }
 
-    public void addMadeMove(ClientEvent madeMove) {
+    public void addMadeMove(GameAction madeMove) {
         MadeMove move = new MadeMove().setMove(madeMove).setMoveId(version + 1).setProcessingTime(System.currentTimeMillis());
         this.madeMoves.add(move);
     }

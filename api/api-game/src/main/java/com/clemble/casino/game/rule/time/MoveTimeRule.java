@@ -5,9 +5,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-import com.clemble.casino.event.ClientEvent;
 import com.clemble.casino.game.configuration.GameRuleOptions;
-import com.clemble.casino.game.event.client.surrender.MoveTimeoutSurrenderEvent;
+import com.clemble.casino.game.event.client.GameAction;
+import com.clemble.casino.game.event.client.surrender.MoveTimeoutSurrenderAction;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Embeddable
@@ -45,8 +45,8 @@ public class MoveTimeRule implements TimeRule {
     }
 
     @Override
-    public ClientEvent toTimeBreachedEvent(String player) {
-        return new MoveTimeoutSurrenderEvent(player);
+    public GameAction toTimeBreachedEvent(String player) {
+        return new MoveTimeoutSurrenderAction(player);
     }
 
     @Override

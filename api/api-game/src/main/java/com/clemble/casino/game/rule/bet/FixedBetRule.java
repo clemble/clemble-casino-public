@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
-import com.clemble.casino.game.event.client.BetEvent;
+import com.clemble.casino.game.event.client.BetAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -34,7 +34,7 @@ public class FixedBetRule implements BetRule {
     }
 
     @Override
-    public boolean isValid(BetEvent betEvent) {
+    public boolean isValid(BetAction betEvent) {
         for (long allowedBet : bets)
             if (betEvent.getBet() == allowedBet)
                 return true;

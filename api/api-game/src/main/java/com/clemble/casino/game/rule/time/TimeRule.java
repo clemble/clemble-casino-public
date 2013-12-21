@@ -1,6 +1,6 @@
 package com.clemble.casino.game.rule.time;
 
-import com.clemble.casino.event.ClientEvent;
+import com.clemble.casino.game.event.client.GameAction;
 import com.clemble.casino.game.rule.GameRule;
 
 public interface TimeRule extends GameRule {
@@ -11,6 +11,6 @@ public interface TimeRule extends GameRule {
 
     public long getBreachTime(long totalTimeSpent);
 
-    public ClientEvent toTimeBreachedEvent(String player);
+    public GameAction toTimeBreachedEvent(String player);
 
 }

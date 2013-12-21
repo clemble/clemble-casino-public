@@ -3,15 +3,15 @@ package com.clemble.casino.player;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.clemble.casino.event.ClientEvent;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("presence")
-public class PlayerPresence implements PlayerAware, ClientEvent, GameSessionAware, PresenceAware {
+public class PlayerPresence implements PlayerAware, PlayerEvent, GameSessionAware, PresenceAware {
 
     /**
      * Generated
