@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.account.GameAccount;
-import com.clemble.casino.game.event.client.GameAction;
+import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.iterator.GamePlayerIterator;
 import com.clemble.casino.game.outcome.GameOutcome;

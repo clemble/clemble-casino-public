@@ -1,12 +1,13 @@
 package com.clemble.casino.json;
 
-import com.clemble.casino.DNSBasedServerRegistry;
-import com.clemble.casino.base.ExpectedEvent;
-import com.clemble.casino.player.PlayerPresence;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import com.clemble.casino.base.ExpectedEvent;
+import com.clemble.casino.DNSBasedServerRegistry;
+import com.clemble.casino.player.PlayerPresence;
 
 class CommonJsonModule implements ClembleJsonModule {
 

@@ -1,6 +1,6 @@
 package com.clemble.casino.game.rule.time;
 
-import com.clemble.casino.game.event.client.GameAction;
+import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.rule.GameRule;
 
 public interface TimeRule extends GameRule {

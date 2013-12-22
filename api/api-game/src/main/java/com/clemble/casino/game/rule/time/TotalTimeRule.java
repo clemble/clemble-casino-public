@@ -5,9 +5,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import com.clemble.casino.game.action.GameAction;
+import com.clemble.casino.game.action.surrender.TotalTimeoutSurrenderAction;
 import com.clemble.casino.game.configuration.GameRuleOptions;
-import com.clemble.casino.game.event.client.GameAction;
-import com.clemble.casino.game.event.client.surrender.TotalTimeoutSurrenderAction;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Embeddable

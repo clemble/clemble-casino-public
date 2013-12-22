@@ -1,6 +1,6 @@
-package com.clemble.casino.game.event.client.surrender;
+package com.clemble.casino.game.action.surrender;
 
-import com.clemble.casino.game.event.client.GameAction;
+import com.clemble.casino.game.action.GameAction;
 
 abstract public class SurrenderAction extends GameAction {
 

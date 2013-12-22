@@ -2,16 +2,21 @@ package com.clemble.casino.game.cell;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.event.client.BetAction;
+import com.clemble.casino.game.action.BetAction;
+import com.clemble.casino.game.unit.GameUnit;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "cell")
-@JsonTypeName("simple")
-public class CellState {
+@JsonTypeName("state")
+public class CellState implements GameUnit {
+
+    /**
+     * Generated 20/12/13
+     */
+    private static final long serialVersionUID = 5574663905860524103L;
 
     final static public CellState DEFAULT = new CellState(PlayerAware.DEFAULT_PLAYER);
 

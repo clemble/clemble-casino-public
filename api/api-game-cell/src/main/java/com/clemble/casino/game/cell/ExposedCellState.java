@@ -2,7 +2,7 @@ package com.clemble.casino.game.cell;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.event.client.BetAction;
+import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,12 +11,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("exposed")
 public class ExposedCellState extends CellState {
 
+    /**
+     * Generated 20/12/13
+     */
+    private static final long serialVersionUID = -1095977368145429459L;
+
     final private Collection<BetAction> bets;
 
     @JsonCreator
     public ExposedCellState(@JsonProperty("owner") String owner, @JsonProperty("bets") Collection<BetAction> bets) {
         super(owner);
-        this.bets = CollectionUtils.<BetAction>immutableList(bets);
+        this.bets = CollectionUtils.<BetAction> immutableList(bets);
     }
 
     public ExposedCellState(Collection<BetAction> bets) {
@@ -25,7 +30,7 @@ public class ExposedCellState extends CellState {
 
     public ExposedCellState(BetAction... bets) {
         super(BetAction.whoBetMore(bets));
-        this.bets = CollectionUtils.<BetAction>immutableList(bets);
+        this.bets = CollectionUtils.<BetAction> immutableList(bets);
     }
 
     public Collection<BetAction> getBets() {

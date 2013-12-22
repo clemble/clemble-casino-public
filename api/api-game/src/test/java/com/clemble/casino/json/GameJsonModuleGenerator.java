@@ -12,7 +12,7 @@ import com.clemble.test.reflection.AnnotationReflectionUtils;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 
-@Ignore
+//@Ignore
 public class GameJsonModuleGenerator {
 
     final private static String MODULE = "Game";

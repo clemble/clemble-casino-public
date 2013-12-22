@@ -1,8 +1,8 @@
 package com.clemble.casino.game.cell;
 
-import java.io.Serializable;
+import com.clemble.casino.game.unit.GameUnit;
 
-public interface CellBoard extends Serializable {
+public interface CellBoard extends GameUnit {
 
     public CellState[][] getBoard();
 

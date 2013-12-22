@@ -1,4 +1,4 @@
-package com.clemble.casino.game.event.client;
+package com.clemble.casino.game.action;
 
 import java.util.Arrays;
 import java.util.Collection;

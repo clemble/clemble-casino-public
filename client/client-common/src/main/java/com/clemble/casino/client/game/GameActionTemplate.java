@@ -6,8 +6,8 @@ import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.client.GameAction;
-import com.clemble.casino.game.event.client.MadeMove;
+import com.clemble.casino.game.action.GameAction;
+import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.service.GameActionService;
 
 public class GameActionTemplate<State extends GameState> implements GameActionOperations<State> {

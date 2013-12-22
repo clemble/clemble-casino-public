@@ -1,6 +1,6 @@
 package com.clemble.casino.game.rule.bet;
 
-import com.clemble.casino.game.event.client.BetAction;
+import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.rule.GameRule;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;

@@ -2,7 +2,7 @@ package com.clemble.casino.game.cell;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.event.client.BetAction;
+import com.clemble.casino.game.action.BetAction;
 
 abstract public class CellStateFactory {
 

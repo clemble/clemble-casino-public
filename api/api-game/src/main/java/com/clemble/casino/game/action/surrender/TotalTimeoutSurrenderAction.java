@@ -1,4 +1,4 @@
-package com.clemble.casino.game.event.client.surrender;
+package com.clemble.casino.game.action.surrender;
 
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;

@@ -1,9 +1,17 @@
 package com.clemble.casino.game.cell;
 
+import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-public class Cell {
+@JsonTypeName("cell")
+public class Cell implements GameUnit {
+
+    /**
+     * Generated 20/12/13
+     */
+    private static final long serialVersionUID = 3691061790615545958L;
 
     final public static Cell DEFAULT = new Cell(Byte.MIN_VALUE, Byte.MIN_VALUE);
 

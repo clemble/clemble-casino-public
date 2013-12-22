@@ -9,8 +9,8 @@ import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.client.game.ClientGameActionOperations;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.client.GameAction;
-import com.clemble.casino.game.event.client.MadeMove;
+import com.clemble.casino.game.action.GameAction;
+import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.web.game.GameWebMapping;
 
 public class AndroidGameActionTemplate<State extends GameState> extends AbstractClembleCasinoOperations implements ClientGameActionOperations<State> {

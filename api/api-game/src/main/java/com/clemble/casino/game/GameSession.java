@@ -21,9 +21,9 @@ import javax.persistence.Version;
 import org.hibernate.annotations.Type;
 
 import com.clemble.casino.VersionAware;
+import com.clemble.casino.game.action.GameAction;
+import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.event.client.GameAction;
-import com.clemble.casino.game.event.client.MadeMove;
 import com.clemble.casino.game.specification.GameSpecification;
 import com.clemble.casino.game.specification.GameSpecificationAware;
 
