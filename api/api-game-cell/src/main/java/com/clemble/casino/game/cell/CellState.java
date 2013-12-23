@@ -1,14 +1,13 @@
 package com.clemble.casino.game.cell;
 
-import java.util.Collection;
-
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.unit.GameUnit;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import java.util.Collection;
 
 @JsonTypeName("state")
 public class CellState implements GameUnit {
@@ -60,9 +59,12 @@ public class CellState implements GameUnit {
         if (getClass() != obj.getClass())
             return false;
         CellState other = (CellState) obj;
-        if (owner != other.owner)
-            return false;
-        return true;
+        return owner.equals(other.owner);
+    }
+
+    @Override
+    public String toString() {
+        return owner;
     }
 
 }

@@ -40,8 +40,13 @@ public class VisibleGameAccount implements GameAccount {
 
     @Override
     final public void subMoneyLeft(String player, long amount) {
-        playerToAccount.get(player).subMoneyLeft(amount);
+        playerToAccount.get(player).subLeft(amount);
         bank = bank.add(amount);
+    }
+
+    @Override
+    public void addOwned(String player, long amount) {
+        playerToAccount.get(player).addOwned(amount);
     }
 
     @Override

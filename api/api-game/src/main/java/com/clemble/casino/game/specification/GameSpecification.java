@@ -9,6 +9,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import com.clemble.casino.game.rule.outcome.DrawRule;
+import com.clemble.casino.game.rule.outcome.WonRule;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 
@@ -72,6 +74,14 @@ public class GameSpecification implements Serializable {
     @Column(name = "VISIBILITY")
     @Enumerated(EnumType.STRING)
     private VisibilityRule visibilityRule;
+
+    @Column(name = "DRAW")
+    @Enumerated(EnumType.STRING)
+    private DrawRule drawRule;
+
+    @Column(name = "WON")
+    @Enumerated(EnumType.STRING)
+    private WonRule wonRule;
 
     public GameSpecification() {
     }
@@ -154,6 +164,22 @@ public class GameSpecification implements Serializable {
 
     public void setVisibilityRule(VisibilityRule visibilityRule) {
         this.visibilityRule = visibilityRule;
+    }
+
+    public DrawRule getDrawRule() {
+        return drawRule;
+    }
+
+    public void setDrawRule(DrawRule drawRule) {
+        this.drawRule = drawRule;
+    }
+
+    public WonRule getWonRule() {
+        return wonRule;
+    }
+
+    public void setWonRule(WonRule wonRule) {
+        this.wonRule = wonRule;
     }
 
     @Override

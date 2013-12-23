@@ -14,21 +14,25 @@ public class GamePlayerAccount implements PlayerAware {
 
     final private String player;
 
-    private long moneyLeft;
-    private long moneySpent;
+    private long left;
+    private long spent;
+    private long owned;
 
-    public GamePlayerAccount(final String player, final long moneyLeft) {
+    public GamePlayerAccount(final String player, final long left) {
         this.player = player;
-        this.moneyLeft = moneyLeft;
+        this.left = left;
+        this.owned = 0;
+        this.spent = 0;
     }
 
     @JsonCreator
     public GamePlayerAccount(@JsonProperty(PlayerAware.JSON_ID) final String player,
-            @JsonProperty("moneyLeft") final long moneyLeft,
-            @JsonProperty("moneySpent") final long moneySpent) {
+            @JsonProperty("left") final long left,
+            @JsonProperty("spent") final long spent,
+            @JsonProperty("owned") final long owned) {
         this.player = player;
-        this.moneyLeft = moneyLeft;
-        this.moneySpent = moneySpent;
+        this.left = left;
+        this.spent = spent;
     }
 
     @Override
@@ -36,53 +40,58 @@ public class GamePlayerAccount implements PlayerAware {
         return player;
     }
 
-    public long getMoneyLeft() {
-        return moneyLeft;
+    public long getLeft() {
+        return left;
     }
 
-    public void subMoneyLeft(long money) {
-        this.moneyLeft = moneyLeft - money;
-        this.moneySpent = moneySpent + money;
+    public void subLeft(long money) {
+        this.left = left - money;
+        this.spent = spent + money;
     }
 
-    public long getMoneySpent() {
-        return moneySpent;
+    public long getSpent() {
+        return spent;
+    }
+
+    public long getOwned() {
+        return owned;
+    }
+
+    public void addOwned(long amount) {
+        this.owned += amount;
     }
 
     @JsonIgnore
     public long fetchMoneyTotal() {
-        return moneySpent + moneyLeft;
+        return spent + left;
     }
 
     @Override
     public String toString() {
-        return "PlayerState [player=" + player + ", money=" + moneyLeft + "]";
+        return "{gac:" + player + ":" + left + ":" + spent + ":" + owned + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GamePlayerAccount that = (GamePlayerAccount) o;
+
+        if (left != that.left) return false;
+        if (owned != that.owned) return false;
+        if (spent != that.spent) return false;
+        if (player != null ? !player.equals(that.player) : that.player != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (moneyLeft ^ (moneyLeft >>> 32));
-        result = prime * result + (int) (moneySpent ^ (moneySpent >>> 32));
-        result = prime * result + (int) (player != null ? player.hashCode() : 0);
+        int result = player != null ? player.hashCode() : 0;
+        result = 31 * result + (int) (left ^ (left >>> 32));
+        result = 31 * result + (int) (spent ^ (spent >>> 32));
+        result = 31 * result + (int) (owned ^ (owned >>> 32));
         return result;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        GamePlayerAccount other = (GamePlayerAccount) obj;
-        if (moneyLeft != other.moneyLeft)
-            return false;
-        if (moneySpent != other.moneySpent)
-            return false;
-        return player.equals(other.player);
-    }
-
 }

@@ -37,7 +37,7 @@ public class BetAction extends GameAction {
 
     static public String whoBetMore(Collection<BetAction> bets) {
         if (bets == null || bets.size() == 0)
-            return PlayerAware.DEFAULT_PLAYER;
+            return DEFAULT_PLAYER;
 
         long maxBet = 0;
         String playerWithMaxBet = null;
@@ -45,6 +45,8 @@ public class BetAction extends GameAction {
             if (bet.getBet() > maxBet) {
                 maxBet = bet.getBet();
                 playerWithMaxBet = bet.getPlayer();
+            } else if(bet.getBet() == maxBet) {
+                playerWithMaxBet = DEFAULT_PLAYER;
             }
         }
 

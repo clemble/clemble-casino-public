@@ -17,4 +17,6 @@ public interface GameAccount extends Serializable {
 
     public void subMoneyLeft(String player, long amount);
 
+    public void addOwned(String player, long amount);
+
 }
