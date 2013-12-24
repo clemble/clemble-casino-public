@@ -1,14 +1,16 @@
 package com.clemble.casino.game.rule.time;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
+import com.clemble.casino.game.GamePlayerClock;
+import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.TotalTimeoutSurrenderAction;
 import com.clemble.casino.game.configuration.GameRuleOptions;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Embeddable
 @JsonTypeName("totalTime")
@@ -47,13 +49,24 @@ public class TotalTimeRule implements TimeRule {
     }
 
     @Override
-    public long getBreachTime(long totalTimeSpent) {
+    public long timeUntilBreach(long totalTimeSpent) {
         return limit - totalTimeSpent;
     }
 
     @Override
+    public long timeUntilBreach(GamePlayerClock clock) {
+        return clock.getMoveStart() == 0 ? Long.MAX_VALUE : timeUntilBreach((System.currentTimeMillis() - clock.getMoveStart()) + clock.getTimeSpent());
+    }
+
+    @Override
     public GameAction toTimeBreachedEvent(String player) {
-        return new TotalTimeoutSurrenderAction(player);
+        switch (punishment) {
+            case loose:
+                return new TotalTimeoutSurrenderAction(player);
+            case minimal:
+            default:
+                return new DefaultGameAction(player);
+        }
     }
 
     public TotalTimeRule setLimit(int limit) {

@@ -3,8 +3,8 @@ package com.clemble.casino.json;
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.Game;
+import com.clemble.casino.game.GameContext;
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
@@ -15,6 +15,7 @@ import com.clemble.casino.game.configuration.SelectRuleOptions;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameConstructionState;
+import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.rule.GameRule;
 import com.clemble.casino.game.rule.bet.BetRule;
 import com.clemble.casino.game.rule.bet.FixedBetRule;
@@ -53,7 +54,8 @@ public class ObjectTest {
         ObjectGenerator.register(FakeState.class, new AbstractValueGenerator<FakeState>() {
             @Override
             public FakeState generate() {
-                return new FakeState(null, null, null);
+                GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A"), GameSpecification.DEFAULT);
+                return new FakeState(new GameContext(initiation), null, 0);
             }
         });
         ObjectGenerator.register(GameSessionKey.class, new AbstractValueGenerator<GameSessionKey>() {
@@ -139,7 +141,7 @@ public class ObjectTest {
             public GameConstruction generate() {
                 return new GameConstruction().setSession(new GameSessionKey(Game.pic, "0"))
                         .setRequest(new AutomaticGameRequest(RandomStringUtils.random(5), GameSpecification.DEFAULT))
-                        .setResponses(new ActionLatch(ImmutableList.<String>of(RandomStringUtils.random(5), RandomStringUtils.random(5)), "response"))
+                        .setResponses(new ActionLatch().expectNext(ImmutableList.<String>of(RandomStringUtils.random(5), RandomStringUtils.random(5)), "response"))
                         .setState(GameConstructionState.pending);
             }
         });
@@ -161,12 +163,6 @@ public class ObjectTest {
             @Override
             public GameSpecification generate() {
                 return GameSpecification.DEFAULT;
-            }
-        });
-        ObjectGenerator.register(GameState.class, new AbstractValueGenerator<GameState>() {
-            @Override
-            public FakeState generate() {
-                return new FakeState(null, null, null);
             }
         });
         ObjectGenerator.register(VersionAware.class, "version", new ValueGenerator<Integer>() {

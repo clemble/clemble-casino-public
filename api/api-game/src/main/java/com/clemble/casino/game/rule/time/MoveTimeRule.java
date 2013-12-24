@@ -1,14 +1,16 @@
 package com.clemble.casino.game.rule.time;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
+import com.clemble.casino.game.GamePlayerClock;
+import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.MoveTimeoutSurrenderAction;
 import com.clemble.casino.game.configuration.GameRuleOptions;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Embeddable
 @JsonTypeName("moveTime")
@@ -40,13 +42,24 @@ public class MoveTimeRule implements TimeRule {
     }
 
     @Override
-    public long getBreachTime(long totalTimeSpent) {
-        return limit;
+    public long timeUntilBreach(long totalTimeSpent) {
+        return limit - totalTimeSpent;
+    }
+
+    @Override
+    public long timeUntilBreach(GamePlayerClock clock) {
+        return clock.getMoveStart() == 0 ? Long.MAX_VALUE : timeUntilBreach(System.currentTimeMillis() - clock.getMoveStart());
     }
 
     @Override
     public GameAction toTimeBreachedEvent(String player) {
-        return new MoveTimeoutSurrenderAction(player);
+        switch (punishment) {
+            case loose:
+                return new MoveTimeoutSurrenderAction(player);
+            case minimal:
+            default:
+                return new DefaultGameAction(player);
+        }
     }
 
     @Override

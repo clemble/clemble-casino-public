@@ -18,8 +18,7 @@ public class Cell implements GameUnit {
     final private int row;
     final private int column;
 
-    @JsonCreator
-    private Cell(@JsonProperty("row") int row, @JsonProperty("column") int column) {
+    private Cell(int row, int column) {
         this.row = row;
         this.column = column;
     }
