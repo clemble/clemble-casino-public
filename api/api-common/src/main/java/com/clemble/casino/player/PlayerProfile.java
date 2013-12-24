@@ -70,7 +70,7 @@ public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
     @JsonProperty("category")
     private PlayerCategory category = PlayerCategory.Novice;
 
-    private Set<ConnectionKey> socialConnections = new HashSet<>();
+    private Set<ConnectionKey> socialConnections = new HashSet<ConnectionKey>();
 
     @Version
     @JsonProperty("version")

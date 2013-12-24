@@ -23,7 +23,7 @@ public class SequentialPlayerIterator implements GamePlayerIterator {
 
     public SequentialPlayerIterator(Collection<String> playerIds) {
         this.index = 0;
-        this.players = new ArrayList<>(playerIds);
+        this.players = new ArrayList<String>(playerIds);
     }
 
     @JsonCreator
@@ -49,7 +49,7 @@ public class SequentialPlayerIterator implements GamePlayerIterator {
 
     @Override
     public Collection<String> whoIsOpponents(String playerId) {
-        Collection<String> playerIds = new ArrayList<>(players);
+        Collection<String> playerIds = new ArrayList<String>(players);
         playerIds.remove(playerId);
         return playerIds;
     }
@@ -93,7 +93,7 @@ public class SequentialPlayerIterator implements GamePlayerIterator {
     }
 
     public static SequentialPlayerIterator create(Collection<? extends PlayerAware> playerAwares) {
-        List<String> playerIds = new ArrayList<>(playerAwares.size());
+        List<String> playerIds = new ArrayList<String>(playerAwares.size());
         // Parsing player aware values
         for (PlayerAware playerAware : playerAwares) {
             playerIds.add(playerAware.getPlayer());

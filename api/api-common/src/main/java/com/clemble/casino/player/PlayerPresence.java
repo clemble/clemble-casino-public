@@ -61,7 +61,7 @@ public class PlayerPresence implements PlayerAware, PlayerEvent, GameSessionAwar
     }
 
     public static Collection<PlayerPresence> playing(Collection<String> players, GameSessionKey session) {
-        Collection<PlayerPresence> playerPresences = new ArrayList<>();
+        Collection<PlayerPresence> playerPresences = new ArrayList<PlayerPresence>();
         for (String player : players)
             playerPresences.add(playing(player, session));
         return playerPresences;

@@ -21,7 +21,7 @@ public class GameRuleOptions<T extends GameRule> {
         if (otherOptions == null || otherOptions.size() == 0) {
             this.allOptions = CollectionUtils.immutableSet(defaultOption);
         } else {
-            otherOptions = new ArrayList<>(otherOptions);
+            otherOptions = new ArrayList<T>(otherOptions);
             otherOptions.add(defaultOption);
             this.allOptions = CollectionUtils.immutableSet(otherOptions);
         }

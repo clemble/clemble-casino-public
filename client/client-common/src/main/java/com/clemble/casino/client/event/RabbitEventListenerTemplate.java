@@ -30,7 +30,7 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
      */
     private static final long serialVersionUID = 5524090397307090488L;
 
-    final private AtomicReference<Entry<Channel, Queue.DeclareOk>> rabbitQueue = new AtomicReference<>();
+    final private AtomicReference<Entry<Channel, Queue.DeclareOk>> rabbitQueue = new AtomicReference<Entry<Channel, Queue.DeclareOk>>();
 
     public RabbitEventListenerTemplate(String player, NotificationConfiguration configurations, ObjectMapper objectMapper) {
         super(player);

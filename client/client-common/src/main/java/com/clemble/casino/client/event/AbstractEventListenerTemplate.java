@@ -28,7 +28,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     final protected Map<String, Set<Entry<EventSelector, EventListener>>> eventListeners = new HashMap<String, Set<Entry<EventSelector, EventListener>>>();
     final protected ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    final protected AtomicReference<Closeable> connectionCleaner = new AtomicReference<>();
+    final protected AtomicReference<Closeable> connectionCleaner = new AtomicReference<Closeable>();
 
     public AbstractEventListenerTemplate(String player){
         this.player = checkNotNull(player);

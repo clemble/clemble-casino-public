@@ -52,7 +52,7 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
     @OrderColumn(name = "PLAYERS_ORDER")
     @CollectionTable(name = "GAME_SESSION_PLAYERS",
             joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
-    private List<String> players = new ArrayList<>();
+    private List<String> players = new ArrayList<String>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "GAME_SESSION_MOVES", 

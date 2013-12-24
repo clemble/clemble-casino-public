@@ -13,9 +13,9 @@ public class GameAccountFactory {
 
     public static GameAccount create(GameInitiation initiation) {
         GameSpecification specification = initiation.getSpecification();
-        List<String> players = new ArrayList<>(initiation.getParticipants());
+        List<String> players = new ArrayList<String>(initiation.getParticipants());
         // Step 1. Generating player accounts
-        List<GamePlayerAccount> playerAccounts = new ArrayList<>(players.size());
+        List<GamePlayerAccount> playerAccounts = new ArrayList<GamePlayerAccount>(players.size());
         long amount = specification.getPrice().getAmount();
         for (String player : players) {
             playerAccounts.add(new GamePlayerAccount(player, amount));
