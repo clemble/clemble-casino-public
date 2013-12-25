@@ -43,7 +43,7 @@ public class GameConstruction implements GameSessionAware, VersionAware {
 
     @Type(type = "com.clemble.casino.base.ActionLatchHibernate")
     @Column(name = "RESPONSES", length = 8192, nullable = false)
-    private ActionLatch responses;
+    private ActionLatch responses = new ActionLatch();
 
     @Version
     private int version;

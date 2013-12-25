@@ -5,10 +5,9 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
@@ -26,13 +25,13 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     final private String player;
 
-    final protected Map<String, Set<Entry<EventSelector, EventListener>>> eventListeners = new HashMap<String, Set<Entry<EventSelector, EventListener>>>();
+    final protected Map<String, LinkedHashSet<Entry<EventSelector, EventListener>>> eventListeners = new HashMap<String, LinkedHashSet<Entry<EventSelector, EventListener>>>();
     final protected ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     final protected AtomicReference<Closeable> connectionCleaner = new AtomicReference<Closeable>();
 
     public AbstractEventListenerTemplate(String player){
         this.player = checkNotNull(player);
-        this.eventListeners.put(player, new HashSet<Entry<EventSelector, EventListener>>());
+        this.eventListeners.put(player, new LinkedHashSet<Entry<EventSelector, EventListener>>());
     }
 
     @Override
@@ -73,7 +72,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     @Override
     final public EventListenerController subscribe(String channel, EventSelector selector, EventListener listener) {
         if(!this.eventListeners.containsKey(channel)) {
-            this.eventListeners.put(channel, new HashSet<Entry<EventSelector, EventListener>>());
+            this.eventListeners.put(channel, new LinkedHashSet<Entry<EventSelector, EventListener>>());
             subscribe(channel);
         }
         // Step 1. Generating event listener to use
