@@ -2,6 +2,9 @@ package com.clemble.casino.client.game;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
+import java.util.Collection;
+import java.util.concurrent.atomic.AtomicReference;
+
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.event.Event;
@@ -11,11 +14,8 @@ import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.account.GamePlayerAccount;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
-import com.clemble.casino.game.event.server.GameManagementEvent;
+import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.service.GameActionService;
-
-import java.util.Collection;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class GameActionTemplate<State extends GameState> implements GameActionOperations<State> {
 
@@ -34,8 +34,8 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
         this.eventListenersManager.subscribe(new EventListener() {
             @Override
             public void onEvent(Event event) {
-                if (event instanceof GameManagementEvent) {
-                    currentState.set(((GameManagementEvent<State>) event).getState());
+                if (event instanceof GameStateManagementEvent) {
+                    currentState.set(((GameStateManagementEvent<State>) event).getState());
                 }
             }
         });

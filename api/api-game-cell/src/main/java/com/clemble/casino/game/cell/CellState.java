@@ -39,7 +39,7 @@ public class CellState implements GameUnit {
     }
 
     public boolean owned() {
-        return owner != PlayerAware.DEFAULT_PLAYER;
+        return !owner.equals(PlayerAware.DEFAULT_PLAYER);
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("playerGaveUp")
-public class PlayerSurrenderedEvent<State extends GameState> extends GameManagementEvent<State> {
+public class PlayerSurrenderedEvent<State extends GameState> extends GameStateManagementEvent<State> {
 
     /**
      * Generated 07/05/13

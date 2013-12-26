@@ -1,45 +1,38 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSession;
+import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.action.GameAction;
+import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("playerMoved")
-public class PlayerMovedEvent<State extends GameState> extends GameManagementEvent<State> {
+@JsonTypeName("moved")
+public class PlayerMovedEvent extends GameManagementEvent implements PlayerAwareEvent {
 
     /**
-     * Generated 07/05/2013
+     * Generated 25/12/13
      */
-    private static final long serialVersionUID = -3272848407005579296L;
+    private static final long serialVersionUID = -4497503502857646005L;
 
-    final private GameAction madeMove;
-
-    public PlayerMovedEvent(GameSession<State> session, GameAction madeMove) {
-        super(session);
-        this.madeMove = madeMove;
-    }
+    final private String player;
 
     @JsonCreator
-    public PlayerMovedEvent(@JsonProperty("session") GameSessionKey sessionKey,
-            @JsonProperty("state") State state,
-            @JsonProperty("madeMove") GameAction madeMove) {
-        super(sessionKey, state);
-        this.madeMove = madeMove;
+    public PlayerMovedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("player") String player) {
+        super(session);
+        this.player = player;
     }
 
-    public GameAction getMadeMove() {
-        return madeMove;
+    @Override
+    public String getPlayer() {
+        return player;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
-        result = prime * result + ((madeMove == null) ? 0 : madeMove.hashCode());
+        int result = super.hashCode();
+        result = prime * result + ((player == null) ? 0 : player.hashCode());
         return result;
     }
 
@@ -47,15 +40,15 @@ public class PlayerMovedEvent<State extends GameState> extends GameManagementEve
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
+        if (!super.equals(obj))
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PlayerMovedEvent<?> other = (PlayerMovedEvent<?>) obj;
-        if (madeMove == null) {
-            if (other.madeMove != null)
+        PlayerMovedEvent other = (PlayerMovedEvent) obj;
+        if (player == null) {
+            if (other.player != null)
                 return false;
-        } else if (!madeMove.equals(other.madeMove))
+        } else if (!player.equals(other.player))
             return false;
         return true;
     }

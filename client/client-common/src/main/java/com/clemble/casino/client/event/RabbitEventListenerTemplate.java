@@ -107,6 +107,7 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
             try {
                 update(envelope.getRoutingKey(), objectMapper.readValue(body, Event.class));
             } catch (Throwable throwable) {
+                System.out.println("Failed to parse " + new String(body));
                 throwable.printStackTrace();
             }
         }

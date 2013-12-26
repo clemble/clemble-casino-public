@@ -36,7 +36,7 @@ public class FakeState implements GameState {
     }
 
     @Override
-    public <State extends GameState> GameManagementEvent<State> process(GameSession<State> session, GameAction action) {
+    public <State extends GameState> GameManagementEvent process(GameSession<State> session, GameAction action) {
         // Step 1. Processing Select cell move
         throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayGameEnded);
     }

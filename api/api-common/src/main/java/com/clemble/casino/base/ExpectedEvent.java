@@ -1,6 +1,5 @@
 package com.clemble.casino.base;
 
-import com.clemble.casino.event.Event;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;

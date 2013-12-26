@@ -3,14 +3,10 @@ package com.clemble.casino.game.event.server;
 import java.io.Serializable;
 
 import com.clemble.casino.event.GameEvent;
-import com.clemble.casino.game.GameSession;
-import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.GameSessionAware;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.clemble.casino.game.GameSessionKey;
 
-abstract public class GameManagementEvent<State extends GameState> implements GameSessionAware, GameEvent, Serializable {
+abstract public class GameManagementEvent implements GameSessionAware, GameEvent, Serializable {
 
     /**
      * Generated 07/05/13
@@ -18,17 +14,9 @@ abstract public class GameManagementEvent<State extends GameState> implements Ga
     private static final long serialVersionUID = -4837244615682915463L;
 
     final private GameSessionKey session;
-    final private State state;
 
-    public GameManagementEvent(GameSession<State> session) {
-        this.session = session.getSession();
-        this.state = session.getState();
-    }
-
-    @JsonCreator
-    public GameManagementEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") State state) {
+    public GameManagementEvent(GameSessionKey sessionKey) {
         this.session = sessionKey;
-        this.state = state;
     }
 
     @Override
@@ -36,16 +24,11 @@ abstract public class GameManagementEvent<State extends GameState> implements Ga
         return session;
     }
 
-    public State getState() {
-        return state;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((session == null) ? 0 : session.hashCode());
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
         return result;
     }
 
@@ -57,16 +40,11 @@ abstract public class GameManagementEvent<State extends GameState> implements Ga
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameManagementEvent<?> other = (GameManagementEvent<?>) obj;
+        GameManagementEvent other = (GameManagementEvent) obj;
         if (session == null) {
             if (other.session != null)
                 return false;
         } else if (!session.equals(other.session))
-            return false;
-        if (state == null) {
-            if (other.state != null)
-                return false;
-        } else if (!state.equals(other.state))
             return false;
         return true;
     }

@@ -39,14 +39,14 @@ public class ActionLatch implements Serializable {
     }
 
     public ActionLatch expectNext(final String player, String action, Class<?> expectedClass) {
-        this.actions.clear();
+        this.actions = new HashMap<String, PlayerAwareEvent>();
         this.actions.put(player, new ExpectedEvent(player, action));
         this.expectedClass = expectedClass;
         return this;
     }
 
     public ActionLatch expectNext(final Collection<String> participants, final String action) {
-        this.actions.clear();
+        this.actions = new HashMap<String, PlayerAwareEvent>();;
         for (String participant : participants) {
             this.actions.put(participant, new ExpectedEvent(participant, action));
         }
@@ -55,7 +55,7 @@ public class ActionLatch implements Serializable {
     }
 
     public ActionLatch expectNext(final Collection<String> participants, final String action, Class<?> expectedClass) {
-        this.actions.clear();
+        this.actions = new HashMap<String, PlayerAwareEvent>();
         for (String participant : participants) {
             this.actions.put(participant, new ExpectedEvent(participant, action));
         }
