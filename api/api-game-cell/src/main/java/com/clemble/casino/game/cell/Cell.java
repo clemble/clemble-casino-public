@@ -1,12 +1,12 @@
 package com.clemble.casino.game.cell;
 
-import com.clemble.casino.game.unit.GameUnit;
+import com.clemble.casino.game.unit.AbstractGameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("cell")
-public class Cell implements GameUnit {
+public class Cell extends AbstractGameUnit {
 
     /**
      * Generated 20/12/13

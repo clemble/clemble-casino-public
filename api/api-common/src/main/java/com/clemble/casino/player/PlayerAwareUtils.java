@@ -1,14 +1,28 @@
 package com.clemble.casino.player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerAwareUtils {
 
     private PlayerAwareUtils() {
         throw new IllegalAccessError();
+    }
+
+    public static <M extends PlayerAware> M fetch(String player, Collection<? extends M> sourceCollection) {
+        // Step 1. Sanity check
+        if (player == null)
+            return null;
+        // Step 2. Going through the elements, looking for associated M
+        for (M element : sourceCollection)
+            if (player.equals(element.getPlayer()))
+                return element;
+        // Step 3. Nothing was found return null
+        return null;
     }
 
     public static <M extends PlayerAware> Map<String, M> toMap(Collection<? extends M> sourceCollection) {
@@ -24,9 +38,16 @@ public class PlayerAwareUtils {
         // Step 2. Creating immutable map from tmp map
         return tmpMap;
     }
-    
+
     public static <M extends PlayerAware> Map<String, M> toImmutableMap(Collection<? extends M> sourceCollection) {
         return Collections.unmodifiableMap(toMap(sourceCollection));
+    }
+
+    public static <M extends PlayerAware> List<String> toPlayerList(Collection<? extends M> sourceCollection) {
+        List<String> playerList = new ArrayList<String>();
+        for (M playerAware : sourceCollection)
+            playerList.add(playerAware.getPlayer());
+        return playerList;
     }
 
 }

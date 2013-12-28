@@ -17,7 +17,7 @@ import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.service.GameActionService;
 
-public class GameActionTemplate<State extends GameState> implements GameActionOperations<State> {
+public class GameActionTemplate<State extends GameState> implements GameActionOperationsExtenstion<State> {
 
     private static final long serialVersionUID = -2263303118851762598L;
 
@@ -93,7 +93,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     @Override
     public GamePlayerClock getPlayerClock(String player) {
         State currentState = getCurrentState();
-        return currentState != null ? currentState.getContext().getClock().getClock(player) : null;
+        return currentState != null ? currentState.getContext().getPlayerContext(player).getClock() : null;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     @Override
     public GamePlayerAccount getPlayerAccount(String player){
         State currentState = getCurrentState();
-        return currentState != null ? currentState.getContext().getAccount().getPlayerAccount(player) : null;
+        return currentState != null ? currentState.getContext().getPlayerContext(player).getAccount() : null;
     }
 
     @Override

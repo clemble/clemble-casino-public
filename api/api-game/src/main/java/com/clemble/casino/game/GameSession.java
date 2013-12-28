@@ -75,8 +75,9 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
         return session;
     }
 
-    public void setSession(GameSessionKey newSession) {
+    public GameSession<State> setSession(GameSessionKey newSession) {
         this.session = newSession;
+        return this;
     }
 
     @Override
@@ -93,8 +94,9 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
         return sessionState;
     }
 
-    public void setSessionState(GameSessionState gameSessionState) {
+    public GameSession<State> setSessionState(GameSessionState gameSessionState) {
         this.sessionState = gameSessionState;
+        return this;
     }
 
     public List<String> getPlayers() {

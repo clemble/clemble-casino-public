@@ -1,5 +1,6 @@
 package com.clemble.casino.game.account;
 
+import com.clemble.casino.game.specification.GameSpecification;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +34,10 @@ public class GamePlayerAccount implements PlayerAware {
         this.player = player;
         this.left = left;
         this.spent = spent;
+    }
+
+    public GamePlayerAccount(String player, GameSpecification specification) {
+        this(player, specification.getPrice().getAmount());
     }
 
     @Override

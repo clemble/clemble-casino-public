@@ -4,13 +4,15 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.List;
 
-import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.GamePlayerRole;
 import com.clemble.casino.game.GameSessionAware;
+import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.specification.GameSpecification;
 import com.clemble.casino.game.specification.GameSpecificationAware;
 
-public class GameInitiation implements GameOpponentsAware, GameSpecificationAware, GameSessionAware {
+public class GameInitiation implements GameSpecificationAware, GameSessionAware {
 
     /**
      * Generated 10/07/13
@@ -19,20 +21,21 @@ public class GameInitiation implements GameOpponentsAware, GameSpecificationAwar
 
     final private GameSessionKey session;
     final private GameSpecification specification;
-    final private LinkedHashSet<String> participants;
+    final private LinkedHashSet<GamePlayerRole> participants;
 
     public GameInitiation(GameConstruction construction) {
-        this.specification = construction.getRequest().getSpecification();
-        this.session = construction.getSession();
-
-        final Collection<String> accpectedParticipants = construction.fetchAcceptedParticipants();
-        this.participants = accpectedParticipants instanceof LinkedHashSet ? (LinkedHashSet<String>) accpectedParticipants : new LinkedHashSet<String>(accpectedParticipants);
+        this(construction.getSession(), construction.fetchAcceptedParticipants(), construction.getRequest().getSpecification());
     }
 
-    public GameInitiation(GameSessionKey session, Collection<String> participants, GameSpecification specification) {
-        this.session = session;
+    public GameInitiation(GameSessionKey session, List<String> participants, GameSpecification specification) {
         this.specification = checkNotNull(specification);
-        this.participants = participants instanceof LinkedHashSet ? (LinkedHashSet<String>) participants : new LinkedHashSet<String>(participants);
+        this.session = checkNotNull(session);
+
+        List<String> roles = checkNotNull(specification.getRoles());
+
+        this.participants = new LinkedHashSet<GamePlayerRole>();
+        for (int i = 0; i < participants.size(); i++)
+            this.participants.add(new GamePlayerRole(participants.get(i), roles.get(i)));
     }
 
     @Override
@@ -40,8 +43,7 @@ public class GameInitiation implements GameOpponentsAware, GameSpecificationAwar
         return specification;
     }
 
-    @Override
-    public Collection<String> getParticipants() {
+    public Collection<GamePlayerRole> getParticipants() {
         return participants;
     }
 

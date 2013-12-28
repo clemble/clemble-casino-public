@@ -63,6 +63,7 @@ public class ObjectMapperTest {
 
             Assert.assertEquals(expected, actual);
         } catch (Throwable throwable) {
+            throwable.printStackTrace();
             error = throwable;
         }
         return error;

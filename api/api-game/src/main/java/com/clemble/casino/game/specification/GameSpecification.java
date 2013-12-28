@@ -1,6 +1,7 @@
 package com.clemble.casino.game.specification;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -9,8 +10,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import com.clemble.casino.game.rule.outcome.DrawRule;
-import com.clemble.casino.game.rule.outcome.WonRule;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 
@@ -20,11 +19,14 @@ import com.clemble.casino.game.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
+import com.clemble.casino.game.rule.outcome.DrawRule;
+import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
 import com.clemble.casino.payment.money.Currency;
 import com.clemble.casino.payment.money.Money;
+import com.clemble.casino.utils.CollectionUtils;
 
 @Entity
 @Table(name = "GAME_SPECIFICATION")
@@ -35,10 +37,17 @@ public class GameSpecification implements Serializable {
      */
     private static final long serialVersionUID = 6573909004152898162L;
 
-    final public static GameSpecification DEFAULT = new GameSpecification().setName(new GameSpecificationKey(Game.pic, "DEFAULT"))
-            .setBetRule(FixedBetRule.DEFAULT).setPrice(Money.create(Currency.FakeMoney, 50)).setGiveUpRule(GiveUpRule.lost)
-            .setMoveTimeRule(MoveTimeRule.DEFAULT).setTotalTimeRule(TotalTimeRule.DEFAULT).setNumberRule(PlayerNumberRule.two)
-            .setPrivacayRule(PrivacyRule.everybody);
+    final public static GameSpecification DEFAULT = 
+        new GameSpecification()
+        .setName(new GameSpecificationKey(Game.pic, "DEFAULT"))
+        .setBetRule(FixedBetRule.DEFAULT)
+        .setPrice(Money.create(Currency.FakeMoney, 50))
+        .setGiveUpRule(GiveUpRule.lost)
+        .setMoveTimeRule(MoveTimeRule.DEFAULT)
+        .setTotalTimeRule(TotalTimeRule.DEFAULT)
+        .setNumberRule(PlayerNumberRule.two)
+        .setPrivacayRule(PrivacyRule.everybody)
+        .setRoles(CollectionUtils.immutableList("X", "O"));
 
     @EmbeddedId
     private GameSpecificationKey name;
@@ -82,6 +91,10 @@ public class GameSpecification implements Serializable {
     @Column(name = "WON")
     @Enumerated(EnumType.STRING)
     private WonRule wonRule;
+
+    @Type(type = "com.clemble.casino.server.hibernate.ListHibernateType")
+    @Column(name = "ROLES")
+    private List<String> roles;
 
     public GameSpecification() {
     }
@@ -180,6 +193,15 @@ public class GameSpecification implements Serializable {
 
     public void setWonRule(WonRule wonRule) {
         this.wonRule = wonRule;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public GameSpecification setRoles(List<String> roles) {
+        this.roles = roles;
+        return this;
     }
 
     @Override

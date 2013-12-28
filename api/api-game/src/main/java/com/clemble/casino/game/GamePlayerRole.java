@@ -1,6 +1,8 @@
 package com.clemble.casino.game;
 
 import com.clemble.casino.player.PlayerAware;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 21/12/13.
@@ -15,7 +17,8 @@ public class GamePlayerRole implements PlayerAware {
     final private String player;
     final private String role;
 
-    public GamePlayerRole(String player, String role) {
+    @JsonCreator
+    public GamePlayerRole(@JsonProperty("player") String player, @JsonProperty("role") String role) {
         this.player = player;
         this.role = role;
     }

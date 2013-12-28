@@ -8,6 +8,7 @@ import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.outcome.GameOutcome;
+import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -29,8 +30,9 @@ public class FakeState implements GameState {
 
     @JsonCreator
     public FakeState(@JsonProperty("context") GameContext context,
-                     @JsonProperty("outcome") GameOutcome outcome,
-                     @JsonProperty("version") int version) {
+            @JsonProperty("parent") GameUnit parent,
+            @JsonProperty("outcome") GameOutcome outcome,
+            @JsonProperty("version") int version) {
         this.context = context;
         this.outcome = outcome;
     }
@@ -39,6 +41,11 @@ public class FakeState implements GameState {
     public <State extends GameState> GameManagementEvent process(GameSession<State> session, GameAction action) {
         // Step 1. Processing Select cell move
         throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayGameEnded);
+    }
+
+    @Override
+    public GameUnit getParent() {
+        return null;
     }
 
     @Override
@@ -58,14 +65,19 @@ public class FakeState implements GameState {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         FakeState fakeState = (FakeState) o;
 
-        if (version != fakeState.version) return false;
-        if (!context.equals(fakeState.context)) return false;
-        if (outcome != null ? !outcome.equals(fakeState.outcome) : fakeState.outcome != null) return false;
+        if (version != fakeState.version)
+            return false;
+        if (!context.equals(fakeState.context))
+            return false;
+        if (outcome != null ? !outcome.equals(fakeState.outcome) : fakeState.outcome != null)
+            return false;
 
         return true;
     }

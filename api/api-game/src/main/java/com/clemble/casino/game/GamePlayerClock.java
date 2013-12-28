@@ -12,6 +12,11 @@ import java.util.Collection;
  */
 public class GamePlayerClock implements PlayerAware {
 
+    /**
+     * Generated 29/12/13
+     */
+    private static final long serialVersionUID = 8179910545586680100L;
+
     final private String player;
 
     private long timeSpent;
@@ -56,13 +61,17 @@ public class GamePlayerClock implements PlayerAware {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         GamePlayerClock that = (GamePlayerClock) o;
 
-        if (moveStart != that.moveStart) return false;
-        if (timeSpent != that.timeSpent) return false;
+        if (moveStart != that.moveStart)
+            return false;
+        if (timeSpent != that.timeSpent)
+            return false;
 
         return true;
     }

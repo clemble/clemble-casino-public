@@ -55,7 +55,7 @@ public class ObjectTest {
             @Override
             public FakeState generate() {
                 GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A"), GameSpecification.DEFAULT);
-                return new FakeState(new GameContext(initiation), null, 0);
+                return new FakeState(new GameContext(initiation), null, null, 0);
             }
         });
         ObjectGenerator.register(GameSessionKey.class, new AbstractValueGenerator<GameSessionKey>() {

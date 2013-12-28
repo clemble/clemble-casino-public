@@ -1,7 +1,5 @@
 package com.clemble.casino.json;
 
-import com.clemble.casino.game.account.InvisibleGameAccount;
-import com.clemble.casino.game.account.VisibleGameAccount;
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.SelectAction;
@@ -47,8 +45,6 @@ class GameJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Game");
-        module.registerSubtypes(new NamedType(InvisibleGameAccount.class, InvisibleGameAccount.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(VisibleGameAccount.class, VisibleGameAccount.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(BetAction.class, BetAction.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(SelectAction.class, SelectAction.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.class.getAnnotation(JsonTypeName.class).value()));

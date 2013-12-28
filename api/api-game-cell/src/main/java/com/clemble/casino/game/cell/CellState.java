@@ -1,16 +1,16 @@
 package com.clemble.casino.game.cell;
 
+import java.util.Collection;
+
 import com.clemble.casino.game.action.BetAction;
-import com.clemble.casino.game.unit.GameUnit;
+import com.clemble.casino.game.unit.AbstractGameUnit;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.Collection;
-
 @JsonTypeName("state")
-public class CellState implements GameUnit {
+public class CellState extends AbstractGameUnit {
 
     /**
      * Generated 20/12/13
