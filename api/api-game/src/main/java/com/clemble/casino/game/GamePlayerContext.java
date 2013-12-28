@@ -3,14 +3,13 @@ package com.clemble.casino.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clemble.casino.game.account.GamePlayerAccount;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.specification.GameSpecification;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GamePlayerContext implements PlayerAware {
+public class GamePlayerContext implements PlayerAware, GameRoleAware, GameClockAware, GameAccountAware {
 
     /**
      * Generated 25/12/13
@@ -18,16 +17,16 @@ public class GamePlayerContext implements PlayerAware {
     private static final long serialVersionUID = -6980469472050707009L;
 
     final private String player;
+    final private String role;
     final private GamePlayerAccount account;
     final private GamePlayerClock clock;
-    final private GamePlayerRole role;
 
     @JsonCreator
     public GamePlayerContext(
             @JsonProperty("player") String player,
             @JsonProperty("account") GamePlayerAccount account,
             @JsonProperty("clock") GamePlayerClock clock,
-            @JsonProperty("role") GamePlayerRole role) {
+            @JsonProperty("role") String role) {
         this.player = player;
         this.account = account;
         this.clock = clock;
@@ -43,21 +42,23 @@ public class GamePlayerContext implements PlayerAware {
         return account;
     }
 
+    @Override
     public GamePlayerClock getClock() {
         return clock;
     }
 
-    public GamePlayerRole getRole() {
+    @Override
+    public String getRole() {
         return role;
     }
 
     public static List<GamePlayerContext> construct(GameInitiation initiation) {
         List<GamePlayerContext> playerContexts = new ArrayList<GamePlayerContext>();
         GameSpecification specification = initiation.getSpecification();
-        for(GamePlayerRole role: initiation.getParticipants()) {
-            GamePlayerAccount account = new GamePlayerAccount(role.getPlayer(), specification);
-            GamePlayerClock clock = new GamePlayerClock(role.getPlayer(), 0, 0);
-            playerContexts.add(new GamePlayerContext(role.getPlayer(), account, clock, role));
+        for(GamePlayerRole playerToRole: initiation.getParticipants()) {
+            GamePlayerAccount account = new GamePlayerAccount(specification);
+            GamePlayerClock clock = new GamePlayerClock(0, 0);
+            playerContexts.add(new GamePlayerContext(playerToRole.getPlayer(), account, clock, playerToRole.getRole()));
         }
         return playerContexts;
     }

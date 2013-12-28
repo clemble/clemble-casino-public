@@ -1,37 +1,27 @@
 package com.clemble.casino.game;
 
-import com.clemble.casino.player.PlayerAware;
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by mavarazy on 24/12/13.
  */
-public class GamePlayerClock implements PlayerAware {
+public class GamePlayerClock implements Serializable {
 
     /**
      * Generated 29/12/13
      */
     private static final long serialVersionUID = 8179910545586680100L;
 
-    final private String player;
-
     private long timeSpent;
     private long moveStart;
 
     @JsonCreator
-    public GamePlayerClock(@JsonProperty("player") String player, @JsonProperty("timeSpent") long timeSpent, @JsonProperty("moveStart") long moveStart) {
-        this.player = player;
+    public GamePlayerClock(@JsonProperty("timeSpent") long timeSpent, @JsonProperty("moveStart") long moveStart) {
         this.timeSpent = timeSpent;
         this.moveStart = moveStart;
-    }
-
-    @Override
-    public String getPlayer() {
-        return player;
     }
 
     public long getTimeSpent() {
@@ -83,11 +73,4 @@ public class GamePlayerClock implements PlayerAware {
         return result;
     }
 
-    public static Collection<GamePlayerClock> fromPlayersList(Collection<String> players) {
-        Collection<GamePlayerClock> clocks = new ArrayList<GamePlayerClock>();
-        for (String player : players) {
-            clocks.add(new GamePlayerClock(player, 0, 0));
-        }
-        return clocks;
-    }
 }

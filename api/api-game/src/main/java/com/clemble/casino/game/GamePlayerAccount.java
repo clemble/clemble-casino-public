@@ -1,48 +1,40 @@
-package com.clemble.casino.game.account;
+package com.clemble.casino.game;
+
+import java.io.Serializable;
 
 import com.clemble.casino.game.specification.GameSpecification;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GamePlayerAccount implements PlayerAware {
+public class GamePlayerAccount implements Serializable {
 
     /**
      * Generated
      */
     private static final long serialVersionUID = -1635859321208535243L;
 
-    final private String player;
-
     private long left;
     private long spent;
     private long owned;
 
-    public GamePlayerAccount(final String player, final long left) {
-        this.player = player;
+    public GamePlayerAccount(final long left) {
         this.left = left;
         this.owned = 0;
         this.spent = 0;
     }
 
     @JsonCreator
-    public GamePlayerAccount(@JsonProperty(PlayerAware.JSON_ID) final String player,
+    public GamePlayerAccount(
             @JsonProperty("left") final long left,
             @JsonProperty("spent") final long spent,
             @JsonProperty("owned") final long owned) {
-        this.player = player;
         this.left = left;
         this.spent = spent;
     }
 
-    public GamePlayerAccount(String player, GameSpecification specification) {
-        this(player, specification.getPrice().getAmount());
-    }
-
-    @Override
-    public String getPlayer() {
-        return player;
+    public GamePlayerAccount(GameSpecification specification) {
+        this(specification.getPrice().getAmount());
     }
 
     public long getLeft() {
@@ -73,7 +65,7 @@ public class GamePlayerAccount implements PlayerAware {
 
     @Override
     public String toString() {
-        return "{gac:" + player + ":" + left + ":" + spent + ":" + owned + "}";
+        return "{gpa:" + left + ":" + spent + ":" + owned + "}";
     }
 
     @Override
@@ -86,15 +78,13 @@ public class GamePlayerAccount implements PlayerAware {
         if (left != that.left) return false;
         if (owned != that.owned) return false;
         if (spent != that.spent) return false;
-        if (player != null ? !player.equals(that.player) : that.player != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player != null ? player.hashCode() : 0;
-        result = 31 * result + (int) (left ^ (left >>> 32));
+        int result = (int) (left ^ (left >>> 32));
         result = 31 * result + (int) (spent ^ (spent >>> 32));
         result = 31 * result + (int) (owned ^ (owned >>> 32));
         return result;

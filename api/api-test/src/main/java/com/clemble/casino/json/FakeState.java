@@ -30,7 +30,7 @@ public class FakeState implements GameState {
 
     @JsonCreator
     public FakeState(@JsonProperty("context") GameContext context,
-            @JsonProperty("parent") GameUnit parent,
+            @JsonProperty("root") GameUnit root,
             @JsonProperty("outcome") GameOutcome outcome,
             @JsonProperty("version") int version) {
         this.context = context;
@@ -44,7 +44,7 @@ public class FakeState implements GameState {
     }
 
     @Override
-    public GameUnit getParent() {
+    public GameUnit getRoot() {
         return null;
     }
 

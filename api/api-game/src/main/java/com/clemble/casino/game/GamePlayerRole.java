@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 21/12/13.
  */
-public class GamePlayerRole implements PlayerAware {
+public class GamePlayerRole implements PlayerAware, GameRoleAware {
 
     /**
      * Generated 20/12/13

@@ -13,7 +13,7 @@ public interface GameState extends Serializable {
 
     public GameContext getContext();
 
-    public GameUnit getParent();
+    public GameUnit getRoot();
 
     public <State extends GameState> GameManagementEvent process(GameSession<State> session, GameAction move);
 

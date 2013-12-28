@@ -2,9 +2,9 @@ package com.clemble.casino.client.game;
 
 import java.util.Collection;
 
+import com.clemble.casino.game.GamePlayerAccount;
 import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.account.GamePlayerAccount;
 
 public interface GameActionOperationsExtenstion<S extends GameState> extends GameActionOperations<S> {
 
