@@ -23,6 +23,9 @@ import com.clemble.casino.android.player.AndroidPlayerSessionService;
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.error.ClembleCasinoErrorHandler;
 import com.clemble.casino.client.event.EventListenerOperations;
+import com.clemble.casino.client.event.EventSelector;
+import com.clemble.casino.client.event.EventTypeSelector;
+import com.clemble.casino.client.event.PlayerToMoveEventEmulator;
 import com.clemble.casino.client.event.RabbitEventListenerTemplate;
 import com.clemble.casino.client.game.GameActionOperations;
 import com.clemble.casino.client.game.GameActionOperationsFactory;
@@ -42,6 +45,8 @@ import com.clemble.casino.configuration.ServerRegistryConfiguration;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.event.server.GameManagementEvent;
+import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.service.GameActionService;
 import com.clemble.casino.game.service.GameConstructionService;
 import com.clemble.casino.game.service.GameSpecificationService;
@@ -58,7 +63,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     private static final long serialVersionUID = 103204849955372481L;
 
     final private String player;
-    final private EventListenerOperations eventListenerOperations;
+    final private EventListenerOperations listenerOperations;
     final private PlayerSessionOperations playerSessionOperations;
     final private PlayerProfileOperations playerProfileOperations;
     final private PlayerPresenceOperations playerPresenceOperations;
@@ -81,17 +86,19 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         ResourceLocations resourceLocations = checkNotNull(playerSessionOperations.create().getResourceLocations());
         ServerRegistryConfiguration registryConfiguration = resourceLocations.getServerRegistryConfiguration();
 
-        this.eventListenerOperations = new RabbitEventListenerTemplate(player, resourceLocations.getNotificationConfiguration(), ClembleCasinoConstants.OBJECT_MAPPER);
+        this.listenerOperations = new RabbitEventListenerTemplate(player, resourceLocations.getNotificationConfiguration(), ClembleCasinoConstants.OBJECT_MAPPER);
+        // TODO either make it part of server event or find a nicer way to deal with this
+        this.listenerOperations.subscribe(new PlayerToMoveEventEmulator(player, listenerOperations));
         // Step 1. Creating PlayerProfile service
         PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
         this.playerProfileOperations = new PlayerProfileTemplate(player, playerProfileService);
         // Step 2. Creating PlayerPresence service
         PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
-        this.playerPresenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, eventListenerOperations);
+        this.playerPresenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
         // Step 3. Creating PaymentTransaction service
         ServerRegistry paymentServerRegistry = registryConfiguration.getPaymentRegistry();
         PaymentService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), paymentServerRegistry);
-        this.paymentTransactionOperations = new PaymentTemplate(player, paymentTransactionService, eventListenerOperations);
+        this.paymentTransactionOperations = new PaymentTemplate(player, paymentTransactionService, listenerOperations);
         // Step 4. Creating GameConstruction services
         Map<Game, GameConstructionOperations<?>> gameToConstructor = new EnumMap<Game, GameConstructionOperations<?>>(Game.class);
         for (Game game : resourceLocations.getGames()) {
@@ -99,9 +106,9 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
             GameConstructionService constructionService = new AndroidGameConstructionService(getRestTemplate(), gameRegistry);
             GameSpecificationService specificationService = new AndroidGameSpecificationService(getRestTemplate(), gameRegistry);
             GameActionService<?> actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
-            GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, eventListenerOperations, actionService);
+            GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
             GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService,
-                    specificationService, eventListenerOperations);
+                    specificationService, listenerOperations);
             gameToConstructor.put(game, constructionOperations);
         }
         this.gameToConstructionOperations = CollectionUtils.immutableMap(gameToConstructor);
@@ -154,7 +161,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     @Override
     public EventListenerOperations listenerOperations() {
-        return eventListenerOperations;
+        return listenerOperations;
     }
 
     /**
@@ -176,7 +183,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     @Override
     public void close() {
-        if(eventListenerOperations != null)
-            eventListenerOperations.close();
+        if(listenerOperations != null)
+            listenerOperations.close();
     }
 }

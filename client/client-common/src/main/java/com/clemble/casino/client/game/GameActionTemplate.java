@@ -7,6 +7,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerOperations;
+import com.clemble.casino.client.event.EventSelectors;
+import com.clemble.casino.client.event.EventTypeSelector;
+import com.clemble.casino.client.event.GameSessionEventSelector;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GamePlayerAccount;
 import com.clemble.casino.game.GamePlayerClock;
@@ -31,12 +34,13 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
         this.player = player;
         this.session = session;
         this.eventListenersManager = checkNotNull(eventListenersManager);
-        this.eventListenersManager.subscribe(new EventListener() {
+        this.eventListenersManager.subscribe(EventSelectors
+                .where(new GameSessionEventSelector(session))
+                .and(new EventTypeSelector(GameStateManagementEvent.class)),
+            new EventListener() {
             @Override
             public void onEvent(Event event) {
-                if (event instanceof GameStateManagementEvent) {
-                    currentState.set(((GameStateManagementEvent<State>) event).getState());
-                }
+                currentState.set(((GameStateManagementEvent<State>) event).getState());
             }
         });
         this.gameActionService = checkNotNull(gameActionService);

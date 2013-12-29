@@ -4,11 +4,11 @@ import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameSessionAware;
 
-public class SessionEventSelector implements EventSelector {
+public class GameSessionEventSelector implements EventSelector {
 
     final private GameSessionKey session;
 
-    public SessionEventSelector(GameSessionKey sessionId) {
+    public GameSessionEventSelector(GameSessionKey sessionId) {
         this.session = sessionId;
     }
 

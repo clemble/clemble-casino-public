@@ -73,7 +73,7 @@ public class ObjectTest {
         ObjectGenerator.register(CellState.class, new AbstractValueGenerator<CellState>() {
             @Override
             public CellState generate() {
-                return new CellState();
+                return CellState.DEFAULT;
             }
         });
         ObjectGenerator.register(FixedBetRule.class, new AbstractValueGenerator<FixedBetRule>() {

@@ -4,8 +4,10 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Executors;
@@ -41,12 +43,15 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     @Override
     final public EventListenerController subscribe(EventListener listener) {
-        return subscribe((EventSelector) null, listener);
+        if(listener instanceof EventSelector)
+            return subscribe((EventSelector) listener, listener);
+        else
+            return subscribe((EventSelector) null, listener);
     }
 
     @Override
     final public EventListenerController subscribe(GameSessionKey sessionKey, EventListener listener) {
-        return subscribe(new SessionEventSelector(sessionKey), listener);
+        return subscribe(new GameSessionEventSelector(sessionKey), listener);
     }
 
     @Override
@@ -94,6 +99,23 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     }
 
     abstract public void subscribe(String channel);
+
+    public void update(Collection<? extends Event> events) {
+        // Step 1. Sanity check
+        if(events == null)
+            return;
+        // Step 2. Notifying event after event
+        for(Event event: events)
+            update(event);
+    }
+
+    public void update(Event event) {
+        // Step 1. Checking event value
+        if (event == null)
+            return;
+        // Step 2. Emulating server event
+        update(player, event);
+    }
 
     protected void update(String channel, Event event) {
         // Step 1. Checking event value

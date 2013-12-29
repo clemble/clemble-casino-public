@@ -1,10 +1,12 @@
 package com.clemble.casino.game.cell;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.unit.AbstractGameUnit;
 import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -17,21 +19,40 @@ public class CellState extends AbstractGameUnit {
      */
     private static final long serialVersionUID = 5574663905860524103L;
 
-    final static public CellState DEFAULT = new CellState(PlayerAware.DEFAULT_PLAYER);
+    final static public CellState DEFAULT = new CellState(PlayerAware.DEFAULT_PLAYER, null);
 
     final private String owner;
+    final private Collection<BetAction> bets;
+
+    public CellState(String owner) {
+        this.owner = owner;
+        this.bets = CollectionUtils.immutableList();
+    }
 
     @JsonCreator
-    public CellState(@JsonProperty("owner") String owner) {
+    public CellState(@JsonProperty("owner") String owner, @JsonProperty(value = "bets", required = false) Collection<BetAction> bets) {
         this.owner = owner;
+        this.bets = CollectionUtils.<BetAction> immutableList(bets);
     }
 
     public CellState(Collection<BetAction> bets) {
-        this(bets.toArray(new BetAction[0]));
+        this(BetAction.whoBetMore(bets), bets);
     }
 
-    public CellState(BetAction... bets) {
-        this(BetAction.whoBetMore(bets));
+    public Collection<BetAction> getBets() {
+        return bets;
+    }
+
+    public long getBet(String player) {
+        // Step 1. Sanity check
+        if (player == null)
+            return 0;
+        // Step 2. Looking for appropriate player bet
+        for (BetAction bet : bets)
+            if (player.equals(bet.getPlayer()))
+                return bet.getBet();
+        // Step 3. No player found
+        return 0;
     }
 
     public String getOwner() {
@@ -67,4 +88,13 @@ public class CellState extends AbstractGameUnit {
         return owner;
     }
 
+    public static CellState[][] emptyBoard(int height, int width) {
+        // Step 1. Creating result board
+        CellState[][] board = new CellState[height][width];
+        // Step 2. Filling empty board
+        for (CellState[] row : board)
+            Arrays.fill(row, CellState.DEFAULT);
+        // Step 3. Returning board
+        return board;
+    }
 }
