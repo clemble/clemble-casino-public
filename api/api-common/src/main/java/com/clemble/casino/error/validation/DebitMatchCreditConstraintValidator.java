@@ -5,11 +5,16 @@ import java.util.Set;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.clemble.casino.payment.PaymentOperation;
 import com.clemble.casino.payment.money.Currency;
 import com.clemble.casino.payment.money.Money;
 
-public class DebitMatchCreditConstraintValidator implements ConstraintValidator<DebitMatchCreditConstraint, Set<PaymentOperation>>{
+public class DebitMatchCreditConstraintValidator implements ConstraintValidator<DebitMatchCreditConstraint, Set<PaymentOperation>> {
+
+    final private static Logger LOG = LoggerFactory.getLogger(DebitMatchCreditConstraint.class);
 
     @Override
     public void initialize(DebitMatchCreditConstraint constraintAnnotation) {
@@ -23,6 +28,7 @@ public class DebitMatchCreditConstraintValidator implements ConstraintValidator<
             if (currency == null) {
                 currency = paymentOperation.getAmount().getCurrency();
             } else if (currency != paymentOperation.getAmount().getCurrency()) {
+                LOG.error("Currencies do not match expected {}, but got {}", currency, paymentOperation.getAmount().getCurrency());
                 return false;
             }
         }
@@ -52,9 +58,19 @@ public class DebitMatchCreditConstraintValidator implements ConstraintValidator<
                 }
             }
         }
-        return (creditAmount != null && debitAmount != null)
-                && creditAmount.getAmount() == debitAmount.getAmount()
-                && creditAmount.getCurrency() == debitAmount.getCurrency();
+        if(creditAmount == null || debitAmount == null) {
+            LOG.error("Debit is {}, while credit is {}", creditAmount, debitAmount);
+            return false;
+        }
+        if(creditAmount.getAmount() != debitAmount.getAmount()) {
+            LOG.error("Debit amount is {}, while credit amount is {}", creditAmount.getAmount(), debitAmount.getAmount());
+            return false;
+        }
+        if(creditAmount.getCurrency() != debitAmount.getCurrency()) {
+            LOG.error("Debit currency is {}, while credit currency is {}", creditAmount.getCurrency(), debitAmount.getCurrency());
+            return false;
+        }
+        return true;
     }
 
 }

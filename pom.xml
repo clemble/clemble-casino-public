@@ -465,6 +465,12 @@
                 <version>${hibernate.validator.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
             <!-- Jackson dependencies -->
 
             <dependency>
@@ -644,7 +650,6 @@
         <dependency>
             <groupId>com.clemble.test</groupId>
             <artifactId>spring-stress</artifactId>
-            <version>${com.clemble.test.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

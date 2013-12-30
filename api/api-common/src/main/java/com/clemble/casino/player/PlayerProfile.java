@@ -91,6 +91,18 @@ public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
     public Collection<ConnectionKey> getSocialConnections() {
         return socialConnections;
     }
+    
+    public ConnectionKey getSocialConnection(String socialNetwork) {
+        // Step 1. Sanity check
+        if(socialNetwork == null)
+            return null;
+        // Step 2. Filtering social connections
+        for(ConnectionKey key: socialConnections)
+            if(key.getProviderId().equals(socialNetwork))
+                return key;
+        // Step 3. No connection found returning null
+        return null;
+    }
 
     @Override
     public String getCountry() {

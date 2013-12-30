@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -27,13 +28,16 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     final private String player;
 
-    final protected Map<String, LinkedHashSet<Entry<EventSelector, EventListener>>> eventListeners = new HashMap<String, LinkedHashSet<Entry<EventSelector, EventListener>>>();
-    final protected ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+    final private GameNotificationThread notificationService;
+
+    final protected ScheduledExecutorService executor;
     final protected AtomicReference<Closeable> connectionCleaner = new AtomicReference<Closeable>();
 
-    public AbstractEventListenerTemplate(String player){
+    public AbstractEventListenerTemplate(String player) {
         this.player = checkNotNull(player);
-        this.eventListeners.put(player, new LinkedHashSet<Entry<EventSelector, EventListener>>());
+        this.notificationService = new GameNotificationThread();
+        this.executor = Executors.newScheduledThreadPool(2);
+        this.executor.execute(notificationService);
     }
 
     @Override
@@ -43,10 +47,11 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     @Override
     final public EventListenerController subscribe(EventListener listener) {
-        if(listener instanceof EventSelector)
+        if (listener instanceof EventSelector) {
             return subscribe((EventSelector) listener, listener);
-        else
+        } else {
             return subscribe((EventSelector) null, listener);
+        }
     }
 
     @Override
@@ -56,17 +61,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     @Override
     final public EventListenerController subscribe(EventSelector selector, EventListener listener) {
-        // Step 1. Generating event listener to use
-        final ImmutablePair<EventSelector, EventListener> listenerPair = new ImmutablePair<EventSelector, EventListener>(selector, listener);
-        // Step 2. Adding eventListener to the list
-        this.eventListeners.get(player).add(listenerPair);
-        // Step 3. Adding eventListener controller
-        return new EventListenerController() {
-            @Override
-            public void close() {
-                eventListeners.remove(listenerPair);
-            }
-        };
+        return subscribe(player, selector, listener);
     }
 
     @Override
@@ -76,25 +71,11 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     @Override
     final public EventListenerController subscribe(String channel, EventSelector selector, EventListener listener) {
-        if(!this.eventListeners.containsKey(channel)) {
-            this.eventListeners.put(channel, new LinkedHashSet<Entry<EventSelector, EventListener>>());
-            subscribe(channel);
-        }
-        // Step 1. Generating event listener to use
-        final ImmutablePair<EventSelector, EventListener> listenerPair = new ImmutablePair<EventSelector, EventListener>(selector, listener);
-        // Step 2. Adding eventListener to the list
-        this.eventListeners.get(channel).add(listenerPair);
-        // Step 3. Adding eventListener controller
-        return new EventListenerController() {
-            @Override
-            public void close() {
-                eventListeners.remove(listenerPair);
-            }
-        };
+        return notificationService.subscribe(channel, selector, listener);
     }
 
-    protected void refreshSubscription(){
-        for(String channel: eventListeners.keySet())
+    protected void refreshSubscription() {
+        for (String channel : notificationService.getChannels())
             subscribe(channel);
     }
 
@@ -102,10 +83,10 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     public void update(Collection<? extends Event> events) {
         // Step 1. Sanity check
-        if(events == null)
+        if (events == null)
             return;
         // Step 2. Notifying event after event
-        for(Event event: events)
+        for (Event event : events)
             update(event);
     }
 
@@ -122,11 +103,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
         if (event == null)
             return;
         // Step 2. Checking and notifying Event selectors
-        for (Entry<EventSelector, EventListener> listener : eventListeners.get(channel)) {
-            EventSelector selector = listener.getKey();
-            if (selector == null || selector.filter(event))
-                listener.getValue().onEvent(event);
-        }
+        notificationService.publish(channel, event);
     }
 
     public void close() {
@@ -137,6 +114,59 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
             }
         }
         executor.shutdown();
+    }
+
+    private class GameNotificationThread implements Runnable {
+
+        final private Map<String, LinkedHashSet<Entry<EventSelector, EventListener>>> channelToListeners = new HashMap<String, LinkedHashSet<Entry<EventSelector, EventListener>>>();
+        final private BlockingQueue<Entry<String, Event>> events = new LinkedBlockingQueue<Entry<String, Event>>();
+
+        public Collection<String> getChannels() {
+            return channelToListeners.keySet();
+        }
+
+        public EventListenerController subscribe(String channel, EventSelector selector, EventListener listener) {
+            if (!channelToListeners.containsKey(channel)) {
+                channelToListeners.put(channel, new LinkedHashSet<Entry<EventSelector, EventListener>>());
+                AbstractEventListenerTemplate.this.subscribe(channel);
+            }
+            // Step 1. Generating event listener to use
+            final ImmutablePair<EventSelector, EventListener> listenerPair = new ImmutablePair<EventSelector, EventListener>(selector, listener);
+            // Step 2. Adding eventListener to the list
+            this.channelToListeners.get(channel).add(listenerPair);
+            // Step 3. Adding eventListener controller
+            return new EventListenerController() {
+                @Override
+                public void close() {
+                    channelToListeners.remove(listenerPair);
+                }
+            };
+        }
+
+        public void publish(String channel, Event event) {
+            events.add(new ImmutablePair<String, Event>(channel, event));
+        }
+
+        @Override
+        public void run() {
+            while (true && !executor.isShutdown()) {
+                try {
+                    Entry<String, Event> notification = events.take();
+                    String channel = notification.getKey();
+                    Event event = notification.getValue();
+                    for (Entry<EventSelector, EventListener> listener : channelToListeners.get(channel)) {
+                        EventSelector selector = listener.getKey();
+                        if (selector == null || selector.filter(event))
+                            listener.getValue().onEvent(event);
+                    }
+                } catch (InterruptedException interruptedException) {
+                    return;
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
 }
