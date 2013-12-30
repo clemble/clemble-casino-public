@@ -1,11 +1,9 @@
 package com.clemble.casino.player.service;
 
-import java.util.Collection;
-
-import com.clemble.casino.player.event.PlayerConnection;
+import java.util.List;
 
 public interface PlayerConnectionService {
 
-    public Collection<PlayerConnection> getConnections(String player);
+    public List<String> getConnections(String player);
 
 }

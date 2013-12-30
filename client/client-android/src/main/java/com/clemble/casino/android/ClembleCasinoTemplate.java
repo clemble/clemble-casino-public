@@ -17,14 +17,13 @@ import com.clemble.casino.android.game.service.AndroidGameActionTemplate;
 import com.clemble.casino.android.game.service.AndroidGameConstructionService;
 import com.clemble.casino.android.game.service.AndroidGameSpecificationService;
 import com.clemble.casino.android.payment.AndroidPaymentTransactionService;
+import com.clemble.casino.android.player.AndroidPlayerConnectionService;
 import com.clemble.casino.android.player.AndroidPlayerPresenceService;
 import com.clemble.casino.android.player.AndroidPlayerProfileService;
 import com.clemble.casino.android.player.AndroidPlayerSessionService;
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.error.ClembleCasinoErrorHandler;
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.client.event.EventSelector;
-import com.clemble.casino.client.event.EventTypeSelector;
 import com.clemble.casino.client.event.PlayerToMoveEventEmulator;
 import com.clemble.casino.client.event.RabbitEventListenerTemplate;
 import com.clemble.casino.client.game.GameActionOperations;
@@ -34,6 +33,8 @@ import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameConstructionTemplate;
 import com.clemble.casino.client.payment.PaymentOperations;
 import com.clemble.casino.client.payment.PaymentTemplate;
+import com.clemble.casino.client.player.PlayerConnectionOperations;
+import com.clemble.casino.client.player.PlayerConnectionTemplate;
 import com.clemble.casino.client.player.PlayerPresenceOperations;
 import com.clemble.casino.client.player.PlayerPresenceTemplate;
 import com.clemble.casino.client.player.PlayerProfileOperations;
@@ -45,12 +46,11 @@ import com.clemble.casino.configuration.ServerRegistryConfiguration;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.server.GameManagementEvent;
-import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.service.GameActionService;
 import com.clemble.casino.game.service.GameConstructionService;
 import com.clemble.casino.game.service.GameSpecificationService;
 import com.clemble.casino.payment.service.PaymentService;
+import com.clemble.casino.player.service.PlayerConnectionService;
 import com.clemble.casino.player.service.PlayerPresenceService;
 import com.clemble.casino.player.service.PlayerProfileService;
 import com.clemble.casino.utils.CollectionUtils;
@@ -66,6 +66,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private EventListenerOperations listenerOperations;
     final private PlayerSessionOperations playerSessionOperations;
     final private PlayerProfileOperations playerProfileOperations;
+    final private PlayerConnectionOperations playerConnectionOperations;
     final private PlayerPresenceOperations playerPresenceOperations;
     final private PaymentOperations paymentTransactionOperations;
     final private Map<Game, GameConstructionOperations<?>> gameToConstructionOperations;
@@ -92,6 +93,9 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         // Step 1. Creating PlayerProfile service
         PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
         this.playerProfileOperations = new PlayerProfileTemplate(player, playerProfileService);
+        // Step 1.1. Creating Player connections service
+        PlayerConnectionService playerConnectionService = new AndroidPlayerConnectionService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
+        this.playerConnectionOperations = new PlayerConnectionTemplate(player, playerConnectionService);
         // Step 2. Creating PlayerPresence service
         PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
         this.playerPresenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
@@ -117,6 +121,11 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     @Override
     public PlayerProfileOperations profileOperations() {
         return playerProfileOperations;
+    }
+
+    @Override
+    public PlayerConnectionOperations connectionOperations(){
+        return playerConnectionOperations;
     }
 
     @Override

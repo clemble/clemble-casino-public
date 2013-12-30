@@ -10,6 +10,7 @@ import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.game.GameActionOperations;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.payment.PaymentOperations;
+import com.clemble.casino.client.player.PlayerConnectionOperations;
 import com.clemble.casino.client.player.PlayerPresenceOperations;
 import com.clemble.casino.client.player.PlayerProfileOperations;
 import com.clemble.casino.client.player.PlayerSessionOperations;
@@ -21,6 +22,8 @@ import com.clemble.casino.player.PlayerAware;
 public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAware {
 
     public PlayerProfileOperations profileOperations();
+
+    public PlayerConnectionOperations connectionOperations();
 
     public PlayerPresenceOperations presenceOperations();
 

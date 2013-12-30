@@ -1,5 +1,11 @@
 package com.clemble.casino.client.player;
 
-public class PlayerConnectionOperations {
+import java.util.List;
+
+public interface PlayerConnectionOperations {
+
+    public List<String> getConnections();
+    
+    public List<String> getConnections(String player);
 
 }

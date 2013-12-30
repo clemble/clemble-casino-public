@@ -36,7 +36,6 @@ public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperation
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<PlayerPresence> getPresences(List<String> players) {
         // Step 1. Sanity check
         if(players == null || players.isEmpty())
