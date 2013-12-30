@@ -1,5 +1,9 @@
 package com.clemble.casino.client.player;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.service.PlayerProfileService;
 
@@ -31,6 +35,16 @@ public class PlayerProfileTemplate implements PlayerProfileOperations {
     @Override
     public PlayerProfile getPlayerProfile(String player) {
         return playerProfileService.getPlayerProfile(player);
+    }
+
+    @Override
+    public List<PlayerProfile> getPlayerProfile(String... players) {
+        return getPlayerProfile(Arrays.asList(players));
+    }
+
+    @Override
+    public List<PlayerProfile> getPlayerProfile(Collection<String> players) {
+        return playerProfileService.getPlayerProfile(players);
     }
 
     @Override

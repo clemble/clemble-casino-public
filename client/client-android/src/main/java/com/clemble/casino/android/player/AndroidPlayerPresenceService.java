@@ -1,10 +1,8 @@
 package com.clemble.casino.android.player;
 
-
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.util.LinkedMultiValueMap;
@@ -15,6 +13,7 @@ import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.PlayerPresence;
 import com.clemble.casino.player.service.PlayerPresenceService;
+import com.clemble.casino.utils.CollectionUtils;
 import com.clemble.casino.web.player.PlayerWebMapping;
 
 public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperations implements PlayerPresenceService {
@@ -39,14 +38,14 @@ public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperation
     public List<PlayerPresence> getPresences(List<String> players) {
         // Step 1. Sanity check
         if(players == null || players.isEmpty())
-            return new ArrayList<PlayerPresence>();
+            return CollectionUtils.immutableList();
        // Step 2. Generating multivalue query map
        MultiValueMap<String, String> query = new LinkedMultiValueMap<String, String>();
        for(String player: players)
            query.set(PlayerWebMapping.PLAYER_PRESENCES_PARAM, player);
        // Step 3. Requesting through RestTemplate
-       return restTemplate
+       return CollectionUtils.immutableList(restTemplate
            .getForEntity(buildUri(PlayerWebMapping.PLAYER_PRESENCES, query), List.class)
-           .getBody();
+           .getBody());
     }
 }

@@ -65,10 +65,10 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private String player;
     final private EventListenerOperations listenerOperations;
     final private PlayerSessionOperations playerSessionOperations;
-    final private PlayerProfileOperations playerProfileOperations;
-    final private PlayerConnectionOperations playerConnectionOperations;
-    final private PlayerPresenceOperations playerPresenceOperations;
-    final private PaymentOperations paymentTransactionOperations;
+    final private PlayerProfileOperations profileOperations;
+    final private PlayerConnectionOperations connectionOperations;
+    final private PlayerPresenceOperations presenceOperations;
+    final private PaymentOperations transactionOperations;
     final private Map<Game, GameConstructionOperations<?>> gameToConstructionOperations;
 
     @SuppressWarnings({ "rawtypes" })
@@ -92,17 +92,17 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.listenerOperations.subscribe(new PlayerToMoveEventEmulator(player, listenerOperations));
         // Step 1. Creating PlayerProfile service
         PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
-        this.playerProfileOperations = new PlayerProfileTemplate(player, playerProfileService);
+        this.profileOperations = new PlayerProfileTemplate(player, playerProfileService);
         // Step 1.1. Creating Player connections service
         PlayerConnectionService playerConnectionService = new AndroidPlayerConnectionService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
-        this.playerConnectionOperations = new PlayerConnectionTemplate(player, playerConnectionService);
+        this.connectionOperations = new PlayerConnectionTemplate(player, playerConnectionService, profileOperations);
         // Step 2. Creating PlayerPresence service
         PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
-        this.playerPresenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
+        this.presenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
         // Step 3. Creating PaymentTransaction service
         ServerRegistry paymentServerRegistry = registryConfiguration.getPaymentRegistry();
         PaymentService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), paymentServerRegistry);
-        this.paymentTransactionOperations = new PaymentTemplate(player, paymentTransactionService, listenerOperations);
+        this.transactionOperations = new PaymentTemplate(player, paymentTransactionService, listenerOperations);
         // Step 4. Creating GameConstruction services
         Map<Game, GameConstructionOperations<?>> gameToConstructor = new EnumMap<Game, GameConstructionOperations<?>>(Game.class);
         for (Game game : resourceLocations.getGames()) {
@@ -120,17 +120,17 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     @Override
     public PlayerProfileOperations profileOperations() {
-        return playerProfileOperations;
+        return profileOperations;
     }
 
     @Override
     public PlayerConnectionOperations connectionOperations(){
-        return playerConnectionOperations;
+        return connectionOperations;
     }
 
     @Override
     public PlayerPresenceOperations presenceOperations() {
-        return playerPresenceOperations;
+        return presenceOperations;
     }
 
     @Override
@@ -140,7 +140,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     @Override
     public PaymentOperations paymentOperations() {
-        return paymentTransactionOperations;
+        return transactionOperations;
     }
 
     @Override

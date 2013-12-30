@@ -9,6 +9,7 @@ public interface PlayerWebMapping extends WebMapping {
     final public static String PLAYER_PROFILE_REGISTRATION_GRANT = "/grant/";
 
     final public static String PLAYER_PROFILE = "/player/{playerId}";
+    final public static String PLAYER_PROFILES = "/profile";
     final public static String PLAYER_SOCIAL = "/social/{playerId}";
     final public static String PLAYER_CONNECTIONS = "/player/{playerId}/connections";
 
