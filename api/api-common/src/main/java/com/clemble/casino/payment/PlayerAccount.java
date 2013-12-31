@@ -114,7 +114,7 @@ public class PlayerAccount implements PlayerAware {
         if (getClass() != obj.getClass())
             return false;
         PlayerAccount other = (PlayerAccount) obj;
-        if (player != other.player)
+        if (!player.equals(other.player))
             return false;
         if (playerMoney == null) {
             if (other.playerMoney != null)
