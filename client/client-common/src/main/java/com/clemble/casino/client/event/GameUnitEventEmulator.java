@@ -10,7 +10,7 @@ import com.clemble.casino.game.event.server.GameStateChangedEvent;
 import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.unit.GameUnit;
 
-public class GameUnitEventEmulator implements EventListener, EventSelector {
+public class GameUnitEventEmulator implements EventListener<GameStateManagementEvent<?>>, EventSelector {
 
     final private EventListenerOperations listenerOperations;
     final private EventSelector selector = new EventTypeSelector(GameStateManagementEvent.class);
@@ -21,22 +21,20 @@ public class GameUnitEventEmulator implements EventListener, EventSelector {
     }
 
     @Override
-    public void onEvent(Event event) {
-        // Step 1. Fetching management event
-        GameStateManagementEvent mEvent = (GameStateManagementEvent) event;
-        // Step 2. Processing state root
-        GameSessionKey session = mEvent.getSession();
+    public void onEvent(GameStateManagementEvent<?> smEvent) {
+        // Step 1. Processing state root
+        GameSessionKey session = smEvent.getSession();
         GameUnitWrapper<GameUnit> unitWrap = sessionToUnitWrapper.get(session);
         if (unitWrap == null) {
-            sessionToUnitWrapper.put(session, new GameUnitWrapper<GameUnit>(mEvent.getState().getRoot()));
+            sessionToUnitWrapper.put(session, new GameUnitWrapper<GameUnit>(smEvent.getState().getRoot()));
             unitWrap = sessionToUnitWrapper.get(session);;
         }
-        // Step 3. Game Session
-        if (mEvent instanceof GameStateChangedEvent) {
-            listenerOperations.update(sessionToUnitWrapper.get(session).set(mEvent.getState().getRoot()));
+        // Step 2. Game Session
+        if (smEvent instanceof GameStateChangedEvent) {
+            listenerOperations.update(sessionToUnitWrapper.get(session).set(smEvent.getState().getRoot()));
         }
-        // Step 4. Removing unit wrapper for Game ended event
-        if (mEvent instanceof GameEndedEvent)
+        // Step 3. Removing unit wrapper for Game ended event
+        if (smEvent instanceof GameEndedEvent)
             sessionToUnitWrapper.remove(session);
     }
 

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;
-import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -16,8 +15,6 @@ public interface GameState extends Serializable {
     public GameUnit getRoot();
 
     public <State extends GameState> GameManagementEvent process(GameSession<State> session, GameAction move);
-
-    public GameOutcome getOutcome();
 
     public int getVersion();
 

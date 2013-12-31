@@ -7,7 +7,7 @@ import com.clemble.casino.game.event.server.GameStartedEvent;
 import com.clemble.casino.game.event.server.GameStateChangedEvent;
 import com.clemble.casino.game.event.server.GameStateManagementEvent;
 
-public class PlayerToMoveEventEmulator implements EventListener, EventSelector {
+public class PlayerToMoveEventEmulator implements EventListener<GameStateManagementEvent<?>>, EventSelector {
 
     final private String player;
     final private EventListenerOperations listenerOperations;
@@ -18,16 +18,13 @@ public class PlayerToMoveEventEmulator implements EventListener, EventSelector {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
-    public void onEvent(Event event) {
-        // Step 1. Casting to GameStateManagementEvent
-        GameStateManagementEvent stateManagementEvent = ((GameStateManagementEvent) event);
-        // Step 2. Checking Action latch
-        GameSessionKey sessionKey = stateManagementEvent.getSession();
-        if (stateManagementEvent.getState() != null
-                && stateManagementEvent.getState().getContext() != null
-                && stateManagementEvent.getState().getContext().getActionLatch() != null) {
-            ActionLatch actionLatch = stateManagementEvent.getState().getContext().getActionLatch();
+    public void onEvent(GameStateManagementEvent<?> smEvent) {
+        // Step 1. Checking Action latch
+        GameSessionKey sessionKey = smEvent.getSession();
+        if (smEvent.getState() != null
+                && smEvent.getState().getContext() != null
+                && smEvent.getState().getContext().getActionLatch() != null) {
+            ActionLatch actionLatch = smEvent.getState().getContext().getActionLatch();
             for (String participant : actionLatch.fetchParticipants())
                 if (!actionLatch.acted(participant))
                     listenerOperations.update(new PlayerToMoveEvent(sessionKey, participant, actionLatch.expectedClass(), player.equals(participant)));

@@ -84,7 +84,7 @@ public class Money implements Serializable {
 
     @Override
     public String toString() {
-        return "cash:" + currency + ":" + amount;
+        return currency + ":" + amount;
     }
 
     @Override

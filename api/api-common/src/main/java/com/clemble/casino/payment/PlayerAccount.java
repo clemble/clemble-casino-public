@@ -93,7 +93,7 @@ public class PlayerAccount implements PlayerAware {
 
     @Override
     public String toString() {
-        return "PlayerWallet [playerId=" + player + ", playerMoney=" + playerMoney + "]";
+        return "account:" + player + ":" + playerMoney;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.clemble.casino.game.construct;
 import java.util.Collection;
 import java.util.List;
 
+import com.clemble.casino.game.GamePlayerRole;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.specification.GameSpecification;
@@ -12,18 +13,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("manager")
-public class ManagerGameConstructionRequest extends ServerGameConstructionRequest implements GameSessionAware, GameOpponentsAware {
+public class ManagerGameConstructionRequest extends ServerGameConstructionRequest implements GameSessionAware {
 
     /**
      * Generated 28/11/13
      */
     private static final long serialVersionUID = 805665880501624573L;
 
-    final private List<String> participants;
+    final private List<GamePlayerRole> participants;
     final private GameSessionKey sessionKey;
 
     @JsonCreator
-    public ManagerGameConstructionRequest(@JsonProperty("participants") Collection<String> participants, @JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("specification") GameSpecification specification) {
+    public ManagerGameConstructionRequest(@JsonProperty("participants") Collection<GamePlayerRole> participants, @JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("specification") GameSpecification specification) {
         super(specification);
         this.sessionKey = sessionKey;
         this.participants = CollectionUtils.immutableList(participants);
@@ -34,8 +35,7 @@ public class ManagerGameConstructionRequest extends ServerGameConstructionReques
         return sessionKey;
     }
 
-    @Override
-    public Collection<String> getParticipants() {
+    public Collection<GamePlayerRole> getParticipants() {
         return participants;
     }
 

@@ -2,8 +2,8 @@ package com.clemble.casino.client.event;
 
 import com.clemble.casino.event.Event;
 
-public interface EventListener {
+public interface EventListener<T extends Event> {
 
-    public void onEvent(Event event);
+    public void onEvent(T event);
 
 }

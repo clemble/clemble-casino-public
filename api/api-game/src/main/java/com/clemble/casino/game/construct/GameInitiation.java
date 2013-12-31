@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import com.clemble.casino.game.GamePlayerRole;
+import com.clemble.casino.game.GameRoleAware;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.specification.GameSpecification;
@@ -38,12 +39,18 @@ public class GameInitiation implements GameSpecificationAware, GameSessionAware 
             this.participants.add(new GamePlayerRole(participants.get(i), roles.get(i)));
     }
 
+    public GameInitiation(GameSessionKey session, GameSpecification specification, Collection<GamePlayerRole> playerRoles) {
+        this.specification = checkNotNull(specification);
+        this.session = checkNotNull(session);
+        this.participants = new LinkedHashSet<GamePlayerRole>(playerRoles);
+    }
+
     @Override
     public GameSpecification getSpecification() {
         return specification;
     }
 
-    public Collection<GamePlayerRole> getParticipants() {
+    public LinkedHashSet<GamePlayerRole> getParticipants() {
         return participants;
     }
 
