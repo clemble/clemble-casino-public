@@ -9,11 +9,11 @@ import com.clemble.casino.error.ClembleCasinoException;
 import com.clemble.casino.error.ClembleCasinoFailureDescription;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ClembleCasinoErrorHandler implements ResponseErrorHandler {
+public class ClembleCasinoResponseErrorHandler implements ResponseErrorHandler {
 
     final ObjectMapper objectMapper;
 
-    public ClembleCasinoErrorHandler(ObjectMapper objectMapper) {
+    public ClembleCasinoResponseErrorHandler(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

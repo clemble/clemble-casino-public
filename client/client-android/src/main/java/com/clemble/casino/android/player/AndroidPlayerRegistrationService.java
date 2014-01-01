@@ -10,7 +10,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.ClembleCasinoConstants;
-import com.clemble.casino.client.error.ClembleCasinoErrorHandler;
+import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
 import com.clemble.casino.player.security.PlayerToken;
 import com.clemble.casino.player.service.PlayerRegistrationService;
 import com.clemble.casino.player.web.PlayerLoginRequest;
@@ -28,7 +28,7 @@ public class AndroidPlayerRegistrationService implements PlayerRegistrationServi
         this.managementUrl = checkNotNull(managementUrl);
         this.restTemplate = new RestTemplate();
 
-        this.restTemplate.setErrorHandler(new ClembleCasinoErrorHandler(ClembleCasinoConstants.OBJECT_MAPPER));
+        this.restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ClembleCasinoConstants.OBJECT_MAPPER));
         MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
         jackson2HttpMessageConverter.setObjectMapper(ClembleCasinoConstants.OBJECT_MAPPER);
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();

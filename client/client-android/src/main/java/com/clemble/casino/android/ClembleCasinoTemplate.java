@@ -22,7 +22,7 @@ import com.clemble.casino.android.player.AndroidPlayerPresenceService;
 import com.clemble.casino.android.player.AndroidPlayerProfileService;
 import com.clemble.casino.android.player.AndroidPlayerSessionService;
 import com.clemble.casino.client.ClembleCasinoOperations;
-import com.clemble.casino.client.error.ClembleCasinoErrorHandler;
+import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.event.PlayerToMoveEventEmulator;
 import com.clemble.casino.client.event.RabbitEventListenerTemplate;
@@ -187,7 +187,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     @Override
     protected void configureRestTemplate(RestTemplate restTemplate) {
-        restTemplate.setErrorHandler(new ClembleCasinoErrorHandler(ClembleCasinoConstants.OBJECT_MAPPER));
+        restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ClembleCasinoConstants.OBJECT_MAPPER));
     }
 
     @Override
