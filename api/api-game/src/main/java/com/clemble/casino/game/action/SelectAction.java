@@ -53,7 +53,7 @@ public class SelectAction<T extends GameUnit> extends GameAction {
 
     @Override
     public String toString() {
-        return super.getPlayer() + ":select:" + select;
+        return "selectAction:" + getPlayer() + ":" + select;
     }
 
 }

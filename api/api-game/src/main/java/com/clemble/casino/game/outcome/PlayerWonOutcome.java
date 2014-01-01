@@ -39,4 +39,9 @@ public class PlayerWonOutcome extends GameOutcome {
         PlayerWonOutcome other = (PlayerWonOutcome) obj;
         return winner.equals(other.winner);
     }
+
+    @Override
+    public String toString(){
+        return "won:" + winner;
+    }
 }

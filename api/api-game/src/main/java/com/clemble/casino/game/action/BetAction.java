@@ -75,4 +75,9 @@ public class BetAction extends GameAction {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "betAction:" + getPlayer() + ":" + bet;
+    }
+
 }

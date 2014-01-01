@@ -60,6 +60,6 @@ public class GameEndedEvent<State extends GameState> extends GameStateManagement
 
     @Override
     public String toString(){
-        return  "ended:" + getSession();
+        return  "ended:" + getSession() + ":" + getOutcome();
     }
 }

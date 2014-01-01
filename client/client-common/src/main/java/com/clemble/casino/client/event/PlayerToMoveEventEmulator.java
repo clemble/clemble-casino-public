@@ -1,6 +1,7 @@
 package com.clemble.casino.client.event;
 
 import com.clemble.casino.base.ActionLatch;
+import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.event.server.GameStartedEvent;
@@ -26,8 +27,10 @@ public class PlayerToMoveEventEmulator implements EventListener<GameStateManagem
                 && smEvent.getState().getContext().getActionLatch() != null) {
             ActionLatch actionLatch = smEvent.getState().getContext().getActionLatch();
             for (String participant : actionLatch.fetchParticipants())
-                if (!actionLatch.acted(participant))
-                    listenerOperations.update(new PlayerToMoveEvent(sessionKey, participant, actionLatch.expectedClass(), player.equals(participant)));
+                if (!actionLatch.acted(participant)) {
+                    ExpectedEvent expectedEvent = (ExpectedEvent) actionLatch.fetchAction(participant);
+                    listenerOperations.update(new PlayerToMoveEvent(sessionKey, participant, expectedEvent.getAction(), player.equals(participant)));
+                }
         }
     }
 

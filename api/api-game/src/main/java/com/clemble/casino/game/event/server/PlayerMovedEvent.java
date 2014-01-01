@@ -53,4 +53,9 @@ public class PlayerMovedEvent extends GameManagementEvent implements PlayerAware
         return true;
     }
 
+    @Override
+    public String toString(){
+        return "moved:" + player;
+    }
+
 }

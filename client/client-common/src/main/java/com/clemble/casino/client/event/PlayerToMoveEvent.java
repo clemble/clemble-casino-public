@@ -1,11 +1,10 @@
 package com.clemble.casino.client.event;
 
-import com.clemble.casino.event.Event;
-import com.clemble.casino.game.GameSessionAware;
+import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.player.PlayerAware;
 
-public class PlayerToMoveEvent implements GameSessionAware, PlayerAware, Event {
+public class PlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
 
     /**
      * Generated 28/12/13
@@ -14,10 +13,10 @@ public class PlayerToMoveEvent implements GameSessionAware, PlayerAware, Event {
 
     final private String player;
     final private GameSessionKey sessionKey;
-    final private Class<?> expectedMove;
+    final private String expectedMove;
     final private boolean isMyTurn;
 
-    public PlayerToMoveEvent(GameSessionKey sessionKey, String player, Class<?> expectedMove, boolean isMyTurn) {
+    public PlayerToMoveEvent(GameSessionKey sessionKey, String player, String expectedMove, boolean isMyTurn) {
         this.player = player;
         this.sessionKey = sessionKey;
         this.expectedMove = expectedMove;
@@ -34,12 +33,17 @@ public class PlayerToMoveEvent implements GameSessionAware, PlayerAware, Event {
         return player;
     }
 
-    public Class<?> getExpectedMove() {
+    public String getExpectedMove() {
         return expectedMove;
     }
 
     public boolean isMyTurn() {
         return isMyTurn;
+    }
+
+    @Override
+    public String toString(){
+        return "toMove:" + player + ":" + sessionKey + ":" + (expectedMove != null ? expectedMove : "unknown");
     }
 
 }

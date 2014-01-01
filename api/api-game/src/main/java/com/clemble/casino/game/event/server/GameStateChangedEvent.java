@@ -60,4 +60,9 @@ public class GameStateChangedEvent<S extends GameState> extends GameStateManagem
         return true;
     }
 
+    @Override
+    public String toString(){
+        return "changed:" + actions;
+    }
+
 }

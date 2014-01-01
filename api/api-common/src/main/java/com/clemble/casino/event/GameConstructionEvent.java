@@ -1,7 +1,7 @@
 package com.clemble.casino.event;
 
-import com.clemble.casino.game.GameSessionAware;
+import com.clemble.casino.game.GameSessionAwareEvent;
 
-public interface GameConstructionEvent extends GameEvent, GameSessionAware {
+public interface GameConstructionEvent extends GameSessionAwareEvent {
 
 }
