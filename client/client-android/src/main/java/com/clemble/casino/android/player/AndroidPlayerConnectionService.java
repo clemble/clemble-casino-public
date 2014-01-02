@@ -11,7 +11,7 @@ import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.service.PlayerConnectionService;
 import com.clemble.casino.utils.CollectionUtils;
-import com.clemble.casino.web.player.PlayerWebMapping;
+import static com.clemble.casino.web.player.PlayerWebMapping.*;
 
 public class AndroidPlayerConnectionService extends AbstractClembleCasinoOperations implements PlayerConnectionService {
 
@@ -24,11 +24,9 @@ public class AndroidPlayerConnectionService extends AbstractClembleCasinoOperati
 
     @Override
     public List<String> getConnections(String player) {
-        // Step 1. Fething player connections
-        URI playerUri = buildUriWith(PlayerWebMapping.PLAYER_CONNECTIONS, player);
+        // Step 1. Fetching player connections
+        URI playerUri = buildUriWith(PLAYER_CONNECTIONS, player);
        // Step 3. Requesting through RestTemplate
-       return CollectionUtils.immutableList(restTemplate
-           .getForEntity(playerUri, String[].class)
-           .getBody());
+       return CollectionUtils.immutableList(restTemplate.getForObject(playerUri, String[].class));
     }
 }

@@ -11,7 +11,7 @@ import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import com.clemble.casino.game.service.GameConstructionService;
-import com.clemble.casino.web.game.GameWebMapping;
+import static com.clemble.casino.web.game.GameWebMapping.*;
 
 public class AndroidGameConstructionService<T extends GameState> extends AbstractClembleCasinoOperations implements GameConstructionService {
 
@@ -24,30 +24,22 @@ public class AndroidGameConstructionService<T extends GameState> extends Abstrac
 
     @Override
     public GameConstruction construct(PlayerGameConstructionRequest gameRequest) {
-        return restTemplate
-                .postForEntity(buildUriWith(GameWebMapping.GAME_SESSIONS), gameRequest, GameConstruction.class)
-                .getBody();
+        return restTemplate.postForObject(buildUriWith(GAME_SESSIONS), gameRequest, GameConstruction.class);
     }
 
     @Override
     public GameConstruction getConstruct(Game game, String session) {
-        return restTemplate
-            .getForEntity(buildUriWith(GameWebMapping.GAME_CONSTRUCTION, game, session), GameConstruction.class)
-            .getBody();
+        return restTemplate.getForObject(buildUriWith(GAME_CONSTRUCTION, game, session), GameConstruction.class);
     }
 
     @Override
     public PlayerAwareEvent getResponce(Game game, String session, String player) {
-        return restTemplate
-            .getForEntity(buildUriWith(GameWebMapping.GAME_CONSTRUCTION_RESPONSES_PLAYER, game, session, player), PlayerAwareEvent.class)
-            .getBody();
+        return restTemplate.getForObject(buildUriWith(GAME_CONSTRUCTION_RESPONSES_PLAYER, game, session, player), PlayerAwareEvent.class);
     }
 
     @Override
     public GameConstruction reply(Game game, String session, InvitationResponseEvent gameRequest) {
-        return restTemplate
-            .postForEntity(buildUriWith(GameWebMapping.GAME_CONSTRUCTION_RESPONSES, game, session), gameRequest, GameConstruction.class)
-            .getBody();
+        return restTemplate.postForObject(buildUriWith(GAME_CONSTRUCTION_RESPONSES, game, session), gameRequest, GameConstruction.class);
     }
 
 }

@@ -8,7 +8,7 @@ import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.security.PlayerSession;
 import com.clemble.casino.player.service.PlayerSessionService;
-import com.clemble.casino.web.management.ManagementWebMapping;
+import static com.clemble.casino.web.management.ManagementWebMapping.*;
 
 public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations implements PlayerSessionService {
 
@@ -21,7 +21,7 @@ public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations
 
     @Override
     public PlayerSession create(String player) {
-        URI uri = buildUriWith(ManagementWebMapping.MANAGEMENT_PLAYER_SESSIONS, player);
+        URI uri = buildUriWith(MANAGEMENT_PLAYER_SESSIONS, player);
         return restClientService
             .postForEntity(uri, null, PlayerSession.class)
             .getBody();
@@ -29,16 +29,14 @@ public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations
 
     @Override
     public PlayerSession refreshPlayerSession(String player, long sessionId) {
-        URI uri = buildUriWith(ManagementWebMapping.MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
-        return restClientService
-            .postForEntity(uri, null, PlayerSession.class)
-            .getBody();
+        URI uri = buildUriWith(MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
+        return restClientService.postForObject(uri, null, PlayerSession.class);
     }
 
     @Override
     public void endPlayerSession(String player, long sessionId) {
         // Step 1. Building session URI
-        URI sessionUri = buildUriWith(ManagementWebMapping.MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
+        URI sessionUri = buildUriWith(MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
         // Step 2. Calling post for the generated URI
         restClientService.delete(sessionUri);
     }
@@ -46,9 +44,9 @@ public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations
     @Override
     public PlayerSession getPlayerSession(String player, long sessionId) {
         // Step 1. Building session URI
-        URI sessionUri = buildUriWith(ManagementWebMapping.MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
+        URI sessionUri = buildUriWith(MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
         // Step 2. Calling rest service
-        return restClientService.getForEntity(sessionUri, PlayerSession.class).getBody();
+        return restClientService.getForObject(sessionUri, PlayerSession.class);
     }
 
 }

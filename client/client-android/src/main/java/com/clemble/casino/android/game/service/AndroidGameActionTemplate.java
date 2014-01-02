@@ -11,7 +11,8 @@ import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
-import com.clemble.casino.web.game.GameWebMapping;
+import com.clemble.casino.game.event.server.GameManagementEvent;
+import static com.clemble.casino.web.game.GameWebMapping.*;
 
 public class AndroidGameActionTemplate<State extends GameState> extends AbstractClembleCasinoOperations implements ClientGameActionOperations<State> {
 
@@ -25,24 +26,17 @@ public class AndroidGameActionTemplate<State extends GameState> extends Abstract
     @Override
     @SuppressWarnings("unchecked")
     public State getState(Game game, String session) {
-        return (State) restTemplate
-                .getForEntity(buildUriWith(GameWebMapping.GAME_SESSIONS_STATE, game, session), GameState.class)
-                .getBody();
+        return (State) restTemplate.getForObject(buildUriWith(GAME_SESSIONS_STATE, game, session), GameState.class);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public State process(Game game, String session, GameAction move) {
-        return (State) restTemplate
-            .postForEntity(buildUriWith(GameWebMapping.GAME_SESSIONS_ACTIONS, game, session), move, GameState.class)
-            .getBody();
+    public GameManagementEvent process(Game game, String session, GameAction move) {
+        return restTemplate.postForObject(buildUriWith(GAME_SESSIONS_ACTIONS, game, session), move, GameManagementEvent.class);
     }
 
     @Override
     public MadeMove getAction(Game game, String session, int action) {
-        return restTemplate
-            .getForEntity(buildUriWith(GameWebMapping.GAME_SESSIONS_ACTIONS_ACTION, game, session, action), MadeMove.class)
-            .getBody();
+        return restTemplate.getForObject(buildUriWith(GAME_SESSIONS_ACTIONS_ACTION, game, session, action), MadeMove.class);
     }
 
 }

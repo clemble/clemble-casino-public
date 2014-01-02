@@ -15,7 +15,7 @@ import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.service.PlayerProfileService;
 import com.clemble.casino.utils.CollectionUtils;
-import com.clemble.casino.web.player.PlayerWebMapping;
+import static com.clemble.casino.web.player.PlayerWebMapping.*;
 
 public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations implements PlayerProfileService {
 
@@ -29,17 +29,17 @@ public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations
     @Override
     public PlayerProfile getPlayerProfile(String player) {
         // Step 1. Generating player Uri
-        URI playerUri = buildUriWith(PlayerWebMapping.PLAYER_PROFILE, player);
+        URI playerUri = buildUriWith(PLAYER_PROFILE, player);
         // Step 2. Sending PlayerProfile request 
-        return restTemplate.getForEntity(playerUri, PlayerProfile.class).getBody();
+        return restTemplate.getForObject(playerUri, PlayerProfile.class);
     }
 
     @Override
     public PlayerProfile updatePlayerProfile(String player, PlayerProfile playerProfile) {
         // Step 1. Generating player URI
-        URI playerUri = buildUriWith(PlayerWebMapping.PLAYER_PROFILE, player);
+        URI playerUri = buildUriWith(PLAYER_PROFILE, player);
         // Step 2. Post to Player URI
-        return restTemplate.postForEntity(playerUri, playerProfile, PlayerProfile.class).getBody();
+        return restTemplate.postForObject(playerUri, playerProfile, PlayerProfile.class);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations
         for(String player: players)
             profiles.add("player", player);
         // Step 1. Generating PlayersURI
-        URI playerUri = buildUri(PlayerWebMapping.PLAYER_PROFILES, profiles);
-        return CollectionUtils.immutableList(restTemplate.getForEntity(playerUri, PlayerProfile[].class).getBody());
+        URI playerUri = buildUri(PLAYER_PROFILES, profiles);
+        return CollectionUtils.immutableList(restTemplate.getForObject(playerUri, PlayerProfile[].class));
     }
 
 }

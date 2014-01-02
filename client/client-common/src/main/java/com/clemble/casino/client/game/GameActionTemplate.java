@@ -10,13 +10,13 @@ import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.event.EventSelectors;
 import com.clemble.casino.client.event.EventTypeSelector;
 import com.clemble.casino.client.event.GameSessionEventSelector;
-import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GamePlayerAccount;
 import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
+import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.service.GameActionService;
 
@@ -37,10 +37,10 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
         this.eventListenersManager.subscribe(EventSelectors
                 .where(new GameSessionEventSelector(session))
                 .and(new EventTypeSelector(GameStateManagementEvent.class)),
-            new EventListener() {
+            new EventListener<GameStateManagementEvent<State>>() {
             @Override
-            public void onEvent(Event event) {
-                currentState.set(((GameStateManagementEvent<State>) event).getState());
+            public void onEvent(GameStateManagementEvent<State> event) {
+                currentState.set(event.getState());
             }
         });
         this.gameActionService = checkNotNull(gameActionService);
@@ -112,7 +112,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public State process(GameAction move) {
+    public GameManagementEvent process(GameAction move) {
         return gameActionService.process(session.getGame(), session.getSession(), move);
     }
 

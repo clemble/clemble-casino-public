@@ -7,7 +7,7 @@ import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.configuration.GameSpecificationOptions;
 import com.clemble.casino.game.service.GameSpecificationService;
-import com.clemble.casino.web.game.GameWebMapping;
+import static com.clemble.casino.web.game.GameWebMapping.*;
 
 public class AndroidGameSpecificationService extends AbstractClembleCasinoOperations implements GameSpecificationService {
 
@@ -20,7 +20,7 @@ public class AndroidGameSpecificationService extends AbstractClembleCasinoOperat
 
     @Override
     public GameSpecificationOptions getSpecificationOptions(String player, Game game) {
-        return restTemplate.getForEntity(buildUriWith(GameWebMapping.GAME_SPECIFICATION_OPTIONS, game), GameSpecificationOptions.class).getBody();
+        return restTemplate.getForObject(buildUriWith(GAME_SPECIFICATION_OPTIONS, game), GameSpecificationOptions.class);
     }
 
 }

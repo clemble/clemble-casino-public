@@ -4,6 +4,8 @@ import com.clemble.casino.game.GameSession;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.outcome.GameOutcome;
+import com.clemble.casino.payment.PaymentTransaction;
+import com.clemble.casino.player.security.PlayerToken;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -17,6 +19,7 @@ public class GameEndedEvent<State extends GameState> extends GameStateManagement
     private static final long serialVersionUID = 820200145932972096L;
 
     final private GameOutcome outcome;
+    private PaymentTransaction transaction;
 
     public GameEndedEvent(GameSession<State> session, GameOutcome outcome) {
         super(session);
@@ -24,13 +27,25 @@ public class GameEndedEvent<State extends GameState> extends GameStateManagement
     }
 
     @JsonCreator
-    public GameEndedEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") State state, @JsonProperty("outcome") GameOutcome outcome) {
+    public GameEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
+            @JsonProperty("state") State state,
+            @JsonProperty("outcome") GameOutcome outcome,
+            @JsonProperty("transaction") PaymentTransaction transaction) {
         super(sessionKey, state);
         this.outcome = outcome;
+        this.transaction = transaction;
     }
     
     public GameOutcome getOutcome() {
         return outcome;
+    }
+
+    public PaymentTransaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(PaymentTransaction transaction) {
+        this.transaction = transaction;
     }
 
     @Override

@@ -14,7 +14,7 @@ import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.PlayerPresence;
 import com.clemble.casino.player.service.PlayerPresenceService;
 import com.clemble.casino.utils.CollectionUtils;
-import com.clemble.casino.web.player.PlayerWebMapping;
+import static com.clemble.casino.web.player.PlayerWebMapping.*;
 
 public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperations implements PlayerPresenceService {
 
@@ -27,25 +27,21 @@ public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperation
 
     @Override
     public PlayerPresence getPresence(String player) {
-        URI presenceURI = buildUriWith(PlayerWebMapping.PLAYER_PRESENCE, player);
+        URI presenceURI = buildUriWith(PLAYER_PRESENCE, player);
         // Step 1. Singleton GET request
-        return restTemplate
-                .getForEntity(presenceURI, PlayerPresence.class)
-                .getBody();
+        return restTemplate.getForObject(presenceURI, PlayerPresence.class);
     }
 
     @Override
     public List<PlayerPresence> getPresences(List<String> players) {
         // Step 1. Sanity check
-        if(players == null || players.isEmpty())
+        if (players == null || players.isEmpty())
             return CollectionUtils.immutableList();
-       // Step 2. Generating multivalue query map
-       MultiValueMap<String, String> query = new LinkedMultiValueMap<String, String>();
-       for(String player: players)
-           query.set(PlayerWebMapping.PLAYER_PRESENCES_PARAM, player);
-       // Step 3. Requesting through RestTemplate
-       return CollectionUtils.immutableList(restTemplate
-           .getForEntity(buildUri(PlayerWebMapping.PLAYER_PRESENCES, query), List.class)
-           .getBody());
+        // Step 2. Generating multivalue query map
+        MultiValueMap<String, String> query = new LinkedMultiValueMap<String, String>();
+        for (String player : players)
+            query.set(PLAYER_PRESENCES_PARAM, player);
+        // Step 3. Requesting through RestTemplate
+        return CollectionUtils.<PlayerPresence> immutableList(restTemplate.getForObject(buildUri(PLAYER_PRESENCES, query), PlayerPresence[].class));
     }
 }
