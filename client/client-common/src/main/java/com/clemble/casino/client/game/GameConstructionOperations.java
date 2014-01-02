@@ -3,6 +3,7 @@ package com.clemble.casino.client.game;
 import java.util.Collection;
 
 import com.clemble.casino.client.event.EventListener;
+import com.clemble.casino.event.GameEvent;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameAware;
 import com.clemble.casino.game.GameState;
