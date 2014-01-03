@@ -51,7 +51,7 @@ public class GameStateChangedEvent<S extends GameState> extends GameStateManagem
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameStateChangedEvent other = (GameStateChangedEvent) obj;
+        GameStateChangedEvent<?> other = (GameStateChangedEvent<?>) obj;
         if (actions == null) {
             if (other.actions != null)
                 return false;

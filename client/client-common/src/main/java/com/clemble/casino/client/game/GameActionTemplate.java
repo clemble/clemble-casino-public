@@ -13,6 +13,7 @@ import com.clemble.casino.client.event.EventTypeSelector;
 import com.clemble.casino.client.event.GameSessionEventSelector;
 import com.clemble.casino.game.GamePlayerAccount;
 import com.clemble.casino.game.GamePlayerClock;
+import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.GameAction;
@@ -123,7 +124,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public EventListenerController subscribe(EventListener eventListener) {
+    public EventListenerController subscribe(EventListener<GameSessionAwareEvent> eventListener) {
         return eventListenersManager.subscribe(session, eventListener);
     }
 

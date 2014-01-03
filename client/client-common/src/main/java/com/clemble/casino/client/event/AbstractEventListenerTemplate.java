@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.clemble.casino.ImmutablePair;
 import com.clemble.casino.event.Event;
+import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
 
 abstract public class AbstractEventListenerTemplate implements EventListenerOperations, Closeable {
@@ -46,7 +47,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     }
 
     @Override
-    final public EventListenerController subscribe(EventListener listener) {
+    final public EventListenerController subscribe(EventListener<Event> listener) {
         if (listener instanceof EventSelector) {
             return subscribe((EventSelector) listener, listener);
         } else {
@@ -55,22 +56,22 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     }
 
     @Override
-    final public EventListenerController subscribe(GameSessionKey sessionKey, EventListener listener) {
+    final public EventListenerController subscribe(GameSessionKey sessionKey, EventListener<GameSessionAwareEvent> listener) {
         return subscribe(new GameSessionEventSelector(sessionKey), listener);
     }
 
     @Override
-    final public EventListenerController subscribe(EventSelector selector, EventListener listener) {
+    final public EventListenerController subscribe(EventSelector selector, EventListener<? extends Event> listener) {
         return subscribe(player, selector, listener);
     }
 
     @Override
-    public EventListenerController subscribe(String channel, EventListener listener) {
+    public EventListenerController subscribe(String channel, EventListener<? extends Event> listener) {
         return subscribe(channel, null, listener);
     }
 
     @Override
-    final public EventListenerController subscribe(String channel, EventSelector selector, EventListener listener) {
+    final public EventListenerController subscribe(String channel, EventSelector selector, EventListener<? extends Event> listener) {
         return notificationService.subscribe(channel, selector, listener);
     }
 
@@ -118,20 +119,20 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     private class GameNotificationThread implements Runnable {
 
-        final private Map<String, LinkedHashSet<Entry<EventSelector, EventListener>>> channelToListeners = new HashMap<String, LinkedHashSet<Entry<EventSelector, EventListener>>>();
+        final private Map<String, LinkedHashSet<Entry<EventSelector, EventListener<?>>>> channelToListeners = new HashMap<String, LinkedHashSet<Entry<EventSelector, EventListener<?>>>>();
         final private BlockingQueue<Entry<String, Event>> events = new LinkedBlockingQueue<Entry<String, Event>>();
 
         public Collection<String> getChannels() {
             return channelToListeners.keySet();
         }
 
-        public EventListenerController subscribe(String channel, EventSelector selector, EventListener listener) {
+        public EventListenerController subscribe(String channel, EventSelector selector, EventListener<?> listener) {
             if (!channelToListeners.containsKey(channel)) {
-                channelToListeners.put(channel, new LinkedHashSet<Entry<EventSelector, EventListener>>());
+                channelToListeners.put(channel, new LinkedHashSet<Entry<EventSelector, EventListener<?>>>());
                 AbstractEventListenerTemplate.this.subscribe(channel);
             }
             // Step 1. Generating event listener to use
-            final ImmutablePair<EventSelector, EventListener> listenerPair = new ImmutablePair<EventSelector, EventListener>(selector, listener);
+            final ImmutablePair<EventSelector, EventListener<?>> listenerPair = new ImmutablePair<EventSelector, EventListener<?>>(selector, listener);
             // Step 2. Adding eventListener to the list
             this.channelToListeners.get(channel).add(listenerPair);
             // Step 3. Adding eventListener controller
@@ -148,16 +149,17 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public void run() {
             while (true && !executor.isShutdown()) {
                 try {
                     Entry<String, Event> notification = events.take();
                     String channel = notification.getKey();
                     Event event = notification.getValue();
-                    for (Entry<EventSelector, EventListener> listener : channelToListeners.get(channel)) {
+                    for (Entry<EventSelector, EventListener<?>> listener : channelToListeners.get(channel)) {
                         EventSelector selector = listener.getKey();
                         if (selector == null || selector.filter(event))
-                            listener.getValue().onEvent(event);
+                            ((EventListener<Event>) listener.getValue()).onEvent(event);
                     }
                 } catch (InterruptedException interruptedException) {
                     return;

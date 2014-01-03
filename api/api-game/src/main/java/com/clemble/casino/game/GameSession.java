@@ -24,8 +24,6 @@ import com.clemble.casino.VersionAware;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.event.server.GameEndedEvent;
-import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.game.specification.GameSpecification;
 import com.clemble.casino.game.specification.GameSpecificationAware;
 

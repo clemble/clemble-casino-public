@@ -20,7 +20,6 @@ public class CollectionUtils {
         return Collections.<T> unmodifiableList(list instanceof List ? (List<? extends T>) list : new ArrayList<T>(list));
     }
 
-    @SafeVarargs
     public static <T> List<T> immutableList(T... list) {
         if (list == null)
             return Collections.emptyList();

@@ -6,6 +6,7 @@ import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameAware;
+import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
@@ -34,6 +35,6 @@ public interface GameConstructionOperations<T extends GameState> extends GameSpe
 
     public GameActionOperations<T> getActionOperations(String session);
 
-    public EventListenerController watch(String session, EventListener constructionListener);
+    public EventListenerController watch(String session, EventListener<GameSessionAwareEvent> constructionListener);
 
 }

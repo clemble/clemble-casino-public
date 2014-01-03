@@ -10,6 +10,7 @@ import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.Game;
+import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.configuration.GameSpecificationOptions;
@@ -112,7 +113,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public EventListenerController watch(String session, EventListener constructionListener) {
+    public EventListenerController watch(String session, EventListener<GameSessionAwareEvent> constructionListener) {
         // Step 1. Sanity checks
         if(session == null || constructionListener == null)
             return null;

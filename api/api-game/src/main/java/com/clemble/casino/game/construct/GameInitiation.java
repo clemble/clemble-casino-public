@@ -7,7 +7,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import com.clemble.casino.game.GamePlayerRole;
-import com.clemble.casino.game.GameRoleAware;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.specification.GameSpecification;

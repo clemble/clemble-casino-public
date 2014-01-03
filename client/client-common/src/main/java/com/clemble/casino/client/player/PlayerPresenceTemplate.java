@@ -2,13 +2,18 @@ package com.clemble.casino.client.player;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.client.event.EventListener;
+import com.clemble.casino.client.event.EventListenerController;
+import com.clemble.casino.client.event.EventListenerControllerAgregate;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.player.PlayerPresence;
+import com.clemble.casino.player.PlayerPresenceChangedEvent;
 import com.clemble.casino.player.service.PlayerPresenceService;
 
 public class PlayerPresenceTemplate implements PlayerPresenceOperations {
@@ -44,16 +49,18 @@ public class PlayerPresenceTemplate implements PlayerPresenceOperations {
     }
 
     @Override
-    public void subscribe(String player, EventListener listener) {
+    public EventListenerController subscribe(String player, EventListener<PlayerPresenceChangedEvent> listener) {
         if(player == null || listener == null)
             throw new IllegalArgumentException();
-        listenerOperations.subscribe(NotificationMapping.toPresenceChannel(player), listener);
+        return listenerOperations.subscribe(NotificationMapping.toPresenceChannel(player), listener);
     }
 
     @Override
-    public void subscribe(List<String> players, EventListener listener) {
+    public EventListenerController subscribe(List<String> players, EventListener<PlayerPresenceChangedEvent> listener) {
+        Collection<EventListenerController> listenerControllers = new ArrayList<EventListenerController>(players.size());
         for(String player: players)
-            subscribe(player, listener);
+            listenerControllers.add(subscribe(player, listener));
+        return new EventListenerControllerAgregate(listenerControllers);
     }
 
 }

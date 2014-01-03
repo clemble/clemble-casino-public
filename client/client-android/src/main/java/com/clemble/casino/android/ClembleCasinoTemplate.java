@@ -24,6 +24,7 @@ import com.clemble.casino.android.player.AndroidPlayerSessionService;
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
 import com.clemble.casino.client.event.EventListenerOperations;
+import com.clemble.casino.client.event.EventTypeSelector;
 import com.clemble.casino.client.event.PlayerToMoveEventEmulator;
 import com.clemble.casino.client.event.RabbitEventListenerTemplate;
 import com.clemble.casino.client.game.GameActionOperations;
@@ -46,6 +47,7 @@ import com.clemble.casino.configuration.ServerRegistryConfiguration;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.service.GameActionService;
 import com.clemble.casino.game.service.GameConstructionService;
 import com.clemble.casino.game.service.GameSpecificationService;
@@ -89,7 +91,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
         this.listenerOperations = new RabbitEventListenerTemplate(player, resourceLocations.getNotificationConfiguration(), ClembleCasinoConstants.OBJECT_MAPPER);
         // TODO either make it part of server event or find a nicer way to deal with this
-        this.listenerOperations.subscribe(new PlayerToMoveEventEmulator(player, listenerOperations));
+        this.listenerOperations.subscribe(new EventTypeSelector(GameStateManagementEvent.class), new PlayerToMoveEventEmulator(player, listenerOperations));
         // Step 1. Creating PlayerProfile service
         PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
         this.profileOperations = new PlayerProfileTemplate(player, playerProfileService);

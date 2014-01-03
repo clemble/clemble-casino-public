@@ -2,7 +2,6 @@ package com.clemble.casino.game.event.server;
 
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;

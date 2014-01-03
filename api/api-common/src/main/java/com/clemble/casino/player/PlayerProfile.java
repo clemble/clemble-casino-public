@@ -17,7 +17,6 @@ import com.clemble.casino.error.ClembleCasinoError.Code;
 import com.clemble.casino.error.validation.AgeConstraint;
 import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.NickNameConstraint;
-import com.clemble.casino.player.event.PlayerConnection;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**

@@ -42,7 +42,7 @@ public class SelectAction<T extends GameUnit> extends GameAction {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        SelectAction<T> other = (SelectAction<T>) obj;
+        SelectAction<?> other = (SelectAction<?>) obj;
         if (select == null) {
             if (other.select != null)
                 return false;

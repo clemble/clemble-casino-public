@@ -28,7 +28,6 @@ public class GameRuleOptions<T extends GameRule> {
     }
 
     @JsonCreator
-    @SuppressWarnings("unchecked")
     public GameRuleOptions(@JsonProperty("default") T defaultOption, @JsonProperty("options") T... otherOptions) {
         this(defaultOption, Arrays.asList(otherOptions));
     }

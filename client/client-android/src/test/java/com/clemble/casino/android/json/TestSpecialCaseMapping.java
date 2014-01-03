@@ -1,7 +1,8 @@
 package com.clemble.casino.android.json;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class TestSpecialCaseMapping {
 
     @Test
     public void testRead() throws JsonParseException, JsonMappingException, IOException {
-        List<PlayerPresence> presencesList = objectMapper.readValue(JSON, List.class);
         PlayerPresence[] presences = objectMapper.readValue(JSON, PlayerPresence[].class);
+        assertNotNull(presences[0]);
     }
 }

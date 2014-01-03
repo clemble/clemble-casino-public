@@ -5,10 +5,12 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import java.util.List;
 
 import com.clemble.casino.client.event.EventListener;
+import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.money.MoneySource;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PlayerAccount;
+import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.payment.service.PaymentService;
 
 public class PaymentTemplate implements PaymentOperations {
@@ -56,8 +58,8 @@ public class PaymentTemplate implements PaymentOperations {
     }
 
     @Override
-    public void subscribe(EventListener listener) {
-        listenerOperations.subscribe(new PaymentEventSelector(), listener);
+    public EventListenerController subscribe(EventListener<PaymentEvent> listener) {
+        return listenerOperations.subscribe(new PaymentEventSelector(), listener);
     }
 
     @Override
