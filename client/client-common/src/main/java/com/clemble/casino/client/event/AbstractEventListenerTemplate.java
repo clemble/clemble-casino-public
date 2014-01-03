@@ -4,12 +4,14 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
@@ -19,6 +21,7 @@ import com.clemble.casino.ImmutablePair;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 abstract public class AbstractEventListenerTemplate implements EventListenerOperations, Closeable {
 
@@ -37,7 +40,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     public AbstractEventListenerTemplate(String player) {
         this.player = checkNotNull(player);
         this.notificationService = new GameNotificationThread();
-        this.executor = Executors.newScheduledThreadPool(2);
+        this.executor = Executors.newScheduledThreadPool(2, new ThreadFactoryBuilder().setNameFormat(player + "_listener_%d").build());
         this.executor.execute(notificationService);
     }
 
@@ -119,7 +122,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     private class GameNotificationThread implements Runnable {
 
-        final private Map<String, LinkedHashSet<Entry<EventSelector, EventListener<?>>>> channelToListeners = new HashMap<String, LinkedHashSet<Entry<EventSelector, EventListener<?>>>>();
+        final private Map<String, List<Entry<EventSelector, EventListener<?>>>> channelToListeners = new HashMap<String, List<Entry<EventSelector, EventListener<?>>>>();
         final private BlockingQueue<Entry<String, Event>> events = new LinkedBlockingQueue<Entry<String, Event>>();
 
         public Collection<String> getChannels() {
@@ -128,7 +131,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
         public EventListenerController subscribe(String channel, EventSelector selector, EventListener<?> listener) {
             if (!channelToListeners.containsKey(channel)) {
-                channelToListeners.put(channel, new LinkedHashSet<Entry<EventSelector, EventListener<?>>>());
+                channelToListeners.put(channel, new CopyOnWriteArrayList<Entry<EventSelector, EventListener<?>>>());
                 AbstractEventListenerTemplate.this.subscribe(channel);
             }
             // Step 1. Generating event listener to use
@@ -157,9 +160,13 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
                     String channel = notification.getKey();
                     Event event = notification.getValue();
                     for (Entry<EventSelector, EventListener<?>> listener : channelToListeners.get(channel)) {
-                        EventSelector selector = listener.getKey();
-                        if (selector == null || selector.filter(event))
-                            ((EventListener<Event>) listener.getValue()).onEvent(event);
+                        try {
+                            EventSelector selector = listener.getKey();
+                            if (selector == null || selector.filter(event))
+                                ((EventListener<Event>) listener.getValue()).onEvent(event);
+                        } catch (Throwable throwable) {
+                            throwable.printStackTrace();
+                        }
                     }
                 } catch (InterruptedException interruptedException) {
                     return;

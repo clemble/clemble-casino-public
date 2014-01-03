@@ -50,7 +50,7 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
         @Override
         public void run() {
             try {
-                synchronized (RabbitEventListenerTemplate.this) {
+                synchronized (rabbitQueue) {
                     // Step 1. Generalizing connection factory
                     ConnectionFactory factory = new ConnectionFactory();
                     factory.setUsername(configurations.getUser());
