@@ -1,5 +1,6 @@
 package com.clemble.casino.game.cell;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -61,6 +62,16 @@ public class CellState extends AbstractGameUnit {
 
     public boolean owned() {
         return !owner.equals(PlayerAware.DEFAULT_PLAYER);
+    }
+    
+    public CellState merge(CellState newState) {
+        if(bets.isEmpty()) {
+            return newState;
+        } else {
+            Collection<BetAction> allBets = new ArrayList<BetAction>(bets);
+            allBets.addAll(newState.getBets());
+            return new CellState(BetAction.merge(allBets));
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import java.util.Collection;
 
 import com.clemble.casino.client.event.EventListener;
+import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.event.PlayerAwareEvent;
@@ -22,6 +23,7 @@ import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import com.clemble.casino.game.service.GameConstructionService;
 import com.clemble.casino.game.service.GameSpecificationService;
 import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.utils.CollectionUtils;
 
 public class GameConstructionTemplate<T extends GameState> implements GameConstructionOperations<T> {
 
@@ -72,6 +74,11 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
+    public GameConstruction constructAvailability(GameSpecification specification, String... players) {
+        return constructAvailability(specification, CollectionUtils.immutableList(players));
+    }
+
+    @Override
     public GameConstruction constructAvailability(GameSpecification specification, Collection<String> participants) {
         // Step 1. Constructing availability request
         PlayerGameConstructionRequest availabilityGameRequest = new AvailabilityGameRequest(player, specification, participants);
@@ -105,12 +112,12 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public void watch(String session, EventListener constructionListener) {
+    public EventListenerController watch(String session, EventListener constructionListener) {
         // Step 1. Sanity checks
         if(session == null || constructionListener == null)
-            return;
+            return null;
         // Step 2. Subscribing to specific table
-        listenersManager.subscribe(NotificationMapping.toTable(toSessionKey(session)), constructionListener);
+        return listenersManager.subscribe(NotificationMapping.toTable(toSessionKey(session)), constructionListener);
     }
 
     @Override

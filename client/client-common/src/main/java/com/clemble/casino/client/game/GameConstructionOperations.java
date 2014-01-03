@@ -3,7 +3,7 @@ package com.clemble.casino.client.game;
 import java.util.Collection;
 
 import com.clemble.casino.client.event.EventListener;
-import com.clemble.casino.event.GameEvent;
+import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameAware;
 import com.clemble.casino.game.GameState;
@@ -22,6 +22,8 @@ public interface GameConstructionOperations<T extends GameState> extends GameSpe
 
     public GameConstruction constructAutomatch(final GameSpecification specification);
 
+    public GameConstruction constructAvailability(final GameSpecification specification, String ... players);
+
     public GameConstruction constructAvailability(final GameSpecification specification, Collection<String> players);
 
     public GameConstruction accept(final String session);
@@ -32,6 +34,6 @@ public interface GameConstructionOperations<T extends GameState> extends GameSpe
 
     public GameActionOperations<T> getActionOperations(String session);
 
-    public void watch(String session, EventListener constructionListener);
+    public EventListenerController watch(String session, EventListener constructionListener);
 
 }

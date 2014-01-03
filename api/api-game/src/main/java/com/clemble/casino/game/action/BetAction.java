@@ -1,7 +1,10 @@
 package com.clemble.casino.game.action;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -51,6 +54,29 @@ public class BetAction extends GameAction {
         }
 
         return playerWithMaxBet;
+    }
+
+    static public Map<String, Collection<BetAction>> group(Collection<BetAction> actions) {
+        Map<String, Collection<BetAction>> group = new HashMap<String, Collection<BetAction>>();
+        for(BetAction bet: actions) {
+            if (group.get(bet.getPlayer()) == null)
+                group.put(bet.getPlayer(), new ArrayList<BetAction>());
+            group.get(bet.getPlayer()).add(bet);
+        }
+        return group;
+    }
+    
+    static public Collection<BetAction> merge(Collection<BetAction> actions) {
+        Map<String, Collection<BetAction>> grouped = group(actions);
+        Collection<BetAction> resBetAction = new ArrayList<BetAction>();
+        for(String player: grouped.keySet()) {
+            long totalBet = 0;
+            for(BetAction bet: grouped.get(player)) {
+                totalBet += bet.getBet();
+            }
+            resBetAction.add(new BetAction(player, totalBet));
+        }
+        return resBetAction;
     }
 
     @Override

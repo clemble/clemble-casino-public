@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clemble.casino</groupId>
     <artifactId>public</artifactId>
@@ -52,7 +52,6 @@
         <spring.social.google.version>0.0.1-SNAPSHOT</spring.social.google.version>
         <swagger-springmvc.vesion>0.5.3</swagger-springmvc.vesion>
         <!-- Generic dependencies -->
-        <logback.version>1.0.13</logback.version>
         <jackson.version>2.2.2</jackson.version>
         <!-- Test dependencies -->
         <com.clemble.test.version>0.1.1-SNAPSHOT</com.clemble.test.version>
@@ -84,6 +83,8 @@
         <android-platform>17</android-platform>
         <android-maven-plugin-version>3.8.0</android-maven-plugin-version>
         <facebook.test.version>1.1.5</facebook.test.version>
+        <logback-android-classic.version>1.0.10-2</logback-android-classic.version>
+        <slf4j-api.version>1.7.5</slf4j-api.version>
     </properties>
     <repositories>
         <repository>
@@ -118,6 +119,23 @@
     </repositories>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.github.tony19</groupId>
+                <artifactId>logback-android-classic</artifactId>
+                <version>${logback-android-classic.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>apktool-lib</artifactId>
+                        <groupId>com.github.tony19</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
@@ -465,12 +483,6 @@
                 <version>${hibernate.validator.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
             <!-- Jackson dependencies -->
 
             <dependency>
@@ -574,12 +586,6 @@
                 <version>${guava.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
             <!-- Android dependencies -->
 
             <dependency>
@@ -637,11 +643,6 @@
 
         <!-- Test dependencies common for every project -->
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>com.clemble.test</groupId>
             <artifactId>object-generator</artifactId>

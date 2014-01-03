@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.clemble.casino.client.event.EventListener;
+import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.event.EventSelectors;
 import com.clemble.casino.client.event.EventTypeSelector;
@@ -122,8 +123,8 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public void subscribe(EventListener eventListener) {
-        eventListenersManager.subscribe(session, eventListener);
+    public EventListenerController subscribe(EventListener eventListener) {
+        return eventListenersManager.subscribe(session, eventListener);
     }
 
     @Override
