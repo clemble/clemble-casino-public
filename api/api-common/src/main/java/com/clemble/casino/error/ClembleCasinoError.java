@@ -72,6 +72,8 @@ public enum ClembleCasinoError {
     GameConstructionDoesNotExistent(Code.GAME_CONSTRUCTION_DOES_NOT_EXISTENT_ERROR_CODE, "Construction does not existent"),
     GameConstructionNotPartOfGame(Code.GAME_CONSTRUCTION_NOT_PART_OF_GAME_ERROR_CODE, "Not part of the game"),
     GameMatchPlayerHasPendingSessions(Code.GAMEMATCH_PLAYER_HAS_PENDING_SESSIONS_CODE, "Player has opened sessions"),
+    GameInitiationInActive(Code.GAME_INITIATION_IN_ACTIVE, "Game not yet initiated"),
+    GameInitiationInvalidPlayer(Code.GAME_INITIATION_INVALID_PLAYER, "Invalid player for game initiation"),
 
     GamePlayGameEnded(Code.GAMEPLAY_GAME_ENDED_CODE, "Game already ended"),
     GamePlayGameNotStarted(Code.GAMEPLAY_GAME_NOT_STARTED_CODE, "Game has not started yet"),
@@ -235,6 +237,9 @@ public enum ClembleCasinoError {
         final public static String GAME_CONSTRUCTION_INVALID_INVITATION_RESPONSE_ERROR_CODE = "0E7";
         final public static String GAME_CONSTRUCTION_DOES_NOT_EXISTENT_ERROR_CODE = "0E8";
         final public static String GAME_CONSTRUCTION_NOT_PART_OF_GAME_ERROR_CODE = "0E9";
+        // Generic Game initiation errors
+        final public static String GAME_INITIATION_IN_ACTIVE = "0EA";
+        final public static String GAME_INITIATION_INVALID_PLAYER = "0EB";
         // Generic Game play errors
         final public static String GAMEPLAY_MOVE_ALREADY_MADE_CODE = "0F0";
         final public static String GAMEPLAY_NO_MOVE_EXPECTED_CODE = "0F1";

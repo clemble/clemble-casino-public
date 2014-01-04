@@ -25,6 +25,7 @@ import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.event.EventTypeSelector;
+import com.clemble.casino.client.event.GameInitiationReadyEventEmulator;
 import com.clemble.casino.client.event.PlayerToMoveEventEmulator;
 import com.clemble.casino.client.event.RabbitEventListenerTemplate;
 import com.clemble.casino.client.game.GameActionOperations;
@@ -47,6 +48,7 @@ import com.clemble.casino.configuration.ServerRegistryConfiguration;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.event.server.GameInitiatedEvent;
 import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.service.GameActionService;
 import com.clemble.casino.game.service.GameConstructionService;
@@ -113,11 +115,12 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
             GameSpecificationService specificationService = new AndroidGameSpecificationService(getRestTemplate(), gameRegistry);
             GameActionService<?> actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
             GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
-            GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService,
-                    specificationService, listenerOperations);
+            GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService, specificationService, listenerOperations);
             gameToConstructor.put(game, constructionOperations);
         }
         this.gameToConstructionOperations = CollectionUtils.immutableMap(gameToConstructor);
+        // TODO remove when client, will be doing it automatically
+        this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(gameToConstructor));
     }
 
     @Override

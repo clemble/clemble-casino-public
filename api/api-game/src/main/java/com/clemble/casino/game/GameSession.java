@@ -144,7 +144,9 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
     }
 
     public GameInitiation toInitiation() {
-        return new GameInitiation(session, players, specification);
+        GameInitiation initiation = new GameInitiation(session, players, specification);
+        initiation.addConfirmations(players);
+        return initiation;
     }
 
     @Override

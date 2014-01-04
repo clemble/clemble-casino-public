@@ -113,4 +113,8 @@ public class GameConstruction implements GameSessionAware, VersionAware {
         this.version = version;
     }
 
+    public GameInitiation toInitiation() {
+        return new GameInitiation(this);
+    }
+
 }

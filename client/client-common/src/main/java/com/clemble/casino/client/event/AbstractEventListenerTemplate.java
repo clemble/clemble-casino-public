@@ -4,7 +4,6 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -117,7 +116,8 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
             } catch (IOException e) {
             }
         }
-        executor.shutdown();
+        // Simple shutdown won't work, this would leave notifier hanging
+        executor.shutdownNow();
     }
 
     private class GameNotificationThread implements Runnable {

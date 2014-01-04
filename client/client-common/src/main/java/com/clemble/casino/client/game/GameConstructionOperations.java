@@ -9,6 +9,7 @@ import com.clemble.casino.game.GameAware;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construct.GameConstruction;
+import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import com.clemble.casino.game.specification.GameSpecification;
@@ -32,6 +33,8 @@ public interface GameConstructionOperations<T extends GameState> extends GameSpe
     public GameConstruction decline(final String session);
 
     public GameConstruction response(final String session, final InvitationResponseEvent gameRequest);
+
+    public GameInitiation ready(final String session);
 
     public GameActionOperations<T> getActionOperations(String session);
 

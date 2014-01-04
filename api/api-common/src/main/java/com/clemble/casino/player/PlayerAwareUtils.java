@@ -50,4 +50,15 @@ public class PlayerAwareUtils {
         return playerList;
     }
 
+    public static <M extends PlayerAware> boolean contains(Collection<M> playerAwares, String player) {
+        // Step 1. Sanity check
+        if(playerAwares == null || player == null)
+            return false;
+        // Step 2. Checking each player
+        for(M playerAware: playerAwares)
+            if(playerAware.getPlayer().equals(player))
+                return true;
+        return false;
+    }
+
 }

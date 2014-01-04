@@ -17,6 +17,7 @@ import com.clemble.casino.game.configuration.GameSpecificationOptions;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
+import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 import com.clemble.casino.game.event.schedule.InvitationDeclinedEvent;
@@ -108,6 +109,11 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
+    public GameInitiation ready(String session) {
+        return constructionService.ready(game, session, player);
+    }
+
+    @Override
     public PlayerAwareEvent getResponce(String session, String fromPlayer) {
         return constructionService.getResponce(game, session, fromPlayer);
     }
@@ -115,7 +121,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     @Override
     public EventListenerController watch(String session, EventListener<GameSessionAwareEvent> constructionListener) {
         // Step 1. Sanity checks
-        if(session == null || constructionListener == null)
+        if (session == null || constructionListener == null)
             return null;
         // Step 2. Subscribing to specific table
         return listenersManager.subscribe(NotificationMapping.toTable(toSessionKey(session)), constructionListener);
