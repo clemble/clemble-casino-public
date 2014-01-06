@@ -15,6 +15,7 @@ import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.SingletonRegistry;
 import com.clemble.casino.android.game.service.AndroidGameActionTemplate;
 import com.clemble.casino.android.game.service.AndroidGameConstructionService;
+import com.clemble.casino.android.game.service.AndroidGameInitiationService;
 import com.clemble.casino.android.game.service.AndroidGameSpecificationService;
 import com.clemble.casino.android.payment.AndroidPaymentTransactionService;
 import com.clemble.casino.android.player.AndroidPlayerConnectionService;
@@ -52,6 +53,7 @@ import com.clemble.casino.game.event.server.GameInitiatedEvent;
 import com.clemble.casino.game.event.server.GameStateManagementEvent;
 import com.clemble.casino.game.service.GameActionService;
 import com.clemble.casino.game.service.GameConstructionService;
+import com.clemble.casino.game.service.GameInitiationService;
 import com.clemble.casino.game.service.GameSpecificationService;
 import com.clemble.casino.payment.service.PaymentService;
 import com.clemble.casino.player.service.PlayerConnectionService;
@@ -112,10 +114,11 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         for (Game game : resourceLocations.getGames()) {
             ServerRegistry gameRegistry = registryConfiguration.getGameRegistry();
             GameConstructionService constructionService = new AndroidGameConstructionService(getRestTemplate(), gameRegistry);
+            GameInitiationService initiationService = new AndroidGameInitiationService(getRestTemplate(), gameRegistry);
             GameSpecificationService specificationService = new AndroidGameSpecificationService(getRestTemplate(), gameRegistry);
             GameActionService<?> actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
             GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
-            GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService, specificationService, listenerOperations);
+            GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService, initiationService, specificationService, listenerOperations);
             gameToConstructor.put(game, constructionOperations);
         }
         this.gameToConstructionOperations = CollectionUtils.immutableMap(gameToConstructor);

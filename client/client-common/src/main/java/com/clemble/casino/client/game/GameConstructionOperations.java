@@ -34,6 +34,8 @@ public interface GameConstructionOperations<T extends GameState> extends GameSpe
 
     public GameConstruction response(final String session, final InvitationResponseEvent gameRequest);
 
+    public Collection<GameInitiation> pending();
+
     public GameInitiation ready(final String session);
 
     public GameActionOperations<T> getActionOperations(String session);

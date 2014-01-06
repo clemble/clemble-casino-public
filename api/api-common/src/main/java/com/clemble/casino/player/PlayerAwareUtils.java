@@ -1,7 +1,6 @@
 package com.clemble.casino.player;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,7 @@ public class PlayerAwareUtils {
         throw new IllegalAccessError();
     }
 
-    public static <M extends PlayerAware> M fetch(String player, Collection<? extends M> sourceCollection) {
+    public static <M extends PlayerAware> M fetch(String player, Iterable<? extends M> sourceCollection) {
         // Step 1. Sanity check
         if (player == null)
             return null;
@@ -25,9 +24,9 @@ public class PlayerAwareUtils {
         return null;
     }
 
-    public static <M extends PlayerAware> Map<String, M> toMap(Collection<? extends M> sourceCollection) {
+    public static <M extends PlayerAware> Map<String, M> toMap(Iterable<? extends M> sourceCollection) {
         // Step 0. Sanity check
-        if (sourceCollection == null || sourceCollection.isEmpty())
+        if (sourceCollection == null)
             return Collections.emptyMap();
         // Step 1. Converting to Map
         HashMap<String, M> tmpMap = new HashMap<String, M>();
@@ -39,18 +38,18 @@ public class PlayerAwareUtils {
         return tmpMap;
     }
 
-    public static <M extends PlayerAware> Map<String, M> toImmutableMap(Collection<? extends M> sourceCollection) {
+    public static <M extends PlayerAware> Map<String, M> toImmutableMap(Iterable<? extends M> sourceCollection) {
         return Collections.unmodifiableMap(toMap(sourceCollection));
     }
 
-    public static <M extends PlayerAware> List<String> toPlayerList(Collection<? extends M> sourceCollection) {
+    public static <M extends PlayerAware> List<String> toPlayerList(Iterable<? extends M> sourceCollection) {
         List<String> playerList = new ArrayList<String>();
         for (M playerAware : sourceCollection)
             playerList.add(playerAware.getPlayer());
         return playerList;
     }
 
-    public static <M extends PlayerAware> boolean contains(Collection<M> playerAwares, String player) {
+    public static <M extends PlayerAware> boolean contains(Iterable<M> playerAwares, String player) {
         // Step 1. Sanity check
         if(playerAwares == null || player == null)
             return false;

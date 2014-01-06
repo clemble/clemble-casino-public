@@ -1,7 +1,6 @@
 package com.clemble.casino.android.game.service;
 
 import static com.clemble.casino.web.game.GameWebMapping.GAME_CONSTRUCTION;
-import static com.clemble.casino.web.game.GameWebMapping.GAME_INITIATION_READY;
 import static com.clemble.casino.web.game.GameWebMapping.GAME_CONSTRUCTION_RESPONSES;
 import static com.clemble.casino.web.game.GameWebMapping.GAME_CONSTRUCTION_RESPONSES_PLAYER;
 import static com.clemble.casino.web.game.GameWebMapping.GAME_SESSIONS;
@@ -14,7 +13,6 @@ import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construct.GameConstruction;
-import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import com.clemble.casino.game.service.GameConstructionService;
@@ -46,11 +44,6 @@ public class AndroidGameConstructionService<T extends GameState> extends Abstrac
     @Override
     public GameConstruction reply(Game game, String session, InvitationResponseEvent gameRequest) {
         return restTemplate.postForObject(buildUriWith(GAME_CONSTRUCTION_RESPONSES, game, session), gameRequest, GameConstruction.class);
-    }
-
-    @Override
-    public GameInitiation ready(Game game, String session, String player) {
-        return restTemplate.postForObject(buildUriWith(GAME_INITIATION_READY, game, session, player), null, GameInitiation.class);
     }
 
 }

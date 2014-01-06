@@ -265,4 +265,8 @@ public class GameSpecification implements Serializable {
         return true;
     }
 
+    public String toString(){
+        return "spec:" + price + ":" + name;
+    }
+
 }

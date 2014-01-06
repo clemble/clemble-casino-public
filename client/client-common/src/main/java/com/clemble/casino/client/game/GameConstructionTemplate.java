@@ -23,6 +23,7 @@ import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 import com.clemble.casino.game.event.schedule.InvitationDeclinedEvent;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import com.clemble.casino.game.service.GameConstructionService;
+import com.clemble.casino.game.service.GameInitiationService;
 import com.clemble.casino.game.service.GameSpecificationService;
 import com.clemble.casino.game.specification.GameSpecification;
 import com.clemble.casino.utils.CollectionUtils;
@@ -41,13 +42,20 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     final private EventListenerOperations listenersManager;
     final private GameSpecificationService specificationService;
     final private GameConstructionService constructionService;
+    final private GameInitiationService initiationService;
 
-    public GameConstructionTemplate(String player, Game game, GameActionOperationsFactory actionOperations, GameConstructionService constructionService,
-            GameSpecificationService specificationService, EventListenerOperations listenersManager) {
+    public GameConstructionTemplate(String player,
+            Game game,
+            GameActionOperationsFactory actionOperations,
+            GameConstructionService constructionService,
+            GameInitiationService initiationService,
+            GameSpecificationService specificationService,
+            EventListenerOperations listenersManager) {
         this.player = checkNotNull(player);
         this.game = checkNotNull(game);
         this.actionOperationFactory = checkNotNull(actionOperations);
         this.constructionService = checkNotNull(constructionService);
+        this.initiationService = checkNotNull(initiationService);
         this.specificationService = checkNotNull(specificationService);
         this.listenersManager = checkNotNull(listenersManager);
     }
@@ -109,8 +117,13 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
+    public Collection<GameInitiation> pending() {
+        return initiationService.pending(game, player);
+    }
+
+    @Override
     public GameInitiation ready(String session) {
-        return constructionService.ready(game, session, player);
+        return initiationService.ready(game, session, player);
     }
 
     @Override

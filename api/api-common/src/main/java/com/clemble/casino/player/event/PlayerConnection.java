@@ -9,6 +9,7 @@ public class PlayerConnection implements PlayerAware {
      */
     private static final long serialVersionUID = -1819811612556136513L;
 
+    // TODO add first name, last name and presence to be able to query it
     final private String player;
     final private PlayerConnectionStatus connectionStatus;
 

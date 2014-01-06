@@ -1,6 +1,7 @@
 package com.clemble.casino.android.player;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
+import static com.clemble.casino.web.player.PlayerWebMapping.PLAYER_CONNECTIONS;
 
 import java.net.URI;
 import java.util.List;
@@ -11,7 +12,6 @@ import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.service.PlayerConnectionService;
 import com.clemble.casino.utils.CollectionUtils;
-import static com.clemble.casino.web.player.PlayerWebMapping.*;
 
 public class AndroidPlayerConnectionService extends AbstractClembleCasinoOperations implements PlayerConnectionService {
 
@@ -29,4 +29,5 @@ public class AndroidPlayerConnectionService extends AbstractClembleCasinoOperati
        // Step 3. Requesting through RestTemplate
        return CollectionUtils.immutableList(restTemplate.getForObject(playerUri, String[].class));
     }
+
 }
