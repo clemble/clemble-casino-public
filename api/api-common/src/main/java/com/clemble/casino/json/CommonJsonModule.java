@@ -2,6 +2,7 @@ package com.clemble.casino.json;
 
 import com.clemble.casino.DNSBasedServerRegistry;
 import com.clemble.casino.base.ExpectedEvent;
+import com.clemble.casino.player.PlayerConnectionDiscoveredEvent;
 import com.clemble.casino.player.PlayerPresenceChangedEvent;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.Module;
@@ -16,6 +17,7 @@ class CommonJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(ExpectedEvent.class, ExpectedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(DNSBasedServerRegistry.class, DNSBasedServerRegistry.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PlayerPresenceChangedEvent.class, PlayerPresenceChangedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerConnectionDiscoveredEvent.class, PlayerConnectionDiscoveredEvent.class.getAnnotation(JsonTypeName.class).value()));
         return module;
     }
 
