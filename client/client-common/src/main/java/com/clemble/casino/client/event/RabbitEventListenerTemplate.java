@@ -67,7 +67,7 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
                         public void shutdownCompleted(ShutdownSignalException cause) {
                             if (!keepClosed.get()) {
                                 cause.printStackTrace();
-                                executor.schedule(new StartupTask(configurations, objectMapper), 30, TimeUnit.SECONDS);
+                                executor.schedule(StartupTask.this, 30, TimeUnit.SECONDS);
                             }
                         }
                     });
@@ -87,8 +87,7 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
-
-                executor.schedule(new StartupTask(configurations, objectMapper), 30, TimeUnit.SECONDS);
+                executor.schedule(this, 30, TimeUnit.SECONDS);
             }
         }
 
