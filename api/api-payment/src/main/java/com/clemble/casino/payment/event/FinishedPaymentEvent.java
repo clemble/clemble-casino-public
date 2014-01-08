@@ -51,6 +51,7 @@ public class FinishedPaymentEvent implements PaymentEvent {
         return operation;
     }
 
+    @Override
     public PaymentTransactionKey getTransactionKey() {
         return transactionKey;
     }

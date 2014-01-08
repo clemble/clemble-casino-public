@@ -94,6 +94,7 @@ public enum ClembleCasinoError {
 
     PaymentTransactionInvalid(Code.PAYMENT_TRANSACTION_INVALID_CODE, "Payment transaction invalid"),
     PaymentTransactionEmpty(Code.PAYMENT_TRANSACTION_EMPTY_CODE, "Payment transaction empty"),
+    // TODO PaymentTransactionUnknownPlayers is no longer controlled, by the system
     PaymentTransactionUnknownPlayers(Code.PAYMENT_TRANSACTION_UNKNWON_PLAYERS_ERROR_CODE, "Players are not registered in the system"),
     PaymentTransactionAccessDenied(Code.PAYMENT_TRANSACTION_ACCESS_DENIED, "Player payment transaction access denied"),
     PaymentTransactionNotExists(Code.PAYMENT_TRANSACTION_DOES_NOT_EXISTS, "Player payment transaction does not exists"),

@@ -20,7 +20,7 @@ import com.clemble.casino.error.validation.DebitMatchCreditConstraint;
 
 @Entity
 @Table(name = "PAYMENT_TRANSACTION")
-public class PaymentTransaction implements Serializable {
+public class PaymentTransaction implements PaymentTransactionAware, Serializable {
 
     /**
      * Generated 05/05/13

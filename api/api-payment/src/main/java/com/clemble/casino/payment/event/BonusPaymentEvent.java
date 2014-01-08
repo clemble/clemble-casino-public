@@ -1,6 +1,9 @@
 package com.clemble.casino.payment.event;
 
+import com.clemble.casino.payment.AmountAware;
+import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.payment.bonus.PaymentBonusSource;
+import com.clemble.casino.payment.bonus.PaymentBonusSourceAware;
 import com.clemble.casino.payment.money.Money;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -8,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("bonus")
-public class BonusPaymentEvent implements PaymentEvent, PlayerAware {
+public class BonusPaymentEvent implements PaymentEvent, PlayerAware, AmountAware, PaymentBonusSourceAware {
 
     /**
      * Generated 16/12/13
@@ -18,13 +21,18 @@ public class BonusPaymentEvent implements PaymentEvent, PlayerAware {
     final private String player;
     final private Money amount;
     final private PaymentBonusSource bonusSource;
+    final private PaymentTransactionKey transactionKey;
 
     @JsonCreator
-    public BonusPaymentEvent(@JsonProperty("player") String player, @JsonProperty("amount") Money money,
-            @JsonProperty("bonusSource") PaymentBonusSource bonusSource) {
+    public BonusPaymentEvent(
+            @JsonProperty("player") String player,
+            @JsonProperty("amount") Money money,
+            @JsonProperty("bonusSource") PaymentBonusSource bonusSource,
+            @JsonProperty("transactionKey") PaymentTransactionKey transactionKey) {
         this.player = player;
         this.amount = money;
         this.bonusSource = bonusSource;
+        this.transactionKey = transactionKey;
     }
 
     @Override
@@ -37,8 +45,14 @@ public class BonusPaymentEvent implements PaymentEvent, PlayerAware {
         return amount;
     }
 
+    @Override
     public PaymentBonusSource getBonusSource() {
         return bonusSource;
+    }
+
+    @Override
+    public PaymentTransactionKey getTransactionKey() {
+        return transactionKey;
     }
 
     @Override
