@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import com.clemble.casino.money.MoneySource;
-
 @Embeddable
 public class PaymentTransactionKey implements Serializable {
 
@@ -25,10 +23,6 @@ public class PaymentTransactionKey implements Serializable {
     }
 
     public PaymentTransactionKey(String source, long transactionId) {
-        this(source, String.valueOf(transactionId));
-    }
-
-    public PaymentTransactionKey(MoneySource source, long transactionId) {
         this(source, String.valueOf(transactionId));
     }
 

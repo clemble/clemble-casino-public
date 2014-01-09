@@ -7,11 +7,14 @@ import java.util.List;
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.money.MoneySource;
+import com.clemble.casino.game.Game;
 import com.clemble.casino.payment.PaymentTransaction;
+import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.payment.PlayerAccount;
+import com.clemble.casino.payment.bonus.PaymentBonusSource;
 import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.payment.service.PaymentService;
+import com.clemble.casino.utils.CollectionUtils;
 
 public class PaymentTemplate implements PaymentOperations {
 
@@ -33,8 +36,13 @@ public class PaymentTemplate implements PaymentOperations {
     }
 
     @Override
-    public PaymentTransaction getPaymentTransaction(MoneySource source, String transactionId) {
-        return paymentTransactionService.getTransaction(source.name(), transactionId);
+    public PaymentTransaction getPaymentTransaction(Game game, String transaction) {
+        return paymentTransactionService.getTransaction(game.name(), transaction);
+    }
+
+    @Override
+    public PaymentTransaction getPaymentTransaction(PaymentTransactionKey transactionKey) {
+        return getPaymentTransaction(transactionKey.getSource(), transactionKey.getTransaction());
     }
 
     @Override
@@ -53,8 +61,15 @@ public class PaymentTemplate implements PaymentOperations {
     }
 
     @Override
-    public List<PaymentTransaction> getPaymentTransactions(MoneySource source) {
+    public List<PaymentTransaction> getPaymentTransactions(PaymentBonusSource source) {
         return getPaymentTransactions(source.name());
+    }
+
+    @Override
+    public List<PaymentTransaction> getPaymentTransactions(Game game) {
+        if (game == null)
+            return CollectionUtils.<PaymentTransaction> immutableList();
+        return getPaymentTransactions(game.name());
     }
 
     @Override
