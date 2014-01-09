@@ -3,6 +3,7 @@ package com.clemble.casino.game.construct;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +29,8 @@ public class GameInitiation implements GameSpecificationAware, GameSessionAware 
     final private GameSessionKey session;
     final private GameSpecification specification;
     final private LinkedHashSet<GamePlayerRole> participants = new LinkedHashSet<GamePlayerRole>();
-    final private LinkedHashSet<String> confirmations = new LinkedHashSet<String>();
+    // TODO find a better implementation for this
+    final private Set<String> confirmations = Collections.synchronizedSet(new LinkedHashSet<String>());
 
     public GameInitiation(GameConstruction construction) {
         this(construction.getSession(), construction.fetchAcceptedParticipants(), construction.getRequest().getSpecification());
