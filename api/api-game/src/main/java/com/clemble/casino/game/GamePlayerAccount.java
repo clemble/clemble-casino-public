@@ -31,6 +31,7 @@ public class GamePlayerAccount implements Serializable {
             @JsonProperty("owned") final long owned) {
         this.left = left;
         this.spent = spent;
+        this.owned = owned;
     }
 
     public GamePlayerAccount(GameSpecification specification) {

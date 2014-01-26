@@ -1,5 +1,7 @@
 package com.clemble.casino.game.rule.time;
 
+import java.util.Date;
+
 import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
@@ -49,6 +51,11 @@ public class MoveTimeRule implements TimeRule {
     @Override
     public long timeUntilBreach(GamePlayerClock clock) {
         return clock.getMoveStart() == 0 ? Long.MAX_VALUE : timeUntilBreach(System.currentTimeMillis() - clock.getMoveStart());
+    }
+
+    @Override
+    public Date breachDate(GamePlayerClock clock) {
+        return clock.getMoveStart() == 0 ? new Date(Long.MAX_VALUE) : new Date(clock.getMoveStart() + limit); 
     }
 
     @Override

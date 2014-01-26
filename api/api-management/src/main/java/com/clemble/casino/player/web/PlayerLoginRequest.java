@@ -29,4 +29,35 @@ public class PlayerLoginRequest implements Serializable {
         return consumerDetails;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((consumerDetails == null) ? 0 : consumerDetails.hashCode());
+        result = prime * result + ((playerCredential == null) ? 0 : playerCredential.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PlayerLoginRequest other = (PlayerLoginRequest) obj;
+        if (consumerDetails == null) {
+            if (other.consumerDetails != null)
+                return false;
+        } else if (!consumerDetails.equals(other.consumerDetails))
+            return false;
+        if (playerCredential == null) {
+            if (other.playerCredential != null)
+                return false;
+        } else if (!playerCredential.equals(other.playerCredential))
+            return false;
+        return true;
+    }
+
 }

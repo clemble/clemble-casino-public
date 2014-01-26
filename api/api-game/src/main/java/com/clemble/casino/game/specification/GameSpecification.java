@@ -21,6 +21,7 @@ import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
 import com.clemble.casino.game.rule.outcome.WonRule;
+import com.clemble.casino.game.rule.pot.PotRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
@@ -47,6 +48,7 @@ public class GameSpecification implements Serializable {
         .setTotalTimeRule(TotalTimeRule.DEFAULT)
         .setNumberRule(PlayerNumberRule.two)
         .setPrivacayRule(PrivacyRule.everybody)
+        .setPotRule(PotRule.no)
         .setRoles(CollectionUtils.immutableList("X", "O"));
 
     @EmbeddedId
@@ -55,6 +57,10 @@ public class GameSpecification implements Serializable {
     @Type(type = "com.clemble.casino.payment.money.MoneyHibernate")
     @Columns(columns = { @Column(name = "CURRENCY"), @Column(name = "PRICE") })
     private Money price;
+
+    @Columns(columns = { @Column(name = "POT_RULE") })
+    @Enumerated(EnumType.STRING)
+    private PotRule potRule;
 
     @Type(type = "com.clemble.casino.game.rule.bet.BetRuleHibernate")
     @Columns(columns = { @Column(name = "BET_RULE") })
@@ -123,6 +129,15 @@ public class GameSpecification implements Serializable {
 
     public GameSpecification setNumberRule(PlayerNumberRule numberRule) {
         this.numberRule = numberRule;
+        return this;
+    }
+
+    public PotRule getPotRule() {
+        return potRule;
+    }
+
+    public GameSpecification setPotRule(PotRule potRule) {
+        this.potRule = potRule;
         return this;
     }
 

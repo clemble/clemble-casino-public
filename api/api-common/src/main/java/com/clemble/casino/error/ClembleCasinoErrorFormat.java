@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.clemble.casino.game.Game;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameSessionAware;
+import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -47,16 +47,15 @@ public class ClembleCasinoErrorFormat {
         @Override
         public ClembleCasinoError deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             String code = null;
-            JsonToken token = null;
-            do {
-                if (jp.getCurrentName() == "code") {
-                    code = jp.getValueAsString();
-                } else if (jp.getCurrentName() == "description") {
-                    jp.getValueAsString();
-                }
+            JsonToken token = jp.getCurrentToken();
+            while (token != null && token != JsonToken.START_OBJECT) {
                 token = jp.nextToken();
-            } while (token != null && token != JsonToken.END_OBJECT);
-
+            }
+            while (token != null && token != JsonToken.END_OBJECT) {
+                if ("code".equals(jp.getText()))
+                    code = jp.nextTextValue();
+                token = jp.nextToken();
+            }
             return ClembleCasinoError.forCode(code);
         }
     }
@@ -83,7 +82,7 @@ public class ClembleCasinoErrorFormat {
 
             if (failure.getPlayer() != PlayerAware.DEFAULT_PLAYER) {
                 jsonGenerator.writeFieldName("player");
-                jsonGenerator.writeNumber(failure.getPlayer());
+                jsonGenerator.writeString(failure.getPlayer());
             }
 
             if (failure.getSession() != GameSessionAware.DEFAULT_SESSION) {
@@ -92,7 +91,7 @@ public class ClembleCasinoErrorFormat {
                 jsonGenerator.writeFieldName("game");
                 jsonGenerator.writeString(failure.getSession().getGame().name());
                 jsonGenerator.writeFieldName("session");
-                jsonGenerator.writeNumber(failure.getSession().getSession());
+                jsonGenerator.writeString(failure.getSession().getSession());
                 jsonGenerator.writeEndObject();
             }
 
@@ -111,22 +110,22 @@ public class ClembleCasinoErrorFormat {
             GameSessionKey session = GameSessionAware.DEFAULT_SESSION;
             do {
                 if (jp.getCurrentName() == "code") {
-                    code = jp.getValueAsString();
+                    code = jp.nextTextValue();
                 } else if (jp.getCurrentName() == "description") {
-                    jp.getValueAsString();
+                    jp.nextTextValue();
                 } else if (jp.getCurrentName() == "player") {
-                    player = jp.getValueAsString();
+                    player = jp.nextTextValue();
                 } else if (jp.getCurrentName() == "session") {
                     jp.nextToken();
                     jp.nextToken();
-                    if (jp.getCurrentName() == "game") {
-                        Game game = Game.valueOf(jp.getValueAsString());
+                    if (jp.getCurrentName().equals("game")) {
+                        Game game = Game.valueOf(jp.nextTextValue());
                         jp.nextToken();
-                        session = new GameSessionKey(game, jp.getValueAsString());
+                        session = new GameSessionKey(game, jp.nextTextValue());
                     } else {
-                        String sessionIdentifier = jp.getValueAsString();
+                        String sessionIdentifier = jp.nextTextValue();
                         jp.nextToken();
-                        session = new GameSessionKey(Game.valueOf(jp.getValueAsString()), sessionIdentifier);
+                        session = new GameSessionKey(Game.valueOf(jp.nextTextValue()), sessionIdentifier);
                     }
                 }
                 token = jp.nextToken();

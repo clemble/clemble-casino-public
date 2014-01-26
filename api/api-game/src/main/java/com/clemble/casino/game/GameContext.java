@@ -1,12 +1,14 @@
 package com.clemble.casino.game;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.iterator.GamePlayerIterator;
 import com.clemble.casino.game.iterator.GamePlayerIteratorFactory;
+import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.player.PlayerAwareUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,21 +24,26 @@ public class GameContext implements Serializable {
     private static final long serialVersionUID = 7026521242574488489L;
 
     final private List<GamePlayerContext> playerContexts;
+    final private GamePotContext potContext;
     final private GamePlayerIterator playerIterator;
     final private ActionLatch actionLatch;
 
     @JsonCreator
-    public GameContext(@JsonProperty("clock") List<GamePlayerContext> playerContexts, @JsonProperty("playerIterator") GamePlayerIterator playerIterator,
-            @JsonProperty("actionLatch") ActionLatch actionLatch) {
+    public GameContext(@JsonProperty("playerContexts") List<GamePlayerContext> playerContexts,
+            @JsonProperty("playerIterator") GamePlayerIterator playerIterator,
+            @JsonProperty("actionLatch") ActionLatch actionLatch,
+            @JsonProperty("potContext") GamePotContext potContext) {
         this.playerContexts = playerContexts;
         this.playerIterator = playerIterator;
         this.actionLatch = actionLatch;
+        this.potContext = potContext;
     }
 
     public GameContext(GameInitiation initiation) {
         this.playerContexts = GamePlayerContext.construct(initiation);
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
+        this.potContext = new GamePotContext(0, Collections.<GameOutcome>emptyList());
     }
 
     public GamePlayerIterator getPlayerIterator() {
@@ -45,6 +52,10 @@ public class GameContext implements Serializable {
 
     public ActionLatch getActionLatch() {
         return actionLatch;
+    }
+
+    public GamePotContext getPotContext() {
+        return potContext;
     }
 
     public List<GamePlayerContext> getPlayerContexts() {

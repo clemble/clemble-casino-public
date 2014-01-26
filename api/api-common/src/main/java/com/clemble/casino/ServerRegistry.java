@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "registry_type")
 @JsonSubTypes(value = {
-        @Type(value = DNSBasedServerRegistry.class, name="dns")
+        @Type(value = DNSBasedServerRegistry.class, name="dns"),
+        @Type(value = SingletonRegistry.class, name="singleton")
 })
 public interface ServerRegistry extends Serializable {
 

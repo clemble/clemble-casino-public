@@ -4,9 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class ClembleCasinoFailureDescription {
 
     final public static ClembleCasinoFailureDescription SERVER_ERROR = new ClembleCasinoFailureDescription().addProblem(new ClembleCasinoFailure(ClembleCasinoError.ServerError));
@@ -20,8 +17,7 @@ public class ClembleCasinoFailureDescription {
         this(ClembleCasinoError.forCodes(errorCodes));
     }
 
-    @JsonCreator
-    public ClembleCasinoFailureDescription(@JsonProperty("problems") Collection<ClembleCasinoError> errors) {
+    public ClembleCasinoFailureDescription(Collection<ClembleCasinoError> errors) {
         for (ClembleCasinoError error : errors)
             this.failures.add(new ClembleCasinoFailure(error));
     }
@@ -55,6 +51,31 @@ public class ClembleCasinoFailureDescription {
     @Override
     public String toString() {
         return "GogomayaFailureDescription [failures=" + failures + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((failures == null) ? 0 : failures.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ClembleCasinoFailureDescription other = (ClembleCasinoFailureDescription) obj;
+        if (failures == null) {
+            if (other.failures != null)
+                return false;
+        } else if (!failures.equals(other.failures))
+            return false;
+        return true;
     }
 
 }

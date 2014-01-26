@@ -25,4 +25,29 @@ public class PlayerRegistrationRequest extends PlayerLoginRequest {
         return playerProfile;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((playerProfile == null) ? 0 : playerProfile.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PlayerRegistrationRequest other = (PlayerRegistrationRequest) obj;
+        if (playerProfile == null) {
+            if (other.playerProfile != null)
+                return false;
+        } else if (!playerProfile.equals(other.playerProfile))
+            return false;
+        return true;
+    }
+
 }

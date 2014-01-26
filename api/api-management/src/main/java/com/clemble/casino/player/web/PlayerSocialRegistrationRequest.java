@@ -23,4 +23,29 @@ public class PlayerSocialRegistrationRequest extends PlayerLoginRequest {
         return socialConnectionData;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((socialConnectionData == null) ? 0 : socialConnectionData.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PlayerSocialRegistrationRequest other = (PlayerSocialRegistrationRequest) obj;
+        if (socialConnectionData == null) {
+            if (other.socialConnectionData != null)
+                return false;
+        } else if (!socialConnectionData.equals(other.socialConnectionData))
+            return false;
+        return true;
+    }
+
 }

@@ -53,7 +53,7 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
     }
 
     public boolean isParticipant(String player) {
-        for (PaymentOperation paymentOperation: paymentOperations)
+        for (PaymentOperation paymentOperation : paymentOperations)
             if (paymentOperation.getPlayer().equals(player))
                 return true;
         return false;
@@ -61,6 +61,18 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
 
     public Set<PaymentOperation> getPaymentOperations() {
         return paymentOperations;
+    }
+
+    public PaymentOperation getPaymentOperation(String player) {
+        // Step 1. Sanity check
+        if (player == null)
+            return null;
+        // Step 2. Processing payment
+        for (PaymentOperation paymentOperation : paymentOperations)
+            if (paymentOperation.getPlayer().equals(player))
+                return paymentOperation;
+        // Step 3. Returning nothing
+        return null;
     }
 
     public PaymentTransaction setPaymentOperations(Set<PaymentOperation> paymentOperations) {

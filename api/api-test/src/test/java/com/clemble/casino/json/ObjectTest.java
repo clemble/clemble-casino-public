@@ -1,5 +1,20 @@
 package com.clemble.casino.json;
 
+import static com.clemble.test.random.ObjectGenerator.register;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SecureRandom;
+import java.util.Collections;
+import java.util.Date;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.security.oauth.common.signature.RSAKeySecret;
+
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.Game;
@@ -39,70 +54,66 @@ import com.clemble.casino.player.PlayerCategory;
 import com.clemble.casino.player.PlayerGender;
 import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.security.PlayerCredential;
+import com.clemble.casino.utils.ClembleConsumerDetailUtils;
 import com.clemble.test.random.AbstractValueGenerator;
 import com.clemble.test.random.ObjectGenerator;
 import com.clemble.test.random.ValueGenerator;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
-import java.util.Collections;
-import java.util.Date;
-
 public class ObjectTest {
 
     public static void init() {
-        ObjectGenerator.register(FakeState.class, new AbstractValueGenerator<FakeState>() {
+        register(FakeState.class, new AbstractValueGenerator<FakeState>() {
             @Override
             public FakeState generate() {
                 GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A"), GameSpecification.DEFAULT);
                 return new FakeState(new GameContext(initiation), null, 0);
             }
         });
-        ObjectGenerator.register(GameSessionKey.class, new AbstractValueGenerator<GameSessionKey>() {
+        register(GameSessionKey.class, new AbstractValueGenerator<GameSessionKey>() {
             @Override
             public GameSessionKey generate() {
                 return new GameSessionKey(ObjectGenerator.generate(Game.class), ObjectGenerator.generate(String.class));
             }
         });
-        ObjectGenerator.register(GameUnit.class, new AbstractValueGenerator<GameUnit>() {
+        register(GameUnit.class, new AbstractValueGenerator<GameUnit>() {
             @Override
             public GameUnit generate() {
                 return Cell.create(0, 0);
             }
         });
-        ObjectGenerator.register(CellState.class, new AbstractValueGenerator<CellState>() {
+        register(CellState.class, new AbstractValueGenerator<CellState>() {
             @Override
             public CellState generate() {
                 return CellState.DEFAULT;
             }
         });
-        ObjectGenerator.register(FixedBetRule.class, new AbstractValueGenerator<FixedBetRule>() {
+        register(FixedBetRule.class, new AbstractValueGenerator<FixedBetRule>() {
             @Override
             public FixedBetRule generate() {
-                return FixedBetRule.create(new long[]{10});
+                return FixedBetRule.create(new long[] { 10 });
             }
         });
-        ObjectGenerator.register(GameAction.class, new AbstractValueGenerator<GameAction>() {
+        register(GameAction.class, new AbstractValueGenerator<GameAction>() {
             @Override
             public GameAction generate() {
                 return new GiveUpAction(RandomStringUtils.random(5));
             }
         });
-        ObjectGenerator.register(BetAction.class, new AbstractValueGenerator<BetAction>() {
+        register(BetAction.class, new AbstractValueGenerator<BetAction>() {
             @Override
             public BetAction generate() {
                 return new BetAction(RandomStringUtils.random(5), 100);
             }
         });
-        ObjectGenerator.register(PlayerAccount.class, new AbstractValueGenerator<PlayerAccount>() {
+        register(PlayerAccount.class, new AbstractValueGenerator<PlayerAccount>() {
             @Override
             public PlayerAccount generate() {
                 return new PlayerAccount(RandomStringUtils.random(5), ImmutableSet.of(Money.create(Currency.FakeMoney, 500)));
             }
         });
-        ObjectGenerator.register(PaymentTransaction.class, new AbstractValueGenerator<PaymentTransaction>() {
+        register(PaymentTransaction.class, new AbstractValueGenerator<PaymentTransaction>() {
             @Override
             public PaymentTransaction generate() {
                 return new PaymentTransaction()
@@ -117,14 +128,14 @@ public class ObjectTest {
                                         .setPlayer(RandomStringUtils.random(5)));
             }
         });
-        ObjectGenerator.register(PlayerCredential.class, new AbstractValueGenerator<PlayerCredential>() {
+        register(PlayerCredential.class, new AbstractValueGenerator<PlayerCredential>() {
             @Override
             public PlayerCredential generate() {
                 return new PlayerCredential().setEmail(RandomStringUtils.randomAlphabetic(10) + "@gmail.com").setPassword(RandomStringUtils.random(10))
                         .setPlayer(RandomStringUtils.random(5));
             }
         });
-        ObjectGenerator.register(PlayerProfile.class, new AbstractValueGenerator<PlayerProfile>() {
+        register(PlayerProfile.class, new AbstractValueGenerator<PlayerProfile>() {
             @Override
             public PlayerProfile generate() {
                 return new PlayerProfile().setBirthDate(new Date(0)).setCategory(PlayerCategory.Amateur).setFirstName(RandomStringUtils.randomAlphabetic(10))
@@ -132,22 +143,24 @@ public class ObjectTest {
                         .setPlayer(RandomStringUtils.random(5));
             }
         });
-        ObjectGenerator.register(GameRule.class, new AbstractValueGenerator<GameRule>() {
+        register(GameRule.class, new AbstractValueGenerator<GameRule>() {
             @Override
             public GameRule generate() {
                 return UnlimitedBetRule.INSTANCE;
             }
         });
-        ObjectGenerator.register(GameConstruction.class, new AbstractValueGenerator<GameConstruction>() {
+        register(GameConstruction.class, new AbstractValueGenerator<GameConstruction>() {
             @Override
             public GameConstruction generate() {
-                return new GameConstruction().setSession(new GameSessionKey(Game.pic, "0"))
+                return new GameConstruction()
+                        .setSession(new GameSessionKey(Game.pic, "0"))
                         .setRequest(new AutomaticGameRequest(RandomStringUtils.random(5), GameSpecification.DEFAULT))
-                        .setResponses(new ActionLatch().expectNext(ImmutableList.<String>of(RandomStringUtils.random(5), RandomStringUtils.random(5)), "response"))
+                        .setResponses(
+                                new ActionLatch().expectNext(ImmutableList.<String> of(RandomStringUtils.random(5), RandomStringUtils.random(5)), "response"))
                         .setState(GameConstructionState.pending);
             }
         });
-        ObjectGenerator.register(SelectRuleOptions.class, new AbstractValueGenerator<SelectRuleOptions>() {
+        register(SelectRuleOptions.class, new AbstractValueGenerator<SelectRuleOptions>() {
             @Override
             public SelectRuleOptions generate() {
                 return new SelectRuleOptions(Game.pic, Collections.singleton(Money.create(Currency.FakeMoney, 50)), new GameRuleOptions<BetRule>(
@@ -155,19 +168,19 @@ public class ObjectTest {
                         MoveTimeRule.DEFAULT_OPTIONS, TotalTimeRule.DEFAULT_OPTIONS);
             }
         });
-        ObjectGenerator.register(LimitedBetRule.class, new AbstractValueGenerator<LimitedBetRule>() {
+        register(LimitedBetRule.class, new AbstractValueGenerator<LimitedBetRule>() {
             @Override
             public LimitedBetRule generate() {
                 return LimitedBetRule.create(10, 200);
             }
         });
-        ObjectGenerator.register(GameSpecification.class, new AbstractValueGenerator<GameSpecification>() {
+        register(GameSpecification.class, new AbstractValueGenerator<GameSpecification>() {
             @Override
             public GameSpecification generate() {
                 return GameSpecification.DEFAULT;
             }
         });
-        ObjectGenerator.register(VersionAware.class, "version", new ValueGenerator<Integer>() {
+        register(VersionAware.class, "version", new ValueGenerator<Integer>() {
             @Override
             public Integer generate() {
                 return 0;
@@ -182,6 +195,32 @@ public class ObjectTest {
                 return this;
             }
         });
+
+        final RSAKeySecret rsaKey = ClembleConsumerDetailUtils.randomKey();
+        register(PrivateKey.class, new AbstractValueGenerator<PrivateKey>() {
+            @Override
+            public PrivateKey generate() {
+                return rsaKey.getPrivateKey();
+            }
+        });
+        register(PublicKey.class, new AbstractValueGenerator<PublicKey>() {
+            @Override
+            public PublicKey generate() {
+                return rsaKey.getPublicKey();
+            }
+        });
+        try {
+            final KeyGenerator AES = KeyGenerator.getInstance("AES");
+            AES.init(256, new SecureRandom());
+            register(SecretKey.class, new AbstractValueGenerator<SecretKey>() {
+                @Override
+                public SecretKey generate() {
+                    return AES.generateKey();
+                }
+            });
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
 }

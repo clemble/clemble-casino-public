@@ -2,6 +2,7 @@ package com.clemble.casino.player;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.social.oauth1.OAuthToken;
 import org.springframework.social.oauth2.AccessGrant;
 
@@ -58,6 +59,13 @@ public class SocialAccessGrant implements Serializable {
     }
 
     /**
+     * The Social Access
+     */
+    public String getSecret() {
+        return secret;
+    }
+
+    /**
      * The scope of the access grant.
      * May be null if the provider doesn't return the granted scope in the response.
      */
@@ -93,5 +101,60 @@ public class SocialAccessGrant implements Serializable {
      */
     public OAuthToken toOAuthToken() {
         return new OAuthToken(accessToken, secret);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((accessToken == null) ? 0 : accessToken.hashCode());
+        result = prime * result + ((expireTime == null) ? 0 : expireTime.hashCode());
+        result = prime * result + ((provider == null) ? 0 : provider.hashCode());
+        result = prime * result + ((refreshToken == null) ? 0 : refreshToken.hashCode());
+        result = prime * result + ((scope == null) ? 0 : scope.hashCode());
+        result = prime * result + ((secret == null) ? 0 : secret.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SocialAccessGrant other = (SocialAccessGrant) obj;
+        if (accessToken == null) {
+            if (other.accessToken != null)
+                return false;
+        } else if (!accessToken.equals(other.accessToken))
+            return false;
+        if (expireTime == null) {
+            if (other.expireTime != null)
+                return false;
+        } else if (!expireTime.equals(other.expireTime))
+            return false;
+        if (provider == null) {
+            if (other.provider != null)
+                return false;
+        } else if (!provider.equals(other.provider))
+            return false;
+        if (refreshToken == null) {
+            if (other.refreshToken != null)
+                return false;
+        } else if (!refreshToken.equals(other.refreshToken))
+            return false;
+        if (scope == null) {
+            if (other.scope != null)
+                return false;
+        } else if (!scope.equals(other.scope))
+            return false;
+        if (secret == null) {
+            if (other.secret != null)
+                return false;
+        } else if (!secret.equals(other.secret))
+            return false;
+        return true;
     }
 }

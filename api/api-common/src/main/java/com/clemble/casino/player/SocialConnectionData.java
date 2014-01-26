@@ -103,4 +103,56 @@ public class SocialConnectionData implements Serializable {
         return expireTime;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((accessToken == null) ? 0 : accessToken.hashCode());
+        result = prime * result + (int) (expireTime ^ (expireTime >>> 32));
+        result = prime * result + ((providerId == null) ? 0 : providerId.hashCode());
+        result = prime * result + ((providerUserId == null) ? 0 : providerUserId.hashCode());
+        result = prime * result + ((refreshToken == null) ? 0 : refreshToken.hashCode());
+        result = prime * result + ((secret == null) ? 0 : secret.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SocialConnectionData other = (SocialConnectionData) obj;
+        if (accessToken == null) {
+            if (other.accessToken != null)
+                return false;
+        } else if (!accessToken.equals(other.accessToken))
+            return false;
+        if (expireTime != other.expireTime)
+            return false;
+        if (providerId == null) {
+            if (other.providerId != null)
+                return false;
+        } else if (!providerId.equals(other.providerId))
+            return false;
+        if (providerUserId == null) {
+            if (other.providerUserId != null)
+                return false;
+        } else if (!providerUserId.equals(other.providerUserId))
+            return false;
+        if (refreshToken == null) {
+            if (other.refreshToken != null)
+                return false;
+        } else if (!refreshToken.equals(other.refreshToken))
+            return false;
+        if (secret == null) {
+            if (other.secret != null)
+                return false;
+        } else if (!secret.equals(other.secret))
+            return false;
+        return true;
+    }
+
 }

@@ -49,4 +49,47 @@ public class ServerRegistryConfiguration {
         return gameRegistry;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((gameRegistry == null) ? 0 : gameRegistry.hashCode());
+        result = prime * result + ((paymentBaseUrl == null) ? 0 : paymentBaseUrl.hashCode());
+        result = prime * result + ((playerNotificationBaseUrl == null) ? 0 : playerNotificationBaseUrl.hashCode());
+        result = prime * result + ((playerRegistry == null) ? 0 : playerRegistry.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ServerRegistryConfiguration other = (ServerRegistryConfiguration) obj;
+        if (gameRegistry == null) {
+            if (other.gameRegistry != null)
+                return false;
+        } else if (!gameRegistry.equals(other.gameRegistry))
+            return false;
+        if (paymentBaseUrl == null) {
+            if (other.paymentBaseUrl != null)
+                return false;
+        } else if (!paymentBaseUrl.equals(other.paymentBaseUrl))
+            return false;
+        if (playerNotificationBaseUrl == null) {
+            if (other.playerNotificationBaseUrl != null)
+                return false;
+        } else if (!playerNotificationBaseUrl.equals(other.playerNotificationBaseUrl))
+            return false;
+        if (playerRegistry == null) {
+            if (other.playerRegistry != null)
+                return false;
+        } else if (!playerRegistry.equals(other.playerRegistry))
+            return false;
+        return true;
+    }
+
 }
