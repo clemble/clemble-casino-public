@@ -10,70 +10,66 @@ import java.util.Set;
 
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
-import com.clemble.casino.game.GamePlayerRole;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.specification.GameSpecification;
-import com.clemble.casino.game.specification.GameSpecificationAware;
-import com.clemble.casino.player.PlayerAwareUtils;
+import com.clemble.casino.game.specification.GameConfiguration;
+import com.clemble.casino.game.specification.GameConfigurationAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GameInitiation implements GameSpecificationAware, GameSessionAware {
+public class GameInitiation implements GameConfigurationAware, GameSessionAware {
 
     /**
      * Generated 10/07/13
      */
     private static final long serialVersionUID = -8584404446775359390L;
 
-    final private GameSessionKey session;
-    final private GameSpecification specification;
-    final private LinkedHashSet<GamePlayerRole> participants = new LinkedHashSet<GamePlayerRole>();
+    final private GameSessionKey sessionKey;
+    final private GameConfiguration configuration;
+
+    final private LinkedHashSet<String> participants = new LinkedHashSet<String>();
     // TODO find a better implementation for this
     final private Set<String> confirmations = Collections.synchronizedSet(new LinkedHashSet<String>());
 
     public GameInitiation(GameConstruction construction) {
-        this(construction.getSession(), construction.fetchAcceptedParticipants(), construction.getRequest().getSpecification());
+        this(construction.getSession(), construction.fetchAcceptedParticipants(), construction.getRequest().getConfiguration());
     }
 
-    public GameInitiation(GameSessionKey session, List<String> participants, GameSpecification specification) {
-        this.specification = checkNotNull(specification);
-        this.session = checkNotNull(session);
-
-        List<String> roles = checkNotNull(specification.getRoles());
-        for (int i = 0; i < participants.size(); i++)
-            this.participants.add(new GamePlayerRole(participants.get(i), roles.get(i)));
+    public GameInitiation(GameSessionKey session, List<String> participants, GameConfiguration specification) {
+        this.configuration = checkNotNull(specification);
+        this.sessionKey = checkNotNull(session);
+        this.participants.addAll(participants);
     }
 
-    public GameInitiation(GameSessionKey session, GameSpecification specification, Collection<GamePlayerRole> playerRoles) {
-        this.specification = checkNotNull(specification);
-        this.session = checkNotNull(session);
-        this.participants.addAll(playerRoles);
+    public GameInitiation(GameSessionKey session, GameConfiguration specification, Collection<String> participants) {
+        this.configuration = checkNotNull(specification);
+        this.sessionKey = checkNotNull(session);
+        this.participants.addAll(participants);
     }
 
     @JsonCreator
     public GameInitiation(@JsonProperty("session") GameSessionKey session,
-            @JsonProperty("specification") GameSpecification specification,
-            @JsonProperty("participants") Collection<GamePlayerRole> playerRoles,
+            @JsonProperty("configuration") GameConfiguration specification,
+            @JsonProperty("participants") Collection<String> playerRoles,
             @JsonProperty("confirmations") Collection<String> confirmations) {
-        this.specification = checkNotNull(specification);
-        this.session = checkNotNull(session);
+        this.configuration = checkNotNull(specification);
+        this.sessionKey = checkNotNull(session);
         this.participants.addAll(playerRoles);
         this.confirmations.addAll(confirmations);
     }
 
     @Override
-    public GameSpecification getSpecification() {
-        return specification;
+    public GameConfiguration getConfiguration() {
+        return configuration;
     }
 
-    public LinkedHashSet<GamePlayerRole> getParticipants() {
+    public LinkedHashSet<String> getParticipants() {
         return participants;
     }
 
     @Override
     public GameSessionKey getSession() {
-        return session;
+        return sessionKey;
     }
 
     public Set<String> getConfirmations() {
@@ -87,7 +83,7 @@ public class GameInitiation implements GameSpecificationAware, GameSessionAware 
 
     public void addConfirmation(String player) {
         // Step 1. Sanity check
-        if (!PlayerAwareUtils.contains(participants, player))
+        if (!participants.contains(player))
             throw ClembleCasinoException.fromError(ClembleCasinoError.GameInitiationInvalidPlayer);
         // Step 2. Adding to list of confirmed users
         this.confirmations.add(player);
@@ -103,8 +99,8 @@ public class GameInitiation implements GameSpecificationAware, GameSessionAware 
         int result = 1;
         result = prime * result + ((confirmations == null) ? 0 : confirmations.hashCode());
         result = prime * result + ((participants == null) ? 0 : participants.hashCode());
-        result = prime * result + ((session == null) ? 0 : session.hashCode());
-        result = prime * result + ((specification == null) ? 0 : specification.hashCode());
+        result = prime * result + ((sessionKey == null) ? 0 : sessionKey.hashCode());
+        result = prime * result + ((configuration == null) ? 0 : configuration.hashCode());
         return result;
     }
 
@@ -127,22 +123,22 @@ public class GameInitiation implements GameSpecificationAware, GameSessionAware 
                 return false;
         } else if (!participants.equals(other.participants))
             return false;
-        if (session == null) {
-            if (other.session != null)
+        if (sessionKey == null) {
+            if (other.sessionKey != null)
                 return false;
-        } else if (!session.equals(other.session))
+        } else if (!sessionKey.equals(other.sessionKey))
             return false;
-        if (specification == null) {
-            if (other.specification != null)
+        if (configuration == null) {
+            if (other.configuration != null)
                 return false;
-        } else if (!specification.equals(other.specification))
+        } else if (!configuration.equals(other.configuration))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "initiation:" + session + ":" + participants + ":" + confirmations;
+        return "initiation:" + sessionKey + ":" + participants + ":" + confirmations;
     }
 
 }

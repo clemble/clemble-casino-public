@@ -1,11 +1,10 @@
 package com.clemble.casino.game.rule.construct;
 
-import com.clemble.casino.game.configuration.GameRuleOptions;
-import com.clemble.casino.game.rule.GameRule;
+import com.clemble.casino.game.rule.ConfigurationRule;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("participants")
-public enum PlayerNumberRule implements GameRule {
+public enum PlayerNumberRule implements ConfigurationRule {
 
     two(2, 2),
     twoToSix(2, 6);
@@ -27,6 +26,5 @@ public enum PlayerNumberRule implements GameRule {
     }
 
     final static public PlayerNumberRule DEFAULT = PlayerNumberRule.two;
-    final static public GameRuleOptions<PlayerNumberRule> DEFAULT_OPTIONS = new GameRuleOptions<PlayerNumberRule>(DEFAULT);
 
 }

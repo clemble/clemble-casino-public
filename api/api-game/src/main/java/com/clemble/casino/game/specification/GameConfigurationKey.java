@@ -1,7 +1,5 @@
 package com.clemble.casino.game.specification;
 
-import java.util.Arrays;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
@@ -13,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Embeddable
-public class GameSpecificationKey implements GameAware {
+public class GameConfigurationKey implements GameAware {
 
     /**
      * Generated 13/04/13
@@ -27,11 +25,11 @@ public class GameSpecificationKey implements GameAware {
     @Column(name = "SPECIFICATION_NAME")
     private String specificationName = "";
 
-    public GameSpecificationKey() {
+    public GameConfigurationKey() {
     }
 
     @JsonCreator
-    public GameSpecificationKey(@JsonProperty("game") Game game, @JsonProperty("group") String group) {
+    public GameConfigurationKey(@JsonProperty("game") Game game, @JsonProperty("group") String group) {
         this.game = game;
         this.specificationName = group;
     }
@@ -41,7 +39,7 @@ public class GameSpecificationKey implements GameAware {
         return game;
     }
 
-    public GameSpecificationKey setGame(Game game) {
+    public GameConfigurationKey setGame(Game game) {
         this.game = game;
         return this;
     }
@@ -50,20 +48,9 @@ public class GameSpecificationKey implements GameAware {
         return specificationName;
     }
 
-    public GameSpecificationKey setSpecificationName(String specificationName) {
+    public GameConfigurationKey setSpecificationName(String specificationName) {
         this.specificationName = specificationName;
         return this;
-    }
-
-    public byte[] toByteArray() {
-        byte[] nameBytes = new byte[]{(byte) game.ordinal()};
-        byte[] groupBytes = specificationName.getBytes();
-        byte[] results = Arrays.copyOf(nameBytes, nameBytes.length + groupBytes.length);
-
-        for (int i = nameBytes.length, j = 0; j < groupBytes.length; i++, j++)
-            results[i] = groupBytes[j];
-
-        return results;
     }
 
     @Override
@@ -83,7 +70,7 @@ public class GameSpecificationKey implements GameAware {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameSpecificationKey other = (GameSpecificationKey) obj;
+        GameConfigurationKey other = (GameConfigurationKey) obj;
         if (specificationName == null) {
             if (other.specificationName != null)
                 return false;
@@ -99,7 +86,7 @@ public class GameSpecificationKey implements GameAware {
 
     @Override
     public String toString(){
-        return "specKey:" + game + ":" + specificationName;
+        return game + ":" + specificationName;
     }
 
 }

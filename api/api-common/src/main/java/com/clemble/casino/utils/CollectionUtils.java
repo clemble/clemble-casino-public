@@ -32,11 +32,20 @@ public class CollectionUtils {
 
     public static <K, V> Map<K, V> immutableMap(Collection<Map.Entry<K, V>> entrySet) {
         Map<K, V> resultMap = new HashMap<K, V>();
-        for(Map.Entry<K, V> entry: entrySet) {
-            if(entry != null)
+        for (Map.Entry<K, V> entry : entrySet) {
+            if (entry != null)
                 resultMap.put(entry.getKey(), entry.getValue());
         }
         return Collections.unmodifiableMap(resultMap);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <S, T> Collection<T> filter(Collection<S> sourceCollection, Class<T> target) {
+        Collection<T> filtered = new ArrayList<T>();
+        for (S source : sourceCollection)
+            if (source.getClass() == target)
+                filtered.add((T) source);
+        return filtered;
     }
 
 }

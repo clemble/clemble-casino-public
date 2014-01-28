@@ -27,12 +27,12 @@ public class AndroidGameConstructionService<T extends GameState> extends Abstrac
     }
 
     @Override
-    public GameConstruction construct(PlayerGameConstructionRequest gameRequest) {
+    public GameConstruction automatch(PlayerGameConstructionRequest gameRequest) {
         return restTemplate.postForObject(buildUriWith(GAME_SESSIONS), gameRequest, GameConstruction.class);
     }
 
     @Override
-    public GameConstruction getConstruct(Game game, String session) {
+    public GameConstruction getConstruction(Game game, String session) {
         return restTemplate.getForObject(buildUriWith(GAME_CONSTRUCTION, game, session), GameConstruction.class);
     }
 

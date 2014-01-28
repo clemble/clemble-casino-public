@@ -8,12 +8,11 @@ import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -23,13 +22,12 @@ import org.hibernate.annotations.Type;
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
-import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.specification.GameSpecification;
-import com.clemble.casino.game.specification.GameSpecificationAware;
+import com.clemble.casino.game.specification.GameConfigurationKey;
+import com.clemble.casino.game.specification.GameConfigurationKeyAware;
 
 @Entity
 @Table(name = "GAME_SESSION")
-public class GameSession<State extends GameState> implements GameSpecificationAware, GameSessionAware, VersionAware, Serializable {
+public class GameSession<State extends GameState> implements GameConfigurationKeyAware, GameSessionAware, VersionAware, Serializable {
 
     /**
      * Generated 16/02/13
@@ -39,11 +37,8 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
     @EmbeddedId
     private GameSessionKey session;
 
-    @ManyToOne
-    @JoinColumns(value = {
-            @JoinColumn(name = "SPECIFICATION_NAME", referencedColumnName = "SPECIFICATION_NAME"),
-            @JoinColumn(name = "GAME_NAME", referencedColumnName = "GAME_NAME") })
-    private GameSpecification specification;
+    @Embedded
+    private GameConfigurationKey configurationKey;
 
     @Column(name = "SESSION_STATE")
     private GameSessionState sessionState;
@@ -81,12 +76,12 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
     }
 
     @Override
-    public GameSpecification getSpecification() {
-        return specification;
+    public GameConfigurationKey getConfigurationKey() {
+        return configurationKey;
     }
 
-    public GameSession<State> setSpecification(GameSpecification specification) {
-        this.specification = specification;
+    public GameSession<State> setConfiguration(GameConfigurationKey configurationKey) {
+        this.configurationKey = configurationKey;
         return this;
     }
 
@@ -143,12 +138,6 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
         return this;
     }
 
-    public GameInitiation toInitiation() {
-        GameInitiation initiation = new GameInitiation(session, players, specification);
-        initiation.addConfirmations(players);
-        return initiation;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -157,7 +146,7 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
         result = prime * result + ((players == null) ? 0 : players.hashCode());
         result = prime * result + ((session == null) ? 0 : session.hashCode());
         result = prime * result + ((sessionState == null) ? 0 : sessionState.hashCode());
-        result = prime * result + ((specification == null) ? 0 : specification.hashCode());
+        result = prime * result + ((configurationKey == null) ? 0 : configurationKey.hashCode());
         return result;
     }
 
@@ -185,10 +174,10 @@ public class GameSession<State extends GameState> implements GameSpecificationAw
             return false;
         if (sessionState != other.sessionState)
             return false;
-        if (specification == null) {
-            if (other.specification != null)
+        if (configurationKey == null) {
+            if (other.configurationKey != null)
                 return false;
-        } else if (!specification.equals(other.specification))
+        } else if (!configurationKey.equals(other.configurationKey))
             return false;
         return true;
     }

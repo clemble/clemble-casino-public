@@ -5,10 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("playerWon")
+// TODO make PlayerAware
 public class PlayerWonOutcome extends GameOutcome {
 
     /**
-     * 
+     * Generated 22/01/14
      */
     private static final long serialVersionUID = -3259192146118069428L;
 

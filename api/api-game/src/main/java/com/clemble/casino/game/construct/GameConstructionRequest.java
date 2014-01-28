@@ -2,32 +2,32 @@ package com.clemble.casino.game.construct;
 
 import java.io.Serializable;
 
-import com.clemble.casino.game.specification.GameSpecification;
-import com.clemble.casino.game.specification.GameSpecificationAware;
+import com.clemble.casino.game.specification.GameConfiguration;
+import com.clemble.casino.game.specification.GameConfigurationAware;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-abstract public class GameConstructionRequest implements GameSpecificationAware, Serializable {
+abstract public class GameConstructionRequest implements GameConfigurationAware, Serializable {
 
     /**
      * Generated 28/11/13
      */
     private static final long serialVersionUID = -7124151122750295287L;
 
-    final private GameSpecification specification;
+    final private GameConfiguration configuration;
 
-    public GameConstructionRequest(GameSpecification specification) {
-        this.specification = specification;
+    public GameConstructionRequest(GameConfiguration specification) {
+        this.configuration = specification;
     }
 
     @Override
-    public GameSpecification getSpecification() {
-        return specification;
+    public GameConfiguration getConfiguration() {
+        return configuration;
     }
 
     @Override
     public int hashCode() {
-        return ((specification == null) ? 0 : specification.hashCode());
+        return ((configuration == null) ? 0 : configuration.hashCode());
     }
 
     @Override
@@ -39,10 +39,10 @@ abstract public class GameConstructionRequest implements GameSpecificationAware,
         if (getClass() != obj.getClass())
             return false;
         GameConstructionRequest other = (GameConstructionRequest) obj;
-        if (specification == null) {
-            if (other.specification != null)
+        if (configuration == null) {
+            if (other.configuration != null)
                 return false;
-        } else if (!specification.equals(other.specification))
+        } else if (!configuration.equals(other.configuration))
             return false;
         return true;
     }

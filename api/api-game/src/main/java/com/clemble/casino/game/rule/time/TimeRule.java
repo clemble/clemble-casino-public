@@ -4,9 +4,9 @@ import java.util.Date;
 
 import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.action.GameAction;
-import com.clemble.casino.game.rule.GameRule;
+import com.clemble.casino.game.rule.MatchRule;
 
-public interface TimeRule extends GameRule {
+public interface TimeRule extends MatchRule {
 
     public TimeBreachPunishment getPunishment();
 

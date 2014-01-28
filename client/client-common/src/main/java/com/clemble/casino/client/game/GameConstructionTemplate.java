@@ -3,6 +3,7 @@ package com.clemble.casino.client.game;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
@@ -13,7 +14,6 @@ import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.configuration.GameSpecificationOptions;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
@@ -22,10 +22,12 @@ import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 import com.clemble.casino.game.event.schedule.InvitationDeclinedEvent;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
+import com.clemble.casino.game.service.GameConfigurationService;
 import com.clemble.casino.game.service.GameConstructionService;
 import com.clemble.casino.game.service.GameInitiationService;
-import com.clemble.casino.game.service.GameSpecificationService;
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.game.specification.MatchGameConfiguration;
+import com.clemble.casino.game.specification.PotGameConfiguration;
+import com.clemble.casino.game.specification.TournamentGameConfiguration;
 import com.clemble.casino.utils.CollectionUtils;
 
 public class GameConstructionTemplate<T extends GameState> implements GameConstructionOperations<T> {
@@ -40,7 +42,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     final private Game game;
     final private GameActionOperationsFactory actionOperationFactory;
     final private EventListenerOperations listenersManager;
-    final private GameSpecificationService specificationService;
+    final private GameConfigurationService specificationService;
     final private GameConstructionService constructionService;
     final private GameInitiationService initiationService;
 
@@ -49,7 +51,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
             GameActionOperationsFactory actionOperations,
             GameConstructionService constructionService,
             GameInitiationService initiationService,
-            GameSpecificationService specificationService,
+            GameConfigurationService specificationService,
             EventListenerOperations listenersManager) {
         this.player = checkNotNull(player);
         this.game = checkNotNull(game);
@@ -66,17 +68,12 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public GameSpecificationOptions get() {
-        return specificationService.getSpecificationOptions(player, game);
-    }
-
-    @Override
     public GameConstruction construct(PlayerGameConstructionRequest gameRequest) {
-        return constructionService.construct(gameRequest);
+        return constructionService.automatch(gameRequest);
     }
 
     @Override
-    public GameConstruction constructAutomatch(GameSpecification specification) {
+    public GameConstruction constructAutomatch(MatchGameConfiguration specification) {
         // Step 1. Constructing automatic request
         PlayerGameConstructionRequest automaticGameRequest = new AutomaticGameRequest(player, specification);
         // Step 2. Making actual construction
@@ -84,12 +81,12 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public GameConstruction constructAvailability(GameSpecification specification, String... players) {
+    public GameConstruction constructAvailability(MatchGameConfiguration specification, String... players) {
         return constructAvailability(specification, CollectionUtils.immutableList(players));
     }
 
     @Override
-    public GameConstruction constructAvailability(GameSpecification specification, Collection<String> participants) {
+    public GameConstruction constructAvailability(MatchGameConfiguration specification, Collection<String> participants) {
         // Step 1. Constructing availability request
         PlayerGameConstructionRequest availabilityGameRequest = new AvailabilityGameRequest(player, specification, participants);
         // Step 2. Making actual construction
@@ -98,7 +95,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
 
     @Override
     public GameConstruction getConstruct(String session) {
-        return constructionService.getConstruct(game, session);
+        return constructionService.getConstruction(game, session);
     }
 
     @Override
@@ -147,6 +144,21 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
 
     private GameSessionKey toSessionKey(String session) {
         return new GameSessionKey(game, session);
+    }
+
+    @Override
+    public List<MatchGameConfiguration> getMatchConfigurations() {
+        return specificationService.getMatchConfigurations();
+    }
+
+    @Override
+    public List<PotGameConfiguration> getPotConfigurations() {
+        return specificationService.getPotConfigurations();
+    }
+
+    @Override
+    public List<TournamentGameConfiguration> getTournamentConfigurations() {
+        return specificationService.getTournamentConfigurations();
     }
 
 }

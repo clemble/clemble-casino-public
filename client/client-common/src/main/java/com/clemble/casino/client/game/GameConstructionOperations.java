@@ -12,9 +12,9 @@ import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.game.specification.MatchGameConfiguration;
 
-public interface GameConstructionOperations<T extends GameState> extends GameSpecificationOperations, GameAware {
+public interface GameConstructionOperations<T extends GameState> extends GameConfigurationOperations, GameAware {
 
     public GameConstruction getConstruct(final String session);
 
@@ -22,11 +22,11 @@ public interface GameConstructionOperations<T extends GameState> extends GameSpe
 
     public GameConstruction construct(final PlayerGameConstructionRequest gameRequest);
 
-    public GameConstruction constructAutomatch(final GameSpecification specification);
+    public GameConstruction constructAutomatch(final MatchGameConfiguration specification);
 
-    public GameConstruction constructAvailability(final GameSpecification specification, String ... players);
+    public GameConstruction constructAvailability(final MatchGameConfiguration specification, String ... players);
 
-    public GameConstruction constructAvailability(final GameSpecification specification, Collection<String> players);
+    public GameConstruction constructAvailability(final MatchGameConfiguration specification, Collection<String> players);
 
     public GameConstruction accept(final String session);
 

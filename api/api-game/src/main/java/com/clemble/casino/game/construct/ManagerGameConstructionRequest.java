@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.game.GamePlayerRole;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,8 +24,8 @@ public class ManagerGameConstructionRequest extends ServerGameConstructionReques
     final private GameSessionKey sessionKey;
 
     @JsonCreator
-    public ManagerGameConstructionRequest(@JsonProperty("participants") Collection<GamePlayerRole> participants, @JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("specification") GameSpecification specification) {
-        super(specification);
+    public ManagerGameConstructionRequest(@JsonProperty("participants") Collection<GamePlayerRole> participants, @JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("configuration") GameConfiguration configuration) {
+        super(configuration);
         this.sessionKey = sessionKey;
         this.participants = CollectionUtils.immutableList(participants);
     }

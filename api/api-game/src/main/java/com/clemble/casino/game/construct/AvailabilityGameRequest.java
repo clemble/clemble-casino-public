@@ -2,7 +2,7 @@ package com.clemble.casino.game.construct;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,16 +20,16 @@ public class AvailabilityGameRequest extends PlayerGameConstructionRequest imple
     final private GameDeclineBehavior declineBehavior;
     final private Collection<String> participants;
 
-    public AvailabilityGameRequest(String player, GameSpecification specification, Collection<String> participants) {
-        this(player, specification, participants, GameDeclineBehavior.invalidate);
+    public AvailabilityGameRequest(String player, GameConfiguration configuration, Collection<String> participants) {
+        this(player, configuration, participants, GameDeclineBehavior.invalidate);
     }
 
     @JsonCreator
     public AvailabilityGameRequest(@JsonProperty(PlayerAware.JSON_ID) String player,
-            @JsonProperty("specification") GameSpecification specification,
+            @JsonProperty("configuration") GameConfiguration configuration,
             @JsonProperty("participants") Collection<String> participants,
             @JsonProperty("declineBehavior") GameDeclineBehavior declineBehavior) {
-        super(player, specification);
+        super(player, configuration);
         this.declineBehavior = declineBehavior != null ? declineBehavior : GameDeclineBehavior.invalidate;
         this.participants = CollectionUtils.immutableList(participants);
     }

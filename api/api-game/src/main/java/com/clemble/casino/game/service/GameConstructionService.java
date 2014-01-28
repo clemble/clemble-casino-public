@@ -8,9 +8,9 @@ import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 
 public interface GameConstructionService {
 
-    public GameConstruction construct(final PlayerGameConstructionRequest gameRequest);
+    public GameConstruction automatch(final PlayerGameConstructionRequest gameRequest);
 
-    public GameConstruction getConstruct(final Game game, final String session);
+    public GameConstruction getConstruction(final Game game, final String session);
 
     public PlayerAwareEvent getResponce(final Game game, final String session, final String player);
 

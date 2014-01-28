@@ -7,14 +7,10 @@ import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.MoveTimeoutSurrenderAction;
 import com.clemble.casino.game.configuration.GameRuleOptions;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
-@Embeddable
 @JsonTypeName("moveTime")
 public class MoveTimeRule implements TimeRule {
 
@@ -23,24 +19,20 @@ public class MoveTimeRule implements TimeRule {
      */
     private static final long serialVersionUID = -2949008185370674021L;
 
-    final public static MoveTimeRule DEFAULT = new MoveTimeRule().setPunishment(TimeBreachPunishment.loose).setLimit(0);
-
+    final public static MoveTimeRule DEFAULT = new MoveTimeRule(0, TimeBreachPunishment.loose);
     final public static GameRuleOptions<MoveTimeRule> DEFAULT_OPTIONS = new GameRuleOptions<MoveTimeRule>(DEFAULT);
 
-    @Column(name = "MOVE_TIME_PUNISHMENT")
-    @Enumerated(EnumType.STRING)
-    private TimeBreachPunishment punishment;
+    final private TimeBreachPunishment punishment;
+    final private long limit;
 
-    @Column(name = "MOVE_TIME_LIMIT")
-    private long limit;
+    @JsonCreator
+    public MoveTimeRule(@JsonProperty("limit") long limit, @JsonProperty("punishment") TimeBreachPunishment breachPunishment) {
+        this.limit = limit;
+        this.punishment = breachPunishment;
+    }
 
     public TimeBreachPunishment getPunishment() {
         return punishment;
-    }
-
-    public MoveTimeRule setPunishment(TimeBreachPunishment punishment) {
-        this.punishment = punishment;
-        return this;
     }
 
     @Override
@@ -72,11 +64,6 @@ public class MoveTimeRule implements TimeRule {
     @Override
     public long getLimit() {
         return limit;
-    }
-
-    public MoveTimeRule setLimit(int limit) {
-        this.limit = limit;
-        return this;
     }
 
     @Override

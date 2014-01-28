@@ -1,10 +1,11 @@
 package com.clemble.casino.game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.game.specification.MatchGameConfiguration;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -52,13 +53,14 @@ public class GamePlayerContext implements PlayerAware, GameRoleAware, GameClockA
         return role;
     }
 
-    public static List<GamePlayerContext> construct(GameInitiation initiation) {
+    public static List<GamePlayerContext> construct(GameInitiation initiation, MatchGameConfiguration specification) {
         List<GamePlayerContext> playerContexts = new ArrayList<GamePlayerContext>();
-        GameSpecification specification = initiation.getSpecification();
-        for(GamePlayerRole playerToRole: initiation.getParticipants()) {
-            GamePlayerAccount account = new GamePlayerAccount(specification);
+        Iterator<String> players = initiation.getParticipants().iterator();
+        for(String role: specification.getRoles()) {
+            String player = players.next();
+            GamePlayerAccount account = new GamePlayerAccount(specification.getPrice());
             GamePlayerClock clock = new GamePlayerClock(0, 0);
-            playerContexts.add(new GamePlayerContext(playerToRole.getPlayer(), account, clock, playerToRole.getRole()));
+            playerContexts.add(new GamePlayerContext(player, account, clock, role));
         }
         return playerContexts;
     }

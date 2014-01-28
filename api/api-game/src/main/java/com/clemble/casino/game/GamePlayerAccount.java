@@ -2,7 +2,7 @@ package com.clemble.casino.game;
 
 import java.io.Serializable;
 
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.payment.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,8 +34,8 @@ public class GamePlayerAccount implements Serializable {
         this.owned = owned;
     }
 
-    public GamePlayerAccount(GameSpecification specification) {
-        this(specification.getPrice().getAmount());
+    public GamePlayerAccount(Money price) {
+        this(price.getAmount());
     }
 
     public long getLeft() {

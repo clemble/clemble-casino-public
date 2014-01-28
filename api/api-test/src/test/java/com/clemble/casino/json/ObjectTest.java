@@ -6,7 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.util.Collections;
 import java.util.Date;
 
 import javax.crypto.KeyGenerator;
@@ -25,23 +24,20 @@ import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
 import com.clemble.casino.game.cell.Cell;
 import com.clemble.casino.game.cell.CellState;
-import com.clemble.casino.game.configuration.GameRuleOptions;
-import com.clemble.casino.game.configuration.SelectRuleOptions;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameConstructionState;
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.rule.GameRule;
-import com.clemble.casino.game.rule.bet.BetRule;
+import com.clemble.casino.game.rule.MatchRule;
 import com.clemble.casino.game.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.bet.LimitedBetRule;
 import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
-import com.clemble.casino.game.rule.giveup.GiveUpRule;
-import com.clemble.casino.game.rule.time.MoveTimeRule;
-import com.clemble.casino.game.rule.time.TotalTimeRule;
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.game.specification.GameConfiguration;
+import com.clemble.casino.game.specification.GameConfigurationKey;
+import com.clemble.casino.game.specification.MatchGameConfiguration;
+import com.clemble.casino.game.specification.TournamentGameConfiguration;
 import com.clemble.casino.game.unit.GameUnit;
 import com.clemble.casino.payment.PaymentOperation;
 import com.clemble.casino.payment.PaymentTransaction;
@@ -67,8 +63,8 @@ public class ObjectTest {
         register(FakeState.class, new AbstractValueGenerator<FakeState>() {
             @Override
             public FakeState generate() {
-                GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A"), GameSpecification.DEFAULT);
-                return new FakeState(new GameContext(initiation), null, 0);
+                GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A", "B"), MatchGameConfiguration.DEFAULT);
+                return new FakeState(new GameContext(initiation, MatchGameConfiguration.DEFAULT), null, 0);
             }
         });
         register(GameSessionKey.class, new AbstractValueGenerator<GameSessionKey>() {
@@ -143,9 +139,9 @@ public class ObjectTest {
                         .setPlayer(RandomStringUtils.random(5));
             }
         });
-        register(GameRule.class, new AbstractValueGenerator<GameRule>() {
+        register(MatchRule.class, new AbstractValueGenerator<MatchRule>() {
             @Override
-            public GameRule generate() {
+            public MatchRule generate() {
                 return UnlimitedBetRule.INSTANCE;
             }
         });
@@ -154,18 +150,9 @@ public class ObjectTest {
             public GameConstruction generate() {
                 return new GameConstruction()
                         .setSession(new GameSessionKey(Game.pic, "0"))
-                        .setRequest(new AutomaticGameRequest(RandomStringUtils.random(5), GameSpecification.DEFAULT))
-                        .setResponses(
-                                new ActionLatch().expectNext(ImmutableList.<String> of(RandomStringUtils.random(5), RandomStringUtils.random(5)), "response"))
+                        .setRequest(new AutomaticGameRequest(RandomStringUtils.random(5), MatchGameConfiguration.DEFAULT))
+                        .setResponses(new ActionLatch().expectNext(ImmutableList.<String> of(RandomStringUtils.random(5), RandomStringUtils.random(5)), "response"))
                         .setState(GameConstructionState.pending);
-            }
-        });
-        register(SelectRuleOptions.class, new AbstractValueGenerator<SelectRuleOptions>() {
-            @Override
-            public SelectRuleOptions generate() {
-                return new SelectRuleOptions(Game.pic, Collections.singleton(Money.create(Currency.FakeMoney, 50)), new GameRuleOptions<BetRule>(
-                        FixedBetRule.DEFAULT), GiveUpRule.DEFAULT_OPTIONS, PlayerNumberRule.DEFAULT_OPTIONS, PrivacyRule.DEFAULT_OPTIONS,
-                        MoveTimeRule.DEFAULT_OPTIONS, TotalTimeRule.DEFAULT_OPTIONS);
             }
         });
         register(LimitedBetRule.class, new AbstractValueGenerator<LimitedBetRule>() {
@@ -174,10 +161,10 @@ public class ObjectTest {
                 return LimitedBetRule.create(10, 200);
             }
         });
-        register(GameSpecification.class, new AbstractValueGenerator<GameSpecification>() {
+        register(MatchGameConfiguration.class, new AbstractValueGenerator<MatchGameConfiguration>() {
             @Override
-            public GameSpecification generate() {
-                return GameSpecification.DEFAULT;
+            public MatchGameConfiguration generate() {
+                return MatchGameConfiguration.DEFAULT;
             }
         });
         register(VersionAware.class, "version", new ValueGenerator<Integer>() {
@@ -193,6 +180,18 @@ public class ObjectTest {
 
             public ValueGenerator<Integer> clone() {
                 return this;
+            }
+        });
+        register(GameConfiguration.class, new AbstractValueGenerator<GameConfiguration>() {
+            @Override
+            public GameConfiguration generate() {
+                return MatchGameConfiguration.DEFAULT;
+            }
+        });
+        register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
+            @Override
+            public TournamentGameConfiguration generate() {
+                return new TournamentGameConfiguration(new GameConfigurationKey(Game.pic, "AAA"), new Money(Currency.FakeMoney, 50), PrivacyRule.players, PlayerNumberRule.two, MatchGameConfiguration.DEFAULT);
             }
         });
 

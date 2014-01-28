@@ -1,6 +1,7 @@
 package com.clemble.casino.player;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,23 @@ public class PlayerAwareUtils {
         }
         // Step 2. Creating immutable map from tmp map
         return tmpMap;
+    }
+    
+    public static <M extends PlayerAware> Map<String, Collection<M>> toMultivalueMap(Iterable<? extends M> sourceCollection) {
+     // Step 0. Sanity check
+        if (sourceCollection == null)
+            return Collections.emptyMap();
+        // Step 1. Converting to Map
+        HashMap<String, Collection<M>> tmpMultivalueMap = new HashMap<String, Collection<M>>();
+        for (M value : sourceCollection) {
+            if (value != null) {
+                if (tmpMultivalueMap.get(value.getPlayer()) == null)
+                    tmpMultivalueMap.put(value.getPlayer(), new ArrayList<M>());
+                tmpMultivalueMap.get(value.getPlayer()).add(value);
+            }
+        }
+        // Step 2. Creating immutable map from tmp map
+        return tmpMultivalueMap;
     }
 
     public static <M extends PlayerAware> Map<String, M> toImmutableMap(Iterable<? extends M> sourceCollection) {

@@ -3,7 +3,7 @@ package com.clemble.casino.game.construct;
 import java.util.Collection;
 import java.util.Date;
 
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,11 +23,11 @@ public class ScheduledGameRequest extends PlayerGameConstructionRequest {
 
     @JsonCreator
     public ScheduledGameRequest(@JsonProperty(PlayerAware.JSON_ID) String player,
-            @JsonProperty("specification") GameSpecification specification,
+            @JsonProperty("configuration") GameConfiguration configuration,
             @JsonProperty("participants") Collection<String> participants,
             @JsonProperty("declineBehavior") GameDeclineBehavior declineBehavior,
             @JsonProperty("startTime") Date startTime) {
-        super(player, specification);
+        super(player, configuration);
         this.declineBehavior = declineBehavior != null ? declineBehavior : GameDeclineBehavior.invalidate;
         this.startTime = startTime;
     }

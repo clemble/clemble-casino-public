@@ -7,6 +7,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 @JsonTypeInfo(use = Id.NAME, include = As.PROPERTY, property = "rule")
-public interface GameRule extends Serializable {
+public interface ConfigurationRule extends Serializable {
 
 }

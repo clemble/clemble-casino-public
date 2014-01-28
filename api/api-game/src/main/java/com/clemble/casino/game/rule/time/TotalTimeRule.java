@@ -7,14 +7,10 @@ import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.TotalTimeoutSurrenderAction;
 import com.clemble.casino.game.configuration.GameRuleOptions;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
-@Embeddable
 @JsonTypeName("totalTime")
 public class TotalTimeRule implements TimeRule {
 
@@ -23,26 +19,20 @@ public class TotalTimeRule implements TimeRule {
      */
     private static final long serialVersionUID = 7452918511506230595L;
 
-    final public static TotalTimeRule DEFAULT = new TotalTimeRule().setPunishment(TimeBreachPunishment.loose).setLimit(10);
+    final public static TotalTimeRule DEFAULT = new TotalTimeRule(10, TimeBreachPunishment.loose);
     final public static GameRuleOptions<TotalTimeRule> DEFAULT_OPTIONS = new GameRuleOptions<TotalTimeRule>(DEFAULT);
 
-    @Column(name = "TOTAL_TIME_PUNISHMENT")
-    @Enumerated(EnumType.STRING)
-    private TimeBreachPunishment punishment;
+    final private long limit;
+    final private TimeBreachPunishment punishment;
 
-    @Column(name = "TOTAL_TIME_LIMIT")
-    private long limit;
-
-    public TotalTimeRule() {
+    @JsonCreator
+    public TotalTimeRule(@JsonProperty("limit") long limit, @JsonProperty("punishment") TimeBreachPunishment punishment) {
+        this.limit = limit;
+        this.punishment = punishment;
     }
 
     public TimeBreachPunishment getPunishment() {
         return punishment;
-    }
-
-    public TotalTimeRule setPunishment(TimeBreachPunishment punishment) {
-        this.punishment = punishment;
-        return this;
     }
 
     @Override
@@ -74,11 +64,6 @@ public class TotalTimeRule implements TimeRule {
             default:
                 return new DefaultGameAction(player);
         }
-    }
-
-    public TotalTimeRule setLimit(int limit) {
-        this.limit = limit;
-        return this;
     }
 
     @Override

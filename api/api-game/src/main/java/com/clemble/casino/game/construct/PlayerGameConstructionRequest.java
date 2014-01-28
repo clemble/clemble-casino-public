@@ -1,6 +1,6 @@
 package com.clemble.casino.game.construct;
 
-import com.clemble.casino.game.specification.GameSpecification;
+import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -14,8 +14,8 @@ abstract public class PlayerGameConstructionRequest extends GameConstructionRequ
 
     final private String player;
 
-    public PlayerGameConstructionRequest(String player, GameSpecification specification) {
-        super(specification);
+    public PlayerGameConstructionRequest(String player, GameConfiguration configuration) {
+        super(configuration);
         this.player = player;
     }
 
