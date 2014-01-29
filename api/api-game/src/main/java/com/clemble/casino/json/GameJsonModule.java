@@ -41,6 +41,9 @@ import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
+import com.clemble.casino.game.specification.MatchGameConfiguration;
+import com.clemble.casino.game.specification.PotGameConfiguration;
+import com.clemble.casino.game.specification.TournamentGameConfiguration;
 
 class GameJsonModule implements ClembleJsonModule {
 
@@ -83,6 +86,9 @@ class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GiveUpRule.class, GiveUpRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(MoveTimeRule.class, MoveTimeRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(TotalTimeRule.class, TotalTimeRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchGameConfiguration.class, MatchGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PotGameConfiguration.class, PotGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(TournamentGameConfiguration.class, TournamentGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
         return module;
     }
 

@@ -4,7 +4,7 @@ import com.clemble.casino.web.mapping.WebMapping;
 
 public interface GameWebMapping extends WebMapping {
 
-    final public static String GAME_SPECIFICATION_OPTIONS = "/options/{name}";
+    final public static String GAME_SPECIFICATION_OPTIONS = "/options/match";
     final public static String GAME_POT_SPECIFICATION_OPTIONS = "/options/pot";
     final public static String GAME_TOURNAMENT_SPECIFICATION_OPTIONS = "/options/tournament";
 

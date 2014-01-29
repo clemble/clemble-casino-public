@@ -4,19 +4,13 @@
     <parent>
         <groupId>com.clemble.casino</groupId>
         <artifactId>api</artifactId>
-        <version>0.6.0-SNAPSHOT</version>
+        <version>0.5.1-SNAPSHOT</version>
     </parent>
-    <artifactId>api-common</artifactId>
+    <artifactId>api-game-cell</artifactId>
     <dependencies>
         <dependency>
-            <artifactId>commons-codec</artifactId>
-            <groupId>commons-codec</groupId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>android</artifactId>
-            <scope>provided</scope>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-game</artifactId>
         </dependency>
     </dependencies>
 </project>

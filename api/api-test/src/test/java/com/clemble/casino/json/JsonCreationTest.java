@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import com.clemble.casino.error.ClembleCasinoFailure;
 import com.clemble.casino.game.Game;
-import com.clemble.casino.game.rule.bet.BetRule;
 import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
@@ -31,7 +30,6 @@ import com.clemble.casino.payment.money.Money;
 import com.clemble.test.random.ObjectGenerator;
 import com.clemble.test.reflection.AnnotationReflectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -54,6 +52,7 @@ public class JsonCreationTest {
     // + "\"session\":{\"game\":null,\"session\":null}"
     // + "}]}";
     final private String ERROR_JSON = "{\"error\":{\"code\":\"0C1\",\"description\":\"Server critical error\"},\"player\":\"f>RvzG{LHn\",\"session\":{\"game\":\"pac\",\"session\":\"'[jh$ FC([\"}}";
+    final private String MATCH_JSON = "[{\"type\":\"match\",\"configurationKey\":{\"game\":\"num\",\"specificationName\":\"low\"},\"price\":{\"currency\":\"FakeMoney\",\"amount\":50},\"betRule\":{\"betType\":\"unlimited\"},\"giveUpRule\":{\"giveUp\":\"all\"},\"moveTimeRule\":{\"rule\":\"moveTime\",\"limit\":2000,\"punishment\":\"loose\"},\"totalTimeRule\":{\"rule\":\"totalTime\",\"limit\":4000,\"punishment\":\"loose\"},\"privacyRule\":[\"privacy\",\"everybody\"],\"numberRule\":[\"participants\",\"two\"],\"visibilityRule\":\"visible\",\"drawRule\":[\"DrawRule\",\"owned\"],\"wonRule\":[\"WonRule\",\"price\"],\"roles\":[\"A\",\"B\"]}]";
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
@@ -65,6 +64,11 @@ public class JsonCreationTest {
         // objectMapper.readValue(ERROR_FORMAT_JSON, ClembleCasinoFailureDescription.class);
     }
 
+    @Test
+    public void testRead() throws JsonParseException, JsonMappingException, IOException {
+        objectMapper.readValue(MATCH_JSON, MatchGameConfiguration[].class);
+    }
+    
     @Test
     public void testJsonSerialization() throws IOException {
         List<Class<?>> candidates = AnnotationReflectionUtils.findCandidates("com.clemble.casino", JsonCreator.class);

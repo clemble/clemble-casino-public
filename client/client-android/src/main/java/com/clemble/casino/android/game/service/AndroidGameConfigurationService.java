@@ -27,17 +27,17 @@ public class AndroidGameConfigurationService extends AbstractClembleCasinoOperat
 
     @Override
     public List<MatchGameConfiguration> getMatchConfigurations() {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(GAME_SPECIFICATION_OPTIONS), MatchGameConfiguration[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_SPECIFICATION_OPTIONS), MatchGameConfiguration[].class));
     }
 
     @Override
     public List<PotGameConfiguration> getPotConfigurations() {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(GAME_POT_SPECIFICATION_OPTIONS), PotGameConfiguration[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_POT_SPECIFICATION_OPTIONS), PotGameConfiguration[].class));
     }
 
     @Override
     public List<TournamentGameConfiguration> getTournamentConfigurations() {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(GAME_TOURNAMENT_SPECIFICATION_OPTIONS), TournamentGameConfiguration[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_TOURNAMENT_SPECIFICATION_OPTIONS), TournamentGameConfiguration[].class));
     }
 
 }

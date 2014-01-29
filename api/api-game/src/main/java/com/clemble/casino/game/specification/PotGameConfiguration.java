@@ -7,7 +7,9 @@ import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.payment.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("pot")
 public class PotGameConfiguration implements GameConfiguration {
 
     /**

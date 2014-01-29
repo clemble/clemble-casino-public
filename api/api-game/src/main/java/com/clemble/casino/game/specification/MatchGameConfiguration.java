@@ -18,7 +18,9 @@ import com.clemble.casino.payment.money.Money;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("match")
 public class MatchGameConfiguration implements GameConfiguration {
 
     /**
