@@ -56,6 +56,14 @@ public class GameConstruction implements GameSessionAware, VersionAware {
         this.state = GameConstructionState.pending;
     }
 
+    public GameConstruction(String session, AvailabilityGameRequest request) {
+        this.request = request;
+        this.session = new GameSessionKey(request.getConfiguration().getConfigurationKey().getGame(), session);
+        this.state = GameConstructionState.pending;
+        this.responses.expectNext(request.getPlayer(), request.getParticipants(), "response");
+        this.responses.put(new InvitationAcceptedEvent(request.getPlayer(), this.session));
+    }
+
     @Override
     public GameSessionKey getSession() {
         return session;

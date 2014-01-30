@@ -3,13 +3,9 @@ package com.clemble.casino.game.construct;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
-import com.clemble.casino.error.ClembleCasinoError;
-import com.clemble.casino.error.ClembleCasinoException;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.specification.GameConfiguration;
@@ -26,10 +22,7 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
 
     final private GameSessionKey sessionKey;
     final private GameConfiguration configuration;
-
     final private LinkedHashSet<String> participants = new LinkedHashSet<String>();
-    // TODO find a better implementation for this
-    final private Set<String> confirmations = Collections.synchronizedSet(new LinkedHashSet<String>());
 
     public GameInitiation(GameConstruction construction) {
         this(construction.getSession(), construction.fetchAcceptedParticipants(), construction.getRequest().getConfiguration());
@@ -48,14 +41,11 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
     }
 
     @JsonCreator
-    public GameInitiation(@JsonProperty("session") GameSessionKey session,
-            @JsonProperty("configuration") GameConfiguration specification,
-            @JsonProperty("participants") Collection<String> playerRoles,
-            @JsonProperty("confirmations") Collection<String> confirmations) {
+    public GameInitiation(@JsonProperty("session") GameSessionKey session, @JsonProperty("configuration") GameConfiguration specification,
+            @JsonProperty("participants") Collection<String> playerRoles, @JsonProperty("confirmations") Collection<String> confirmations) {
         this.configuration = checkNotNull(specification);
         this.sessionKey = checkNotNull(session);
         this.participants.addAll(playerRoles);
-        this.confirmations.addAll(confirmations);
     }
 
     @Override
@@ -67,37 +57,19 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
         return participants;
     }
 
+    public boolean isParticipates(String player) {
+        return participants.contains(player);
+    }
+
     @Override
     public GameSessionKey getSession() {
         return sessionKey;
-    }
-
-    public Set<String> getConfirmations() {
-        return confirmations;
-    }
-    
-    public void addConfirmations(Collection<String> players) {
-        for(String player: players)
-            addConfirmation(player);
-    }
-
-    public void addConfirmation(String player) {
-        // Step 1. Sanity check
-        if (!participants.contains(player))
-            throw ClembleCasinoException.fromError(ClembleCasinoError.GameInitiationInvalidPlayer);
-        // Step 2. Adding to list of confirmed users
-        this.confirmations.add(player);
-    }
-
-    public boolean confirmed() {
-        return confirmations.size() == participants.size();
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((confirmations == null) ? 0 : confirmations.hashCode());
         result = prime * result + ((participants == null) ? 0 : participants.hashCode());
         result = prime * result + ((sessionKey == null) ? 0 : sessionKey.hashCode());
         result = prime * result + ((configuration == null) ? 0 : configuration.hashCode());
@@ -113,11 +85,6 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
         if (getClass() != obj.getClass())
             return false;
         GameInitiation other = (GameInitiation) obj;
-        if (confirmations == null) {
-            if (other.confirmations != null)
-                return false;
-        } else if (!confirmations.equals(other.confirmations))
-            return false;
         if (participants == null) {
             if (other.participants != null)
                 return false;
@@ -138,7 +105,7 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
 
     @Override
     public String toString() {
-        return "initiation:" + sessionKey + ":" + participants + ":" + confirmations;
+        return "initiation:" + sessionKey + ":" + participants;
     }
 
 }

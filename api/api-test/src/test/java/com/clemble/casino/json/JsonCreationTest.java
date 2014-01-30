@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.clemble.casino.error.ClembleCasinoFailure;
 import com.clemble.casino.game.Game;
+import com.clemble.casino.game.event.server.GameInitiationCanceledEvent;
 import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
@@ -56,6 +57,7 @@ public class JsonCreationTest {
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
+        checkSerialization(GameInitiationCanceledEvent.class);
         ClembleCasinoFailure casinoFailure = objectMapper.readValue(ERROR_JSON, ClembleCasinoFailure.class);
         assertEquals(casinoFailure.getError().getCode(), "0C1");
         assertEquals(casinoFailure.getPlayer(), "f>RvzG{LHn");
@@ -68,7 +70,7 @@ public class JsonCreationTest {
     public void testRead() throws JsonParseException, JsonMappingException, IOException {
         objectMapper.readValue(MATCH_JSON, MatchGameConfiguration[].class);
     }
-    
+
     @Test
     public void testJsonSerialization() throws IOException {
         List<Class<?>> candidates = AnnotationReflectionUtils.findCandidates("com.clemble.casino", JsonCreator.class);
@@ -97,7 +99,7 @@ public class JsonCreationTest {
                 UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, TimeBreachPunishment.loose), new TotalTimeRule(4000,
                         TimeBreachPunishment.loose), PrivacyRule.everybody, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
                 ImmutableList.<String> of("A", "B"));
-        
+
         System.out.println(objectMapper.writeValueAsString(configuration));
     }
 

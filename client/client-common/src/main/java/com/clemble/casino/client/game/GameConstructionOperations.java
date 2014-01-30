@@ -10,9 +10,8 @@ import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
-import com.clemble.casino.game.specification.MatchGameConfiguration;
+import com.clemble.casino.game.specification.GameConfiguration;
 
 public interface GameConstructionOperations<T extends GameState> extends GameConfigurationOperations, GameAware {
 
@@ -20,19 +19,17 @@ public interface GameConstructionOperations<T extends GameState> extends GameCon
 
     public PlayerAwareEvent getResponce(final String session, final String player);
 
-    public GameConstruction construct(final PlayerGameConstructionRequest gameRequest);
+    public GameConstruction constructAutomatch(final GameConfiguration specification);
 
-    public GameConstruction constructAutomatch(final MatchGameConfiguration specification);
+    public GameConstruction constructAvailability(final GameConfiguration specification, String ... players);
 
-    public GameConstruction constructAvailability(final MatchGameConfiguration specification, String ... players);
-
-    public GameConstruction constructAvailability(final MatchGameConfiguration specification, Collection<String> players);
+    public GameConstruction constructAvailability(final GameConfiguration specification, Collection<String> players);
 
     public GameConstruction accept(final String session);
 
     public GameConstruction decline(final String session);
 
-    public GameConstruction response(final String session, final InvitationResponseEvent gameRequest);
+    public GameConstruction reply(final String session, final InvitationResponseEvent gameRequest);
 
     public Collection<GameInitiation> pending();
 

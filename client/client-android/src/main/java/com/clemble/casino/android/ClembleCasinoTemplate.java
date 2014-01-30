@@ -13,10 +13,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.SingletonRegistry;
+import com.clemble.casino.android.game.service.AndroidAutoGameConstructionService;
+import com.clemble.casino.android.game.service.AndroidAvailabilityGameConstructionService;
 import com.clemble.casino.android.game.service.AndroidGameActionTemplate;
-import com.clemble.casino.android.game.service.AndroidGameConstructionService;
-import com.clemble.casino.android.game.service.AndroidGameInitiationService;
 import com.clemble.casino.android.game.service.AndroidGameConfigurationService;
+import com.clemble.casino.android.game.service.AndroidGameInitiationService;
 import com.clemble.casino.android.payment.AndroidPaymentTransactionService;
 import com.clemble.casino.android.player.AndroidPlayerConnectionService;
 import com.clemble.casino.android.player.AndroidPlayerPresenceService;
@@ -51,10 +52,11 @@ import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
 import com.clemble.casino.game.event.server.GameStateManagementEvent;
+import com.clemble.casino.game.service.AutoGameConstructionService;
+import com.clemble.casino.game.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.service.GameActionService;
-import com.clemble.casino.game.service.GameConstructionService;
-import com.clemble.casino.game.service.GameInitiationService;
 import com.clemble.casino.game.service.GameConfigurationService;
+import com.clemble.casino.game.service.GameInitiationService;
 import com.clemble.casino.payment.service.PaymentService;
 import com.clemble.casino.player.service.PlayerConnectionService;
 import com.clemble.casino.player.service.PlayerPresenceService;
@@ -113,12 +115,13 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         Map<Game, GameConstructionOperations<?>> gameToConstructor = new EnumMap<Game, GameConstructionOperations<?>>(Game.class);
         for (Game game : resourceLocations.getGames()) {
             ServerRegistry gameRegistry = registryConfiguration.getGameRegistry();
-            GameConstructionService constructionService = new AndroidGameConstructionService(getRestTemplate(), gameRegistry);
+            AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), gameRegistry);
+            AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), gameRegistry);
             GameInitiationService initiationService = new AndroidGameInitiationService(getRestTemplate(), gameRegistry);
             GameConfigurationService specificationService = new AndroidGameConfigurationService(getRestTemplate(), gameRegistry);
             GameActionService<?> actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
             GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
-            GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService, initiationService, specificationService, listenerOperations);
+            GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService, availabilityConstructionService, initiationService, specificationService, listenerOperations);
             gameToConstructor.put(game, constructionOperations);
         }
         this.gameToConstructionOperations = CollectionUtils.immutableMap(gameToConstructor);

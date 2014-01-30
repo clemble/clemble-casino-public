@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 21/12/13.
  */
+@Embeddable
 public class GamePlayerRole implements PlayerAware, GameRoleAware {
 
     /**
@@ -19,7 +23,9 @@ public class GamePlayerRole implements PlayerAware, GameRoleAware {
      */
     private static final long serialVersionUID = -2977977479889713389L;
 
+    @Column(name = "PLAYER")
     final private String player;
+    @Column(name = "ROLE")
     final private String role;
 
     @JsonCreator

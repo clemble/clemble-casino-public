@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("connectionDiscovered")
-public class PlayerConnectionDiscoveredEvent implements PlayerAwareEvent {
+public class PlayerDiscoveredConnectionEvent implements PlayerAwareEvent {
 
     /**
      * Generated 07/01/14
@@ -17,7 +17,7 @@ public class PlayerConnectionDiscoveredEvent implements PlayerAwareEvent {
     final private String connection;
 
     @JsonCreator
-    public PlayerConnectionDiscoveredEvent(@JsonProperty("player") String player, @JsonProperty("connection") String connection) {
+    public PlayerDiscoveredConnectionEvent(@JsonProperty("player") String player, @JsonProperty("connection") String connection) {
         this.player = player;
         this.connection = connection;
     }
@@ -48,7 +48,7 @@ public class PlayerConnectionDiscoveredEvent implements PlayerAwareEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PlayerConnectionDiscoveredEvent other = (PlayerConnectionDiscoveredEvent) obj;
+        PlayerDiscoveredConnectionEvent other = (PlayerDiscoveredConnectionEvent) obj;
         if (connection == null) {
             if (other.connection != null)
                 return false;

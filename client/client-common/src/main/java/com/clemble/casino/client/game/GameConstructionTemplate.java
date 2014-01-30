@@ -18,13 +18,14 @@ import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 import com.clemble.casino.game.event.schedule.InvitationDeclinedEvent;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
+import com.clemble.casino.game.service.AutoGameConstructionService;
+import com.clemble.casino.game.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.service.GameConfigurationService;
-import com.clemble.casino.game.service.GameConstructionService;
 import com.clemble.casino.game.service.GameInitiationService;
+import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.MatchGameConfiguration;
 import com.clemble.casino.game.specification.PotGameConfiguration;
 import com.clemble.casino.game.specification.TournamentGameConfiguration;
@@ -43,13 +44,15 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     final private GameActionOperationsFactory actionOperationFactory;
     final private EventListenerOperations listenersManager;
     final private GameConfigurationService specificationService;
-    final private GameConstructionService constructionService;
+    final private AutoGameConstructionService constructionService;
+    final private AvailabilityGameConstructionService availabilityConstructionService;
     final private GameInitiationService initiationService;
 
     public GameConstructionTemplate(String player,
             Game game,
             GameActionOperationsFactory actionOperations,
-            GameConstructionService constructionService,
+            AutoGameConstructionService constructionService,
+            AvailabilityGameConstructionService availabilityConstructionService,
             GameInitiationService initiationService,
             GameConfigurationService specificationService,
             EventListenerOperations listenersManager) {
@@ -58,6 +61,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
         this.actionOperationFactory = checkNotNull(actionOperations);
         this.constructionService = checkNotNull(constructionService);
         this.initiationService = checkNotNull(initiationService);
+        this.availabilityConstructionService = checkNotNull(availabilityConstructionService);
         this.specificationService = checkNotNull(specificationService);
         this.listenersManager = checkNotNull(listenersManager);
     }
@@ -68,64 +72,59 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public GameConstruction construct(PlayerGameConstructionRequest gameRequest) {
-        return constructionService.automatch(gameRequest);
-    }
-
-    @Override
-    public GameConstruction constructAutomatch(MatchGameConfiguration specification) {
+    public GameConstruction constructAutomatch(GameConfiguration specification) {
         // Step 1. Constructing automatic request
-        PlayerGameConstructionRequest automaticGameRequest = new AutomaticGameRequest(player, specification);
+        AutomaticGameRequest automaticGameRequest = new AutomaticGameRequest(player, specification);
         // Step 2. Making actual construction
-        return construct(automaticGameRequest);
+        return constructionService.construct(automaticGameRequest);
     }
 
     @Override
-    public GameConstruction constructAvailability(MatchGameConfiguration specification, String... players) {
+    public GameConstruction constructAvailability(GameConfiguration specification, String... players) {
         return constructAvailability(specification, CollectionUtils.immutableList(players));
     }
 
     @Override
-    public GameConstruction constructAvailability(MatchGameConfiguration specification, Collection<String> participants) {
+    public GameConstruction constructAvailability(GameConfiguration specification, Collection<String> participants) {
         // Step 1. Constructing availability request
-        PlayerGameConstructionRequest availabilityGameRequest = new AvailabilityGameRequest(player, specification, participants);
+        AvailabilityGameRequest availabilityGameRequest = new AvailabilityGameRequest(player, specification, participants);
         // Step 2. Making actual construction
-        return construct(availabilityGameRequest);
+        return availabilityConstructionService.construct(availabilityGameRequest);
     }
 
     @Override
     public GameConstruction getConstruct(String session) {
-        return constructionService.getConstruction(game, session);
+        return availabilityConstructionService.getConstruction(game, session);
     }
 
     @Override
     public GameConstruction accept(String session) {
-        return response(session, new InvitationAcceptedEvent(player, toSessionKey(session)));
+        return reply(session, new InvitationAcceptedEvent(player, toSessionKey(session)));
     }
 
     @Override
     public GameConstruction decline(String session) {
-        return response(session, new InvitationDeclinedEvent(player, toSessionKey(session)));
+        return reply(session, new InvitationDeclinedEvent(player, toSessionKey(session)));
     }
 
     @Override
-    public GameConstruction response(String session, InvitationResponseEvent responce) {
-        return constructionService.reply(game, session, responce);
+    public GameConstruction reply(String session, InvitationResponseEvent responce) {
+        return availabilityConstructionService.reply(responce);
     }
 
     @Override
     public Collection<GameInitiation> pending() {
-        return initiationService.pending(game, player);
+        return availabilityConstructionService.getPending(player);
     }
 
     @Override
     public GameInitiation ready(String session) {
-        return initiationService.ready(game, session, player);
+        return initiationService.confirm(game, session, player);
     }
 
     @Override
     public PlayerAwareEvent getResponce(String session, String fromPlayer) {
-        return constructionService.getResponce(game, session, fromPlayer);
+        return availabilityConstructionService.getReply(game, session, fromPlayer);
     }
 
     @Override

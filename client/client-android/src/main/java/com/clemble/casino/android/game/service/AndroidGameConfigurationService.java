@@ -1,8 +1,8 @@
 package com.clemble.casino.android.game.service;
 
-import static com.clemble.casino.web.game.GameWebMapping.GAME_POT_SPECIFICATION_OPTIONS;
-import static com.clemble.casino.web.game.GameWebMapping.GAME_SPECIFICATION_OPTIONS;
-import static com.clemble.casino.web.game.GameWebMapping.GAME_TOURNAMENT_SPECIFICATION_OPTIONS;
+import static com.clemble.casino.web.game.GameWebMapping.GAME_CONFIGURATIONS_POT;
+import static com.clemble.casino.web.game.GameWebMapping.GAME_CONFIGURATIONS_MATCH;
+import static com.clemble.casino.web.game.GameWebMapping.GAME_CONFIGURATIONS_TOURNAMENT;
 
 import java.util.List;
 
@@ -27,17 +27,17 @@ public class AndroidGameConfigurationService extends AbstractClembleCasinoOperat
 
     @Override
     public List<MatchGameConfiguration> getMatchConfigurations() {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_SPECIFICATION_OPTIONS), MatchGameConfiguration[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_CONFIGURATIONS_MATCH), MatchGameConfiguration[].class));
     }
 
     @Override
     public List<PotGameConfiguration> getPotConfigurations() {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_POT_SPECIFICATION_OPTIONS), PotGameConfiguration[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_CONFIGURATIONS_POT), PotGameConfiguration[].class));
     }
 
     @Override
     public List<TournamentGameConfiguration> getTournamentConfigurations() {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_TOURNAMENT_SPECIFICATION_OPTIONS), TournamentGameConfiguration[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(GAME_CONFIGURATIONS_TOURNAMENT), TournamentGameConfiguration[].class));
     }
 
 }
