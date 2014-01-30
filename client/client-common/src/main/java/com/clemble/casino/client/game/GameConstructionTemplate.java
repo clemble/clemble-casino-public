@@ -3,7 +3,6 @@ package com.clemble.casino.client.game;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.List;
 
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
@@ -26,9 +25,7 @@ import com.clemble.casino.game.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.service.GameConfigurationService;
 import com.clemble.casino.game.service.GameInitiationService;
 import com.clemble.casino.game.specification.GameConfiguration;
-import com.clemble.casino.game.specification.MatchGameConfiguration;
-import com.clemble.casino.game.specification.PotGameConfiguration;
-import com.clemble.casino.game.specification.TournamentGameConfiguration;
+import com.clemble.casino.game.specification.GameConfigurations;
 import com.clemble.casino.utils.CollectionUtils;
 
 public class GameConstructionTemplate<T extends GameState> implements GameConstructionOperations<T> {
@@ -146,18 +143,8 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public List<MatchGameConfiguration> getMatchConfigurations() {
-        return specificationService.getMatchConfigurations();
-    }
-
-    @Override
-    public List<PotGameConfiguration> getPotConfigurations() {
-        return specificationService.getPotConfigurations();
-    }
-
-    @Override
-    public List<TournamentGameConfiguration> getTournamentConfigurations() {
-        return specificationService.getTournamentConfigurations();
+    public GameConfigurations getConfigurations() {
+        return specificationService.getConfigurations();
     }
 
 }

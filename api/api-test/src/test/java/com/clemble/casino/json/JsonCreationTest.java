@@ -24,6 +24,7 @@ import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TimeBreachPunishment;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
+import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.GameConfigurationKey;
 import com.clemble.casino.game.specification.MatchGameConfiguration;
 import com.clemble.casino.payment.money.Currency;
@@ -68,7 +69,9 @@ public class JsonCreationTest {
 
     @Test
     public void testRead() throws JsonParseException, JsonMappingException, IOException {
-        objectMapper.readValue(MATCH_JSON, MatchGameConfiguration[].class);
+        GameConfiguration[] configurations = objectMapper.readValue(MATCH_JSON, MatchGameConfiguration[].class);
+        String arrJsonPresentation = objectMapper.writeValueAsString(configurations);
+        assertEquals(arrJsonPresentation, MATCH_JSON);
     }
 
     @Test

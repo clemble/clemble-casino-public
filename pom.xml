@@ -589,11 +589,6 @@
             <!-- Android dependencies -->
 
             <dependency>
-                <groupId>com.clemble.casino.client</groupId>
-                <artifactId>client-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.android</groupId>
                 <artifactId>spring-android-rest-template</artifactId>
                 <version>${spring.android.version}</version>
