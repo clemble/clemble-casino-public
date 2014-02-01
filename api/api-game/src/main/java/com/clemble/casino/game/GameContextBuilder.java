@@ -7,7 +7,6 @@ import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.iterator.GamePlayerIterator;
 import com.clemble.casino.game.iterator.GamePlayerIteratorFactory;
-import com.clemble.casino.game.specification.MatchGameConfiguration;
 import com.clemble.casino.player.PlayerAwareUtils;
 
 public class GameContextBuilder implements Serializable {
@@ -21,8 +20,8 @@ public class GameContextBuilder implements Serializable {
     private GamePlayerIterator playerIterator;
     private ActionLatch actionLatch;
 
-    public GameContextBuilder(GameInitiation initiation, MatchGameConfiguration specification) {
-        this.playerContexts = GamePlayerContext.construct(initiation, specification);
+    public GameContextBuilder(GameInitiation initiation) {
+        this.playerContexts = GamePlayerContext.construct(initiation);
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
     }

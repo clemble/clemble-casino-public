@@ -68,14 +68,14 @@ public class ObjectTest {
             @Override
             public FakeState generate() {
                 GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A", "B"), MatchGameConfiguration.DEFAULT);
-                return new FakeState(new MatchGameContext(initiation, MatchGameConfiguration.DEFAULT), null, 0);
+                return new FakeState(new MatchGameContext(initiation), null, 0);
             }
         });
         register(MatchGameContext.class, new AbstractValueGenerator<MatchGameContext>(){
             @Override
             public MatchGameContext generate() {
                 GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A", "B"), MatchGameConfiguration.DEFAULT);
-                return new MatchGameContext(initiation, MatchGameConfiguration.DEFAULT);
+                return new MatchGameContext(initiation);
             }
             
         });

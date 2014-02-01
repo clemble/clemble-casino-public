@@ -53,7 +53,8 @@ public class GamePlayerContext implements PlayerAware, GameRoleAware, GameClockA
         return role;
     }
 
-    public static List<GamePlayerContext> construct(GameInitiation initiation, MatchGameConfiguration specification) {
+    public static List<GamePlayerContext> construct(GameInitiation initiation) {
+        MatchGameConfiguration specification = (MatchGameConfiguration) initiation.getConfiguration();
         List<GamePlayerContext> playerContexts = new ArrayList<GamePlayerContext>();
         Iterator<String> players = initiation.getParticipants().iterator();
         for(String role: specification.getRoles()) {

@@ -38,9 +38,13 @@ public class MatchGameContext extends GameContext {
         this.actionLatch = actionLatch;
     }
 
-    public MatchGameContext(GameInitiation initiation, MatchGameConfiguration specification) {
-        super(null);
-        this.playerContexts = GamePlayerContext.construct(initiation, specification);
+    public MatchGameContext(GameInitiation initiation) {
+        this(initiation, null);
+    }
+
+    public MatchGameContext(GameInitiation initiation, GameContext parent) {
+        super(parent);
+        this.playerContexts = GamePlayerContext.construct(initiation);
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
     }
