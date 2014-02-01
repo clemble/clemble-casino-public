@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("changed")
-public class GameStateChangedEvent<S extends GameState> extends GameStateManagementEvent<S> {
+public class GameMatchStateChangedEvent<S extends GameState> extends GameMatchEvent<S> {
 
     /**
      * Generated 25/12/13
@@ -20,13 +20,13 @@ public class GameStateChangedEvent<S extends GameState> extends GameStateManagem
 
     final private Collection<GameAction> actions;
 
-    public GameStateChangedEvent(MatchGameRecord<S> session, Collection<GameAction> actions) {
+    public GameMatchStateChangedEvent(MatchGameRecord<S> session, Collection<GameAction> actions) {
         super(session);
         this.actions = actions;
     }
 
     @JsonCreator
-    public GameStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") S state, @JsonProperty("actions") Collection<GameAction> actions) {
+    public GameMatchStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") S state, @JsonProperty("actions") Collection<GameAction> actions) {
         super(session, state);
         this.actions = actions;
     }
@@ -51,7 +51,7 @@ public class GameStateChangedEvent<S extends GameState> extends GameStateManagem
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameStateChangedEvent<?> other = (GameStateChangedEvent<?>) obj;
+        GameMatchStateChangedEvent<?> other = (GameMatchStateChangedEvent<?>) obj;
         if (actions == null) {
             if (other.actions != null)
                 return false;

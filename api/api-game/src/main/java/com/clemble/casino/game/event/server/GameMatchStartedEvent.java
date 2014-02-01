@@ -9,19 +9,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("started")
-public class GameStartedEvent<State extends GameState> extends GameStateManagementEvent<State> implements GameSessionAware {
+public class GameMatchStartedEvent<State extends GameState> extends GameMatchEvent<State> implements GameSessionAware {
 
     /**
      * Generated
      */
     private static final long serialVersionUID = -4474960027054354888L;
 
-    public GameStartedEvent(MatchGameRecord<State> session) {
+    public GameMatchStartedEvent(MatchGameRecord<State> session) {
         super(session);
     }
 
     @JsonCreator
-    public GameStartedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") State state) {
+    public GameMatchStartedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") State state) {
         super(session, state);
     }
 
@@ -41,7 +41,7 @@ public class GameStartedEvent<State extends GameState> extends GameStateManageme
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameStartedEvent<?> other = (GameStartedEvent<?>) obj;
+        GameMatchStartedEvent<?> other = (GameMatchStartedEvent<?>) obj;
         if (!super.equals(other))
             return false;
         return true;
