@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.util.Collections;
 import java.util.Date;
 
 import javax.crypto.KeyGenerator;
@@ -17,8 +18,10 @@ import org.springframework.security.oauth.common.signature.RSAKeySecret;
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.Game;
-import com.clemble.casino.game.GameContext;
+import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.PotGameContext;
+import com.clemble.casino.game.TournamentGameContext;
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
@@ -28,6 +31,7 @@ import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameConstructionState;
 import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.game.rule.MatchRule;
 import com.clemble.casino.game.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.bet.LimitedBetRule;
@@ -64,8 +68,16 @@ public class ObjectTest {
             @Override
             public FakeState generate() {
                 GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A", "B"), MatchGameConfiguration.DEFAULT);
-                return new FakeState(new GameContext(initiation, MatchGameConfiguration.DEFAULT), null, 0);
+                return new FakeState(new MatchGameContext(initiation, MatchGameConfiguration.DEFAULT), null, 0);
             }
+        });
+        register(MatchGameContext.class, new AbstractValueGenerator<MatchGameContext>(){
+            @Override
+            public MatchGameContext generate() {
+                GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A", "B"), MatchGameConfiguration.DEFAULT);
+                return new MatchGameContext(initiation, MatchGameConfiguration.DEFAULT);
+            }
+            
         });
         register(GameSessionKey.class, new AbstractValueGenerator<GameSessionKey>() {
             @Override
@@ -206,6 +218,18 @@ public class ObjectTest {
             @Override
             public PublicKey generate() {
                 return rsaKey.getPublicKey();
+            }
+        });
+        register(PotGameContext.class, new AbstractValueGenerator<PotGameContext>() {
+            @Override
+            public PotGameContext generate() {
+                return new PotGameContext(3, Collections.<GameOutcome>emptyList(), null);
+            }
+        });
+        register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {
+            @Override
+            public TournamentGameContext generate() {
+                return new TournamentGameContext(null);
             }
         });
         try {

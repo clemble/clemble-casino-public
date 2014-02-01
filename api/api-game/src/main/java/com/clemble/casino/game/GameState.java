@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public interface GameState extends Serializable {
 
-    public GameContext getContext();
+    public MatchGameContext getContext();
 
     public GameUnit getRoot();
 

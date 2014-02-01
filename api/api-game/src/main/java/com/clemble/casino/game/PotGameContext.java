@@ -7,14 +7,23 @@ import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-public class GamePotContext {
+@JsonTypeName("potContext")
+public class PotGameContext extends GameContext {
+
+    /**
+     * Generated 01/02/14
+     */
+    private static final long serialVersionUID = 554706514619333631L;
 
     final private long potSize;
     final private Collection<GameOutcome> outcomes;
 
     @JsonCreator
-    public GamePotContext(@JsonProperty("potSize") long potSize, @JsonProperty("outcomes") Collection<GameOutcome> outcomes) {
+    public PotGameContext(@JsonProperty("potSize") long potSize, @JsonProperty("outcomes") Collection<GameOutcome> outcomes,
+            @JsonProperty(value = "parent", required = false) GameContext parent) {
+        super(parent);
         this.potSize = potSize;
         this.outcomes = outcomes;
     }
@@ -56,7 +65,7 @@ public class GamePotContext {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GamePotContext other = (GamePotContext) obj;
+        PotGameContext other = (PotGameContext) obj;
         if (outcomes == null) {
             if (other.outcomes != null)
                 return false;

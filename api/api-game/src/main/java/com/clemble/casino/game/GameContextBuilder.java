@@ -1,14 +1,12 @@
 package com.clemble.casino.game;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.iterator.GamePlayerIterator;
 import com.clemble.casino.game.iterator.GamePlayerIteratorFactory;
-import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.game.specification.MatchGameConfiguration;
 import com.clemble.casino.player.PlayerAwareUtils;
 
@@ -20,7 +18,6 @@ public class GameContextBuilder implements Serializable {
     private static final long serialVersionUID = 7026521242574488489L;
 
     private List<GamePlayerContext> playerContexts;
-    private GamePotContext potContext;
     private GamePlayerIterator playerIterator;
     private ActionLatch actionLatch;
 
@@ -28,7 +25,6 @@ public class GameContextBuilder implements Serializable {
         this.playerContexts = GamePlayerContext.construct(initiation, specification);
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
-        this.potContext = new GamePotContext(0, Collections.<GameOutcome> emptyList());
     }
 
     public GamePlayerIterator getPlayerIterator() {
@@ -49,15 +45,6 @@ public class GameContextBuilder implements Serializable {
         return this;
     }
 
-    public GamePotContext getPotContext() {
-        return potContext;
-    }
-
-    public GameContextBuilder setPotContext(GamePotContext potContext) {
-        this.potContext = potContext;
-        return this;
-    }
-
     public List<GamePlayerContext> getPlayerContexts() {
         return playerContexts;
     }
@@ -71,8 +58,8 @@ public class GameContextBuilder implements Serializable {
         return this;
     }
 
-    public GameContext build() {
-        return new GameContext(playerContexts, playerIterator, actionLatch, potContext);
+    public MatchGameContext build() {
+        return new MatchGameContext(playerContexts, playerIterator, actionLatch, null);
     }
 
 }
