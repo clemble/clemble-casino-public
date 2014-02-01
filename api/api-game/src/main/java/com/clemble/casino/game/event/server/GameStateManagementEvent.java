@@ -1,6 +1,6 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSession;
+import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -15,7 +15,7 @@ public class GameStateManagementEvent<State extends GameState> extends GameManag
 
     final private State state;
 
-    public GameStateManagementEvent(GameSession<State> session) {
+    public GameStateManagementEvent(MatchGameRecord<State> session) {
         super(session.getSession());
         this.state = session.getState();
     }

@@ -14,7 +14,7 @@ public interface GameState extends Serializable {
 
     public GameUnit getRoot();
 
-    public <State extends GameState> GameManagementEvent process(GameSession<State> session, GameAction move);
+    public <S extends GameState> GameManagementEvent process(MatchGameRecord<S> session, GameAction move);
 
     public int getVersion();
 

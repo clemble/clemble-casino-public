@@ -1,6 +1,6 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSession;
+import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.surrender.SurrenderAction;
@@ -18,7 +18,7 @@ public class PlayerSurrenderedEvent<State extends GameState> extends GameStateMa
 
     final private SurrenderAction reason;
 
-    public PlayerSurrenderedEvent(GameSession<State> session, SurrenderAction reason) {
+    public PlayerSurrenderedEvent(MatchGameRecord<State> session, SurrenderAction reason) {
         super(session);
         this.reason = reason;
     }

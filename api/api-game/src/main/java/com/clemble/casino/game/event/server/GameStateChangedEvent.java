@@ -2,7 +2,7 @@ package com.clemble.casino.game.event.server;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.GameSession;
+import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.GameAction;
@@ -20,7 +20,7 @@ public class GameStateChangedEvent<S extends GameState> extends GameStateManagem
 
     final private Collection<GameAction> actions;
 
-    public GameStateChangedEvent(GameSession<S> session, Collection<GameAction> actions) {
+    public GameStateChangedEvent(MatchGameRecord<S> session, Collection<GameAction> actions) {
         super(session);
         this.actions = actions;
     }

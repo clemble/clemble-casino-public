@@ -1,24 +1,28 @@
 package com.clemble.casino.game;
 
-import com.clemble.casino.payment.PaymentTransactionKey;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.io.Serializable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+import com.clemble.casino.payment.PaymentTransactionKey;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Embeddable
 public class GameSessionKey implements GameAware, Serializable {
 
     /**
-     * 
+     * Generated 31/01/14
      */
     private static final long serialVersionUID = 7812547584769033422L;
 
     final public static GameSessionKey DEFAULT_SESSION = new GameSessionKey();
 
     @Column(name = "GAME")
+    @Enumerated(EnumType.STRING)
     private Game game;
 
     @Column(name = "SESSION_ID")
@@ -48,6 +52,10 @@ public class GameSessionKey implements GameAware, Serializable {
 
     public void setSession(String session) {
         this.session = session;
+    }
+
+    public GameSessionKey append(String postfix) {
+        return new GameSessionKey(game, session + postfix);
     }
 
     public static GameSessionKey fromString(String sessionKey) {

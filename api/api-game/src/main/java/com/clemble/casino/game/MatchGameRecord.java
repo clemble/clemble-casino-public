@@ -1,6 +1,5 @@
 package com.clemble.casino.game;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,11 +22,10 @@ import com.clemble.casino.VersionAware;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.specification.GameConfigurationKey;
-import com.clemble.casino.game.specification.GameConfigurationKeyAware;
 
 @Entity
 @Table(name = "GAME_SESSION")
-public class GameSession<State extends GameState> implements GameConfigurationKeyAware, GameSessionAware, VersionAware, Serializable {
+public class MatchGameRecord<S extends GameState> implements GameRecord, VersionAware {
 
     /**
      * Generated 16/02/13
@@ -45,24 +43,22 @@ public class GameSession<State extends GameState> implements GameConfigurationKe
 
     @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name = "PLAYERS_ORDER")
-    @CollectionTable(name = "GAME_SESSION_PLAYERS",
-            joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
+    @CollectionTable(name = "GAME_SESSION_PLAYERS", joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
     private List<String> players = new ArrayList<String>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "GAME_SESSION_MOVES", 
-        joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
+    @CollectionTable(name = "GAME_SESSION_MOVES", joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
     private List<MadeMove> madeMoves = new ArrayList<MadeMove>();
 
     @Type(type = "com.clemble.casino.game.GameStateHibernate")
     @Column(name = "GAME_STATE", length = 4096)
-    private State state;
+    private S state;
 
     @Version
     @Column(name = "VERSION")
     private int version;
 
-    public GameSession() {
+    public MatchGameRecord() {
     }
 
     @Override
@@ -70,7 +66,7 @@ public class GameSession<State extends GameState> implements GameConfigurationKe
         return session;
     }
 
-    public GameSession<State> setSession(GameSessionKey newSession) {
+    public MatchGameRecord<S> setSession(GameSessionKey newSession) {
         this.session = newSession;
         return this;
     }
@@ -80,16 +76,17 @@ public class GameSession<State extends GameState> implements GameConfigurationKe
         return configurationKey;
     }
 
-    public GameSession<State> setConfiguration(GameConfigurationKey configurationKey) {
+    public MatchGameRecord<S> setConfiguration(GameConfigurationKey configurationKey) {
         this.configurationKey = configurationKey;
         return this;
     }
 
+    @Override
     public GameSessionState getSessionState() {
         return sessionState;
     }
 
-    public GameSession<State> setSessionState(GameSessionState gameSessionState) {
+    public MatchGameRecord<S> setSessionState(GameSessionState gameSessionState) {
         this.sessionState = gameSessionState;
         return this;
     }
@@ -98,7 +95,7 @@ public class GameSession<State extends GameState> implements GameConfigurationKe
         return players;
     }
 
-    public GameSession<State> setPlayers(Collection<String> players) {
+    public MatchGameRecord<S> setPlayers(Collection<String> players) {
         this.players.clear();
         this.players.addAll(players);
         return this;
@@ -129,11 +126,11 @@ public class GameSession<State extends GameState> implements GameConfigurationKe
         this.version = version;
     }
 
-    public State getState() {
+    public S getState() {
         return state;
     }
 
-    public GameSession<State> setState(State state) {
+    public MatchGameRecord<S> setState(S state) {
         this.state = state;
         return this;
     }
@@ -159,7 +156,7 @@ public class GameSession<State extends GameState> implements GameConfigurationKe
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameSession<State> other = (GameSession<State>) obj;
+        MatchGameRecord other = (MatchGameRecord) obj;
         if (madeMoves == null) {
             if (other.madeMoves != null)
                 return false;

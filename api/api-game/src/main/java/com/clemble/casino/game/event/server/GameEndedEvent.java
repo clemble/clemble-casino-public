@@ -1,6 +1,6 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSession;
+import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.outcome.GameOutcome;
@@ -20,7 +20,7 @@ public class GameEndedEvent<State extends GameState> extends GameStateManagement
     final private GameOutcome outcome;
     private PaymentTransaction transaction;
 
-    public GameEndedEvent(GameSession<State> session, GameOutcome outcome) {
+    public GameEndedEvent(MatchGameRecord<State> session, GameOutcome outcome) {
         super(session);
         this.outcome = outcome;
     }

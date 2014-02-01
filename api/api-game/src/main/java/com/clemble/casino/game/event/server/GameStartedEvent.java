@@ -1,6 +1,6 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSession;
+import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.GameSessionAware;
@@ -16,7 +16,7 @@ public class GameStartedEvent<State extends GameState> extends GameStateManageme
      */
     private static final long serialVersionUID = -4474960027054354888L;
 
-    public GameStartedEvent(GameSession<State> session) {
+    public GameStartedEvent(MatchGameRecord<State> session) {
         super(session);
     }
 

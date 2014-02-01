@@ -1,6 +1,8 @@
 package com.clemble.casino;
 
-public interface VersionAware {
+import java.io.Serializable;
+
+public interface VersionAware extends Serializable {
 
     public int getVersion();
 
