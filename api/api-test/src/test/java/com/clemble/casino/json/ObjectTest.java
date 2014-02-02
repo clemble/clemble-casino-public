@@ -18,9 +18,10 @@ import org.springframework.security.oauth.common.signature.RSAKeySecret;
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.Game;
-import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.PotGameContext;
+import com.clemble.casino.game.PotPlayerGameContext;
 import com.clemble.casino.game.TournamentGameContext;
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.action.GameAction;
@@ -31,7 +32,6 @@ import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameConstructionState;
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.game.rule.MatchRule;
 import com.clemble.casino.game.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.bet.LimitedBetRule;
@@ -223,7 +223,7 @@ public class ObjectTest {
         register(PotGameContext.class, new AbstractValueGenerator<PotGameContext>() {
             @Override
             public PotGameContext generate() {
-                return new PotGameContext(3, Collections.<GameOutcome>emptyList(), null);
+                return new PotGameContext(Collections.<PotPlayerGameContext>emptyList(), null, 0);
             }
         });
         register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {

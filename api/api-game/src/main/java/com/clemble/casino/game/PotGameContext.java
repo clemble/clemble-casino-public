@@ -1,10 +1,7 @@
 package com.clemble.casino.game;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-import com.clemble.casino.game.outcome.GameOutcome;
-import com.clemble.casino.game.outcome.PlayerWonOutcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -17,62 +14,36 @@ public class PotGameContext extends GameContext {
      */
     private static final long serialVersionUID = 554706514619333631L;
 
-    final private long potSize;
-    final private Collection<GameOutcome> outcomes;
+    private long pot; // TODO make this immutable
+    final private List<PotPlayerGameContext> playerContexts;
 
     @JsonCreator
-    public PotGameContext(@JsonProperty("potSize") long potSize, @JsonProperty("outcomes") Collection<GameOutcome> outcomes,
-            @JsonProperty(value = "parent", required = false) GameContext parent) {
+    public PotGameContext(@JsonProperty("playerContexts") List<PotPlayerGameContext> playerContexts,
+            @JsonProperty(value = "parent", required = false) GameContext parent, @JsonProperty("pot") long pot) {
         super(parent);
-        this.potSize = potSize;
-        this.outcomes = outcomes;
+        this.pot = pot;
+        this.playerContexts = playerContexts;
     }
 
-    public long getPotSize() {
-        return potSize;
+    public PotPlayerGameContext get(String player) {
+        if (player == null)
+            throw new IllegalArgumentException();
+        for (PotPlayerGameContext context : playerContexts)
+            if (player.equals(context.getPlayer()))
+                return context;
+        return null;
     }
 
-    public Collection<GameOutcome> getOutcomes() {
-        return outcomes;
+    public void add(String player, long amount) {
+        this.pot += amount;
+        get(player).add(amount);
     }
 
-    public Collection<GameOutcome> getOutcomes(String player) {
-        // Step 1. Checking game outcomes
-        Collection<GameOutcome> outcomesForPlayer = new ArrayList<GameOutcome>();
-        // Step 2. Filtering valid outcomes
-        for (GameOutcome outcome : outcomes) {
-            if (outcome instanceof PlayerWonOutcome && player.equals(((PlayerWonOutcome) outcome).getWinner()))
-                outcomesForPlayer.add(outcome);
-        }
-        // Step 3. Returning aggregated result
-        return outcomesForPlayer;
+    public List<PotPlayerGameContext> getPlayerContexts() {
+        return playerContexts;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((outcomes == null) ? 0 : outcomes.hashCode());
-        result = prime * result + (int) (potSize ^ (potSize >>> 32));
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PotGameContext other = (PotGameContext) obj;
-        if (outcomes == null) {
-            if (other.outcomes != null)
-                return false;
-        } else if (!outcomes.equals(other.outcomes))
-            return false;
-        if (potSize != other.potSize)
-            return false;
-        return true;
+    public long getPot() {
+        return pot;
     }
 }

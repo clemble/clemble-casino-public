@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
+import com.clemble.casino.game.rule.pot.PotFillRule;
 import com.clemble.casino.payment.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,6 +22,7 @@ public class PotGameConfiguration implements GameConfiguration {
     final private Money price;
     final private PlayerNumberRule numberRule;
     final private PrivacyRule privacyRule;
+    final private PotFillRule potFillRule;
     final private List<MatchGameConfiguration> matchConfigurations;
 
     @JsonCreator
@@ -29,10 +31,12 @@ public class PotGameConfiguration implements GameConfiguration {
             @JsonProperty("price") Money price,
             @JsonProperty("privacyRule") PrivacyRule privacyRule,
             @JsonProperty("numberRule") PlayerNumberRule numberRule,
+            @JsonProperty("potFillRule") PotFillRule potFillRule,
             @JsonProperty("matchConfigurations") List<MatchGameConfiguration> configurations) {
         this.configurationKey = key;
         this.price = price;
         this.privacyRule = privacyRule;
+        this.potFillRule = potFillRule;
         this.numberRule = numberRule;
         this.matchConfigurations = configurations;
     }
@@ -61,14 +65,20 @@ public class PotGameConfiguration implements GameConfiguration {
         return matchConfigurations;
     }
 
+    public PotFillRule getPotFillRule() {
+        return potFillRule;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((configurationKey == null) ? 0 : configurationKey.hashCode());
-        result = prime * result + ((numberRule == null) ? 0 : numberRule.hashCode());
-        result = prime * result + ((price == null) ? 0 : price.hashCode());
         result = prime * result + ((matchConfigurations == null) ? 0 : matchConfigurations.hashCode());
+        result = prime * result + ((numberRule == null) ? 0 : numberRule.hashCode());
+        result = prime * result + ((potFillRule == null) ? 0 : potFillRule.hashCode());
+        result = prime * result + ((price == null) ? 0 : price.hashCode());
+        result = prime * result + ((privacyRule == null) ? 0 : privacyRule.hashCode());
         return result;
     }
 
@@ -86,17 +96,21 @@ public class PotGameConfiguration implements GameConfiguration {
                 return false;
         } else if (!configurationKey.equals(other.configurationKey))
             return false;
+        if (matchConfigurations == null) {
+            if (other.matchConfigurations != null)
+                return false;
+        } else if (!matchConfigurations.equals(other.matchConfigurations))
+            return false;
         if (numberRule != other.numberRule)
+            return false;
+        if (potFillRule != other.potFillRule)
             return false;
         if (price == null) {
             if (other.price != null)
                 return false;
         } else if (!price.equals(other.price))
             return false;
-        if (matchConfigurations == null) {
-            if (other.matchConfigurations != null)
-                return false;
-        } else if (!matchConfigurations.equals(other.matchConfigurations))
+        if (privacyRule != other.privacyRule)
             return false;
         return true;
     }

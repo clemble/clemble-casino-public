@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("ended")
-public class GameMatchEndedEvent<State extends GameState> extends GameMatchEvent<State> {
+public class GameMatchEndedEvent<State extends GameState> extends GameMatchEvent<State> implements GameEndedEvent {
 
     /**
      * Generated 07/05/13

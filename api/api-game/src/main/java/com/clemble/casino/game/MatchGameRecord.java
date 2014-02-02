@@ -148,7 +148,6 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
@@ -156,7 +155,7 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MatchGameRecord other = (MatchGameRecord) obj;
+        MatchGameRecord<?> other = (MatchGameRecord<?>) obj;
         if (madeMoves == null) {
             if (other.madeMoves != null)
                 return false;

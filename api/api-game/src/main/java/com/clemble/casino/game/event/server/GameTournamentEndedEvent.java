@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("tournamentEnded")
-public class GameTournamentEndedEvent extends GameTournamentEvent {
+public class GameTournamentEndedEvent extends GameTournamentEvent implements GameEndedEvent {
 
     /**
      * Generated 01/02/14

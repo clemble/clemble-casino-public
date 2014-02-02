@@ -8,6 +8,7 @@ import com.clemble.casino.game.rule.MatchRule;
 public enum WonRule implements MatchRule {
 
     spent,
-    price;
+    price,
+    owned;
 
 }
