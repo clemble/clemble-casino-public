@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.clemble.casino.error.ClembleCasinoFailure;
 import com.clemble.casino.game.Game;
+import com.clemble.casino.game.PotGameContext;
 import com.clemble.casino.game.event.server.GameInitiationCanceledEvent;
 import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
@@ -58,6 +59,7 @@ public class JsonCreationTest {
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
+        checkSerialization(PotGameContext.class);
         checkSerialization(GameInitiationCanceledEvent.class);
         ClembleCasinoFailure casinoFailure = objectMapper.readValue(ERROR_JSON, ClembleCasinoFailure.class);
         assertEquals(casinoFailure.getError().getCode(), "0C1");

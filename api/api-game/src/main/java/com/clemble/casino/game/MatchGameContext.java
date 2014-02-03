@@ -6,7 +6,6 @@ import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.iterator.GamePlayerIterator;
 import com.clemble.casino.game.iterator.GamePlayerIteratorFactory;
-import com.clemble.casino.player.PlayerAwareUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -15,24 +14,23 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 24/12/13.
  */
 @JsonTypeName("matchContext")
-public class MatchGameContext extends GameContext {
+public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
 
     /**
      * Generated 29/12/13
      */
     private static final long serialVersionUID = 7026521242574488489L;
 
-    final private List<MatchGamePlayerContext> playerContexts;
     final private GamePlayerIterator playerIterator;
     final private ActionLatch actionLatch;
 
     @JsonCreator
-    public MatchGameContext(@JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
+    public MatchGameContext(@JsonProperty("session") GameSessionKey sessionKey,
+            @JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
             @JsonProperty("playerIterator") GamePlayerIterator playerIterator,
             @JsonProperty("actionLatch") ActionLatch actionLatch,
-            @JsonProperty(value = "parent", required = false) GameContext parent) {
-        super(parent);
-        this.playerContexts = playerContexts;
+            @JsonProperty(value = "parent", required = false) GameContext<?> parent) {
+        super(sessionKey, parent, playerContexts);
         this.playerIterator = playerIterator;
         this.actionLatch = actionLatch;
     }
@@ -41,9 +39,8 @@ public class MatchGameContext extends GameContext {
         this(initiation, null);
     }
 
-    public MatchGameContext(GameInitiation initiation, GameContext parent) {
-        super(parent);
-        this.playerContexts = MatchGamePlayerContext.construct(initiation);
+    public MatchGameContext(GameInitiation initiation, GameContext<?> parent) {
+        super(initiation.getSession(), parent, MatchGamePlayerContext.construct(initiation));
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
     }
@@ -56,20 +53,11 @@ public class MatchGameContext extends GameContext {
         return actionLatch;
     }
 
-    public List<MatchGamePlayerContext> getPlayerContexts() {
-        return playerContexts;
-    }
-
-    public MatchGamePlayerContext getPlayerContext(String player) {
-        return PlayerAwareUtils.fetch(player, playerContexts);
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((actionLatch == null) ? 0 : actionLatch.hashCode());
-        result = prime * result + ((playerContexts == null) ? 0 : playerContexts.hashCode());
         result = prime * result + ((playerIterator == null) ? 0 : playerIterator.hashCode());
         return result;
     }
@@ -88,11 +76,6 @@ public class MatchGameContext extends GameContext {
                 return false;
         } else if (!actionLatch.equals(other.actionLatch))
             return false;
-        if (playerContexts == null) {
-            if (other.playerContexts != null)
-                return false;
-        } else if (!playerContexts.equals(other.playerContexts))
-            return false;
         if (playerIterator == null) {
             if (other.playerIterator != null)
                 return false;
@@ -100,4 +83,5 @@ public class MatchGameContext extends GameContext {
             return false;
         return true;
     }
+
 }

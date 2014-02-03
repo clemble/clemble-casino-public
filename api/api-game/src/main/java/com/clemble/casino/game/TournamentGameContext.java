@@ -13,8 +13,8 @@ public class TournamentGameContext extends GameContext {
     private static final long serialVersionUID = 8852504586116283067L;
 
     @JsonCreator
-    public TournamentGameContext(@JsonProperty("parent") GameContext parent) {
-        super(parent);
+    public TournamentGameContext(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("parent") GameContext<?> parent) {
+        super(sessionKey, parent, null);
     }
 
 }

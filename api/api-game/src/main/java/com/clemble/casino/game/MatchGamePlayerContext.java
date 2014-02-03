@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.specification.MatchGameConfiguration;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,8 +16,8 @@ public class MatchGamePlayerContext implements GamePlayerContext, GameRoleAware 
      */
     private static final long serialVersionUID = -6980469472050707009L;
 
-    final private String player;
     final private String role;
+    final private String player;
     final private GamePlayerAccount account;
     final private GamePlayerClock clock;
 

@@ -223,13 +223,13 @@ public class ObjectTest {
         register(PotGameContext.class, new AbstractValueGenerator<PotGameContext>() {
             @Override
             public PotGameContext generate() {
-                return new PotGameContext(Collections.<PotGamePlayerContext>emptyList(), null, 0);
+                return new PotGameContext(GameSessionKey.DEFAULT_SESSION, Collections.<PotGamePlayerContext>emptyList(), null, 0);
             }
         });
         register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {
             @Override
             public TournamentGameContext generate() {
-                return new TournamentGameContext(null);
+                return new TournamentGameContext(GameSessionKey.DEFAULT_SESSION, null);
             }
         });
         try {
