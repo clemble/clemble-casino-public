@@ -11,6 +11,7 @@ import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
 import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
+import com.clemble.casino.game.rule.time.TimeBreachPunishment;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
 import com.clemble.casino.payment.money.Currency;
@@ -33,8 +34,8 @@ public class MatchGameConfiguration implements GameConfiguration {
             Money.create(Currency.FakeMoney, 50),
             FixedBetRule.DEFAULT,
             GiveUpRule.lost,
-            MoveTimeRule.DEFAULT,
-            TotalTimeRule.DEFAULT,
+            new MoveTimeRule(4000, TimeBreachPunishment.loose),
+            new TotalTimeRule(4000, TimeBreachPunishment.loose),
             PrivacyRule.everybody,
             PlayerNumberRule.two,
             VisibilityRule.hidden,
@@ -108,10 +109,12 @@ public class MatchGameConfiguration implements GameConfiguration {
         return giveUpRule;
     }
 
+    @Override
     public MoveTimeRule getMoveTimeRule() {
         return moveTimeRule;
     }
 
+    @Override
     public TotalTimeRule getTotalTimeRule() {
         return totalTimeRule;
     }

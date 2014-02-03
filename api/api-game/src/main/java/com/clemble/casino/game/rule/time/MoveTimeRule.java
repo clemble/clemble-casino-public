@@ -19,9 +19,6 @@ public class MoveTimeRule implements TimeRule {
      */
     private static final long serialVersionUID = -2949008185370674021L;
 
-    final public static MoveTimeRule DEFAULT = new MoveTimeRule(0, TimeBreachPunishment.loose);
-    final public static GameRuleOptions<MoveTimeRule> DEFAULT_OPTIONS = new GameRuleOptions<MoveTimeRule>(DEFAULT);
-
     final private TimeBreachPunishment punishment;
     final private long limit;
 

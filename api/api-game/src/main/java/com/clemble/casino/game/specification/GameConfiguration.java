@@ -2,6 +2,8 @@ package com.clemble.casino.game.specification;
 
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
+import com.clemble.casino.game.rule.time.MoveTimeRule;
+import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.payment.money.Money;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -13,5 +15,9 @@ public interface GameConfiguration extends GameConfigurationKeyAware {
     public PlayerNumberRule getNumberRule();
 
     public PrivacyRule getPrivacyRule();
+
+    public TotalTimeRule getTotalTimeRule();
+
+    public MoveTimeRule getMoveTimeRule();
 
 }

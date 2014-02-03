@@ -17,14 +17,18 @@ public class PotPlayerGameContext implements PlayerAware {
 
     private long pot; // TODO make this immutable
     final private String player;
+    final private GamePlayerClock clock;
     final private List<PlayerWonOutcome> wonOutcomes = new ArrayList<PlayerWonOutcome>();
 
     @JsonCreator
-    public PotPlayerGameContext(@JsonProperty("player") String player, @JsonProperty("pot") long pot,
-            @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes) {
+    public PotPlayerGameContext(@JsonProperty("player") String player,
+            @JsonProperty("pot") long pot,
+            @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes,
+            @JsonProperty("clock") GamePlayerClock clock) {
         this.pot = pot;
         this.player = player;
         this.wonOutcomes.addAll(outcomes);
+        this.clock = clock;
     }
 
     public void add(long amount) {
@@ -47,6 +51,10 @@ public class PotPlayerGameContext implements PlayerAware {
 
     public List<PlayerWonOutcome> getWonOutcomes() {
         return wonOutcomes;
+    }
+
+    public GamePlayerClock getClock() {
+        return clock;
     }
 
     @Override

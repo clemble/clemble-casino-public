@@ -6,7 +6,6 @@ import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.TotalTimeoutSurrenderAction;
-import com.clemble.casino.game.configuration.GameRuleOptions;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -18,9 +17,6 @@ public class TotalTimeRule implements TimeRule {
      * Generated 09/04/13
      */
     private static final long serialVersionUID = 7452918511506230595L;
-
-    final public static TotalTimeRule DEFAULT = new TotalTimeRule(10, TimeBreachPunishment.loose);
-    final public static GameRuleOptions<TotalTimeRule> DEFAULT_OPTIONS = new GameRuleOptions<TotalTimeRule>(DEFAULT);
 
     final private long limit;
     final private TimeBreachPunishment punishment;
