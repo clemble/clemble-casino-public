@@ -21,7 +21,7 @@ import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.PotGameContext;
-import com.clemble.casino.game.PotPlayerGameContext;
+import com.clemble.casino.game.PotGamePlayerContext;
 import com.clemble.casino.game.TournamentGameContext;
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.action.GameAction;
@@ -223,7 +223,7 @@ public class ObjectTest {
         register(PotGameContext.class, new AbstractValueGenerator<PotGameContext>() {
             @Override
             public PotGameContext generate() {
-                return new PotGameContext(Collections.<PotPlayerGameContext>emptyList(), null, 0);
+                return new PotGameContext(Collections.<PotGamePlayerContext>emptyList(), null, 0);
             }
         });
         register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {

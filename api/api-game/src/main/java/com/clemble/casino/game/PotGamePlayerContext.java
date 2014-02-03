@@ -4,44 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PotPlayerGameContext implements PlayerAware {
+public class PotGamePlayerContext implements GamePlayerContext {
 
     /**
      * Generated 02/02/14
      */
     private static final long serialVersionUID = 1006013553217498447L;
 
-    private long pot; // TODO make this immutable
     final private String player;
     final private GamePlayerClock clock;
+    final private GamePlayerAccount account;
     final private List<PlayerWonOutcome> wonOutcomes = new ArrayList<PlayerWonOutcome>();
 
     @JsonCreator
-    public PotPlayerGameContext(@JsonProperty("player") String player,
-            @JsonProperty("pot") long pot,
-            @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes,
-            @JsonProperty("clock") GamePlayerClock clock) {
-        this.pot = pot;
+    public PotGamePlayerContext(@JsonProperty("player") String player, @JsonProperty("account") GamePlayerAccount account,
+            @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes, @JsonProperty("clock") GamePlayerClock clock) {
         this.player = player;
-        this.wonOutcomes.addAll(outcomes);
         this.clock = clock;
-    }
-
-    public void add(long amount) {
-        this.pot += amount;
-    }
-
-    public void add(PlayerWonOutcome wonOutcome) {
-        if (player.equals(wonOutcome.getWinner()))
-            wonOutcomes.add(wonOutcome);
-    }
-
-    public long getPot() {
-        return pot;
+        this.account = account;
+        this.wonOutcomes.addAll(outcomes);
     }
 
     @Override
@@ -49,20 +33,27 @@ public class PotPlayerGameContext implements PlayerAware {
         return player;
     }
 
-    public List<PlayerWonOutcome> getWonOutcomes() {
-        return wonOutcomes;
-    }
-
+    @Override
     public GamePlayerClock getClock() {
         return clock;
+    }
+
+    @Override
+    public GamePlayerAccount getAccount() {
+        return account;
+    }
+
+    public List<PlayerWonOutcome> getWonOutcomes() {
+        return wonOutcomes;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((account == null) ? 0 : account.hashCode());
+        result = prime * result + ((clock == null) ? 0 : clock.hashCode());
         result = prime * result + ((player == null) ? 0 : player.hashCode());
-        result = prime * result + (int) (pot ^ (pot >>> 32));
         result = prime * result + ((wonOutcomes == null) ? 0 : wonOutcomes.hashCode());
         return result;
     }
@@ -75,13 +66,21 @@ public class PotPlayerGameContext implements PlayerAware {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PotPlayerGameContext other = (PotPlayerGameContext) obj;
+        PotGamePlayerContext other = (PotGamePlayerContext) obj;
+        if (account == null) {
+            if (other.account != null)
+                return false;
+        } else if (!account.equals(other.account))
+            return false;
+        if (clock == null) {
+            if (other.clock != null)
+                return false;
+        } else if (!clock.equals(other.clock))
+            return false;
         if (player == null) {
             if (other.player != null)
                 return false;
         } else if (!player.equals(other.player))
-            return false;
-        if (pot != other.pot)
             return false;
         if (wonOutcomes == null) {
             if (other.wonOutcomes != null)

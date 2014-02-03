@@ -22,12 +22,12 @@ public class MatchGameContext extends GameContext {
      */
     private static final long serialVersionUID = 7026521242574488489L;
 
-    final private List<GamePlayerContext> playerContexts;
+    final private List<MatchGamePlayerContext> playerContexts;
     final private GamePlayerIterator playerIterator;
     final private ActionLatch actionLatch;
 
     @JsonCreator
-    public MatchGameContext(@JsonProperty("playerContexts") List<GamePlayerContext> playerContexts,
+    public MatchGameContext(@JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
             @JsonProperty("playerIterator") GamePlayerIterator playerIterator,
             @JsonProperty("actionLatch") ActionLatch actionLatch,
             @JsonProperty(value = "parent", required = false) GameContext parent) {
@@ -43,7 +43,7 @@ public class MatchGameContext extends GameContext {
 
     public MatchGameContext(GameInitiation initiation, GameContext parent) {
         super(parent);
-        this.playerContexts = GamePlayerContext.construct(initiation);
+        this.playerContexts = MatchGamePlayerContext.construct(initiation);
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
     }
@@ -56,11 +56,11 @@ public class MatchGameContext extends GameContext {
         return actionLatch;
     }
 
-    public List<GamePlayerContext> getPlayerContexts() {
+    public List<MatchGamePlayerContext> getPlayerContexts() {
         return playerContexts;
     }
 
-    public GamePlayerContext getPlayerContext(String player) {
+    public MatchGamePlayerContext getPlayerContext(String player) {
         return PlayerAwareUtils.fetch(player, playerContexts);
     }
 

@@ -16,12 +16,12 @@ public class GameContextBuilder implements Serializable {
      */
     private static final long serialVersionUID = 7026521242574488489L;
 
-    private List<GamePlayerContext> playerContexts;
+    private List<MatchGamePlayerContext> playerContexts;
     private GamePlayerIterator playerIterator;
     private ActionLatch actionLatch;
 
     public GameContextBuilder(GameInitiation initiation) {
-        this.playerContexts = GamePlayerContext.construct(initiation);
+        this.playerContexts = MatchGamePlayerContext.construct(initiation);
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
     }
@@ -44,15 +44,15 @@ public class GameContextBuilder implements Serializable {
         return this;
     }
 
-    public List<GamePlayerContext> getPlayerContexts() {
+    public List<MatchGamePlayerContext> getPlayerContexts() {
         return playerContexts;
     }
 
-    public GamePlayerContext getPlayerContext(String player) {
+    public MatchGamePlayerContext getPlayerContext(String player) {
         return PlayerAwareUtils.fetch(player, playerContexts);
     }
 
-    public GameContextBuilder setPlayerContexts(List<GamePlayerContext> playerContexts) {
+    public GameContextBuilder setPlayerContexts(List<MatchGamePlayerContext> playerContexts) {
         this.playerContexts = playerContexts;
         return this;
     }
