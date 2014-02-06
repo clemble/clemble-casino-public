@@ -9,10 +9,9 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.clemble.casino.game.specification.GameConfigurationKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,35 +33,27 @@ public class PotGameRecord implements GameRecord {
     private GameSessionState sessionState;
     @Embedded
     private GameConfigurationKey configurationKey;
-    @OneToMany
-    @JoinTable(name = "GAME_POT_TO_MATCH", 
-        joinColumns = {
-            @JoinColumn(name = "GAME", referencedColumnName = "GAME"),
-            @JoinColumn(name = "SESSION_ID", referencedColumnName = "SESSION_ID")
-        },
-        inverseJoinColumns = {
-            @JoinColumn(name = "MATCH_GAME", referencedColumnName = "GAME"),
-            @JoinColumn(name = "MATCH_SESSION_ID", referencedColumnName = "SESSION_ID")
-        }
-    )
-    private List<MatchGameRecord<?>> matchRecords = new ArrayList<MatchGameRecord<?>>();
+    @Type(type = "com.clemble.casino.game.GameRecordHibernate")
+    @Column(name = "GAME_STATE", length = 40960)
+    private List<GameRecord> matchRecords = new ArrayList<GameRecord>();
 
     public PotGameRecord() {
     }
 
     @JsonCreator
     public PotGameRecord(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
-            @JsonProperty("sessionState") GameSessionState sessionState, @JsonProperty("matchRecords") List<MatchGameRecord<?>> matchRecords) {
+            @JsonProperty("sessionState") GameSessionState sessionState, @JsonProperty("matchRecords") List<GameRecord> matchRecords) {
         this.sessionKey = sessionKey;
         this.sessionState = sessionState;
         this.configurationKey = configurationKey;
+        this.matchRecords.addAll(matchRecords);
     }
 
-    public List<MatchGameRecord<?>> getMatchRecords() {
+    public List<GameRecord> getMatchRecords() {
         return matchRecords;
     }
 
-    public void setMatchRecords(List<MatchGameRecord<?>> sessions) {
+    public void setMatchRecords(List<GameRecord> sessions) {
         this.matchRecords = sessions;
     }
 

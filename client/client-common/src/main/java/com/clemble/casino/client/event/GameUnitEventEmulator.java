@@ -6,11 +6,11 @@ import java.util.Map;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.event.server.GameMatchEndedEvent;
-import com.clemble.casino.game.event.server.GameMatchStateChangedEvent;
 import com.clemble.casino.game.event.server.GameMatchEvent;
+import com.clemble.casino.game.event.server.GameMatchStateChangedEvent;
 import com.clemble.casino.game.unit.GameUnit;
 
-public class GameUnitEventEmulator implements EventListener<GameMatchEvent<?>>, EventSelector {
+public class GameUnitEventEmulator implements EventListener<GameMatchEvent>, EventSelector {
 
     final private EventListenerOperations listenerOperations;
     final private EventSelector selector = new EventTypeSelector(GameMatchEvent.class);
@@ -21,7 +21,7 @@ public class GameUnitEventEmulator implements EventListener<GameMatchEvent<?>>, 
     }
 
     @Override
-    public void onEvent(GameMatchEvent<?> smEvent) {
+    public void onEvent(GameMatchEvent smEvent) {
         // Step 1. Processing state root
         GameSessionKey session = smEvent.getSession();
         GameUnitWrapper<GameUnit> unitWrap = sessionToUnitWrapper.get(session);

@@ -10,10 +10,10 @@ import com.clemble.casino.game.service.GameActionService;
 public class GameActionTemplateFactory implements GameActionOperationsFactory {
 
     final private String player;
-    final private GameActionService<?> actionService;
+    final private GameActionService actionService;
     final private EventListenerOperations eventListenerOperation;
 
-    public GameActionTemplateFactory(String player, EventListenerOperations eventListenerOperation, GameActionService<?> actionService) {
+    public GameActionTemplateFactory(String player, EventListenerOperations eventListenerOperation, GameActionService actionService) {
         this.player = checkNotNull(player);
         this.actionService = checkNotNull(actionService);
         this.eventListenerOperation = checkNotNull(eventListenerOperation);
@@ -23,7 +23,7 @@ public class GameActionTemplateFactory implements GameActionOperationsFactory {
     @SuppressWarnings("unchecked")
     public <State extends GameState> GameActionOperations<State> construct(GameSessionKey session) {
         // Step 1. Constructing appropriate GameAction service
-        return new GameActionTemplate<State>(player, session, eventListenerOperation, (GameActionService<State>) actionService);
+        return new GameActionTemplate<State>(player, session, eventListenerOperation, (GameActionService) actionService);
     }
 
 }

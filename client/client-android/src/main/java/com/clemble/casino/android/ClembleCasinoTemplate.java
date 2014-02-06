@@ -119,7 +119,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
             AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), gameRegistry);
             GameInitiationService initiationService = new AndroidGameInitiationService(getRestTemplate(), gameRegistry);
             GameConfigurationService specificationService = new AndroidGameConfigurationService(getRestTemplate(), gameRegistry);
-            GameActionService<?> actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
+            GameActionService actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
             GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
             GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService, availabilityConstructionService, initiationService, specificationService, listenerOperations);
             gameToConstructor.put(game, constructionOperations);

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("ended")
-public class GameMatchEndedEvent<State extends GameState> extends GameMatchEvent<State> implements GameEndedEvent {
+public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEvent {
 
     /**
      * Generated 07/05/13
@@ -20,14 +20,14 @@ public class GameMatchEndedEvent<State extends GameState> extends GameMatchEvent
     final private GameOutcome outcome;
     private PaymentTransaction transaction;
 
-    public GameMatchEndedEvent(MatchGameRecord<State> session, GameOutcome outcome) {
+    public GameMatchEndedEvent(MatchGameRecord session, GameOutcome outcome) {
         super(session);
         this.outcome = outcome;
     }
 
     @JsonCreator
     public GameMatchEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
-            @JsonProperty("state") State state,
+            @JsonProperty("state") GameState state,
             @JsonProperty("outcome") GameOutcome outcome,
             @JsonProperty("transaction") PaymentTransaction transaction) {
         super(sessionKey, state);
@@ -63,7 +63,7 @@ public class GameMatchEndedEvent<State extends GameState> extends GameMatchEvent
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameMatchEndedEvent<?> other = (GameMatchEndedEvent<?>) obj;
+        GameMatchEndedEvent other = (GameMatchEndedEvent) obj;
         if (outcome == null) {
             if (other.outcome != null)
                 return false;

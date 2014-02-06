@@ -6,27 +6,27 @@ import com.clemble.casino.game.GameState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GameMatchEvent<State extends GameState> extends GameManagementEvent {
+public class GameMatchEvent extends GameManagementEvent {
 
     /**
      * Generated 07/05/13
      */
     private static final long serialVersionUID = -4837244615682915463L;
 
-    final private State state;
+    final private GameState state;
 
-    public GameMatchEvent(MatchGameRecord<State> session) {
+    public GameMatchEvent(MatchGameRecord session) {
         super(session.getSession());
         this.state = session.getState();
     }
 
     @JsonCreator
-    public GameMatchEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") State state) {
+    public GameMatchEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") GameState state) {
         super(sessionKey);
         this.state = state;
     }
 
-    public State getState() {
+    public GameState getState() {
         return state;
     }
 
@@ -46,7 +46,7 @@ public class GameMatchEvent<State extends GameState> extends GameManagementEvent
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameMatchEvent<?> other = (GameMatchEvent<?>) obj;
+        GameMatchEvent other = (GameMatchEvent) obj;
         if (state == null) {
             if (other.state != null)
                 return false;

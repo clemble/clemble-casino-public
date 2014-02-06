@@ -17,11 +17,11 @@ import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.web.game.GameWebMapping;
 import com.clemble.casino.web.mapping.WebMapping;
 
-public interface GameActionService<State extends GameState> extends ClembleService {
+public interface GameActionService extends ClembleService {
 
     @RequestMapping(method = RequestMethod.GET, value = GameWebMapping.GAME_SESSIONS_STATE, produces = WebMapping.PRODUCES)
     @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody State getState(@PathVariable("game") Game game, @PathVariable("session") String session);
+    public @ResponseBody GameState getState(@PathVariable("game") Game game, @PathVariable("session") String session);
 
     @RequestMapping(method = RequestMethod.POST, value = GameWebMapping.GAME_SESSIONS_ACTIONS, produces = WebMapping.PRODUCES)
     @ResponseStatus(value = HttpStatus.OK)

@@ -2,16 +2,16 @@ package com.clemble.casino.game.event.server;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.action.GameAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("changed")
-public class GameMatchStateChangedEvent<S extends GameState> extends GameMatchEvent<S> {
+public class GameMatchStateChangedEvent extends GameMatchEvent {
 
     /**
      * Generated 25/12/13
@@ -20,13 +20,13 @@ public class GameMatchStateChangedEvent<S extends GameState> extends GameMatchEv
 
     final private Collection<GameAction> actions;
 
-    public GameMatchStateChangedEvent(MatchGameRecord<S> session, Collection<GameAction> actions) {
+    public GameMatchStateChangedEvent(MatchGameRecord session, Collection<GameAction> actions) {
         super(session);
         this.actions = actions;
     }
 
     @JsonCreator
-    public GameMatchStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") S state, @JsonProperty("actions") Collection<GameAction> actions) {
+    public GameMatchStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") GameState state, @JsonProperty("actions") Collection<GameAction> actions) {
         super(session, state);
         this.actions = actions;
     }
@@ -51,7 +51,7 @@ public class GameMatchStateChangedEvent<S extends GameState> extends GameMatchEv
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameMatchStateChangedEvent<?> other = (GameMatchStateChangedEvent<?>) obj;
+        GameMatchStateChangedEvent other = (GameMatchStateChangedEvent) obj;
         if (actions == null) {
             if (other.actions != null)
                 return false;

@@ -38,6 +38,7 @@ public class MatchGamePlayerContext implements GamePlayerContext, GameRoleAware 
         return player;
     }
 
+    @Override
     public GamePlayerAccount getAccount() {
         return account;
     }

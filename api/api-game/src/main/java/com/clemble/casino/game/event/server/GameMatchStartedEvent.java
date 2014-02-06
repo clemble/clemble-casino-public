@@ -9,14 +9,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("started")
-public class GameMatchStartedEvent<State extends GameState> extends GameMatchEvent<State> implements GameSessionAware, GameStartedEvent {
+public class GameMatchStartedEvent<State extends GameState> extends GameMatchEvent implements GameSessionAware, GameStartedEvent {
 
     /**
      * Generated
      */
     private static final long serialVersionUID = -4474960027054354888L;
 
-    public GameMatchStartedEvent(MatchGameRecord<State> session) {
+    public GameMatchStartedEvent(MatchGameRecord session) {
         super(session);
     }
 

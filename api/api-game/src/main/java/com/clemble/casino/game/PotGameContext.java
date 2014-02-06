@@ -1,7 +1,15 @@
 package com.clemble.casino.game;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
+import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.outcome.GameOutcome;
+import com.clemble.casino.game.outcome.PlayerWonOutcome;
+import com.clemble.casino.game.specification.GameConfiguration;
+import com.clemble.casino.game.specification.MatchGameConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -25,6 +33,14 @@ public class PotGameContext extends GameContext<PotGamePlayerContext> {
         this.pot = pot;
     }
 
+    public PotGameContext(GameInitiation initiation) {
+        this(initiation, null);
+    }
+
+    public PotGameContext(GameInitiation initiation, GameContext<?> parent) {
+        super(initiation.getSession(), parent, PotGamePlayerContext.construct(initiation));
+    }
+
     public long getPot() {
         return pot;
     }
@@ -32,4 +48,5 @@ public class PotGameContext extends GameContext<PotGamePlayerContext> {
     public void add(long addition) {
         this.pot += addition;
     }
+
 }

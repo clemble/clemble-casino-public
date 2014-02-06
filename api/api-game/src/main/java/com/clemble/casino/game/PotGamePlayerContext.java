@@ -1,9 +1,12 @@
 package com.clemble.casino.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
+import com.clemble.casino.game.specification.GameConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,8 +23,11 @@ public class PotGamePlayerContext implements GamePlayerContext {
     final private List<PlayerWonOutcome> wonOutcomes = new ArrayList<PlayerWonOutcome>();
 
     @JsonCreator
-    public PotGamePlayerContext(@JsonProperty("player") String player, @JsonProperty("account") GamePlayerAccount account,
-            @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes, @JsonProperty("clock") GamePlayerClock clock) {
+    public PotGamePlayerContext(
+        @JsonProperty("player") String player,
+        @JsonProperty("account") GamePlayerAccount account,
+        @JsonProperty("clock") GamePlayerClock clock,
+        @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes) {
         this.player = player;
         this.clock = clock;
         this.account = account;
@@ -45,6 +51,18 @@ public class PotGamePlayerContext implements GamePlayerContext {
 
     public List<PlayerWonOutcome> getWonOutcomes() {
         return wonOutcomes;
+    }
+
+
+    public static List<PotGamePlayerContext> construct(GameInitiation initiation) {
+        GameConfiguration specification = initiation.getConfiguration();
+        List<PotGamePlayerContext> playerContexts = new ArrayList<PotGamePlayerContext>();
+        for(String player: initiation.getParticipants()) {
+            GamePlayerAccount account = new GamePlayerAccount(specification.getPrice());
+            GamePlayerClock clock = new GamePlayerClock(0, 0);
+            playerContexts.add(new PotGamePlayerContext(player, account, clock, Collections.<PlayerWonOutcome>emptyList()));
+        }
+        return playerContexts;
     }
 
     @Override

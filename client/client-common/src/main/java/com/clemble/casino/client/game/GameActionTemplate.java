@@ -28,20 +28,20 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     final private String player;
     final private GameSessionKey session;
-    final private GameActionService<State> gameActionService;
+    final private GameActionService gameActionService;
     final private EventListenerOperations eventListenersManager;
-    final private AtomicReference<State> currentState = new AtomicReference<State>();
+    final private AtomicReference<GameState> currentState = new AtomicReference<GameState>();
 
-    public GameActionTemplate(String player, GameSessionKey session, EventListenerOperations eventListenersManager, GameActionService<State> gameActionService) {
+    public GameActionTemplate(String player, GameSessionKey session, EventListenerOperations eventListenersManager, GameActionService gameActionService) {
         this.player = player;
         this.session = session;
         this.eventListenersManager = checkNotNull(eventListenersManager);
         this.eventListenersManager.subscribe(EventSelectors
                 .where(new GameSessionEventSelector(session))
                 .and(new EventTypeSelector(GameMatchEvent.class)),
-            new EventListener<GameMatchEvent<State>>() {
+            new EventListener<GameMatchEvent>() {
             @Override
-            public void onEvent(GameMatchEvent<State> event) {
+            public void onEvent(GameMatchEvent event) {
                 currentState.set(event.getState());
             }
         });
@@ -50,17 +50,20 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public State getState(){
-        return gameActionService.getState(session.getGame(), session.getSession());
+        // TODO fix it
+        return (State) gameActionService.getState(session.getGame(), session.getSession());
     }
 
     private State getCurrentState(){
-        return currentState.get() == null ? setCurrentState(getState()) : currentState.get();
+        // TODO fix it
+        return (State) (currentState.get() == null ? setCurrentState(getState()) : currentState.get());
     }
 
     private State setCurrentState(State state) {
         if(currentState.get() == null || state.getVersion() > currentState.get().getVersion())
             currentState.set(state);
-        return currentState.get();
+        // TODO fix it
+        return (State) currentState.get();
     }
 
     @Override

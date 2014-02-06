@@ -1,6 +1,9 @@
 package com.clemble.casino.android.game.service;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
+import static com.clemble.casino.web.game.GameWebMapping.GAME_SESSIONS_ACTIONS;
+import static com.clemble.casino.web.game.GameWebMapping.GAME_SESSIONS_ACTIONS_ACTION;
+import static com.clemble.casino.web.game.GameWebMapping.GAME_SESSIONS_STATE;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -12,9 +15,8 @@ import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.event.server.GameManagementEvent;
-import static com.clemble.casino.web.game.GameWebMapping.*;
 
-public class AndroidGameActionTemplate<State extends GameState> extends AbstractClembleCasinoOperations implements ClientGameActionOperations<State> {
+public class AndroidGameActionTemplate extends AbstractClembleCasinoOperations implements ClientGameActionOperations {
 
     final private RestTemplate restTemplate;
 
@@ -24,9 +26,8 @@ public class AndroidGameActionTemplate<State extends GameState> extends Abstract
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public State getState(Game game, String session) {
-        return (State) restTemplate.getForObject(buildUriWith(GAME_SESSIONS_STATE, game, session), GameState.class);
+    public GameState getState(Game game, String session) {
+        return restTemplate.getForObject(buildUriWith(GAME_SESSIONS_STATE, game, session), GameState.class);
     }
 
     @Override

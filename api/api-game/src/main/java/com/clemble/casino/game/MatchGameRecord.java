@@ -25,7 +25,7 @@ import com.clemble.casino.game.specification.GameConfigurationKey;
 
 @Entity
 @Table(name = "GAME_SESSION")
-public class MatchGameRecord<S extends GameState> implements GameRecord, VersionAware {
+public class MatchGameRecord implements GameRecord, VersionAware {
 
     /**
      * Generated 16/02/13
@@ -52,7 +52,7 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
 
     @Type(type = "com.clemble.casino.game.GameStateHibernate")
     @Column(name = "GAME_STATE", length = 4096)
-    private S state;
+    private GameState state;
 
     @Version
     @Column(name = "VERSION")
@@ -66,7 +66,7 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
         return session;
     }
 
-    public MatchGameRecord<S> setSession(GameSessionKey newSession) {
+    public MatchGameRecord setSession(GameSessionKey newSession) {
         this.session = newSession;
         return this;
     }
@@ -76,7 +76,7 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
         return configurationKey;
     }
 
-    public MatchGameRecord<S> setConfiguration(GameConfigurationKey configurationKey) {
+    public MatchGameRecord setConfiguration(GameConfigurationKey configurationKey) {
         this.configurationKey = configurationKey;
         return this;
     }
@@ -86,7 +86,7 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
         return sessionState;
     }
 
-    public MatchGameRecord<S> setSessionState(GameSessionState gameSessionState) {
+    public MatchGameRecord setSessionState(GameSessionState gameSessionState) {
         this.sessionState = gameSessionState;
         return this;
     }
@@ -95,7 +95,7 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
         return players;
     }
 
-    public MatchGameRecord<S> setPlayers(Collection<String> players) {
+    public MatchGameRecord setPlayers(Collection<String> players) {
         this.players.clear();
         this.players.addAll(players);
         return this;
@@ -126,11 +126,11 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
         this.version = version;
     }
 
-    public S getState() {
+    public GameState getState() {
         return state;
     }
 
-    public MatchGameRecord<S> setState(S state) {
+    public MatchGameRecord setState(GameState state) {
         this.state = state;
         return this;
     }
@@ -155,7 +155,7 @@ public class MatchGameRecord<S extends GameState> implements GameRecord, Version
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MatchGameRecord<?> other = (MatchGameRecord<?>) obj;
+        MatchGameRecord other = (MatchGameRecord) obj;
         if (madeMoves == null) {
             if (other.madeMoves != null)
                 return false;

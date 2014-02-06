@@ -4,11 +4,11 @@ import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.event.server.GameMatchEvent;
 import com.clemble.casino.game.event.server.GameMatchStartedEvent;
 import com.clemble.casino.game.event.server.GameMatchStateChangedEvent;
-import com.clemble.casino.game.event.server.GameMatchEvent;
 
-public class PlayerToMoveEventEmulator implements EventListener<GameMatchEvent<?>>, EventSelector {
+public class PlayerToMoveEventEmulator implements EventListener<GameMatchEvent>, EventSelector {
 
     final private String player;
     final private EventListenerOperations listenerOperations;
@@ -19,7 +19,7 @@ public class PlayerToMoveEventEmulator implements EventListener<GameMatchEvent<?
     }
 
     @Override
-    public void onEvent(GameMatchEvent<?> smEvent) {
+    public void onEvent(GameMatchEvent smEvent) {
         // Step 1. Checking Action latch
         GameSessionKey sessionKey = smEvent.getSession();
         if (smEvent.getState() != null

@@ -27,7 +27,7 @@ public class PotGameConfiguration implements GameConfiguration {
     final private PotFillRule potFillRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
-    final private List<MatchGameConfiguration> matchConfigurations;
+    final private List<GameConfiguration> configurations;
 
     @JsonCreator
     public PotGameConfiguration(
@@ -38,7 +38,7 @@ public class PotGameConfiguration implements GameConfiguration {
             @JsonProperty("potFillRule") PotFillRule potFillRule,
             @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
             @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
-            @JsonProperty("matchConfigurations") List<MatchGameConfiguration> configurations) {
+            @JsonProperty("configurations") List<GameConfiguration> configurations) {
         this.configurationKey = key;
         this.price = price;
         this.privacyRule = privacyRule;
@@ -46,7 +46,7 @@ public class PotGameConfiguration implements GameConfiguration {
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.numberRule = numberRule;
-        this.matchConfigurations = configurations;
+        this.configurations = configurations;
     }
 
     @Override
@@ -69,8 +69,8 @@ public class PotGameConfiguration implements GameConfiguration {
         return privacyRule;
     }
 
-    public List<MatchGameConfiguration> getMatchConfigurations() {
-        return matchConfigurations;
+    public List<GameConfiguration> getConfigurations() {
+        return configurations;
     }
 
     public PotFillRule getPotFillRule() {
@@ -92,7 +92,7 @@ public class PotGameConfiguration implements GameConfiguration {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((configurationKey == null) ? 0 : configurationKey.hashCode());
-        result = prime * result + ((matchConfigurations == null) ? 0 : matchConfigurations.hashCode());
+        result = prime * result + ((configurations == null) ? 0 : configurations.hashCode());
         result = prime * result + ((moveTimeRule == null) ? 0 : moveTimeRule.hashCode());
         result = prime * result + ((numberRule == null) ? 0 : numberRule.hashCode());
         result = prime * result + ((potFillRule == null) ? 0 : potFillRule.hashCode());
@@ -116,10 +116,10 @@ public class PotGameConfiguration implements GameConfiguration {
                 return false;
         } else if (!configurationKey.equals(other.configurationKey))
             return false;
-        if (matchConfigurations == null) {
-            if (other.matchConfigurations != null)
+        if (configurations == null) {
+            if (other.configurations != null)
                 return false;
-        } else if (!matchConfigurations.equals(other.matchConfigurations))
+        } else if (!configurations.equals(other.configurations))
             return false;
         if (moveTimeRule == null) {
             if (other.moveTimeRule != null)
