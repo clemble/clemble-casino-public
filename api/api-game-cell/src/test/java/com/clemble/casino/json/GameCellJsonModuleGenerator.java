@@ -11,7 +11,7 @@ import com.clemble.test.reflection.AnnotationReflectionUtils;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 
-public class GameJsonModuleGenerator {
+public class GameCellJsonModuleGenerator {
 
     final private static String MODULE = "GameCell";
 

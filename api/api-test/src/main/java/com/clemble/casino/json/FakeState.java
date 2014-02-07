@@ -2,10 +2,10 @@ package com.clemble.casino.json;
 
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
+import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.MatchGameRecord;
-import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +34,7 @@ public class FakeState implements GameState {
     }
 
     @Override
-    public GameManagementEvent process(MatchGameRecord session, GameAction action) {
+    public GameManagementEvent process(MatchGameRecord session, Event action) {
         // Step 1. Processing Select cell move
         throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayGameEnded);
     }

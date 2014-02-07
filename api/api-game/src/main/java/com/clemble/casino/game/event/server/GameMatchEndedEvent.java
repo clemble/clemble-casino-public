@@ -1,8 +1,8 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +34,8 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
         this.outcome = outcome;
         this.transaction = transaction;
     }
-    
+
+    @Override
     public GameOutcome getOutcome() {
         return outcome;
     }

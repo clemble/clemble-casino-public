@@ -26,6 +26,7 @@ import com.clemble.casino.game.event.server.GameInitiationConfirmedEvent;
 import com.clemble.casino.game.event.server.GameMatchEndedEvent;
 import com.clemble.casino.game.event.server.GameMatchStartedEvent;
 import com.clemble.casino.game.event.server.GameMatchStateChangedEvent;
+import com.clemble.casino.game.event.server.GamePotChangedEvent;
 import com.clemble.casino.game.event.server.GamePotEndedeEvent;
 import com.clemble.casino.game.event.server.GamePotStartedEvent;
 import com.clemble.casino.game.event.server.GameTournamentEndedEvent;
@@ -77,6 +78,7 @@ class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GameMatchEndedEvent.class, GameMatchEndedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameMatchStartedEvent.class, GameMatchStartedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameMatchStateChangedEvent.class, GameMatchStateChangedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GamePotChangedEvent.class, GamePotChangedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GamePotEndedeEvent.class, GamePotEndedeEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GamePotStartedEvent.class, GamePotStartedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameTournamentEndedEvent.class, GameTournamentEndedEvent.class.getAnnotation(JsonTypeName.class).value()));

@@ -53,6 +53,13 @@ public class PotGamePlayerContext implements GamePlayerContext {
         return wonOutcomes;
     }
 
+    public void addOutcome(PlayerWonOutcome outcome) {
+        // Step 1. Sanity check
+        if (player.equals(outcome.getWinner()))
+            throw new IllegalArgumentException();
+        // Step 2. Adding to outcomes
+        this.wonOutcomes.add(outcome);
+    }
 
     public static List<PotGamePlayerContext> construct(GameInitiation initiation) {
         GameConfiguration specification = initiation.getConfiguration();

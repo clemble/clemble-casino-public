@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("tournamentContext")
-public class TournamentGameContext extends GameContext {
+public class TournamentGameContext extends GameContext<GamePlayerContext> {
 
     /**
      * Generated 01/04/14
