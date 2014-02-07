@@ -1,6 +1,7 @@
 package com.clemble.casino.game.event.server;
 
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.PotGameContext;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -13,23 +14,24 @@ public class GamePotChangedEvent extends GamePotEvent {
      */
     private static final long serialVersionUID = 4602160261299590501L;
 
-    final private GameSessionKey nextSession;
+    final private PotGameContext context;
 
     @JsonCreator
-    public GamePotChangedEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("nextSession") GameSessionKey nextSession) {
+    public GamePotChangedEvent(@JsonProperty("session") GameSessionKey sessionKey,
+            @JsonProperty("context") PotGameContext context) {
         super(sessionKey);
-        this.nextSession = nextSession;
+        this.context = context;
     }
 
-    public GameSessionKey getNextSession() {
-        return nextSession;
+    public PotGameContext getContext() {
+        return context;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((nextSession == null) ? 0 : nextSession.hashCode());
+        result = prime * result + ((context == null) ? 0 : context.hashCode());
         return result;
     }
 
@@ -42,10 +44,10 @@ public class GamePotChangedEvent extends GamePotEvent {
         if (getClass() != obj.getClass())
             return false;
         GamePotChangedEvent other = (GamePotChangedEvent) obj;
-        if (nextSession == null) {
-            if (other.nextSession != null)
+        if (context == null) {
+            if (other.context != null)
                 return false;
-        } else if (!nextSession.equals(other.nextSession))
+        } else if (!context.equals(other.context))
             return false;
         return true;
     }
