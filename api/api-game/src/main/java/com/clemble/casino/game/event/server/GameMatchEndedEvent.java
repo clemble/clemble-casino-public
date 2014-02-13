@@ -1,5 +1,6 @@
 package com.clemble.casino.game.event.server;
 
+import com.clemble.casino.game.GameContext;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.MatchGameRecord;
@@ -18,26 +19,35 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
     private static final long serialVersionUID = 820200145932972096L;
 
     final private GameOutcome outcome;
+    final private GameContext context;
     private PaymentTransaction transaction;
 
     public GameMatchEndedEvent(MatchGameRecord session, GameOutcome outcome) {
         super(session);
         this.outcome = outcome;
+        this.context = session.getState().getContext();
     }
 
     @JsonCreator
     public GameMatchEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
-            @JsonProperty("state") GameState state,
-            @JsonProperty("outcome") GameOutcome outcome,
-            @JsonProperty("transaction") PaymentTransaction transaction) {
+                               @JsonProperty("state") GameState state,
+                               @JsonProperty("outcome") GameOutcome outcome,
+                               @JsonProperty("context") GameContext context,
+                               @JsonProperty("transaction") PaymentTransaction transaction) {
         super(sessionKey, state);
         this.outcome = outcome;
         this.transaction = transaction;
+        this.context = context;
     }
 
     @Override
     public GameOutcome getOutcome() {
         return outcome;
+    }
+
+    @Override
+    public GameContext getContext() {
+        return context;
     }
 
     public PaymentTransaction getTransaction() {
@@ -74,7 +84,7 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
     }
 
     @Override
-    public String toString(){
-        return  "ended:" + getSession() + ":" + getOutcome();
+    public String toString() {
+        return "ended:" + getSession() + ":" + getOutcome();
     }
 }
