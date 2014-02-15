@@ -23,10 +23,10 @@ public class PotGameContext extends GameContext<PotGamePlayerContext> {
 
     @JsonCreator
     public PotGameContext(@JsonProperty("session") GameSessionKey session,
-            @JsonProperty("playerContexts") List<PotGamePlayerContext> playerContexts,
-            @JsonProperty(value = "parent", required = false) GameContext<?> parent,
-            @JsonProperty("pot") long pot,
-            @JsonProperty("outcomes") List<GameOutcome> outcomes) {
+                          @JsonProperty("playerContexts") List<PotGamePlayerContext> playerContexts,
+                          @JsonProperty(value = "parent", required = false) GameContext<?> parent,
+                          @JsonProperty("pot") long pot,
+                          @JsonProperty("outcomes") List<GameOutcome> outcomes) {
         super(session, parent, playerContexts);
         this.pot = pot;
         this.outcomes.addAll(outcomes);

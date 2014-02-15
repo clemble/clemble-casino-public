@@ -12,17 +12,13 @@ import java.util.Date;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+import com.clemble.casino.game.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
-import com.clemble.casino.game.Game;
-import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.PotGameContext;
-import com.clemble.casino.game.PotGamePlayerContext;
-import com.clemble.casino.game.TournamentGameContext;
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
@@ -230,7 +226,7 @@ public class ObjectTest {
         register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {
             @Override
             public TournamentGameContext generate() {
-                return new TournamentGameContext(GameSessionKey.DEFAULT_SESSION, null);
+                return new TournamentGameContext(GameSessionKey.DEFAULT_SESSION, null, null, null);
             }
         });
         try {

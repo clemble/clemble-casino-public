@@ -3,6 +3,7 @@ package com.clemble.casino.game.event.server;
 import com.clemble.casino.game.GameContext;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.MatchGamePlayerContext;
 import com.clemble.casino.game.MatchGameRecord;
 import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.payment.PaymentTransaction;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("ended")
-public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEvent {
+public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEvent<MatchGamePlayerContext> {
 
     /**
      * Generated 07/05/13
@@ -19,7 +20,7 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
     private static final long serialVersionUID = 820200145932972096L;
 
     final private GameOutcome outcome;
-    final private GameContext context;
+    final private GameContext<MatchGamePlayerContext> context;
     private PaymentTransaction transaction;
 
     public GameMatchEndedEvent(MatchGameRecord session, GameOutcome outcome) {
@@ -32,7 +33,7 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
     public GameMatchEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
                                @JsonProperty("state") GameState state,
                                @JsonProperty("outcome") GameOutcome outcome,
-                               @JsonProperty("context") GameContext context,
+                               @JsonProperty("context") GameContext<MatchGamePlayerContext> context,
                                @JsonProperty("transaction") PaymentTransaction transaction) {
         super(sessionKey, state);
         this.outcome = outcome;
@@ -46,7 +47,7 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
     }
 
     @Override
-    public GameContext getContext() {
+    public GameContext<MatchGamePlayerContext> getContext() {
         return context;
     }
 

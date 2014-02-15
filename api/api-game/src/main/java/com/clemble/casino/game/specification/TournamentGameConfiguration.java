@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+// TODO Multilevel Configurations
 @JsonTypeName("tournament")
 public class TournamentGameConfiguration implements GameConfiguration, GameConfigurationAware {
 

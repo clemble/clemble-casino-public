@@ -3,15 +3,16 @@ package com.clemble.casino.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 
 import com.clemble.casino.game.specification.GameConfigurationKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,27 +34,33 @@ public class PotGameRecord implements GameRecord {
     private GameSessionState sessionState;
     @Embedded
     private GameConfigurationKey configurationKey;
-    @Type(type = "com.clemble.casino.game.GameRecordHibernate")
-    @Column(name = "GAME_STATE", length = 40960)
-    private List<GameRecord> matchRecords = new ArrayList<GameRecord>();
+    @ElementCollection
+    @CollectionTable(name =  "GAME_POT_TO_SUB_RECORDS",
+        joinColumns = {
+            @JoinColumn(referencedColumnName = "SESSION_ID", name = "POT_SESSION_ID"),
+            @JoinColumn(referencedColumnName = "GAME", name = "POT_GAME")
+        }
+    )
+    private List<GameSessionKey> matchRecords = new ArrayList<GameSessionKey>();
 
     public PotGameRecord() {
     }
 
     @JsonCreator
     public PotGameRecord(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
-            @JsonProperty("sessionState") GameSessionState sessionState, @JsonProperty("matchRecords") List<GameRecord> matchRecords) {
+            @JsonProperty("sessionState") GameSessionState sessionState, @JsonProperty("matchRecords") List<GameSessionKey> matchRecords) {
         this.sessionKey = sessionKey;
         this.sessionState = sessionState;
         this.configurationKey = configurationKey;
-        this.matchRecords.addAll(matchRecords);
+        if(matchRecords != null)
+            this.matchRecords.addAll(matchRecords);
     }
 
-    public List<GameRecord> getMatchRecords() {
+    public List<GameSessionKey> getSubRecords() {
         return matchRecords;
     }
 
-    public void setMatchRecords(List<GameRecord> sessions) {
+    public void setSubRecords(List<GameSessionKey> sessions) {
         this.matchRecords = sessions;
     }
 

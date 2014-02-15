@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+// TODO Pot with single Configurations and num of outcomes
 @JsonTypeName("pot")
 public class PotGameConfiguration implements GameConfiguration {
 

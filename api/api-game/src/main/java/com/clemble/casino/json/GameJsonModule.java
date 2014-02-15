@@ -1,5 +1,7 @@
 package com.clemble.casino.json;
 
+import com.clemble.casino.game.PotGameContext;
+import com.clemble.casino.game.specification.PotGameConfiguration;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
@@ -37,7 +39,6 @@ import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.outcome.DrawOutcome;
 import com.clemble.casino.game.outcome.NoOutcome;
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
-import com.clemble.casino.game.PotGameContext;
 import com.clemble.casino.game.rule.bet.BetRule;
 import com.clemble.casino.game.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.bet.LimitedBetRule;
@@ -48,7 +49,6 @@ import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.specification.MatchGameConfiguration;
-import com.clemble.casino.game.specification.PotGameConfiguration;
 import com.clemble.casino.game.specification.TournamentGameConfiguration;
 import com.clemble.casino.game.TournamentGameContext;
 

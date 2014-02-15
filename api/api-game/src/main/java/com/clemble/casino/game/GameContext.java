@@ -59,7 +59,7 @@ abstract public class GameContext<T extends GamePlayerContext> implements Serial
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameContext other = (GameContext) obj;
+        GameContext<?> other = (GameContext<?>) obj;
         if (parent == null) {
             if (other.parent != null)
                 return false;

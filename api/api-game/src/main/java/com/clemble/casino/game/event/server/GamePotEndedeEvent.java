@@ -2,13 +2,14 @@ package com.clemble.casino.game.event.server;
 
 import com.clemble.casino.game.GameContext;
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.PotGamePlayerContext;
 import com.clemble.casino.game.outcome.GameOutcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("potEnded")
-public class GamePotEndedeEvent extends GamePotEvent implements GameEndedEvent {
+public class GamePotEndedeEvent extends GamePotEvent implements GameEndedEvent<PotGamePlayerContext> {
 
     /**
      * Generated 01/02/14
@@ -16,10 +17,10 @@ public class GamePotEndedeEvent extends GamePotEvent implements GameEndedEvent {
     private static final long serialVersionUID = 8084693422808106856L;
 
     final private GameOutcome outcome;
-    final private GameContext context;
+    final private GameContext<PotGamePlayerContext> context;
 
     @JsonCreator
-    public GamePotEndedeEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("outcome") GameOutcome outcome, @JsonProperty("context") GameContext context) {
+    public GamePotEndedeEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("outcome") GameOutcome outcome, @JsonProperty("context") GameContext<PotGamePlayerContext> context) {
         super(sessionKey);
         this.outcome = outcome;
         this.context = context;
@@ -31,7 +32,7 @@ public class GamePotEndedeEvent extends GamePotEvent implements GameEndedEvent {
     }
 
     @Override
-    public GameContext getContext() {
+    public GameContext<PotGamePlayerContext> getContext() {
         return context;
     }
 

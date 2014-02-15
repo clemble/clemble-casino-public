@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.clemble.casino.game.PotGameContext;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.clemble.casino.error.ClembleCasinoFailure;
 import com.clemble.casino.game.Game;
-import com.clemble.casino.game.PotGameContext;
 import com.clemble.casino.game.event.server.GameInitiationCanceledEvent;
 import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;

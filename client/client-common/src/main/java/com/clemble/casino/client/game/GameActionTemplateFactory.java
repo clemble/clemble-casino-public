@@ -20,7 +20,6 @@ public class GameActionTemplateFactory implements GameActionOperationsFactory {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <State extends GameState> GameActionOperations<State> construct(GameSessionKey session) {
         // Step 1. Constructing appropriate GameAction service
         return new GameActionTemplate<State>(player, session, eventListenerOperation, (GameActionService) actionService);

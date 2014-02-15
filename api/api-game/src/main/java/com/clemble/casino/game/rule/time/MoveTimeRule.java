@@ -6,7 +6,6 @@ import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.MoveTimeoutSurrenderAction;
-import com.clemble.casino.game.configuration.GameRuleOptions;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
