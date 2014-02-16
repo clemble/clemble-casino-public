@@ -18,4 +18,9 @@ public class GamePotStartedEvent extends GamePotEvent implements GameStartedEven
         super(sessionKey);
     }
 
+    @Override
+    public String toString(){
+        return "potStarted:" + getSession();
+    }
+
 }

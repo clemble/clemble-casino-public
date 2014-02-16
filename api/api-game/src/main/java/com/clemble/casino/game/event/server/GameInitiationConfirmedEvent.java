@@ -58,7 +58,7 @@ public class GameInitiationConfirmedEvent extends GameInitiationEvent implements
 
     @Override
     public String toString() {
-        return "confirmed:" + player + ":" + super.toString();
+        return "initiationConfirmed:" + player + ":" + super.toString();
     }
 
 }

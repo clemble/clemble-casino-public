@@ -7,6 +7,7 @@ public enum Game {
     poe, // Owner of the cell hidden, bet fixed
     poc, // Owner of the cell exposed, bet fixed
     go,
+    pot,
     num; // Number game for testing
 
 }

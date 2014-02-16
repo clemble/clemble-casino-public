@@ -31,7 +31,7 @@ public class GameInitiationCanceledEvent extends GameInitiationEvent {
     }
 
     public String toString() {
-        return "constructionCanceled:" + super.toString();
+        return "initiationCanceled:" + super.toString();
     }
 
 }

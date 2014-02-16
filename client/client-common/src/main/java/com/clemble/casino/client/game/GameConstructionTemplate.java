@@ -39,8 +39,8 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
 
     final private Game game;
     final private GameActionOperationsFactory actionOperationFactory;
-    final private EventListenerOperations listenersManager;
-    final private GameConfigurationService specificationService;
+    final private EventListenerOperations listenerOperations;
+    final private GameConfigurationService configurationService;
     final private AutoGameConstructionService constructionService;
     final private AvailabilityGameConstructionService availabilityConstructionService;
     final private GameInitiationService initiationService;
@@ -59,8 +59,8 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
         this.constructionService = checkNotNull(constructionService);
         this.initiationService = checkNotNull(initiationService);
         this.availabilityConstructionService = checkNotNull(availabilityConstructionService);
-        this.specificationService = checkNotNull(specificationService);
-        this.listenersManager = checkNotNull(listenersManager);
+        this.configurationService = checkNotNull(specificationService);
+        this.listenerOperations = checkNotNull(listenersManager);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
         if (session == null || constructionListener == null)
             return null;
         // Step 2. Subscribing to specific table
-        return listenersManager.subscribe(NotificationMapping.toTable(toSessionKey(session)), constructionListener);
+        return listenerOperations.subscribe(NotificationMapping.toTable(toSessionKey(session)), constructionListener);
     }
 
     @Override
@@ -144,7 +144,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
 
     @Override
     public GameConfigurations getConfigurations() {
-        return specificationService.getConfigurations();
+        return configurationService.getConfigurations();
     }
 
 }

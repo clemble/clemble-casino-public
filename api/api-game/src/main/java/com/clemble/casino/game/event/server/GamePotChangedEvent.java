@@ -52,4 +52,9 @@ public class GamePotChangedEvent extends GamePotEvent {
         return true;
     }
 
+    @Override
+    public String toString(){
+        return "potChanged:" + getSession();
+    }
+
 }

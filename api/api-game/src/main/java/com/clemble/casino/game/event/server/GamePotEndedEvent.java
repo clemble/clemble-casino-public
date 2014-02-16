@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("potEnded")
-public class GamePotEndedeEvent extends GamePotEvent implements GameEndedEvent<PotGamePlayerContext> {
+public class GamePotEndedEvent extends GamePotEvent implements GameEndedEvent<PotGamePlayerContext> {
 
     /**
      * Generated 01/02/14
@@ -20,7 +20,7 @@ public class GamePotEndedeEvent extends GamePotEvent implements GameEndedEvent<P
     final private GameContext<PotGamePlayerContext> context;
 
     @JsonCreator
-    public GamePotEndedeEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("outcome") GameOutcome outcome, @JsonProperty("context") GameContext<PotGamePlayerContext> context) {
+    public GamePotEndedEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("outcome") GameOutcome outcome, @JsonProperty("context") GameContext<PotGamePlayerContext> context) {
         super(sessionKey);
         this.outcome = outcome;
         this.context = context;
@@ -36,4 +36,8 @@ public class GamePotEndedeEvent extends GamePotEvent implements GameEndedEvent<P
         return context;
     }
 
+    @Override
+    public String toString(){
+        return "potEnded:" + getSession();
+    }
 }

@@ -1,5 +1,6 @@
 package com.clemble.casino.game.construct;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.clemble.casino.game.specification.GameConfiguration;
@@ -31,6 +32,10 @@ public class AvailabilityGameRequest extends PlayerGameConstructionRequest imple
             @JsonProperty("declineBehavior") GameDeclineBehavior declineBehavior) {
         super(player, configuration);
         this.declineBehavior = declineBehavior != null ? declineBehavior : GameDeclineBehavior.invalidate;
+        if (!participants.contains(player)) {
+            participants = new ArrayList<String>(participants);
+            participants.add(player);
+        }
         this.participants = CollectionUtils.immutableList(participants);
     }
 
