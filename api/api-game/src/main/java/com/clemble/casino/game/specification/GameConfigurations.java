@@ -3,6 +3,7 @@ package com.clemble.casino.game.specification;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.clemble.casino.game.Game;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,18 +24,26 @@ public class GameConfigurations {
         return filter(MatchGameConfiguration.class);
     }
 
-    public List<PotGameConfiguration> potConfigurations(){
+    public List<MatchGameConfiguration> matchConfigurations(Game game) {
+        List<MatchGameConfiguration> configurations = new ArrayList<MatchGameConfiguration>();
+        for (MatchGameConfiguration configuration : filter(MatchGameConfiguration.class))
+            if (game.equals(configuration.getConfigurationKey().getGame()))
+                configurations.add(configuration);
+        return configurations;
+    }
+
+    public List<PotGameConfiguration> potConfigurations() {
         return filter(PotGameConfiguration.class);
     }
 
-    public List<TournamentGameConfiguration> tournamentConfigurations(){
+    public List<TournamentGameConfiguration> tournamentConfigurations() {
         return filter(TournamentGameConfiguration.class);
     }
 
     private <T extends GameConfiguration> List<T> filter(Class<T> target) {
         List<T> matchConfigurations = new ArrayList<T>();
-        for(GameConfiguration configuration: getConfigurations())
-            if(target.isAssignableFrom(configuration.getClass()))
+        for (GameConfiguration configuration : getConfigurations())
+            if (target.isAssignableFrom(configuration.getClass()))
                 matchConfigurations.add((T) configuration);
         return matchConfigurations;
     }

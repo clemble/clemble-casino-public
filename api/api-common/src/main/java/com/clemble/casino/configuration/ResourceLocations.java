@@ -2,9 +2,6 @@ package com.clemble.casino.configuration;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
-import java.util.List;
-
-import com.clemble.casino.game.Game;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,21 +9,14 @@ public class ResourceLocations {
 
     // Notification server endpoint
     final private NotificationConfiguration notificationConfiguration;
-
     // Player related endpoint
     final private ServerRegistryConfiguration serverRegistryConfiguration;
 
-    // Games on the server
-    final private List<Game> games;
-
     @JsonCreator
     public ResourceLocations(@JsonProperty("notificationConfiguration") NotificationConfiguration notificationConfiguration,
-            @JsonProperty("serverRegistryConfiguration") ServerRegistryConfiguration serverRegistryConfiguration,
-            @JsonProperty("games") List<Game> games) {
+            @JsonProperty("serverRegistryConfiguration") ServerRegistryConfiguration serverRegistryConfiguration) {
         this.notificationConfiguration = checkNotNull(notificationConfiguration);
         this.serverRegistryConfiguration = checkNotNull(serverRegistryConfiguration);
-        this.games = checkNotNull(games);
-
     }
 
     public ServerRegistryConfiguration getServerRegistryConfiguration() {
@@ -35,10 +25,6 @@ public class ResourceLocations {
     
     public NotificationConfiguration getNotificationConfiguration() {
         return notificationConfiguration;
-    }
-
-    public List<Game> getGames() {
-        return games;
     }
 
     @Override

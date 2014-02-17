@@ -14,20 +14,14 @@ public class GamePotChangedEvent extends GamePotEvent {
      */
     private static final long serialVersionUID = 4602160261299590501L;
 
-    final private PotGameContext context;
     final private GameSessionKey nextSession;
 
     @JsonCreator
     public GamePotChangedEvent(@JsonProperty("session") GameSessionKey sessionKey,
             @JsonProperty("context") PotGameContext context,
             @JsonProperty("nextSession") GameSessionKey nextSession) {
-        super(sessionKey);
-        this.context = context;
+        super(sessionKey, context);
         this.nextSession = nextSession;
-    }
-
-    public PotGameContext getContext() {
-        return context;
     }
 
     public GameSessionKey getNextSession() {
@@ -38,7 +32,6 @@ public class GamePotChangedEvent extends GamePotEvent {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((context == null) ? 0 : context.hashCode());
         return result;
     }
 
@@ -51,11 +44,6 @@ public class GamePotChangedEvent extends GamePotEvent {
         if (getClass() != obj.getClass())
             return false;
         GamePotChangedEvent other = (GamePotChangedEvent) obj;
-        if (context == null) {
-            if (other.context != null)
-                return false;
-        } else if (!context.equals(other.context))
-            return false;
         return true;
     }
 

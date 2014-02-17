@@ -3,8 +3,6 @@ package com.clemble.casino.android;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.io.IOException;
-import java.util.EnumMap;
-import java.util.Map;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
@@ -35,6 +33,7 @@ import com.clemble.casino.client.game.GameActionOperationsFactory;
 import com.clemble.casino.client.game.GameActionTemplateFactory;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameConstructionTemplate;
+import com.clemble.casino.client.game.GameInitiationTemplate;
 import com.clemble.casino.client.payment.PaymentOperations;
 import com.clemble.casino.client.payment.PaymentTemplate;
 import com.clemble.casino.client.player.PlayerConnectionOperations;
@@ -47,7 +46,6 @@ import com.clemble.casino.client.player.PlayerSessionOperations;
 import com.clemble.casino.client.player.PlayerSessionTemplate;
 import com.clemble.casino.configuration.ResourceLocations;
 import com.clemble.casino.configuration.ServerRegistryConfiguration;
-import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
@@ -61,7 +59,6 @@ import com.clemble.casino.payment.service.PaymentService;
 import com.clemble.casino.player.service.PlayerConnectionService;
 import com.clemble.casino.player.service.PlayerPresenceService;
 import com.clemble.casino.player.service.PlayerProfileService;
-import com.clemble.casino.utils.CollectionUtils;
 
 public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements ClembleCasinoOperations {
 
@@ -77,7 +74,8 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerConnectionOperations connectionOperations;
     final private PlayerPresenceOperations presenceOperations;
     final private PaymentOperations transactionOperations;
-    final private Map<Game, GameConstructionOperations<?>> gameToConstructionOperations;
+    final private GameConstructionOperations constructionOperations;
+    final private GameActionOperationsFactory actionOperationsFactory;
 
     @SuppressWarnings({ "rawtypes" })
     public ClembleCasinoTemplate(
@@ -112,21 +110,16 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         PaymentService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), paymentServerRegistry);
         this.transactionOperations = new PaymentTemplate(player, paymentTransactionService, listenerOperations);
         // Step 4. Creating GameConstruction services
-        Map<Game, GameConstructionOperations<?>> gameToConstructor = new EnumMap<Game, GameConstructionOperations<?>>(Game.class);
-        for (Game game : resourceLocations.getGames()) {
-            ServerRegistry gameRegistry = registryConfiguration.getGameRegistry();
-            AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), gameRegistry);
-            AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), gameRegistry);
-            GameInitiationService initiationService = new AndroidGameInitiationService(getRestTemplate(), gameRegistry);
-            GameConfigurationService specificationService = new AndroidGameConfigurationService(getRestTemplate(), gameRegistry);
-            GameActionService actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
-            GameActionOperationsFactory actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
-            GameConstructionOperations<?> constructionOperations = new GameConstructionTemplate(player, game, actionOperationsFactory, constructionService, availabilityConstructionService, initiationService, specificationService, listenerOperations);
-            gameToConstructor.put(game, constructionOperations);
-        }
-        this.gameToConstructionOperations = CollectionUtils.immutableMap(gameToConstructor);
-        // TODO remove when client, will be doing it automatically
-        this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(gameToConstructor));
+        ServerRegistry gameRegistry = registryConfiguration.getGameRegistry();
+        AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), gameRegistry);
+        AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), gameRegistry);
+        GameInitiationService initiationService = new AndroidGameInitiationService(getRestTemplate(), gameRegistry);
+        GameConfigurationService configurationService = new AndroidGameConfigurationService(getRestTemplate(), gameRegistry);
+        GameActionService actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
+        this.actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
+        this.constructionOperations = new GameConstructionTemplate(player, constructionService, availabilityConstructionService, initiationService, configurationService, listenerOperations);
+        // Step 5. Registering listener operations
+        this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(new GameInitiationTemplate(player, initiationService)));
     }
 
     @Override
@@ -155,23 +148,14 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T extends GameState> GameConstructionOperations<T> gameConstructionOperations(Game game) {
-        return (GameConstructionOperations<T>) gameToConstructionOperations.get(game);
+    public GameConstructionOperations gameConstructionOperations() {
+        return constructionOperations;
     }
 
     @Override
-    public Map<Game, GameConstructionOperations<?>> gameConstructionOperations() {
-        return gameToConstructionOperations;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
     public <State extends GameState> GameActionOperations<State> gameActionOperations(GameSessionKey session) {
-        // Step 1. Getting associated game construction service
-        GameConstructionOperations<State> constructionOperations = (GameConstructionOperations<State>) gameToConstructionOperations.get(session.getGame());
-        // Step 2. Constructing appropriate action operations
-        return constructionOperations.getActionOperations(session.getSession());
+        // Step 1. Constructing appropriate action operations
+        return actionOperationsFactory.construct(session);
     }
 
     @Override

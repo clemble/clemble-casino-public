@@ -9,10 +9,8 @@ import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.event.PlayerAwareEvent;
-import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
@@ -28,17 +26,10 @@ import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.GameConfigurations;
 import com.clemble.casino.utils.CollectionUtils;
 
-public class GameConstructionTemplate<T extends GameState> implements GameConstructionOperations<T> {
-
-    /**
-     * Generated 12/11/13
-     */
-    private static final long serialVersionUID = -7073347007265754892L;
+public class GameConstructionTemplate implements GameConstructionOperations {
 
     final private String player;
 
-    final private Game game;
-    final private GameActionOperationsFactory actionOperationFactory;
     final private EventListenerOperations listenerOperations;
     final private GameConfigurationService configurationService;
     final private AutoGameConstructionService constructionService;
@@ -46,26 +37,17 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     final private GameInitiationService initiationService;
 
     public GameConstructionTemplate(String player,
-            Game game,
-            GameActionOperationsFactory actionOperations,
             AutoGameConstructionService constructionService,
             AvailabilityGameConstructionService availabilityConstructionService,
             GameInitiationService initiationService,
             GameConfigurationService specificationService,
             EventListenerOperations listenersManager) {
         this.player = checkNotNull(player);
-        this.game = checkNotNull(game);
-        this.actionOperationFactory = checkNotNull(actionOperations);
         this.constructionService = checkNotNull(constructionService);
         this.initiationService = checkNotNull(initiationService);
         this.availabilityConstructionService = checkNotNull(availabilityConstructionService);
         this.configurationService = checkNotNull(specificationService);
         this.listenerOperations = checkNotNull(listenersManager);
-    }
-
-    @Override
-    public Game getGame() {
-        return game;
     }
 
     @Override
@@ -90,22 +72,22 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public GameConstruction getConstruct(String session) {
-        return availabilityConstructionService.getConstruction(game, session);
+    public GameConstruction getConstruct(GameSessionKey session) {
+        return availabilityConstructionService.getConstruction(session.getGame(), session.getSession());
     }
 
     @Override
-    public GameConstruction accept(String session) {
-        return reply(session, new InvitationAcceptedEvent(player, toSessionKey(session)));
+    public GameConstruction accept(GameSessionKey session) {
+        return reply(session, new InvitationAcceptedEvent(player, session));
     }
 
     @Override
-    public GameConstruction decline(String session) {
-        return reply(session, new InvitationDeclinedEvent(player, toSessionKey(session)));
+    public GameConstruction decline(GameSessionKey session) {
+        return reply(session, new InvitationDeclinedEvent(player, session));
     }
 
     @Override
-    public GameConstruction reply(String session, InvitationResponseEvent responce) {
+    public GameConstruction reply(GameSessionKey session, InvitationResponseEvent responce) {
         return availabilityConstructionService.reply(responce);
     }
 
@@ -115,31 +97,22 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public GameInitiation confirm(String session) {
-        return initiationService.confirm(game, session, player);
+    public GameInitiation confirm(GameSessionKey session) {
+        return initiationService.confirm(session.getGame(), session.getSession(), player);
     }
 
     @Override
-    public PlayerAwareEvent getResponce(String session, String fromPlayer) {
-        return availabilityConstructionService.getReply(game, session, fromPlayer);
+    public PlayerAwareEvent getResponce(GameSessionKey session, String fromPlayer) {
+        return availabilityConstructionService.getReply(session.getGame(), session.getSession(), fromPlayer);
     }
 
     @Override
-    public EventListenerController watch(String session, EventListener<GameSessionAwareEvent> constructionListener) {
+    public EventListenerController watch(GameSessionKey session, EventListener<GameSessionAwareEvent> constructionListener) {
         // Step 1. Sanity checks
         if (session == null || constructionListener == null)
             return null;
         // Step 2. Subscribing to specific table
-        return listenerOperations.subscribe(NotificationMapping.toTable(toSessionKey(session)), constructionListener);
-    }
-
-    @Override
-    public GameActionOperations<T> getActionOperations(String session) {
-        return actionOperationFactory.construct(toSessionKey(session));
-    }
-
-    private GameSessionKey toSessionKey(String session) {
-        return new GameSessionKey(game, session);
+        return listenerOperations.subscribe(NotificationMapping.toTable(session), constructionListener);
     }
 
     @Override
