@@ -115,7 +115,7 @@ public class GameConstructionTemplate<T extends GameState> implements GameConstr
     }
 
     @Override
-    public GameInitiation ready(String session) {
+    public GameInitiation confirm(String session) {
         return initiationService.confirm(game, session, player);
     }
 

@@ -15,16 +15,23 @@ public class GamePotChangedEvent extends GamePotEvent {
     private static final long serialVersionUID = 4602160261299590501L;
 
     final private PotGameContext context;
+    final private GameSessionKey nextSession;
 
     @JsonCreator
     public GamePotChangedEvent(@JsonProperty("session") GameSessionKey sessionKey,
-            @JsonProperty("context") PotGameContext context) {
+            @JsonProperty("context") PotGameContext context,
+            @JsonProperty("nextSession") GameSessionKey nextSession) {
         super(sessionKey);
         this.context = context;
+        this.nextSession = nextSession;
     }
 
     public PotGameContext getContext() {
         return context;
+    }
+
+    public GameSessionKey getNextSession() {
+        return nextSession;
     }
 
     @Override

@@ -20,8 +20,8 @@ public class GameInitiationReadyEventEmulator implements EventListener<GameIniti
     @Override
     public void onEvent(GameInitiatedEvent event) {
         GameSessionKey sessionKey = event.getSession();
-        // Step 1. Automatically answer, that player is ready
-        gameToConstructionOperations.get(sessionKey.getGame()).ready(sessionKey.getSession());
+        // Step 1. Automatically send initiation confirmation
+        gameToConstructionOperations.get(sessionKey.getGame()).confirm(sessionKey.getSession());
     }
 
 }

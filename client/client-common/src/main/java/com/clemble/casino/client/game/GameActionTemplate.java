@@ -5,12 +5,7 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.clemble.casino.client.event.EventListener;
-import com.clemble.casino.client.event.EventListenerController;
-import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.client.event.EventSelectors;
-import com.clemble.casino.client.event.EventTypeSelector;
-import com.clemble.casino.client.event.GameSessionEventSelector;
+import com.clemble.casino.client.event.*;
 import com.clemble.casino.game.GamePlayerAccount;
 import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.GameSessionAwareEvent;
@@ -129,6 +124,11 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     @Override
     public EventListenerController subscribe(EventListener<GameSessionAwareEvent> eventListener) {
         return eventListenersManager.subscribe(session, eventListener);
+    }
+
+    @Override
+    public EventListenerController subscribe(EventSelector selector, EventListener<? extends GameSessionAwareEvent> eventListener) {
+        return eventListenersManager.subscribe(EventSelectors.where(new GameSessionEventSelector(session)).and(selector), eventListener);
     }
 
     @Override

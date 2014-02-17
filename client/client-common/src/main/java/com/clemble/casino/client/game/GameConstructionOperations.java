@@ -33,7 +33,7 @@ public interface GameConstructionOperations<T extends GameState> extends GameCon
 
     public Collection<GameInitiation> pending();
 
-    public GameInitiation ready(final String session);
+    public GameInitiation confirm(final String session);
 
     public GameActionOperations<T> getActionOperations(String session);
 
