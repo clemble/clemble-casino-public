@@ -55,7 +55,7 @@ public class PotGamePlayerContext implements GamePlayerContext {
 
     public void addOutcome(PlayerWonOutcome outcome) {
         // Step 1. Sanity check
-        if (player.equals(outcome.getWinner()))
+        if (!player.equals(outcome.getWinner()))
             throw new IllegalArgumentException();
         // Step 2. Adding to outcomes
         this.wonOutcomes.add(outcome);

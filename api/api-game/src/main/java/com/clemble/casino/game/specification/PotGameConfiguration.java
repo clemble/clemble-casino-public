@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
+import com.clemble.casino.game.rule.outcome.DrawRule;
+import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.pot.PotFillRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
@@ -28,6 +30,8 @@ public class PotGameConfiguration implements GameConfiguration {
     final private PotFillRule potFillRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
+    final private WonRule wonRule;
+    final private DrawRule drawRule;
     final private List<GameConfiguration> configurations;
 
     @JsonCreator
@@ -39,6 +43,8 @@ public class PotGameConfiguration implements GameConfiguration {
             @JsonProperty("potFillRule") PotFillRule potFillRule,
             @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
             @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
+            @JsonProperty("wonRule") WonRule wonRule,
+            @JsonProperty("drawRule") DrawRule drawRule,
             @JsonProperty("configurations") List<GameConfiguration> configurations) {
         this.configurationKey = key;
         this.price = price;
@@ -47,6 +53,8 @@ public class PotGameConfiguration implements GameConfiguration {
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.numberRule = numberRule;
+        this.wonRule = wonRule;
+        this.drawRule = drawRule;
         this.configurations = configurations;
     }
 
@@ -86,6 +94,16 @@ public class PotGameConfiguration implements GameConfiguration {
     @Override
     public TotalTimeRule getTotalTimeRule() {
         return totalTimeRule;
+    }
+
+    @Override
+    public WonRule getWonRule() {
+        return wonRule;
+    }
+
+    @Override
+    public DrawRule getDrawRule() {
+        return drawRule;
     }
 
     @Override

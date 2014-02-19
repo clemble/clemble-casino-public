@@ -51,10 +51,12 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
         return context;
     }
 
+    @Override
     public PaymentTransaction getTransaction() {
         return transaction;
     }
 
+    @Override
     public void setTransaction(PaymentTransaction transaction) {
         this.transaction = transaction;
     }

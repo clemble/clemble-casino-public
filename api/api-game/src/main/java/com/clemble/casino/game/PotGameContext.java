@@ -19,21 +19,20 @@ public class PotGameContext extends GameContext<PotGamePlayerContext> {
     private static final long serialVersionUID = 554706514619333631L;
 
     private long pot; // TODO make this immutable
+    private GameSessionKey currentSession;
     final private List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
 
     @JsonCreator
     public PotGameContext(@JsonProperty("session") GameSessionKey session,
+                          @JsonProperty("currentSession") GameSessionKey currentSession,
                           @JsonProperty("playerContexts") List<PotGamePlayerContext> playerContexts,
                           @JsonProperty(value = "parent", required = false) GameContext<?> parent,
                           @JsonProperty("pot") long pot,
                           @JsonProperty("outcomes") List<GameOutcome> outcomes) {
         super(session, parent, playerContexts);
         this.pot = pot;
+        this.currentSession = currentSession;
         this.outcomes.addAll(outcomes);
-    }
-
-    public PotGameContext(GameInitiation initiation) {
-        this(initiation, null);
     }
 
     public PotGameContext(GameInitiation initiation, GameContext<?> parent) {
@@ -42,6 +41,14 @@ public class PotGameContext extends GameContext<PotGamePlayerContext> {
 
     public long getPot() {
         return pot;
+    }
+
+    public GameSessionKey getCurrentSession() {
+        return currentSession;
+    }
+    
+    public void setCurrentSession(GameSessionKey currentSession) {
+        this.currentSession = currentSession;
     }
 
     public void add(long addition) {

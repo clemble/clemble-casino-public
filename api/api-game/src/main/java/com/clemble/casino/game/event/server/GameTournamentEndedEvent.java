@@ -4,6 +4,7 @@ import com.clemble.casino.game.GameContext;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.TournamentGamePlayerContext;
 import com.clemble.casino.game.outcome.GameOutcome;
+import com.clemble.casino.payment.PaymentTransaction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -18,6 +19,7 @@ public class GameTournamentEndedEvent extends GameTournamentEvent implements Gam
 
     final private GameOutcome outcome;
     final private GameContext<TournamentGamePlayerContext> context;
+    private PaymentTransaction transaction;
 
     @JsonCreator
     public GameTournamentEndedEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("outcome") GameOutcome outcome, @JsonProperty("context") GameContext<TournamentGamePlayerContext> context) {
@@ -29,6 +31,16 @@ public class GameTournamentEndedEvent extends GameTournamentEvent implements Gam
     @Override
     public GameOutcome getOutcome() {
         return outcome;
+    }
+
+    @Override
+    public PaymentTransaction getTransaction() {
+        return transaction;
+    }
+
+    @Override
+    public void setTransaction(PaymentTransaction transaction) {
+        this.transaction = transaction;
     }
 
     @Override

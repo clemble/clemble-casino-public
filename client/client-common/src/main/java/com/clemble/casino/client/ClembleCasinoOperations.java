@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.game.GameActionOperations;
 import com.clemble.casino.client.game.GameConstructionOperations;
+import com.clemble.casino.client.game.GameRecordOperations;
 import com.clemble.casino.client.payment.PaymentOperations;
 import com.clemble.casino.client.player.PlayerConnectionOperations;
 import com.clemble.casino.client.player.PlayerPresenceOperations;
@@ -34,6 +35,8 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
     public GameConstructionOperations gameConstructionOperations();
 
     public <State extends GameState> GameActionOperations<State> gameActionOperations(GameSessionKey session);
+
+    public GameRecordOperations gameRecordOperations();
 
     // TODO safety concern, since RestTemplate is reused all over the place, make a deep copy of returned rest template
     public RestTemplate getRestTemplate();

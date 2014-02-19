@@ -8,6 +8,7 @@ import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.game.Game;
+import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.payment.PlayerAccount;
@@ -33,6 +34,10 @@ public class PaymentTemplate implements PaymentOperations {
     @Override
     public PlayerAccount getAccount() {
         return paymentTransactionService.get(player);
+    }
+
+    public PaymentTransaction getPaymentTransaction(GameSessionKey sessionKey) {
+        return getPaymentTransaction(sessionKey.toPaymentTransactionKey());
     }
 
     @Override

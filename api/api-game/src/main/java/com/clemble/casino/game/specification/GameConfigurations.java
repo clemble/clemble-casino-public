@@ -19,6 +19,18 @@ public class GameConfigurations {
     public List<GameConfiguration> getConfigurations() {
         return configurations;
     }
+    
+    public GameConfiguration getConfiguration(GameConfigurationKey configurationKey) {
+        // Step 1. Sanity check
+        if (configurationKey == null)
+            return null;
+        // Step 2. Searching through out all configurations
+        for(GameConfiguration configuration : configurations)
+            if(configurationKey.equals(configuration.getConfigurationKey()))
+                return configuration;
+        // Step 3. Returning default value
+        return null;
+    }
 
     public List<MatchGameConfiguration> matchConfigurations() {
         return filter(MatchGameConfiguration.class);

@@ -5,6 +5,7 @@ import java.util.List;
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.game.Game;
+import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.payment.PlayerAccount;
@@ -17,6 +18,8 @@ public interface PaymentOperations extends PlayerAware {
     public PlayerAccount getAccount();
 
     public List<PaymentTransaction> getPaymentTransactions();
+
+    public PaymentTransaction getPaymentTransaction(GameSessionKey sessionKey);
 
     public PaymentTransaction getPaymentTransaction(PaymentTransactionKey transactionKey);
 

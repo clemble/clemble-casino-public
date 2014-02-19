@@ -16,6 +16,7 @@ import com.clemble.casino.android.game.service.AndroidAvailabilityGameConstructi
 import com.clemble.casino.android.game.service.AndroidGameActionTemplate;
 import com.clemble.casino.android.game.service.AndroidGameConfigurationService;
 import com.clemble.casino.android.game.service.AndroidGameInitiationService;
+import com.clemble.casino.android.game.service.AndroidGameRecordService;
 import com.clemble.casino.android.payment.AndroidPaymentTransactionService;
 import com.clemble.casino.android.player.AndroidPlayerConnectionService;
 import com.clemble.casino.android.player.AndroidPlayerPresenceService;
@@ -34,6 +35,8 @@ import com.clemble.casino.client.game.GameActionTemplateFactory;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameConstructionTemplate;
 import com.clemble.casino.client.game.GameInitiationTemplate;
+import com.clemble.casino.client.game.GameRecordOperations;
+import com.clemble.casino.client.game.GameRecordTemplate;
 import com.clemble.casino.client.payment.PaymentOperations;
 import com.clemble.casino.client.payment.PaymentTemplate;
 import com.clemble.casino.client.player.PlayerConnectionOperations;
@@ -74,18 +77,18 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerConnectionOperations connectionOperations;
     final private PlayerPresenceOperations presenceOperations;
     final private PaymentOperations transactionOperations;
+    final private GameRecordOperations recordOperations;
     final private GameConstructionOperations constructionOperations;
     final private GameActionOperationsFactory actionOperationsFactory;
 
     @SuppressWarnings({ "rawtypes" })
     public ClembleCasinoTemplate(
-            String consumerKey,
-            String consumerSecret,
-            String accessToken,
-            String accessTokenSecret,
-            String player,
-            String managementUrl)
-            throws IOException {
+        String consumerKey,
+        String consumerSecret,
+        String accessToken,
+        String accessTokenSecret,
+        String player,
+        String managementUrl) throws IOException {
         super(consumerKey, consumerSecret, accessToken, accessTokenSecret, new RSARequestSigner());
 
         this.player = player;
@@ -118,6 +121,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         GameActionService actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
         this.actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
         this.constructionOperations = new GameConstructionTemplate(player, constructionService, availabilityConstructionService, initiationService, configurationService, listenerOperations);
+        this.recordOperations = new GameRecordTemplate(new AndroidGameRecordService(getRestTemplate(), gameRegistry));
         // Step 5. Registering listener operations
         this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(new GameInitiationTemplate(player, initiationService)));
     }
@@ -145,6 +149,11 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     @Override
     public PaymentOperations paymentOperations() {
         return transactionOperations;
+    }
+
+    @Override
+    public GameRecordOperations gameRecordOperations() {
+        return recordOperations;
     }
 
     @Override
@@ -190,4 +199,5 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         if(listenerOperations != null)
             listenerOperations.close();
     }
+
 }

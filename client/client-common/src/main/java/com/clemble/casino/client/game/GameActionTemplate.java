@@ -13,6 +13,7 @@ import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
+import com.clemble.casino.game.action.surrender.GiveUpAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.event.server.GameMatchEvent;
 import com.clemble.casino.game.service.GameActionService;
@@ -109,6 +110,11 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     public GamePlayerAccount getPlayerAccount(String player){
         State currentState = getCurrentState();
         return currentState != null ? currentState.getContext().getPlayerContext(player).getAccount() : null;
+    }
+
+    @Override
+    public GameManagementEvent giveUp(){
+        return process(new GiveUpAction(player));
     }
 
     @Override

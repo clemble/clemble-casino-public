@@ -12,13 +12,17 @@ import java.util.Date;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-import com.clemble.casino.game.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
+import com.clemble.casino.game.Game;
+import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.PotGameContext;
+import com.clemble.casino.game.PotGamePlayerContext;
+import com.clemble.casino.game.TournamentGameContext;
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
@@ -200,7 +204,7 @@ public class ObjectTest {
         register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
             @Override
             public TournamentGameConfiguration generate() {
-                return new TournamentGameConfiguration(new GameConfigurationKey(Game.pic, "AAA"), new Money(Currency.FakeMoney, 50), PrivacyRule.players, PlayerNumberRule.two, MatchGameConfiguration.DEFAULT, null, null);
+                return new TournamentGameConfiguration(new GameConfigurationKey(Game.pic, "AAA"), new Money(Currency.FakeMoney, 50), PrivacyRule.players, PlayerNumberRule.two, MatchGameConfiguration.DEFAULT, null, null, null, null);
             }
         });
 
@@ -220,7 +224,7 @@ public class ObjectTest {
         register(PotGameContext.class, new AbstractValueGenerator<PotGameContext>() {
             @Override
             public PotGameContext generate() {
-                return new PotGameContext(GameSessionKey.DEFAULT_SESSION, Collections.<PotGamePlayerContext>emptyList(), null, 0, Collections.<GameOutcome>emptyList());
+                return new PotGameContext(GameSessionKey.DEFAULT_SESSION, null, Collections.<PotGamePlayerContext>emptyList(), null, 0, Collections.<GameOutcome>emptyList());
             }
         });
         register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {

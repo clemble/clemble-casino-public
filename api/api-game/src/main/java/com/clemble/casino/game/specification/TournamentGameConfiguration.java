@@ -2,6 +2,8 @@ package com.clemble.casino.game.specification;
 
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
+import com.clemble.casino.game.rule.outcome.DrawRule;
+import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.payment.money.Money;
@@ -24,6 +26,8 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
     final private PlayerNumberRule numberRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
+    final private WonRule wonRule;
+    final private DrawRule drawRule;
     final private GameConfiguration configuration;
 
     @JsonCreator
@@ -34,6 +38,8 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
             @JsonProperty("numberRule") PlayerNumberRule numberRule,
             @JsonProperty("configuration") GameConfiguration configuration,
             @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
+            @JsonProperty("wonRule") WonRule wonRule,
+            @JsonProperty("drawRule") DrawRule drawRule,
             @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule) {
         this.configurationKey = configurationKey;
         this.price = price;
@@ -41,6 +47,8 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
         this.numberRule = numberRule;
         this.configuration = configuration;
         this.totalTimeRule = totalTimeRule;
+        this.wonRule = wonRule;
+        this.drawRule = drawRule;
         this.moveTimeRule = moveTimeRule;
     }
 
@@ -77,6 +85,16 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
     @Override
     public TotalTimeRule getTotalTimeRule() {
         return totalTimeRule;
+    }
+
+    @Override
+    public WonRule getWonRule() {
+        return wonRule;
+    }
+
+    @Override
+    public DrawRule getDrawRule() {
+        return drawRule;
     }
 
     @Override
