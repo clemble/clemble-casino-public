@@ -1,7 +1,9 @@
 package com.clemble.casino.game;
 
 import com.clemble.casino.game.specification.GameConfigurationKey;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("tournament")
 public class TournamentGameRecord implements GameRecord {
 
     /**

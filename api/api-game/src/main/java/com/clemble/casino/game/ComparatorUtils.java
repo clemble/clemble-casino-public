@@ -2,7 +2,6 @@ package com.clemble.casino.game;
 
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;

@@ -21,7 +21,7 @@ public class AndroidGameRecordService extends AbstractClembleCasinoOperations im
 
     @Override
     public GameRecord get(Game game, String session) {
-        return restTemplate.postForObject(buildUriWith(GAME_SESSIONS_RECORD, game, session), null, GameRecord.class);
+        return restTemplate.getForObject(buildUriWith(GAME_SESSIONS_RECORD, game, session), GameRecord.class);
     }
 
 }

@@ -11,6 +11,11 @@ import java.util.Collection;
  */
 public class TournamentLeaf implements GameSessionAware, PlayerAware{
 
+    /**
+     * Generated 
+     */
+    private static final long serialVersionUID = 4460145959220006489L;
+
     final private String player;
     final private GameSessionKey sessionKey;
     final private Collection<TournamentLeaf> leafs;

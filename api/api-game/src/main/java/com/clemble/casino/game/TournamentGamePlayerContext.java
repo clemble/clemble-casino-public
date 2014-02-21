@@ -1,11 +1,9 @@
 package com.clemble.casino.game;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.specification.GameConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

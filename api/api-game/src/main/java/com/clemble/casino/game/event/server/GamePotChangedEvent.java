@@ -29,9 +29,15 @@ public class GamePotChangedEvent extends GamePotEvent {
     }
 
     @Override
+    public String toString(){
+        return "potChanged:" + getSession();
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
+        result = prime * result + ((nextSession == null) ? 0 : nextSession.hashCode());
         return result;
     }
 
@@ -44,12 +50,12 @@ public class GamePotChangedEvent extends GamePotEvent {
         if (getClass() != obj.getClass())
             return false;
         GamePotChangedEvent other = (GamePotChangedEvent) obj;
+        if (nextSession == null) {
+            if (other.nextSession != null)
+                return false;
+        } else if (!nextSession.equals(other.nextSession))
+            return false;
         return true;
-    }
-
-    @Override
-    public String toString(){
-        return "potChanged:" + getSession();
     }
 
 }

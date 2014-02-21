@@ -17,9 +17,11 @@ import javax.persistence.Table;
 import com.clemble.casino.game.specification.GameConfigurationKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
 @Table(name = "GAME_POT_RECORD")
+@JsonTypeName("pot")
 public class PotGameRecord implements GameRecord {
 
     /**

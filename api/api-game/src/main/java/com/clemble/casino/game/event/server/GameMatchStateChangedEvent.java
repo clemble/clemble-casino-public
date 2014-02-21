@@ -18,9 +18,9 @@ public class GameMatchStateChangedEvent extends GameMatchEvent {
      */
     private static final long serialVersionUID = -7618933855585060716L;
 
-    final private Collection<GameAction> actions;
+    final private Collection<? extends GameAction> actions;
 
-    public GameMatchStateChangedEvent(MatchGameRecord session, Collection<GameAction> actions) {
+    public GameMatchStateChangedEvent(MatchGameRecord session, Collection<? extends GameAction> actions) {
         super(session);
         this.actions = actions;
     }
@@ -31,7 +31,7 @@ public class GameMatchStateChangedEvent extends GameMatchEvent {
         this.actions = actions;
     }
 
-    public Collection<GameAction> getActions() {
+    public Collection<? extends GameAction> getActions() {
         return actions;
     }
 

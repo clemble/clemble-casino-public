@@ -16,6 +16,7 @@ import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.hibernate.annotations.Type;
 
 import com.clemble.casino.VersionAware;
@@ -25,6 +26,7 @@ import com.clemble.casino.game.specification.GameConfigurationKey;
 
 @Entity
 @Table(name = "GAME_SESSION")
+@JsonTypeName("match")
 public class MatchGameRecord implements GameRecord, VersionAware {
 
     /**
