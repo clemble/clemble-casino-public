@@ -1,10 +1,12 @@
 package com.clemble.casino.error;
 
-import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
 
@@ -27,8 +29,8 @@ public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
 
     @JsonCreator
     public ClembleCasinoFailure(@JsonProperty("error") final ClembleCasinoError error,
-            @JsonProperty(PlayerAware.JSON_ID) final String player,
-            @JsonProperty("session") final GameSessionKey session) {
+                                @JsonProperty(PlayerAware.JSON_ID) final String player,
+                                @JsonProperty("session") final GameSessionKey session) {
         this.error = error;
         this.session = session;
         this.player = player;
@@ -58,8 +60,8 @@ public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((error == null) ? 0 : error.hashCode());
-        result = prime * result + ((player == null) ? 0 : player.hashCode());
-        result = prime * result + ((session == null) ? 0 : session.hashCode());
+        result = prime * result + (int) (player != null ? player.hashCode() : 0);
+        result = prime * result + (int) (session.hashCode());
         return result;
     }
 
@@ -74,15 +76,9 @@ public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
         ClembleCasinoFailure other = (ClembleCasinoFailure) obj;
         if (error != other.error)
             return false;
-        if (player == null) {
-            if (other.player != null)
-                return false;
-        } else if (!player.equals(other.player))
+        if (!player.equals(other.player))
             return false;
-        if (session == null) {
-            if (other.session != null)
-                return false;
-        } else if (!session.equals(other.session))
+        if (!session.equals(other.session))
             return false;
         return true;
     }

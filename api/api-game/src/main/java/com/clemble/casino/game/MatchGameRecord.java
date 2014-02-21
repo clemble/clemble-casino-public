@@ -168,7 +168,7 @@ public class MatchGameRecord implements GameRecord, VersionAware {
                 return false;
         } else if (!players.equals(other.players))
             return false;
-        if (session != other.session)
+        if (!session.equals(other.session))
             return false;
         if (sessionState != other.sessionState)
             return false;

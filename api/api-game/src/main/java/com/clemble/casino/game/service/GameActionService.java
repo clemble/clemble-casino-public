@@ -1,5 +1,6 @@
 package com.clemble.casino.game.service;
 
+import com.clemble.casino.game.GameContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,10 @@ public interface GameActionService extends ClembleService {
     @RequestMapping(method = RequestMethod.GET, value = GameWebMapping.GAME_SESSIONS_STATE, produces = WebMapping.PRODUCES)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody GameState getState(@PathVariable("game") Game game, @PathVariable("session") String session);
+
+    @RequestMapping(method = RequestMethod.GET, value = GameWebMapping.GAME_SESSIONS_CONTEXT, produces = WebMapping.PRODUCES)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody GameContext<?> getContext(@PathVariable("game") Game game, @PathVariable("session") String session);
 
     @RequestMapping(method = RequestMethod.POST, value = GameWebMapping.GAME_SESSIONS_ACTIONS, produces = WebMapping.PRODUCES)
     @ResponseStatus(value = HttpStatus.OK)

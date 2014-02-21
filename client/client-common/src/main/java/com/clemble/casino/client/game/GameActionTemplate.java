@@ -6,11 +6,7 @@ import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.clemble.casino.client.event.*;
-import com.clemble.casino.game.GamePlayerAccount;
-import com.clemble.casino.game.GamePlayerClock;
-import com.clemble.casino.game.GameSessionAwareEvent;
-import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.*;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
@@ -48,6 +44,11 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     public State getState(){
         // TODO fix it
         return (State) gameActionService.getState(session.getGame(), session.getSession());
+    }
+
+    @Override
+    public GameContext<?> getContext() {
+        return gameActionService.getContext(session.getGame(), session.getSession());
     }
 
     private State getCurrentState(){

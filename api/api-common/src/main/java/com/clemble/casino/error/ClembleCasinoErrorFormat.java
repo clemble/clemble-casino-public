@@ -27,8 +27,7 @@ public class ClembleCasinoErrorFormat {
     public static class ClembleCasinoErrorSerializer extends JsonSerializer<ClembleCasinoError> {
 
         @Override
-        public void serialize(ClembleCasinoError error, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException,
-                JsonProcessingException {
+        public void serialize(ClembleCasinoError error, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (error == null)
                 return;
 
@@ -57,81 +56,6 @@ public class ClembleCasinoErrorFormat {
                 token = jp.nextToken();
             }
             return ClembleCasinoError.forCode(code);
-        }
-    }
-
-    /**
-     * Custom {@link Date} Serializer, used by Jackson, through {@link JsonSerializer} annotation.
-     * 
-     * @author Anton Oparin
-     * 
-     */
-    public static class ClembleCasinoFailureSerializer extends JsonSerializer<ClembleCasinoFailure> {
-
-        @Override
-        public void serialize(ClembleCasinoFailure failure, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException,
-                JsonProcessingException {
-            if (failure == null)
-                return;
-
-            jsonGenerator.writeStartObject();
-            jsonGenerator.writeFieldName("code");
-            jsonGenerator.writeString(failure.getError().getCode());
-            jsonGenerator.writeFieldName("description");
-            jsonGenerator.writeString(failure.getError().getDescription());
-
-            if (failure.getPlayer() != PlayerAware.DEFAULT_PLAYER) {
-                jsonGenerator.writeFieldName("player");
-                jsonGenerator.writeString(failure.getPlayer());
-            }
-
-            if (failure.getSession() != GameSessionAware.DEFAULT_SESSION) {
-                jsonGenerator.writeFieldName("session");
-                jsonGenerator.writeStartObject();
-                jsonGenerator.writeFieldName("game");
-                jsonGenerator.writeString(failure.getSession().getGame().name());
-                jsonGenerator.writeFieldName("session");
-                jsonGenerator.writeString(failure.getSession().getSession());
-                jsonGenerator.writeEndObject();
-            }
-
-            jsonGenerator.writeEndObject();
-        }
-
-    }
-
-    public static class ClembleCasinoFailureDeserializer extends JsonDeserializer<ClembleCasinoFailure> {
-
-        @Override
-        public ClembleCasinoFailure deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-            String code = null;
-            JsonToken token = null;
-            String player = PlayerAware.DEFAULT_PLAYER;
-            GameSessionKey session = GameSessionAware.DEFAULT_SESSION;
-            do {
-                if (jp.getCurrentName() == "code") {
-                    code = jp.nextTextValue();
-                } else if (jp.getCurrentName() == "description") {
-                    jp.nextTextValue();
-                } else if (jp.getCurrentName() == "player") {
-                    player = jp.nextTextValue();
-                } else if (jp.getCurrentName() == "session") {
-                    jp.nextToken();
-                    jp.nextToken();
-                    if (jp.getCurrentName().equals("game")) {
-                        Game game = Game.valueOf(jp.nextTextValue());
-                        jp.nextToken();
-                        session = new GameSessionKey(game, jp.nextTextValue());
-                    } else {
-                        String sessionIdentifier = jp.nextTextValue();
-                        jp.nextToken();
-                        session = new GameSessionKey(Game.valueOf(jp.nextTextValue()), sessionIdentifier);
-                    }
-                }
-                token = jp.nextToken();
-            } while (token != null && token != JsonToken.END_OBJECT);
-
-            return new ClembleCasinoFailure(ClembleCasinoError.forCode(code), player, session);
         }
     }
 

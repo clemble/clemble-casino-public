@@ -42,4 +42,26 @@ public class TournamentGameRecord implements GameRecord {
         this.sessionState = sessionState;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TournamentGameRecord that = (TournamentGameRecord) o;
+
+        if (configurationKey != null ? !configurationKey.equals(that.configurationKey) : that.configurationKey != null)
+            return false;
+        if (sessionKey != null ? !sessionKey.equals(that.sessionKey) : that.sessionKey != null) return false;
+        if (sessionState != that.sessionState) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = configurationKey != null ? configurationKey.hashCode() : 0;
+        result = 31 * result + (sessionKey != null ? sessionKey.hashCode() : 0);
+        result = 31 * result + (sessionState != null ? sessionState.hashCode() : 0);
+        return result;
+    }
 }

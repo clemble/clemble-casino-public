@@ -17,6 +17,7 @@ public interface GameWebMapping extends WebMapping {
     final public static String GAME_SESSIONS_RECORD = "/{game}/{session}";
 
     final public static String GAME_SESSIONS_STATE = "/{game}/{session}/state";
+    final public static String GAME_SESSIONS_CONTEXT = "/{game}/{session}/context";
     final public static String GAME_SESSIONS_ACTIONS = "/{game}/{session}/action";
     final public static String GAME_SESSIONS_ACTIONS_ACTION = "/{game}/{session}/action/{actionId}";
 
