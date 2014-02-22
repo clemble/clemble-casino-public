@@ -69,6 +69,23 @@ public class PaymentOperation implements PlayerAware, AmountAware {
         return this;
     }
 
+    public void combine(PaymentOperation paymentOperation) {
+        // Step 1. Sanity check
+        if (paymentOperation == null || !this.player.equals(paymentOperation.getPlayer()))
+            throw new IllegalArgumentException();
+        // Step 2. Processing operations
+        if (paymentOperation.getOperation() == operation) {
+            amount = amount.add(paymentOperation.getAmount());
+        } else {
+            amount = amount.subtract(paymentOperation.getAmount());
+        }
+        // Step 3. Checking if value is negative, and returning 
+        if(amount.isNegative()) {
+            operation = operation == Operation.Debit ? Operation.Credit : Operation.Debit;
+            amount = amount.negate();
+        }
+    }
+
     @Override
     public String toString() {
         return operation + ":" + player + ":" + amount;

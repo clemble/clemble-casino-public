@@ -81,8 +81,14 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
     }
 
     public PaymentTransaction addPaymentOperation(PaymentOperation paymentOperation) {
-        if (paymentOperation != null)
-            this.paymentOperations.add(paymentOperation);
+        if (paymentOperation != null) {
+            PaymentOperation playerOperation = getPaymentOperation(paymentOperation.getPlayer());
+            if(playerOperation != null) {
+                playerOperation.combine(paymentOperation);
+            } else {
+                this.paymentOperations.add(paymentOperation);
+            }
+        }
         return this;
     }
 

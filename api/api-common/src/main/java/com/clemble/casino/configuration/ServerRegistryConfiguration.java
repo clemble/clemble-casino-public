@@ -24,8 +24,10 @@ public class ServerRegistryConfiguration {
     }
 
     @JsonCreator
-    public ServerRegistryConfiguration(@JsonProperty("playerNotificationRegistry") ServerRegistry playerNotificationRegistry,
-            @JsonProperty("playerRegistry") ServerRegistry playerRegistry, @JsonProperty("paymentRegistry") ServerRegistry paymentRegistry,
+    public ServerRegistryConfiguration(
+            @JsonProperty("playerNotificationRegistry") ServerRegistry playerNotificationRegistry,
+            @JsonProperty("playerRegistry") ServerRegistry playerRegistry,
+            @JsonProperty("paymentRegistry") ServerRegistry paymentRegistry,
             @JsonProperty("gameRegistry") ServerRegistry gameRegistry) {
         this.playerNotificationBaseUrl = playerNotificationRegistry;
         this.playerRegistry = playerRegistry;
