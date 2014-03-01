@@ -11,7 +11,7 @@ import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;
-import com.clemble.casino.game.event.server.GameMatchEvent;
+import com.clemble.casino.game.event.server.RoundEvent;
 import com.clemble.casino.game.service.GameActionService;
 
 public class GameActionTemplate<State extends GameState> implements GameActionOperationsExtenstion<State> {
@@ -30,10 +30,10 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
         this.eventListenersManager = checkNotNull(eventListenersManager);
         this.eventListenersManager.subscribe(EventSelectors
                 .where(new GameSessionEventSelector(session))
-                .and(new EventTypeSelector(GameMatchEvent.class)),
-            new EventListener<GameMatchEvent>() {
+                .and(new EventTypeSelector(RoundEvent.class)),
+            new EventListener<RoundEvent>() {
             @Override
-            public void onEvent(GameMatchEvent event) {
+            public void onEvent(RoundEvent event) {
                 currentState.set(event.getState());
             }
         });

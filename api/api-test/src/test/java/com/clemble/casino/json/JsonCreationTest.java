@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.clemble.casino.game.PotGameContext;
+import com.clemble.casino.game.specification.RoundGameConfiguration;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,6 @@ import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
 import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.GameConfigurationKey;
-import com.clemble.casino.game.specification.MatchGameConfiguration;
 import com.clemble.casino.payment.money.Currency;
 import com.clemble.casino.payment.money.Money;
 import com.clemble.test.random.ObjectGenerator;
@@ -55,7 +55,7 @@ public class JsonCreationTest {
     // + "\"session\":{\"game\":null,\"session\":null}"
     // + "}]}";
     final private String ERROR_JSON = "{\"error\":{\"code\":\"0C1\",\"description\":\"Server critical error\"},\"player\":\"f>RvzG{LHn\",\"session\":{\"game\":\"pac\",\"session\":\"'[jh$ FC([\"}}";
-    final private String MATCH_JSON = "[{\"type\":\"match\",\"configurationKey\":{\"game\":\"num\",\"specificationName\":\"low\"},\"price\":{\"currency\":\"FakeMoney\",\"amount\":50},\"betRule\":{\"betType\":\"unlimited\"},\"giveUpRule\":{\"giveUp\":\"all\"},\"moveTimeRule\":{\"rule\":\"moveTime\",\"limit\":2000,\"punishment\":\"loose\"},\"totalTimeRule\":{\"rule\":\"totalTime\",\"limit\":4000,\"punishment\":\"loose\"},\"privacyRule\":[\"privacy\",\"everybody\"],\"numberRule\":[\"participants\",\"two\"],\"visibilityRule\":\"visible\",\"drawRule\":[\"DrawRule\",\"owned\"],\"wonRule\":[\"WonRule\",\"price\"],\"roles\":[\"A\",\"B\"]}]";
+    final private String MATCH_JSON = "[{\"type\":\"round\",\"configurationKey\":{\"game\":\"num\",\"specificationName\":\"low\"},\"price\":{\"currency\":\"FakeMoney\",\"amount\":50},\"betRule\":{\"betType\":\"unlimited\"},\"giveUpRule\":{\"giveUp\":\"all\"},\"moveTimeRule\":{\"rule\":\"moveTime\",\"limit\":2000,\"punishment\":\"loose\"},\"totalTimeRule\":{\"rule\":\"totalTime\",\"limit\":4000,\"punishment\":\"loose\"},\"privacyRule\":[\"privacy\",\"everybody\"],\"numberRule\":[\"participants\",\"two\"],\"visibilityRule\":\"visible\",\"drawRule\":[\"DrawRule\",\"owned\"],\"wonRule\":[\"WonRule\",\"price\"],\"roles\":[\"A\",\"B\"]}]";
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
@@ -71,7 +71,7 @@ public class JsonCreationTest {
 
     @Test
     public void testRead() throws JsonParseException, JsonMappingException, IOException {
-        GameConfiguration[] configurations = objectMapper.readValue(MATCH_JSON, MatchGameConfiguration[].class);
+        GameConfiguration[] configurations = objectMapper.readValue(MATCH_JSON, RoundGameConfiguration[].class);
         String arrJsonPresentation = objectMapper.writeValueAsString(configurations);
         assertEquals(arrJsonPresentation, MATCH_JSON);
     }
@@ -100,7 +100,7 @@ public class JsonCreationTest {
 
     @Test
     public void test() throws JsonProcessingException {
-        MatchGameConfiguration configuration = new MatchGameConfiguration(new GameConfigurationKey(Game.num, "low"), new Money(Currency.FakeMoney, 50),
+        RoundGameConfiguration configuration = new RoundGameConfiguration(new GameConfigurationKey(Game.num, "low"), new Money(Currency.FakeMoney, 50),
                 UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, TimeBreachPunishment.loose), new TotalTimeRule(4000,
                         TimeBreachPunishment.loose), PrivacyRule.everybody, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
                 ImmutableList.<String> of("A", "B"));

@@ -5,11 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.specification.MatchGameConfiguration;
+import com.clemble.casino.game.specification.RoundGameConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MatchGamePlayerContext implements GamePlayerContext, GameRoleAware {
+public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware {
 
     /**
      * Generated 25/12/13
@@ -22,7 +22,7 @@ public class MatchGamePlayerContext implements GamePlayerContext, GameRoleAware 
     final private GamePlayerClock clock;
 
     @JsonCreator
-    public MatchGamePlayerContext(
+    public RoundGamePlayerContext(
             @JsonProperty("player") String player,
             @JsonProperty("account") GamePlayerAccount account,
             @JsonProperty("clock") GamePlayerClock clock,
@@ -53,15 +53,15 @@ public class MatchGamePlayerContext implements GamePlayerContext, GameRoleAware 
         return role;
     }
 
-    public static List<MatchGamePlayerContext> construct(GameInitiation initiation) {
-        MatchGameConfiguration specification = (MatchGameConfiguration) initiation.getConfiguration();
-        List<MatchGamePlayerContext> playerContexts = new ArrayList<MatchGamePlayerContext>();
+    public static List<RoundGamePlayerContext> construct(GameInitiation initiation) {
+        RoundGameConfiguration specification = (RoundGameConfiguration) initiation.getConfiguration();
+        List<RoundGamePlayerContext> playerContexts = new ArrayList<RoundGamePlayerContext>();
         Iterator<String> players = initiation.getParticipants().iterator();
         for(String role: specification.getRoles()) {
             String player = players.next();
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice());
             GamePlayerClock clock = new GamePlayerClock(0, 0);
-            playerContexts.add(new MatchGamePlayerContext(player, account, clock, role));
+            playerContexts.add(new RoundGamePlayerContext(player, account, clock, role));
         }
         return playerContexts;
     }
@@ -85,7 +85,7 @@ public class MatchGamePlayerContext implements GamePlayerContext, GameRoleAware 
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MatchGamePlayerContext other = (MatchGamePlayerContext) obj;
+        RoundGamePlayerContext other = (RoundGamePlayerContext) obj;
         if (account == null) {
             if (other.account != null)
                 return false;

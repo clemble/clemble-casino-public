@@ -14,9 +14,9 @@ public class Money implements Serializable {
      */
     private static final long serialVersionUID = -2196796622087364501L;
 
-    private final Currency currency;
+    final private Currency currency;
 
-    private final long amount;
+    final private long amount;
 
     @JsonCreator
     public Money(@JsonProperty("currency") final Currency currency, @JsonProperty("amount") final long amount) {

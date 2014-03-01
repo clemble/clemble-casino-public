@@ -19,10 +19,10 @@ public class BetAction extends GameAction {
      */
     private static final long serialVersionUID = 4761116695040560749L;
 
-    final private long bet;
+    final private int bet;
 
     @JsonCreator
-    public BetAction(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("bet") long bet) {
+    public BetAction(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("bet") int bet) {
         super(player);
         this.bet = bet;
         if (bet < 0)
@@ -30,7 +30,7 @@ public class BetAction extends GameAction {
 
     }
 
-    public long getBet() {
+    public int getBet() {
         return bet;
     }
 
@@ -70,7 +70,7 @@ public class BetAction extends GameAction {
         Map<String, Collection<BetAction>> grouped = group(actions);
         Collection<BetAction> resBetAction = new ArrayList<BetAction>();
         for(String player: grouped.keySet()) {
-            long totalBet = 0;
+            int totalBet = 0;
             for(BetAction bet: grouped.get(player)) {
                 totalBet += bet.getBet();
             }

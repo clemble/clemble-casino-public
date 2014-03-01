@@ -4,14 +4,14 @@ import java.util.Collection;
 
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.MatchGameRecord;
+import com.clemble.casino.game.RoundGameRecord;
 import com.clemble.casino.game.action.GameAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("changed")
-public class GameMatchStateChangedEvent extends GameMatchEvent {
+public class RoundStateChangedEvent extends RoundEvent {
 
     /**
      * Generated 25/12/13
@@ -20,13 +20,13 @@ public class GameMatchStateChangedEvent extends GameMatchEvent {
 
     final private Collection<? extends GameAction> actions;
 
-    public GameMatchStateChangedEvent(MatchGameRecord session, Collection<? extends GameAction> actions) {
+    public RoundStateChangedEvent(RoundGameRecord session, Collection<? extends GameAction> actions) {
         super(session);
         this.actions = actions;
     }
 
     @JsonCreator
-    public GameMatchStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") GameState state, @JsonProperty("actions") Collection<GameAction> actions) {
+    public RoundStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") GameState state, @JsonProperty("actions") Collection<GameAction> actions) {
         super(session, state);
         this.actions = actions;
     }
@@ -51,7 +51,7 @@ public class GameMatchStateChangedEvent extends GameMatchEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameMatchStateChangedEvent other = (GameMatchStateChangedEvent) obj;
+        RoundStateChangedEvent other = (RoundStateChangedEvent) obj;
         if (actions == null) {
             if (other.actions != null)
                 return false;

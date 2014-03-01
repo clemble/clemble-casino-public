@@ -1,10 +1,7 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameContext;
-import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.MatchGamePlayerContext;
-import com.clemble.casino.game.MatchGameRecord;
+import com.clemble.casino.game.*;
+import com.clemble.casino.game.RoundGamePlayerContext;
 import com.clemble.casino.game.outcome.GameOutcome;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("ended")
-public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEvent<MatchGamePlayerContext> {
+public class RoundEndedEvent extends RoundEvent implements GameEndedEvent<RoundGamePlayerContext> {
 
     /**
      * Generated 07/05/13
@@ -20,21 +17,21 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
     private static final long serialVersionUID = 820200145932972096L;
 
     final private GameOutcome outcome;
-    final private GameContext<MatchGamePlayerContext> context;
+    final private GameContext<RoundGamePlayerContext> context;
     private PaymentTransaction transaction;
 
-    public GameMatchEndedEvent(MatchGameRecord session, GameOutcome outcome) {
+    public RoundEndedEvent(RoundGameRecord session, GameOutcome outcome) {
         super(session);
         this.outcome = outcome;
         this.context = session.getState().getContext();
     }
 
     @JsonCreator
-    public GameMatchEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
-                               @JsonProperty("state") GameState state,
-                               @JsonProperty("outcome") GameOutcome outcome,
-                               @JsonProperty("context") GameContext<MatchGamePlayerContext> context,
-                               @JsonProperty("transaction") PaymentTransaction transaction) {
+    public RoundEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
+                           @JsonProperty("state") GameState state,
+                           @JsonProperty("outcome") GameOutcome outcome,
+                           @JsonProperty("context") GameContext<RoundGamePlayerContext> context,
+                           @JsonProperty("transaction") PaymentTransaction transaction) {
         super(sessionKey, state);
         this.outcome = outcome;
         this.transaction = transaction;
@@ -47,7 +44,7 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
     }
 
     @Override
-    public GameContext<MatchGamePlayerContext> getContext() {
+    public GameContext<RoundGamePlayerContext> getContext() {
         return context;
     }
 
@@ -77,7 +74,7 @@ public class GameMatchEndedEvent extends GameMatchEvent implements GameEndedEven
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameMatchEndedEvent other = (GameMatchEndedEvent) obj;
+        RoundEndedEvent other = (RoundEndedEvent) obj;
         if (outcome == null) {
             if (other.outcome != null)
                 return false;

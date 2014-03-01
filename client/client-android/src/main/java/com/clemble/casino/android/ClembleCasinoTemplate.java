@@ -52,7 +52,7 @@ import com.clemble.casino.configuration.ServerRegistryConfiguration;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
-import com.clemble.casino.game.event.server.GameMatchEvent;
+import com.clemble.casino.game.event.server.RoundEvent;
 import com.clemble.casino.game.service.AutoGameConstructionService;
 import com.clemble.casino.game.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.service.GameActionService;
@@ -98,7 +98,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
         this.listenerOperations = new RabbitEventListenerTemplate(player, resourceLocations.getNotificationConfiguration(), ClembleCasinoConstants.OBJECT_MAPPER);
         // TODO either make it part of server event or find a nicer way to deal with this
-        this.listenerOperations.subscribe(new EventTypeSelector(GameMatchEvent.class), new PlayerToMoveEventEmulator(player, listenerOperations));
+        this.listenerOperations.subscribe(new EventTypeSelector(RoundEvent.class), new PlayerToMoveEventEmulator(player, listenerOperations));
         // Step 1. Creating PlayerProfile service
         PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
         this.profileOperations = new PlayerProfileTemplate(player, playerProfileService);

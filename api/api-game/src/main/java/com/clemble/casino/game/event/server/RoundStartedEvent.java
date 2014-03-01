@@ -1,6 +1,6 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.MatchGameRecord;
+import com.clemble.casino.game.RoundGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.GameSessionAware;
@@ -9,19 +9,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("started")
-public class GameMatchStartedEvent<State extends GameState> extends GameMatchEvent implements GameSessionAware, GameStartedEvent {
+public class RoundStartedEvent<State extends GameState> extends RoundEvent implements GameSessionAware, GameStartedEvent {
 
     /**
      * Generated
      */
     private static final long serialVersionUID = -4474960027054354888L;
 
-    public GameMatchStartedEvent(MatchGameRecord session) {
+    public RoundStartedEvent(RoundGameRecord session) {
         super(session);
     }
 
     @JsonCreator
-    public GameMatchStartedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") State state) {
+    public RoundStartedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") State state) {
         super(session, state);
     }
 
@@ -41,7 +41,7 @@ public class GameMatchStartedEvent<State extends GameState> extends GameMatchEve
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameMatchStartedEvent<?> other = (GameMatchStartedEvent<?>) obj;
+        RoundStartedEvent<?> other = (RoundStartedEvent<?>) obj;
         if (!super.equals(other))
             return false;
         return true;

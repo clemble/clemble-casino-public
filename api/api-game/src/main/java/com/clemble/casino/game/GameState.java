@@ -7,9 +7,9 @@ import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-public interface GameState extends GameProcessor<MatchGameRecord, Event>, Serializable {
+public interface GameState extends GameProcessor<RoundGameRecord, Event>, Serializable {
 
-    public MatchGameContext getContext();
+    public RoundGameContext getContext();
 
     public GameUnit getRoot();
 

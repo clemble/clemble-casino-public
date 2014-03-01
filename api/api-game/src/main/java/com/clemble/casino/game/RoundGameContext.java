@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 24/12/13.
  */
 @JsonTypeName("matchContext")
-public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
+public class RoundGameContext extends GameContext<RoundGamePlayerContext> {
 
     /**
      * Generated 29/12/13
@@ -25,22 +25,22 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
     final private ActionLatch actionLatch;
 
     @JsonCreator
-    public MatchGameContext(@JsonProperty("session") GameSessionKey sessionKey,
-            @JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
-            @JsonProperty("playerIterator") GamePlayerIterator playerIterator,
-            @JsonProperty("actionLatch") ActionLatch actionLatch,
-            @JsonProperty(value = "parent", required = false) GameContext<?> parent) {
+    public RoundGameContext(@JsonProperty("session") GameSessionKey sessionKey,
+                            @JsonProperty("playerContexts") List<RoundGamePlayerContext> playerContexts,
+                            @JsonProperty("playerIterator") GamePlayerIterator playerIterator,
+                            @JsonProperty("actionLatch") ActionLatch actionLatch,
+                            @JsonProperty(value = "parent", required = false) GameContext<?> parent) {
         super(sessionKey, parent, playerContexts);
         this.playerIterator = playerIterator;
         this.actionLatch = actionLatch;
     }
 
-    public MatchGameContext(GameInitiation initiation) {
+    public RoundGameContext(GameInitiation initiation) {
         this(initiation, null);
     }
 
-    public MatchGameContext(GameInitiation initiation, GameContext<?> parent) {
-        super(initiation.getSession(), parent, MatchGamePlayerContext.construct(initiation));
+    public RoundGameContext(GameInitiation initiation, GameContext<?> parent) {
+        super(initiation.getSession(), parent, RoundGamePlayerContext.construct(initiation));
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
     }
@@ -70,7 +70,7 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MatchGameContext other = (MatchGameContext) obj;
+        RoundGameContext other = (RoundGameContext) obj;
         if (actionLatch == null) {
             if (other.actionLatch != null)
                 return false;

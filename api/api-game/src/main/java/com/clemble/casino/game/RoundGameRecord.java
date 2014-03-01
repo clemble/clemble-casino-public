@@ -27,7 +27,7 @@ import com.clemble.casino.game.specification.GameConfigurationKey;
 @Entity
 @Table(name = "GAME_SESSION")
 @JsonTypeName("match")
-public class MatchGameRecord implements GameRecord, VersionAware {
+public class RoundGameRecord implements GameRecord, VersionAware {
 
     /**
      * Generated 16/02/13
@@ -60,7 +60,7 @@ public class MatchGameRecord implements GameRecord, VersionAware {
     @Column(name = "VERSION")
     private int version;
 
-    public MatchGameRecord() {
+    public RoundGameRecord() {
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MatchGameRecord implements GameRecord, VersionAware {
         return session;
     }
 
-    public MatchGameRecord setSession(GameSessionKey newSession) {
+    public RoundGameRecord setSession(GameSessionKey newSession) {
         this.session = newSession;
         return this;
     }
@@ -78,7 +78,7 @@ public class MatchGameRecord implements GameRecord, VersionAware {
         return configurationKey;
     }
 
-    public MatchGameRecord setConfiguration(GameConfigurationKey configurationKey) {
+    public RoundGameRecord setConfiguration(GameConfigurationKey configurationKey) {
         this.configurationKey = configurationKey;
         return this;
     }
@@ -88,7 +88,7 @@ public class MatchGameRecord implements GameRecord, VersionAware {
         return sessionState;
     }
 
-    public MatchGameRecord setSessionState(GameSessionState gameSessionState) {
+    public RoundGameRecord setSessionState(GameSessionState gameSessionState) {
         this.sessionState = gameSessionState;
         return this;
     }
@@ -97,7 +97,7 @@ public class MatchGameRecord implements GameRecord, VersionAware {
         return players;
     }
 
-    public MatchGameRecord setPlayers(Collection<String> players) {
+    public RoundGameRecord setPlayers(Collection<String> players) {
         this.players.clear();
         this.players.addAll(players);
         return this;
@@ -132,7 +132,7 @@ public class MatchGameRecord implements GameRecord, VersionAware {
         return state;
     }
 
-    public MatchGameRecord setState(GameState state) {
+    public RoundGameRecord setState(GameState state) {
         this.state = state;
         return this;
     }
@@ -157,7 +157,7 @@ public class MatchGameRecord implements GameRecord, VersionAware {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MatchGameRecord other = (MatchGameRecord) obj;
+        RoundGameRecord other = (RoundGameRecord) obj;
         if (madeMoves == null) {
             if (other.madeMoves != null)
                 return false;

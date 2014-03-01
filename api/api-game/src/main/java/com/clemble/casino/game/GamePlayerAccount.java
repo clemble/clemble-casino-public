@@ -17,21 +17,25 @@ public class GamePlayerAccount implements Serializable {
     private long left;
     private long spent;
     private long owned;
+    private GameChips chips;
 
-    public GamePlayerAccount(final long left) {
+    public GamePlayerAccount(long left) {
         this.left = left;
         this.owned = 0;
         this.spent = 0;
+        this.chips = null;
     }
 
     @JsonCreator
     public GamePlayerAccount(
-            @JsonProperty("left") final long left,
-            @JsonProperty("spent") final long spent,
-            @JsonProperty("owned") final long owned) {
+            @JsonProperty("left") long left,
+            @JsonProperty("spent") long spent,
+            @JsonProperty("owned") long owned,
+            @JsonProperty("chips") GameChips chips) {
         this.left = left;
         this.spent = spent;
         this.owned = owned;
+        this.chips = chips;
     }
 
     public GamePlayerAccount(Money price) {
@@ -47,6 +51,10 @@ public class GamePlayerAccount implements Serializable {
         this.spent = spent + money;
     }
 
+    public GameChips getChips() {
+        return chips;
+    }
+
     public long getSpent() {
         return spent;
     }
@@ -57,6 +65,13 @@ public class GamePlayerAccount implements Serializable {
 
     public void addOwned(long amount) {
         this.owned += amount;
+    }
+
+    public boolean canAfford(int bet) {
+        if (chips == null)
+            return bet > left;
+        else
+            return chips.getAmount(bet) > 0;
     }
 
     @JsonIgnore

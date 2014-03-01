@@ -32,13 +32,13 @@ public class GameConfigurations {
         return null;
     }
 
-    public List<MatchGameConfiguration> matchConfigurations() {
-        return filter(MatchGameConfiguration.class);
+    public List<RoundGameConfiguration> matchConfigurations() {
+        return filter(RoundGameConfiguration.class);
     }
 
-    public List<MatchGameConfiguration> matchConfigurations(Game game) {
-        List<MatchGameConfiguration> configurations = new ArrayList<MatchGameConfiguration>();
-        for (MatchGameConfiguration configuration : filter(MatchGameConfiguration.class))
+    public List<RoundGameConfiguration> matchConfigurations(Game game) {
+        List<RoundGameConfiguration> configurations = new ArrayList<RoundGameConfiguration>();
+        for (RoundGameConfiguration configuration : filter(RoundGameConfiguration.class))
             if (game.equals(configuration.getConfigurationKey().getGame()))
                 configurations.add(configuration);
         return configurations;

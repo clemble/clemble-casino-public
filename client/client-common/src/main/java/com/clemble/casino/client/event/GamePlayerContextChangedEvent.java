@@ -1,6 +1,6 @@
 package com.clemble.casino.client.event;
 
-import com.clemble.casino.game.MatchGamePlayerContext;
+import com.clemble.casino.game.RoundGamePlayerContext;
 import com.clemble.casino.player.PlayerAware;
 
 public class GamePlayerContextChangedEvent implements GameUnitEvent, PlayerAware {
@@ -11,10 +11,10 @@ public class GamePlayerContextChangedEvent implements GameUnitEvent, PlayerAware
     private static final long serialVersionUID = 3971951397259680180L;
 
     final private String player;
-    final private MatchGamePlayerContext context;
-    final private MatchGamePlayerContext oldContext;
+    final private RoundGamePlayerContext context;
+    final private RoundGamePlayerContext oldContext;
 
-    public GamePlayerContextChangedEvent(String player, MatchGamePlayerContext context, MatchGamePlayerContext oldContext) {
+    public GamePlayerContextChangedEvent(String player, RoundGamePlayerContext context, RoundGamePlayerContext oldContext) {
         this.player = player;
         this.context = context;
         this.oldContext = oldContext;
@@ -25,11 +25,11 @@ public class GamePlayerContextChangedEvent implements GameUnitEvent, PlayerAware
         return player;
     }
 
-    public MatchGamePlayerContext getContext() {
+    public RoundGamePlayerContext getContext() {
         return context;
     }
 
-    public MatchGamePlayerContext getOldContext() {
+    public RoundGamePlayerContext getOldContext() {
         return oldContext;
     }
 

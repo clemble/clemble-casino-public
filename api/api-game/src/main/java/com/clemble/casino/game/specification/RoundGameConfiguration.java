@@ -21,15 +21,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("match")
-public class MatchGameConfiguration implements GameConfiguration {
+@JsonTypeName("round")
+public class RoundGameConfiguration implements GameConfiguration {
 
     /**
      * Generated
      */
     private static final long serialVersionUID = 6573909004152898162L;
 
-    final public static MatchGameConfiguration DEFAULT = new MatchGameConfiguration(
+    final public static RoundGameConfiguration DEFAULT = new RoundGameConfiguration(
             new GameConfigurationKey(Game.pic, "DEFAULT"),
             Money.create(Currency.FakeMoney, 50),
             FixedBetRule.DEFAULT,
@@ -57,19 +57,19 @@ public class MatchGameConfiguration implements GameConfiguration {
     final private List<String> roles;
 
     @JsonCreator
-    public MatchGameConfiguration(
-        @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
-        @JsonProperty("price") Money price,
-        @JsonProperty("betRule") BetRule betRule,
-        @JsonProperty("giveUpRule") GiveUpRule giveUpRule,
-        @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
-        @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
-        @JsonProperty("privacyRule") PrivacyRule privacyRule,
-        @JsonProperty("numberRule") PlayerNumberRule numberRule,
-        @JsonProperty("visibilityRule") VisibilityRule visibilityRule,
-        @JsonProperty("drawRule") DrawRule drawRule,
-        @JsonProperty("wonRule") WonRule wonRule,
-        @JsonProperty("roles") List<String> roles
+    public RoundGameConfiguration(
+            @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
+            @JsonProperty("price") Money price,
+            @JsonProperty("betRule") BetRule betRule,
+            @JsonProperty("giveUpRule") GiveUpRule giveUpRule,
+            @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
+            @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
+            @JsonProperty("privacyRule") PrivacyRule privacyRule,
+            @JsonProperty("numberRule") PlayerNumberRule numberRule,
+            @JsonProperty("visibilityRule") VisibilityRule visibilityRule,
+            @JsonProperty("drawRule") DrawRule drawRule,
+            @JsonProperty("wonRule") WonRule wonRule,
+            @JsonProperty("roles") List<String> roles
     ) {
         this.configurationKey = configurationKey;
         this.price = price;
@@ -159,7 +159,7 @@ public class MatchGameConfiguration implements GameConfiguration {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MatchGameConfiguration other = (MatchGameConfiguration) obj;
+        RoundGameConfiguration other = (RoundGameConfiguration) obj;
         if (betRule == null) {
             if (other.betRule != null)
                 return false;

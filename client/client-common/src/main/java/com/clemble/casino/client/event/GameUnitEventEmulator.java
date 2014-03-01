@@ -5,15 +5,15 @@ import java.util.Map;
 
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.event.server.GameMatchEndedEvent;
-import com.clemble.casino.game.event.server.GameMatchEvent;
-import com.clemble.casino.game.event.server.GameMatchStateChangedEvent;
+import com.clemble.casino.game.event.server.RoundEndedEvent;
+import com.clemble.casino.game.event.server.RoundEvent;
+import com.clemble.casino.game.event.server.RoundStateChangedEvent;
 import com.clemble.casino.game.unit.GameUnit;
 
-public class GameUnitEventEmulator implements EventListener<GameMatchEvent>, EventSelector {
+public class GameUnitEventEmulator implements EventListener<RoundEvent>, EventSelector {
 
     final private EventListenerOperations listenerOperations;
-    final private EventSelector selector = new EventTypeSelector(GameMatchEvent.class);
+    final private EventSelector selector = new EventTypeSelector(RoundEvent.class);
     final private Map<GameSessionKey, GameUnitWrapper<GameUnit>> sessionToUnitWrapper = new HashMap<GameSessionKey, GameUnitWrapper<GameUnit>>();
 
     public GameUnitEventEmulator(EventListenerOperations listenerOperations) {
@@ -21,7 +21,7 @@ public class GameUnitEventEmulator implements EventListener<GameMatchEvent>, Eve
     }
 
     @Override
-    public void onEvent(GameMatchEvent smEvent) {
+    public void onEvent(RoundEvent smEvent) {
         // Step 1. Processing state root
         GameSessionKey session = smEvent.getSession();
         GameUnitWrapper<GameUnit> unitWrap = sessionToUnitWrapper.get(session);
@@ -30,11 +30,11 @@ public class GameUnitEventEmulator implements EventListener<GameMatchEvent>, Eve
             unitWrap = sessionToUnitWrapper.get(session);;
         }
         // Step 2. Game Session
-        if (smEvent instanceof GameMatchStateChangedEvent) {
+        if (smEvent instanceof RoundStateChangedEvent) {
             listenerOperations.update(sessionToUnitWrapper.get(session).set(smEvent.getState().getRoot()));
         }
         // Step 3. Removing unit wrapper for Game ended event
-        if (smEvent instanceof GameMatchEndedEvent)
+        if (smEvent instanceof RoundEndedEvent)
             sessionToUnitWrapper.remove(session);
     }
 

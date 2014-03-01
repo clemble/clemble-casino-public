@@ -1,7 +1,7 @@
 package com.clemble.casino.game.rule.giveup;
 
 import com.clemble.casino.game.configuration.GameRuleOptions;
-import com.clemble.casino.game.rule.MatchRule;
+import com.clemble.casino.game.rule.RoundRule;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeInfo(use = Id.NAME, include = As.WRAPPER_OBJECT, property = "giveUp")
 @JsonTypeName("giveUp")
-public enum GiveUpRule implements MatchRule {
+public enum GiveUpRule implements RoundRule {
 
     lost(0),
     all(100),

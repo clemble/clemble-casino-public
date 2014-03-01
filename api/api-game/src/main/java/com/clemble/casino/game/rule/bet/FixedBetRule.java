@@ -19,10 +19,7 @@ public class FixedBetRule implements BetRule {
 
     final public static FixedBetRule DEFAULT = new FixedBetRule(new long[] { 1, 2, 5, 10, 20 });
 
-    private long[] bets;
-
-    public FixedBetRule() {
-    }
+    final private long[] bets;
 
     @JsonCreator
     public FixedBetRule(@JsonProperty("bets") final long[] useBets) {

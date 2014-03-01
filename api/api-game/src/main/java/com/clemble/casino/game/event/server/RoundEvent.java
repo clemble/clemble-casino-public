@@ -1,12 +1,12 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.MatchGameRecord;
+import com.clemble.casino.game.RoundGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GameMatchEvent extends GameManagementEvent {
+public class RoundEvent extends GameManagementEvent {
 
     /**
      * Generated 07/05/13
@@ -15,13 +15,13 @@ public class GameMatchEvent extends GameManagementEvent {
 
     final private GameState state;
 
-    public GameMatchEvent(MatchGameRecord session) {
+    public RoundEvent(RoundGameRecord session) {
         super(session.getSession());
         this.state = session.getState();
     }
 
     @JsonCreator
-    public GameMatchEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") GameState state) {
+    public RoundEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") GameState state) {
         super(sessionKey);
         this.state = state;
     }
@@ -46,7 +46,7 @@ public class GameMatchEvent extends GameManagementEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameMatchEvent other = (GameMatchEvent) obj;
+        RoundEvent other = (RoundEvent) obj;
         if (state == null) {
             if (other.state != null)
                 return false;
