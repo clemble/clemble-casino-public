@@ -1,13 +1,13 @@
 package com.clemble.casino.game.event.server;
 
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.PotGameContext;
+import com.clemble.casino.game.MatchGameContext;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("potChanged")
-public class GamePotChangedEvent extends GamePotEvent {
+public class MatchChangedEvent extends MatchEvent {
 
     /**
      * Generated 7/02/14
@@ -17,9 +17,9 @@ public class GamePotChangedEvent extends GamePotEvent {
     final private GameSessionKey nextSession;
 
     @JsonCreator
-    public GamePotChangedEvent(@JsonProperty("session") GameSessionKey sessionKey,
-            @JsonProperty("context") PotGameContext context,
-            @JsonProperty("nextSession") GameSessionKey nextSession) {
+    public MatchChangedEvent(@JsonProperty("session") GameSessionKey sessionKey,
+                             @JsonProperty("context") MatchGameContext context,
+                             @JsonProperty("nextSession") GameSessionKey nextSession) {
         super(sessionKey, context);
         this.nextSession = nextSession;
     }
@@ -49,7 +49,7 @@ public class GamePotChangedEvent extends GamePotEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GamePotChangedEvent other = (GamePotChangedEvent) obj;
+        MatchChangedEvent other = (MatchChangedEvent) obj;
         if (nextSession == null) {
             if (other.nextSession != null)
                 return false;

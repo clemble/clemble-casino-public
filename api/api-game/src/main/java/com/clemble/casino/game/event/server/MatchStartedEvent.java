@@ -1,13 +1,13 @@
 package com.clemble.casino.game.event.server;
 
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.PotGameContext;
+import com.clemble.casino.game.MatchGameContext;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("potStarted")
-public class GamePotStartedEvent extends GamePotEvent implements GameStartedEvent {
+public class MatchStartedEvent extends MatchEvent implements GameStartedEvent {
 
     /**
      * Generated 01/02/14
@@ -15,7 +15,7 @@ public class GamePotStartedEvent extends GamePotEvent implements GameStartedEven
     private static final long serialVersionUID = 3443199915321584272L;
 
     @JsonCreator
-    public GamePotStartedEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("context") PotGameContext context) {
+    public MatchStartedEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("context") MatchGameContext context) {
         super(sessionKey, context);
     }
 

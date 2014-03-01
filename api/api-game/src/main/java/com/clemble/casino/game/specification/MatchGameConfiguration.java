@@ -6,7 +6,7 @@ import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
 import com.clemble.casino.game.rule.outcome.WonRule;
-import com.clemble.casino.game.rule.pot.PotFillRule;
+import com.clemble.casino.game.rule.pot.MatchFillRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.payment.money.Money;
@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 // TODO Pot with single Configurations and num of outcomes
 @JsonTypeName("pot")
-public class PotGameConfiguration implements GameConfiguration {
+public class MatchGameConfiguration implements GameConfiguration {
 
     /**
      * Generated 20/01/14
@@ -27,7 +27,7 @@ public class PotGameConfiguration implements GameConfiguration {
     final private Money price;
     final private PlayerNumberRule numberRule;
     final private PrivacyRule privacyRule;
-    final private PotFillRule potFillRule;
+    final private MatchFillRule matchFillRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
     final private WonRule wonRule;
@@ -35,12 +35,12 @@ public class PotGameConfiguration implements GameConfiguration {
     final private List<GameConfiguration> configurations;
 
     @JsonCreator
-    public PotGameConfiguration(
+    public MatchGameConfiguration(
             @JsonProperty("configurationKey") GameConfigurationKey key,
             @JsonProperty("price") Money price,
             @JsonProperty("privacyRule") PrivacyRule privacyRule,
             @JsonProperty("numberRule") PlayerNumberRule numberRule,
-            @JsonProperty("potFillRule") PotFillRule potFillRule,
+            @JsonProperty("matchFillRule") MatchFillRule matchFillRule,
             @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
             @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
             @JsonProperty("wonRule") WonRule wonRule,
@@ -49,7 +49,7 @@ public class PotGameConfiguration implements GameConfiguration {
         this.configurationKey = key;
         this.price = price;
         this.privacyRule = privacyRule;
-        this.potFillRule = potFillRule;
+        this.matchFillRule = matchFillRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.numberRule = numberRule;
@@ -82,8 +82,8 @@ public class PotGameConfiguration implements GameConfiguration {
         return configurations;
     }
 
-    public PotFillRule getPotFillRule() {
-        return potFillRule;
+    public MatchFillRule getMatchFillRule() {
+        return matchFillRule;
     }
 
     @Override
@@ -114,7 +114,7 @@ public class PotGameConfiguration implements GameConfiguration {
         result = prime * result + ((configurations == null) ? 0 : configurations.hashCode());
         result = prime * result + ((moveTimeRule == null) ? 0 : moveTimeRule.hashCode());
         result = prime * result + ((numberRule == null) ? 0 : numberRule.hashCode());
-        result = prime * result + ((potFillRule == null) ? 0 : potFillRule.hashCode());
+        result = prime * result + ((matchFillRule == null) ? 0 : matchFillRule.hashCode());
         result = prime * result + ((price == null) ? 0 : price.hashCode());
         result = prime * result + ((privacyRule == null) ? 0 : privacyRule.hashCode());
         result = prime * result + ((totalTimeRule == null) ? 0 : totalTimeRule.hashCode());
@@ -129,7 +129,7 @@ public class PotGameConfiguration implements GameConfiguration {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PotGameConfiguration other = (PotGameConfiguration) obj;
+        MatchGameConfiguration other = (MatchGameConfiguration) obj;
         if (configurationKey == null) {
             if (other.configurationKey != null)
                 return false;
@@ -147,7 +147,7 @@ public class PotGameConfiguration implements GameConfiguration {
             return false;
         if (numberRule != other.numberRule)
             return false;
-        if (potFillRule != other.potFillRule)
+        if (matchFillRule != other.matchFillRule)
             return false;
         if (price == null) {
             if (other.price != null)

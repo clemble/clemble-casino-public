@@ -10,7 +10,7 @@ import com.clemble.casino.game.specification.GameConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PotGamePlayerContext implements GamePlayerContext {
+public class MatchGamePlayerContext implements GamePlayerContext {
 
     /**
      * Generated 02/02/14
@@ -23,11 +23,11 @@ public class PotGamePlayerContext implements GamePlayerContext {
     final private List<PlayerWonOutcome> wonOutcomes = new ArrayList<PlayerWonOutcome>();
 
     @JsonCreator
-    public PotGamePlayerContext(
-        @JsonProperty("player") String player,
-        @JsonProperty("account") GamePlayerAccount account,
-        @JsonProperty("clock") GamePlayerClock clock,
-        @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes) {
+    public MatchGamePlayerContext(
+            @JsonProperty("player") String player,
+            @JsonProperty("account") GamePlayerAccount account,
+            @JsonProperty("clock") GamePlayerClock clock,
+            @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes) {
         this.player = player;
         this.clock = clock;
         this.account = account;
@@ -61,13 +61,13 @@ public class PotGamePlayerContext implements GamePlayerContext {
         this.wonOutcomes.add(outcome);
     }
 
-    public static List<PotGamePlayerContext> construct(GameInitiation initiation) {
+    public static List<MatchGamePlayerContext> construct(GameInitiation initiation) {
         GameConfiguration specification = initiation.getConfiguration();
-        List<PotGamePlayerContext> playerContexts = new ArrayList<PotGamePlayerContext>();
+        List<MatchGamePlayerContext> playerContexts = new ArrayList<MatchGamePlayerContext>();
         for(String player: initiation.getParticipants()) {
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice());
             GamePlayerClock clock = new GamePlayerClock(0, 0);
-            playerContexts.add(new PotGamePlayerContext(player, account, clock, Collections.<PlayerWonOutcome>emptyList()));
+            playerContexts.add(new MatchGamePlayerContext(player, account, clock, Collections.<PlayerWonOutcome>emptyList()));
         }
         return playerContexts;
     }
@@ -91,7 +91,7 @@ public class PotGamePlayerContext implements GamePlayerContext {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PotGamePlayerContext other = (PotGamePlayerContext) obj;
+        MatchGamePlayerContext other = (MatchGamePlayerContext) obj;
         if (account == null) {
             if (other.account != null)
                 return false;

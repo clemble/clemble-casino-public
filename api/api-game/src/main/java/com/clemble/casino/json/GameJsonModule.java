@@ -2,6 +2,7 @@ package com.clemble.casino.json;
 
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.event.server.*;
+import com.clemble.casino.game.specification.MatchGameConfiguration;
 import com.clemble.casino.game.specification.RoundGameConfiguration;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -39,7 +40,6 @@ import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
-import com.clemble.casino.game.specification.PotGameConfiguration;
 import com.clemble.casino.game.specification.TournamentGameConfiguration;
 
 class GameJsonModule implements ClembleJsonModule {
@@ -68,9 +68,9 @@ class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(RoundEndedEvent.class, RoundEndedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(RoundStartedEvent.class, RoundStartedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(RoundStateChangedEvent.class, RoundStateChangedEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GamePotChangedEvent.class, GamePotChangedEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GamePotEndedEvent.class, GamePotEndedEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GamePotStartedEvent.class, GamePotStartedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchChangedEvent.class, MatchChangedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchEndedEvent.class, MatchEndedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchStartedEvent.class, MatchStartedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameTournamentEndedEvent.class, GameTournamentEndedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameTournamentStartedEvent.class, GameTournamentStartedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PlayerMovedEvent.class, PlayerMovedEvent.class.getAnnotation(JsonTypeName.class).value()));
@@ -80,8 +80,8 @@ class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(DrawOutcome.class, DrawOutcome.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(NoOutcome.class, NoOutcome.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PlayerWonOutcome.class, PlayerWonOutcome.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(PotGameContext.class, PotGameContext.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(PotGameRecord.class, PotGameRecord.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchGameContext.class, MatchGameContext.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchGameRecord.class, MatchGameRecord.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(BetRule.class, BetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(FixedBetRule.class, FixedBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(FixedChipsBetRule.class, FixedChipsBetRule.class.getAnnotation(JsonTypeName.class).value()));
@@ -93,7 +93,7 @@ class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(MoveTimeRule.class, MoveTimeRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(TotalTimeRule.class, TotalTimeRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(RoundGameConfiguration.class, RoundGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(PotGameConfiguration.class, PotGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchGameConfiguration.class, MatchGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(TournamentGameConfiguration.class, TournamentGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(TournamentGameContext.class, TournamentGameContext.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(TournamentGameRecord.class, TournamentGameRecord.class.getAnnotation(JsonTypeName.class).value()));

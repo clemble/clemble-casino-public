@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("potContext")
-public class PotGameContext extends GameContext<PotGamePlayerContext> {
+public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
 
     /**
      * Generated 01/02/14
@@ -23,20 +23,20 @@ public class PotGameContext extends GameContext<PotGamePlayerContext> {
     final private List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
 
     @JsonCreator
-    public PotGameContext(@JsonProperty("session") GameSessionKey session,
-                          @JsonProperty("currentSession") GameSessionKey currentSession,
-                          @JsonProperty("playerContexts") List<PotGamePlayerContext> playerContexts,
-                          @JsonProperty(value = "parent", required = false) GameContext<?> parent,
-                          @JsonProperty("pot") long pot,
-                          @JsonProperty("outcomes") List<GameOutcome> outcomes) {
+    public MatchGameContext(@JsonProperty("session") GameSessionKey session,
+                            @JsonProperty("currentSession") GameSessionKey currentSession,
+                            @JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
+                            @JsonProperty(value = "parent", required = false) GameContext<?> parent,
+                            @JsonProperty("pot") long pot,
+                            @JsonProperty("outcomes") List<GameOutcome> outcomes) {
         super(session, parent, playerContexts);
         this.pot = pot;
         this.currentSession = currentSession;
         this.outcomes.addAll(outcomes);
     }
 
-    public PotGameContext(GameInitiation initiation, GameContext<?> parent) {
-        super(initiation.getSession(), parent, PotGamePlayerContext.construct(initiation));
+    public MatchGameContext(GameInitiation initiation, GameContext<?> parent) {
+        super(initiation.getSession(), parent, MatchGamePlayerContext.construct(initiation));
     }
 
     public long getPot() {

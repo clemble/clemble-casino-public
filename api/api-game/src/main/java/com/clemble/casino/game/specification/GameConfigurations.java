@@ -44,8 +44,8 @@ public class GameConfigurations {
         return configurations;
     }
 
-    public List<PotGameConfiguration> potConfigurations() {
-        return filter(PotGameConfiguration.class);
+    public List<MatchGameConfiguration> potConfigurations() {
+        return filter(MatchGameConfiguration.class);
     }
 
     public List<TournamentGameConfiguration> tournamentConfigurations() {

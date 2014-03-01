@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @Entity
 @Table(name = "GAME_POT_RECORD")
 @JsonTypeName("pot")
-public class PotGameRecord implements GameRecord {
+public class MatchGameRecord implements GameRecord {
 
     /**
      * Generated 28/01/14
@@ -45,12 +45,12 @@ public class PotGameRecord implements GameRecord {
     )
     private List<GameSessionKey> matchRecords = new ArrayList<GameSessionKey>();
 
-    public PotGameRecord() {
+    public MatchGameRecord() {
     }
 
     @JsonCreator
-    public PotGameRecord(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
-            @JsonProperty("sessionState") GameSessionState sessionState, @JsonProperty("matchRecords") List<GameSessionKey> matchRecords) {
+    public MatchGameRecord(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
+                           @JsonProperty("sessionState") GameSessionState sessionState, @JsonProperty("matchRecords") List<GameSessionKey> matchRecords) {
         this.sessionKey = sessionKey;
         this.sessionState = sessionState;
         this.configurationKey = configurationKey;
@@ -112,7 +112,7 @@ public class PotGameRecord implements GameRecord {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PotGameRecord other = (PotGameRecord) obj;
+        MatchGameRecord other = (MatchGameRecord) obj;
         if (configurationKey == null) {
             if (other.configurationKey != null)
                 return false;

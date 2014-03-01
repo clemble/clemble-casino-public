@@ -217,10 +217,10 @@ public class ObjectTest {
                 return rsaKey.getPublicKey();
             }
         });
-        register(PotGameContext.class, new AbstractValueGenerator<PotGameContext>() {
+        register(MatchGameContext.class, new AbstractValueGenerator<MatchGameContext>() {
             @Override
-            public PotGameContext generate() {
-                return new PotGameContext(GameSessionKey.DEFAULT_SESSION, null, Collections.<PotGamePlayerContext>emptyList(), null, 0, Collections.<GameOutcome>emptyList());
+            public MatchGameContext generate() {
+                return new MatchGameContext(GameSessionKey.DEFAULT_SESSION, null, Collections.<MatchGamePlayerContext>emptyList(), null, 0, Collections.<GameOutcome>emptyList());
             }
         });
         register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {

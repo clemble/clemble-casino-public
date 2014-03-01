@@ -1,6 +1,6 @@
 package com.clemble.casino.game.rule.pot;
 
-public enum PotFillRule {
+public enum MatchFillRule {
 
     reminder,
     maxcommon,
