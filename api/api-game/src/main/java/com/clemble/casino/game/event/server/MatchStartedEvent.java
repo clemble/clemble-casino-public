@@ -21,7 +21,7 @@ public class MatchStartedEvent extends MatchEvent implements GameStartedEvent {
 
     @Override
     public String toString() {
-        return "potStarted:" + getSession();
+        return "match:started:" + getSession();
     }
 
 }

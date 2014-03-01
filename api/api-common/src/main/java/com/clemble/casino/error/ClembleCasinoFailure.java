@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
 
     /**
@@ -81,6 +85,13 @@ public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
         if (!session.equals(other.session))
             return false;
         return true;
+    }
+
+    public static Collection<ClembleCasinoFailure> construct(ClembleCasinoError error, Collection<String> players, GameSessionKey sessionKey) {
+        List<ClembleCasinoFailure> failures = new ArrayList<ClembleCasinoFailure>();
+        for(String player: players)
+            failures.add(new ClembleCasinoFailure(error, player, sessionKey));
+        return failures;
     }
 
 }

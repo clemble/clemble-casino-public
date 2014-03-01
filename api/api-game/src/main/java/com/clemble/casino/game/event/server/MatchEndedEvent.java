@@ -45,7 +45,7 @@ public class MatchEndedEvent extends MatchEvent implements GameEndedEvent<MatchG
 
     @Override
     public String toString() {
-        return "potEnded:" + getSession();
+        return "match:ended:" + getSession() + ":" + outcome;
     }
 
 }

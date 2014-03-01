@@ -30,7 +30,7 @@ public class MatchChangedEvent extends MatchEvent {
 
     @Override
     public String toString(){
-        return "potChanged:" + getSession();
+        return "match:changed:" + getSession();
     }
 
     @Override

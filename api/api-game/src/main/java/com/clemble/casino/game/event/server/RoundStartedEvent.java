@@ -49,7 +49,7 @@ public class RoundStartedEvent<State extends GameState> extends RoundEvent imple
 
     @Override
     public String toString(){
-        return "started:" + getSession().getGame() + ":" + getSession().getSession();
+        return "round:started:" + getSession();
     }
 
 }

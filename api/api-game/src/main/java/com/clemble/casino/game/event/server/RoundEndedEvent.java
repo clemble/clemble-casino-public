@@ -85,6 +85,6 @@ public class RoundEndedEvent extends RoundEvent implements GameEndedEvent<RoundG
 
     @Override
     public String toString() {
-        return "ended:" + getSession() + ":" + getOutcome();
+        return "round:ended:" + getSession() + ":" + outcome;
     }
 }
