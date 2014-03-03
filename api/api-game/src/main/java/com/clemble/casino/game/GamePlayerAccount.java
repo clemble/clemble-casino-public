@@ -69,7 +69,7 @@ public class GamePlayerAccount implements Serializable {
 
     public boolean canAfford(int bet) {
         if (chips == null)
-            return bet > left;
+            return bet <= left;
         else
             return chips.getAmount(bet) > 0;
     }
@@ -81,7 +81,7 @@ public class GamePlayerAccount implements Serializable {
 
     @Override
     public String toString() {
-        return "{gpa:" + left + ":" + spent + ":" + owned + "}";
+        return "gpa:" + left + ":" + spent + ":" + owned + ":" + chips;
     }
 
     @Override
