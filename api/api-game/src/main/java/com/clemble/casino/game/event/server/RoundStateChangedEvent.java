@@ -20,13 +20,8 @@ public class RoundStateChangedEvent extends RoundEvent {
 
     final private Collection<? extends GameAction> actions;
 
-    public RoundStateChangedEvent(RoundGameRecord session, Collection<? extends GameAction> actions) {
-        super(session);
-        this.actions = actions;
-    }
-
     @JsonCreator
-    public RoundStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") GameState state, @JsonProperty("actions") Collection<GameAction> actions) {
+    public RoundStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") GameState state, @JsonProperty("actions") Collection<? extends GameAction> actions) {
         super(session, state);
         this.actions = actions;
     }

@@ -18,29 +18,17 @@ public class MatchEndedEvent extends MatchEvent implements GameEndedEvent<MatchG
     private static final long serialVersionUID = 8084693422808106856L;
 
     final private GameOutcome outcome;
-    private PaymentTransaction transaction;
 
     @JsonCreator
     public MatchEndedEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("outcome") GameOutcome outcome,
-                           @JsonProperty("context") MatchGameContext context, @JsonProperty("transaction") PaymentTransaction transaction) {
+                           @JsonProperty("context") MatchGameContext context) {
         super(sessionKey, context);
         this.outcome = outcome;
-        this.transaction = transaction;
     }
 
     @Override
     public GameOutcome getOutcome() {
         return outcome;
-    }
-
-    @Override
-    public PaymentTransaction getTransaction() {
-        return transaction;
-    }
-
-    @Override
-    public void setTransaction(PaymentTransaction transaction) {
-        this.transaction = transaction;
     }
 
     @Override

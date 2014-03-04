@@ -15,11 +15,6 @@ public class RoundEvent extends GameManagementEvent {
 
     final private GameState state;
 
-    public RoundEvent(RoundGameRecord session) {
-        super(session.getSession());
-        this.state = session.getState();
-    }
-
     @JsonCreator
     public RoundEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") GameState state) {
         super(sessionKey);

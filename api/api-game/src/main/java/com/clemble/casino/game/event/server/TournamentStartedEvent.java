@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("tournamentStarted")
-public class GameTournamentStartedEvent extends GameTournamentEvent implements GameStartedEvent {
+public class TournamentStartedEvent extends TournamentEvent implements GameStartedEvent {
 
     /**
      * Generated 01/02/14
@@ -14,7 +14,7 @@ public class GameTournamentStartedEvent extends GameTournamentEvent implements G
     private static final long serialVersionUID = 1692378929431964689L;
 
     @JsonCreator
-    public GameTournamentStartedEvent(@JsonProperty("session") GameSessionKey sessionKey) {
+    public TournamentStartedEvent(@JsonProperty("session") GameSessionKey sessionKey) {
         super(sessionKey);
     }
 

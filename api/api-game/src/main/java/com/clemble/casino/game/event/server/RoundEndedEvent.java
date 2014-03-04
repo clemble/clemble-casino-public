@@ -18,23 +18,20 @@ public class RoundEndedEvent extends RoundEvent implements GameEndedEvent<RoundG
 
     final private GameOutcome outcome;
     final private GameContext<RoundGamePlayerContext> context;
-    private PaymentTransaction transaction;
 
-    public RoundEndedEvent(RoundGameRecord session, GameOutcome outcome) {
-        super(session);
+    public RoundEndedEvent(GameContext<RoundGamePlayerContext> context, GameState state, GameOutcome outcome) {
+        super(context.getSession(), state);
         this.outcome = outcome;
-        this.context = session.getState().getContext();
+        this.context = context;
     }
 
     @JsonCreator
     public RoundEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
                            @JsonProperty("state") GameState state,
                            @JsonProperty("outcome") GameOutcome outcome,
-                           @JsonProperty("context") GameContext<RoundGamePlayerContext> context,
-                           @JsonProperty("transaction") PaymentTransaction transaction) {
+                           @JsonProperty("context") GameContext<RoundGamePlayerContext> context) {
         super(sessionKey, state);
         this.outcome = outcome;
-        this.transaction = transaction;
         this.context = context;
     }
 
@@ -46,16 +43,6 @@ public class RoundEndedEvent extends RoundEvent implements GameEndedEvent<RoundG
     @Override
     public GameContext<RoundGamePlayerContext> getContext() {
         return context;
-    }
-
-    @Override
-    public PaymentTransaction getTransaction() {
-        return transaction;
-    }
-
-    @Override
-    public void setTransaction(PaymentTransaction transaction) {
-        this.transaction = transaction;
     }
 
     @Override

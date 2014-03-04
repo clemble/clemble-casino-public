@@ -16,10 +16,6 @@ public class RoundStartedEvent<State extends GameState> extends RoundEvent imple
      */
     private static final long serialVersionUID = -4474960027054354888L;
 
-    public RoundStartedEvent(RoundGameRecord session) {
-        super(session);
-    }
-
     @JsonCreator
     public RoundStartedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") State state) {
         super(session, state);

@@ -12,8 +12,4 @@ public interface GameEndedEvent<GPC extends GamePlayerContext> extends GameEvent
 
     public GameOutcome getOutcome();
 
-    public PaymentTransaction getTransaction();
-
-    public void setTransaction(PaymentTransaction transaction);
-
 }
