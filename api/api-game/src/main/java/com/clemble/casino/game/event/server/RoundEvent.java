@@ -3,25 +3,26 @@ package com.clemble.casino.game.event.server;
 import com.clemble.casino.game.RoundGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.RoundGameState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RoundEvent extends GameManagementEvent {
+public class RoundEvent<State extends RoundGameState> extends GameManagementEvent {
 
     /**
      * Generated 07/05/13
      */
     private static final long serialVersionUID = -4837244615682915463L;
 
-    final private GameState state;
+    final private State state;
 
     @JsonCreator
-    public RoundEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") GameState state) {
+    public RoundEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("state") State state) {
         super(sessionKey);
         this.state = state;
     }
 
-    public GameState getState() {
+    public State getState() {
         return state;
     }
 

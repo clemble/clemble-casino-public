@@ -15,6 +15,7 @@ import javax.crypto.SecretKey;
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.rule.RoundRule;
 import com.clemble.casino.game.specification.RoundGameConfiguration;
+import com.clemble.casino.game.unit.GameUnit;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
@@ -24,8 +25,6 @@ import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.action.BetAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
-import com.clemble.casino.game.cell.Cell;
-import com.clemble.casino.game.cell.CellState;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameConstructionState;
@@ -39,7 +38,6 @@ import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.GameConfigurationKey;
 import com.clemble.casino.game.specification.TournamentGameConfiguration;
-import com.clemble.casino.game.unit.GameUnit;
 import com.clemble.casino.payment.PaymentOperation;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PaymentTransactionKey;
@@ -82,18 +80,6 @@ public class ObjectTest {
                 return new GameSessionKey(ObjectGenerator.generate(Game.class), ObjectGenerator.generate(String.class));
             }
         });
-        register(GameUnit.class, new AbstractValueGenerator<GameUnit>() {
-            @Override
-            public GameUnit generate() {
-                return Cell.create(0, 0);
-            }
-        });
-        register(CellState.class, new AbstractValueGenerator<CellState>() {
-            @Override
-            public CellState generate() {
-                return CellState.DEFAULT;
-            }
-        });
         register(FixedBetRule.class, new AbstractValueGenerator<FixedBetRule>() {
             @Override
             public FixedBetRule generate() {
@@ -116,6 +102,21 @@ public class ObjectTest {
             @Override
             public PlayerAccount generate() {
                 return new PlayerAccount(RandomStringUtils.random(5), ImmutableSet.of(Money.create(Currency.FakeMoney, 500)));
+            }
+        });
+        register(GameUnit.class, new AbstractValueGenerator<GameUnit>() {
+            @Override
+            public GameUnit generate() {
+                return new FakeUnit(Collections.<GameUnit>emptyList());
+            }
+        });
+        register(GameState.class, new AbstractValueGenerator<GameState>() {
+            @Override
+            public GameState generate() {
+                return new FakeState(
+                    ObjectGenerator.generate(RoundGameContext.class),
+                    ObjectGenerator.generate(GameUnit.class),
+                    0);
             }
         });
         register(PaymentTransaction.class, new AbstractValueGenerator<PaymentTransaction>() {

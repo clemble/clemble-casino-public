@@ -1,15 +1,12 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.RoundGameRecord;
-import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.GameSessionAware;
+import com.clemble.casino.game.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("started")
-public class RoundStartedEvent<State extends GameState> extends RoundEvent implements GameSessionAware, GameStartedEvent {
+@JsonTypeName("round_started")
+public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent implements GameSessionAware, GameStartedEvent {
 
     /**
      * Generated

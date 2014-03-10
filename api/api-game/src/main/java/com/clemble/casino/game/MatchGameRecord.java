@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
 @Table(name = "GAME_POT_RECORD")
-@JsonTypeName("pot")
+@JsonTypeName("match")
 public class MatchGameRecord implements GameRecord {
 
     /**

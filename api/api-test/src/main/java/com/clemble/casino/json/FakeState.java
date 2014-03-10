@@ -6,6 +6,7 @@ import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameRecord;
+import com.clemble.casino.game.RoundGameState;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 22/12/13.
  */
 @JsonTypeName("fake")
-public class FakeState implements GameState {
+public class FakeState implements RoundGameState {
 
     /**
      * Generated 20/12/13
@@ -28,19 +29,19 @@ public class FakeState implements GameState {
 
     @JsonCreator
     public FakeState(@JsonProperty("context") RoundGameContext context,
-            @JsonProperty("root") GameUnit root,
+            @JsonProperty("state") GameUnit root,
             @JsonProperty("version") int version) {
         this.context = context;
     }
 
     @Override
-    public GameManagementEvent process(RoundGameRecord session, Event action) {
+    public GameManagementEvent process(Event action) {
         // Step 1. Processing Select cell move
         throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayGameEnded);
     }
 
     @Override
-    public GameUnit getRoot() {
+    public GameUnit getState() {
         return null;
     }
 

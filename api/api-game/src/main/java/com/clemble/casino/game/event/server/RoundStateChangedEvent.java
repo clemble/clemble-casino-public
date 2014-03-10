@@ -5,13 +5,14 @@ import java.util.Collection;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.RoundGameRecord;
+import com.clemble.casino.game.RoundGameState;
 import com.clemble.casino.game.action.GameAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("changed")
-public class RoundStateChangedEvent extends RoundEvent {
+@JsonTypeName("round_changed")
+public class RoundStateChangedEvent<State extends RoundGameState> extends RoundEvent {
 
     /**
      * Generated 25/12/13
@@ -21,7 +22,7 @@ public class RoundStateChangedEvent extends RoundEvent {
     final private Collection<? extends GameAction> actions;
 
     @JsonCreator
-    public RoundStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") GameState state, @JsonProperty("actions") Collection<? extends GameAction> actions) {
+    public RoundStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") State state, @JsonProperty("actions") Collection<? extends GameAction> actions) {
         super(session, state);
         this.actions = actions;
     }

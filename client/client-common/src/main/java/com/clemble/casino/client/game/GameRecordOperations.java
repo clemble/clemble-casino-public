@@ -5,6 +5,6 @@ import com.clemble.casino.game.GameSessionKey;
 
 public interface GameRecordOperations {
 
-    public GameRecord get(GameSessionKey sessionKey);
+    public <T extends GameRecord> T get(GameSessionKey sessionKey);
 
 }

@@ -32,7 +32,6 @@ import com.clemble.casino.game.outcome.NoOutcome;
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.rule.bet.BetRule;
 import com.clemble.casino.game.rule.bet.FixedBetRule;
-import com.clemble.casino.game.rule.bet.FixedChipsBetRule;
 import com.clemble.casino.game.rule.bet.LimitedBetRule;
 import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
@@ -84,7 +83,6 @@ class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(MatchGameRecord.class, MatchGameRecord.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(BetRule.class, BetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(FixedBetRule.class, FixedBetRule.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(FixedChipsBetRule.class, FixedChipsBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(LimitedBetRule.class, LimitedBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(UnlimitedBetRule.class, UnlimitedBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PlayerNumberRule.class, PlayerNumberRule.class.getAnnotation(JsonTypeName.class).value()));

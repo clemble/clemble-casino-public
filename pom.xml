@@ -216,11 +216,6 @@
 
             <dependency>
                 <groupId>com.clemble.casino</groupId>
-                <artifactId>api-game-cell</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.clemble.casino</groupId>
                 <artifactId>api-common</artifactId>
                 <version>${project.version}</version>
             </dependency>

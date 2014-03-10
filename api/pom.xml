@@ -13,7 +13,6 @@
         <module>api-player</module>
         <module>api-payment</module>
         <module>api-game</module>
-        <module>api-game-cell</module>
         <module>api-management</module>
         <module>api-test</module>
     </modules>

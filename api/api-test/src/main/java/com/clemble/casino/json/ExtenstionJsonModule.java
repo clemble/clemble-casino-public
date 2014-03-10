@@ -11,6 +11,7 @@ class ExtenstionJsonModule implements ClembleJsonModule {
     public Module construct() {
         SimpleModule module = new SimpleModule("Extenstion");
         module.registerSubtypes(new NamedType(FakeState.class, FakeState.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(FakeUnit.class, FakeUnit.class.getAnnotation(JsonTypeName.class).value()));
         return module;
     }
 

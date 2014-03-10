@@ -26,12 +26,12 @@ public class GameUnitEventEmulator implements EventListener<RoundEvent>, EventSe
         GameSessionKey session = smEvent.getSession();
         GameUnitWrapper<GameUnit> unitWrap = sessionToUnitWrapper.get(session);
         if (unitWrap == null) {
-            sessionToUnitWrapper.put(session, new GameUnitWrapper<GameUnit>(smEvent.getState().getRoot()));
+            sessionToUnitWrapper.put(session, new GameUnitWrapper<GameUnit>(smEvent.getState().getState()));
             unitWrap = sessionToUnitWrapper.get(session);;
         }
         // Step 2. Game Session
         if (smEvent instanceof RoundStateChangedEvent) {
-            listenerOperations.update(sessionToUnitWrapper.get(session).set(smEvent.getState().getRoot()));
+            listenerOperations.update(sessionToUnitWrapper.get(session).set(smEvent.getState().getState()));
         }
         // Step 3. Removing unit wrapper for Game ended event
         if (smEvent instanceof RoundEndedEvent)

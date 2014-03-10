@@ -26,7 +26,7 @@ import com.clemble.casino.game.specification.GameConfigurationKey;
 
 @Entity
 @Table(name = "GAME_SESSION")
-@JsonTypeName("match")
+@JsonTypeName("round")
 public class RoundGameRecord implements GameRecord, VersionAware {
 
     /**
@@ -51,10 +51,6 @@ public class RoundGameRecord implements GameRecord, VersionAware {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "GAME_SESSION_MOVES", joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
     private List<MadeMove> madeMoves = new ArrayList<MadeMove>();
-
-    @Type(type = "com.clemble.casino.game.GameStateHibernate")
-    @Column(name = "GAME_STATE", length = 4096)
-    private GameState state;
 
     @Version
     @Column(name = "VERSION")
@@ -128,15 +124,6 @@ public class RoundGameRecord implements GameRecord, VersionAware {
         this.version = version;
     }
 
-    public GameState getState() {
-        return state;
-    }
-
-    public RoundGameRecord setState(GameState state) {
-        this.state = state;
-        return this;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -161,7 +148,7 @@ public class RoundGameRecord implements GameRecord, VersionAware {
         if (madeMoves == null) {
             if (other.madeMoves != null)
                 return false;
-        } else if (!madeMoves.equals(other.madeMoves))
+        } else if (!madeMoves.containsAll(other.madeMoves) || !(other.madeMoves.containsAll(madeMoves)))
             return false;
         if (players == null) {
             if (other.players != null)

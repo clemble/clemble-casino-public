@@ -20,10 +20,6 @@
         </dependency>
         <dependency>
             <groupId>com.clemble.casino</groupId>
-            <artifactId>api-game-cell</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.clemble.casino</groupId>
             <artifactId>api-management</artifactId>
         </dependency>
         <dependency>

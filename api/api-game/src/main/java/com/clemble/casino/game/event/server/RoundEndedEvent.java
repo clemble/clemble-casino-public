@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("ended")
-public class RoundEndedEvent extends RoundEvent implements GameEndedEvent<RoundGamePlayerContext> {
+@JsonTypeName("round_ended")
+public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent implements GameEndedEvent<RoundGamePlayerContext> {
 
     /**
      * Generated 07/05/13
@@ -19,7 +19,7 @@ public class RoundEndedEvent extends RoundEvent implements GameEndedEvent<RoundG
     final private GameOutcome outcome;
     final private GameContext<RoundGamePlayerContext> context;
 
-    public RoundEndedEvent(GameContext<RoundGamePlayerContext> context, GameState state, GameOutcome outcome) {
+    public RoundEndedEvent(GameContext<RoundGamePlayerContext> context, State state, GameOutcome outcome) {
         super(context.getSession(), state);
         this.outcome = outcome;
         this.context = context;
@@ -27,7 +27,7 @@ public class RoundEndedEvent extends RoundEvent implements GameEndedEvent<RoundG
 
     @JsonCreator
     public RoundEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
-                           @JsonProperty("state") GameState state,
+                           @JsonProperty("state") RoundGameState state,
                            @JsonProperty("outcome") GameOutcome outcome,
                            @JsonProperty("context") GameContext<RoundGamePlayerContext> context) {
         super(sessionKey, state);

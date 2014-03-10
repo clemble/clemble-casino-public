@@ -16,13 +16,15 @@ import com.clemble.casino.game.service.GameActionService;
 
 public class GameActionTemplate<State extends GameState> implements GameActionOperationsExtenstion<State> {
 
+    // TODO this must be more generic applicable for matches and tournaments
+
     private static final long serialVersionUID = -2263303118851762598L;
 
     final private String player;
     final private GameSessionKey session;
     final private GameActionService gameActionService;
     final private EventListenerOperations eventListenersManager;
-    final private AtomicReference<GameState> currentState = new AtomicReference<GameState>();
+    final private AtomicReference<RoundGameState> currentState = new AtomicReference<RoundGameState>();
 
     public GameActionTemplate(String player, GameSessionKey session, EventListenerOperations eventListenersManager, GameActionService gameActionService) {
         this.player = player;
@@ -51,16 +53,15 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
         return gameActionService.getContext(session.getGame(), session.getSession());
     }
 
-    private State getCurrentState(){
-        // TODO fix it
-        return (State) (currentState.get() == null ? setCurrentState(getState()) : currentState.get());
+    private RoundGameState getCurrentState(){
+        return (RoundGameState) (currentState.get() == null ? setCurrentState((RoundGameState) getState()) : currentState.get());
     }
 
-    private State setCurrentState(State state) {
+    private RoundGameState setCurrentState(RoundGameState state) {
         if(currentState.get() == null || state.getVersion() > currentState.get().getVersion())
             currentState.set(state);
         // TODO fix it
-        return (State) currentState.get();
+        return (RoundGameState) currentState.get();
     }
 
     @Override
@@ -70,14 +71,14 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public boolean isToMove(String player) {
-        State currentState = getCurrentState();
-        return currentState != null && !currentState.getContext().getActionLatch().acted(player);
+        RoundGameState state = currentState.get();
+        return state != null && !state.getContext().getActionLatch().acted(player);
     }
 
     @Override
     public Collection<String> getOpponents() {
-        State currentState = getCurrentState();
-        return currentState != null ? currentState.getContext().getPlayerIterator().whoIsOpponents(player) : null;
+        RoundGameState state = currentState.get();
+        return state != null ? state.getContext().getPlayerIterator().whoIsOpponents(player) : null;
     }
 
     @Override
@@ -87,8 +88,8 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public Class<?> expectedMove(String player) {
-        State currentState = getCurrentState();
-        return currentState != null ? currentState.getContext().getActionLatch().expectedClass() : null;
+        RoundGameState state = currentState.get();
+        return state != null ? state.getContext().getActionLatch().expectedClass() : null;
     }
 
     @Override
@@ -98,8 +99,8 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public GamePlayerClock getPlayerClock(String player) {
-        State currentState = getCurrentState();
-        return currentState != null ? currentState.getContext().getPlayerContext(player).getClock() : null;
+        RoundGameState state = currentState.get();
+        return state != null ? state.getContext().getPlayerContext(player).getClock() : null;
     }
 
     @Override
@@ -109,8 +110,8 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public GamePlayerAccount getPlayerAccount(String player){
-        State currentState = getCurrentState();
-        return currentState != null ? currentState.getContext().getPlayerContext(player).getAccount() : null;
+        RoundGameState state = currentState.get();
+        return state != null ? state.getContext().getPlayerContext(player).getAccount() : null;
     }
 
     @Override
