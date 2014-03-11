@@ -20,19 +20,10 @@ import com.clemble.casino.web.mapping.WebMapping;
 
 public interface GameActionService extends ClembleService {
 
-    @RequestMapping(method = RequestMethod.GET, value = GameWebMapping.GAME_SESSIONS_STATE, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody GameState getState(@PathVariable("game") Game game, @PathVariable("session") String session);
+    public GameState getState(Game game, String session);
 
-    @RequestMapping(method = RequestMethod.GET, value = GameWebMapping.GAME_SESSIONS_CONTEXT, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody GameContext<?> getContext(@PathVariable("game") Game game, @PathVariable("session") String session);
+    public GameContext<?> getContext(Game game, String session);
 
-    @RequestMapping(method = RequestMethod.POST, value = GameWebMapping.GAME_SESSIONS_ACTIONS, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody GameManagementEvent process(@PathVariable("game") Game game, @PathVariable("session") String session, @RequestBody GameAction move);
+    public GameManagementEvent process(Game game, String session, GameAction move);
 
-    @RequestMapping(method = RequestMethod.GET, value = GameWebMapping.GAME_SESSIONS_ACTIONS_ACTION, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody MadeMove getAction(@PathVariable("game") Game game, @PathVariable("sessionId") String session, @PathVariable("actionId") int actionId);
 }

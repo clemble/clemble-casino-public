@@ -39,9 +39,4 @@ public class AndroidGameActionTemplate extends AbstractClembleCasinoOperations i
         return restTemplate.postForObject(buildUriWith(GAME_SESSIONS_ACTIONS, game, session), move, GameManagementEvent.class);
     }
 
-    @Override
-    public MadeMove getAction(Game game, String session, int action) {
-        return restTemplate.getForObject(buildUriWith(GAME_SESSIONS_ACTIONS_ACTION, game, session, action), MadeMove.class);
-    }
-
 }

@@ -125,11 +125,6 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public MadeMove getAction(int actionId) {
-        return gameActionService.getAction(session.getGame(), session.getSession(), actionId);
-    }
-
-    @Override
     public EventListenerController subscribe(EventListener<GameSessionAwareEvent> eventListener) {
         return eventListenersManager.subscribe(session, eventListener);
     }

@@ -3,6 +3,9 @@ package com.clemble.casino.game;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -14,9 +17,13 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 import org.hibernate.annotations.Type;
 
 import com.clemble.casino.VersionAware;
@@ -49,8 +56,13 @@ public class RoundGameRecord implements GameRecord, VersionAware {
     private List<String> players = new ArrayList<String>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "GAME_SESSION_MOVES", joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
-    private List<MadeMove> madeMoves = new ArrayList<MadeMove>();
+    @Sort(type = SortType.NATURAL)
+    @CollectionTable(name = "GAME_SESSION_MOVES", 
+        uniqueConstraints = @UniqueConstraint(columnNames = {"SESSION_ID", "GAME", "CREATED"}),
+        joinColumns = {
+            @JoinColumn(name = "SESSION_ID"),
+            @JoinColumn(name = "GAME")})
+    private SortedSet<MadeMove> madeMoves = new TreeSet<MadeMove>();
 
     @Version
     @Column(name = "VERSION")
@@ -99,21 +111,8 @@ public class RoundGameRecord implements GameRecord, VersionAware {
         return this;
     }
 
-    public void addPlayer(String player) {
-        this.players.add(player);
-    }
-
-    public void addPlayers(Collection<String> players) {
-        this.players.addAll(players);
-    }
-
-    public List<MadeMove> getMadeMoves() {
+    public SortedSet<MadeMove> getMadeMoves() {
         return madeMoves;
-    }
-
-    public void addMadeMove(GameAction madeMove) {
-        MadeMove move = new MadeMove().setMove(madeMove).setMoveId(version + 1).setProcessingTime(System.currentTimeMillis());
-        this.madeMoves.add(move);
     }
 
     public int getVersion() {

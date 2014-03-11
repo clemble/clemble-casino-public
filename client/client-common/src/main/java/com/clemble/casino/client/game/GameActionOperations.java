@@ -22,8 +22,6 @@ public interface GameActionOperations<S extends GameState> extends GameSessionAw
 
     public GameManagementEvent giveUp();
 
-    public MadeMove getAction(int actionId);
-
     public EventListenerController subscribe(EventListener<GameSessionAwareEvent> eventListener);
 
     public EventListenerController subscribe(EventSelector selector, EventListener<? extends GameSessionAwareEvent> eventListener);
