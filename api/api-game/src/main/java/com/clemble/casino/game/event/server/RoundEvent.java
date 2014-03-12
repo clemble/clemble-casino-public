@@ -1,6 +1,5 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.RoundGameRecord;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.RoundGameState;

@@ -22,7 +22,7 @@ import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 
 @Entity
-@Table(name = "GAME_SESSION_CONSTRUCTION")
+@Table(name = "GAME_CONSTRUCTION")
 public class GameConstruction implements GameSessionAware, VersionAware {
 
     /**
