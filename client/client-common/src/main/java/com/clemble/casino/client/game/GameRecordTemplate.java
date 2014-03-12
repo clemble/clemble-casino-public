@@ -16,7 +16,7 @@ public class GameRecordTemplate implements GameRecordOperations {
 
     @Override
     public GameRecord get(GameSessionKey sessionKey) {
-        return gameRecordService.get(sessionKey.getGame(), sessionKey.getSession());
+        return sessionKey != null ? gameRecordService.get(sessionKey.getGame(), sessionKey.getSession()) : null;
     }
 
 }

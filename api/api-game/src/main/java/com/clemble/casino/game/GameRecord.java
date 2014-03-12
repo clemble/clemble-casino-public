@@ -3,10 +3,9 @@ package com.clemble.casino.game;
 import java.io.Serializable;
 import java.util.*;
 
-import com.clemble.casino.game.action.MadeMove;
+import com.clemble.casino.game.action.GameEventRecord;
 import com.clemble.casino.game.specification.GameConfigurationKey;
 import com.clemble.casino.game.specification.GameConfigurationKeyAware;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -32,17 +31,16 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
 
     @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name = "PLAYERS_ORDER")
-    @CollectionTable(name = "GAME_RECORD_PLAYER", joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
+    @CollectionTable(name = "GAME_RECORD_PLAYER",
+        joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
     private List<String> players = new ArrayList<String>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Sort(type = SortType.NATURAL)
-    @CollectionTable(name = "GAME_RECORD_MOVE",
-            uniqueConstraints = @UniqueConstraint(columnNames = {"SESSION_ID", "GAME", "CREATED"}),
-            joinColumns = {
-                    @JoinColumn(name = "SESSION_ID"),
-                    @JoinColumn(name = "GAME")})
-    private SortedSet<MadeMove> madeMoves = new TreeSet<MadeMove>();
+    @CollectionTable(name = "GAME_RECORD_EVENT",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"SESSION_ID", "GAME", "CREATED"}),
+        joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
+    private SortedSet<GameEventRecord> eventRecords = new TreeSet<GameEventRecord>();
 
     @Version
     @Column(name = "VERSION")
@@ -90,8 +88,8 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
         return this;
     }
 
-    public SortedSet<MadeMove> getMadeMoves() {
-        return madeMoves;
+    public SortedSet<GameEventRecord> getEventRecords() {
+        return eventRecords;
     }
 
     public int getVersion() {
@@ -106,7 +104,7 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((madeMoves == null) ? 0 : madeMoves.hashCode());
+        result = prime * result + ((eventRecords == null) ? 0 : eventRecords.hashCode());
         result = prime * result + ((players == null) ? 0 : players.hashCode());
         result = prime * result + ((session == null) ? 0 : session.hashCode());
         result = prime * result + ((sessionState == null) ? 0 : sessionState.hashCode());
@@ -123,10 +121,10 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
         if (getClass() != obj.getClass())
             return false;
         GameRecord other = (GameRecord) obj;
-        if (madeMoves == null) {
-            if (other.madeMoves != null)
+        if (eventRecords == null) {
+            if (other.eventRecords != null)
                 return false;
-        } else if (!madeMoves.containsAll(other.madeMoves) || !(other.madeMoves.containsAll(madeMoves)))
+        } else if (!eventRecords.containsAll(other.eventRecords) || !(other.eventRecords.containsAll(eventRecords)))
             return false;
         if (players == null) {
             if (other.players != null)

@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.clemble.casino.client.event.*;
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.action.GameAction;
-import com.clemble.casino.game.action.MadeMove;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.event.server.RoundEvent;
