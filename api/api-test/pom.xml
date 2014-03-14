@@ -11,6 +11,41 @@
     <artifactId>api-test</artifactId>
     <dependencies>
         <dependency>
+            <groupId>fi.vincit.jmobster</groupId>
+            <artifactId>jmobster-core</artifactId>
+            <version>0.4.0-alpha</version>
+        </dependency>
+        <dependency>
+            <groupId>fi.vincit.jmobster</groupId>
+            <artifactId>jmobster-jsr303</artifactId>
+            <version>0.4.0-alpha</version>
+        </dependency>
+        <dependency>
+            <groupId>fi.vincit.jmobster</groupId>
+            <artifactId>jmobster-languages</artifactId>
+            <version>0.4.0-alpha</version>
+        </dependency>
+        <dependency>
+            <groupId>fi.vincit.jmobster</groupId>
+            <artifactId>jmobster-backbone</artifactId>
+            <version>0.4.0-alpha</version>
+        </dependency>
+        <dependency>
+            <groupId>fi.vincit.jmobster</groupId>
+            <artifactId>jmobster-backbone-core</artifactId>
+            <version>0.4.0-alpha</version>
+        </dependency>
+        <dependency>
+            <groupId>fi.vincit.jmobster</groupId>
+            <artifactId>jmobster-backbone-jsr303</artifactId>
+            <version>0.4.0-alpha</version>
+        </dependency>
+        <dependency>
+            <groupId>fi.vincit.jmobster</groupId>
+            <artifactId>jmobster-javascript</artifactId>
+            <version>0.4.0-alpha</version>
+        </dependency>
+        <dependency>
             <groupId>com.clemble.casino</groupId>
             <artifactId>api-common</artifactId>
         </dependency>

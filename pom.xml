@@ -32,6 +32,7 @@
         <hibernate.validator.version>5.1.0.Alpha1</hibernate.validator.version>
         <!-- Spring dependencies -->
         <spring.version>3.2.4.RELEASE</spring.version>
+        <spring.crypto.version>3.2.1.RELEASE</spring.crypto.version>
         <spring.security.oauth2.version>1.0.5.RELEASE</spring.security.oauth2.version>
         <couchbase-client.version>1.2.2</couchbase-client.version>
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
@@ -307,6 +308,18 @@
                 <groupId>org.springframework.security.oauth</groupId>
                 <artifactId>spring-security-oauth</artifactId>
                 <version>${spring.security.oauth2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-crypto</artifactId>
+                <version>${spring.crypto.version}</version>
+                <exclusions>
+                    <!-- Exclude in favor of Spring for Android Core -->
+                    <exclusion>
+                        <artifactId>spring-core</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -586,6 +599,16 @@
             <dependency>
                 <groupId>org.springframework.android</groupId>
                 <artifactId>spring-android-rest-template</artifactId>
+                <version>${spring.android.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.android</groupId>
+                <artifactId>spring-android-auth</artifactId>
+                <version>${spring.android.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.android</groupId>
+                <artifactId>spring-android-core</artifactId>
                 <version>${spring.android.version}</version>
             </dependency>
             <dependency>
