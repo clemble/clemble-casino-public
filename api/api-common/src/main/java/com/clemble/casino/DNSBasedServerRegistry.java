@@ -17,8 +17,16 @@ public class DNSBasedServerRegistry implements ServerRegistry {
     final private String idUrl;
     final private String idAndTypeUrl;
 
+    public DNSBasedServerRegistry(String baseUrl){
+        this(0, baseUrl, baseUrl, baseUrl);
+    }
+
     @JsonCreator
-    public DNSBasedServerRegistry(@JsonProperty("prefixLength") int prefixLength, @JsonProperty("baseUrl") String baseUrl, @JsonProperty("idUrl") String idUrl, @JsonProperty("idAndTypeUrl") String idAndTypeUrl) {
+    public DNSBasedServerRegistry(
+        @JsonProperty("prefixLength") int prefixLength,
+        @JsonProperty("baseUrl") String baseUrl,
+        @JsonProperty("idUrl") String idUrl,
+        @JsonProperty("idAndTypeUrl") String idAndTypeUrl) {
         this.prefixLength = prefixLength;
         this.baseUrl = baseUrl;
         this.idUrl = idUrl;
