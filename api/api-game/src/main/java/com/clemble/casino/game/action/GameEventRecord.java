@@ -22,7 +22,7 @@ public class GameEventRecord implements Serializable, Comparable<GameEventRecord
     private static final long serialVersionUID = -7090751719767060121L;
 
     @Type(type = "com.clemble.casino.event.ClientEventHibernate")
-    @Column(name = "EVENT", length = 2048)
+    @Column(name = "EVENT", length = 4096)
     private GameEvent event;
 
     @Temporal(TemporalType.TIMESTAMP)
