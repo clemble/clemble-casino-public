@@ -1,11 +1,13 @@
 package com.clemble.casino.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.specification.RoundGameConfiguration;
+import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,19 +20,22 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
 
     final private String role;
     final private String player;
-    final private GamePlayerAccount account;
     final private GamePlayerClock clock;
+    final private GamePlayerUnit units;
+    final private GamePlayerAccount account;
 
     @JsonCreator
     public RoundGamePlayerContext(
             @JsonProperty("player") String player,
             @JsonProperty("account") GamePlayerAccount account,
             @JsonProperty("clock") GamePlayerClock clock,
-            @JsonProperty("role") String role) {
+            @JsonProperty("role") String role,
+            @JsonProperty("units") GamePlayerUnit units) {
+        this.role = role;
+        this.clock = clock;
+        this.units = units;
         this.player = player;
         this.account = account;
-        this.clock = clock;
-        this.role = role;
     }
 
     @Override
@@ -53,6 +58,11 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
         return role;
     }
 
+    @Override
+    public GamePlayerUnit getUnits() {
+        return units;
+    }
+
     public static List<RoundGamePlayerContext> construct(GameInitiation initiation) {
         RoundGameConfiguration specification = (RoundGameConfiguration) initiation.getConfiguration();
         List<RoundGamePlayerContext> playerContexts = new ArrayList<RoundGamePlayerContext>();
@@ -61,7 +71,8 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
             String player = players.next();
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice());
             GamePlayerClock clock = new GamePlayerClock(0, 0);
-            playerContexts.add(new RoundGamePlayerContext(player, account, clock, role));
+            GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
+            playerContexts.add(new RoundGamePlayerContext(player, account, clock, role, unit));
         }
         return playerContexts;
     }

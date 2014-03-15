@@ -1,5 +1,6 @@
 package com.clemble.casino.game.specification;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.clemble.casino.game.Game;
@@ -14,6 +15,7 @@ import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TimeBreachPunishment;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
+import com.clemble.casino.game.unit.GameUnit;
 import com.clemble.casino.payment.money.Currency;
 import com.clemble.casino.payment.money.Money;
 import com.clemble.casino.utils.CollectionUtils;
@@ -41,7 +43,8 @@ public class RoundGameConfiguration implements GameConfiguration {
             VisibilityRule.hidden,
             DrawRule.owned,
             WonRule.spent,
-            CollectionUtils.immutableList("X", "O"));
+            CollectionUtils.immutableList("X", "O"),
+            Collections.<GameUnit>emptyList());
 
     final private GameConfigurationKey configurationKey;
     final private Money price;
@@ -55,6 +58,7 @@ public class RoundGameConfiguration implements GameConfiguration {
     final private DrawRule drawRule;
     final private WonRule wonRule;
     final private List<String> roles;
+    final private List<GameUnit> playerUnits;
 
     @JsonCreator
     public RoundGameConfiguration(
@@ -69,7 +73,8 @@ public class RoundGameConfiguration implements GameConfiguration {
             @JsonProperty("visibilityRule") VisibilityRule visibilityRule,
             @JsonProperty("drawRule") DrawRule drawRule,
             @JsonProperty("wonRule") WonRule wonRule,
-            @JsonProperty("roles") List<String> roles
+            @JsonProperty("roles") List<String> roles,
+            @JsonProperty(value = "playerUnits", required = false) List<GameUnit> playerUnits
     ) {
         this.configurationKey = configurationKey;
         this.price = price;
@@ -83,20 +88,25 @@ public class RoundGameConfiguration implements GameConfiguration {
         this.drawRule = drawRule;
         this.wonRule = wonRule;
         this.roles = roles;
+        this.playerUnits = playerUnits;
     }
 
+    @Override
     public GameConfigurationKey getConfigurationKey() {
         return configurationKey;
     }
 
+    @Override
     public PrivacyRule getPrivacyRule() {
         return privacyRule;
     }
 
+    @Override
     public PlayerNumberRule getNumberRule() {
         return numberRule;
     }
 
+    @Override
     public Money getPrice() {
         return price;
     }
@@ -123,16 +133,23 @@ public class RoundGameConfiguration implements GameConfiguration {
         return visibilityRule;
     }
 
+    @Override
     public DrawRule getDrawRule() {
         return drawRule;
     }
 
+    @Override
     public WonRule getWonRule() {
         return wonRule;
     }
 
     public List<String> getRoles() {
         return roles;
+    }
+
+    @Override
+    public List<GameUnit> getPlayerUnits() {
+        return playerUnits;
     }
 
     @Override

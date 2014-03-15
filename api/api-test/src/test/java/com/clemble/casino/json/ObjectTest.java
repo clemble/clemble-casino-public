@@ -107,7 +107,7 @@ public class ObjectTest {
         register(GameUnit.class, new AbstractValueGenerator<GameUnit>() {
             @Override
             public GameUnit generate() {
-                return new FakeUnit(Collections.<GameUnit>emptyList());
+                return new FakeUnit();
             }
         });
         register(GameState.class, new AbstractValueGenerator<GameState>() {
@@ -201,7 +201,7 @@ public class ObjectTest {
         register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
             @Override
             public TournamentGameConfiguration generate() {
-                return new TournamentGameConfiguration(new GameConfigurationKey(Game.pic, "AAA"), new Money(Currency.FakeMoney, 50), PrivacyRule.players, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null);
+                return new TournamentGameConfiguration(new GameConfigurationKey(Game.pic, "AAA"), new Money(Currency.FakeMoney, 50), PrivacyRule.players, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
             }
         });
 

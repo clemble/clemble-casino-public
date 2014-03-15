@@ -9,6 +9,7 @@ import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.pot.MatchFillRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
+import com.clemble.casino.game.unit.GameUnit;
 import com.clemble.casino.payment.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,6 +33,7 @@ public class MatchGameConfiguration implements GameConfiguration {
     final private TotalTimeRule totalTimeRule;
     final private WonRule wonRule;
     final private DrawRule drawRule;
+    final private List<GameUnit> playerUnits;
     final private List<GameConfiguration> configurations;
 
     @JsonCreator
@@ -45,7 +47,8 @@ public class MatchGameConfiguration implements GameConfiguration {
             @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
             @JsonProperty("wonRule") WonRule wonRule,
             @JsonProperty("drawRule") DrawRule drawRule,
-            @JsonProperty("configurations") List<GameConfiguration> configurations) {
+            @JsonProperty("configurations") List<GameConfiguration> configurations,
+            @JsonProperty(value = "playerUnits", required = false) List<GameUnit> playerUnits) {
         this.configurationKey = key;
         this.price = price;
         this.privacyRule = privacyRule;
@@ -56,6 +59,7 @@ public class MatchGameConfiguration implements GameConfiguration {
         this.wonRule = wonRule;
         this.drawRule = drawRule;
         this.configurations = configurations;
+        this.playerUnits = playerUnits;
     }
 
     @Override
@@ -104,6 +108,11 @@ public class MatchGameConfiguration implements GameConfiguration {
     @Override
     public DrawRule getDrawRule() {
         return drawRule;
+    }
+
+    @Override
+    public List<GameUnit> getPlayerUnits() {
+        return playerUnits;
     }
 
     @Override

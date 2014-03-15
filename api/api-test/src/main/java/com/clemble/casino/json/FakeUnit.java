@@ -14,16 +14,8 @@ import java.util.List;
 @JsonTypeName("fake")
 public class FakeUnit implements GameUnit {
 
-    final private List<GameUnit> children;
-
     @JsonCreator
-    public FakeUnit(@JsonProperty("children") List<GameUnit> children) {
-        this.children = children;
-    }
-
-    @Override
-    public List<? extends GameUnit> getChildren() {
-        return children;
+    public FakeUnit() {
     }
 
     @Override
@@ -33,13 +25,11 @@ public class FakeUnit implements GameUnit {
 
         FakeUnit fakeUnit = (FakeUnit) o;
 
-        if (children != null ? !children.equals(fakeUnit.children) : fakeUnit.children != null) return false;
-
         return true;
     }
 
     @Override
     public int hashCode() {
-        return children != null ? children.hashCode() : 0;
+        return 0;
     }
 }

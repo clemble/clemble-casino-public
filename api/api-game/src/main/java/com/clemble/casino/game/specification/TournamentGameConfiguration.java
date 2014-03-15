@@ -6,10 +6,13 @@ import com.clemble.casino.game.rule.outcome.DrawRule;
 import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
+import com.clemble.casino.game.unit.GameUnit;
 import com.clemble.casino.payment.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import java.util.List;
 
 // TODO Multilevel Configurations
 @JsonTypeName("tournament")
@@ -22,13 +25,16 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
 
     final private GameConfigurationKey configurationKey;
     final private Money price;
-    final private PrivacyRule privacyRule;
-    final private PlayerNumberRule numberRule;
-    final private MoveTimeRule moveTimeRule;
-    final private TotalTimeRule totalTimeRule;
+
     final private WonRule wonRule;
     final private DrawRule drawRule;
+    final private PrivacyRule privacyRule;
+    final private MoveTimeRule moveTimeRule;
+    final private TotalTimeRule totalTimeRule;
+    final private PlayerNumberRule numberRule;
+
     final private GameConfiguration configuration;
+    final private List<GameUnit> playerUnits;
 
     @JsonCreator
     public TournamentGameConfiguration(
@@ -40,16 +46,18 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
             @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
             @JsonProperty("wonRule") WonRule wonRule,
             @JsonProperty("drawRule") DrawRule drawRule,
-            @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule) {
-        this.configurationKey = configurationKey;
+            @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
+            @JsonProperty(value = "playerUnits", required = false) List<GameUnit> playerUnits) {
         this.price = price;
-        this.privacyRule = privacyRule;
-        this.numberRule = numberRule;
-        this.configuration = configuration;
-        this.totalTimeRule = totalTimeRule;
         this.wonRule = wonRule;
         this.drawRule = drawRule;
+        this.numberRule = numberRule;
+        this.privacyRule = privacyRule;
         this.moveTimeRule = moveTimeRule;
+        this.totalTimeRule = totalTimeRule;
+        this.configuration = configuration;
+        this.configurationKey = configurationKey;
+        this.playerUnits = playerUnits;
     }
 
     @Override
@@ -95,6 +103,11 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
     @Override
     public DrawRule getDrawRule() {
         return drawRule;
+    }
+
+    @Override
+    public List<GameUnit> getPlayerUnits() {
+        return playerUnits;
     }
 
     @Override
