@@ -18,4 +18,6 @@ public class GiveUpAction extends SurrenderAction {
         super(playerId);
     }
 
+
+
 }

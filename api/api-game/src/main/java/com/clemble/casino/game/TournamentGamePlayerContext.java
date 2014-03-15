@@ -67,40 +67,26 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((account == null) ? 0 : account.hashCode());
-        result = prime * result + ((clock == null) ? 0 : clock.hashCode());
-        result = prime * result + ((player == null) ? 0 : player.hashCode());
-        return result;
-    }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TournamentGamePlayerContext)) return false;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        TournamentGamePlayerContext other = (TournamentGamePlayerContext) obj;
-        if (account == null) {
-            if (other.account != null)
-                return false;
-        } else if (!account.equals(other.account))
-            return false;
-        if (clock == null) {
-            if (other.clock != null)
-                return false;
-        } else if (!clock.equals(other.clock))
-            return false;
-        if (player == null) {
-            if (other.player != null)
-                return false;
-        } else if (!player.equals(other.player))
-            return false;
+        TournamentGamePlayerContext that = (TournamentGamePlayerContext) o;
+
+        if (account != null ? !account.equals(that.account) : that.account != null) return false;
+        if (clock != null ? !clock.equals(that.clock) : that.clock != null) return false;
+        if (player != null ? !player.equals(that.player) : that.player != null) return false;
+        if (units != null ? !units.equals(that.units) : that.units != null) return false;
+
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = player != null ? player.hashCode() : 0;
+        result = 31 * result + (units != null ? units.hashCode() : 0);
+        result = 31 * result + (clock != null ? clock.hashCode() : 0);
+        result = 31 * result + (account != null ? account.hashCode() : 0);
+        return result;
+    }
 }

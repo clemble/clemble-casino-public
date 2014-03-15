@@ -1,10 +1,10 @@
 package com.clemble.casino.game;
 
 import com.clemble.casino.game.unit.GameUnit;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,11 +16,15 @@ public class GamePlayerUnit {
 
     @JsonCreator
     public GamePlayerUnit(@JsonProperty("units") List<GameUnit> units) {
-        this.units = units;
+        this.units = units == null ? Collections.<GameUnit>emptyList() : units;
     }
 
     public List<GameUnit> getUnits() {
         return units;
+    }
+
+    public boolean contains(GameUnit unit) {
+        return units.contains(unit);
     }
 
     @Override

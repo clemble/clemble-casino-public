@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("bet")
-public class BetAction extends GameAction {
+public class BetAction implements GameAction {
 
     /**
      * Generated 10/06/13
@@ -20,10 +20,11 @@ public class BetAction extends GameAction {
     private static final long serialVersionUID = 4761116695040560749L;
 
     final private int bet;
+    final private String player;
 
     @JsonCreator
     public BetAction(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("bet") int bet) {
-        super(player);
+        this.player = player;
         this.bet = bet;
         if (bet < 0)
             throw new IllegalArgumentException("Bet can't be lesser than 0");
@@ -32,6 +33,11 @@ public class BetAction extends GameAction {
 
     public int getBet() {
         return bet;
+    }
+
+    @Override
+    public String getPlayer() {
+        return player;
     }
 
     static public String whoBetMore(BetAction[] bets) {

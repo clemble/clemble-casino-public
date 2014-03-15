@@ -87,6 +87,7 @@ public enum ClembleCasinoError {
     GamePlayMoveNotSupported(Code.GAMEPLAY_MOVE_NOT_SUPPORTED_CODE, "Game does not support this move"),
     GamePlayBetOverflow(Code.GAMEPLAY_BET_OVERFLOW_CODE, "Bet amount overflow"),
     GamePlayBetInvalid(Code.GAMEPLAY_BET_INVALID_CODE, "Bet invalid event"),
+    GamePlayUnitMissing(Code.GAMEPLAY_UNIT_MISSING_CODE, "Player does not have required unit"),
 
     CellOwned(Code.TIC_TAC_TOE_CELL_OWNED_CODE, "Cell already Owned"),
 
@@ -253,6 +254,7 @@ public enum ClembleCasinoError {
         final public static String GAMEPLAY_GAME_ENDED_CODE = "0F8";
         final public static String GAMEPLAY_BET_OVERFLOW_CODE = "0F9";
         final public static String GAMEPLAY_BET_INVALID_CODE = "0FA";
+        final public static String GAMEPLAY_UNIT_MISSING_CODE = "0FB";
         // Errors specific for TicTacToe
         final public static String TIC_TAC_TOE_CELL_OWNED_CODE = "0G0";
         // Session recreation failure
