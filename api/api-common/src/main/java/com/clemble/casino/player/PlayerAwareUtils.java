@@ -1,11 +1,6 @@
 package com.clemble.casino.player;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PlayerAwareUtils {
 
@@ -13,7 +8,7 @@ public class PlayerAwareUtils {
         throw new IllegalAccessError();
     }
 
-    public static <M extends PlayerAware> M fetch(String player, Iterable<? extends M> sourceCollection) {
+    public static <M extends PlayerAware> M filter(String player, Iterable<? extends M> sourceCollection) {
         // Step 1. Sanity check
         if (player == null)
             return null;
@@ -65,6 +60,13 @@ public class PlayerAwareUtils {
         for (M playerAware : sourceCollection)
             playerList.add(playerAware.getPlayer());
         return playerList;
+    }
+
+    public static <M extends PlayerAware> Set<String> toPlayerSet(Iterable<? extends M> sourceCollection) {
+        Set<String> playerSet = new HashSet<String>();
+        for (M playerAware : sourceCollection)
+            playerSet.add(playerAware.getPlayer());
+        return playerSet;
     }
 
     public static <M extends PlayerAware> boolean contains(Iterable<M> playerAwares, String player) {

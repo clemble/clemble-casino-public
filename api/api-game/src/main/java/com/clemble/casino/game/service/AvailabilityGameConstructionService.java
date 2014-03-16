@@ -27,24 +27,14 @@ import com.clemble.casino.web.mapping.WebMapping;
 public interface AvailabilityGameConstructionService extends GameConstructionService<AvailabilityGameRequest>{
 
     @Override
-    @RequestMapping(method = RequestMethod.POST, value = GAME_CONSTRUCTION_AVAILABILITY, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody GameConstruction construct(@RequestBody AvailabilityGameRequest gameRequest);
+    public GameConstruction construct( AvailabilityGameRequest gameRequest);
 
-    @RequestMapping(method = RequestMethod.GET, value = GAME_CONSTRUCTION, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody GameConstruction getConstruction(@PathVariable("game") Game game, @PathVariable("session") String session);
+    public GameConstruction getConstruction(Game game, String session);
 
-    @RequestMapping(method = RequestMethod.GET, value = GAME_CONSTRUCTION_RESPONSES_PLAYER, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody PlayerAwareEvent getReply(@PathVariable("game") Game game, @PathVariable("session") String session, @PathVariable("playerId") String player);
+    public PlayerAwareEvent getReply(Game game, String session, String player);
 
-    @RequestMapping(method = RequestMethod.POST, value = GAME_CONSTRUCTION_RESPONSES, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public @ResponseBody GameConstruction reply(@RequestBody InvitationResponseEvent gameRequest);
+    public GameConstruction reply(InvitationResponseEvent gameRequest);
 
-    @RequestMapping(method = RequestMethod.GET, value = GAME_CONSTRUCTION_AVAILABILITY_PENDING, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody Collection<GameInitiation> getPending(@PathVariable("playerId") String player);
+    public Collection<GameInitiation> getPending(String player);
 
 }

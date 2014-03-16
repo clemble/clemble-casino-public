@@ -60,7 +60,7 @@ public class GameConstruction implements GameSessionAware, VersionAware {
         this.request = request;
         this.session = new GameSessionKey(request.getConfiguration().getConfigurationKey().getGame(), session);
         this.state = GameConstructionState.pending;
-        this.responses.expectNext(request.getPlayer(), request.getParticipants(), "response");
+        this.responses.expectNext(request.getParticipants(), "response");
         this.responses.put(new InvitationAcceptedEvent(request.getPlayer(), this.session));
     }
 
@@ -104,9 +104,9 @@ public class GameConstruction implements GameSessionAware, VersionAware {
     public List<String> fetchAcceptedParticipants() {
         List<String> acceptedParticipants = new ArrayList<String>(responses.fetchParticipants().size());
 
-        for (Entry<String, PlayerAwareEvent> responseEntry : responses.fetchActionsMap().entrySet()) {
-            if (responseEntry.getValue() instanceof InvitationAcceptedEvent)
-                acceptedParticipants.add(responseEntry.getKey());
+        for (PlayerAwareEvent responseEntry : responses.getActions()) {
+            if (responseEntry instanceof InvitationAcceptedEvent)
+                acceptedParticipants.add(responseEntry.getPlayer());
         }
 
         return acceptedParticipants;

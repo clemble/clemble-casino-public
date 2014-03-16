@@ -38,7 +38,7 @@ abstract public class GameContext<T extends GamePlayerContext> implements Serial
     }
 
     public T getPlayerContext(String player) {
-        return PlayerAwareUtils.fetch(player, playerContexts);
+        return PlayerAwareUtils.filter(player, playerContexts);
     }
 
     @Override

@@ -3,14 +3,12 @@ package com.clemble.casino.base;
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
 import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.player.PlayerAwareUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ActionLatch implements Serializable {
 
@@ -19,7 +17,7 @@ public class ActionLatch implements Serializable {
      */
     private static final long serialVersionUID = -7689529505293361503L;
 
-    private Map<String, PlayerAwareEvent> actions = new HashMap<String, PlayerAwareEvent>();
+    private Collection<PlayerAwareEvent> actions = new ArrayList<PlayerAwareEvent>();
     private Class<?> expectedClass;
 
     public ActionLatch() {
@@ -28,9 +26,7 @@ public class ActionLatch implements Serializable {
     @JsonCreator
     public ActionLatch(@JsonProperty("actions") final Collection<? extends PlayerAwareEvent> expectedActions) {
         this.expectedClass = null;
-        for (PlayerAwareEvent expectedAction : expectedActions) {
-            actions.put(expectedAction.getPlayer(), expectedAction);
-        }
+        this.actions.addAll(expectedActions);
     }
 
     public ActionLatch expectNext(final String player, final String action) {
@@ -39,25 +35,25 @@ public class ActionLatch implements Serializable {
     }
 
     public ActionLatch expectNext(final String player, String action, Class<?> expectedClass) {
-        this.actions = new HashMap<String, PlayerAwareEvent>();
-        this.actions.put(player, new ExpectedEvent(player, action));
+        this.actions.clear();
+        this.actions.add(new ExpectedEvent(player, action));
         this.expectedClass = expectedClass;
         return this;
     }
 
     public ActionLatch expectNext(final Collection<String> participants, final String action) {
-        this.actions = new HashMap<String, PlayerAwareEvent>();;
+        this.actions.clear();
         for (String participant : participants) {
-            this.actions.put(participant, new ExpectedEvent(participant, action));
+            this.actions.add(new ExpectedEvent(participant, action));
         }
         this.expectedClass = null;
         return this;
     }
 
     public ActionLatch expectNext(final Collection<String> participants, final String action, Class<?> expectedClass) {
-        this.actions = new HashMap<String, PlayerAwareEvent>();
+        this.actions.clear();
         for (String participant : participants) {
-            this.actions.put(participant, new ExpectedEvent(participant, action));
+            this.actions.add(new ExpectedEvent(participant, action));
         }
         this.expectedClass = expectedClass;
         return this;
@@ -70,14 +66,14 @@ public class ActionLatch implements Serializable {
 
     public void expectNext(final String player, final Collection<String> participants, final String action, final Class<?> expectedClass) {
         this.expectedClass = expectedClass;
-        this.actions.put(player, new ExpectedEvent(player, action));
+        this.actions.add(new ExpectedEvent(player, action));
         for (String participant : participants) {
-            this.actions.put(participant, new ExpectedEvent(participant, action));
+            this.actions.add(new ExpectedEvent(participant, action));
         }
     }
 
     public boolean contains(String participant) {
-        return actions.keySet().contains(participant);
+        return PlayerAwareUtils.contains(actions, participant);
     }
 
     public Class<?> expectedClass() {
@@ -85,32 +81,30 @@ public class ActionLatch implements Serializable {
     }
 
     public boolean acted(String player) {
-        return !(actions.get(player) instanceof ExpectedEvent);
+        return !(fetchAction(player) instanceof ExpectedEvent);
     }
 
     public Set<String> fetchParticipants() {
-        return actions.keySet();
+        return PlayerAwareUtils.toPlayerSet(actions);
     }
 
     @SuppressWarnings("unchecked")
     public <T extends PlayerAwareEvent> Collection<T> getActions() {
-        return (Collection<T>) actions.values();
-    }
-
-    public Map<String, PlayerAwareEvent> fetchActionsMap() {
-        return actions;
+        return (Collection<T>) actions;
     }
 
     public PlayerAwareEvent fetchAction(String player) {
-        return actions.get(player);
+        return PlayerAwareUtils.filter(player, actions);
     }
 
     public <T extends PlayerAwareEvent> PlayerAwareEvent put(T action) {
-        PlayerAwareEvent event = actions.get(action.getPlayer());
+        PlayerAwareEvent event = fetchAction(action.getPlayer());
         if (event instanceof ExpectedEvent) {
             if (expectedClass != null && action.getClass() != expectedClass)
                 throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType);
-            return actions.put(action.getPlayer(), action);
+            actions.remove(event);
+            actions.add(action);
+            return event;
         } else if (event != null) {
             throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayMoveAlreadyMade);
         }
@@ -118,7 +112,7 @@ public class ActionLatch implements Serializable {
     }
 
     public boolean complete() {
-        for (PlayerAwareEvent action : actions.values())
+        for (PlayerAwareEvent action : actions)
             if (action instanceof ExpectedEvent)
                 return false;
         return true;

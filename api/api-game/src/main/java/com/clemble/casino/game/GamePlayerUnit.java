@@ -19,6 +19,10 @@ public class GamePlayerUnit {
         this.units = units == null ? Collections.<GameUnit>emptyList() : units;
     }
 
+    public boolean use(GameUnit unit) {
+        return units.remove(unit);
+    }
+
     public List<GameUnit> getUnits() {
         return units;
     }
