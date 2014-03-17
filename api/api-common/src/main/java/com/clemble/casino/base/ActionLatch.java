@@ -18,66 +18,38 @@ public class ActionLatch implements Serializable {
     private static final long serialVersionUID = -7689529505293361503L;
 
     private Collection<PlayerAwareEvent> actions = new ArrayList<PlayerAwareEvent>();
-    private Class<?> expectedClass;
 
     public ActionLatch() {
     }
 
     @JsonCreator
     public ActionLatch(@JsonProperty("actions") final Collection<? extends PlayerAwareEvent> expectedActions) {
-        this.expectedClass = null;
         this.actions.addAll(expectedActions);
     }
 
-    public ActionLatch expectNext(final String player, final String action) {
-        expectNext(player, action, null);
-        return this;
-    }
-
-    public ActionLatch expectNext(final String player, String action, Class<?> expectedClass) {
+    public ActionLatch expectNext(final String player, Class<? extends PlayerAwareEvent> expectedClass) {
         this.actions.clear();
-        this.actions.add(new SimpleExpectedEvent(player, action));
-        this.expectedClass = expectedClass;
+        this.actions.add(new ExpectedEvent(player, expectedClass));
         return this;
     }
 
-    public ActionLatch expectNext(final Collection<String> participants, final String action) {
+    public ActionLatch expectNext(final Collection<String> participants, Class<? extends PlayerAwareEvent> expectedClass) {
         this.actions.clear();
         for (String participant : participants) {
-            this.actions.add(new SimpleExpectedEvent(participant, action));
+            this.actions.add(new ExpectedEvent(participant, expectedClass));
         }
-        this.expectedClass = null;
         return this;
     }
 
-    public ActionLatch expectNext(final Collection<String> participants, final String action, Class<?> expectedClass) {
-        this.actions.clear();
+    public void expectNext(final String player, final Collection<String> participants, final Class<? extends PlayerAwareEvent> expectedClass) {
+        this.actions.add(new ExpectedEvent(player, expectedClass));
         for (String participant : participants) {
-            this.actions.add(new SimpleExpectedEvent(participant, action));
-        }
-        this.expectedClass = expectedClass;
-        return this;
-    }
-
-    public ActionLatch expectNext(final String player, final Collection<String> participants, final String action) {
-        expectNext(player, participants, action, null);
-        return this;
-    }
-
-    public void expectNext(final String player, final Collection<String> participants, final String action, final Class<?> expectedClass) {
-        this.expectedClass = expectedClass;
-        this.actions.add(new SimpleExpectedEvent(player, action));
-        for (String participant : participants) {
-            this.actions.add(new SimpleExpectedEvent(participant, action));
+            this.actions.add(new ExpectedEvent(participant, expectedClass));
         }
     }
 
     public boolean contains(String participant) {
         return PlayerAwareUtils.contains(actions, participant);
-    }
-
-    public Class<?> expectedClass() {
-        return expectedClass;
     }
 
     public boolean acted(String player) {
@@ -113,7 +85,7 @@ public class ActionLatch implements Serializable {
     public <T extends PlayerAwareEvent> PlayerAwareEvent put(T action) {
         PlayerAwareEvent event = filterAction(action.getPlayer());
         if (event instanceof ExpectedEvent) {
-            if (expectedClass != null && action.getClass() != expectedClass)
+            if (!((ExpectedEvent) event).isExpected(action.getClass()))
                 throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType);
             actions.remove(event);
             actions.add(action);

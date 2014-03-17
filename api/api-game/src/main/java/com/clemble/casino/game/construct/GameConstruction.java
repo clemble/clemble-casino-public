@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import org.hibernate.annotations.Type;
 
 import com.clemble.casino.VersionAware;
@@ -60,7 +61,7 @@ public class GameConstruction implements GameSessionAware, VersionAware {
         this.request = request;
         this.session = new GameSessionKey(request.getConfiguration().getConfigurationKey().getGame(), session);
         this.state = GameConstructionState.pending;
-        this.responses.expectNext(request.getParticipants(), "response");
+        this.responses.expectNext(request.getParticipants(), InvitationResponseEvent.class);
         this.responses.put(new InvitationAcceptedEvent(request.getPlayer(), this.session));
     }
 

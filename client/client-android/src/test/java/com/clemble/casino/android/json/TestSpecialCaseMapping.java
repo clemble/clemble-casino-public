@@ -16,7 +16,7 @@ public class TestSpecialCaseMapping {
 
     final private String JSON = "[{\"player\":\"aaa1dd49369-45c6-4243-b742-f4dc8af41cb4\",\"session\":{\"game\":null,\"session\":null},\"presence\":\"online\"}]";
 
-    ObjectMapper objectMapper = ObjectMapperUtils.createObjectMapper();
+    ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
 
     @Test
     public void testRead() throws JsonParseException, JsonMappingException, IOException {

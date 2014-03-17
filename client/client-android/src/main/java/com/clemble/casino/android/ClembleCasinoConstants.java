@@ -5,5 +5,5 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ClembleCasinoConstants {
 
-    final public static ObjectMapper OBJECT_MAPPER = ObjectMapperUtils.createObjectMapper();
+    final public static ObjectMapper OBJECT_MAPPER = ObjectMapperUtils.OBJECT_MAPPER;
 }

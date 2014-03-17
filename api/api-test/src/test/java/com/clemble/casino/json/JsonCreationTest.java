@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.specification.RoundGameConfiguration;
 import org.junit.Assert;
@@ -41,7 +42,7 @@ import com.google.common.collect.ImmutableList;
 
 public class JsonCreationTest {
 
-    private ObjectMapper objectMapper = ObjectMapperUtils.createObjectMapper();
+    private ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
 
     @Before
     public void initialize() {
@@ -59,6 +60,7 @@ public class JsonCreationTest {
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
+        checkSerialization(ExpectedEvent.class);
         checkSerialization(MatchGameContext.class);
         checkSerialization(GameInitiationCanceledEvent.class);
         ClembleCasinoFailure casinoFailure = objectMapper.readValue(ERROR_JSON, ClembleCasinoFailure.class);

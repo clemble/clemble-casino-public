@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ObjectMapperTest {
 
-    private ObjectMapper objectMapper = ObjectMapperUtils.createObjectMapper();
+    private ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
 
     @Before
     public void initialize() {
@@ -57,11 +57,13 @@ public class ObjectMapperTest {
 
             assertEquals(stringPresentation, expected, actual);
 
-            Class<?> originalClass = getOriginal(candidate);
-            Assert.assertNotNull(originalClass);
-            actual = objectMapper.readValue(stringPresentation, originalClass);
+            if (!candidate.isInterface()) {
+                Class<?> originalClass = getOriginal(candidate);
+                Assert.assertNotNull(originalClass);
+                actual = objectMapper.readValue(stringPresentation, originalClass);
 
-            Assert.assertEquals(expected, actual);
+                Assert.assertEquals(expected, actual);
+            }
         } catch (Throwable throwable) {
             throwable.printStackTrace();
             error = throwable;

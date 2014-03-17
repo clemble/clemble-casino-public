@@ -1,5 +1,6 @@
 package com.clemble.casino.json;
 
+import com.clemble.casino.game.event.schedule.*;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
@@ -15,11 +16,6 @@ import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.ManagerGameConstructionRequest;
 import com.clemble.casino.game.construct.ScheduledGameRequest;
-import com.clemble.casino.game.event.schedule.GameCanceledEvent;
-import com.clemble.casino.game.event.schedule.GameConstructedEvent;
-import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
-import com.clemble.casino.game.event.schedule.InvitationDeclinedEvent;
-import com.clemble.casino.game.event.schedule.PlayerInvitedEvent;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
 import com.clemble.casino.game.event.server.GameInitiationCanceledEvent;
 import com.clemble.casino.game.event.server.GameInitiationConfirmedEvent;
@@ -70,6 +66,7 @@ class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(ScheduledGameRequest.class, ScheduledGameRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameCanceledEvent.class, GameCanceledEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameConstructedEvent.class, GameConstructedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(InvitationResponseEvent.class, InvitationResponseEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(InvitationAcceptedEvent.class, InvitationAcceptedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(InvitationDeclinedEvent.class, InvitationDeclinedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PlayerInvitedEvent.class, PlayerInvitedEvent.class.getAnnotation(JsonTypeName.class).value()));
