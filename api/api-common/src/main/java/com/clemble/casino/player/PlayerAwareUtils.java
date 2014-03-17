@@ -14,10 +14,23 @@ public class PlayerAwareUtils {
             return null;
         // Step 2. Going through the elements, looking for associated M
         for (M element : sourceCollection)
-            if (player.equals(element.getPlayer()))
+            if (element != null && player.equals(element.getPlayer()))
                 return element;
         // Step 3. Nothing was found return null
         return null;
+    }
+
+    public static <M extends PlayerAware> Collection<M> filterAll(String player, Iterable<? extends M> playerAwares) {
+        // Step 1. Sanity check
+        if (player == null)
+            return null;
+        // Step 2. Going through all the elements in the Collection and adding them to the aggregate
+        Collection<M> resultPlayers = new ArrayList<M>();
+        for(M playerAware: playerAwares)
+            if (player.equals(playerAware.getPlayer()))
+                resultPlayers.add(playerAware);
+        // Step 3. Returning result players
+        return resultPlayers;
     }
 
     public static <M extends PlayerAware> Map<String, M> toMap(Iterable<? extends M> sourceCollection) {

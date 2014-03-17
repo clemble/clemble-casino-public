@@ -36,7 +36,7 @@ public class ActionLatch implements Serializable {
 
     public ActionLatch expectNext(final String player, String action, Class<?> expectedClass) {
         this.actions.clear();
-        this.actions.add(new ExpectedEvent(player, action));
+        this.actions.add(new SimpleExpectedEvent(player, action));
         this.expectedClass = expectedClass;
         return this;
     }
@@ -44,7 +44,7 @@ public class ActionLatch implements Serializable {
     public ActionLatch expectNext(final Collection<String> participants, final String action) {
         this.actions.clear();
         for (String participant : participants) {
-            this.actions.add(new ExpectedEvent(participant, action));
+            this.actions.add(new SimpleExpectedEvent(participant, action));
         }
         this.expectedClass = null;
         return this;
@@ -53,7 +53,7 @@ public class ActionLatch implements Serializable {
     public ActionLatch expectNext(final Collection<String> participants, final String action, Class<?> expectedClass) {
         this.actions.clear();
         for (String participant : participants) {
-            this.actions.add(new ExpectedEvent(participant, action));
+            this.actions.add(new SimpleExpectedEvent(participant, action));
         }
         this.expectedClass = expectedClass;
         return this;
@@ -66,9 +66,9 @@ public class ActionLatch implements Serializable {
 
     public void expectNext(final String player, final Collection<String> participants, final String action, final Class<?> expectedClass) {
         this.expectedClass = expectedClass;
-        this.actions.add(new ExpectedEvent(player, action));
+        this.actions.add(new SimpleExpectedEvent(player, action));
         for (String participant : participants) {
-            this.actions.add(new ExpectedEvent(participant, action));
+            this.actions.add(new SimpleExpectedEvent(participant, action));
         }
     }
 
@@ -81,7 +81,12 @@ public class ActionLatch implements Serializable {
     }
 
     public boolean acted(String player) {
-        return !(fetchAction(player) instanceof ExpectedEvent);
+        // Step 1. Processing all assosiated player events
+        for(PlayerAwareEvent playerEvent: filterAllActions(player))
+            if(playerEvent instanceof ExpectedEvent)
+                return false;
+        // Step 2. If no events expected return true
+        return true;
     }
 
     public Set<String> fetchParticipants() {
@@ -93,12 +98,20 @@ public class ActionLatch implements Serializable {
         return (Collection<T>) actions;
     }
 
-    public PlayerAwareEvent fetchAction(String player) {
+    public void append(PlayerAwareEvent event) {
+        this.actions.add(event);
+    }
+
+    public PlayerAwareEvent filterAction(String player) {
         return PlayerAwareUtils.filter(player, actions);
     }
 
+    public Collection<PlayerAwareEvent> filterAllActions(String player) {
+        return PlayerAwareUtils.filterAll(player, actions);
+    }
+
     public <T extends PlayerAwareEvent> PlayerAwareEvent put(T action) {
-        PlayerAwareEvent event = fetchAction(action.getPlayer());
+        PlayerAwareEvent event = filterAction(action.getPlayer());
         if (event instanceof ExpectedEvent) {
             if (expectedClass != null && action.getClass() != expectedClass)
                 throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType);

@@ -24,6 +24,7 @@ public class ObjectMapperUtils {
             mapper.registerModule(jsonModule.construct());
         } catch (Throwable throwable) {
             // Ignore
+            throwable.printStackTrace();
         }
     }
 

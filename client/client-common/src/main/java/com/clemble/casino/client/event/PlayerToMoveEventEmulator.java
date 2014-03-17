@@ -28,7 +28,7 @@ public class PlayerToMoveEventEmulator implements EventListener<RoundEvent>, Eve
             ActionLatch actionLatch = smEvent.getState().getContext().getActionLatch();
             for (String participant : actionLatch.fetchParticipants())
                 if (!actionLatch.acted(participant)) {
-                    ExpectedEvent expectedEvent = (ExpectedEvent) actionLatch.fetchAction(participant);
+                    ExpectedEvent expectedEvent = (ExpectedEvent) actionLatch.filterAction(participant);
                     listenerOperations.update(new PlayerToMoveEvent(sessionKey, participant, expectedEvent.getAction(), player.equals(participant)));
                 }
         }
