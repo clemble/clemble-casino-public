@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import java.util.Collection;
+
 @JsonTypeName("expected")
 public class ExpectedEvent implements PlayerAwareEvent {
 
@@ -19,14 +21,17 @@ public class ExpectedEvent implements PlayerAwareEvent {
     final private String action;
     final private Class<? extends PlayerAwareEvent> event;
 
-    public ExpectedEvent(String player, Class<? extends PlayerAwareEvent> action) {
+    public ExpectedEvent(String player,
+        Class<? extends PlayerAwareEvent> action) {
         this.event = action;
         this.player = player;
         this.action = ExpectedEventUtils.toActionName(action);
     }
 
     @JsonCreator
-    public ExpectedEvent(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("action") String action) {
+    public ExpectedEvent(
+        @JsonProperty(PlayerAware.JSON_ID) String player,
+        @JsonProperty("action") String action) {
         this.player = player;
         this.action = action;
         this.event = ExpectedEventUtils.fromActionName(action);

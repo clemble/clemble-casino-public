@@ -5,25 +5,23 @@ import com.clemble.test.reflection.AnnotationReflectionUtils;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-
 /**
- * Created by mavarazy on 22/12/13.
+ * Created by mavarazy on 18/03/14.
  */
-public class ObjectMapperTest {
+abstract public class AbstractObjectMapperTest {
 
     private ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
 
     @Before
     public void initialize() {
-        ObjectTest.init();
+        TestObjectGeneratorInitializer.init();
     }
 
     @Test
@@ -44,7 +42,7 @@ public class ObjectMapperTest {
                 System.out.println("Problem " + problem.getKey().getSimpleName() + " > " + problem.getValue().getClass().getSimpleName());
             }
         }
-        Assert.assertTrue(errors.toString(), errors.isEmpty());
+        assertTrue(errors.toString(), errors.isEmpty());
 
     }
 
@@ -59,10 +57,10 @@ public class ObjectMapperTest {
 
             if (!candidate.isInterface()) {
                 Class<?> originalClass = getOriginal(candidate);
-                Assert.assertNotNull(originalClass);
+                assertNotNull(originalClass);
                 actual = objectMapper.readValue(stringPresentation, originalClass);
 
-                Assert.assertEquals(expected, actual);
+                assertEquals(expected, actual);
             }
         } catch (Throwable throwable) {
             throwable.printStackTrace();

@@ -46,7 +46,7 @@ public class JsonCreationTest {
 
     @Before
     public void initialize() {
-        ObjectTest.init();
+        TestObjectGeneratorInitializer.init();
     }
 
     // final private String ERROR_FORMAT_JSON = "{\"problems\":["
