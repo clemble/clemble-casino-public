@@ -9,7 +9,10 @@ import java.util.Map;
 
 import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.game.MatchGameContext;
+import com.clemble.casino.game.RoundGameContext;
+import com.clemble.casino.game.RoundGameState;
 import com.clemble.casino.game.specification.RoundGameConfiguration;
+import com.clemble.test.random.AbstractValueGenerator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +50,12 @@ public class JsonCreationTest {
     @Before
     public void initialize() {
         TestObjectGeneratorInitializer.init();
+        ObjectGenerator.register(RoundGameState.class, new AbstractValueGenerator<RoundGameState>() {
+            @Override
+            public RoundGameState generate() {
+                return new FakeState(ObjectGenerator.generate(RoundGameContext.class), null, 0);
+            }
+        });
     }
 
     // final private String ERROR_FORMAT_JSON = "{\"problems\":["
