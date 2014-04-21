@@ -29,7 +29,7 @@ public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations
     @Override
     public PlayerProfile getPlayerProfile(String player) {
         // Step 1. Generating player Uri
-        URI playerUri = buildUriWith(PLAYER_PROFILE, player);
+        URI playerUri = buildUriWith(PROFILES_PLAYER, player);
         // Step 2. Sending PlayerProfile request 
         return restTemplate.getForObject(playerUri, PlayerProfile.class);
     }
@@ -37,7 +37,7 @@ public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations
     @Override
     public PlayerProfile updatePlayerProfile(String player, PlayerProfile playerProfile) {
         // Step 1. Generating player URI
-        URI playerUri = buildUriWith(PLAYER_PROFILE, player);
+        URI playerUri = buildUriWith(PROFILES_PLAYER, player);
         // Step 2. Post to Player URI
         return restTemplate.postForObject(playerUri, playerProfile, PlayerProfile.class);
     }
@@ -51,7 +51,7 @@ public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations
         for(String player: players)
             profiles.add("player", player);
         // Step 1. Generating PlayersURI
-        URI playerUri = buildUri(PLAYER_PROFILES, profiles);
+        URI playerUri = buildUri(PROFILES, profiles);
         return CollectionUtils.immutableList(restTemplate.getForObject(playerUri, PlayerProfile[].class));
     }
 

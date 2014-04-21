@@ -7,6 +7,12 @@ import java.util.Set;
 
 import javax.persistence.Version;
 
+import com.clemble.casino.payment.PlayerAccount;
+import com.clemble.casino.player.event.PlayerConnection;
+import com.clemble.casino.web.payment.PaymentWebMapping;
+import com.clemble.casino.web.player.PlayerWebMapping;
+import com.fasterxml.jackson.module.jsonSchema.annotation.JsonHyperSchema;
+import com.fasterxml.jackson.module.jsonSchema.annotation.Link;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
@@ -25,6 +31,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author mavarazy
  * 
  */
+@JsonHyperSchema(
+    links = {
+        @Link(rel = "self", href= PlayerWebMapping.PROFILES_PLAYER),
+        @Link(rel = "connections", href = PlayerWebMapping.CONNECTIONS_PLAYER, targetSchema = PlayerConnection.class),
+        @Link(rel = "account", href = PaymentWebMapping.ACCOUNTS_PLAYER, targetSchema = PlayerAccount.class),
+        @Link(rel = "presence", href = PlayerWebMapping.PRESENCES_PLAYER, targetSchema = PlayerPresence.class)
+    }
+)
 public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
 
     /**

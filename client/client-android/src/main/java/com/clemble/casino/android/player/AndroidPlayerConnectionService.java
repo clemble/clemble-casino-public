@@ -1,7 +1,7 @@
 package com.clemble.casino.android.player;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
-import static com.clemble.casino.web.player.PlayerWebMapping.PLAYER_CONNECTIONS;
+import static com.clemble.casino.web.player.PlayerWebMapping.CONNECTIONS_PLAYER;
 
 import java.net.URI;
 import java.util.List;
@@ -25,7 +25,7 @@ public class AndroidPlayerConnectionService extends AbstractClembleCasinoOperati
     @Override
     public List<String> getConnections(String player) {
         // Step 1. Fetching player connections
-        URI playerUri = buildUriWith(PLAYER_CONNECTIONS, player);
+        URI playerUri = buildUriWith(CONNECTIONS_PLAYER, player);
        // Step 3. Requesting through RestTemplate
        return CollectionUtils.immutableList(restTemplate.getForObject(playerUri, String[].class));
     }
