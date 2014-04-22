@@ -22,20 +22,12 @@ import com.clemble.casino.web.mapping.WebMapping;
 
 public interface PlayerRegistrationService extends ClembleService {
 
-    @RequestMapping(method = RequestMethod.POST, value = MANAGEMENT_PLAYER_LOGIN, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody PlayerToken login(@RequestBody PlayerLoginRequest loginRequest);
+    public PlayerToken login(PlayerLoginRequest loginRequest);
 
-    @RequestMapping(method = RequestMethod.POST, value = MANAGEMENT_PLAYER_REGISTRATION, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public @ResponseBody PlayerToken createPlayer(@RequestBody final PlayerRegistrationRequest registrationRequest);
+    public PlayerToken createPlayer(final PlayerRegistrationRequest registrationRequest);
 
-    @RequestMapping(method = RequestMethod.POST, value = MANAGEMENT_PLAYER_REGISTRATION_SOCIAL, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public @ResponseBody PlayerToken createSocialPlayer(@RequestBody PlayerSocialRegistrationRequest socialRegistrationRequest);
+    public PlayerToken createSocialPlayer(PlayerSocialRegistrationRequest socialRegistrationRequest);
 
-    @RequestMapping(method = RequestMethod.POST, value = MANAGEMENT_PLAYER_REGISTRATION_SOCIAL_GRANT, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public @ResponseBody PlayerToken createSocialGrantPlayer(@RequestBody PlayerSocialGrantRegistrationRequest grantRegistrationRequest);
+    public PlayerToken createSocialGrantPlayer(PlayerSocialGrantRegistrationRequest grantRegistrationRequest);
 
 }

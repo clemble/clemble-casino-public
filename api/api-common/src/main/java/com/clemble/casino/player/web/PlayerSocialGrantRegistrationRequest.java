@@ -15,8 +15,10 @@ public class PlayerSocialGrantRegistrationRequest extends PlayerLoginRequest {
     final private SocialAccessGrant accessGrant;
 
     @JsonCreator
-    public PlayerSocialGrantRegistrationRequest(@JsonProperty("consumerDetails") final ClembleConsumerDetails consumerDetails,
-            @JsonProperty("playerCredential") final PlayerCredential playerCredential, @JsonProperty("accessGrant") SocialAccessGrant accessGrant) {
+    public PlayerSocialGrantRegistrationRequest(
+            @JsonProperty("consumerDetails") final ClembleConsumerDetails consumerDetails,
+            @JsonProperty("playerCredential") final PlayerCredential playerCredential,
+            @JsonProperty("accessGrant") final SocialAccessGrant accessGrant) {
         super(consumerDetails, playerCredential);
         this.accessGrant = checkNotNull(accessGrant);
     }

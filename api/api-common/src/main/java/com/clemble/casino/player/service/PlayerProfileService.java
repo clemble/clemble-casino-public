@@ -17,13 +17,10 @@ import com.clemble.casino.web.player.PlayerWebMapping;
 
 public interface PlayerProfileService extends ClembleService {
 
-    @RequestMapping(method = RequestMethod.GET, value = PlayerWebMapping.PROFILES_PLAYER, produces = WebMapping.PRODUCES)
-    public @ResponseBody PlayerProfile getPlayerProfile(@PathVariable("playerId") String playerId);
+    public PlayerProfile getPlayerProfile(String playerId);
 
-    @RequestMapping(method = RequestMethod.POST, value = PlayerWebMapping.PROFILES_PLAYER, produces = WebMapping.PRODUCES)
-    public @ResponseBody PlayerProfile updatePlayerProfile(@PathVariable("playerId") String player, @RequestBody PlayerProfile playerProfile);
+    public PlayerProfile updatePlayerProfile(String player, PlayerProfile playerProfile);
 
-    @RequestMapping(method = RequestMethod.GET, value = PlayerWebMapping.PROFILES, produces = WebMapping.PRODUCES)
-    public @ResponseBody List<PlayerProfile> getPlayerProfile(@RequestParam("player") Collection<String> players);
+    public List<PlayerProfile> getPlayerProfile(Collection<String> players);
 
 }

@@ -13,8 +13,10 @@ public class PlayerSocialRegistrationRequest extends PlayerLoginRequest {
     final private SocialConnectionData socialConnectionData;
 
     @JsonCreator
-    public PlayerSocialRegistrationRequest(@JsonProperty("consumerDetails") ClembleConsumerDetails consumerDetails,
-            @JsonProperty("playerCredential") PlayerCredential playerCredential, @JsonProperty("socialConnectionData") SocialConnectionData socialConnectionData) {
+    public PlayerSocialRegistrationRequest(
+            @JsonProperty("consumerDetails") ClembleConsumerDetails consumerDetails,
+            @JsonProperty("playerCredential") PlayerCredential playerCredential,
+            @JsonProperty("socialConnectionData") SocialConnectionData socialConnectionData) {
         super(consumerDetails, playerCredential);
         this.socialConnectionData = socialConnectionData;
     }
