@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
-import org.springframework.social.oauth1.RSARequestSigner;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.ServerRegistry;
@@ -89,7 +88,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         String accessTokenSecret,
         String player,
         String managementUrl) throws IOException {
-        super(consumerKey, consumerSecret, accessToken, accessTokenSecret, new RSARequestSigner());
+        super(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 
         this.player = player;
         this.playerSessionOperations = new PlayerSessionTemplate(player, new AndroidPlayerSessionService(getRestTemplate(), new SingletonRegistry(managementUrl)));
