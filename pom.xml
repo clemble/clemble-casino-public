@@ -23,20 +23,20 @@
         <!-- Dependencies for ORM -->
         <hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
         <hibernate.version>4.2.4.Final</hibernate.version>
-        <hibernate.validator.version>5.1.0.Alpha1</hibernate.validator.version>
+        <hibernate.validator.version>5.1.1.Final</hibernate.validator.version>
         <!-- Spring dependencies -->
         <spring.version>3.2.4.RELEASE</spring.version>
         <spring.crypto.version>3.2.4.RELEASE</spring.crypto.version>
-        <spring.security.oauth2.version>1.0.5.RELEASE</spring.security.oauth2.version>
+        <spring.security.oauth2.version>2.0.1.RELEASE</spring.security.oauth2.version>
         <spring.security.version>3.2.4.RELEASE</spring.security.version>
         <!-- Dependencies for Spring Social -->
         <spring.social.core.version>1.1.0.RELEASE</spring.social.core.version>
         <spring.social.version>1.0.3.RELEASE</spring.social.version>
         <spring.social.linkedin.version>1.0.1.RELEASE</spring.social.linkedin.version>
         <spring.social.facebook.version>1.1.1.RELEASE</spring.social.facebook.version>
-        <spring.social.twitter.version>1.0.5.RELEASE</spring.social.twitter.version>
+        <spring.social.twitter.version>1.1.0.RELEASE</spring.social.twitter.version>
         <spring.social.vkontakte.version>1.0.4</spring.social.vkontakte.version>
-        <spring.social.google.version>1.0.0-RELEASE</spring.social.google.version>
+        <spring.social.google.version>1.0.0.RELEASE</spring.social.google.version>
         <!-- Generic dependencies -->
         <jackson.version>2.4.0</jackson.version>
         <jackson.jsonSchema.version>2.4.0</jackson.jsonSchema.version>
@@ -56,7 +56,7 @@
         <java.version>1.6</java.version>
         <!-- Android dependency versions -->
         <validation-api.version>1.1.0.Final</validation-api.version>
-        <robolectric.version>2.2</robolectric.version>
+        <robolectric.version>2.3</robolectric.version>
         <spring.android.version>1.0.1.RELEASE</spring.android.version>
         <roboguice.version>2.0</roboguice.version>
         <jsr305.version>2.0.3</jsr305.version>
@@ -65,7 +65,7 @@
         <android-maven-plugin-version>3.8.0</android-maven-plugin-version>
         <facebook.test.version>1.1.5</facebook.test.version>
         <logback-android-classic.version>1.1.1-2</logback-android-classic.version>
-        <slf4j-api.version>1.7.5</slf4j-api.version>
+        <slf4j-api.version>1.7.7</slf4j-api.version>
     </properties>
     <repositories>
         <repository>
