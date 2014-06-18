@@ -56,7 +56,8 @@
         <java.version>1.6</java.version>
         <!-- Android dependency versions -->
         <validation-api.version>1.1.0.Final</validation-api.version>
-        <javax.el.version>2.2.4</javax.el.version>
+        <javax.el-api.version>3.0.0</javax.el-api.version>
+        <javax.el.version>2.2.6</javax.el.version>
         <robolectric.version>2.3</robolectric.version>
         <spring.android.version>1.0.1.RELEASE</spring.android.version>
         <roboguice.version>2.0</roboguice.version>
@@ -134,7 +135,7 @@
             <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>javax.el-api</artifactId>
-                <version>${javax.el.version}</version>
+                <version>${javax.el-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.web</groupId>
@@ -410,12 +411,6 @@
         <dependency>
             <groupId>com.clemble.test</groupId>
             <artifactId>spring-stress</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.clemble.test</groupId>
-            <artifactId>jbehave-stress</artifactId>
-            <version>${com.clemble.test.version}</version>
             <scope>test</scope>
         </dependency>
 
