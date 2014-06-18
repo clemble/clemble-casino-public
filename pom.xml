@@ -21,7 +21,7 @@
         <spring.amqp.version>1.3.4.RELEASE</spring.amqp.version>
         <rabbitmq.driver.version>3.3.1</rabbitmq.driver.version>
         <!-- Dependencies for ORM -->
-        <hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
+        <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
         <hibernate.version>4.2.4.Final</hibernate.version>
         <hibernate.validator.version>5.1.1.Final</hibernate.validator.version>
         <!-- Spring dependencies -->
@@ -265,8 +265,8 @@
             </dependency>
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
-                <artifactId>hibernate-jpa-2.0-api</artifactId>
-                <version>${hibernate-jpa-2.0-api.version}</version>
+                <artifactId>hibernate-jpa-2.1-api</artifactId>
+                <version>${hibernate-jpa-2.1-api.version}</version>
             </dependency>
 
             <!-- Jackson dependencies -->
