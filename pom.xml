@@ -56,6 +56,7 @@
         <java.version>1.6</java.version>
         <!-- Android dependency versions -->
         <validation-api.version>1.1.0.Final</validation-api.version>
+        <javax.el.version>2.2.4</javax.el.version>
         <robolectric.version>2.3</robolectric.version>
         <spring.android.version>1.0.1.RELEASE</spring.android.version>
         <roboguice.version>2.0</roboguice.version>
@@ -128,6 +129,17 @@
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${validation-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>${javax.el.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.web</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>${javax.el.version}</version>
             </dependency>
 
             <!-- Api dependencies -->
