@@ -51,8 +51,9 @@ public class ObjectMapperUtils {
             mapper.registerModule(jsonModule.construct());
         } catch (Throwable throwable) {
             // Ignore
-            if (module.startsWith("com.clemble"))
-                throwable.printStackTrace();
+            if (module.startsWith("com.clemble")) {
+                System.err.println("Failed to process " + module);
+            }
         }
     }
 

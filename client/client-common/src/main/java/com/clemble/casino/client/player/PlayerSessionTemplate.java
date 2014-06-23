@@ -21,17 +21,17 @@ public class PlayerSessionTemplate implements PlayerSessionOperations {
     }
 
     @Override
-    public PlayerSession refreshPlayerSession(long sessionId) {
+    public PlayerSession refreshPlayerSession(String sessionId) {
         return playerSessionService.refreshPlayerSession(player, sessionId);
     }
 
     @Override
-    public void endPlayerSession(long sessionId) {
+    public void endPlayerSession(String sessionId) {
         playerSessionService.endPlayerSession(player, sessionId);
     }
 
     @Override
-    public PlayerSession getPlayerSession(long sessionId) {
+    public PlayerSession getPlayerSession(String sessionId) {
         return playerSessionService.getPlayerSession(player, sessionId);
     }
 

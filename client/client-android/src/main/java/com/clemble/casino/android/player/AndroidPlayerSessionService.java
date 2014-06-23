@@ -28,13 +28,13 @@ public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations
     }
 
     @Override
-    public PlayerSession refreshPlayerSession(String player, long sessionId) {
+    public PlayerSession refreshPlayerSession(String player, String sessionId) {
         URI uri = buildUriWith(MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
         return restClientService.postForObject(uri, null, PlayerSession.class);
     }
 
     @Override
-    public void endPlayerSession(String player, long sessionId) {
+    public void endPlayerSession(String player, String sessionId) {
         // Step 1. Building session URI
         URI sessionUri = buildUriWith(MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
         // Step 2. Calling post for the generated URI
@@ -42,7 +42,7 @@ public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations
     }
 
     @Override
-    public PlayerSession getPlayerSession(String player, long sessionId) {
+    public PlayerSession getPlayerSession(String player, String sessionId) {
         // Step 1. Building session URI
         URI sessionUri = buildUriWith(MANAGEMENT_PLAYER_SESSIONS_SESSION, player, sessionId);
         // Step 2. Calling rest service

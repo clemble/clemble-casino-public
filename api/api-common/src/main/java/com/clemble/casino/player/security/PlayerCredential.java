@@ -1,12 +1,8 @@
 package com.clemble.casino.player.security;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Email;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import com.clemble.casino.error.ClembleCasinoError.Code;
 import com.clemble.casino.error.validation.MaxSize;
@@ -14,9 +10,8 @@ import com.clemble.casino.error.validation.MinSize;
 import com.clemble.casino.error.validation.PasswordConstraint;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
-@Entity
-@Table(name = "PLAYER_CREDENTIALS")
 public class PlayerCredential implements PlayerAware {
 
     /**
@@ -25,17 +20,10 @@ public class PlayerCredential implements PlayerAware {
     private static final long serialVersionUID = 6796999437224779009L;
 
     @Id
-    @Column(name = "PLAYER_ID")
-    @JsonProperty(PlayerAware.JSON_ID)
     private String player;
 
-    @Column(name = "EMAIL", unique = true, length = 128)
-    @JsonProperty("email")
-    @Email(message = Code.EMAIL_INVALID_CODE)
     private String email;
 
-    @Column(name = "PASSWORD")
-    @JsonProperty("password")
     @PasswordConstraint
     @MinSize(min = 6, message = Code.PASSWORD_TOO_SHORT_CODE)
     @MaxSize(max = 64, message = Code.PASSWORD_TOO_LONG_CODE)
@@ -45,7 +33,8 @@ public class PlayerCredential implements PlayerAware {
     public PlayerCredential() {
     }
 
-    public PlayerCredential(String email, String password) {
+    @JsonCreator
+    public PlayerCredential(@JsonProperty("email") String email, @JsonProperty("password") String password) {
         this.email = email;
         this.password = password;
     }

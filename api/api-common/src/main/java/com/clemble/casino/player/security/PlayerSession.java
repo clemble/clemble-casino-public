@@ -2,19 +2,10 @@ package com.clemble.casino.player.security;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import com.clemble.casino.configuration.ResourceLocations;
 import com.clemble.casino.player.PlayerAware;
+import org.springframework.data.annotation.Id;
 
-@Entity
-@Table(name = "PLAYER_SESSION")
 public class PlayerSession implements PlayerAware {
 
     /**
@@ -23,27 +14,22 @@ public class PlayerSession implements PlayerAware {
     private static final long serialVersionUID = 5003851677194227089L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SESSION_ID")
-    private long sessionId;
+    // TODO consider having unique PLAYER:SESSION identifier
+    private String sessionId;
 
-    @Column(name = "PLAYER_ID")
     private String player;
 
-    @Column(name = "START_TIME")
     private Date startTime = new Date();
 
-    @Column(name = "EXPIRATION_TIME")
     private Date expirationTime = new Date();
 
-    @Transient
     private ResourceLocations resourceLocations;
 
-    public long getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
-    public PlayerSession setSessionId(long sessionId) {
+    public PlayerSession setSessionId(String sessionId) {
         this.sessionId = sessionId;
         return this;
     }
@@ -95,7 +81,7 @@ public class PlayerSession implements PlayerAware {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (player == null ? 0 : player.hashCode());
-        result = prime * result + (int) (sessionId ^ (sessionId >>> 32));
+        result = prime * result + (int) (sessionId == null ? 0 : sessionId.hashCode());
         return result;
     }
 
@@ -108,7 +94,7 @@ public class PlayerSession implements PlayerAware {
         if (getClass() != obj.getClass())
             return false;
         PlayerSession other = (PlayerSession) obj;
-        if (sessionId != other.sessionId)
+        if (!sessionId.equals(other.sessionId))
             return false;
         return player.equals(other.player);
     }

@@ -6,10 +6,10 @@ public interface PlayerSessionOperations {
 
     public PlayerSession create();
 
-    public PlayerSession refreshPlayerSession(long sessionId);
+    public PlayerSession refreshPlayerSession(String sessionId);
 
-    public void endPlayerSession(long sessionId);
+    public void endPlayerSession(String sessionId);
 
-    public PlayerSession getPlayerSession(long sessionId);
+    public PlayerSession getPlayerSession(String sessionId);
 
 }
