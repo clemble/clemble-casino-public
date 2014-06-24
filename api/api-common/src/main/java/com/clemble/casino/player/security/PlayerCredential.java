@@ -10,6 +10,7 @@ import com.clemble.casino.error.validation.MinSize;
 import com.clemble.casino.error.validation.PasswordConstraint;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
 
 public class PlayerCredential implements PlayerAware {
@@ -22,6 +23,7 @@ public class PlayerCredential implements PlayerAware {
     @Id
     private String player;
 
+    @Email(message = Code.EMAIL_INVALID_CODE)
     private String email;
 
     @PasswordConstraint
