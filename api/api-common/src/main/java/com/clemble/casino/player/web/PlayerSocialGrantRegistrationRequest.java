@@ -3,12 +3,15 @@ package com.clemble.casino.player.web;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import com.clemble.casino.player.SocialAccessGrant;
+import com.clemble.casino.player.SocialAccessGrantAware;
 import com.clemble.casino.player.client.ClembleConsumerDetails;
 import com.clemble.casino.player.security.PlayerCredential;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayerSocialGrantRegistrationRequest extends PlayerLoginRequest {
+public class PlayerSocialGrantRegistrationRequest
+    extends PlayerLoginRequest
+    implements SocialAccessGrantAware {
 
     private static final long serialVersionUID = -8802470944397014969L;
 
@@ -23,6 +26,7 @@ public class PlayerSocialGrantRegistrationRequest extends PlayerLoginRequest {
         this.accessGrant = checkNotNull(accessGrant);
     }
 
+    @Override
     public SocialAccessGrant getAccessGrant() {
         return accessGrant;
     }

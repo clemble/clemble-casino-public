@@ -1,12 +1,15 @@
 package com.clemble.casino.player.web;
 
 import com.clemble.casino.player.SocialConnectionData;
+import com.clemble.casino.player.SocialConnectionDataAware;
 import com.clemble.casino.player.client.ClembleConsumerDetails;
 import com.clemble.casino.player.security.PlayerCredential;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayerSocialRegistrationRequest extends PlayerLoginRequest {
+public class PlayerSocialRegistrationRequest
+    extends PlayerLoginRequest
+    implements SocialConnectionDataAware {
 
     private static final long serialVersionUID = 709897454794810031L;
 
@@ -21,6 +24,7 @@ public class PlayerSocialRegistrationRequest extends PlayerLoginRequest {
         this.socialConnectionData = socialConnectionData;
     }
 
+    @Override
     public SocialConnectionData getSocialConnectionData() {
         return socialConnectionData;
     }
