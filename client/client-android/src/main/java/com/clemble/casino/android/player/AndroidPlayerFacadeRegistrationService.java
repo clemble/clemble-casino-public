@@ -12,19 +12,19 @@ import org.springframework.web.client.RestTemplate;
 import com.clemble.casino.android.ClembleCasinoConstants;
 import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
 import com.clemble.casino.player.security.PlayerToken;
-import com.clemble.casino.player.service.PlayerRegistrationService;
+import com.clemble.casino.player.service.PlayerFacadeRegistrationService;
 import com.clemble.casino.player.web.PlayerLoginRequest;
 import com.clemble.casino.player.web.PlayerRegistrationRequest;
 import com.clemble.casino.player.web.PlayerSocialGrantRegistrationRequest;
 import com.clemble.casino.player.web.PlayerSocialRegistrationRequest;
 import static com.clemble.casino.web.management.ManagementWebMapping.*;
 
-public class AndroidPlayerRegistrationService implements PlayerRegistrationService {
+public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegistrationService {
 
     final private String managementUrl;
     final private RestTemplate restTemplate;
 
-    public AndroidPlayerRegistrationService(String managementUrl) {
+    public AndroidPlayerFacadeRegistrationService(String managementUrl) {
         this.managementUrl = checkNotNull(managementUrl);
         this.restTemplate = new RestTemplate();
 

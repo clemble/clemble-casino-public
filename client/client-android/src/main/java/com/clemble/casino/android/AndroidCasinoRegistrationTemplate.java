@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.clemble.casino.android.player.AndroidPlayerRegistrationService;
+import com.clemble.casino.android.player.AndroidPlayerFacadeRegistrationService;
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.ClembleCasinoRegistrationOperations;
 import com.clemble.casino.player.SocialAccessGrant;
@@ -14,7 +14,7 @@ import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.client.ClembleConsumerDetails;
 import com.clemble.casino.player.security.PlayerCredential;
 import com.clemble.casino.player.security.PlayerToken;
-import com.clemble.casino.player.service.PlayerRegistrationService;
+import com.clemble.casino.player.service.PlayerFacadeRegistrationService;
 import com.clemble.casino.player.web.PlayerLoginRequest;
 import com.clemble.casino.player.web.PlayerRegistrationRequest;
 import com.clemble.casino.player.web.PlayerSocialGrantRegistrationRequest;
@@ -24,11 +24,11 @@ import com.clemble.casino.utils.ClembleConsumerDetailUtils;
 public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrationOperations {
 
     final private String managementUrl;
-    final private PlayerRegistrationService playerRegistrationService;
+    final private PlayerFacadeRegistrationService playerFacadeRegistrationService;
 
     public AndroidCasinoRegistrationTemplate(String managementUrl) {
         this.managementUrl = managementUrl;
-        this.playerRegistrationService = new AndroidPlayerRegistrationService(managementUrl);
+        this.playerFacadeRegistrationService = new AndroidPlayerFacadeRegistrationService(managementUrl);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         PlayerLoginRequest loginRequest = new PlayerLoginRequest(consumerDetails, playerCredential);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerRegistrationService.login(loginRequest), consumerDetails);
+        return casinoTemplate(playerFacadeRegistrationService.login(loginRequest), consumerDetails);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         PlayerRegistrationRequest loginRequest = new PlayerRegistrationRequest(playerProfile, playerCredential, consumerDetails);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerRegistrationService.createPlayer(loginRequest), consumerDetails);
+        return casinoTemplate(playerFacadeRegistrationService.createPlayer(loginRequest), consumerDetails);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         PlayerSocialRegistrationRequest socialRegistrationRequest = new PlayerSocialRegistrationRequest(consumerDetails, playerCredential, socialConnectionData);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerRegistrationService.createSocialPlayer(socialRegistrationRequest), consumerDetails);
+        return casinoTemplate(playerFacadeRegistrationService.createSocialPlayer(socialRegistrationRequest), consumerDetails);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         PlayerSocialGrantRegistrationRequest socialRegistrationRequest = new PlayerSocialGrantRegistrationRequest(consumerDetails, playerCredential, accessGrant);
         // Step 3. Generating ClembleTemplate
-        return casinoTemplate(playerRegistrationService.createSocialGrantPlayer(socialRegistrationRequest), consumerDetails);
+        return casinoTemplate(playerFacadeRegistrationService.createSocialGrantPlayer(socialRegistrationRequest), consumerDetails);
     }
 
     private ClembleCasinoTemplate casinoTemplate(PlayerToken token, ClembleConsumerDetails consumerDetails) {
