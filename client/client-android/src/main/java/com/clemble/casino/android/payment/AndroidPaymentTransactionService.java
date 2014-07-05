@@ -2,8 +2,13 @@ package com.clemble.casino.android.payment;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.List;
 
+import com.clemble.casino.payment.money.Currency;
+import com.clemble.casino.web.payment.PaymentWebMapping;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.ServerRegistry;
@@ -36,6 +41,16 @@ public class AndroidPaymentTransactionService extends AbstractClembleCasinoOpera
     @Override
     public PlayerAccount get(String player) {
         return restTemplate.getForObject(buildUriWith(ACCOUNTS_PLAYER, player), PlayerAccount.class);
+    }
+
+    @Override
+    public List<String> canAfford(Collection<String> players, Currency currency, Long amount) {
+        // Step 1. Generating URL
+        String url = buildUriWith(PAYMENT_ACCOUNTS) + "?currency=" + currency + "&amount=" + amount;
+        for(String player: players)
+            url += "&player=" + player;
+        // Step 2. Sending and receiving response
+        return CollectionUtils.immutableList(restTemplate.getForObject(url, String[].class));
     }
 
     @Override
