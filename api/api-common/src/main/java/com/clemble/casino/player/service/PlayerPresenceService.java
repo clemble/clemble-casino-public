@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.clemble.casino.ClembleService;
 import com.clemble.casino.player.PlayerPresence;
 import com.clemble.casino.web.mapping.WebMapping;
-import com.clemble.casino.web.player.PlayerWebMapping;
+import static com.clemble.casino.web.player.PlayerWebMapping.*;
 
 public interface PlayerPresenceService extends ClembleService {
 
-    @RequestMapping(value = PlayerWebMapping.PRESENCES_PLAYER, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
+    @RequestMapping(value = PRESENCE_PLAYER, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody PlayerPresence getPresence(@PathVariable("playerId") String player);
 
-    @RequestMapping(value = PlayerWebMapping.PRESENCES, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
+    @RequestMapping(value = PRESENCE, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
     @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody List<PlayerPresence> getPresences(@RequestParam(required = true, value = PlayerWebMapping.PLAYER_PRESENCES_PARAM) List<String> players);
+    public @ResponseBody List<PlayerPresence> getPresences(@RequestParam(required = true, value = PLAYER_PRESENCES_PARAM) List<String> players);
 
 }

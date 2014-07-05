@@ -33,10 +33,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 // */
 //@JsonHyperSchema(
 //    links = {
-//        @Link(rel = "self", href= PlayerWebMapping.PROFILES_PLAYER),
-//        @Link(rel = "connections", href = PlayerWebMapping.CONNECTIONS_PLAYER, targetSchema = PlayerConnection.class),
+//        @Link(rel = "self", href= PlayerWebMapping.PROFILE_PLAYER),
+//        @Link(rel = "connections", href = PlayerWebMapping.CONNECTION_PLAYER, targetSchema = PlayerConnection.class),
 //        @Link(rel = "account", href = PaymentWebMapping.ACCOUNTS_PLAYER, targetSchema = PlayerAccount.class),
-//        @Link(rel = "presence", href = PlayerWebMapping.PRESENCES_PLAYER, targetSchema = PlayerPresence.class)
+//        @Link(rel = "presence", href = PlayerWebMapping.PRESENCE_PLAYER, targetSchema = PlayerPresence.class)
 //    }
 //)
 public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {

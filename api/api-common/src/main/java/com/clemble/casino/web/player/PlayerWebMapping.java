@@ -4,21 +4,29 @@ import com.clemble.casino.web.mapping.WebMapping;
 
 public interface PlayerWebMapping extends WebMapping {
 
-    final public static String REGISTRATION = "/player/";
-    final public static String REGISTRATION_SOCIAL = "/social/";
-    final public static String REGISTRATION_GRANT = "/grant/";
+    String PROFILE_PREFIX = "/player/profile";
+    String PROFILE = "/";
+    String PROFILE_PLAYER = "/{player}";
 
-    final public static String PROFILES = "/player";
-    final public static String PROFILES_PLAYER = "/player/{player}";
+    String CONNECTION_PREFIX = "/player/connections";
+    String CONNECTION_PLAYER = "/{player}";
 
-    final public static String CONNECTIONS_PLAYER = "/player/{player}/connections";
+    String SOCIAL_PREFIX = "/player/social";
+    String SOCIAL_PLAYER = "/{player}";
+    String SOCIAL_REGISTRATION_DESCRIPTION = "/registration/social";
+    String SOCIAL_REGISTRATION_GRANT = "/registration/grant";
 
-    final public static String SOCIAL_PLAYER = "/player/{player}/social";
-    final public static String SOCIAL_PLAYER_CONNECTION = "/player/{player}/social/{connection}/{key}";
+    String PRESENCE_PREFIX = "/player/presence";
+    String PRESENCE = "/";
+    String PRESENCE_PLAYER = "/{player}";
+    String PRESENCE_SESSIONS_PLAYER = "/player/{playerId}/session";
+    String PRESENCE_SESSIONS_PLAYER_SESSION = "/player/{playerId}/session/{sessionId}";
 
-    final public static String PRESENCES = "/presence";
-    final public static String PRESENCES_PLAYER = "/presence/{player}";
+    String PLAYER_PRESENCES_PARAM = "players";
+    String PLAYER_NOTIFICATION_DOMAIN_PATTERN = "%s_notif.%s.%s";
 
-    final public static String PLAYER_PRESENCES_PARAM = "players";
-    final public static String PLAYER_NOTIFICATION_DOMAIN_PATTERN = "%s_notif.%s.%s";
+    String REGISTRATION_PREFIX = "/player/registration/";
+    String REGISTRATION_LOGIN = "/login";
+    String REGISTRATION_PROFILE = "/signin";
+
 }
