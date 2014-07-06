@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import com.clemble.casino.error.ClembleCasinoError.Code;
 import com.clemble.casino.error.validation.DebitMatchCreditConstraint;
+import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name = "PAYMENT_TRANSACTION")
@@ -28,6 +29,7 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
     private static final long serialVersionUID = 2610517770966910840L;
 
     @EmbeddedId
+    @Id
     private PaymentTransactionKey transactionKey;
 
     @DebitMatchCreditConstraint
