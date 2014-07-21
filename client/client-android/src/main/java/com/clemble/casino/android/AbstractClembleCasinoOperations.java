@@ -6,32 +6,26 @@ import org.springframework.social.support.URIBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.clemble.casino.ServerRegistry;
-
 abstract public class AbstractClembleCasinoOperations {
 
-    private final ServerRegistry apiBase;
+    private final String apiBase;
 
-    public AbstractClembleCasinoOperations(ServerRegistry apiBase) {
+    public AbstractClembleCasinoOperations(String apiBase) {
         this.apiBase = apiBase;
     }
 
     protected URI buildUri(String path) {
-        return URIBuilder.fromUri(apiBase.findBase() + path).build();
+        return URIBuilder.fromUri(path.replace("{host}", apiBase)).build();
     }
 
     protected URI buildUri(String path, MultiValueMap<String, String> parameters) {
-        return URIBuilder.fromUri(apiBase.findBase() + path).queryParams(parameters).build();
+        return URIBuilder.fromUri(path.replace("{host}", apiBase)).queryParams(parameters).build();
     }
 
-    protected URI buildUriWith(String path, Object ... params) {
-        return buildUriWith(path, EMPTY_PARAMETERS, toStringArray(params));
-    }
-
-    protected URI buildUriWith(String path, MultiValueMap<String, String> queryParams, String ... parameters) {
-        String apiUrl = (parameters != null && parameters.length > 0 ? apiBase.findById(parameters[0]) : apiBase.findBase()) + path;
-        String url = toUrl(apiUrl, parameters);
-        return URIBuilder.fromUri(url).queryParams(queryParams).build();
+    protected URI buildUriWith(String path, Object ... parameters) {
+        String normalizedPath = path.replace("{host}", apiBase);
+        String url = toUrl(normalizedPath, toStringArray(parameters));
+        return URIBuilder.fromUri(url).build();
     }
 
     private static final LinkedMultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<String, String>();
@@ -48,7 +42,7 @@ abstract public class AbstractClembleCasinoOperations {
         }
         return pathVariables;
     }
-    
+
     private String toUrl(String url, String ... parameters) {
         char[] originalUrl = url.toCharArray();
         int paramPointer = 0;

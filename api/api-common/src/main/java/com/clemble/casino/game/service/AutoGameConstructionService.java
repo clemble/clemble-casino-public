@@ -9,14 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
-import com.clemble.casino.web.game.GameWebMapping;
-import com.clemble.casino.web.mapping.WebMapping;
+import static com.clemble.casino.web.game.GameWebMapping.*;
 
 public interface AutoGameConstructionService extends GameConstructionService<AutomaticGameRequest> {
 
-    @Override
-    @RequestMapping(method = RequestMethod.POST, value = GameWebMapping.GAME_CONSTRUCTION_AUTO, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public @ResponseBody GameConstruction construct(@RequestBody final AutomaticGameRequest request);
+    public GameConstruction construct(final AutomaticGameRequest request);
 
 }

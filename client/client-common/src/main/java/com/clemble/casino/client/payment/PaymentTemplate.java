@@ -2,6 +2,7 @@ package com.clemble.casino.client.payment;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.client.event.EventListener;
@@ -14,6 +15,7 @@ import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.payment.PlayerAccount;
 import com.clemble.casino.payment.bonus.PaymentBonusSource;
 import com.clemble.casino.payment.event.PaymentEvent;
+import com.clemble.casino.payment.money.Currency;
 import com.clemble.casino.payment.service.PaymentService;
 import com.clemble.casino.utils.CollectionUtils;
 
@@ -34,6 +36,11 @@ public class PaymentTemplate implements PaymentOperations {
     @Override
     public PlayerAccount getAccount() {
         return paymentTransactionService.get(player);
+    }
+
+    @Override
+    public List<String> canAfford(Collection<String> players, Currency currency, long amount) {
+        return paymentTransactionService.canAfford(players, currency, amount);
     }
 
     public PaymentTransaction getPaymentTransaction(GameSessionKey sessionKey) {

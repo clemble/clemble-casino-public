@@ -23,12 +23,12 @@ import com.clemble.casino.utils.ClembleConsumerDetailUtils;
 
 public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrationOperations {
 
-    final private String managementUrl;
+    final private String host;
     final private PlayerFacadeRegistrationService playerFacadeRegistrationService;
 
-    public AndroidCasinoRegistrationTemplate(String managementUrl) {
-        this.managementUrl = managementUrl;
-        this.playerFacadeRegistrationService = new AndroidPlayerFacadeRegistrationService(managementUrl);
+    public AndroidCasinoRegistrationTemplate(String host) {
+        this.host = host;
+        this.playerFacadeRegistrationService = new AndroidPlayerFacadeRegistrationService(host);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         String accessTokenSecret = String.valueOf(token.getSecretKey().getEncoded());
         String player = token.getPlayer();
         try {
-            return new ClembleCasinoTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret, player, managementUrl);
+            return new ClembleCasinoTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret, player, host);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -2,7 +2,6 @@ package com.clemble.casino.player.security;
 
 import java.util.Date;
 
-import com.clemble.casino.configuration.ResourceLocations;
 import com.clemble.casino.player.PlayerAware;
 import org.springframework.data.annotation.Id;
 
@@ -23,8 +22,6 @@ public class PlayerSession implements PlayerAware {
 
     private Date expirationTime = new Date();
 
-    private ResourceLocations resourceLocations;
-
     public String getSessionId() {
         return sessionId;
     }
@@ -41,14 +38,6 @@ public class PlayerSession implements PlayerAware {
     public PlayerSession setPlayer(String playerId) {
         this.player = playerId;
         return this;
-    }
-
-    public ResourceLocations getResourceLocations() {
-        return resourceLocations;
-    }
-
-    public void setResourceLocations(ResourceLocations resourceLocations) {
-        this.resourceLocations = resourceLocations;
     }
 
     public Date getStartTime() {

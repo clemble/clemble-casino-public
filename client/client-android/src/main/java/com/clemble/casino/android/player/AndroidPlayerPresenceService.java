@@ -9,7 +9,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.PlayerPresence;
 import com.clemble.casino.player.service.PlayerPresenceService;
@@ -20,14 +19,14 @@ public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperation
 
     final private RestTemplate restTemplate;
 
-    public AndroidPlayerPresenceService(RestTemplate restClientService, ServerRegistry serverRegistry) {
-        super(serverRegistry);
+    public AndroidPlayerPresenceService(RestTemplate restClientService, String host) {
+        super(host);
         this.restTemplate = checkNotNull(restClientService);
     }
 
     @Override
     public PlayerPresence getPresence(String player) {
-        URI presenceURI = buildUriWith(PRESENCE_PLAYER, player);
+        URI presenceURI = buildUriWith(toPresenceUrl(PRESENCE_PLAYER), player);
         // Step 1. Singleton GET request
         return restTemplate.getForObject(presenceURI, PlayerPresence.class);
     }
@@ -42,6 +41,6 @@ public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperation
         for (String player : players)
             query.set(PLAYER_PRESENCES_PARAM, player);
         // Step 3. Requesting through RestTemplate
-        return CollectionUtils.<PlayerPresence> immutableList(restTemplate.getForObject(buildUri(PRESENCE_PREFIX + PRESENCE, query), PlayerPresence[].class));
+        return CollectionUtils.<PlayerPresence> immutableList(restTemplate.getForObject(buildUri(toPresenceUrl(PRESENCE), query), PlayerPresence[].class));
     }
 }

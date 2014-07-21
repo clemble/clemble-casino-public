@@ -8,8 +8,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
 import org.springframework.web.client.RestTemplate;
 
-import com.clemble.casino.ServerRegistry;
-import com.clemble.casino.SingletonRegistry;
 import com.clemble.casino.android.game.service.AndroidAutoGameConstructionService;
 import com.clemble.casino.android.game.service.AndroidAvailabilityGameConstructionService;
 import com.clemble.casino.android.game.service.AndroidGameActionTemplate;
@@ -46,8 +44,6 @@ import com.clemble.casino.client.player.PlayerProfileOperations;
 import com.clemble.casino.client.player.PlayerProfileTemplate;
 import com.clemble.casino.client.player.PlayerSessionOperations;
 import com.clemble.casino.client.player.PlayerSessionTemplate;
-import com.clemble.casino.configuration.ResourceLocations;
-import com.clemble.casino.configuration.ServerRegistryConfiguration;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
@@ -69,6 +65,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
      */
     private static final long serialVersionUID = 103204849955372481L;
 
+    final private String host;
     final private String player;
     final private EventListenerOperations listenerOperations;
     final private PlayerSessionOperations playerSessionOperations;
@@ -87,42 +84,45 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         String accessToken,
         String accessTokenSecret,
         String player,
-        String managementUrl) throws IOException {
+        String host) throws IOException {
         super(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 
+        this.host = host;
         this.player = player;
-        this.playerSessionOperations = new PlayerSessionTemplate(player, new AndroidPlayerSessionService(getRestTemplate(), new SingletonRegistry(managementUrl)));
-        ResourceLocations resourceLocations = checkNotNull(playerSessionOperations.create().getResourceLocations());
-        ServerRegistryConfiguration registryConfiguration = resourceLocations.getServerRegistryConfiguration();
+        this.playerSessionOperations = new PlayerSessionTemplate(player, new AndroidPlayerSessionService(getRestTemplate(), host));
+        this.playerSessionOperations.create();
 
-        this.listenerOperations = new RabbitEventListenerTemplate(player, resourceLocations.getNotificationConfiguration(), ClembleCasinoConstants.OBJECT_MAPPER);
+        this.listenerOperations = new RabbitEventListenerTemplate(player, host, ClembleCasinoConstants.OBJECT_MAPPER);
         // TODO either make it part of server event or find a nicer way to deal with this
         this.listenerOperations.subscribe(new EventTypeSelector(RoundEvent.class), new PlayerToMoveEventEmulator(player, listenerOperations));
         // Step 1. Creating PlayerProfile service
-        PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
+        PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), host);
         this.profileOperations = new PlayerProfileTemplate(player, playerProfileService);
         // Step 1.1. Creating Player connections service
-        PlayerConnectionService playerConnectionService = new AndroidPlayerConnectionService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
+        PlayerConnectionService playerConnectionService = new AndroidPlayerConnectionService(getRestTemplate(), host);
         this.connectionOperations = new PlayerConnectionTemplate(player, playerConnectionService, profileOperations);
         // Step 2. Creating PlayerPresence service
-        PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), registryConfiguration.getPlayerRegistry());
+        PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), host);
         this.presenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
         // Step 3. Creating PaymentTransaction service
-        ServerRegistry paymentServerRegistry = registryConfiguration.getPaymentRegistry();
-        PaymentService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), paymentServerRegistry);
+        PaymentService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), host);
         this.transactionOperations = new PaymentTemplate(player, paymentTransactionService, listenerOperations);
         // Step 4. Creating GameConstruction services
-        ServerRegistry gameRegistry = registryConfiguration.getGameRegistry();
-        AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), gameRegistry);
-        AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), gameRegistry);
-        GameInitiationService initiationService = new AndroidGameInitiationService(getRestTemplate(), gameRegistry);
-        GameConfigurationService configurationService = new AndroidGameConfigurationService(getRestTemplate(), gameRegistry);
-        GameActionService actionService = new AndroidGameActionTemplate(gameRegistry, getRestTemplate());
+        AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), host);
+        AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), host);
+        GameInitiationService initiationService = new AndroidGameInitiationService(getRestTemplate(), host);
+        GameConfigurationService configurationService = new AndroidGameConfigurationService(getRestTemplate(), host);
+        GameActionService actionService = new AndroidGameActionTemplate(host, getRestTemplate());
         this.actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
         this.constructionOperations = new GameConstructionTemplate(player, constructionService, availabilityConstructionService, initiationService, configurationService, listenerOperations);
-        this.recordOperations = new GameRecordTemplate(new AndroidGameRecordService(getRestTemplate(), gameRegistry));
+        this.recordOperations = new GameRecordTemplate(new AndroidGameRecordService(getRestTemplate(), host));
         // Step 5. Registering listener operations
         this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(new GameInitiationTemplate(player, initiationService)));
+    }
+
+    @Override
+    public String getHost() {
+        return host;
     }
 
     @Override

@@ -17,12 +17,8 @@ import static com.clemble.casino.web.player.PlayerWebMapping.*;
 
 public interface PlayerPresenceService extends ClembleService {
 
-    @RequestMapping(value = PRESENCE_PLAYER, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody PlayerPresence getPresence(@PathVariable("playerId") String player);
+    public PlayerPresence getPresence(String player);
 
-    @RequestMapping(value = PRESENCE, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody List<PlayerPresence> getPresences(@RequestParam(required = true, value = PLAYER_PRESENCES_PARAM) List<String> players);
+    public List<PlayerPresence> getPresences(List<String> players);
 
 }

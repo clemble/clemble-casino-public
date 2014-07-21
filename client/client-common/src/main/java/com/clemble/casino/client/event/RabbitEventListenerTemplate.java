@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.clemble.casino.ImmutablePair;
-import com.clemble.casino.configuration.NotificationConfiguration;
 import com.clemble.casino.event.Event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.AMQP;
@@ -32,18 +31,18 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
 
     final private AtomicReference<Entry<Channel, Queue.DeclareOk>> rabbitQueue = new AtomicReference<Entry<Channel, Queue.DeclareOk>>();
 
-    public RabbitEventListenerTemplate(String player, NotificationConfiguration configurations, ObjectMapper objectMapper) {
+    public RabbitEventListenerTemplate(String player, String host, ObjectMapper objectMapper) {
         super(player);
-        this.executor.submit(new StartupTask(configurations, objectMapper));
+        this.executor.submit(new StartupTask(host.substring(0, host.indexOf(":") > 0 ? host.indexOf(":") : host.length()), objectMapper));
     }
 
     final public class StartupTask implements Runnable {
 
-        final public NotificationConfiguration configurations;
+        final public String host;
         final public ObjectMapper objectMapper;
 
-        public StartupTask(NotificationConfiguration configuration, ObjectMapper objectMapper) {
-            this.configurations = checkNotNull(configuration);
+        public StartupTask(String configuration, ObjectMapper objectMapper) {
+            this.host = checkNotNull(configuration);
             this.objectMapper = checkNotNull(objectMapper);
         }
 
@@ -53,10 +52,10 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
                 synchronized (rabbitQueue) {
                     // Step 1. Generalizing connection factory
                     ConnectionFactory factory = new ConnectionFactory();
-                    factory.setUsername(configurations.getUser());
-                    factory.setPassword(configurations.getPassword());
-                    factory.setHost(configurations.getRabbitHost().getHost());
-                    factory.setPort(configurations.getRabbitHost().getPort());
+                    factory.setUsername("guest");
+                    factory.setPassword("guest");
+                    factory.setHost(host);
+                    factory.setPort(5672);
                     // Step 2. Creating connection
                     final Connection rabbitConnection = factory.newConnection(executor);
                     final AtomicBoolean keepClosed = new AtomicBoolean(false);

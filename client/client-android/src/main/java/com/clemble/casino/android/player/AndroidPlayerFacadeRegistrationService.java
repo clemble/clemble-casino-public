@@ -21,11 +21,11 @@ import com.clemble.casino.player.web.PlayerSocialRegistrationRequest;
 
 public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegistrationService {
 
-    final private String managementUrl;
+    final private String host;
     final private RestTemplate restTemplate;
 
-    public AndroidPlayerFacadeRegistrationService(String managementUrl) {
-        this.managementUrl = checkNotNull(managementUrl);
+    public AndroidPlayerFacadeRegistrationService(String host) {
+        this.host = checkNotNull(host);
         this.restTemplate = new RestTemplate();
 
         this.restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ClembleCasinoConstants.OBJECT_MAPPER));
@@ -39,22 +39,22 @@ public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegis
 
     @Override
     public PlayerToken login(PlayerLoginRequest playerLoginRequest) {
-        return restTemplate.postForObject(managementUrl + REGISTRATION_PREFIX + REGISTRATION_LOGIN, playerLoginRequest, PlayerToken.class);
+        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_LOGIN), playerLoginRequest, PlayerToken.class);
     }
 
     @Override
     public PlayerToken createPlayer(PlayerRegistrationRequest registrationRequest) {
-        return restTemplate.postForObject(managementUrl + REGISTRATION_PREFIX + REGISTRATION_PROFILE, registrationRequest, PlayerToken.class);
+        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_PROFILE), registrationRequest, PlayerToken.class);
     }
 
     @Override
     public PlayerToken createSocialPlayer(PlayerSocialRegistrationRequest socialConnectionData) {
-        return restTemplate.postForObject(managementUrl + SOCIAL_PREFIX + SOCIAL_REGISTRATION_DESCRIPTION, socialConnectionData, PlayerToken.class);
+        return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_DESCRIPTION), socialConnectionData, PlayerToken.class);
     }
 
     @Override
     public PlayerToken createSocialGrantPlayer(PlayerSocialGrantRegistrationRequest socialConnectionData) {
-        return restTemplate.postForObject(managementUrl + SOCIAL_PREFIX + SOCIAL_REGISTRATION_GRANT, socialConnectionData, PlayerToken.class);
+        return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_GRANT), socialConnectionData, PlayerToken.class);
     }
 
 }

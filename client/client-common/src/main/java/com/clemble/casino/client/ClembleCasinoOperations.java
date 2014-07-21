@@ -20,6 +20,8 @@ import com.clemble.casino.player.PlayerAware;
 
 public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAware {
 
+    public String getHost();
+
     public PlayerProfileOperations profileOperations();
 
     public PlayerConnectionOperations connectionOperations();

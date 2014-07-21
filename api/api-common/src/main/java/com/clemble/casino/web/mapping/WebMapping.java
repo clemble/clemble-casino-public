@@ -2,6 +2,8 @@ package com.clemble.casino.web.mapping;
 
 public interface WebMapping {
 
-    final public static String PRODUCES = "application/json";
+    String PRODUCES = "application/json";
+    // TODO refactor to standard pattern URL with {host} variable & ending
+    String URL = "http://{host}/";
 
 }

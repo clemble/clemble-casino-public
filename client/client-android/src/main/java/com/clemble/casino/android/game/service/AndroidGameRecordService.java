@@ -1,10 +1,10 @@
 package com.clemble.casino.android.game.service;
 
-import static com.clemble.casino.web.game.GameWebMapping.GAME_SESSIONS_RECORD;
+import static com.clemble.casino.web.game.GameWebMapping.SESSIONS_RECORD;
+import static com.clemble.casino.web.game.GameWebMapping.toGameUrl;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.clemble.casino.ServerRegistry;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameRecord;
@@ -14,14 +14,14 @@ public class AndroidGameRecordService extends AbstractClembleCasinoOperations im
 
     final private RestTemplate restTemplate;
 
-    public AndroidGameRecordService(RestTemplate restTemplate, ServerRegistry apiBase) {
-        super(apiBase);
+    public AndroidGameRecordService(RestTemplate restTemplate, String host) {
+        super(host);
         this.restTemplate = restTemplate;
     }
 
     @Override
     public GameRecord get(Game game, String session) {
-        return restTemplate.getForObject(buildUriWith(GAME_SESSIONS_RECORD, game, session), GameRecord.class);
+        return restTemplate.getForObject(buildUriWith(toGameUrl(SESSIONS_RECORD), game, session), GameRecord.class);
     }
 
 }

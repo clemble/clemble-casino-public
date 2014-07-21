@@ -13,8 +13,6 @@ import com.clemble.casino.web.mapping.WebMapping;
 
 public interface GameConfigurationService extends ClembleService {
 
-    @RequestMapping(method = RequestMethod.GET, value = GameWebMapping.GAME_CONFIGURATIONS, produces = WebMapping.PRODUCES)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody GameConfigurations getConfigurations();
+    public GameConfigurations getConfigurations();
 
 }
