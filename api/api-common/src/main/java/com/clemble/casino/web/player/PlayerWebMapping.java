@@ -31,10 +31,10 @@ public abstract class PlayerWebMapping implements WebMapping {
     final private static String PRESENCE_URL = "http://{host}/player/presence";
     final public static String PRESENCE = "/";
     final public static String PRESENCE_PLAYER = "/{player}";
-    final public static String PRESENCE_SESSIONS_PLAYER = "/player/{playerId}/session";
-    final public static String PRESENCE_SESSIONS_PLAYER_SESSION = "/player/{playerId}/session/{sessionId}";
-    public static String toPresenceUrl(String path) {
-        return PRESENCE_URL + path;
+    final public static String PRESENCE_SESSIONS_PLAYER = "/{playerId}/session";
+    final public static String PRESENCE_SESSIONS_PLAYER_SESSION = "/{playerId}/session/{sessionId}";
+    public static String toPresenceUrl(String host, String path) {
+        return PRESENCE_URL.replace("{host}", host) + path;
     }
 
     final public static String PLAYER_PRESENCES_PARAM = "players";

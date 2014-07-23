@@ -17,16 +17,18 @@ import static com.clemble.casino.web.player.PlayerWebMapping.*;
 
 public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperations implements PlayerPresenceService {
 
+    final private String host;
     final private RestTemplate restTemplate;
 
     public AndroidPlayerPresenceService(RestTemplate restClientService, String host) {
         super(host);
+        this.host = host;
         this.restTemplate = checkNotNull(restClientService);
     }
 
     @Override
     public PlayerPresence getPresence(String player) {
-        URI presenceURI = buildUriWith(toPresenceUrl(PRESENCE_PLAYER), player);
+        URI presenceURI = buildUriWith(toPresenceUrl(host, PRESENCE_PLAYER), player);
         // Step 1. Singleton GET request
         return restTemplate.getForObject(presenceURI, PlayerPresence.class);
     }
@@ -41,6 +43,6 @@ public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperation
         for (String player : players)
             query.set(PLAYER_PRESENCES_PARAM, player);
         // Step 3. Requesting through RestTemplate
-        return CollectionUtils.<PlayerPresence> immutableList(restTemplate.getForObject(buildUri(toPresenceUrl(PRESENCE), query), PlayerPresence[].class));
+        return CollectionUtils.<PlayerPresence> immutableList(restTemplate.getForObject(buildUri(toPresenceUrl(host, PRESENCE), query), PlayerPresence[].class));
     }
 }
