@@ -24,7 +24,8 @@ final public class NotificationMapping {
     }
 
     public static String toTable(GameSessionKey sessionKey) {
-        return sessionKey.getSession().substring(0, 5) + NotificationMapping.TABLE_CHANNEL_POSTFIX;
+        // TODO have a statement for table
+        return sessionKey.getSession() + NotificationMapping.TABLE_CHANNEL_POSTFIX;
     }
 
 }

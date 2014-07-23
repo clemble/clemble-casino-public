@@ -37,7 +37,7 @@ public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations
     @Override
     public PlayerProfile updatePlayerProfile(String player, PlayerProfile playerProfile) {
         // Step 1. Generating player URI
-        URI playerUri = buildUriWith(toProfileUrl(toProfileUrl(PROFILE_PLAYER)), player);
+        URI playerUri = buildUriWith(toProfileUrl(PROFILE_PLAYER), player);
         // Step 2. Post to Player URI
         return restTemplate.postForObject(playerUri, playerProfile, PlayerProfile.class);
     }
