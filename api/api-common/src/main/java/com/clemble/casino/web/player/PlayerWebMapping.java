@@ -7,6 +7,7 @@ public abstract class PlayerWebMapping implements WebMapping {
     final private static String PROFILE_URL = "http://{host}/player/profile";
     final public static String PROFILE = "/";
     final public static String PROFILE_PLAYER = "/{player}";
+    final public static String PROFILE_PLAYER_IMAGE = "/{player}/image";
     public static String toProfileUrl(String path) {
         return PROFILE_URL + path;
     }

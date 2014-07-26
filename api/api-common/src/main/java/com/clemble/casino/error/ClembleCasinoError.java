@@ -50,7 +50,6 @@ public enum ClembleCasinoError {
     FirstNameTooLong(Code.FIRST_NAME_TOO_LONG_CODE, "First name too long"),
     LastNameTooLong(Code.LAST_NAME_TOO_LONG_CODE, "Last name too long"),
     BirthDateInvalid(Code.BIRTH_DATE_INVALID_CODE, "Birth date invalid"),
-    ImageURLInvalid(Code.IMAGE_URL_INVALID_CODE, "Image URL invalid"),
 
     SocialConnectionProviderUserNull(Code.SOCIAL_CONNECTION_PROVIDER_USER_NULL_CODE, "Social connection provider User can't be NULL"),
     SocialConnectionProviderIdNull(Code.SOCIAL_CONNECTION_PROVIDER_ID_NULL_CODE, "Social connection provider ID can't be NULL"),
@@ -216,8 +215,6 @@ public enum ClembleCasinoError {
         final public static String LAST_NAME_TOO_LONG_CODE = "060";
         // Birth date
         final public static String BIRTH_DATE_INVALID_CODE = "070";
-        // Image URL
-        final public static String IMAGE_URL_INVALID_CODE = "080";
         // SocialConnectionData
         final public static String SOCIAL_CONNECTION_PROVIDER_ID_NULL_CODE = "090";
         final public static String SOCIAL_CONNECTION_INVALID_CODE = "091";

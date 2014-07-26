@@ -76,10 +76,6 @@ public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
     @AgeConstraint(message = Code.BIRTH_DATE_INVALID_CODE)
     private Date birthDate;
 
-    @JsonProperty("imageUrl")
-    @URL(message = Code.IMAGE_URL_INVALID_CODE)
-    private String imageUrl;
-
     @JsonProperty("category")
     private PlayerCategory category = PlayerCategory.Novice;
 
@@ -210,15 +206,6 @@ public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
         return this;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public PlayerProfile setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-        return this;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -228,7 +215,6 @@ public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
         result = prime * result + ((country == null) ? 0 : country.hashCode());
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-        result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((nickName == null) ? 0 : nickName.hashCode());
         result = prime * result + ((player == null) ? 0 : player.hashCode());
@@ -265,11 +251,6 @@ public class PlayerProfile implements PlayerAware, CountryAware, VersionAware {
         } else if (!firstName.equals(other.firstName))
             return false;
         if (gender != other.gender)
-            return false;
-        if (imageUrl == null) {
-            if (other.imageUrl != null)
-                return false;
-        } else if (!imageUrl.equals(other.imageUrl))
             return false;
         if (lastName == null) {
             if (other.lastName != null)
