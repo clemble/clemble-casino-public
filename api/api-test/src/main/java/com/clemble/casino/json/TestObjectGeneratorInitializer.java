@@ -49,7 +49,6 @@ import com.clemble.casino.payment.PlayerAccount;
 import com.clemble.casino.payment.money.Currency;
 import com.clemble.casino.payment.money.Money;
 import com.clemble.casino.payment.money.Operation;
-import com.clemble.casino.player.PlayerCategory;
 import com.clemble.casino.player.PlayerGender;
 import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.security.PlayerCredential;
@@ -138,7 +137,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PlayerProfile.class, new AbstractValueGenerator<PlayerProfile>() {
             @Override
             public PlayerProfile generate() {
-                return new PlayerProfile().setBirthDate(new Date(0)).setCategory(PlayerCategory.Amateur).setFirstName(RandomStringUtils.randomAlphabetic(10))
+                return new PlayerProfile().setBirthDate(new Date(0)).setFirstName(RandomStringUtils.randomAlphabetic(10))
                         .setGender(PlayerGender.M).setLastName(RandomStringUtils.randomAlphabetic(10)).setNickName(RandomStringUtils.randomAlphabetic(10))
                         .setPlayer(RandomStringUtils.random(5));
             }
