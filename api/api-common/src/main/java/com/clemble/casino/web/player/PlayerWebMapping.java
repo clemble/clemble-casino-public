@@ -45,6 +45,8 @@ public abstract class PlayerWebMapping implements WebMapping {
     final public static String REGISTRATION_URL = "http://{host}/player/registration/";
     final public static String REGISTRATION_LOGIN = "/login";
     final public static String REGISTRATION_PROFILE = "/signin";
+    final public static String REGISTRATION_BASIC_LOGIN = "/base/login";
+    final public static String REGISTRATION_BASIC_PROFILE = "/base/signin";
     public static String toRegistrationUrl(String host, String path) {
         return REGISTRATION_URL.replace("{host}", host) + path;
     }

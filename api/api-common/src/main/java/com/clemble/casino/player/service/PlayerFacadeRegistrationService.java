@@ -4,7 +4,7 @@ import com.clemble.casino.ClembleService;
 
 public interface PlayerFacadeRegistrationService
     extends ClembleService,
-    PlayerRegistrationService,
+    PlayerManualRegistrationService,
     PlayerSocialRegistrationService {
 
 }

@@ -3,11 +3,13 @@ package com.clemble.casino.player.web;
 import java.io.Serializable;
 
 import com.clemble.casino.player.client.ClembleConsumerDetails;
+import com.clemble.casino.player.client.ClembleConsumerDetailsAware;
 import com.clemble.casino.player.security.PlayerCredential;
+import com.clemble.casino.player.security.PlayerCredentialAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayerLoginRequest implements Serializable {
+public class PlayerLoginRequest implements PlayerCredentialAware, ClembleConsumerDetailsAware, Serializable {
 
     private static final long serialVersionUID = -5259569180816587376L;
 
@@ -15,17 +17,20 @@ public class PlayerLoginRequest implements Serializable {
     final private ClembleConsumerDetails consumerDetails;
 
     @JsonCreator
-    public PlayerLoginRequest(@JsonProperty("consumerDetails") final ClembleConsumerDetails consumerDetails,
-            @JsonProperty("playerCredential") final PlayerCredential playerCredential) {
+    public PlayerLoginRequest(
+        @JsonProperty("consumerDetails") final ClembleConsumerDetails consumerDetails,
+        @JsonProperty("playerCredential") final PlayerCredential playerCredential) {
         this.playerCredential = playerCredential;
         this.consumerDetails = consumerDetails;
     }
 
+    @Override
     final public PlayerCredential getPlayerCredential() {
         return playerCredential;
     }
 
-    public ClembleConsumerDetails getConsumerDetails() {
+    @Override
+    final public ClembleConsumerDetails getConsumerDetails() {
         return consumerDetails;
     }
 
