@@ -1,6 +1,7 @@
 package com.clemble.casino.payment;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 import com.clemble.casino.payment.money.Currency;
@@ -26,12 +27,12 @@ public class PlayerAccount implements PlayerAware {
     private static final long serialVersionUID = 6508845694631953306L;
 
     final private String player;
-    final private Set<Money> cash;
+    final private Map<Currency, Money> cash;
 
     @JsonCreator
-    public PlayerAccount(@JsonProperty("player") String player, @JsonProperty("money") Collection<Money> amounts) {
+    public PlayerAccount(@JsonProperty("player") String player, @JsonProperty("money") Map<Currency, Money> amounts) {
         this.player = player;
-        this.cash = CollectionUtils.immutableSet(amounts);
+        this.cash = CollectionUtils.immutableMap(amounts);
     }
 
     @Override
@@ -39,19 +40,14 @@ public class PlayerAccount implements PlayerAware {
         return player;
     }
 
-    public Set<Money> getMoney() {
+    public Map<Currency, Money> getMoney() {
         return cash;
     }
 
     public Money getMoney(Currency currency) {
         if (currency == null)
-            return Money.create(currency, 0);
-
-        for (Money money : cash)
-            if (money.getCurrency() == currency)
-                return money;
-
-        return Money.create(currency, 0);
+            throw new IllegalArgumentException();
+        return cash.get(currency);
     }
 
     @Override

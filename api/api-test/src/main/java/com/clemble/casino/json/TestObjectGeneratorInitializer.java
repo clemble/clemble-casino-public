@@ -20,6 +20,7 @@ import com.clemble.casino.game.rule.RoundRule;
 import com.clemble.casino.game.specification.RoundGameConfiguration;
 import com.clemble.casino.game.unit.Chip;
 import com.clemble.casino.game.unit.GameUnit;
+import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
@@ -109,7 +110,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PlayerAccount.class, new AbstractValueGenerator<PlayerAccount>() {
             @Override
             public PlayerAccount generate() {
-                return new PlayerAccount(RandomStringUtils.random(5), ImmutableSet.of(Money.create(Currency.FakeMoney, 500)));
+                return new PlayerAccount(RandomStringUtils.random(5), ImmutableMap.of(Currency.FakeMoney, Money.create(Currency.FakeMoney, 500)));
             }
         });
         ObjectGenerator.register(PaymentTransaction.class, new AbstractValueGenerator<PaymentTransaction>() {
