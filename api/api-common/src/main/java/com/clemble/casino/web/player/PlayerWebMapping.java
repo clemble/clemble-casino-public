@@ -13,7 +13,7 @@ public abstract class PlayerWebMapping implements WebMapping {
     }
 
 
-    final private static String CONNECTION_URL = "http://{host}/player/connections";
+    final private static String CONNECTION_URL = "http://{host}/player/connection";
     final public static String CONNECTION_PLAYER = "/{player}";
     public static String toConnectionUrl(String path) {
         return CONNECTION_URL + path;
