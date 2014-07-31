@@ -23,7 +23,7 @@
         <!-- Dependencies for ORM -->
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
         <hibernate.version>4.2.4.Final</hibernate.version>
-        <hibernate.validator.version>5.1.1.Final</hibernate.validator.version>
+        <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
         <!-- Spring dependencies -->
         <spring.version>3.2.4.RELEASE</spring.version>
         <spring.crypto.version>3.2.4.RELEASE</spring.crypto.version>
@@ -45,7 +45,7 @@
         <junit.version>4.11</junit.version>
         <weberknecht.version>0.1.1</weberknecht.version>
         <gozirra-client.version>0.4.1</gozirra-client.version>
-        <async-http-client.version>1.8.12</async-http-client.version>
+        <async-http-client.version>1.8.13</async-http-client.version>
         <httpclient.version>4.3.4</httpclient.version>
         <!-- Plugin dependencies -->
         <maven.failsafe.plugin.version>2.14.1</maven.failsafe.plugin.version>
@@ -61,12 +61,12 @@
         <robolectric.version>2.3</robolectric.version>
         <spring.android.version>1.0.1.RELEASE</spring.android.version>
         <roboguice.version>2.0</roboguice.version>
-        <jsr305.version>2.0.3</jsr305.version>
+        <jsr305.version>3.0.0</jsr305.version>
         <android.version>4.1.1.4</android.version>
         <android-platform>17</android-platform>
         <android-maven-plugin-version>3.8.0</android-maven-plugin-version>
         <facebook.test.version>1.1.5</facebook.test.version>
-        <logback-android-classic.version>1.1.1-2</logback-android-classic.version>
+        <logback-android-classic.version>1.1.1-3</logback-android-classic.version>
         <slf4j-api.version>1.7.7</slf4j-api.version>
     </properties>
     <repositories>
