@@ -7,7 +7,7 @@ import com.clemble.casino.web.mapping.WebMapping;
  */
 public abstract class GoalWebMapping implements WebMapping {
 
-    final private static String GOAL_URL = "http://{host}/goal";
+    final private static String GOAL_URL = "http://{host}//goal/track";
     final public static String PLAYER_GOALS = "/{player}";
     final public static String PLAYER_GOALS_PENDING = "/{player}/pending";
     final public static String PLAYER_GOALS_REACHED = "/{player}/reached";

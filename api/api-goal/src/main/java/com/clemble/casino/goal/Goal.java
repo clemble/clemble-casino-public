@@ -72,24 +72,28 @@ public class Goal implements GoalAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Goal that = (Goal) o;
+        Goal goal1 = (Goal) o;
 
-        if (rate != that.rate) return false;
-        if (!bet.equals(that.bet)) return false;
-        if (!dueDate.equals(that.dueDate)) return false;
-        if (!goal.equals(that.goal)) return false;
-        if (!player.equals(that.player)) return false;
+        if (rate != goal1.rate) return false;
+        if (bet != null ? !bet.equals(goal1.bet) : goal1.bet != null) return false;
+        if (description != null ? !description.equals(goal1.description) : goal1.description != null) return false;
+        if (dueDate != null ? !dueDate.equals(goal1.dueDate) : goal1.dueDate != null) return false;
+        if (goal != null ? !goal.equals(goal1.goal) : goal1.goal != null) return false;
+        if (player != null ? !player.equals(goal1.player) : goal1.player != null) return false;
+        if (state != goal1.state) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player.hashCode();
-        result = 31 * result + goal.hashCode();
-        result = 31 * result + bet.hashCode();
+        int result = player != null ? player.hashCode() : 0;
+        result = 31 * result + (goal != null ? goal.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (bet != null ? bet.hashCode() : 0);
         result = 31 * result + rate;
-        result = 31 * result + dueDate.hashCode();
+        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
         return result;
     }
 }
