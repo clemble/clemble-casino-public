@@ -1,7 +1,6 @@
 package com.clemble.casino.goal;
 
 import com.clemble.casino.payment.money.Money;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,25 +9,25 @@ import java.util.Date;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public class PlayerGoal implements PlayerGoalAware {
+public class Goal implements GoalAware {
 
     final private String player;
     final private String goal;
     final private String description;
-    final private PlayerGoalState state;
+    final private GoalState state;
     final private Money bet;
     final private int rate;
     final private Date dueDate;
 
     @JsonCreator
-    public PlayerGoal(
-        @JsonProperty("player") String player,
-        @JsonProperty("goal") String goal,
-        @JsonProperty("description") String description,
-        @JsonProperty("bet") Money bet,
-        @JsonProperty("dueDate") Date dueDate,
-        @JsonProperty("rate") int rate,
-        @JsonProperty("state") PlayerGoalState state) {
+    public Goal(
+            @JsonProperty("player") String player,
+            @JsonProperty("goal") String goal,
+            @JsonProperty("description") String description,
+            @JsonProperty("bet") Money bet,
+            @JsonProperty("dueDate") Date dueDate,
+            @JsonProperty("rate") int rate,
+            @JsonProperty("state") GoalState state) {
         this.player = player;
         this.dueDate = dueDate;
         this.description = description;
@@ -52,7 +51,7 @@ public class PlayerGoal implements PlayerGoalAware {
         return description;
     }
 
-    public PlayerGoalState getState() {
+    public GoalState getState() {
         return state;
     }
 
@@ -73,7 +72,7 @@ public class PlayerGoal implements PlayerGoalAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlayerGoal that = (PlayerGoal) o;
+        Goal that = (Goal) o;
 
         if (rate != that.rate) return false;
         if (!bet.equals(that.bet)) return false;

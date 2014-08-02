@@ -2,6 +2,7 @@ package com.clemble.casino.client;
 
 import java.io.Closeable;
 
+import com.clemble.casino.client.goal.GoalOperations;
 import com.clemble.casino.client.player.*;
 import org.springframework.social.ApiBinding;
 import org.springframework.web.client.RestTemplate;
@@ -17,8 +18,6 @@ import com.clemble.casino.player.PlayerAware;
 
 public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAware {
 
-    public String getHost();
-
     public PlayerProfileOperations profileOperations();
 
     public PlayerImageOperations imageOperations();
@@ -31,6 +30,8 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
 
     public PaymentOperations paymentOperations();
 
+    public GoalOperations goalOperations();
+
     public EventListenerOperations listenerOperations();
 
     public GameConstructionOperations gameConstructionOperations();
@@ -38,6 +39,8 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
     public <State extends GameState> GameActionOperations<State> gameActionOperations(GameSessionKey session);
 
     public GameRecordOperations gameRecordOperations();
+
+    public String getHost();
 
     // TODO safety concern, since RestTemplate is reused all over the place, make a deep copy of returned rest template
     public RestTemplate getRestTemplate();

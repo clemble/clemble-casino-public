@@ -1,4 +1,4 @@
-package com.clemble.casino.android.game.service;
+package com.clemble.casino.android.game;
 
 import java.util.Collection;
 

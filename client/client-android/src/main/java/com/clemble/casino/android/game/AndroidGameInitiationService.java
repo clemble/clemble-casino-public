@@ -1,4 +1,4 @@
-package com.clemble.casino.android.game.service;
+package com.clemble.casino.android.game;
 
 import static com.clemble.casino.web.game.GameWebMapping.INITIATION_READY;
 import static com.clemble.casino.web.game.GameWebMapping.toGameUrl;
