@@ -10,10 +10,11 @@ import java.util.Date;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public class PlayerGoal implements PlayerAware {
+public class PlayerGoal implements PlayerGoalAware {
 
     final private String player;
     final private String goal;
+    final private String description;
     final private PlayerGoalState state;
     final private Money bet;
     final private int rate;
@@ -23,12 +24,14 @@ public class PlayerGoal implements PlayerAware {
     public PlayerGoal(
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
+        @JsonProperty("description") String description,
         @JsonProperty("bet") Money bet,
         @JsonProperty("dueDate") Date dueDate,
         @JsonProperty("rate") int rate,
         @JsonProperty("state") PlayerGoalState state) {
         this.player = player;
         this.dueDate = dueDate;
+        this.description = description;
         this.state = state;
         this.rate = rate;
         this.goal = goal;
@@ -40,12 +43,17 @@ public class PlayerGoal implements PlayerAware {
         return player;
     }
 
-    public PlayerGoalState getState() {
-        return state;
-    }
-
+    @Override
     public String getGoal() {
         return goal;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public PlayerGoalState getState() {
+        return state;
     }
 
     public Money getBet() {
