@@ -24,6 +24,10 @@
             <groupId>com.clemble.casino</groupId>
             <artifactId>api-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-goal</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>api-common</module>
+        <module>api-goal</module>
         <module>api-test</module>
     </modules>
     <dependencies>
