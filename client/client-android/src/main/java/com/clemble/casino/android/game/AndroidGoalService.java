@@ -31,11 +31,31 @@ public class AndroidGoalService extends AbstractClembleCasinoOperations implemen
     }
 
     @Override
-    public Goal addGoal(String player, Goal goal) {
+    public Goal addMyGoal(Goal goal) {
         // Step 1. Generating player URI
-        URI goalUri = buildUriWith(toGoalUrl(PLAYER_GOALS), player);
+        URI myGoalsUrl = buildUriWith(toGoalUrl(MY_GOALS));
         // Step 2. Post to Player URI
-        return restTemplate.postForObject(goalUri, goal, Goal.class);
+        return restTemplate.postForObject(myGoalsUrl, goal, Goal.class);
+    }
+
+    @Override
+    public Collection<Goal> myGoals() {
+        return CollectionUtils.<Goal>immutableList(restTemplate.getForObject(buildUriWith(toGoalUrl(MY_GOALS)), Goal[].class));
+    }
+
+    @Override
+    public Collection<Goal> myPendingGoals() {
+        return CollectionUtils.<Goal>immutableList(restTemplate.getForObject(buildUriWith(toGoalUrl(MY_GOALS_PENDING)), Goal[].class));
+    }
+
+    @Override
+    public Collection<Goal> myReachedGoals() {
+        return CollectionUtils.<Goal>immutableList(restTemplate.getForObject(buildUriWith(toGoalUrl(MY_GOALS_REACHED)), Goal[].class));
+    }
+
+    @Override
+    public Collection<Goal> myMissedGoals() {
+        return CollectionUtils.<Goal>immutableList(restTemplate.getForObject(buildUriWith(toGoalUrl(MY_GOALS_MISSED)), Goal[].class));
     }
 
     @Override

@@ -7,16 +7,16 @@ import java.util.Collection;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public interface GoalService {
+public interface GoalService extends GoalServiceBase {
 
-    public Goal addGoal(String player, Goal goal);
+    public Goal addMyGoal(Goal goal);
 
-    public Collection<Goal> getGoals(String player);
+    public Collection<Goal> myGoals();
 
-    public Collection<Goal> getPendingGoals(String player);
+    public Collection<Goal> myPendingGoals();
 
-    public Collection<Goal> getReachedGoals(String player);
+    public Collection<Goal> myReachedGoals();
 
-    public Collection<Goal> getMissedGoals(String player);
+    public Collection<Goal> myMissedGoals();
 
 }
