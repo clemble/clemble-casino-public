@@ -16,7 +16,8 @@ import com.clemble.casino.payment.PlayerAccount;
 import com.clemble.casino.payment.bonus.PaymentBonusSource;
 import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.payment.money.Currency;
-import com.clemble.casino.payment.service.PaymentService;
+import com.clemble.casino.payment.service.PaymentTransactionServiceBase;
+import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.utils.CollectionUtils;
 
 public class PaymentTemplate implements PaymentOperations {
@@ -24,23 +25,29 @@ public class PaymentTemplate implements PaymentOperations {
     private static final long serialVersionUID = -5498822576528068505L;
 
     final private String player;
-    final private PaymentService paymentTransactionService;
+    final private PlayerAccountService accountService;
+    final private PaymentTransactionServiceBase paymentTransactionService;
     final private EventListenerOperations listenerOperations;
 
-    public PaymentTemplate(String player, PaymentService paymentTransactionService, EventListenerOperations listenerOperations) {
+    public PaymentTemplate(
+        String player,
+        PaymentTransactionServiceBase paymentTransactionService,
+        PlayerAccountService accountService,
+        EventListenerOperations listenerOperations) {
         this.player = checkNotNull(player);
+        this.accountService = checkNotNull(accountService);
         this.paymentTransactionService = checkNotNull(paymentTransactionService);
         this.listenerOperations = checkNotNull(listenerOperations);
     }
 
     @Override
     public PlayerAccount getAccount() {
-        return paymentTransactionService.get(player);
+        return accountService.get(player);
     }
 
     @Override
     public List<String> canAfford(Collection<String> players, Currency currency, long amount) {
-        return paymentTransactionService.canAfford(players, currency, amount);
+        return accountService.canAfford(players, currency, amount);
     }
 
     public PaymentTransaction getPaymentTransaction(GameSessionKey sessionKey) {

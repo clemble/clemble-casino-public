@@ -6,16 +6,17 @@ import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.payment.money.Currency;
+import com.clemble.casino.payment.service.PaymentTransactionServiceBase;
+import com.clemble.casino.payment.service.PlayerAccountService;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PlayerAccount;
-import com.clemble.casino.payment.service.PaymentService;
 import com.clemble.casino.utils.CollectionUtils;
-import static com.clemble.casino.web.payment.PaymentWebMapping.*;
+import static com.clemble.casino.payment.PaymentWebMapping.*;
 
-public class AndroidPaymentTransactionService extends AbstractClembleCasinoOperations implements PaymentService {
+public class AndroidPaymentTransactionService extends AbstractClembleCasinoOperations implements PlayerAccountService, PaymentTransactionServiceBase {
 
     final private RestTemplate restTemplate;
 

@@ -7,18 +7,11 @@ import java.util.Set;
 
 import javax.persistence.Version;
 
-import com.clemble.casino.payment.PlayerAccount;
-import com.clemble.casino.player.event.PlayerConnection;
-import com.clemble.casino.web.payment.PaymentWebMapping;
-import com.clemble.casino.web.player.PlayerWebMapping;
-import org.hibernate.validator.constraints.URL;
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
 
-import com.clemble.casino.CountryAware;
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.error.ClembleCasinoError.Code;
-import com.clemble.casino.error.validation.AgeConstraint;
 import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.NickNameConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;

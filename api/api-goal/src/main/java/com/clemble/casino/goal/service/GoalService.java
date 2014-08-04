@@ -7,7 +7,7 @@ import java.util.Collection;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public interface GoalService extends GoalServiceBase {
+public interface GoalService extends GoalServiceContract {
 
     public Goal addMyGoal(Goal goal);
 

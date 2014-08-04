@@ -1,4 +1,4 @@
-package com.clemble.casino.web.payment;
+package com.clemble.casino.payment;
 
 import com.clemble.casino.web.mapping.WebMapping;
 

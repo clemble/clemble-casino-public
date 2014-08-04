@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * Created by mavarazy on 8/4/14.
  */
-public interface GoalServiceBase extends ClembleService {
+public interface GoalServiceContract extends ClembleService {
 
     public Collection<Goal> getGoals(String player);
 

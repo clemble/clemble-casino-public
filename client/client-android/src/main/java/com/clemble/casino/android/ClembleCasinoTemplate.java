@@ -38,7 +38,6 @@ import com.clemble.casino.game.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.service.GameActionService;
 import com.clemble.casino.game.service.GameConfigurationService;
 import com.clemble.casino.game.service.GameInitiationService;
-import com.clemble.casino.payment.service.PaymentService;
 import com.clemble.casino.player.service.PlayerConnectionService;
 import com.clemble.casino.player.service.PlayerPresenceService;
 import com.clemble.casino.player.service.PlayerProfileService;
@@ -95,8 +94,8 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), host);
         this.presenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
         // Step 3. Creating PaymentTransaction service
-        PaymentService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), host);
-        this.transactionOperations = new PaymentTemplate(player, paymentTransactionService, listenerOperations);
+        AndroidPaymentTransactionService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), host);
+        this.transactionOperations = new PaymentTemplate(player, paymentTransactionService, paymentTransactionService, listenerOperations);
         // Step 4. Creating GameConstruction services
         AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), host);
         AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), host);

@@ -1,12 +1,8 @@
 package com.clemble.casino.android.game;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.game.GameRecord;
-import com.clemble.casino.game.service.GameRecordService;
 import com.clemble.casino.goal.Goal;
 import com.clemble.casino.goal.service.GoalService;
-import com.clemble.casino.player.PlayerPresence;
-import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,8 +11,6 @@ import java.util.Collection;
 
 import static com.clemble.casino.goal.GoalWebMapping.toGoalUrl;
 import static com.clemble.casino.goal.GoalWebMapping.*;
-import static com.clemble.casino.web.player.PlayerWebMapping.PROFILE_PLAYER;
-import static com.clemble.casino.web.player.PlayerWebMapping.toProfileUrl;
 
 /**
  * Created by mavarazy on 8/2/14.
