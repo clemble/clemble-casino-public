@@ -11,6 +11,9 @@
     <modules>
         <module>api-common</module>
         <module>api-goal</module>
+        <module>api-player</module>
+        <module>api-payment</module>
+        <module>api-game</module>
         <module>api-test</module>
     </modules>
     <dependencies>
