@@ -1,6 +1,5 @@
 package com.clemble.casino.event;
 
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.player.PlayerAware;
 
 final public class NotificationMapping {
@@ -21,11 +20,6 @@ final public class NotificationMapping {
     
     public static String toPresenceChannel(PlayerAware playerAware) {
         return toPresenceChannel(playerAware.getPlayer());
-    }
-
-    public static String toTable(GameSessionKey sessionKey) {
-        // TODO have a statement for table
-        return sessionKey.getSession() + NotificationMapping.TABLE_CHANNEL_POSTFIX;
     }
 
 }

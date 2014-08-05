@@ -1,6 +1,6 @@
 package com.clemble.casino.goal;
 
-import com.clemble.casino.payment.money.Money;
+import com.clemble.casino.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -25,6 +25,7 @@ import com.clemble.casino.game.service.GameInitiationService;
 import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.GameConfigurations;
 import com.clemble.casino.utils.CollectionUtils;
+import com.clemble.casino.web.game.GameWebMapping;
 
 public class GameConstructionTemplate implements GameConstructionOperations {
 
@@ -112,7 +113,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
         if (session == null || constructionListener == null)
             return null;
         // Step 2. Subscribing to specific table
-        return listenerOperations.subscribe(NotificationMapping.toTable(session), constructionListener);
+        return listenerOperations.subscribe(GameWebMapping.toTable(session), constructionListener);
     }
 
     @Override

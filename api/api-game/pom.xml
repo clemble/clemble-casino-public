@@ -11,5 +11,16 @@
 
     <artifactId>api-game</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-payment</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>

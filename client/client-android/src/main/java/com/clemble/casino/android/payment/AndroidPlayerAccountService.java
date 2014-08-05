@@ -2,7 +2,7 @@ package com.clemble.casino.android.payment;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.payment.PlayerAccount;
-import com.clemble.casino.payment.money.Currency;
+import com.clemble.casino.money.Currency;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;

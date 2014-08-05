@@ -3,10 +3,6 @@ package com.clemble.casino.error;
 import java.io.IOException;
 import java.util.Date;
 
-import com.clemble.casino.game.Game;
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

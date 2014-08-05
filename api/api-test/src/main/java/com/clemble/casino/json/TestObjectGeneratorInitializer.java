@@ -47,9 +47,9 @@ import com.clemble.casino.payment.PaymentOperation;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.payment.PlayerAccount;
-import com.clemble.casino.payment.money.Currency;
-import com.clemble.casino.payment.money.Money;
-import com.clemble.casino.payment.money.Operation;
+import com.clemble.casino.money.Currency;
+import com.clemble.casino.money.Money;
+import com.clemble.casino.money.Operation;
 import com.clemble.casino.player.PlayerGender;
 import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.security.PlayerCredential;
@@ -58,7 +58,6 @@ import com.clemble.test.random.AbstractValueGenerator;
 import com.clemble.test.random.ObjectGenerator;
 import com.clemble.test.random.ValueGenerator;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 
 public class TestObjectGeneratorInitializer {
 

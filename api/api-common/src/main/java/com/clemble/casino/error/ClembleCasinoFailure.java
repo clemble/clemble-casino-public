@@ -1,18 +1,14 @@
 package com.clemble.casino.error;
 
-import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
+public class ClembleCasinoFailure implements PlayerAware {
 
     /**
      * Generated 12/06/13
@@ -21,23 +17,21 @@ public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
 
     final private String player;
     final private ClembleCasinoError error;
-    final private GameSessionKey session;
 
     public ClembleCasinoFailure(final ClembleCasinoError error) {
-        this(error, PlayerAware.DEFAULT_PLAYER, GameSessionAware.DEFAULT_SESSION);
+        this(PlayerAware.DEFAULT_PLAYER, error);
     }
 
     public ClembleCasinoFailure(final ClembleCasinoError error, final String playerId) {
-        this(error, playerId, GameSessionAware.DEFAULT_SESSION);
+        this(playerId, error);
     }
 
     @JsonCreator
-    public ClembleCasinoFailure(@JsonProperty("error") final ClembleCasinoError error,
-                                @JsonProperty(PlayerAware.JSON_ID) final String player,
-                                @JsonProperty("session") final GameSessionKey session) {
-        this.error = error;
-        this.session = session;
+    public ClembleCasinoFailure(
+        @JsonProperty(PlayerAware.JSON_ID) final String player,
+        @JsonProperty("error") final ClembleCasinoError error) {
         this.player = player;
+        this.error = error;
     }
 
     public ClembleCasinoError getError() {
@@ -50,13 +44,8 @@ public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
     }
 
     @Override
-    public GameSessionKey getSession() {
-        return session;
-    }
-
-    @Override
     public String toString() {
-        return "ClembleCasinoFailure [error = " + error + ", player = " + player + ", session = " + session + "]";
+        return "ClembleCasinoFailure [error = " + error + ", player = " + player + "]";
     }
 
     @Override
@@ -65,7 +54,6 @@ public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
         int result = 1;
         result = prime * result + ((error == null) ? 0 : error.hashCode());
         result = prime * result + (int) (player != null ? player.hashCode() : 0);
-        result = prime * result + (int) (session.hashCode());
         return result;
     }
 
@@ -82,15 +70,13 @@ public class ClembleCasinoFailure implements PlayerAware, GameSessionAware {
             return false;
         if (!player.equals(other.player))
             return false;
-        if (!session.equals(other.session))
-            return false;
         return true;
     }
 
-    public static Collection<ClembleCasinoFailure> construct(ClembleCasinoError error, Collection<String> players, GameSessionKey sessionKey) {
+    public static Collection<ClembleCasinoFailure> construct(ClembleCasinoError error, Collection<String> players) {
         List<ClembleCasinoFailure> failures = new ArrayList<ClembleCasinoFailure>();
         for(String player: players)
-            failures.add(new ClembleCasinoFailure(error, player, sessionKey));
+            failures.add(new ClembleCasinoFailure(error, player));
         return failures;
     }
 

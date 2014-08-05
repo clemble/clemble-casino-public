@@ -4,7 +4,6 @@ import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameState;
 import com.clemble.test.random.AbstractValueGenerator;
 import com.clemble.test.random.ObjectGenerator;
-import org.junit.Before;
 import org.junit.BeforeClass;
 
 import static org.junit.Assert.assertEquals;

@@ -28,6 +28,22 @@
             <groupId>com.clemble.casino</groupId>
             <artifactId>api-goal</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-game</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-player</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-presence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-payment</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

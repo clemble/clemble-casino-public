@@ -32,8 +32,8 @@ import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
 import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.GameConfigurationKey;
-import com.clemble.casino.payment.money.Currency;
-import com.clemble.casino.payment.money.Money;
+import com.clemble.casino.money.Currency;
+import com.clemble.casino.money.Money;
 import com.clemble.test.random.ObjectGenerator;
 import com.clemble.test.reflection.AnnotationReflectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -75,8 +75,6 @@ public class JsonCreationTest {
         ClembleCasinoFailure casinoFailure = objectMapper.readValue(ERROR_JSON, ClembleCasinoFailure.class);
         assertEquals(casinoFailure.getError().getCode(), "0C1");
         assertEquals(casinoFailure.getPlayer(), "f>RvzG{LHn");
-        assertEquals(casinoFailure.getSession().getGame(), Game.pac);
-        assertEquals(casinoFailure.getSession().getSession(), "'[jh$ FC([");
         // objectMapper.readValue(ERROR_FORMAT_JSON, ClembleCasinoFailureDescription.class);
     }
 

@@ -1,12 +1,10 @@
 package com.clemble.casino.client.event;
 
 import java.io.Closeable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.event.Event;
-import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.payment.event.PaymentEvent;

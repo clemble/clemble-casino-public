@@ -162,6 +162,11 @@
             </dependency>
             <dependency>
                 <groupId>com.clemble.casino</groupId>
+                <artifactId>api-presence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.clemble.casino</groupId>
                 <artifactId>api-payment</artifactId>
                 <version>${project.version}</version>
             </dependency>

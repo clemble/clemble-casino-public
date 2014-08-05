@@ -1,6 +1,6 @@
 package com.clemble.casino.client.event;
 
-import com.clemble.casino.event.GameConstructionEvent;
+import com.clemble.casino.game.event.GameConstructionEvent;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
