@@ -31,6 +31,10 @@
             <artifactId>api-game</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.clemble.casino</groupId>
+            <artifactId>api-presence</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>

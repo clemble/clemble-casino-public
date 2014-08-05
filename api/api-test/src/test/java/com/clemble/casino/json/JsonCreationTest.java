@@ -64,7 +64,7 @@ public class JsonCreationTest {
     // + "\"player\":\"casino\","
     // + "\"session\":{\"game\":null,\"session\":null}"
     // + "}]}";
-    final private String ERROR_JSON = "{\"error\":{\"code\":\"0C1\",\"description\":\"Server critical error\"},\"player\":\"f>RvzG{LHn\",\"session\":{\"game\":\"pac\",\"session\":\"'[jh$ FC([\"}}";
+    final private String ERROR_JSON = "{\"error\":{\"code\":\"0C1\",\"description\":\"Server critical error\"},\"player\":\"f>RvzG{LHn\"}";
     final private String MATCH_JSON = "[{\"type\":\"round\",\"configurationKey\":{\"game\":\"num\",\"specificationName\":\"low\"},\"price\":{\"currency\":\"FakeMoney\",\"amount\":50},\"betRule\":{\"betType\":\"unlimited\"},\"giveUpRule\":{\"giveUp\":\"all\"},\"moveTimeRule\":{\"rule\":\"moveTime\",\"limit\":2000,\"punishment\":\"loose\"},\"totalTimeRule\":{\"rule\":\"totalTime\",\"limit\":4000,\"punishment\":\"loose\"},\"privacyRule\":[\"privacy\",\"everybody\"],\"numberRule\":[\"participants\",\"two\"],\"visibilityRule\":\"visible\",\"drawRule\":[\"DrawRule\",\"owned\"],\"wonRule\":[\"WonRule\",\"price\"],\"roles\":[\"A\",\"B\"],\"playerUnits\":null}]";
 
     @Test

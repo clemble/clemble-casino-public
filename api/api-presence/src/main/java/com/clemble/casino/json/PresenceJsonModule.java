@@ -1,4 +1,4 @@
-package com.clemble.casino.player.com.clemble.casino.json;
+package com.clemble.casino.json;
 
 import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.json.ClembleJsonModule;
