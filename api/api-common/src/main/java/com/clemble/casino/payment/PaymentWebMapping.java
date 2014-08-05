@@ -8,7 +8,9 @@ public abstract class PaymentWebMapping implements WebMapping {
 
     final public static String PAYMENT_ACCOUNTS = "/account";
 
-    final public static String ACCOUNTS_PLAYER = "/account/{player}";
+    final public static String PLAYER_ACCOUNT = "/account/{player}";
+    final public static String MY_ACCOUNT = "/account/my";
+
     final public static String PAYMENT_ACCOUNTS_PLAYER_TRANSACTIONS = "/account/{player}/transaction";
     final public static String PAYMENT_ACCOUNTS_PLAYER_TRANSACTION_SOURCE = "/account/{player}/transaction/{source}";
 

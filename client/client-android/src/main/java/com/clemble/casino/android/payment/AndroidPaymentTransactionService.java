@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.payment.money.Currency;
-import com.clemble.casino.payment.service.PaymentTransactionServiceBase;
-import com.clemble.casino.payment.service.PlayerAccountService;
+import com.clemble.casino.payment.service.PaymentTransactionServiceContract;
+import com.clemble.casino.payment.service.PlayerAccountServiceContract;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
@@ -16,7 +16,7 @@ import com.clemble.casino.payment.PlayerAccount;
 import com.clemble.casino.utils.CollectionUtils;
 import static com.clemble.casino.payment.PaymentWebMapping.*;
 
-public class AndroidPaymentTransactionService extends AbstractClembleCasinoOperations implements PlayerAccountService, PaymentTransactionServiceBase {
+public class AndroidPaymentTransactionService extends AbstractClembleCasinoOperations implements PaymentTransactionServiceContract {
 
     final private RestTemplate restTemplate;
 
@@ -33,21 +33,6 @@ public class AndroidPaymentTransactionService extends AbstractClembleCasinoOpera
     @Override
     public List<PaymentTransaction> getPlayerTransactions(String player) {
         return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toPaymentUrl(PAYMENT_ACCOUNTS_PLAYER_TRANSACTIONS), player), PaymentTransaction[].class));
-    }
-
-    @Override
-    public PlayerAccount get(String player) {
-        return restTemplate.getForObject(buildUriWith(toPaymentUrl(ACCOUNTS_PLAYER), player), PlayerAccount.class);
-    }
-
-    @Override
-    public List<String> canAfford(Collection<String> players, Currency currency, Long amount) {
-        // Step 1. Generating URL
-        String url = buildUriWith(toPaymentUrl(PAYMENT_ACCOUNTS)) + "?currency=" + currency + "&amount=" + amount;
-        for(String player: players)
-            url += "&player=" + player;
-        // Step 2. Sending and receiving response
-        return CollectionUtils.immutableList(restTemplate.getForObject(url, String[].class));
     }
 
     @Override

@@ -15,23 +15,7 @@ import com.clemble.casino.error.ClembleCasinoError.Code;
 import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.NickNameConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
-//import com.fasterxml.jackson.module.jsonSchema.annotation.JsonHyperSchema;
-//import com.fasterxml.jackson.module.jsonSchema.annotation.Link;
-//
-///**
-// * Dropped Guest PlayerProfile, and RelocatedPlayerProfile, need to find a way to revive them in the future
-// *
-// * @author mavarazy
-// *
-// */
-//@JsonHyperSchema(
-//    links = {
-//        @Link(rel = "self", href= PlayerWebMapping.PROFILE_PLAYER),
-//        @Link(rel = "connections", href = PlayerWebMapping.CONNECTION_PLAYER, targetSchema = PlayerConnection.class),
-//        @Link(rel = "account", href = PaymentWebMapping.ACCOUNTS_PLAYER, targetSchema = PlayerAccount.class),
-//        @Link(rel = "presence", href = PlayerWebMapping.PRESENCE_PLAYER, targetSchema = PlayerPresence.class)
-//    }
-//)
+
 public class PlayerProfile implements PlayerAware, VersionAware {
 
     /**

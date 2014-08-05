@@ -12,12 +12,9 @@ import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PaymentTransactionKey;
-import com.clemble.casino.payment.PlayerAccount;
 import com.clemble.casino.payment.bonus.PaymentBonusSource;
 import com.clemble.casino.payment.event.PaymentEvent;
-import com.clemble.casino.payment.money.Currency;
-import com.clemble.casino.payment.service.PaymentTransactionServiceBase;
-import com.clemble.casino.payment.service.PlayerAccountService;
+import com.clemble.casino.payment.service.PaymentTransactionServiceContract;
 import com.clemble.casino.utils.CollectionUtils;
 
 public class PaymentTemplate implements PaymentOperations {
@@ -25,29 +22,16 @@ public class PaymentTemplate implements PaymentOperations {
     private static final long serialVersionUID = -5498822576528068505L;
 
     final private String player;
-    final private PlayerAccountService accountService;
-    final private PaymentTransactionServiceBase paymentTransactionService;
+    final private PaymentTransactionServiceContract paymentTransactionService;
     final private EventListenerOperations listenerOperations;
 
     public PaymentTemplate(
         String player,
-        PaymentTransactionServiceBase paymentTransactionService,
-        PlayerAccountService accountService,
+        PaymentTransactionServiceContract paymentTransactionService,
         EventListenerOperations listenerOperations) {
         this.player = checkNotNull(player);
-        this.accountService = checkNotNull(accountService);
         this.paymentTransactionService = checkNotNull(paymentTransactionService);
         this.listenerOperations = checkNotNull(listenerOperations);
-    }
-
-    @Override
-    public PlayerAccount getAccount() {
-        return accountService.get(player);
-    }
-
-    @Override
-    public List<String> canAfford(Collection<String> players, Currency currency, long amount) {
-        return accountService.canAfford(players, currency, amount);
     }
 
     public PaymentTransaction getPaymentTransaction(GameSessionKey sessionKey) {

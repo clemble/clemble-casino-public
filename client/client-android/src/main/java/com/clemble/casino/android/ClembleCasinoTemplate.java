@@ -3,9 +3,11 @@ package com.clemble.casino.android;
 import java.io.IOException;
 
 import com.clemble.casino.android.game.*;
+import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
 import com.clemble.casino.client.player.*;
 import com.clemble.casino.goal.service.GoalService;
+import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.PlayerImageService;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
@@ -59,6 +61,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerPresenceOperations presenceOperations;
     final private PaymentOperations transactionOperations;
     final private GoalService goalService;
+    final private PlayerAccountService accountService;
     final private GameRecordOperations recordOperations;
     final private GameConstructionOperations constructionOperations;
     final private GameActionOperationsFactory actionOperationsFactory;
@@ -95,7 +98,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.presenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
         // Step 3. Creating PaymentTransaction service
         AndroidPaymentTransactionService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), host);
-        this.transactionOperations = new PaymentTemplate(player, paymentTransactionService, paymentTransactionService, listenerOperations);
+        this.transactionOperations = new PaymentTemplate(player, paymentTransactionService, listenerOperations);
         // Step 4. Creating GameConstruction services
         AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), host);
         AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), host);
@@ -109,6 +112,8 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(new GameInitiationTemplate(player, initiationService)));
         // Step 6. Creating goal service
         this.goalService = new AndroidGoalService(getRestTemplate(), host);
+        // Step 7. Creating account service
+        this.accountService = new AndroidPlayerAccountService(getRestTemplate(), host);
     }
 
     @Override
@@ -139,6 +144,11 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     @Override
     public PlayerSessionOperations sessionOperations() {
         return playerSessionOperations;
+    }
+
+    @Override
+    public PlayerAccountService accountService() {
+        return accountService;
     }
 
     @Override

@@ -8,14 +8,7 @@ import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-//import com.fasterxml.jackson.module.jsonSchema.annotation.JsonHyperSchema;
-//import com.fasterxml.jackson.module.jsonSchema.annotation.Link;
-//
-//@JsonHyperSchema(links = {
-//        @Link(rel = "self", href = PaymentWebMapping.ACCOUNTS_PLAYER),
-//        @Link(rel = "transactions", href= PaymentWebMapping.PAYMENT_ACCOUNTS_PLAYER_TRANSACTIONS, targetSchema = PaymentTransaction.class)
-//    }
-//)
+
 public class PlayerAccount implements PlayerAware {
 
     /**

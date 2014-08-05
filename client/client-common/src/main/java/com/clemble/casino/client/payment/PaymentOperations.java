@@ -17,10 +17,6 @@ import com.clemble.casino.player.PlayerAware;
 
 public interface PaymentOperations extends PlayerAware {
 
-    public PlayerAccount getAccount();
-
-    public List<String> canAfford(Collection<String> players, Currency currency, long amount);
-
     public List<PaymentTransaction> getPaymentTransactions();
 
     public PaymentTransaction getPaymentTransaction(GameSessionKey sessionKey);
