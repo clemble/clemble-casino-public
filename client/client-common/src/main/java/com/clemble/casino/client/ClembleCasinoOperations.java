@@ -4,8 +4,8 @@ import java.io.Closeable;
 
 import com.clemble.casino.client.player.*;
 import com.clemble.casino.goal.service.GoalService;
+import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
-import com.clemble.casino.payment.service.PlayerAccountServiceContract;
 import org.springframework.social.ApiBinding;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,7 +13,7 @@ import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.game.GameActionOperations;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameRecordOperations;
-import com.clemble.casino.client.payment.PaymentOperations;
+import com.clemble.casino.payment.service.PaymentTransactionService;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.player.PlayerAware;
@@ -32,7 +32,7 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
 
     public PlayerAccountService accountService();
 
-    public PaymentOperations paymentOperations();
+    public PaymentTransactionOperations paymentOperations();
 
     public GoalService goalOperations();
 

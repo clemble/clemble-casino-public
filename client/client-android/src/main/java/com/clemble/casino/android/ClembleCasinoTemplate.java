@@ -7,6 +7,7 @@ import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
 import com.clemble.casino.client.player.*;
 import com.clemble.casino.goal.service.GoalService;
+import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.PlayerImageService;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -29,8 +30,7 @@ import com.clemble.casino.client.game.GameConstructionTemplate;
 import com.clemble.casino.client.game.GameInitiationTemplate;
 import com.clemble.casino.client.game.GameRecordOperations;
 import com.clemble.casino.client.game.GameRecordTemplate;
-import com.clemble.casino.client.payment.PaymentOperations;
-import com.clemble.casino.client.payment.PaymentTemplate;
+import com.clemble.casino.payment.service.PaymentTransactionService;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
@@ -59,7 +59,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerImageOperations imageOperations;
     final private PlayerConnectionOperations connectionOperations;
     final private PlayerPresenceOperations presenceOperations;
-    final private PaymentOperations transactionOperations;
+    final private PaymentTransactionOperations transactionOperations;
     final private GoalService goalService;
     final private PlayerAccountService accountService;
     final private GameRecordOperations recordOperations;
@@ -97,8 +97,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), host);
         this.presenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
         // Step 3. Creating PaymentTransaction service
-        AndroidPaymentTransactionService paymentTransactionService = new AndroidPaymentTransactionService(getRestTemplate(), host);
-        this.transactionOperations = new PaymentTemplate(player, paymentTransactionService, listenerOperations);
+        this.transactionOperations = new PaymentTransactionOperations(new AndroidPaymentTransactionService(getRestTemplate(), host));
         // Step 4. Creating GameConstruction services
         AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), host);
         AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), host);
@@ -152,7 +151,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public PaymentOperations paymentOperations() {
+    public PaymentTransactionOperations paymentOperations() {
         return transactionOperations;
     }
 

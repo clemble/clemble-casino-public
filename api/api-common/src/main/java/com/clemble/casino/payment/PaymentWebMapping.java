@@ -11,10 +11,12 @@ public abstract class PaymentWebMapping implements WebMapping {
     final public static String PLAYER_ACCOUNT = "/account/{player}";
     final public static String MY_ACCOUNT = "/account/my";
 
-    final public static String PAYMENT_ACCOUNTS_PLAYER_TRANSACTIONS = "/account/{player}/transaction";
-    final public static String PAYMENT_ACCOUNTS_PLAYER_TRANSACTION_SOURCE = "/account/{player}/transaction/{source}";
+    final public static String PLAYER_TRANSACTIONS = "/account/{player}/transaction";
+    final public static String PLAYER_TRANSACTION_BY_SOURCE = "/account/{player}/transaction/{source}";
 
-    final public static String PAYMENT_TRANSACTIONS = "/transaction";
+    final public static String MY_TRANSACTIONS = "/account/me/transaction";
+    final public static String MY_TRANSACTIONS_BY_SOURCE = "/account/me/transaction/{source}";
+
     final public static String PAYMENT_TRANSACTIONS_TRANSACTION = "/transaction/{source}/{transaction}";
 
     public static String toPaymentUrl(String path) {

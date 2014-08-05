@@ -6,6 +6,7 @@ import java.util.Collection;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.player.PlayerAware;
 
 public interface EventListenerOperations extends PlayerAware, Closeable {
@@ -19,6 +20,8 @@ public interface EventListenerOperations extends PlayerAware, Closeable {
     public EventListenerController subscribe(String channel, EventListener<? extends Event> listener);
 
     public EventListenerController subscribe(String channel, EventSelector selector, EventListener<? extends Event> listener);
+
+    public EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener);
 
     /**
      * Event that emulates server event.

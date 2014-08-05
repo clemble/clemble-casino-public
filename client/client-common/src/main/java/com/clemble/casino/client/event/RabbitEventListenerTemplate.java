@@ -10,7 +10,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.clemble.casino.ImmutablePair;
+import com.clemble.casino.client.payment.PaymentEventSelector;
 import com.clemble.casino.event.Event;
+import com.clemble.casino.payment.event.PaymentEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.AMQP.Queue;
@@ -122,6 +124,11 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Override
+    public EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener) {
+        return subscribe(new PaymentEventSelector(), listener);
     }
 
     @Override
