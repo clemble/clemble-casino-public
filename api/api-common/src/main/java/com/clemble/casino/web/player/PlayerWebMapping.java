@@ -5,16 +5,21 @@ import com.clemble.casino.web.mapping.WebMapping;
 public abstract class PlayerWebMapping implements WebMapping {
 
     final private static String PROFILE_URL = "http://{host}/player/profile";
-    final public static String PROFILE = "/";
-    final public static String PROFILE_PLAYER = "/{player}";
-    final public static String PROFILE_PLAYER_IMAGE = "/{player}/image";
+
+    final public static String PLAYER_PROFILES = "/";
+    final public static String PLAYER_PROFILE = "/{player}";
+    final public static String MY_PROFILE = "/me";
+
+    final public static String PLAYER_IMAGE = "/{player}/image";
+    final public static String MY_IMAGE = "/me/image";
     public static String toProfileUrl(String path) {
         return PROFILE_URL + path;
     }
 
 
     final private static String CONNECTION_URL = "http://{host}/player/connection";
-    final public static String CONNECTION_PLAYER = "/{player}";
+    final public static String PLAYER_CONNECTIONS = "/{player}";
+    final public static String MY_CONNECTIONS = "/me";
     public static String toConnectionUrl(String path) {
         return CONNECTION_URL + path;
     }
@@ -30,8 +35,11 @@ public abstract class PlayerWebMapping implements WebMapping {
 
 
     final private static String PRESENCE_URL = "http://{host}/player/presence";
-    final public static String PRESENCE = "/";
-    final public static String PRESENCE_PLAYER = "/{player}";
+
+    final public static String PLAYER_PRESENCES = "/";
+    final public static String PLAYER_PRESENCE = "/{player}";
+    final public static String MY_PRESENCE = "/me";
+
     final public static String PRESENCE_SESSIONS_PLAYER = "/{playerId}/session";
     final public static String PRESENCE_SESSIONS_PLAYER_SESSION = "/{playerId}/session/{sessionId}";
     public static String toPresenceUrl(String host, String path) {

@@ -4,6 +4,9 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -12,7 +15,9 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.clemble.casino.ImmutablePair;
 import com.clemble.casino.client.payment.PaymentEventSelector;
 import com.clemble.casino.event.Event;
+import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.payment.event.PaymentEvent;
+import com.clemble.casino.player.PlayerPresenceChangedEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.AMQP.Queue;
@@ -129,6 +134,21 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
     @Override
     public EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener) {
         return subscribe(new PaymentEventSelector(), listener);
+    }
+
+    @Override
+    public EventListenerController subscribeToPresenceEvents(String player, EventListener<PlayerPresenceChangedEvent> listener) {
+        if(player == null || listener == null)
+            throw new IllegalArgumentException();
+        return subscribe(NotificationMapping.toPresenceChannel(player), listener);
+    }
+
+    @Override
+    public EventListenerController subscribeToPresenceEvents(List<String> players, EventListener<PlayerPresenceChangedEvent> listener) {
+        Collection<EventListenerController> listenerControllers = new ArrayList<EventListenerController>(players.size());
+        for(String player: players)
+            listenerControllers.add(subscribeToPresenceEvents(player, listener));
+        return new EventListenerControllerAgregate(listenerControllers);
     }
 
     @Override

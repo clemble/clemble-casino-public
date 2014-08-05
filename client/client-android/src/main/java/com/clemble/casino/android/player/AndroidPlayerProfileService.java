@@ -6,13 +6,13 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 
+import com.clemble.casino.player.service.PlayerProfileService;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.PlayerProfile;
-import com.clemble.casino.player.service.PlayerProfileService;
 import com.clemble.casino.utils.CollectionUtils;
 import static com.clemble.casino.web.player.PlayerWebMapping.*;
 import static com.clemble.casino.web.player.PlayerWebMapping.toProfileUrl;
@@ -27,23 +27,37 @@ public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations
     }
 
     @Override
-    public PlayerProfile getPlayerProfile(String player) {
+    public PlayerProfile myProfile() {
         // Step 1. Generating player Uri
-        URI playerUri = buildUriWith(toProfileUrl(PROFILE_PLAYER), player);
+        URI playerUri = buildUriWith(toProfileUrl(MY_PROFILE));
+        // Step 2. Sending PlayerProfile request
+        return restTemplate.getForObject(playerUri, PlayerProfile.class);
+    }
+
+    @Override
+    public PlayerProfile updateProfile(PlayerProfile playerProfile) {
+        // Step 1. Generating player URI
+        URI playerUri = buildUriWith(toProfileUrl(MY_PROFILE));
+        // Step 2. Post to Player URI
+        return restTemplate.postForObject(playerUri, playerProfile, PlayerProfile.class);
+
+    }
+
+    @Override
+    public PlayerProfile getProfile(String player) {
+        // Step 1. Generating player Uri
+        URI playerUri = buildUriWith(toProfileUrl(PLAYER_PROFILE), player);
         // Step 2. Sending PlayerProfile request 
         return restTemplate.getForObject(playerUri, PlayerProfile.class);
     }
 
     @Override
-    public PlayerProfile updatePlayerProfile(String player, PlayerProfile playerProfile) {
-        // Step 1. Generating player URI
-        URI playerUri = buildUriWith(toProfileUrl(PROFILE_PLAYER), player);
-        // Step 2. Post to Player URI
-        return restTemplate.postForObject(playerUri, playerProfile, PlayerProfile.class);
+    public List<PlayerProfile> getProfiles(String... players) {
+        return getProfiles(CollectionUtils.immutableList(players));
     }
 
     @Override
-    public List<PlayerProfile> getPlayerProfile(Collection<String> players) {
+    public List<PlayerProfile> getProfiles(Collection<String> players) {
         if(players == null)
             return CollectionUtils.immutableList();
         // Step 1. Converting player list to set of parameters
@@ -51,7 +65,7 @@ public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations
         for(String player: players)
             profiles.add("player", player);
         // Step 1. Generating PlayersURI
-        URI playerUri = buildUri(toProfileUrl(PROFILE), profiles);
+        URI playerUri = buildUri(toProfileUrl(PLAYER_PROFILES), profiles);
         return CollectionUtils.immutableList(restTemplate.getForObject(playerUri, PlayerProfile[].class));
     }
 

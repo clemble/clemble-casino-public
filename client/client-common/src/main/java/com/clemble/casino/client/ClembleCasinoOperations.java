@@ -6,6 +6,10 @@ import com.clemble.casino.client.player.*;
 import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
+import com.clemble.casino.player.service.PlayerConnectionService;
+import com.clemble.casino.player.service.PlayerImageService;
+import com.clemble.casino.player.service.PlayerPresenceService;
+import com.clemble.casino.player.service.PlayerProfileService;
 import org.springframework.social.ApiBinding;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,20 +17,19 @@ import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.game.GameActionOperations;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameRecordOperations;
-import com.clemble.casino.payment.service.PaymentTransactionService;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.player.PlayerAware;
 
 public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAware {
 
-    public PlayerProfileOperations profileOperations();
+    public PlayerProfileService profileOperations();
 
-    public PlayerImageOperations imageOperations();
+    public PlayerImageService imageOperations();
 
-    public PlayerConnectionOperations connectionOperations();
+    public PlayerConnectionService connectionOperations();
 
-    public PlayerPresenceOperations presenceOperations();
+    public PlayerPresenceService presenceOperations();
 
     public PlayerSessionOperations sessionOperations();
 

@@ -15,7 +15,7 @@ import com.clemble.casino.player.PlayerPresence;
 import com.clemble.casino.web.mapping.WebMapping;
 import static com.clemble.casino.web.player.PlayerWebMapping.*;
 
-public interface PlayerPresenceService extends ClembleService {
+public interface PlayerPresenceServiceContract extends ClembleService {
 
     public PlayerPresence getPresence(String player);
 

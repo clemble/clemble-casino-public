@@ -9,7 +9,7 @@ import com.clemble.casino.client.player.*;
 import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
-import com.clemble.casino.player.service.PlayerImageService;
+import com.clemble.casino.player.service.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
 import org.springframework.web.client.RestTemplate;
@@ -30,7 +30,6 @@ import com.clemble.casino.client.game.GameConstructionTemplate;
 import com.clemble.casino.client.game.GameInitiationTemplate;
 import com.clemble.casino.client.game.GameRecordOperations;
 import com.clemble.casino.client.game.GameRecordTemplate;
-import com.clemble.casino.payment.service.PaymentTransactionService;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
@@ -40,9 +39,6 @@ import com.clemble.casino.game.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.service.GameActionService;
 import com.clemble.casino.game.service.GameConfigurationService;
 import com.clemble.casino.game.service.GameInitiationService;
-import com.clemble.casino.player.service.PlayerConnectionService;
-import com.clemble.casino.player.service.PlayerPresenceService;
-import com.clemble.casino.player.service.PlayerProfileService;
 
 public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements ClembleCasinoOperations {
 
@@ -55,10 +51,10 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private String player;
     final private EventListenerOperations listenerOperations;
     final private PlayerSessionOperations playerSessionOperations;
-    final private PlayerProfileOperations profileOperations;
-    final private PlayerImageOperations imageOperations;
-    final private PlayerConnectionOperations connectionOperations;
-    final private PlayerPresenceOperations presenceOperations;
+    final private PlayerProfileService profileOperations;
+    final private PlayerImageService imageOperations;
+    final private PlayerConnectionService connectionOperations;
+    final private PlayerPresenceService presenceOperations;
     final private PaymentTransactionOperations transactionOperations;
     final private GoalService goalService;
     final private PlayerAccountService accountService;
@@ -85,17 +81,13 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         // TODO either make it part of server event or find a nicer way to deal with this
         this.listenerOperations.subscribe(new EventTypeSelector(RoundEvent.class), new PlayerToMoveEventEmulator(player, listenerOperations));
         // Step 1. Creating PlayerProfile service
-        PlayerProfileService playerProfileService = new AndroidPlayerProfileService(getRestTemplate(), host);
-        this.profileOperations = new PlayerProfileTemplate(player, playerProfileService);
+        this.profileOperations = new AndroidPlayerProfileService(getRestTemplate(), host);
         // Step 1.0. Creating Player image service
-        PlayerImageService imageService = new AndroidPlayerImageService(getRestTemplate(), host);
-        this.imageOperations = new PlayerImageTemplate(player, imageService);
+        this.imageOperations = new AndroidPlayerImageService(getRestTemplate(), host);
         // Step 1.1. Creating Player connections service
-        PlayerConnectionService playerConnectionService = new AndroidPlayerConnectionService(getRestTemplate(), host);
-        this.connectionOperations = new PlayerConnectionTemplate(player, playerConnectionService, profileOperations);
+        this.connectionOperations = new AndroidPlayerConnectionService(getRestTemplate(), host);
         // Step 2. Creating PlayerPresence service
-        PlayerPresenceService playerPresenceService = new AndroidPlayerPresenceService(getRestTemplate(), host);
-        this.presenceOperations = new PlayerPresenceTemplate(player, playerPresenceService, listenerOperations);
+        this.presenceOperations = new AndroidPlayerPresenceService(getRestTemplate(), host);
         // Step 3. Creating PaymentTransaction service
         this.transactionOperations = new PaymentTransactionOperations(new AndroidPaymentTransactionService(getRestTemplate(), host));
         // Step 4. Creating GameConstruction services
@@ -121,22 +113,22 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public PlayerProfileOperations profileOperations() {
+    public PlayerProfileService profileOperations() {
         return profileOperations;
     }
 
     @Override
-    public PlayerImageOperations imageOperations() {
+    public PlayerImageService imageOperations() {
         return imageOperations;
     }
 
     @Override
-    public PlayerConnectionOperations connectionOperations(){
+    public PlayerConnectionService connectionOperations(){
         return connectionOperations;
     }
 
     @Override
-    public PlayerPresenceOperations presenceOperations() {
+    public PlayerPresenceService presenceOperations() {
         return presenceOperations;
     }
 

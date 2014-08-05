@@ -8,7 +8,7 @@ import static com.clemble.casino.web.player.PlayerWebMapping.*;
 /**
  * Created by mavarazy on 7/26/14.
  */
-public interface PlayerImageService extends ClembleService {
+public interface PlayerImageServiceContract extends ClembleService {
 
     public byte[] getImage(String player);
 
