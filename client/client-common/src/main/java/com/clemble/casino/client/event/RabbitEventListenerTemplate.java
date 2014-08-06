@@ -132,26 +132,6 @@ public class RabbitEventListenerTemplate extends AbstractEventListenerTemplate {
     }
 
     @Override
-    public EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener) {
-        return subscribe(new PaymentEventSelector(), listener);
-    }
-
-    @Override
-    public EventListenerController subscribeToPresenceEvents(String player, EventListener<PlayerPresenceChangedEvent> listener) {
-        if(player == null || listener == null)
-            throw new IllegalArgumentException();
-        return subscribe(NotificationMapping.toPresenceChannel(player), listener);
-    }
-
-    @Override
-    public EventListenerController subscribeToPresenceEvents(List<String> players, EventListener<PlayerPresenceChangedEvent> listener) {
-        Collection<EventListenerController> listenerControllers = new ArrayList<EventListenerController>(players.size());
-        for(String player: players)
-            listenerControllers.add(subscribeToPresenceEvents(player, listener));
-        return new EventListenerControllerAgregate(listenerControllers);
-    }
-
-    @Override
     public boolean isAlive() {
         return rabbitQueue.get() != null;
     }

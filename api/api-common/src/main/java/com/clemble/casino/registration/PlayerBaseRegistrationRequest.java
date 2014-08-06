@@ -1,9 +1,7 @@
-package com.clemble.casino.player.web;
+package com.clemble.casino.registration;
 
 import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.player.PlayerProfileAware;
-import com.clemble.casino.player.security.PlayerCredential;
-import com.clemble.casino.player.security.PlayerCredentialAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

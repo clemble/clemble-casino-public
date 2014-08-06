@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
-import com.clemble.casino.player.client.ClembleConsumerDetails;
-import com.clemble.casino.player.client.ClientDetails;
+import com.clemble.casino.security.ClembleConsumerDetails;
+import com.clemble.casino.security.ClientDetails;
 
 public class ClembleConsumerDetailUtils {
 

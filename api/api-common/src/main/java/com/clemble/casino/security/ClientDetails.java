@@ -1,4 +1,4 @@
-package com.clemble.casino.player.client;
+package com.clemble.casino.security;
 
 import org.springframework.data.annotation.Id;
 

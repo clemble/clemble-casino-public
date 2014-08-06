@@ -1,4 +1,4 @@
-package com.clemble.casino.player.security;
+package com.clemble.casino.registration;
 
 import javax.validation.constraints.NotNull;
 

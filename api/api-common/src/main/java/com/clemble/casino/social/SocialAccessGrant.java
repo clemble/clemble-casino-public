@@ -1,4 +1,4 @@
-package com.clemble.casino.player;
+package com.clemble.casino.social;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

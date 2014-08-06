@@ -1,8 +1,8 @@
-package com.clemble.casino.player.service;
+package com.clemble.casino.registration.service;
 
-import com.clemble.casino.player.security.PlayerCredential;
-import com.clemble.casino.player.security.PlayerToken;
-import com.clemble.casino.player.web.PlayerBaseRegistrationRequest;
+import com.clemble.casino.registration.PlayerCredential;
+import com.clemble.casino.registration.PlayerToken;
+import com.clemble.casino.registration.PlayerBaseRegistrationRequest;
 
 /**
  * Created by mavarazy on 7/28/14.

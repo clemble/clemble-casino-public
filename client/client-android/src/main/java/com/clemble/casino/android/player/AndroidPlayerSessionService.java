@@ -6,7 +6,7 @@ import static com.clemble.casino.web.player.PlayerWebMapping.*;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.player.security.PlayerSession;
+import com.clemble.casino.player.PlayerSession;
 import com.clemble.casino.player.service.PlayerSessionService;
 
 public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations implements PlayerSessionService {

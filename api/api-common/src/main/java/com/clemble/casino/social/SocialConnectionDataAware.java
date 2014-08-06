@@ -1,4 +1,4 @@
-package com.clemble.casino.player;
+package com.clemble.casino.social;
 
 /**
  * Created by mavarazy on 7/4/14.

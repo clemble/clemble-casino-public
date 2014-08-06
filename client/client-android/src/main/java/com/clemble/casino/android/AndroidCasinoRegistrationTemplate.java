@@ -8,17 +8,17 @@ import org.apache.commons.codec.binary.Base64;
 import com.clemble.casino.android.player.AndroidPlayerFacadeRegistrationService;
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.ClembleCasinoRegistrationOperations;
-import com.clemble.casino.player.SocialAccessGrant;
-import com.clemble.casino.player.SocialConnectionData;
+import com.clemble.casino.social.SocialAccessGrant;
+import com.clemble.casino.social.SocialConnectionData;
 import com.clemble.casino.player.PlayerProfile;
-import com.clemble.casino.player.client.ClembleConsumerDetails;
-import com.clemble.casino.player.security.PlayerCredential;
-import com.clemble.casino.player.security.PlayerToken;
-import com.clemble.casino.player.service.PlayerFacadeRegistrationService;
-import com.clemble.casino.player.web.PlayerLoginRequest;
-import com.clemble.casino.player.web.PlayerRegistrationRequest;
-import com.clemble.casino.player.web.PlayerSocialGrantRegistrationRequest;
-import com.clemble.casino.player.web.PlayerSocialRegistrationRequest;
+import com.clemble.casino.security.ClembleConsumerDetails;
+import com.clemble.casino.registration.PlayerCredential;
+import com.clemble.casino.registration.PlayerToken;
+import com.clemble.casino.registration.service.PlayerFacadeRegistrationService;
+import com.clemble.casino.registration.PlayerLoginRequest;
+import com.clemble.casino.registration.PlayerRegistrationRequest;
+import com.clemble.casino.registration.PlayerSocialGrantRegistrationRequest;
+import com.clemble.casino.registration.PlayerSocialRegistrationRequest;
 import com.clemble.casino.utils.ClembleConsumerDetailUtils;
 
 public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrationOperations {

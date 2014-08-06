@@ -1,8 +1,7 @@
-package com.clemble.casino.player.security;
+package com.clemble.casino.player;
 
 import java.util.Date;
 
-import com.clemble.casino.player.PlayerAware;
 import org.springframework.data.annotation.Id;
 
 public class PlayerSession implements PlayerAware {

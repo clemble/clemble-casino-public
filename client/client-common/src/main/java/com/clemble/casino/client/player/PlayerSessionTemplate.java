@@ -2,7 +2,7 @@ package com.clemble.casino.client.player;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
-import com.clemble.casino.player.security.PlayerSession;
+import com.clemble.casino.player.PlayerSession;
 import com.clemble.casino.player.service.PlayerSessionService;
 
 public class PlayerSessionTemplate implements PlayerSessionOperations {

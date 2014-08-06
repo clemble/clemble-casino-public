@@ -4,10 +4,7 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -17,9 +14,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.clemble.casino.ImmutablePair;
+import com.clemble.casino.client.payment.PaymentEventSelector;
 import com.clemble.casino.event.Event;
+import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.payment.event.PaymentEvent;
+import com.clemble.casino.player.PlayerPresenceChangedEvent;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 abstract public class AbstractEventListenerTemplate implements EventListenerOperations, Closeable {
@@ -44,7 +45,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     }
 
     @Override
-    public String getPlayer() {
+    final public String getPlayer() {
         return player;
     }
 
@@ -68,7 +69,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     }
 
     @Override
-    public EventListenerController subscribe(String channel, EventListener<? extends Event> listener) {
+    final public EventListenerController subscribe(String channel, EventListener<? extends Event> listener) {
         return subscribe(channel, null, listener);
     }
 
@@ -82,9 +83,30 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
             subscribe(channel);
     }
 
+    @Override
+    final public EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener) {
+        return subscribe(new PaymentEventSelector(), listener);
+    }
+
+    @Override
+    final public EventListenerController subscribeToPresenceEvents(String player, EventListener<PlayerPresenceChangedEvent> listener) {
+        if(player == null || listener == null)
+            throw new IllegalArgumentException();
+        return subscribe(NotificationMapping.toPresenceChannel(player), listener);
+    }
+
+    @Override
+    final public EventListenerController subscribeToPresenceEvents(List<String> players, EventListener<PlayerPresenceChangedEvent> listener) {
+        Collection<EventListenerController> listenerControllers = new ArrayList<EventListenerController>(players.size());
+        for(String player: players)
+            listenerControllers.add(subscribeToPresenceEvents(player, listener));
+        return new EventListenerControllerAgregate(listenerControllers);
+    }
+
+
     abstract public void subscribe(String channel);
 
-    public void update(Collection<? extends Event> events) {
+    final public void update(Collection<? extends Event> events) {
         // Step 1. Sanity check
         if (events == null)
             return;
@@ -93,7 +115,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
             update(event);
     }
 
-    public void update(Event event) {
+    final public void update(Event event) {
         // Step 1. Checking event value
         if (event == null)
             return;

@@ -1,6 +1,6 @@
 package com.clemble.casino.client.player;
 
-import com.clemble.casino.player.security.PlayerSession;
+import com.clemble.casino.player.PlayerSession;
 
 public interface PlayerSessionOperations {
 

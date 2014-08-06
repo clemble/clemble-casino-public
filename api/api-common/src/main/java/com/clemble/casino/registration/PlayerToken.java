@@ -1,10 +1,10 @@
-package com.clemble.casino.player.security;
+package com.clemble.casino.registration;
 
 import javax.crypto.SecretKey;
 
 import com.clemble.casino.player.PlayerAware;
-import com.clemble.casino.player.client.RSAKeySecretFormat.KeySerializer;
-import com.clemble.casino.player.client.RSAKeySecretFormat.SecretKeyDeserializer;
+import com.clemble.casino.security.RSAKeySecretFormat.KeySerializer;
+import com.clemble.casino.security.RSAKeySecretFormat.SecretKeyDeserializer;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

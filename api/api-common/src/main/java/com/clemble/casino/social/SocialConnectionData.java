@@ -1,4 +1,4 @@
-package com.clemble.casino.player;
+package com.clemble.casino.social;
 
 import java.io.Serializable;
 

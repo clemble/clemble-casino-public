@@ -1,4 +1,4 @@
-package com.clemble.casino.player.service;
+package com.clemble.casino.registration.service;
 
 import com.clemble.casino.ClembleService;
 

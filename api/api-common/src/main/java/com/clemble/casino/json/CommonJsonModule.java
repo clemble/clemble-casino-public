@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import com.clemble.casino.player.PlayerDiscoveredConnectionEvent;
+import com.clemble.casino.player.event.PlayerDiscoveredConnectionEvent;
 
 class CommonJsonModule implements ClembleJsonModule {
 

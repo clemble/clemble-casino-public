@@ -1,4 +1,4 @@
-package com.clemble.casino.player.client;
+package com.clemble.casino.security;
 
 /**
  * Created by mavarazy on 7/28/14.

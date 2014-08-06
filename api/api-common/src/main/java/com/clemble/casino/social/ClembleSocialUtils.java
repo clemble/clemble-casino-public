@@ -1,4 +1,4 @@
-package com.clemble.casino.player.social;
+package com.clemble.casino.social;
 
 import org.springframework.social.connect.ConnectionKey;
 

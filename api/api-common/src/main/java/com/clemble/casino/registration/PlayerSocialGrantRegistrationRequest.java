@@ -1,11 +1,10 @@
-package com.clemble.casino.player.web;
+package com.clemble.casino.registration;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
-import com.clemble.casino.player.SocialAccessGrant;
-import com.clemble.casino.player.SocialAccessGrantAware;
-import com.clemble.casino.player.client.ClembleConsumerDetails;
-import com.clemble.casino.player.security.PlayerCredential;
+import com.clemble.casino.social.SocialAccessGrant;
+import com.clemble.casino.social.SocialAccessGrantAware;
+import com.clemble.casino.security.ClembleConsumerDetails;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
