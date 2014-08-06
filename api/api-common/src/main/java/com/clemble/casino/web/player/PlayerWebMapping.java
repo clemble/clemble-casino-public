@@ -40,8 +40,8 @@ public abstract class PlayerWebMapping implements WebMapping {
     final public static String PLAYER_PRESENCE = "/{player}";
     final public static String MY_PRESENCE = "/me";
 
-    final public static String PRESENCE_SESSIONS_PLAYER = "/{playerId}/session";
-    final public static String PRESENCE_SESSIONS_PLAYER_SESSION = "/{playerId}/session/{sessionId}";
+    final public static String PRESENCE_SESSIONS_PLAYER = "/me/session";
+    final public static String PRESENCE_SESSIONS_PLAYER_SESSION = "/me/session/{sessionId}";
     public static String toPresenceUrl(String host, String path) {
         return PRESENCE_URL.replace("{host}", host) + path;
     }

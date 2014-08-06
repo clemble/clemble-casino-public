@@ -2,14 +2,14 @@ package com.clemble.casino.player.service;
 
 import com.clemble.casino.player.PlayerSession;
 
-public interface PlayerSessionService {
+public interface PlayerSessionService extends PlayerSessionServiceContract {
 
-    public PlayerSession create(String player);
+    public PlayerSession create();
 
-    public PlayerSession refreshPlayerSession(String player, String sessionId);
+    public PlayerSession refreshPlayerSession(String sessionId);
 
-    public void endPlayerSession(String player, String sessionId);
+    public void endPlayerSession(String sessionId);
 
-    public PlayerSession getPlayerSession(String player, String sessionId);
+    public PlayerSession getPlayerSession(String sessionId);
 
 }

@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.clemble.casino.android.game.*;
 import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
-import com.clemble.casino.client.player.*;
 import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
@@ -50,7 +49,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private String host;
     final private String player;
     final private EventListenerOperations listenerOperations;
-    final private PlayerSessionOperations playerSessionOperations;
+    final private PlayerSessionService playerSessionOperations;
     final private PlayerProfileService profileOperations;
     final private PlayerImageService imageOperations;
     final private PlayerConnectionService connectionOperations;
@@ -74,7 +73,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
         this.host = host;
         this.player = player;
-        this.playerSessionOperations = new PlayerSessionTemplate(player, new AndroidPlayerSessionService(getRestTemplate(), host));
+        this.playerSessionOperations = new AndroidPlayerSessionService(getRestTemplate(), host);
         this.playerSessionOperations.create();
 
         this.listenerOperations = new RabbitEventListenerTemplate(player, host, ClembleCasinoConstants.OBJECT_MAPPER);
@@ -133,7 +132,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public PlayerSessionOperations sessionOperations() {
+    public PlayerSessionService sessionOperations() {
         return playerSessionOperations;
     }
 

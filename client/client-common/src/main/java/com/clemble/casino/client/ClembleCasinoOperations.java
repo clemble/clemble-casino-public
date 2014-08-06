@@ -2,14 +2,10 @@ package com.clemble.casino.client;
 
 import java.io.Closeable;
 
-import com.clemble.casino.client.player.*;
 import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
-import com.clemble.casino.player.service.PlayerConnectionService;
-import com.clemble.casino.player.service.PlayerImageService;
-import com.clemble.casino.player.service.PlayerPresenceService;
-import com.clemble.casino.player.service.PlayerProfileService;
+import com.clemble.casino.player.service.*;
 import org.springframework.social.ApiBinding;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,7 +27,7 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
 
     public PlayerPresenceService presenceOperations();
 
-    public PlayerSessionOperations sessionOperations();
+    public PlayerSessionService sessionOperations();
 
     public PlayerAccountService accountService();
 
