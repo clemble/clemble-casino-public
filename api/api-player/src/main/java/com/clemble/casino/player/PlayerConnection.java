@@ -1,6 +1,4 @@
-package com.clemble.casino.player.event;
-
-import com.clemble.casino.player.PlayerAware;
+package com.clemble.casino.player;
 
 public class PlayerConnection implements PlayerAware {
 

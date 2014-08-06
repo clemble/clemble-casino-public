@@ -1,4 +1,4 @@
-package com.clemble.casino.player.event;
+package com.clemble.casino.player;
 
 public enum PlayerConnectionStatus {
 

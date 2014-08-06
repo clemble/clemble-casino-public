@@ -1,6 +1,5 @@
 package com.clemble.casino.json;
 
-import com.clemble.casino.player.PlayerPresence;
 import com.clemble.casino.player.PlayerProfile;
 //import fi.vincit.jmobster.JMobsterFactory;
 //import fi.vincit.jmobster.ModelGenerator;
@@ -23,8 +22,6 @@ import com.clemble.casino.player.PlayerProfile;
 //import fi.vincit.jmobster.util.writer.FileDataWriter;
 //import fi.vincit.jmobster.util.writer.StringBufferWriter;
 import org.junit.Test;
-
-import java.util.Collection;
 
 /**
  * Created by mavarazy on 14/03/14.

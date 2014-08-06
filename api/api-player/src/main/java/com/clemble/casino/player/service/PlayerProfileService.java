@@ -1,6 +1,5 @@
 package com.clemble.casino.player.service;
 
-import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.player.PlayerAware;

@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.Collection;
-
 @JsonTypeName("expected")
 public class ExpectedEvent implements PlayerAwareEvent {
 
