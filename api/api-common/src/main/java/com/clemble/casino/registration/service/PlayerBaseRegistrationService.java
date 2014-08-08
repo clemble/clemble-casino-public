@@ -7,7 +7,7 @@ import com.clemble.casino.registration.PlayerBaseRegistrationRequest;
 /**
  * Created by mavarazy on 7/28/14.
  */
-public interface PlayerBaseRegistrationService {
+public interface PlayerBaseRegistrationService extends PlayerRegistrationService {
 
     public PlayerToken login(PlayerCredential credentials);
 

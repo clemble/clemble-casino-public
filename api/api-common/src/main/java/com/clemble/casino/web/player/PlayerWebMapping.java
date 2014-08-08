@@ -8,10 +8,10 @@ public abstract class PlayerWebMapping implements WebMapping {
 
     final public static String PLAYER_PROFILES = "/";
     final public static String PLAYER_PROFILE = "/{player}";
-    final public static String MY_PROFILE = "/me";
+    final public static String MY_PROFILE = "/my";
 
     final public static String PLAYER_IMAGE = "/{player}/image";
-    final public static String MY_IMAGE = "/me/image";
+    final public static String MY_IMAGE = "/my/image";
     public static String toProfileUrl(String path) {
         return PROFILE_URL + path;
     }
@@ -19,7 +19,7 @@ public abstract class PlayerWebMapping implements WebMapping {
 
     final private static String CONNECTION_URL = "http://{host}/player/connection";
     final public static String PLAYER_CONNECTIONS = "/{player}";
-    final public static String MY_CONNECTIONS = "/me";
+    final public static String MY_CONNECTIONS = "/my";
     public static String toConnectionUrl(String path) {
         return CONNECTION_URL + path;
     }
@@ -38,10 +38,10 @@ public abstract class PlayerWebMapping implements WebMapping {
 
     final public static String PLAYER_PRESENCES = "/";
     final public static String PLAYER_PRESENCE = "/{player}";
-    final public static String MY_PRESENCE = "/me";
+    final public static String MY_PRESENCE = "/my";
 
-    final public static String PRESENCE_SESSIONS_PLAYER = "/me/session";
-    final public static String PRESENCE_SESSIONS_PLAYER_SESSION = "/me/session/{sessionId}";
+    final public static String PRESENCE_SESSIONS_PLAYER = "/my/session";
+    final public static String PRESENCE_SESSIONS_PLAYER_SESSION = "/my/session/{sessionId}";
     public static String toPresenceUrl(String host, String path) {
         return PRESENCE_URL.replace("{host}", host) + path;
     }
