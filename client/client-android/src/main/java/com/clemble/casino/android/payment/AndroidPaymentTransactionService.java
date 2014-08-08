@@ -32,11 +32,6 @@ public class AndroidPaymentTransactionService extends AbstractClembleCasinoOpera
     }
 
     @Override
-    public List<PaymentTransaction> getPlayerTransactionsWithSource(String player, String source) {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toPaymentUrl(TRANSACTION_BY_SOURCE), player, source), PaymentTransaction[].class));
-    }
-
-    @Override
     public List<PaymentTransaction> myTransactions() {
         return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toPaymentUrl(MY_TRANSACTIONS)), PaymentTransaction[].class));
     }

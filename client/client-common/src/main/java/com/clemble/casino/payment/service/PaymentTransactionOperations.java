@@ -61,8 +61,4 @@ public class PaymentTransactionOperations implements PaymentTransactionService {
         return delegate.getPlayerTransactions(player);
     }
 
-    @Override
-    public List<PaymentTransaction> getPlayerTransactionsWithSource(String player, String source) {
-        return delegate.getPlayerTransactionsWithSource(player, source);
-    }
 }

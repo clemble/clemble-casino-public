@@ -11,6 +11,4 @@ public interface PaymentTransactionServiceContract extends ClembleService {
 
     public List<PaymentTransaction> getPlayerTransactions(String player);
 
-    public List<PaymentTransaction> getPlayerTransactionsWithSource(String player, String source);
-
 }

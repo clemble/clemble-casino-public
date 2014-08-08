@@ -9,8 +9,13 @@ import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
+import org.springframework.social.support.HttpRequestDecorator;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.payment.AndroidPaymentTransactionService;
@@ -67,43 +72,53 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         String consumerSecret,
         String accessToken,
         String accessTokenSecret,
-        String player,
+        final String player,
         String host) throws IOException {
         super(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 
+        RestTemplate restTemplate = getRestTemplate();
+        restTemplate.getInterceptors().add(new ClientHttpRequestInterceptor() {
+            @Override
+            public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+                request.getHeaders().add("Cookie", "player=" + player);
+                return execution.execute(request, body);
+            }
+        });
+
         this.host = host;
         this.player = player;
-        this.playerSessionOperations = new AndroidPlayerSessionService(getRestTemplate(), host);
+        this.playerSessionOperations = new AndroidPlayerSessionService(restTemplate, host);
         this.playerSessionOperations.create();
+
 
         this.listenerOperations = new RabbitEventListenerTemplate(player, host, ClembleCasinoConstants.OBJECT_MAPPER);
         // TODO either make it part of server event or find a nicer way to deal with this
         this.listenerOperations.subscribe(new EventTypeSelector(RoundEvent.class), new PlayerToMoveEventEmulator(player, listenerOperations));
         // Step 1. Creating PlayerProfile service
-        this.profileOperations = new AndroidPlayerProfileService(getRestTemplate(), host);
+        this.profileOperations = new AndroidPlayerProfileService(restTemplate, host);
         // Step 1.0. Creating Player image service
-        this.imageOperations = new AndroidPlayerImageService(getRestTemplate(), host);
+        this.imageOperations = new AndroidPlayerImageService(restTemplate, host);
         // Step 1.1. Creating Player connections service
-        this.connectionOperations = new AndroidPlayerConnectionService(getRestTemplate(), host);
+        this.connectionOperations = new AndroidPlayerConnectionService(restTemplate, host);
         // Step 2. Creating PlayerPresence service
-        this.presenceOperations = new AndroidPlayerPresenceService(getRestTemplate(), host);
+        this.presenceOperations = new AndroidPlayerPresenceService(restTemplate, host);
         // Step 3. Creating PaymentTransaction service
-        this.transactionOperations = new PaymentTransactionOperations(new AndroidPaymentTransactionService(getRestTemplate(), host));
+        this.transactionOperations = new PaymentTransactionOperations(new AndroidPaymentTransactionService(restTemplate, host));
         // Step 4. Creating GameConstruction services
-        AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(getRestTemplate(), host);
-        AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(getRestTemplate(), host);
-        GameInitiationService initiationService = new AndroidGameInitiationService(getRestTemplate(), host);
-        GameConfigurationService configurationService = new AndroidGameConfigurationService(getRestTemplate(), host);
-        GameActionService actionService = new AndroidGameActionTemplate(host, getRestTemplate());
+        AutoGameConstructionService constructionService = new AndroidAutoGameConstructionService(restTemplate, host);
+        AvailabilityGameConstructionService availabilityConstructionService = new AndroidAvailabilityGameConstructionService<GameState>(restTemplate, host);
+        GameInitiationService initiationService = new AndroidGameInitiationService(restTemplate, host);
+        GameConfigurationService configurationService = new AndroidGameConfigurationService(restTemplate, host);
+        GameActionService actionService = new AndroidGameActionTemplate(host, restTemplate);
         this.actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
         this.constructionOperations = new GameConstructionTemplate(player, constructionService, availabilityConstructionService, initiationService, configurationService, listenerOperations);
-        this.recordOperations = new GameRecordTemplate(new AndroidGameRecordService(getRestTemplate(), host));
+        this.recordOperations = new GameRecordTemplate(new AndroidGameRecordService(restTemplate, host));
         // Step 5. Registering listener operations
         this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(new GameInitiationTemplate(player, initiationService)));
         // Step 6. Creating goal service
-        this.goalService = new AndroidGoalService(getRestTemplate(), host);
+        this.goalService = new AndroidGoalService(restTemplate, host);
         // Step 7. Creating account service
-        this.accountService = new AndroidPlayerAccountService(getRestTemplate(), host);
+        this.accountService = new AndroidPlayerAccountService(restTemplate, host);
     }
 
     @Override
