@@ -32,13 +32,13 @@ public class AndroidPlayerAccountService extends AbstractClembleCasinoOperations
 
     @Override
     public PlayerAccount getAccount(String player) {
-        return restTemplate.getForObject(buildUriWith(toPaymentUrl(PLAYER_ACCOUNT), player), PlayerAccount.class);
+        return restTemplate.getForObject(buildUriWith(toPaymentUrl(ACCOUNT), player), PlayerAccount.class);
     }
 
     @Override
     public List<String> canAfford(Collection<String> players, Currency currency, Long amount) {
         // Step 1. Generating URL
-        String url = buildUriWith(toPaymentUrl(PAYMENT_ACCOUNTS)) + "?currency=" + currency + "&amount=" + amount;
+        String url = buildUriWith(toPaymentUrl(ACCOUNTS)) + "?currency=" + currency + "&amount=" + amount;
         for(String player: players)
             url += "&player=" + player;
         // Step 2. Sending and receiving response
