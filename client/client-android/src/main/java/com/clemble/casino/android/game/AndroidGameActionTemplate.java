@@ -1,7 +1,7 @@
 package com.clemble.casino.android.game;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
-import static com.clemble.casino.web.game.GameWebMapping.*;
+import static com.clemble.casino.game.GameWebMapping.*;
 
 import com.clemble.casino.game.GameContext;
 import org.springframework.web.client.RestTemplate;

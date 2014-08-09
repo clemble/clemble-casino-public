@@ -9,7 +9,7 @@ import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.player.PlayerAware;
-import com.clemble.casino.player.PlayerPresenceChangedEvent;
+import com.clemble.casino.player.event.PlayerPresenceChangedEvent;
 
 public interface EventListenerOperations extends PlayerAware, Closeable {
 

@@ -15,7 +15,7 @@ import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import com.clemble.casino.game.service.AvailabilityGameConstructionService;
 import com.clemble.casino.utils.CollectionUtils;
 
-import static com.clemble.casino.web.game.GameWebMapping.*;
+import static com.clemble.casino.game.GameWebMapping.*;
 
 public class AndroidAvailabilityGameConstructionService<T extends GameState> extends AbstractClembleCasinoOperations implements AvailabilityGameConstructionService {
 

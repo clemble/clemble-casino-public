@@ -7,7 +7,6 @@ import java.util.Collection;
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
@@ -25,7 +24,7 @@ import com.clemble.casino.game.service.GameInitiationService;
 import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.GameConfigurations;
 import com.clemble.casino.utils.CollectionUtils;
-import com.clemble.casino.web.game.GameWebMapping;
+import com.clemble.casino.game.GameWebMapping;
 
 public class GameConstructionTemplate implements GameConstructionOperations {
 

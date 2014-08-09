@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-class ExtenstionJsonModule implements ClembleJsonModule {
+public class ExtenstionJsonModule implements ClembleJsonModule {
 
     @Override
     public Module construct() {

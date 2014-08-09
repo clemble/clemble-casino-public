@@ -1,6 +1,7 @@
-package com.clemble.casino.json;
+package com.clemble.casino.game.json;
 
 import com.clemble.casino.game.event.schedule.*;
+import com.clemble.casino.json.ClembleJsonModule;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
@@ -49,7 +50,7 @@ import com.clemble.casino.game.specification.TournamentGameConfiguration;
 import com.clemble.casino.game.TournamentGameContext;
 import com.clemble.casino.game.unit.Chip;
 
-class GameJsonModule implements ClembleJsonModule {
+public class GameJsonModule implements ClembleJsonModule {
 
     @Override
     public Module construct() {

@@ -1,4 +1,4 @@
-package com.clemble.casino.json;
+package com.clemble.casino.player.json;
 
 import com.clemble.casino.player.event.PlayerDiscoveredConnectionEvent;
 import com.fasterxml.jackson.annotation.JsonTypeName;

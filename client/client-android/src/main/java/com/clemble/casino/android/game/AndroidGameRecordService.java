@@ -1,7 +1,7 @@
 package com.clemble.casino.android.game;
 
-import static com.clemble.casino.web.game.GameWebMapping.SESSIONS_RECORD;
-import static com.clemble.casino.web.game.GameWebMapping.toGameUrl;
+import static com.clemble.casino.game.GameWebMapping.SESSIONS_RECORD;
+import static com.clemble.casino.game.GameWebMapping.toGameUrl;
 
 import org.springframework.web.client.RestTemplate;
 

@@ -1,6 +1,7 @@
-package com.clemble.casino.json;
+package com.clemble.casino.player.json;
 
-import com.clemble.casino.player.PlayerPresenceChangedEvent;
+import com.clemble.casino.json.ClembleJsonModule;
+import com.clemble.casino.player.event.PlayerPresenceChangedEvent;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.jsontype.NamedType;

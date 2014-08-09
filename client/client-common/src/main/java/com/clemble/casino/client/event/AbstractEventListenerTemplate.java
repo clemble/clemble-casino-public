@@ -20,7 +20,7 @@ import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.game.GameSessionAwareEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.payment.event.PaymentEvent;
-import com.clemble.casino.player.PlayerPresenceChangedEvent;
+import com.clemble.casino.player.event.PlayerPresenceChangedEvent;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 abstract public class AbstractEventListenerTemplate implements EventListenerOperations, Closeable {

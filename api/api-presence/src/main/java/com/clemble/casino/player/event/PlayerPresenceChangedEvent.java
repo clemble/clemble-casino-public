@@ -1,6 +1,8 @@
-package com.clemble.casino.player;
+package com.clemble.casino.player.event;
 
 import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.player.PlayerPresence;
+import com.clemble.casino.player.Presence;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

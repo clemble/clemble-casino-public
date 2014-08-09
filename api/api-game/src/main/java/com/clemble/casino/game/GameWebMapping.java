@@ -1,4 +1,4 @@
-package com.clemble.casino.web.game;
+package com.clemble.casino.game;
 
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.web.mapping.WebMapping;
