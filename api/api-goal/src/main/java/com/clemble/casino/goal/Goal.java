@@ -67,6 +67,14 @@ public class Goal implements GoalAware {
         return dueDate;
     }
 
+    public Goal cloneWithPlayerAndGoal(String player, String goal) {
+        return new Goal(player, goal, description, bet, dueDate, rate, state);
+    }
+
+    public Goal cloneWithGoal(String goal) {
+        return new Goal(player, goal, description, bet, dueDate, rate, state);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
