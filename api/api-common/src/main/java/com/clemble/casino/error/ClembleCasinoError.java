@@ -112,7 +112,12 @@ public enum ClembleCasinoError {
     PlayerProfileInvalid(Code.PLAYER_PROFILE_INVALID_ERROR_CODE, "Player Profile invalid"),
     PlayerNotSessionOwner(Code.PLAYER_NOT_SESSION_OWNER_ERROR_CODE, "Player can't change session, he does not own"),
     PlayerSessionClosed(Code.PLAYER_SESSION_CLOSED_ERROR_CODE, "Player session already closed"),
-    PlayerAccountAccessDenied(Code.PLAYER_ACCOUNT_ACCESS_DENIED, "Player account access denied");
+    PlayerAccountAccessDenied(Code.PLAYER_ACCOUNT_ACCESS_DENIED, "Player account access denied"),
+
+    GoalStateIncorrect(Code.GOAL_STATE_INCORRECT, "Goal State incorrect, supposed to be in Pending state"),
+    GoalDueDateInPast(Code.GOAL_DUE_DATE_IN_PAST, "Goal Due Date in past"),
+    GoalPlayerIncorrect(Code.GOAL_PLAYER_INCORRECT, "Goal Player is incorrect");
+
 
     final private static Map<String, ClembleCasinoError> REGISTERED_ERRORS = new HashMap<String, ClembleCasinoError>();
 
@@ -283,5 +288,10 @@ public enum ClembleCasinoError {
         final public static String PLAYER_SESSION_CLOSED_ERROR_CODE = "0M6";
         final public static String PLAYER_ACCOUNT_ACCESS_DENIED = "0M7";
         // Payment errors
+
+        // Goal errors
+        final public static String GOAL_STATE_INCORRECT = "0N0";
+        final public static String GOAL_DUE_DATE_IN_PAST = "0N1";
+        final public static String GOAL_PLAYER_INCORRECT = "0N2";
     }
 }

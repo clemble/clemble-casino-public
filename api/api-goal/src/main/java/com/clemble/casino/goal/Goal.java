@@ -15,8 +15,6 @@ public class Goal implements GoalAware {
     final private String goal;
     final private String description;
     final private GoalState state;
-    final private Money bet;
-    final private int rate;
     final private Date dueDate;
 
     @JsonCreator
@@ -24,17 +22,13 @@ public class Goal implements GoalAware {
             @JsonProperty("player") String player,
             @JsonProperty("goal") String goal,
             @JsonProperty("description") String description,
-            @JsonProperty("bet") Money bet,
             @JsonProperty("dueDate") Date dueDate,
-            @JsonProperty("rate") int rate,
             @JsonProperty("state") GoalState state) {
         this.player = player;
         this.dueDate = dueDate;
         this.description = description;
         this.state = state;
-        this.rate = rate;
         this.goal = goal;
-        this.bet = bet;
     }
 
     @Override
@@ -55,24 +49,12 @@ public class Goal implements GoalAware {
         return state;
     }
 
-    public Money getBet() {
-        return bet;
-    }
-
-    public int getRate() {
-        return rate;
-    }
-
     public Date getDueDate() {
         return dueDate;
     }
 
-    public Goal cloneWithPlayerAndGoal(String player, String goal) {
-        return new Goal(player, goal, description, bet, dueDate, rate, state);
-    }
-
-    public Goal cloneWithGoal(String goal) {
-        return new Goal(player, goal, description, bet, dueDate, rate, state);
+    public Goal cloneWithPlayerAndGoal(String player, String goal, GoalState state) {
+        return new Goal(player, goal, description, dueDate, state);
     }
 
     @Override
@@ -82,8 +64,6 @@ public class Goal implements GoalAware {
 
         Goal goal1 = (Goal) o;
 
-        if (rate != goal1.rate) return false;
-        if (bet != null ? !bet.equals(goal1.bet) : goal1.bet != null) return false;
         if (description != null ? !description.equals(goal1.description) : goal1.description != null) return false;
         if (dueDate != null ? !dueDate.equals(goal1.dueDate) : goal1.dueDate != null) return false;
         if (goal != null ? !goal.equals(goal1.goal) : goal1.goal != null) return false;
@@ -99,9 +79,18 @@ public class Goal implements GoalAware {
         result = 31 * result + (goal != null ? goal.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (bet != null ? bet.hashCode() : 0);
-        result = 31 * result + rate;
         result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Goal{" +
+            "player='" + player + '\'' +
+            ", goal='" + goal + '\'' +
+            ", description='" + description + '\'' +
+            ", state=" + state +
+            ", dueDate=" + dueDate +
+            '}';
     }
 }
