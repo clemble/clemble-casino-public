@@ -12,6 +12,7 @@
         <module>api-common</module>
         <module>api-player</module>
         <module>api-payment</module>
+        <module>api-bet</module>
         <module>api-game</module>
         <module>api-presence</module>
         <module>api-goal</module>

@@ -34,9 +34,9 @@ public class PaymentOperation implements PlayerAware, AmountAware {
     public PaymentOperation(){
     }
     
-    public PaymentOperation(String player, Money ammount, Operation operation) {
+    public PaymentOperation(String player, Money amount, Operation operation) {
         this.player = player;
-        this.amount = ammount;
+        this.amount = amount;
         this.operation = operation;
     }
 

@@ -1,6 +1,6 @@
 package com.clemble.casino.goal;
 
-import com.clemble.casino.money.Money;
+import com.clemble.casino.bet.BetAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public class Goal implements GoalAware {
+public class Goal implements GoalAware, BetAware {
 
     final private String player;
     final private String goal;
@@ -53,6 +53,11 @@ public class Goal implements GoalAware {
         return dueDate;
     }
 
+    @Override
+    public String toBetKey() {
+        return player + ":" + goal;
+    }
+
     public Goal cloneWithPlayerAndGoal(String player, String goal, GoalState state) {
         return new Goal(player, goal, description, dueDate, state);
     }
@@ -93,4 +98,5 @@ public class Goal implements GoalAware {
             ", dueDate=" + dueDate +
             '}';
     }
+
 }
