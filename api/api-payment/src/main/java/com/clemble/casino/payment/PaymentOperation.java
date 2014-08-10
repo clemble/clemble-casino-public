@@ -5,6 +5,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 
@@ -20,21 +22,12 @@ public class PaymentOperation implements PlayerAware, AmountAware {
      */
     private static final long serialVersionUID = 4480718203883740214L;
 
-    @Column(name = "PLAYER_ID")
-    private String player;
+    final private String player;
+    final private Money amount;
+    final private Operation operation;
 
-    @Type(type = "com.clemble.casino.money.MoneyHibernate")
-    @Columns(columns = { @Column(name = "CURRENCY"), @Column(name = "AMOUNT") })
-    private Money amount;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "OPERATION")
-    private Operation operation;
-    
-    public PaymentOperation(){
-    }
-    
-    public PaymentOperation(String player, Money amount, Operation operation) {
+    @JsonCreator
+    public PaymentOperation(@JsonProperty("player") String player, @JsonProperty("amount") Money amount, @JsonProperty("operation") Operation operation) {
         this.player = player;
         this.amount = amount;
         this.operation = operation;
@@ -45,44 +38,26 @@ public class PaymentOperation implements PlayerAware, AmountAware {
         return player;
     }
 
-    public PaymentOperation setPlayer(String playerId) {
-        this.player = playerId;
-        return this;
-    }
-
     @Override
     public Money getAmount() {
         return amount;
-    }
-
-    public PaymentOperation setAmount(Money amount) {
-        this.amount = amount;
-        return this;
     }
 
     public Operation getOperation() {
         return operation;
     }
 
-    public PaymentOperation setOperation(Operation operation) {
-        this.operation = operation;
-        return this;
-    }
-
-    public void combine(PaymentOperation paymentOperation) {
+    public PaymentOperation combine(PaymentOperation paymentOperation) {
         // Step 1. Sanity check
         if (paymentOperation == null || !this.player.equals(paymentOperation.getPlayer()))
             throw new IllegalArgumentException();
         // Step 2. Processing operations
-        if (paymentOperation.getOperation() == operation) {
-            amount = amount.add(paymentOperation.getAmount());
-        } else {
-            amount = amount.subtract(paymentOperation.getAmount());
-        }
+        Money newAmount =  paymentOperation.getOperation() == operation ? amount.add(paymentOperation.getAmount()): amount.subtract(paymentOperation.getAmount());
         // Step 3. Checking if value is negative, and returning 
-        if(amount.isNegative()) {
-            operation = operation == Operation.Debit ? Operation.Credit : Operation.Debit;
-            amount = amount.negate();
+        if(newAmount.isNegative()) {
+            return new PaymentOperation(player, newAmount.negate(), operation == Operation.Debit ? Operation.Credit : Operation.Debit);
+        } else {
+            return new PaymentOperation(player, newAmount, operation);
         }
     }
 

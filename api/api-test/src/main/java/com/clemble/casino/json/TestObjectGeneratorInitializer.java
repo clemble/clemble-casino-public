@@ -71,103 +71,101 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(ExpectedEvent.class, new AbstractValueGenerator<ExpectedEvent>() {
             @Override
             public ExpectedEvent generate() {
-                return new ExpectedEvent("S", InvitationAcceptedEvent.class);
+            return new ExpectedEvent("S", InvitationAcceptedEvent.class);
             }
         });
         ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {
             @Override
             public RoundGameContext generate() {
-                GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A", "B"), RoundGameConfiguration.DEFAULT);
-                return new RoundGameContext(initiation);
+            GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A", "B"), RoundGameConfiguration.DEFAULT);
+            return new RoundGameContext(initiation);
             }
 
         });
         ObjectGenerator.register(GameSessionKey.class, new AbstractValueGenerator<GameSessionKey>() {
             @Override
             public GameSessionKey generate() {
-                return new GameSessionKey(ObjectGenerator.generate(Game.class), ObjectGenerator.generate(String.class));
+            return new GameSessionKey(ObjectGenerator.generate(Game.class), ObjectGenerator.generate(String.class));
             }
         });
         ObjectGenerator.register(FixedBetRule.class, new AbstractValueGenerator<FixedBetRule>() {
             @Override
             public FixedBetRule generate() {
-                return FixedBetRule.create(new long[]{10});
+            return FixedBetRule.create(new long[]{10});
             }
         });
         ObjectGenerator.register(GameAction.class, new AbstractValueGenerator<GameAction>() {
             @Override
             public GameAction generate() {
-                return new GiveUpAction(RandomStringUtils.random(5));
+            return new GiveUpAction(RandomStringUtils.random(5));
             }
         });
         ObjectGenerator.register(BetAction.class, new AbstractValueGenerator<BetAction>() {
             @Override
             public BetAction generate() {
-                return new BetAction(RandomStringUtils.random(5), 100);
+            return new BetAction(RandomStringUtils.random(5), 100);
             }
         });
         ObjectGenerator.register(PlayerAccount.class, new AbstractValueGenerator<PlayerAccount>() {
             @Override
             public PlayerAccount generate() {
-                return new PlayerAccount(RandomStringUtils.random(5), ImmutableMap.of(Currency.FakeMoney, Money.create(Currency.FakeMoney, 500)));
+            return new PlayerAccount(RandomStringUtils.random(5), ImmutableMap.of(Currency.FakeMoney, Money.create(Currency.FakeMoney, 500)));
             }
         });
         ObjectGenerator.register(PaymentTransaction.class, new AbstractValueGenerator<PaymentTransaction>() {
             @Override
             public PaymentTransaction generate() {
-                return new PaymentTransaction()
-                        .setTransactionKey(new PaymentTransactionKey().setSource("TicTacToe").setTransaction(RandomStringUtils.random(5)))
-                        .setTransactionDate(new Date())
-                        .setProcessingDate(new Date())
-                        .addPaymentOperation(
-                                new PaymentOperation().setAmount(Money.create(Currency.FakeMoney, 50)).setOperation(Operation.Credit)
-                                        .setPlayer(RandomStringUtils.random(5)))
-                        .addPaymentOperation(
-                                new PaymentOperation().setAmount(Money.create(Currency.FakeMoney, 50)).setOperation(Operation.Debit)
-                                        .setPlayer(RandomStringUtils.random(5)));
+            return new PaymentTransaction()
+                    .setTransactionKey(new PaymentTransactionKey().setSource("TicTacToe").setTransaction(RandomStringUtils.random(5)))
+                    .setTransactionDate(new Date())
+                    .setProcessingDate(new Date())
+                    .addPaymentOperation(
+                        new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Credit))
+                    .addPaymentOperation(
+                        new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Debit));
             }
         });
         ObjectGenerator.register(PlayerCredential.class, new AbstractValueGenerator<PlayerCredential>() {
             @Override
             public PlayerCredential generate() {
-                return new PlayerCredential().setEmail(RandomStringUtils.randomAlphabetic(10) + "@gmail.com").setPassword(RandomStringUtils.random(10))
+            return new PlayerCredential().setEmail(RandomStringUtils.randomAlphabetic(10) + "@gmail.com").setPassword(RandomStringUtils.random(10))
                         .setPlayer(RandomStringUtils.random(5));
             }
         });
         ObjectGenerator.register(PlayerProfile.class, new AbstractValueGenerator<PlayerProfile>() {
             @Override
             public PlayerProfile generate() {
-                return new PlayerProfile().setBirthDate(new Date(0)).setFirstName(RandomStringUtils.randomAlphabetic(10))
-                        .setGender(PlayerGender.M).setLastName(RandomStringUtils.randomAlphabetic(10)).setNickName(RandomStringUtils.randomAlphabetic(10))
-                        .setPlayer(RandomStringUtils.random(5));
+            return new PlayerProfile().setBirthDate(new Date(0)).setFirstName(RandomStringUtils.randomAlphabetic(10))
+                .setGender(PlayerGender.M).setLastName(RandomStringUtils.randomAlphabetic(10)).setNickName(RandomStringUtils.randomAlphabetic(10))
+                .setPlayer(RandomStringUtils.random(5));
             }
         });
         ObjectGenerator.register(RoundRule.class, new AbstractValueGenerator<RoundRule>() {
             @Override
             public RoundRule generate() {
-                return UnlimitedBetRule.INSTANCE;
+            return UnlimitedBetRule.INSTANCE;
             }
         });
         ObjectGenerator.register(GameConstruction.class, new AbstractValueGenerator<GameConstruction>() {
             @Override
             public GameConstruction generate() {
-                return new GameConstruction()
-                        .setSession(new GameSessionKey(Game.pic, "0"))
-                        .setRequest(new AutomaticGameRequest(RandomStringUtils.random(5), RoundGameConfiguration.DEFAULT))
-                        .setResponses(new ActionLatch().expectNext(ImmutableList.<String>of(RandomStringUtils.random(5), RandomStringUtils.random(5)), InvitationResponseEvent.class))
-                        .setState(GameConstructionState.pending);
+            return new GameConstruction()
+                .setSession(new GameSessionKey(Game.pic, "0"))
+                .setRequest(new AutomaticGameRequest(RandomStringUtils.random(5), RoundGameConfiguration.DEFAULT))
+                .setResponses(new ActionLatch().expectNext(ImmutableList.<String>of(RandomStringUtils.random(5), RandomStringUtils.random(5)), InvitationResponseEvent.class))
+                .setState(GameConstructionState.pending);
             }
         });
         ObjectGenerator.register(LimitedBetRule.class, new AbstractValueGenerator<LimitedBetRule>() {
             @Override
             public LimitedBetRule generate() {
-                return LimitedBetRule.create(10, 200);
+            return LimitedBetRule.create(10, 200);
             }
         });
         ObjectGenerator.register(RoundGameConfiguration.class, new AbstractValueGenerator<RoundGameConfiguration>() {
             @Override
             public RoundGameConfiguration generate() {
-                return RoundGameConfiguration.DEFAULT;
+            return RoundGameConfiguration.DEFAULT;
             }
         });
         ObjectGenerator.register(VersionAware.class, "version", new ValueGenerator<Integer>() {
@@ -188,13 +186,13 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(GameConfiguration.class, new AbstractValueGenerator<GameConfiguration>() {
             @Override
             public GameConfiguration generate() {
-                return RoundGameConfiguration.DEFAULT;
+            return RoundGameConfiguration.DEFAULT;
             }
         });
         ObjectGenerator.register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
             @Override
             public TournamentGameConfiguration generate() {
-                return new TournamentGameConfiguration(new GameConfigurationKey(Game.pic, "AAA"), new Money(Currency.FakeMoney, 50), PrivacyRule.players, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
+            return new TournamentGameConfiguration(new GameConfigurationKey(Game.pic, "AAA"), new Money(Currency.FakeMoney, 50), PrivacyRule.players, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
             }
         });
 
@@ -202,25 +200,25 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PrivateKey.class, new AbstractValueGenerator<PrivateKey>() {
             @Override
             public PrivateKey generate() {
-                return rsaKey.getPrivateKey();
+            return rsaKey.getPrivateKey();
             }
         });
         ObjectGenerator.register(PublicKey.class, new AbstractValueGenerator<PublicKey>() {
             @Override
             public PublicKey generate() {
-                return rsaKey.getPublicKey();
+            return rsaKey.getPublicKey();
             }
         });
         ObjectGenerator.register(MatchGameContext.class, new AbstractValueGenerator<MatchGameContext>() {
             @Override
             public MatchGameContext generate() {
-                return new MatchGameContext(GameSessionKey.DEFAULT_SESSION, null, Collections.<MatchGamePlayerContext>emptyList(), null, 0, Collections.<GameOutcome>emptyList());
+            return new MatchGameContext(GameSessionKey.DEFAULT_SESSION, null, Collections.<MatchGamePlayerContext>emptyList(), null, 0, Collections.<GameOutcome>emptyList());
             }
         });
         ObjectGenerator.register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {
             @Override
             public TournamentGameContext generate() {
-                return new TournamentGameContext(GameSessionKey.DEFAULT_SESSION, null, null, null);
+            return new TournamentGameContext(GameSessionKey.DEFAULT_SESSION, null, null, null);
             }
         });
         try {
