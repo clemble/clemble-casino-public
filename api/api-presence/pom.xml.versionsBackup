@@ -5,18 +5,19 @@
     <parent>
         <artifactId>api</artifactId>
         <groupId>com.clemble.casino</groupId>
-        <version>0.11.0-SNAPSHOT</version>
+        <version>0.10.0-SNAPSHOT</version>
+        <relativePath>../../public/api/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>api-bet</artifactId>
+    <artifactId>api-presence</artifactId>
+
 
     <dependencies>
         <dependency>
             <groupId>com.clemble.casino</groupId>
-            <artifactId>api-payment</artifactId>
+            <artifactId>api-game</artifactId>
         </dependency>
     </dependencies>
-
 
 </project>
