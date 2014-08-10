@@ -5,6 +5,8 @@ import com.clemble.casino.money.Money;
 import com.clemble.casino.money.Operation;
 import com.clemble.casino.payment.PaymentOperation;
 import com.clemble.casino.payment.PaymentTransaction;
+import com.clemble.casino.payment.PaymentTransactionAware;
+import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,14 +16,14 @@ import java.util.*;
 /**
  * Created by mavarazy on 8/9/14.
  */
-public class Bet implements BetAware {
+public class Bet implements PaymentTransactionAware {
 
-    final private String betKey;
+    final private PaymentTransactionKey transactionKey;
     final private Collection<Bid> bids;
 
     @JsonCreator
-    public Bet(@JsonProperty("betKey") String betKey, @JsonProperty("bids")  Collection<Bid> bids) {
-        this.betKey = betKey;
+    public Bet(@JsonProperty("transactionKey") PaymentTransactionKey transactionKey, @JsonProperty("bids")  Collection<Bid> bids) {
+        this.transactionKey = transactionKey;
         this.bids = bids;
     }
 
@@ -29,13 +31,9 @@ public class Bet implements BetAware {
         return bids;
     }
 
-    public String getBetKey(){
-        return betKey;
-    }
-
     @Override
-    public String toBetKey() {
-        return betKey;
+    public PaymentTransactionKey getTransactionKey() {
+        return transactionKey;
     }
 
     public PaymentTransaction toTransaction(String player) {
@@ -66,7 +64,7 @@ public class Bet implements BetAware {
 
         Bet bet = (Bet) o;
 
-        if (!betKey.equals(bet.betKey)) return false;
+        if (!transactionKey.equals(bet.transactionKey)) return false;
         if (!bids.equals(bet.bids)) return false;
 
         return true;
@@ -74,7 +72,7 @@ public class Bet implements BetAware {
 
     @Override
     public int hashCode() {
-        int result = betKey.hashCode();
+        int result = transactionKey.hashCode();
         result = 31 * result + bids.hashCode();
         return result;
     }
