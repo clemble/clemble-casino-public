@@ -116,7 +116,8 @@ public enum ClembleCasinoError {
 
     GoalStateIncorrect(Code.GOAL_STATE_INCORRECT, "Goal State incorrect, supposed to be in Pending state"),
     GoalDueDateInPast(Code.GOAL_DUE_DATE_IN_PAST, "Goal Due Date in past"),
-    GoalPlayerIncorrect(Code.GOAL_PLAYER_INCORRECT, "Goal Player is incorrect");
+    GoalPlayerIncorrect(Code.GOAL_PLAYER_INCORRECT, "Goal Player is incorrect"),
+    GoalBidInvalid(Code.GOAL_BID_INVALID, "Goal Bid is invalid");
 
 
     final private static Map<String, ClembleCasinoError> REGISTERED_ERRORS = new HashMap<String, ClembleCasinoError>();
@@ -293,5 +294,6 @@ public enum ClembleCasinoError {
         final public static String GOAL_STATE_INCORRECT = "0N0";
         final public static String GOAL_DUE_DATE_IN_PAST = "0N1";
         final public static String GOAL_PLAYER_INCORRECT = "0N2";
+        final public static String GOAL_BID_INVALID = "0N3";
     }
 }

@@ -3,6 +3,7 @@ package com.clemble.casino.game;
 import java.io.Serializable;
 import java.util.List;
 
+import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.player.PlayerAwareUtils;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

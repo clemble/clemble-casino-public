@@ -1,31 +1,32 @@
 package com.clemble.casino.bet;
 
 import com.clemble.casino.money.Money;
-import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.payment.AmountAware;
+import com.clemble.casino.player.WinnerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 8/10/14.
  */
-public class Bid implements PlayerAware {
+public class Bid implements AmountAware, WinnerAware {
 
-    final private String player;
+    final private String winner;
     final private String bidder;
     final private Money amount;
     final private Money bidAmount;
 
     @JsonCreator
-    public Bid(@JsonProperty("player") String player, @JsonProperty("bidder") String bidder, @JsonProperty("amount") Money amount, @JsonProperty("bidAmount") Money bidAmount) {
-        this.player = player;
+    public Bid(@JsonProperty("winner") String winner, @JsonProperty("bidder") String bidder, @JsonProperty("amount") Money amount, @JsonProperty("bidAmount") Money bidAmount) {
+        this.winner = winner;
         this.amount = amount;
         this.bidder = bidder;
         this.bidAmount = bidAmount;
     }
 
     @Override
-    public String getPlayer() {
-        return player;
+    public String getWinner() {
+        return winner;
     }
 
     public String getBidder() {
@@ -50,14 +51,14 @@ public class Bid implements PlayerAware {
         if (!amount.equals(bid.amount)) return false;
         if (!bidAmount.equals(bid.bidAmount)) return false;
         if (!bidder.equals(bid.bidder)) return false;
-        if (!player.equals(bid.player)) return false;
+        if (!winner.equals(bid.winner)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player.hashCode();
+        int result = winner.hashCode();
         result = 31 * result + bidder.hashCode();
         result = 31 * result + amount.hashCode();
         result = 31 * result + bidAmount.hashCode();

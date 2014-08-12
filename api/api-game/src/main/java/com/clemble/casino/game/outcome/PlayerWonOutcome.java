@@ -1,12 +1,13 @@
 package com.clemble.casino.game.outcome;
 
+import com.clemble.casino.player.WinnerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("playerWon")
 // TODO make PlayerAware
-public class PlayerWonOutcome extends GameOutcome {
+public class PlayerWonOutcome extends GameOutcome implements WinnerAware {
 
     /**
      * Generated 22/01/14

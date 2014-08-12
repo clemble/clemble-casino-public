@@ -16,13 +16,13 @@ import java.util.*;
 /**
  * Created by mavarazy on 8/9/14.
  */
-public class Bet implements PaymentTransactionAware {
+public class BetPaymentTransaction implements PaymentTransactionAware {
 
     final private PaymentTransactionKey transactionKey;
     final private Collection<Bid> bids;
 
     @JsonCreator
-    public Bet(@JsonProperty("transactionKey") PaymentTransactionKey transactionKey, @JsonProperty("bids")  Collection<Bid> bids) {
+    public BetPaymentTransaction(@JsonProperty("transactionKey") PaymentTransactionKey transactionKey, @JsonProperty("bids") Collection<Bid> bids) {
         this.transactionKey = transactionKey;
         this.bids = bids;
     }
@@ -36,12 +36,13 @@ public class Bet implements PaymentTransactionAware {
         return transactionKey;
     }
 
-    public PaymentTransaction toTransaction(String player) {
+    public PaymentTransaction toTransaction(String winner) {
         // Step 1. Converting bids to operations
         Money balance = Money.create(Currency.FakeMoney, 0);
-        PaymentTransaction transaction = new PaymentTransaction();
+        PaymentTransaction transaction = new PaymentTransaction().
+            setTransactionKey(transactionKey);
         for(Bid bid: bids) {
-            if(!bid.getPlayer().equals(player)) {
+            if(!bid.getWinner().equals(winner)) {
                 transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), bid.getBidAmount(), Operation.Credit));
                 balance.add(bid.getBidAmount());
             } else {
@@ -62,7 +63,7 @@ public class Bet implements PaymentTransactionAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Bet bet = (Bet) o;
+        BetPaymentTransaction bet = (BetPaymentTransaction) o;
 
         if (!transactionKey.equals(bet.transactionKey)) return false;
         if (!bids.equals(bet.bids)) return false;

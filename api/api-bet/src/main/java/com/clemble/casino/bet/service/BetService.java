@@ -1,6 +1,7 @@
 package com.clemble.casino.bet.service;
 
-import com.clemble.casino.bet.Bet;
+import com.clemble.casino.bet.BetPaymentTransaction;
+import com.clemble.casino.payment.PaymentTransactionKey;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ import java.util.List;
  */
 public interface BetService {
 
-    public List<Bet> myBets();
+    public List<BetPaymentTransaction> myBets();
 
-    public Bet getBet(String betKey);
+    public BetPaymentTransaction getBet(PaymentTransactionKey transaction);
 
 }

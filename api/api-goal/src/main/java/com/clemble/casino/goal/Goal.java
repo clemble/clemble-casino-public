@@ -1,45 +1,49 @@
 package com.clemble.casino.goal;
 
 import com.clemble.casino.bet.BetAware;
+import com.clemble.casino.bet.Bid;
 import com.clemble.casino.payment.PaymentTransactionAware;
 import com.clemble.casino.payment.PaymentTransactionKey;
+import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
 /**
  * Created by mavarazy on 8/2/14.
  */
-public class Goal implements GoalAware, PaymentTransactionAware {
+public class Goal implements GoalAware, PlayerAware {
 
+    @Id
+    final private GoalKey goalKey;
     final private String player;
-    final private String goal;
-    final private PaymentTransactionKey transactionKey;
     final private String description;
-    final private GoalState state;
     final private Date dueDate;
+    final private GoalState state;
+    final private Bid bid;
 
     @JsonCreator
     public Goal(
+            @JsonProperty("goalKey") GoalKey goalKey,
             @JsonProperty("player") String player,
-            @JsonProperty("goal") String goal,
             @JsonProperty("description") String description,
             @JsonProperty("dueDate") Date dueDate,
-            @JsonProperty("state") GoalState state) {
+            @JsonProperty("state") GoalState state,
+            @JsonProperty("bid") Bid bid) {
+        this.goalKey = goalKey;
         this.player = player;
-        this.goal = goal;
-        this.transactionKey = new PaymentTransactionKey(player, goal);
         this.dueDate = dueDate;
         this.description = description;
         this.state = state;
+        this.bid = bid;
     }
 
     @Override
-    @JsonIgnore
-    public PaymentTransactionKey getTransactionKey() {
-        return null;
+    public GoalKey getGoalKey() {
+        return goalKey;
     }
 
     @Override
@@ -47,9 +51,8 @@ public class Goal implements GoalAware, PaymentTransactionAware {
         return player;
     }
 
-    @Override
-    public String getGoal() {
-        return goal;
+    public Bid getBid() {
+        return bid;
     }
 
     public String getDescription() {
@@ -65,7 +68,7 @@ public class Goal implements GoalAware, PaymentTransactionAware {
     }
 
     public Goal cloneWithPlayerAndGoal(String player, String goal, GoalState state) {
-        return new Goal(player, goal, description, dueDate, state);
+        return new Goal(new GoalKey(player, goal), player, description, dueDate, state, bid);
     }
 
     @Override
@@ -73,36 +76,24 @@ public class Goal implements GoalAware, PaymentTransactionAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Goal goal1 = (Goal) o;
+        Goal goal = (Goal) o;
 
-        if (description != null ? !description.equals(goal1.description) : goal1.description != null) return false;
-        if (dueDate != null ? !dueDate.equals(goal1.dueDate) : goal1.dueDate != null) return false;
-        if (goal != null ? !goal.equals(goal1.goal) : goal1.goal != null) return false;
-        if (player != null ? !player.equals(goal1.player) : goal1.player != null) return false;
-        if (state != goal1.state) return false;
+        if (!bid.equals(goal.bid)) return false;
+        if (!description.equals(goal.description)) return false;
+        if (!dueDate.equals(goal.dueDate)) return false;
+        if (!goalKey.equals(goal.goalKey)) return false;
+        if (state != goal.state) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player != null ? player.hashCode() : 0;
-        result = 31 * result + (goal != null ? goal.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
+        int result = goalKey.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + state.hashCode();
+        result = 31 * result + dueDate.hashCode();
+        result = 31 * result + bid.hashCode();
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "Goal{" +
-            "player='" + player + '\'' +
-            ", goal='" + goal + '\'' +
-            ", description='" + description + '\'' +
-            ", state=" + state +
-            ", dueDate=" + dueDate +
-            '}';
-    }
-
 }
