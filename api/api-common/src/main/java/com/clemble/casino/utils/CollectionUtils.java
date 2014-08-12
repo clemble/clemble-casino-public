@@ -14,6 +14,12 @@ public class CollectionUtils {
         return Collections.<T> unmodifiableSet(set instanceof Set ? (Set<? extends T>) set : new HashSet<T>(set));
     }
 
+    public static <T> Set<T> immutableSet(T ... set) {
+        if (set == null)
+            return Collections.emptySet();
+        return Collections.<T> unmodifiableSet(new HashSet<T>(Arrays.asList(set)));
+    }
+
     public static <T> List<T> immutableList(Collection<? extends T> list) {
         if (list == null)
             return Collections.emptyList();
