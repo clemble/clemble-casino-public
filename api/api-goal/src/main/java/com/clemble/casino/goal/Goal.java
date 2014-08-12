@@ -78,10 +78,11 @@ public class Goal implements GoalAware, PlayerAware {
 
         Goal goal = (Goal) o;
 
-        if (!bid.equals(goal.bid)) return false;
-        if (!description.equals(goal.description)) return false;
-        if (!dueDate.equals(goal.dueDate)) return false;
-        if (!goalKey.equals(goal.goalKey)) return false;
+        if (bid != null ? !bid.equals(goal.bid) : goal.bid != null) return false;
+        if (description != null ? !description.equals(goal.description) : goal.description != null) return false;
+        if (dueDate != null ? !dueDate.equals(goal.dueDate) : goal.dueDate != null) return false;
+        if (goalKey != null ? !goalKey.equals(goal.goalKey) : goal.goalKey != null) return false;
+        if (player != null ? !player.equals(goal.player) : goal.player != null) return false;
         if (state != goal.state) return false;
 
         return true;
@@ -89,11 +90,12 @@ public class Goal implements GoalAware, PlayerAware {
 
     @Override
     public int hashCode() {
-        int result = goalKey.hashCode();
-        result = 31 * result + description.hashCode();
-        result = 31 * result + state.hashCode();
-        result = 31 * result + dueDate.hashCode();
-        result = 31 * result + bid.hashCode();
+        int result = goalKey != null ? goalKey.hashCode() : 0;
+        result = 31 * result + (player != null ? player.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (bid != null ? bid.hashCode() : 0);
         return result;
     }
 }

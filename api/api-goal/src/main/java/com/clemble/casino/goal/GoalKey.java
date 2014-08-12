@@ -41,17 +41,16 @@ public class GoalKey implements PlayerAware, PaymentTransactionAwareConvertible 
 
         GoalKey goalKey = (GoalKey) o;
 
-        if (!goal.equals(goalKey.goal)) return false;
-        if (!player.equals(goalKey.player)) return false;
+        if (goal != null ? !goal.equals(goalKey.goal) : goalKey.goal != null) return false;
+        if (player != null ? !player.equals(goalKey.player) : goalKey.player != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player.hashCode();
-        result = 31 * result + goal.hashCode();
+        int result = player != null ? player.hashCode() : 0;
+        result = 31 * result + (goal != null ? goal.hashCode() : 0);
         return result;
     }
-
 }
