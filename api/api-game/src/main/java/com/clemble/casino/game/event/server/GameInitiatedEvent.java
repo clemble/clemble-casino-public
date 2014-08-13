@@ -1,5 +1,6 @@
 package com.clemble.casino.game.event.server;
 
+import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -15,11 +16,11 @@ public class GameInitiatedEvent extends GameInitiationEvent {
     private static final long serialVersionUID = 1894571231006850214L;
 
     public GameInitiatedEvent(GameInitiation initiation) {
-        this(initiation.getSession(), initiation);
+        this(initiation.getSessionKey(), initiation);
     }
 
     @JsonCreator
-    public GameInitiatedEvent(@JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("initiation") GameInitiation initiation) {
+    public GameInitiatedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey, @JsonProperty("initiation") GameInitiation initiation) {
         super(sessionKey, initiation);
     }
 

@@ -1,5 +1,6 @@
 package com.clemble.casino.goal;
 
+import com.clemble.casino.Key;
 import com.clemble.casino.payment.PaymentTransactionAwareConvertible;
 import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.player.PlayerAware;
@@ -9,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 8/11/14.
  */
-public class GoalKey implements PlayerAware, PaymentTransactionAwareConvertible {
+public class GoalKey implements PlayerAware, PaymentTransactionAwareConvertible, Key {
 
     final private String player;
     final private String goal;

@@ -5,6 +5,6 @@ package com.clemble.casino.bet;
  */
 public interface BetAware {
 
-    public String toBetKey();
+    public BetKey toBetKey();
 
 }

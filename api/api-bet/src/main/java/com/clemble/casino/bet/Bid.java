@@ -14,14 +14,12 @@ public class Bid implements AmountAware, WinnerAware {
     final private String winner;
     final private String bidder;
     final private Money amount;
-    final private Money bidAmount;
 
     @JsonCreator
-    public Bid(@JsonProperty("winner") String winner, @JsonProperty("bidder") String bidder, @JsonProperty("amount") Money amount, @JsonProperty("bidAmount") Money bidAmount) {
+    public Bid(@JsonProperty("winner") String winner, @JsonProperty("bidder") String bidder, @JsonProperty("amount") Money amount) {
         this.winner = winner;
-        this.amount = amount;
         this.bidder = bidder;
-        this.bidAmount = bidAmount;
+        this.amount = amount;
     }
 
     @Override
@@ -37,10 +35,6 @@ public class Bid implements AmountAware, WinnerAware {
         return amount;
     }
 
-    public Money getBidAmount() {
-        return bidAmount;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,7 +43,6 @@ public class Bid implements AmountAware, WinnerAware {
         Bid bid = (Bid) o;
 
         if (!amount.equals(bid.amount)) return false;
-        if (!bidAmount.equals(bid.bidAmount)) return false;
         if (!bidder.equals(bid.bidder)) return false;
         if (!winner.equals(bid.winner)) return false;
 
@@ -61,7 +54,6 @@ public class Bid implements AmountAware, WinnerAware {
         int result = winner.hashCode();
         result = 31 * result + bidder.hashCode();
         result = 31 * result + amount.hashCode();
-        result = 31 * result + bidAmount.hashCode();
         return result;
     }
 }

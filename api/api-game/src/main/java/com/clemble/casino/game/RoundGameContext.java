@@ -26,7 +26,7 @@ public class RoundGameContext extends GameContext<RoundGamePlayerContext> {
 
     @JsonCreator
     public RoundGameContext(
-        @JsonProperty("session") GameSessionKey sessionKey,
+        @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
         @JsonProperty("playerContexts") List<RoundGamePlayerContext> playerContexts,
         @JsonProperty("playerIterator") GamePlayerIterator playerIterator,
         @JsonProperty("actionLatch") ActionLatch actionLatch,
@@ -41,7 +41,7 @@ public class RoundGameContext extends GameContext<RoundGamePlayerContext> {
     }
 
     public RoundGameContext(GameInitiation initiation, GameContext<?> parent) {
-        super(initiation.getSession(), parent, RoundGamePlayerContext.construct(initiation));
+        super(initiation.getSessionKey(), parent, RoundGamePlayerContext.construct(initiation));
         this.playerIterator = GamePlayerIteratorFactory.create(initiation);
         this.actionLatch = new ActionLatch();
     }

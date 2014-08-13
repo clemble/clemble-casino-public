@@ -19,12 +19,21 @@ import java.util.*;
 public class BetPaymentTransaction implements PaymentTransactionAware {
 
     final private PaymentTransactionKey transactionKey;
+    final private BetSpecification specification;
     final private Collection<Bid> bids;
 
     @JsonCreator
-    public BetPaymentTransaction(@JsonProperty("transactionKey") PaymentTransactionKey transactionKey, @JsonProperty("bids") Collection<Bid> bids) {
+    public BetPaymentTransaction(
+        @JsonProperty("transactionKey") PaymentTransactionKey transactionKey,
+        @JsonProperty("specification") BetSpecification specification,
+        @JsonProperty("bids") Collection<Bid> bids) {
         this.transactionKey = transactionKey;
+        this.specification = specification;
         this.bids = bids;
+    }
+
+    public BetSpecification getSpecification() {
+        return specification;
     }
 
     public Collection<Bid> getBids() {
@@ -43,11 +52,13 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
             setTransactionKey(transactionKey);
         for(Bid bid: bids) {
             if(!bid.getWinner().equals(winner)) {
-                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), bid.getBidAmount(), Operation.Credit));
-                balance.add(bid.getBidAmount());
+                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), bid.getAmount(), Operation.Credit));
+                balance.add(bid.getAmount());
             } else {
-                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), bid.getAmount(), Operation.Debit));
-                balance.subtract(bid.getAmount());
+                long interest = (bid.getAmount().getAmount() * specification.getRate() / 100);
+                Money wonAmount = bid.getAmount().add(interest);
+                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), wonAmount, Operation.Debit));
+                balance.subtract(wonAmount);
             }
         }
         // Step 2. Adding casino to compensate Debit & Credit

@@ -1,5 +1,6 @@
 package com.clemble.casino.game.event.server;
 
+import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.MatchGameContext;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,7 +18,7 @@ public class MatchChangedEvent extends MatchEvent {
     final private GameSessionKey nextSession;
 
     @JsonCreator
-    public MatchChangedEvent(@JsonProperty("session") GameSessionKey sessionKey,
+    public MatchChangedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
                              @JsonProperty("context") MatchGameContext context,
                              @JsonProperty("nextSession") GameSessionKey nextSession) {
         super(sessionKey, context);
@@ -30,7 +31,7 @@ public class MatchChangedEvent extends MatchEvent {
 
     @Override
     public String toString(){
-        return "match:changed:" + getSession();
+        return "match:changed:" + getSessionKey();
     }
 
     @Override

@@ -25,7 +25,7 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
     final private LinkedHashSet<String> participants = new LinkedHashSet<String>();
 
     public GameInitiation(GameConstruction construction) {
-        this(construction.getSession(), construction.fetchAcceptedParticipants(), construction.getRequest().getConfiguration());
+        this(construction.getSessionKey(), construction.fetchAcceptedParticipants(), construction.getRequest().getConfiguration());
     }
 
     public GameInitiation(GameSessionKey session, List<String> participants, GameConfiguration specification) {
@@ -41,7 +41,7 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
     }
 
     @JsonCreator
-    public GameInitiation(@JsonProperty("session") GameSessionKey session, @JsonProperty("configuration") GameConfiguration specification,
+    public GameInitiation(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("configuration") GameConfiguration specification,
             @JsonProperty("participants") Collection<String> playerRoles, @JsonProperty("confirmations") Collection<String> confirmations) {
         this.configuration = checkNotNull(specification);
         this.sessionKey = checkNotNull(session);
@@ -62,7 +62,7 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return sessionKey;
     }
 

@@ -19,7 +19,7 @@ public class AvailabilityAppointment implements GameSessionAware {
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return sessionKey;
     }
 

@@ -19,7 +19,7 @@ abstract public class GameManagementEvent implements GameSessionAwareEvent, Seri
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return session;
     }
 

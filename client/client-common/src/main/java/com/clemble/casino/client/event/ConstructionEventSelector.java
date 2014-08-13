@@ -20,11 +20,11 @@ public class ConstructionEventSelector implements EventSelector, GameSessionAwar
 
     @Override
     public boolean filter(Event event) {
-        return event instanceof GameConstructionEvent && ((GameConstructionEvent) event).getSession().equals(sessionKey);
+        return event instanceof GameConstructionEvent && ((GameConstructionEvent) event).getSessionKey().equals(sessionKey);
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return sessionKey;
     }
 

@@ -22,7 +22,7 @@ public class TournamentLeaf implements GameSessionAware, PlayerAware{
 
     @JsonCreator
     public TournamentLeaf(@JsonProperty("player") String player,
-                          @JsonProperty("session") GameSessionKey sessionKey,
+                          @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
                           @JsonProperty("leafs") Collection<TournamentLeaf> leafs) {
         this.player = player;
         this.sessionKey = sessionKey;
@@ -36,7 +36,7 @@ public class TournamentLeaf implements GameSessionAware, PlayerAware{
     }
 
     @Override
-    public GameSessionKey getSession(){
+    public GameSessionKey getSessionKey(){
         return sessionKey;
     }
 

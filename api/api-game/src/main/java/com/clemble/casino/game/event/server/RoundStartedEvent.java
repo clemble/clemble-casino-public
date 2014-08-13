@@ -14,7 +14,7 @@ public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent 
     private static final long serialVersionUID = -4474960027054354888L;
 
     @JsonCreator
-    public RoundStartedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") State state) {
+    public RoundStartedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("state") State state) {
         super(session, state);
     }
 
@@ -42,7 +42,7 @@ public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent 
 
     @Override
     public String toString(){
-        return "round:started:" + getSession();
+        return "round:started:" + getSessionKey();
     }
 
 }

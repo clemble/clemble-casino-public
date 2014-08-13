@@ -65,7 +65,7 @@ public class GameConstruction implements GameSessionAware, VersionAware {
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return session;
     }
 

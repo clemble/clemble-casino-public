@@ -3,7 +3,6 @@ package com.clemble.casino.game.event.server;
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.RoundGamePlayerContext;
 import com.clemble.casino.game.outcome.GameOutcome;
-import com.clemble.casino.payment.PaymentTransaction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -20,13 +19,13 @@ public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent im
     final private GameContext<RoundGamePlayerContext> context;
 
     public RoundEndedEvent(GameContext<RoundGamePlayerContext> context, State state, GameOutcome outcome) {
-        super(context.getSession(), state);
+        super(context.getSessionKey(), state);
         this.outcome = outcome;
         this.context = context;
     }
 
     @JsonCreator
-    public RoundEndedEvent(@JsonProperty("session") GameSessionKey sessionKey,
+    public RoundEndedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
                            @JsonProperty("state") RoundGameState state,
                            @JsonProperty("outcome") GameOutcome outcome,
                            @JsonProperty("context") GameContext<RoundGamePlayerContext> context) {
@@ -72,6 +71,6 @@ public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent im
 
     @Override
     public String toString() {
-        return "round:ended:" + getSession() + ":" + outcome;
+        return "round:ended:" + getSessionKey() + ":" + outcome;
     }
 }

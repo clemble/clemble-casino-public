@@ -24,7 +24,7 @@ public class PlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return sessionKey;
     }
 

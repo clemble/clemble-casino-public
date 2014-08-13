@@ -1,9 +1,11 @@
 package com.clemble.casino.bet;
 
+import com.clemble.casino.Key;
+
 /**
  * Created by mavarazy on 8/9/14.
  */
-public class BetKey {
+public class BetKey implements Key {
 
     final private String source;
     final private String id;

@@ -24,14 +24,14 @@ public class ManagerGameConstructionRequest extends ServerGameConstructionReques
     final private GameSessionKey sessionKey;
 
     @JsonCreator
-    public ManagerGameConstructionRequest(@JsonProperty("participants") Collection<GamePlayerRole> participants, @JsonProperty("session") GameSessionKey sessionKey, @JsonProperty("configuration") GameConfiguration configuration) {
+    public ManagerGameConstructionRequest(@JsonProperty("participants") Collection<GamePlayerRole> participants, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey, @JsonProperty("configuration") GameConfiguration configuration) {
         super(configuration);
         this.sessionKey = sessionKey;
         this.participants = CollectionUtils.immutableList(participants);
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return sessionKey;
     }
 

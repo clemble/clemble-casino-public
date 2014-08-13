@@ -1,5 +1,6 @@
 package com.clemble.casino.game.event.schedule;
 
+import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.event.GameConstructionEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,12 +18,12 @@ public class GameConstructedEvent implements GameConstructionEvent {
     final private GameSessionKey session;
 
     @JsonCreator
-    public GameConstructedEvent(@JsonProperty("session") GameSessionKey session) {
+    public GameConstructedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session) {
         this.session = session;
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return session;
     }
 

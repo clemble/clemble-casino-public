@@ -30,7 +30,7 @@ abstract public class GameContext<T extends GamePlayerContext> implements Serial
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return sessionKey;
     }
 

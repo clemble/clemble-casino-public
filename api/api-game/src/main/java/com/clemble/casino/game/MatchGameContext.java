@@ -23,7 +23,7 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
     final private List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
 
     @JsonCreator
-    public MatchGameContext(@JsonProperty("session") GameSessionKey session,
+    public MatchGameContext(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session,
                             @JsonProperty("currentSession") GameSessionKey currentSession,
                             @JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
                             @JsonProperty(value = "parent", required = false) GameContext<?> parent,
@@ -36,7 +36,7 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
     }
 
     public MatchGameContext(GameInitiation initiation, GameContext<?> parent) {
-        super(initiation.getSession(), parent, MatchGamePlayerContext.construct(initiation));
+        super(initiation.getSessionKey(), parent, MatchGamePlayerContext.construct(initiation));
     }
 
     public long getPot() {

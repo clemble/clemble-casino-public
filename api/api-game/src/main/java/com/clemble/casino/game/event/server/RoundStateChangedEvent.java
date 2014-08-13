@@ -2,6 +2,7 @@ package com.clemble.casino.game.event.server;
 
 import java.util.Collection;
 
+import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.RoundGameState;
@@ -21,7 +22,7 @@ public class RoundStateChangedEvent<State extends RoundGameState> extends RoundE
     final private Collection<? extends GameAction> actions;
 
     @JsonCreator
-    public RoundStateChangedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("state") State state, @JsonProperty("actions") Collection<? extends GameAction> actions) {
+    public RoundStateChangedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("state") State state, @JsonProperty("actions") Collection<? extends GameAction> actions) {
         super(session, state);
         this.actions = actions;
     }

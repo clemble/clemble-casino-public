@@ -32,7 +32,7 @@ public class ScheduledGame implements GameSessionAware {
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return session;
     }
 

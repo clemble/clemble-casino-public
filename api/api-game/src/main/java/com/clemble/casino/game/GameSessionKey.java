@@ -7,14 +7,16 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import com.clemble.casino.Key;
 import com.clemble.casino.bet.BetAware;
+import com.clemble.casino.bet.BetKey;
 import com.clemble.casino.payment.PaymentTransactionAwareConvertible;
 import com.clemble.casino.payment.PaymentTransactionKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Embeddable
-public class GameSessionKey implements GameAware, BetAware, PaymentTransactionAwareConvertible, Serializable {
+public class GameSessionKey implements GameAware, BetAware, PaymentTransactionAwareConvertible, Serializable, Key {
 
     /**
      * Generated 31/01/14
@@ -34,7 +36,7 @@ public class GameSessionKey implements GameAware, BetAware, PaymentTransactionAw
     }
 
     @JsonCreator
-    public GameSessionKey(@JsonProperty("game") Game game, @JsonProperty("session") String session) {
+    public GameSessionKey(@JsonProperty("game") Game game, @JsonProperty(GameSessionAware.SESSION_KEY) String session) {
         this.game = game;
         this.session = session;
     }
@@ -78,8 +80,8 @@ public class GameSessionKey implements GameAware, BetAware, PaymentTransactionAw
     }
 
     @Override
-    public String toBetKey() {
-        return game + ":" + session;
+    public BetKey toBetKey() {
+        return new BetKey(game.name(), session);
     }
 
     @Override

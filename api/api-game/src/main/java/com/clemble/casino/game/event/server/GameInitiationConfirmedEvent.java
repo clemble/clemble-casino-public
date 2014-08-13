@@ -1,5 +1,6 @@
 package com.clemble.casino.game.event.server;
 
+import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.player.PlayerAware;
@@ -19,7 +20,7 @@ public class GameInitiationConfirmedEvent extends GameInitiationEvent implements
 
     @JsonCreator
     public GameInitiationConfirmedEvent(
-        @JsonProperty("session") GameSessionKey sessionKey, 
+        @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
         @JsonProperty("initiation") GameInitiation initiation,
         @JsonProperty("player") String player) {
         super(sessionKey, initiation);

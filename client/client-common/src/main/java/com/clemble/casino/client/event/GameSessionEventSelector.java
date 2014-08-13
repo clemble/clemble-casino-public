@@ -14,7 +14,7 @@ public class GameSessionEventSelector implements EventSelector {
 
     @Override
     public boolean filter(Event event) {
-        return event instanceof GameSessionAware ? ((GameSessionAware) event).getSession().equals(session) : false;
+        return event instanceof GameSessionAware ? ((GameSessionAware) event).getSessionKey().equals(session) : false;
     }
 
 }

@@ -21,7 +21,7 @@ public class PlayerToMoveEventEmulator implements EventListener<RoundEvent>, Eve
     @Override
     public void onEvent(RoundEvent smEvent) {
         // Step 1. Checking Action latch
-        GameSessionKey sessionKey = smEvent.getSession();
+        GameSessionKey sessionKey = smEvent.getSessionKey();
         if (smEvent.getState() != null
                 && smEvent.getState().getContext() != null
                 && smEvent.getState().getContext().getActionLatch() != null) {

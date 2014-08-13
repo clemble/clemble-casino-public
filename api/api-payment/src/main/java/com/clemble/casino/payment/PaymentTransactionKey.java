@@ -1,12 +1,14 @@
 package com.clemble.casino.payment;
 
+import com.clemble.casino.Key;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class PaymentTransactionKey implements Serializable {
+public class PaymentTransactionKey implements Key {
 
     /**
      * Generated 05/05/13

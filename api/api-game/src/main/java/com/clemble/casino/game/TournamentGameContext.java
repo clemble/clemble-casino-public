@@ -18,14 +18,14 @@ public class TournamentGameContext extends GameContext<TournamentGamePlayerConte
     final private TournamentLeaf leaf;
 
     public TournamentGameContext(GameInitiation initiation, TournamentLeaf leaf, GameContext<?> parent) {
-        super(initiation.getSession(), parent, TournamentGamePlayerContext.construct(initiation));
+        super(initiation.getSessionKey(), parent, TournamentGamePlayerContext.construct(initiation));
         this.leaf = leaf;
     }
 
 
     @JsonCreator
     public TournamentGameContext(
-            @JsonProperty("session") GameSessionKey sessionKey,
+            @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
             @JsonProperty("parent") GameContext<?> parent,
             @JsonProperty("playerContexts") List<TournamentGamePlayerContext> playerContexts,
             @JsonProperty("leaf") TournamentLeaf leaf) {

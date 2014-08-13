@@ -137,7 +137,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return session;
     }
 

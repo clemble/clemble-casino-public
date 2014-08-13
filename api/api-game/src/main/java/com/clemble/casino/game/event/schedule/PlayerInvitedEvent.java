@@ -1,5 +1,6 @@
 package com.clemble.casino.game.event.schedule;
 
+import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.event.GameConstructionEvent;
 import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
@@ -20,13 +21,13 @@ public class PlayerInvitedEvent implements GameConstructionEvent {
     final private PlayerGameConstructionRequest gameRequest;
 
     @JsonCreator
-    public PlayerInvitedEvent(@JsonProperty("session") GameSessionKey session, @JsonProperty("gameRequest") PlayerGameConstructionRequest request) {
+    public PlayerInvitedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("gameRequest") PlayerGameConstructionRequest request) {
         this.session = session;
         this.gameRequest = request;
     }
 
     @Override
-    public GameSessionKey getSession() {
+    public GameSessionKey getSessionKey() {
         return session;
     }
 

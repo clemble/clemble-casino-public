@@ -26,7 +26,7 @@ public class GameSessionLikeEventSelector implements EventSelector {
         if (!(event instanceof GameSessionAware))
             return false;
         // Step 2. Checking session key matches expected one
-        GameSessionKey sessionKey = ((GameSessionAware) event).getSession();
+        GameSessionKey sessionKey = ((GameSessionAware) event).getSessionKey();
         return (event instanceof GameSessionAware)
                 && game.equals(sessionKey.getGame())
                 && matchPattern.matcher(sessionKey.getSession()).matches();
