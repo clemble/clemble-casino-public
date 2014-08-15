@@ -10,7 +10,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.TreeSet;
 
 /**
  * Created by mavarazy on 8/2/14.
@@ -22,8 +24,8 @@ public class Goal implements GoalAware, PlayerAware {
     final private String player;
     final private String description;
     final private Date dueDate;
+    final private TreeSet<GoalStatus> statuses;
     final private GoalState state;
-    final private Bid bid;
 
     @JsonCreator
     public Goal(
@@ -32,13 +34,13 @@ public class Goal implements GoalAware, PlayerAware {
             @JsonProperty("description") String description,
             @JsonProperty("dueDate") Date dueDate,
             @JsonProperty("state") GoalState state,
-            @JsonProperty("bid") Bid bid) {
+            @JsonProperty("statuses") Collection<GoalStatus> statuses) {
         this.goalKey = goalKey;
         this.player = player;
+        this.state = state;
         this.dueDate = dueDate;
         this.description = description;
-        this.state = state;
-        this.bid = bid;
+        this.statuses = statuses != null ? new TreeSet<GoalStatus>(statuses) : new TreeSet<GoalStatus>();
     }
 
     @Override
@@ -49,10 +51,6 @@ public class Goal implements GoalAware, PlayerAware {
     @Override
     public String getPlayer() {
         return player;
-    }
-
-    public Bid getBid() {
-        return bid;
     }
 
     public String getDescription() {
@@ -67,8 +65,12 @@ public class Goal implements GoalAware, PlayerAware {
         return dueDate;
     }
 
+    public Collection<GoalStatus> getStatuses() {
+        return statuses;
+    }
+
     public Goal cloneWithPlayerAndGoal(String player, String goal, GoalState state) {
-        return new Goal(new GoalKey(player, goal), player, description, dueDate, state, bid);
+        return new Goal(new GoalKey(player, goal), player, description, dueDate, state, statuses);
     }
 
     @Override
@@ -78,24 +80,22 @@ public class Goal implements GoalAware, PlayerAware {
 
         Goal goal = (Goal) o;
 
-        if (bid != null ? !bid.equals(goal.bid) : goal.bid != null) return false;
-        if (description != null ? !description.equals(goal.description) : goal.description != null) return false;
-        if (dueDate != null ? !dueDate.equals(goal.dueDate) : goal.dueDate != null) return false;
-        if (goalKey != null ? !goalKey.equals(goal.goalKey) : goal.goalKey != null) return false;
-        if (player != null ? !player.equals(goal.player) : goal.player != null) return false;
+        if (!description.equals(goal.description)) return false;
+        if (!dueDate.equals(goal.dueDate)) return false;
+        if (!player.equals(goal.player)) return false;
         if (state != goal.state) return false;
+        if (!statuses.equals(goal.statuses)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = goalKey != null ? goalKey.hashCode() : 0;
-        result = 31 * result + (player != null ? player.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (bid != null ? bid.hashCode() : 0);
+        int result = player.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + dueDate.hashCode();
+        result = 31 * result + statuses.hashCode();
+        result = 31 * result + state.hashCode();
         return result;
     }
 }
