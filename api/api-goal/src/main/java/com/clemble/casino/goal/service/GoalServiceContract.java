@@ -10,6 +10,8 @@ import java.util.Collection;
  */
 public interface GoalServiceContract extends ClembleService {
 
+    public Goal getGoal(String player, String id);
+
     public Collection<Goal> getGoals(String player);
 
     public Collection<Goal> getPendingGoals(String player);

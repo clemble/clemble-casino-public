@@ -33,6 +33,11 @@ public class AndroidGoalService extends AbstractClembleCasinoOperations implemen
     }
 
     @Override
+    public Goal myGoal(String id) {
+        return restTemplate.getForObject(buildUriWith(toGoalUrl(MY_GOALS_GOAL), id), Goal.class);
+    }
+
+    @Override
     public Collection<Goal> myGoals() {
         return CollectionUtils.<Goal>immutableList(restTemplate.getForObject(buildUriWith(toGoalUrl(MY_GOALS)), Goal[].class));
     }
@@ -50,6 +55,11 @@ public class AndroidGoalService extends AbstractClembleCasinoOperations implemen
     @Override
     public Collection<Goal> myMissedGoals() {
         return CollectionUtils.<Goal>immutableList(restTemplate.getForObject(buildUriWith(toGoalUrl(MY_GOALS_MISSED)), Goal[].class));
+    }
+
+    @Override
+    public Goal getGoal(String player, String id) {
+        return restTemplate.getForObject(buildUriWith(toGoalUrl(PLAYER_GOALS_GOAL), player, id), Goal.class);
     }
 
     @Override

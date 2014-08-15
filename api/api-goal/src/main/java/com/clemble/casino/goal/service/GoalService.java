@@ -1,6 +1,7 @@
 package com.clemble.casino.goal.service;
 
 import com.clemble.casino.goal.Goal;
+import com.clemble.casino.goal.GoalStatus;
 
 import java.util.Collection;
 
@@ -17,6 +18,8 @@ public interface GoalService extends GoalServiceContract {
      */
     public Goal addMyGoal(Goal goal);
 
+    public Goal myGoal(String id);
+
     public Collection<Goal> myGoals();
 
     public Collection<Goal> myPendingGoals();
@@ -24,5 +27,7 @@ public interface GoalService extends GoalServiceContract {
     public Collection<Goal> myReachedGoals();
 
     public Collection<Goal> myMissedGoals();
+
+    public Goal getGoal(String player, String id);
 
 }
