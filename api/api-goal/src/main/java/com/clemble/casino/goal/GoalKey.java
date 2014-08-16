@@ -13,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class GoalKey implements PlayerAware, PaymentTransactionAwareConvertible, Key {
 
     final private String player;
-    final private String goal;
+    final private String id;
 
     @JsonCreator
-    public GoalKey(@JsonProperty("player") String player, @JsonProperty("goal") String goal) {
+    public GoalKey(@JsonProperty("player") String player, @JsonProperty("id") String id) {
         this.player = player;
-        this.goal = goal;
+        this.id = id;
     }
 
     @Override
@@ -26,13 +26,13 @@ public class GoalKey implements PlayerAware, PaymentTransactionAwareConvertible,
         return player;
     }
 
-    public String getGoal() {
-        return goal;
+    public String getId() {
+        return id;
     }
 
     @Override
     public PaymentTransactionKey toPaymentTransactionKey() {
-        return new PaymentTransactionKey(player, goal);
+        return new PaymentTransactionKey(player, id);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class GoalKey implements PlayerAware, PaymentTransactionAwareConvertible,
 
         GoalKey goalKey = (GoalKey) o;
 
-        if (goal != null ? !goal.equals(goalKey.goal) : goalKey.goal != null) return false;
+        if (id != null ? !id.equals(goalKey.id) : goalKey.id != null) return false;
         if (player != null ? !player.equals(goalKey.player) : goalKey.player != null) return false;
 
         return true;
@@ -51,7 +51,12 @@ public class GoalKey implements PlayerAware, PaymentTransactionAwareConvertible,
     @Override
     public int hashCode() {
         int result = player != null ? player.hashCode() : 0;
-        result = 31 * result + (goal != null ? goal.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "goal:key:" + player + ":" + id;
     }
 }

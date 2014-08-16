@@ -34,7 +34,8 @@ public class GoalTest {
         "\"goalKey\": null,\n" +
         "\"player\": null,\n" +
         "\"state\": null,\n" +
-        "\"statuses\": [] }";
+        "\"bid\": null,\n" +
+        "\"status\": null }";
 
     @Test
     public void testGoalFormat() throws Exception {

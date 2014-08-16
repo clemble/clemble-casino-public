@@ -20,24 +20,24 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
 
     final private PaymentTransactionKey transactionKey;
     final private BetSpecification specification;
-    final private Collection<Bid> bids;
+    final private Collection<PlayerBid> playerBids;
 
     @JsonCreator
     public BetPaymentTransaction(
         @JsonProperty("transactionKey") PaymentTransactionKey transactionKey,
         @JsonProperty("specification") BetSpecification specification,
-        @JsonProperty("bids") Collection<Bid> bids) {
+        @JsonProperty("bids") Collection<PlayerBid> bids) {
         this.transactionKey = transactionKey;
         this.specification = specification;
-        this.bids = bids;
+        this.playerBids = bids;
     }
 
     public BetSpecification getSpecification() {
         return specification;
     }
 
-    public Collection<Bid> getBids() {
-        return bids;
+    public Collection<PlayerBid> getPlayerBids() {
+        return playerBids;
     }
 
     @Override
@@ -50,15 +50,14 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
         Money balance = Money.create(Currency.FakeMoney, 0);
         PaymentTransaction transaction = new PaymentTransaction().
             setTransactionKey(transactionKey);
-        for(Bid bid: bids) {
+        for(PlayerBid bid: playerBids) {
             if(!bid.getWinner().equals(winner)) {
-                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), bid.getAmount(), Operation.Credit));
-                balance.add(bid.getAmount());
+                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), bid.getBid().getAmount(), Operation.Credit));
+                balance.add(bid.getBid().getAmount());
             } else {
-                long interest = (bid.getAmount().getAmount() * specification.getRate() / 100);
-                Money wonAmount = bid.getAmount().add(interest);
-                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), wonAmount, Operation.Debit));
-                balance.subtract(wonAmount);
+                Money amountWithInterest = bid.getBid().getAmount().add(bid.getBid().getInterest());
+                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), amountWithInterest, Operation.Debit));
+                balance.subtract(amountWithInterest);
             }
         }
         // Step 2. Adding casino to compensate Debit & Credit
@@ -77,7 +76,7 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
         BetPaymentTransaction bet = (BetPaymentTransaction) o;
 
         if (!transactionKey.equals(bet.transactionKey)) return false;
-        if (!bids.equals(bet.bids)) return false;
+        if (!playerBids.equals(bet.playerBids)) return false;
 
         return true;
     }
@@ -85,7 +84,7 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
     @Override
     public int hashCode() {
         int result = transactionKey.hashCode();
-        result = 31 * result + bids.hashCode();
+        result = 31 * result + playerBids.hashCode();
         return result;
     }
 }

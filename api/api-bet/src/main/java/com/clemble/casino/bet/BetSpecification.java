@@ -1,10 +1,11 @@
 package com.clemble.casino.bet;
 
+import com.clemble.casino.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Created by mavarazy on 8/13/14.
+ * Should be used on bet time, can change during time
  */
 public class BetSpecification {
 
@@ -29,6 +30,11 @@ public class BetSpecification {
 
     public int getRate() {
         return rate;
+    }
+
+    public Bid toBid(Money amount) {
+        // TODO add exceptions on invalid Bids
+        return new Bid(amount, amount.add((amount.getAmount() * rate / 100)));
     }
 
     @Override

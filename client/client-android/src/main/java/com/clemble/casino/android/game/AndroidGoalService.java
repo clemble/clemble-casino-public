@@ -2,6 +2,7 @@ package com.clemble.casino.android.game;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.Goal;
+import com.clemble.casino.goal.GoalRequest;
 import com.clemble.casino.goal.GoalStatus;
 import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.utils.CollectionUtils;
@@ -26,7 +27,7 @@ public class AndroidGoalService extends AbstractClembleCasinoOperations implemen
     }
 
     @Override
-    public Goal addMyGoal(Goal goal) {
+    public Goal addMyGoal(GoalRequest goal) {
         // Step 1. Generating player URI
         URI myGoalsUrl = buildUriWith(toGoalUrl(MY_GOALS));
         // Step 2. Post to Player URI
