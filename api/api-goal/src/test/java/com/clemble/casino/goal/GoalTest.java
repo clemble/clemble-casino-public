@@ -33,9 +33,10 @@ import java.io.IOException;
  */
 public class GoalTest {
 
-    final private String GOAL_JSON = "{ \"description\": \"Run 10K\",\n" +
+    final private String GOAL_JSON = "{ \"goal\": \"Run 10K\",\n" +
         "\"dueDate\": \"2014-08-22T17:04:58.337Z\",\n" +
         "\"goalKey\": null,\n" +
+        "\"judge\": null,\n" +
         "\"player\": null,\n" +
         "\"state\": null,\n" +
         "\"bid\": null,\n" +

@@ -9,18 +9,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 8/16/14.
  */
-public class GoalRequest implements PlayerAware, AmountAware {
+public class GoalRequest implements GoalDescriptionAware, AmountAware {
 
     final private String player;
     final private String goal;
     final private int time;
     final private Money amount;
+    final private String judge;
 
     @JsonCreator
-    public GoalRequest(@JsonProperty("player") String player, @JsonProperty("goal") String goal, @JsonProperty("timeInDays") int time, @JsonProperty("amount") Money amount) {
+    public GoalRequest(@JsonProperty("player") String player, @JsonProperty("judge") String judge, @JsonProperty("goal") String goal, @JsonProperty("timeInDays") int time, @JsonProperty("amount") Money amount) {
         this.player = player;
         this.goal = goal;
         this.time = time;
+        this.judge = judge;
         this.amount = amount;
     }
 
@@ -38,8 +40,14 @@ public class GoalRequest implements PlayerAware, AmountAware {
         return time;
     }
 
+    @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getJudge() {
+        return judge;
     }
 
     @Override
@@ -47,27 +55,29 @@ public class GoalRequest implements PlayerAware, AmountAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalRequest that = (GoalRequest) o;
+        GoalRequest request = (GoalRequest) o;
 
-        if (time != that.time) return false;
-        if (!amount.equals(that.amount)) return false;
-        if (!goal.equals(that.goal)) return false;
-        if (!player.equals(that.player)) return false;
+        if (time != request.time) return false;
+        if (amount != null ? !amount.equals(request.amount) : request.amount != null) return false;
+        if (goal != null ? !goal.equals(request.goal) : request.goal != null) return false;
+        if (judge != null ? !judge.equals(request.judge) : request.judge != null) return false;
+        if (player != null ? !player.equals(request.player) : request.player != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player.hashCode();
-        result = 31 * result + goal.hashCode();
+        int result = player != null ? player.hashCode() : 0;
+        result = 31 * result + (goal != null ? goal.hashCode() : 0);
         result = 31 * result + time;
-        result = 31 * result + amount.hashCode();
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + (judge != null ? judge.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "goal:builder:" + player + ":" + goal + ":" + time + ":" + amount;
+        return "goal:builder:" + player + ":" + judge + ":" + goal + ":" + time + ":" + amount;
     }
 }

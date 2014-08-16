@@ -1,9 +1,7 @@
 package com.clemble.casino.goal;
 
 import com.clemble.casino.bet.Bid;
-import com.clemble.casino.bet.PlayerBid;
 import com.clemble.casino.bet.BidAware;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
@@ -13,12 +11,13 @@ import java.util.Date;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public class Goal implements GoalAware, PlayerAware, BidAware {
+public class Goal implements GoalAware, GoalDescriptionAware, BidAware {
 
     @Id
     final private GoalKey goalKey;
     final private String player;
-    final private String description;
+    final private String judge;
+    final private String goal;
     final private Date startDate;
     final private Date dueDate;
     final private Bid bid;
@@ -29,7 +28,8 @@ public class Goal implements GoalAware, PlayerAware, BidAware {
     public Goal(
             @JsonProperty("goalKey") GoalKey goalKey,
             @JsonProperty("player") String player,
-            @JsonProperty("description") String description,
+            @JsonProperty("judge") String judge,
+            @JsonProperty("goal") String goal,
             @JsonProperty("startDate") Date startDate,
             @JsonProperty("dueDate") Date dueDate,
             @JsonProperty("state") GoalState state,
@@ -37,11 +37,12 @@ public class Goal implements GoalAware, PlayerAware, BidAware {
             @JsonProperty("bid") Bid bid) {
         this.goalKey = goalKey;
         this.player = player;
+        this.judge = judge;
         this.state = state;
         this.bid = bid;
         this.dueDate = dueDate;
         this.startDate = startDate;
-        this.description = description;
+        this.goal = goal;
         this.status = status;
     }
 
@@ -60,8 +61,14 @@ public class Goal implements GoalAware, PlayerAware, BidAware {
         return bid;
     }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public String getJudge(){
+        return judge;
+    }
+
+    @Override
+    public String getGoal() {
+        return goal;
     }
 
     public GoalState getState() {
@@ -81,11 +88,11 @@ public class Goal implements GoalAware, PlayerAware, BidAware {
     }
 
     public Goal cloneWithStatus(GoalStatus status) {
-        return new Goal(goalKey, player, description, startDate, dueDate, state, status, bid);
+        return new Goal(goalKey, player, judge, goal, startDate, dueDate, state, status, bid);
     }
 
     public Goal cloneWithPlayerAndGoal(String player, String goal, GoalState state) {
-        return new Goal(new GoalKey(player, goal), player, description, startDate, dueDate, state, status, bid);
+        return new Goal(new GoalKey(player, goal), player, judge, this.goal, startDate, dueDate, state, status, bid);
     }
 
     @Override
@@ -95,7 +102,7 @@ public class Goal implements GoalAware, PlayerAware, BidAware {
 
         Goal goal = (Goal) o;
 
-        if (description != null ? !description.equals(goal.description) : goal.description != null) return false;
+        if (this.goal != null ? !this.goal.equals(goal.goal) : goal.goal != null) return false;
         if (dueDate != null ? !dueDate.equals(goal.dueDate) : goal.dueDate != null) return false;
         if (goalKey != null ? !goalKey.equals(goal.goalKey) : goal.goalKey != null) return false;
         if (player != null ? !player.equals(goal.player) : goal.player != null) return false;
@@ -110,7 +117,7 @@ public class Goal implements GoalAware, PlayerAware, BidAware {
     public int hashCode() {
         int result = goalKey != null ? goalKey.hashCode() : 0;
         result = 31 * result + (player != null ? player.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (goal != null ? goal.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
@@ -121,7 +128,8 @@ public class Goal implements GoalAware, PlayerAware, BidAware {
     @Override
     public String toString() {
         return "goal:" + goalKey + ":player:" + player +
-            "goal:" + description +
+            "judge:" + judge +
+            "goal:" + goal +
             ":" + startDate +
             ":to:" + dueDate +
             ":bid:" + bid +
