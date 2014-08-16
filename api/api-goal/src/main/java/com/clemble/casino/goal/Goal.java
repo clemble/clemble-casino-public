@@ -23,8 +23,9 @@ public class Goal implements GoalAware, PlayerAware {
     final private GoalKey goalKey;
     final private String player;
     final private String description;
+    final private Date startDate;
     final private Date dueDate;
-    final private TreeSet<GoalStatus> statuses;
+    final private GoalStatus status;
     final private GoalState state;
 
     @JsonCreator
@@ -32,15 +33,17 @@ public class Goal implements GoalAware, PlayerAware {
             @JsonProperty("goalKey") GoalKey goalKey,
             @JsonProperty("player") String player,
             @JsonProperty("description") String description,
+            @JsonProperty("startDate") Date startDate,
             @JsonProperty("dueDate") Date dueDate,
             @JsonProperty("state") GoalState state,
-            @JsonProperty("statuses") Collection<GoalStatus> statuses) {
+            @JsonProperty("status") GoalStatus status) {
         this.goalKey = goalKey;
         this.player = player;
         this.state = state;
         this.dueDate = dueDate;
+        this.startDate = startDate;
         this.description = description;
-        this.statuses = statuses != null ? new TreeSet<GoalStatus>(statuses) : new TreeSet<GoalStatus>();
+        this.status = status;
     }
 
     @Override
@@ -65,12 +68,20 @@ public class Goal implements GoalAware, PlayerAware {
         return dueDate;
     }
 
-    public Collection<GoalStatus> getStatuses() {
-        return statuses;
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public GoalStatus getStatus() {
+        return status;
+    }
+
+    public Goal cloneWithStatus(GoalStatus status) {
+        return new Goal(goalKey, player, description, startDate, dueDate, state, status);
     }
 
     public Goal cloneWithPlayerAndGoal(String player, String goal, GoalState state) {
-        return new Goal(new GoalKey(player, goal), player, description, dueDate, state, statuses);
+        return new Goal(new GoalKey(player, goal), player, description, startDate, dueDate, state, status);
     }
 
     @Override
@@ -80,22 +91,26 @@ public class Goal implements GoalAware, PlayerAware {
 
         Goal goal = (Goal) o;
 
-        if (!description.equals(goal.description)) return false;
-        if (!dueDate.equals(goal.dueDate)) return false;
-        if (!player.equals(goal.player)) return false;
+        if (description != null ? !description.equals(goal.description) : goal.description != null) return false;
+        if (dueDate != null ? !dueDate.equals(goal.dueDate) : goal.dueDate != null) return false;
+        if (goalKey != null ? !goalKey.equals(goal.goalKey) : goal.goalKey != null) return false;
+        if (player != null ? !player.equals(goal.player) : goal.player != null) return false;
+        if (startDate != null ? !startDate.equals(goal.startDate) : goal.startDate != null) return false;
         if (state != goal.state) return false;
-        if (!statuses.equals(goal.statuses)) return false;
+        if (status != null ? !status.equals(goal.status) : goal.status != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player.hashCode();
-        result = 31 * result + description.hashCode();
-        result = 31 * result + dueDate.hashCode();
-        result = 31 * result + statuses.hashCode();
-        result = 31 * result + state.hashCode();
+        int result = goalKey != null ? goalKey.hashCode() : 0;
+        result = 31 * result + (player != null ? player.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
+        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
 }
