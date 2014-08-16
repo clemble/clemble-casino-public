@@ -18,6 +18,10 @@ public interface GoalService extends GoalServiceContract {
      */
     public Goal addMyGoal(Goal goal);
 
+    public Collection<GoalStatus> myGoalStatuses(String id);
+
+    public GoalStatus updateMyGoal(String id, GoalStatus status);
+
     public Goal myGoal(String id);
 
     public Collection<Goal> myGoals();

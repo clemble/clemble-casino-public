@@ -2,6 +2,7 @@ package com.clemble.casino.android.game;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.Goal;
+import com.clemble.casino.goal.GoalStatus;
 import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +31,22 @@ public class AndroidGoalService extends AbstractClembleCasinoOperations implemen
         URI myGoalsUrl = buildUriWith(toGoalUrl(MY_GOALS));
         // Step 2. Post to Player URI
         return restTemplate.postForObject(myGoalsUrl, goal, Goal.class);
+    }
+
+    @Override
+    public GoalStatus updateMyGoal(String id, GoalStatus status) {
+        // Step 1. Generating player URI
+        URI myGoalsUrl = buildUriWith(toGoalUrl(MY_GOALS_GOAL_STATUS), id);
+        // Step 2. Post to Player URI
+        return restTemplate.postForObject(myGoalsUrl, status, GoalStatus.class);
+    }
+
+    @Override
+    public Collection<GoalStatus> myGoalStatuses(String id) {
+        // Step 1. Generating player URI
+        URI myGoalsUrl = buildUriWith(toGoalUrl(MY_GOALS_GOAL_STATUS), id);
+        // Step 2. Post to Player URI
+        return CollectionUtils.immutableList(restTemplate.getForObject(myGoalsUrl, GoalStatus[].class));
     }
 
     @Override
