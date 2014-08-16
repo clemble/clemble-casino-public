@@ -49,7 +49,7 @@ public class GoalStatus implements Comparable<GoalStatus> {
 
     @Override
     public int compareTo(GoalStatus o) {
-        return this.statusDate.compareTo(o.statusDate);
+        return o.statusDate.compareTo(this.statusDate);
     }
 
     @Override
