@@ -22,7 +22,11 @@ import com.clemble.casino.player.PlayerProfile;
 //import fi.vincit.jmobster.util.ConverterMode;
 //import fi.vincit.jmobster.util.writer.FileDataWriter;
 //import fi.vincit.jmobster.util.writer.StringBufferWriter;
+import com.fasterxml.jackson.core.JsonParseException;
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * Created by mavarazy on 14/03/14.
@@ -37,9 +41,17 @@ public class GoalTest {
         "\"bid\": null,\n" +
         "\"status\": null }";
 
+    final private String GOAL_REQUEST_JSON = "{\"player\":null,\"goal\":\"Wash floors\",\"timeInDays\":1,\"amount\":{\"currency\":\"FakeMoney\",\"amount\":50}}";
+
     @Test
     public void testGoalFormat() throws Exception {
         Goal readJson = ObjectMapperUtils.OBJECT_MAPPER.readValue(GOAL_JSON, Goal.class);
+    }
+
+    @Test
+    public void testGoalRequestFormat() throws IOException {
+        GoalRequest request = ObjectMapperUtils.OBJECT_MAPPER.readValue(GOAL_REQUEST_JSON, GoalRequest.class);
+        Assert.assertNotNull(request);
     }
 
 }

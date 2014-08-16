@@ -69,7 +69,7 @@ public class GameConstruction implements GameSessionAware, VersionAware {
         return session;
     }
 
-    public GameConstruction setSession(GameSessionKey session) {
+    public GameConstruction setSessionKey(GameSessionKey session) {
         this.session = session;
         return this;
     }

@@ -2,7 +2,6 @@ package com.clemble.casino.android.player;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.service.PlayerImageService;
-import com.clemble.casino.player.service.PlayerImageServiceContract;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
