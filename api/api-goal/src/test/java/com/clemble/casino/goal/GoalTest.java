@@ -42,7 +42,7 @@ public class GoalTest {
         "\"bid\": null,\n" +
         "\"status\": null }";
 
-    final private String GOAL_REQUEST_JSON = "{\"player\":null,\"goal\":\"Wash floors\",\"timeInDays\":1,\"amount\":{\"currency\":\"FakeMoney\",\"amount\":50}}";
+    final private String GOAL_REQUEST_JSON = "{\"goal\":\"Wash floors\",\"timeInDays\":1,\"amount\":{\"currency\":\"FakeMoney\",\"amount\":50}}";
 
     @Test
     public void testGoalFormat() throws Exception {

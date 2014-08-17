@@ -2,6 +2,7 @@ package com.clemble.casino.goal;
 
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.BidAware;
+import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
@@ -11,7 +12,7 @@ import java.util.Date;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public class Goal implements GoalAware, GoalDescriptionAware, BidAware {
+public class Goal implements GoalAware, GoalDescriptionAware, PlayerAware, BidAware {
 
     @Id
     final private GoalKey goalKey;
