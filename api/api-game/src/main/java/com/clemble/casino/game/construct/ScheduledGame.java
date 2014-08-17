@@ -36,7 +36,7 @@ public class ScheduledGame implements GameSessionAware {
         return session;
     }
 
-    public void setSession(GameSessionKey sessionKey) {
+    public void setSessionKey(GameSessionKey sessionKey) {
         this.session = sessionKey;
     }
 

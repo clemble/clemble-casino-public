@@ -54,7 +54,7 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
         return session;
     }
 
-    public GameRecord setSession(GameSessionKey newSession) {
+    public GameRecord setSessionKey(GameSessionKey newSession) {
         this.session = newSession;
         return this;
     }
