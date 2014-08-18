@@ -3,8 +3,11 @@ package com.clemble.casino.android;
 import java.io.IOException;
 
 import com.clemble.casino.android.game.*;
+import com.clemble.casino.android.goal.AndroidGoalJudgeInvitationService;
+import com.clemble.casino.android.goal.AndroidGoalService;
 import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
+import com.clemble.casino.goal.service.GoalJudgeInvitationService;
 import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
@@ -15,7 +18,6 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
-import org.springframework.social.support.HttpRequestDecorator;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.payment.AndroidPaymentTransactionService;
@@ -60,11 +62,13 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerConnectionService connectionOperations;
     final private PlayerPresenceService presenceOperations;
     final private PaymentTransactionOperations transactionOperations;
-    final private GoalService goalService;
     final private PlayerAccountService accountService;
     final private GameRecordOperations recordOperations;
     final private GameConstructionOperations constructionOperations;
     final private GameActionOperationsFactory actionOperationsFactory;
+
+    final private GoalService goalService;
+    final private GoalJudgeInvitationService invitationService;
 
     @SuppressWarnings({ "rawtypes" })
     public ClembleCasinoTemplate(
@@ -119,6 +123,8 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.goalService = new AndroidGoalService(restTemplate, host);
         // Step 7. Creating account service
         this.accountService = new AndroidPlayerAccountService(restTemplate, host);
+        // Step 8. Creating invitation service
+        this.invitationService = new AndroidGoalJudgeInvitationService(restTemplate, host);
     }
 
     @Override
@@ -169,6 +175,11 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     @Override
     public GoalService goalOperations() {
         return goalService;
+    }
+
+    @Override
+    public GoalJudgeInvitationService goalInvitationOperations() {
+        return invitationService;
     }
 
     @Override

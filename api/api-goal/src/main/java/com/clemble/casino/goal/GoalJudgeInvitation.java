@@ -17,6 +17,14 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware {
     final private Goal goal;
     final private GoalJudgeInvitationStatus status;
 
+    public GoalJudgeInvitation(Goal goal) {
+        this.player = goal.getPlayer();
+        this.judge = goal.getJudge();
+        this.goal = goal;
+        this.goalKey = goal.getGoalKey();
+        this.status = GoalJudgeInvitationStatus.pending;
+    }
+
     @JsonCreator
     public GoalJudgeInvitation(@JsonProperty("player") String player, @JsonProperty("judge") String judge, @JsonProperty("goalKey") GoalKey goalKey, @JsonProperty("goal") Goal goal, @JsonProperty("status") GoalJudgeInvitationStatus status) {
         this.player = player;

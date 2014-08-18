@@ -1,4 +1,4 @@
-package com.clemble.casino.android.game;
+package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.Goal;
