@@ -1,6 +1,8 @@
 package com.clemble.casino.goal;
 
 import com.clemble.casino.player.PlayerAware;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collection;
 
@@ -12,7 +14,9 @@ public class GoalJudge implements PlayerAware {
     final private String player;
     final private Collection<GoalJudgeDuty> duties;
 
-    public GoalJudge(String player, Collection<GoalJudgeDuty> duties) {
+    @JsonCreator
+    public GoalJudge(@JsonProperty("player") String player,
+        @JsonProperty("duties") Collection<GoalJudgeDuty> duties) {
         this.player = player;
         this.duties = duties;
     }
