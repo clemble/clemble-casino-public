@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import static com.clemble.casino.goal.GoalJudgeInvitationStatus.*;
+
 /**
  * Created by mavarazy on 8/17/14.
  */
@@ -16,14 +18,6 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware {
     final private String judge;
     final private Goal goal;
     final private GoalJudgeInvitationStatus status;
-
-    public GoalJudgeInvitation(Goal goal) {
-        this.player = goal.getPlayer();
-        this.judge = goal.getJudge();
-        this.goal = goal;
-        this.goalKey = goal.getGoalKey();
-        this.status = GoalJudgeInvitationStatus.pending;
-    }
 
     @JsonCreator
     public GoalJudgeInvitation(@JsonProperty("player") String player, @JsonProperty("judge") String judge, @JsonProperty("goalKey") GoalKey goalKey, @JsonProperty("goal") Goal goal, @JsonProperty("status") GoalJudgeInvitationStatus status) {
@@ -54,6 +48,10 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware {
     @Override
     public String getPlayer() {
         return player;
+    }
+
+    public static GoalJudgeInvitation fromGoal(Goal goal) {
+        return new GoalJudgeInvitation(goal.getPlayer(), goal.getJudge(), goal.getGoalKey(), goal, pending);
     }
 
     @Override
