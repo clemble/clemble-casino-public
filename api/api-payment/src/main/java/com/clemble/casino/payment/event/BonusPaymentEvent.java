@@ -28,7 +28,7 @@ public class BonusPaymentEvent implements PaymentEvent, PlayerAware, AmountAware
             @JsonProperty(PLAYER) String player,
             @JsonProperty("amount") Money money,
             @JsonProperty("bonusSource") PaymentBonusSource bonusSource,
-            @JsonProperty("transactionKey") PaymentTransactionKey transactionKey) {
+            @JsonProperty(TRANSACTION_KEY) PaymentTransactionKey transactionKey) {
         this.player = player;
         this.amount = money;
         this.bonusSource = bonusSource;

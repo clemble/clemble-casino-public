@@ -24,7 +24,7 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
 
     @JsonCreator
     public BetPaymentTransaction(
-        @JsonProperty("transactionKey") PaymentTransactionKey transactionKey,
+        @JsonProperty(TRANSACTION_KEY) PaymentTransactionKey transactionKey,
         @JsonProperty("specification") BetSpecification specification,
         @JsonProperty("bids") Collection<PlayerBid> bids) {
         this.transactionKey = transactionKey;
