@@ -9,6 +9,10 @@ public interface PlayerImageService extends AdvancedClembleService {
 
     public byte[] myImage();
 
+    public byte[] mySmallImage();
+
     public byte[] getImage(String player);
+
+    public byte[] getSmallImage(String player);
 
 }

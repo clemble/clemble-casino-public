@@ -30,12 +30,27 @@ public class AndroidPlayerImageService extends AbstractClembleCasinoOperations i
     }
 
     @Override
+    public byte[] mySmallImage() {
+        // Step 1. Generating player URI
+        URI playerUri = buildUriWith(toProfileUrl(MY_IMAGE_SMALL));
+        // Step 2. Get for Player Image
+        return restTemplate.getForObject(playerUri, byte[].class);
+    }
+
+    @Override
     public byte[] getImage(String player) {
         // Step 1. Generating player URI
         URI playerUri = buildUriWith(toProfileUrl(PLAYER_IMAGE), player);
         // Step 2. Get for Player Image
         return restTemplate.getForObject(playerUri, byte[].class);
+    }
 
+    @Override
+    public byte[] getSmallImage(String player) {
+        // Step 1. Generating player URI
+        URI playerUri = buildUriWith(toProfileUrl(PLAYER_IMAGE_SMALL), player);
+        // Step 2. Get for Player Image
+        return restTemplate.getForObject(playerUri, byte[].class);
     }
 
 }
