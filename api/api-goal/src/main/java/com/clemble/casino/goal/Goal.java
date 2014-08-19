@@ -28,7 +28,7 @@ public class Goal implements GoalAware, GoalDescriptionAware, PlayerAware, BidAw
     @JsonCreator
     public Goal(
             @JsonProperty("goalKey") GoalKey goalKey,
-            @JsonProperty("player") String player,
+            @JsonProperty(PLAYER) String player,
             @JsonProperty("judge") String judge,
             @JsonProperty("goal") String goal,
             @JsonProperty("startDate") Date startDate,

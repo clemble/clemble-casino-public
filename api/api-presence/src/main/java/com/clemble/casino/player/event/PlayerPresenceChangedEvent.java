@@ -17,7 +17,7 @@ public class PlayerPresenceChangedEvent extends PlayerPresence implements Player
     private static final long serialVersionUID = 1310574608767133952L;
 
     @JsonCreator
-    public PlayerPresenceChangedEvent(@JsonProperty("player") String player, 
+    public PlayerPresenceChangedEvent(@JsonProperty(PLAYER) String player,
             @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session,
             @JsonProperty("presence") Presence presence) {
         super(player, session, presence);

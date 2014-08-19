@@ -20,7 +20,7 @@ public class PlayerConnections implements PlayerAware {
     final private Set<ConnectionKey> connected;
 
     @JsonCreator
-    public PlayerConnections(@JsonProperty("player") String player, @JsonProperty("owned") Set<ConnectionKey> owned, @JsonProperty("connected") Set<ConnectionKey> connected) {
+    public PlayerConnections(@JsonProperty(PLAYER) String player, @JsonProperty("owned") Set<ConnectionKey> owned, @JsonProperty("connected") Set<ConnectionKey> connected) {
         this.player = player;
         this.owned = owned;
         this.connected = connected;

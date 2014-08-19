@@ -23,7 +23,7 @@ public class PlayerToken implements PlayerAware {
     final private String value;
 
     @JsonCreator
-    public PlayerToken(@JsonProperty(PlayerAware.JSON_ID) String player,
+    public PlayerToken(@JsonProperty(PLAYER) String player,
             @JsonSerialize(using = KeySerializer.class)
             @JsonDeserialize(using = SecretKeyDeserializer.class)
             @JsonProperty("secretKey") SecretKey secret,

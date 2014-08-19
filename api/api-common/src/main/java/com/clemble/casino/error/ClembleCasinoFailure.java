@@ -28,7 +28,7 @@ public class ClembleCasinoFailure implements PlayerAware {
 
     @JsonCreator
     public ClembleCasinoFailure(
-        @JsonProperty(PlayerAware.JSON_ID) final String player,
+        @JsonProperty(PLAYER) final String player,
         @JsonProperty("error") final ClembleCasinoError error) {
         this.player = player;
         this.error = error;

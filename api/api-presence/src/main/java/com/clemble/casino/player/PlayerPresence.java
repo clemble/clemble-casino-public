@@ -20,7 +20,7 @@ public class PlayerPresence implements PlayerAware, GameSessionAware, PresenceAw
     final private GameSessionKey session;
 
     @JsonCreator
-    public PlayerPresence(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("presence") Presence presence) {
+    public PlayerPresence(@JsonProperty(PLAYER) String player, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("presence") Presence presence) {
         this.playerId = player;
         this.session = session;
         this.presence = presence;

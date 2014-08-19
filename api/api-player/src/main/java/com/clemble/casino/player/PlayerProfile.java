@@ -24,7 +24,7 @@ public class PlayerProfile implements PlayerAware, VersionAware {
     private static final long serialVersionUID = -3831720055626662655L;
 
     @Id
-    @JsonProperty(PlayerAware.JSON_ID)
+    @JsonProperty(PLAYER)
     private String player;
 
     @JsonProperty("nickName")

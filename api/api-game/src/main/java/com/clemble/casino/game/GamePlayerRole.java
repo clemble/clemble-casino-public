@@ -29,7 +29,7 @@ public class GamePlayerRole implements PlayerAware, GameRoleAware {
     final private String role;
 
     @JsonCreator
-    public GamePlayerRole(@JsonProperty("player") String player, @JsonProperty("role") String role) {
+    public GamePlayerRole(@JsonProperty(PLAYER) String player, @JsonProperty("role") String role) {
         this.player = player;
         this.role = role;
     }

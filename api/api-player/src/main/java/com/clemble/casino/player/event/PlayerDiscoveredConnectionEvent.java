@@ -17,7 +17,7 @@ public class PlayerDiscoveredConnectionEvent implements PlayerAwareEvent {
     final private String connection;
 
     @JsonCreator
-    public PlayerDiscoveredConnectionEvent(@JsonProperty("player") String player, @JsonProperty("connection") String connection) {
+    public PlayerDiscoveredConnectionEvent(@JsonProperty(PLAYER) String player, @JsonProperty("connection") String connection) {
         this.player = player;
         this.connection = connection;
     }

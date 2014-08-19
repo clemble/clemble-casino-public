@@ -22,7 +22,7 @@ public class GameInitiationConfirmedEvent extends GameInitiationEvent implements
     public GameInitiationConfirmedEvent(
         @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
         @JsonProperty("initiation") GameInitiation initiation,
-        @JsonProperty("player") String player) {
+        @JsonProperty(PLAYER) String player) {
         super(sessionKey, initiation);
         this.player = player;
     }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.clemble.casino.game.specification.GameConfiguration;
-import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,7 +25,7 @@ public class AvailabilityGameRequest extends PlayerGameConstructionRequest imple
     }
 
     @JsonCreator
-    public AvailabilityGameRequest(@JsonProperty(PlayerAware.JSON_ID) String player,
+    public AvailabilityGameRequest(@JsonProperty(PLAYER) String player,
             @JsonProperty("configuration") GameConfiguration configuration,
             @JsonProperty("participants") Collection<String> participants,
             @JsonProperty("declineBehavior") GameDeclineBehavior declineBehavior) {

@@ -15,7 +15,7 @@ public class GoalJudge implements PlayerAware {
     final private Collection<GoalJudgeDuty> duties;
 
     @JsonCreator
-    public GoalJudge(@JsonProperty("player") String player,
+    public GoalJudge(@JsonProperty(PLAYER) String player,
         @JsonProperty("duties") Collection<GoalJudgeDuty> duties) {
         this.player = player;
         this.duties = duties;

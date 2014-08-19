@@ -15,7 +15,7 @@ public class DefaultGameAction implements GameAction {
     final private String player;
 
     @JsonCreator
-    public DefaultGameAction(@JsonProperty("player") String player) {
+    public DefaultGameAction(@JsonProperty(PLAYER) String player) {
         this.player = player;
     }
 

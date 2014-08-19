@@ -1,6 +1,8 @@
 package com.clemble.casino.payment;
 
-public interface PaymentTransactionAware {
+import com.clemble.casino.KeyAware;
+
+public interface PaymentTransactionAware extends KeyAware {
 
     public PaymentTransactionKey getTransactionKey();
 

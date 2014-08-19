@@ -1,7 +1,6 @@
 package com.clemble.casino.base;
 
 import com.clemble.casino.event.PlayerAwareEvent;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -28,7 +27,7 @@ public class ExpectedEvent implements PlayerAwareEvent {
 
     @JsonCreator
     public ExpectedEvent(
-        @JsonProperty(PlayerAware.JSON_ID) String player,
+        @JsonProperty(PLAYER) String player,
         @JsonProperty("action") String action) {
         this.player = player;
         this.action = action;

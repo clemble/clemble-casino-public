@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -23,7 +22,7 @@ public class BetAction implements GameAction {
     final private String player;
 
     @JsonCreator
-    public BetAction(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("bet") int bet) {
+    public BetAction(@JsonProperty(PLAYER) String player, @JsonProperty("bet") int bet) {
         this.player = player;
         this.bet = bet;
         if (bet < 0)

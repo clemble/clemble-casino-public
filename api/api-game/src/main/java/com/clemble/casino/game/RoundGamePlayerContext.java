@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.specification.RoundGameConfiguration;
-import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,7 +24,7 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
 
     @JsonCreator
     public RoundGamePlayerContext(
-            @JsonProperty("player") String player,
+            @JsonProperty(PLAYER) String player,
             @JsonProperty("account") GamePlayerAccount account,
             @JsonProperty("clock") GamePlayerClock clock,
             @JsonProperty("role") String role,

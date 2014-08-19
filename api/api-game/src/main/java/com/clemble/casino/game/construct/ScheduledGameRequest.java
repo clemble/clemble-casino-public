@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import com.clemble.casino.game.specification.GameConfiguration;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -22,7 +21,7 @@ public class ScheduledGameRequest extends PlayerGameConstructionRequest {
     final private Date startTime;
 
     @JsonCreator
-    public ScheduledGameRequest(@JsonProperty(PlayerAware.JSON_ID) String player,
+    public ScheduledGameRequest(@JsonProperty(PLAYER) String player,
             @JsonProperty("configuration") GameConfiguration configuration,
             @JsonProperty("participants") Collection<String> participants,
             @JsonProperty("declineBehavior") GameDeclineBehavior declineBehavior,

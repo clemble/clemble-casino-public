@@ -7,7 +7,6 @@ import java.util.List;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.specification.GameConfiguration;
-import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -26,7 +25,7 @@ public class MatchGamePlayerContext implements GamePlayerContext {
 
     @JsonCreator
     public MatchGamePlayerContext(
-            @JsonProperty("player") String player,
+            @JsonProperty(PLAYER) String player,
             @JsonProperty("account") GamePlayerAccount account,
             @JsonProperty("clock") GamePlayerClock clock,
             @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes,

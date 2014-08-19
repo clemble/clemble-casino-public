@@ -2,7 +2,6 @@ package com.clemble.casino.game.event.schedule;
 
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -19,7 +18,7 @@ public class InvitationAcceptedEvent implements InvitationResponseEvent {
     final private GameSessionKey session;
 
     @JsonCreator
-    public InvitationAcceptedEvent(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session) {
+    public InvitationAcceptedEvent(@JsonProperty(PLAYER) String player, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session) {
         this.session = session;
         this.player = player;
     }

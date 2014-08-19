@@ -1,7 +1,6 @@
 package com.clemble.casino.game.action;
 
 import com.clemble.casino.game.unit.GameUnit;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -18,7 +17,7 @@ public class SelectAction<T extends GameUnit> implements GameAction {
     final private String player;
 
     @JsonCreator
-    public SelectAction(@JsonProperty(PlayerAware.JSON_ID) String player, @JsonProperty("select") T select) {
+    public SelectAction(@JsonProperty(PLAYER) String player, @JsonProperty("select") T select) {
         this.player = player;
         this.select = select;
     }

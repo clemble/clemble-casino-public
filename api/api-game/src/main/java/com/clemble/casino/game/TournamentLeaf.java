@@ -21,7 +21,7 @@ public class TournamentLeaf implements GameSessionAware, PlayerAware{
     final private Collection<TournamentLeaf> leafs;
 
     @JsonCreator
-    public TournamentLeaf(@JsonProperty("player") String player,
+    public TournamentLeaf(@JsonProperty(PLAYER) String player,
                           @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
                           @JsonProperty("leafs") Collection<TournamentLeaf> leafs) {
         this.player = player;

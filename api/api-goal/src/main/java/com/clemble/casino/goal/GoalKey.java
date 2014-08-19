@@ -16,7 +16,7 @@ public class GoalKey implements PlayerAware, PaymentTransactionAwareConvertible,
     final private String id;
 
     @JsonCreator
-    public GoalKey(@JsonProperty("player") String player, @JsonProperty("id") String id) {
+    public GoalKey(@JsonProperty(PLAYER) String player, @JsonProperty("id") String id) {
         this.player = player;
         this.id = id;
     }

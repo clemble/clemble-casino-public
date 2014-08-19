@@ -1,14 +1,9 @@
 package com.clemble.casino.payment;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.Columns;
-import org.hibernate.annotations.Type;
 
 import com.clemble.casino.money.Money;
 import com.clemble.casino.money.Operation;
@@ -27,7 +22,7 @@ public class PaymentOperation implements PlayerAware, AmountAware {
     final private Operation operation;
 
     @JsonCreator
-    public PaymentOperation(@JsonProperty("player") String player, @JsonProperty("amount") Money amount, @JsonProperty("operation") Operation operation) {
+    public PaymentOperation(@JsonProperty(PLAYER) String player, @JsonProperty("amount") Money amount, @JsonProperty("operation") Operation operation) {
         this.player = player;
         this.amount = amount;
         this.operation = operation;

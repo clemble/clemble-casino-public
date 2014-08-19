@@ -20,7 +20,7 @@ public class PlayerAccount implements PlayerAware {
     final private Map<Currency, Money> cash;
 
     @JsonCreator
-    public PlayerAccount(@JsonProperty("player") String player, @JsonProperty("money") Map<Currency, Money> amounts) {
+    public PlayerAccount(@JsonProperty(PLAYER) String player, @JsonProperty("money") Map<Currency, Money> amounts) {
         this.player = player;
         this.cash = CollectionUtils.immutableMap(amounts);
     }

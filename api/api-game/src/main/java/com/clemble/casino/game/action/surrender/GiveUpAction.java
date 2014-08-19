@@ -1,6 +1,5 @@
 package com.clemble.casino.game.action.surrender;
 
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -14,7 +13,7 @@ public class GiveUpAction extends SurrenderAction {
     private static final long serialVersionUID = 4501169964446540650L;
 
     @JsonCreator
-    public GiveUpAction(@JsonProperty(PlayerAware.JSON_ID) String playerId) {
+    public GiveUpAction(@JsonProperty(PLAYER) String playerId) {
         super(playerId);
     }
 
