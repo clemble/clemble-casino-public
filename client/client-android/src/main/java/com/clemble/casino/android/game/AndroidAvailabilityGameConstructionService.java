@@ -32,13 +32,13 @@ public class AndroidAvailabilityGameConstructionService<T extends GameState> ext
     }
 
     @Override
-    public GameConstruction getConstruction(Game game, String session) {
-        return restTemplate.getForObject(buildUriWith(toGameUrl(GAME_CONSTRUCTION), game, session), GameConstruction.class);
+    public GameConstruction getConstruction(String sessionKey) {
+        return restTemplate.getForObject(buildUriWith(toGameUrl(GAME_CONSTRUCTION), sessionKey), GameConstruction.class);
     }
 
     @Override
-    public PlayerAwareEvent getReply(Game game, String session, String player) {
-        return restTemplate.getForObject(buildUriWith(toGameUrl(CONSTRUCTION_RESPONSES_PLAYER), game, session, player), PlayerAwareEvent.class);
+    public PlayerAwareEvent getReply(String sessionKey, String player) {
+        return restTemplate.getForObject(buildUriWith(toGameUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerAwareEvent.class);
     }
 
     @Override

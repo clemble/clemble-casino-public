@@ -6,6 +6,6 @@ import com.clemble.casino.game.GameRecord;
 
 public interface GameRecordService extends ClembleService {
 
-    public GameRecord get(Game game, String session);
+    public GameRecord get(String sessionKey);
 
 }

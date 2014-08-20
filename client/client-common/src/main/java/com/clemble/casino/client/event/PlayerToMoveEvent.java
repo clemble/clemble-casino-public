@@ -1,7 +1,6 @@
 package com.clemble.casino.client.event;
 
 import com.clemble.casino.game.GameSessionAwareEvent;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.player.PlayerAware;
 
 public class PlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
@@ -12,11 +11,11 @@ public class PlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
     private static final long serialVersionUID = 1551787087014740990L;
 
     final private String player;
-    final private GameSessionKey sessionKey;
+    final private String sessionKey;
     final private String expectedMove;
     final private boolean isMyTurn;
 
-    public PlayerToMoveEvent(GameSessionKey sessionKey, String player, String expectedMove, boolean isMyTurn) {
+    public PlayerToMoveEvent(String sessionKey, String player, String expectedMove, boolean isMyTurn) {
         this.player = player;
         this.sessionKey = sessionKey;
         this.expectedMove = expectedMove;
@@ -24,7 +23,7 @@ public class PlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return sessionKey;
     }
 

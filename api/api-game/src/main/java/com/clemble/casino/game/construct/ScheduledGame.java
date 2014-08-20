@@ -1,11 +1,6 @@
 package com.clemble.casino.game.construct;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import com.clemble.casino.game.GameSessionKey;
+import javax.persistence.*;
 import com.clemble.casino.game.GameSessionAware;
 
 @Entity
@@ -17,8 +12,8 @@ public class ScheduledGame implements GameSessionAware {
      */
     private static final long serialVersionUID = 1773102437262489956L;
 
-    @EmbeddedId
-    private GameSessionKey session;
+    @Id
+    private String sessionKey;
 
     @Column(name = "START_TIME")
     private long startDate;
@@ -26,18 +21,18 @@ public class ScheduledGame implements GameSessionAware {
     public ScheduledGame() {
     }
 
-    public ScheduledGame(GameSessionKey session, long startDate) {
-        this.session = session;
+    public ScheduledGame(String sessionKey, long startDate) {
+        this.sessionKey = sessionKey;
         this.startDate = startDate;
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
-        return session;
+    public String getSessionKey() {
+        return sessionKey;
     }
 
-    public void setSessionKey(GameSessionKey sessionKey) {
-        this.session = sessionKey;
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
     }
 
     public long getStartDate() {
@@ -52,7 +47,7 @@ public class ScheduledGame implements GameSessionAware {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + session.hashCode();
+        result = prime * result + sessionKey.hashCode();
         result = prime * result + (int) (startDate ^ (startDate >>> 32));
         return result;
     }
@@ -66,7 +61,7 @@ public class ScheduledGame implements GameSessionAware {
         if (getClass() != obj.getClass())
             return false;
         ScheduledGame other = (ScheduledGame) obj;
-        if (session != other.session)
+        if (!sessionKey.equals(other.sessionKey))
             return false;
         if (startDate != other.startDate)
             return false;

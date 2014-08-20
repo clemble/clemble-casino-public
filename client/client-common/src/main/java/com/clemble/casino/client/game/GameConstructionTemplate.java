@@ -9,7 +9,6 @@ import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionAwareEvent;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
@@ -72,22 +71,22 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     }
 
     @Override
-    public GameConstruction getConstruct(GameSessionKey session) {
-        return availabilityConstructionService.getConstruction(session.getGame(), session.getSession());
+    public GameConstruction getConstruct(String sessionKey) {
+        return availabilityConstructionService.getConstruction(sessionKey);
     }
 
     @Override
-    public GameConstruction accept(GameSessionKey session) {
-        return reply(session, new InvitationAcceptedEvent(player, session));
+    public GameConstruction accept(String sessionKey) {
+        return reply(sessionKey, new InvitationAcceptedEvent(player, sessionKey));
     }
 
     @Override
-    public GameConstruction decline(GameSessionKey session) {
-        return reply(session, new InvitationDeclinedEvent(player, session));
+    public GameConstruction decline(String sessionKey) {
+        return reply(sessionKey, new InvitationDeclinedEvent(player, sessionKey));
     }
 
     @Override
-    public GameConstruction reply(GameSessionKey session, InvitationResponseEvent responce) {
+    public GameConstruction reply(String sessionKey, InvitationResponseEvent responce) {
         return availabilityConstructionService.reply(responce);
     }
 
@@ -97,22 +96,22 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     }
 
     @Override
-    public GameInitiation confirm(GameSessionKey session) {
-        return initiationService.confirm(session.getGame(), session.getSession(), player);
+    public GameInitiation confirm(String sessionKey) {
+        return initiationService.confirm(sessionKey, player);
     }
 
     @Override
-    public PlayerAwareEvent getResponce(GameSessionKey session, String fromPlayer) {
-        return availabilityConstructionService.getReply(session.getGame(), session.getSession(), fromPlayer);
+    public PlayerAwareEvent getResponce(String sessionKey, String fromPlayer) {
+        return availabilityConstructionService.getReply(sessionKey, fromPlayer);
     }
 
     @Override
-    public EventListenerController watch(GameSessionKey session, EventListener<GameSessionAwareEvent> constructionListener) {
+    public EventListenerController watch(String sessionKey, EventListener<GameSessionAwareEvent> constructionListener) {
         // Step 1. Sanity checks
-        if (session == null || constructionListener == null)
+        if (sessionKey == null || constructionListener == null)
             return null;
         // Step 2. Subscribing to specific table
-        return listenerOperations.subscribe(GameWebMapping.toTable(session), constructionListener);
+        return listenerOperations.subscribe(GameWebMapping.toTable(sessionKey), constructionListener);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.clemble.casino.client.event;
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.event.server.RoundEvent;
 import com.clemble.casino.game.event.server.RoundStartedEvent;
 import com.clemble.casino.game.event.server.RoundStateChangedEvent;
@@ -21,7 +20,7 @@ public class PlayerToMoveEventEmulator implements EventListener<RoundEvent>, Eve
     @Override
     public void onEvent(RoundEvent smEvent) {
         // Step 1. Checking Action latch
-        GameSessionKey sessionKey = smEvent.getSessionKey();
+        String sessionKey = smEvent.getSessionKey();
         if (smEvent.getState() != null
                 && smEvent.getState().getContext() != null
                 && smEvent.getState().getContext().getActionLatch() != null) {

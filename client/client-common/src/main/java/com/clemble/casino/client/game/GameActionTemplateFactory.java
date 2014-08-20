@@ -3,7 +3,6 @@ package com.clemble.casino.client.game;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.service.GameActionService;
 
@@ -20,7 +19,7 @@ public class GameActionTemplateFactory implements GameActionOperationsFactory {
     }
 
     @Override
-    public <State extends GameState> GameActionOperations<State> construct(GameSessionKey session) {
+    public <State extends GameState> GameActionOperations<State> construct(String session) {
         // Step 1. Constructing appropriate GameAction service
         return new GameActionTemplate<State>(player, session, eventListenerOperation, (GameActionService) actionService);
     }

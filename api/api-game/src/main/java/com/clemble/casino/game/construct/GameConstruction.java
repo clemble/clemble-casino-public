@@ -3,13 +3,7 @@ package com.clemble.casino.game.construct;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import org.hibernate.annotations.Type;
@@ -18,7 +12,6 @@ import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 
 @Entity
@@ -30,8 +23,8 @@ public class GameConstruction implements GameSessionAware, VersionAware {
      */
     private static final long serialVersionUID = 2712386710995109913L;
 
-    @EmbeddedId
-    private GameSessionKey session;
+    @Id
+    private String session;
 
     @Type(type = "com.clemble.casino.game.construct.GameRequestHibernate")
     @Column(name = "REQUEST", length = 8192, nullable = false)
@@ -56,7 +49,7 @@ public class GameConstruction implements GameSessionAware, VersionAware {
         this.state = GameConstructionState.pending;
     }
 
-    public GameConstruction(GameSessionKey sessionKey, AvailabilityGameRequest request) {
+    public GameConstruction(String sessionKey, AvailabilityGameRequest request) {
         this.request = request;
         this.session = sessionKey;
         this.state = GameConstructionState.pending;
@@ -65,11 +58,11 @@ public class GameConstruction implements GameSessionAware, VersionAware {
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return session;
     }
 
-    public GameConstruction setSessionKey(GameSessionKey session) {
+    public GameConstruction setSessionKey(String session) {
         this.session = session;
         return this;
     }

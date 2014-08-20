@@ -14,9 +14,9 @@ public interface AvailabilityGameConstructionService extends GameConstructionSer
     @Override
     public GameConstruction construct( AvailabilityGameRequest gameRequest);
 
-    public GameConstruction getConstruction(Game game, String session);
+    public GameConstruction getConstruction(String sessionKey);
 
-    public PlayerAwareEvent getReply(Game game, String session, String player);
+    public PlayerAwareEvent getReply(String sessionKey, String player);
 
     public GameConstruction reply(InvitationResponseEvent gameRequest);
 

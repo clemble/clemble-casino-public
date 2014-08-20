@@ -15,11 +15,11 @@ abstract public class GameContext<T extends GamePlayerContext> implements Serial
      */
     private static final long serialVersionUID = -8929596035884162377L;
 
-    final private GameSessionKey sessionKey;
+    final private String sessionKey;
     final private GameContext<?> parent;
     final private List<T> playerContexts;
 
-    public GameContext(GameSessionKey sessionKey, GameContext<?> parent, List<T> playerContexts) {
+    public GameContext(String sessionKey, GameContext<?> parent, List<T> playerContexts) {
         this.parent = parent;
         this.sessionKey = sessionKey;
         this.playerContexts = playerContexts;
@@ -30,7 +30,7 @@ abstract public class GameContext<T extends GamePlayerContext> implements Serial
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return sessionKey;
     }
 

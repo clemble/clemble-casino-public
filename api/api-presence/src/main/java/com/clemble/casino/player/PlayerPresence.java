@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,12 +16,12 @@ public class PlayerPresence implements PlayerAware, GameSessionAware, PresenceAw
 
     final private String playerId;
     final private Presence presence;
-    final private GameSessionKey session;
+    final private String sessionKey;
 
     @JsonCreator
-    public PlayerPresence(@JsonProperty(PLAYER) String player, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("presence") Presence presence) {
+    public PlayerPresence(@JsonProperty(PLAYER) String player, @JsonProperty(SESSION_KEY) String session, @JsonProperty("presence") Presence presence) {
         this.playerId = player;
-        this.session = session;
+        this.sessionKey = session;
         this.presence = presence;
     }
 
@@ -37,8 +36,8 @@ public class PlayerPresence implements PlayerAware, GameSessionAware, PresenceAw
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
-        return session;
+    public String getSessionKey() {
+        return sessionKey;
     }
 
     public static PlayerPresence offline(String player) {
@@ -49,7 +48,7 @@ public class PlayerPresence implements PlayerAware, GameSessionAware, PresenceAw
         return new PlayerPresence(player, GameSessionAware.DEFAULT_SESSION, Presence.online);
     }
 
-    public static PlayerPresence playing(String player, GameSessionKey session) {
+    public static PlayerPresence playing(String player, String session) {
         return new PlayerPresence(player, session, Presence.playing);
     }
 
@@ -57,7 +56,7 @@ public class PlayerPresence implements PlayerAware, GameSessionAware, PresenceAw
         return new PlayerPresence(player, GameSessionAware.DEFAULT_SESSION, presence);
     }
 
-    public static Collection<PlayerPresence> playing(Collection<String> players, GameSessionKey session) {
+    public static Collection<PlayerPresence> playing(Collection<String> players, String session) {
         Collection<PlayerPresence> playerPresences = new ArrayList<PlayerPresence>();
         for (String player : players)
             playerPresences.add(playing(player, session));
@@ -70,7 +69,7 @@ public class PlayerPresence implements PlayerAware, GameSessionAware, PresenceAw
         int result = 1;
         result = prime * result + ((playerId == null) ? 0 : playerId.hashCode());
         result = prime * result + ((presence == null) ? 0 : presence.hashCode());
-        result = prime * result + ((session == null) ? 0 : session.hashCode());
+        result = prime * result + ((sessionKey == null) ? 0 : sessionKey.hashCode());
         return result;
     }
 
@@ -90,17 +89,17 @@ public class PlayerPresence implements PlayerAware, GameSessionAware, PresenceAw
             return false;
         if (presence != other.presence)
             return false;
-        if (session == null) {
-            if (other.session != null)
+        if (sessionKey == null) {
+            if (other.sessionKey != null)
                 return false;
-        } else if (!session.equals(other.session))
+        } else if (!sessionKey.equals(other.sessionKey))
             return false;
         return true;
     }
     
     @Override
     public String toString() {
-        return playerId + ":" + presence + ":" + session;
+        return playerId + ":" + presence + ":" + sessionKey;
     }
 
 }

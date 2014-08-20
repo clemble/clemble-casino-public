@@ -2,8 +2,6 @@ package com.clemble.casino.game.event.server;
 
 import java.util.Set;
 
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +18,7 @@ public class GameInitiationCanceledEvent extends GameInitiationEvent {
     final private Set<String> confirmed;
 
     @JsonCreator
-    public GameInitiationCanceledEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
+    public GameInitiationCanceledEvent(@JsonProperty(SESSION_KEY) String sessionKey,
             @JsonProperty("initiation") GameInitiation initiation,
             @JsonProperty("confirmed") Set<String> confirmed) {
         super(sessionKey, initiation);

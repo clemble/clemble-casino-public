@@ -20,8 +20,8 @@ public class AndroidGameRecordService extends AbstractClembleCasinoOperations im
     }
 
     @Override
-    public GameRecord get(Game game, String session) {
-        return restTemplate.getForObject(buildUriWith(toGameUrl(SESSIONS_RECORD), game, session), GameRecord.class);
+    public GameRecord get(String session) {
+        return restTemplate.getForObject(buildUriWith(toGameUrl(SESSIONS_RECORD), session), GameRecord.class);
     }
 
 }

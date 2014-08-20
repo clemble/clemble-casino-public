@@ -3,7 +3,6 @@ package com.clemble.casino.client.game;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import com.clemble.casino.game.GameRecord;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.service.GameRecordService;
 
 public class GameRecordTemplate implements GameRecordOperations {
@@ -15,8 +14,8 @@ public class GameRecordTemplate implements GameRecordOperations {
     }
 
     @Override
-    public GameRecord get(GameSessionKey sessionKey) {
-        return sessionKey != null ? gameRecordService.get(sessionKey.getGame(), sessionKey.getSession()) : null;
+    public GameRecord get(String sessionKey) {
+        return sessionKey != null ? gameRecordService.get(sessionKey) : null;
     }
 
 }

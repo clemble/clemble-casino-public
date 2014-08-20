@@ -1,8 +1,6 @@
 package com.clemble.casino.game.event.schedule;
 
-import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.event.GameConstructionEvent;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.construct.PlayerGameConstructionRequest;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,19 +14,19 @@ public class PlayerInvitedEvent implements GameConstructionEvent {
      */
     private static final long serialVersionUID = 1753173974867187325L;
 
-    final private GameSessionKey session;
+    final private String sessionKey;
 
     final private PlayerGameConstructionRequest gameRequest;
 
     @JsonCreator
-    public PlayerInvitedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("gameRequest") PlayerGameConstructionRequest request) {
-        this.session = session;
+    public PlayerInvitedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("gameRequest") PlayerGameConstructionRequest request) {
+        this.sessionKey = session;
         this.gameRequest = request;
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
-        return session;
+    public String getSessionKey() {
+        return sessionKey;
     }
 
     public PlayerGameConstructionRequest getGameRequest() {
@@ -40,7 +38,7 @@ public class PlayerInvitedEvent implements GameConstructionEvent {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((gameRequest == null) ? 0 : gameRequest.hashCode());
-        result = prime * result + (int) (session.hashCode());
+        result = prime * result + (int) (sessionKey.hashCode());
         return result;
     }
 
@@ -58,12 +56,12 @@ public class PlayerInvitedEvent implements GameConstructionEvent {
                 return false;
         } else if (!gameRequest.equals(other.gameRequest))
             return false;
-        return session.equals(other.session);
+        return sessionKey.equals(other.sessionKey);
     }
     
     @Override
     public String toString() {
-        return "invited:" + session;
+        return "invited:" + sessionKey;
     }
 
 }

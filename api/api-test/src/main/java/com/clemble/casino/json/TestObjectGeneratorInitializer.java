@@ -77,16 +77,10 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {
             @Override
             public RoundGameContext generate() {
-            GameInitiation initiation = new GameInitiation(GameSessionKey.DEFAULT_SESSION, ImmutableList.of("A", "B"), RoundGameConfiguration.DEFAULT);
+            GameInitiation initiation = new GameInitiation(GameSessionAware.DEFAULT_SESSION, ImmutableList.of("A", "B"), RoundGameConfiguration.DEFAULT);
             return new RoundGameContext(initiation);
             }
 
-        });
-        ObjectGenerator.register(GameSessionKey.class, new AbstractValueGenerator<GameSessionKey>() {
-            @Override
-            public GameSessionKey generate() {
-            return new GameSessionKey(ObjectGenerator.generate(Game.class), ObjectGenerator.generate(String.class));
-            }
         });
         ObjectGenerator.register(FixedBetRule.class, new AbstractValueGenerator<FixedBetRule>() {
             @Override
@@ -150,7 +144,7 @@ public class TestObjectGeneratorInitializer {
             @Override
             public GameConstruction generate() {
             return new GameConstruction()
-                .setSessionKey(new GameSessionKey(Game.pic, "0"))
+                .setSessionKey(ObjectGenerator.generate(String.class))
                 .setRequest(new AutomaticGameRequest(RandomStringUtils.random(5), RoundGameConfiguration.DEFAULT))
                 .setResponses(new ActionLatch().expectNext(ImmutableList.<String>of(RandomStringUtils.random(5), RandomStringUtils.random(5)), InvitationResponseEvent.class))
                 .setState(GameConstructionState.pending);
@@ -212,13 +206,13 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(MatchGameContext.class, new AbstractValueGenerator<MatchGameContext>() {
             @Override
             public MatchGameContext generate() {
-            return new MatchGameContext(GameSessionKey.DEFAULT_SESSION, null, Collections.<MatchGamePlayerContext>emptyList(), null, 0, Collections.<GameOutcome>emptyList());
+            return new MatchGameContext(GameSessionAware.DEFAULT_SESSION, null, Collections.<MatchGamePlayerContext>emptyList(), null, 0, Collections.<GameOutcome>emptyList());
             }
         });
         ObjectGenerator.register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {
             @Override
             public TournamentGameContext generate() {
-            return new TournamentGameContext(GameSessionKey.DEFAULT_SESSION, null, null, null);
+            return new TournamentGameContext(GameSessionAware.DEFAULT_SESSION, null, null, null);
             }
         });
         try {

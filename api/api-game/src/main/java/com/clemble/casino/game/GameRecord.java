@@ -21,7 +21,7 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
     private static final long serialVersionUID = -6572596573895530995L;
 
     @EmbeddedId
-    private GameSessionKey session;
+    private String session;
 
     @Embedded
     private GameConfigurationKey configurationKey;
@@ -50,11 +50,11 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return session;
     }
 
-    public GameRecord setSessionKey(GameSessionKey newSession) {
+    public GameRecord setSessionKey(String newSession) {
         this.session = newSession;
         return this;
     }

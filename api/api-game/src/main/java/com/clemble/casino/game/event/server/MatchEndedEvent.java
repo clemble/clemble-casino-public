@@ -1,7 +1,5 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.MatchGamePlayerContext;
 import com.clemble.casino.game.outcome.GameOutcome;
@@ -20,7 +18,7 @@ public class MatchEndedEvent extends MatchEvent implements GameEndedEvent<MatchG
     final private GameOutcome outcome;
 
     @JsonCreator
-    public MatchEndedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey, @JsonProperty("outcome") GameOutcome outcome,
+    public MatchEndedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty("outcome") GameOutcome outcome,
                            @JsonProperty("context") MatchGameContext context) {
         super(sessionKey, context);
         this.outcome = outcome;

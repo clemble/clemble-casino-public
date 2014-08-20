@@ -36,7 +36,6 @@ import com.clemble.casino.client.game.GameConstructionTemplate;
 import com.clemble.casino.client.game.GameInitiationTemplate;
 import com.clemble.casino.client.game.GameRecordOperations;
 import com.clemble.casino.client.game.GameRecordTemplate;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
 import com.clemble.casino.game.event.server.RoundEvent;
@@ -188,7 +187,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public <State extends GameState> GameActionOperations<State> gameActionOperations(GameSessionKey session) {
+    public <State extends GameState> GameActionOperations<State> gameActionOperations(String session) {
         // Step 1. Constructing appropriate action operations
         return actionOperationsFactory.construct(session);
     }

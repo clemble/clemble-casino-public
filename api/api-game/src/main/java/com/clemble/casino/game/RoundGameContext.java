@@ -26,7 +26,7 @@ public class RoundGameContext extends GameContext<RoundGamePlayerContext> {
 
     @JsonCreator
     public RoundGameContext(
-        @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
+        @JsonProperty(SESSION_KEY) String sessionKey,
         @JsonProperty("playerContexts") List<RoundGamePlayerContext> playerContexts,
         @JsonProperty("playerIterator") GamePlayerIterator playerIterator,
         @JsonProperty("actionLatch") ActionLatch actionLatch,

@@ -23,18 +23,18 @@ public class AndroidGameActionTemplate extends AbstractClembleCasinoOperations i
     }
 
     @Override
-    public GameState getState(Game game, String session) {
-        return restTemplate.getForObject(buildUriWith(toGameUrl(SESSIONS_STATE), game, session), GameState.class);
+    public GameState getState(String sessionKey) {
+        return restTemplate.getForObject(buildUriWith(toGameUrl(SESSIONS_STATE), sessionKey), GameState.class);
     }
 
     @Override
-    public GameContext<?> getContext(Game game, String session) {
-        return restTemplate.getForObject(buildUriWith(toGameUrl(SESSIONS_CONTEXT), game, session), GameContext.class);
+    public GameContext<?> getContext(String sessionKey) {
+        return restTemplate.getForObject(buildUriWith(toGameUrl(SESSIONS_CONTEXT), sessionKey), GameContext.class);
     }
 
     @Override
-    public GameManagementEvent process(Game game, String session, GameAction move) {
-        return restTemplate.postForObject(buildUriWith(toGameUrl(SESSIONS_ACTIONS), game, session), move, GameManagementEvent.class);
+    public GameManagementEvent process(String sessionKey, GameAction move) {
+        return restTemplate.postForObject(buildUriWith(toGameUrl(SESSIONS_ACTIONS), sessionKey), move, GameManagementEvent.class);
     }
 
 }

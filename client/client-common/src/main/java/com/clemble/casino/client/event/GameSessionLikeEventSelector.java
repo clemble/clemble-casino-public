@@ -3,7 +3,6 @@ package com.clemble.casino.client.event;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 
 import java.util.regex.Pattern;
 
@@ -26,9 +25,8 @@ public class GameSessionLikeEventSelector implements EventSelector {
         if (!(event instanceof GameSessionAware))
             return false;
         // Step 2. Checking session key matches expected one
-        GameSessionKey sessionKey = ((GameSessionAware) event).getSessionKey();
+        String sessionKey = ((GameSessionAware) event).getSessionKey();
         return (event instanceof GameSessionAware)
-                && game.equals(sessionKey.getGame())
-                && matchPattern.matcher(sessionKey.getSession()).matches();
+                && matchPattern.matcher(sessionKey).matches();
     }
 }

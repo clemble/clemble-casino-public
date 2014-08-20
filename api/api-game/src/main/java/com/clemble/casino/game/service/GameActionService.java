@@ -10,10 +10,10 @@ import com.clemble.casino.game.event.server.GameManagementEvent;
 
 public interface GameActionService extends ClembleService {
 
-    public GameState getState(Game game, String session);
+    public GameState getState(String sessionKey);
 
-    public GameContext<?> getContext(Game game, String session);
+    public GameContext<?> getContext(String sessionKey);
 
-    public GameManagementEvent process(Game game, String session, GameAction move);
+    public GameManagementEvent process(String sessionKey, GameAction move);
 
 }

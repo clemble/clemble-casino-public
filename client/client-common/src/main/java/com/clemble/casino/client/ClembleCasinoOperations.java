@@ -14,7 +14,6 @@ import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.game.GameActionOperations;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameRecordOperations;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.player.PlayerAware;
 
@@ -42,7 +41,7 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
 
     public GameConstructionOperations gameConstructionOperations();
 
-    public <State extends GameState> GameActionOperations<State> gameActionOperations(GameSessionKey session);
+    public <State extends GameState> GameActionOperations<State> gameActionOperations(String sessionKey);
 
     public GameRecordOperations gameRecordOperations();
 

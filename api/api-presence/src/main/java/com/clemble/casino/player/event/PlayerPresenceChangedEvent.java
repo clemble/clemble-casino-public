@@ -1,7 +1,5 @@
 package com.clemble.casino.player.event;
 
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.player.PlayerPresence;
 import com.clemble.casino.player.Presence;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -18,7 +16,7 @@ public class PlayerPresenceChangedEvent extends PlayerPresence implements Player
 
     @JsonCreator
     public PlayerPresenceChangedEvent(@JsonProperty(PLAYER) String player,
-            @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session,
+            @JsonProperty(SESSION_KEY) String session,
             @JsonProperty("presence") Presence presence) {
         super(player, session, presence);
     }

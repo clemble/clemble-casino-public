@@ -7,7 +7,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.game.specification.GameConfigurationAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,7 +19,7 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
      */
     private static final long serialVersionUID = -8584404446775359390L;
 
-    final private GameSessionKey sessionKey;
+    final private String sessionKey;
     final private GameConfiguration configuration;
     final private LinkedHashSet<String> participants = new LinkedHashSet<String>();
 
@@ -28,20 +27,20 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
         this(construction.getSessionKey(), construction.fetchAcceptedParticipants(), construction.getRequest().getConfiguration());
     }
 
-    public GameInitiation(GameSessionKey session, List<String> participants, GameConfiguration specification) {
+    public GameInitiation(String session, List<String> participants, GameConfiguration specification) {
         this.configuration = checkNotNull(specification);
         this.sessionKey = checkNotNull(session);
         this.participants.addAll(participants);
     }
 
-    public GameInitiation(GameSessionKey session, GameConfiguration specification, Collection<String> participants) {
+    public GameInitiation(String session, GameConfiguration specification, Collection<String> participants) {
         this.configuration = checkNotNull(specification);
         this.sessionKey = checkNotNull(session);
         this.participants.addAll(participants);
     }
 
     @JsonCreator
-    public GameInitiation(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty("configuration") GameConfiguration specification,
+    public GameInitiation(@JsonProperty(GameSessionAware.SESSION_KEY) String session, @JsonProperty("configuration") GameConfiguration specification,
             @JsonProperty("participants") Collection<String> playerRoles, @JsonProperty("confirmations") Collection<String> confirmations) {
         this.configuration = checkNotNull(specification);
         this.sessionKey = checkNotNull(session);
@@ -62,7 +61,7 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return sessionKey;
     }
 

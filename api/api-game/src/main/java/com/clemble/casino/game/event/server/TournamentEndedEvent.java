@@ -1,8 +1,6 @@
 package com.clemble.casino.game.event.server;
 
 import com.clemble.casino.game.GameContext;
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.TournamentGamePlayerContext;
 import com.clemble.casino.game.outcome.GameOutcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -21,7 +19,7 @@ public class TournamentEndedEvent extends TournamentEvent implements GameEndedEv
     final private GameContext<TournamentGamePlayerContext> context;
 
     @JsonCreator
-    public TournamentEndedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey, @JsonProperty("outcome") GameOutcome outcome, @JsonProperty("context") GameContext<TournamentGamePlayerContext> context) {
+    public TournamentEndedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty("outcome") GameOutcome outcome, @JsonProperty("context") GameContext<TournamentGamePlayerContext> context) {
         super(sessionKey);
         this.outcome = outcome;
         this.context = context;

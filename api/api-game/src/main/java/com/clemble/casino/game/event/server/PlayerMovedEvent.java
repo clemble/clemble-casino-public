@@ -1,8 +1,6 @@
 package com.clemble.casino.game.event.server;
 
 import com.clemble.casino.event.PlayerAwareEvent;
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -18,7 +16,7 @@ public class PlayerMovedEvent extends GameManagementEvent implements PlayerAware
     final private String player;
 
     @JsonCreator
-    public PlayerMovedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session, @JsonProperty(PLAYER) String player) {
+    public PlayerMovedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty(PLAYER) String player) {
         super(session);
         this.player = player;
     }

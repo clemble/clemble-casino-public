@@ -19,12 +19,12 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
     private static final long serialVersionUID = 554706514619333631L;
 
     private long pot; // TODO make this immutable
-    private GameSessionKey currentSession;
+    private String currentSession;
     final private List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
 
     @JsonCreator
-    public MatchGameContext(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session,
-                            @JsonProperty("currentSession") GameSessionKey currentSession,
+    public MatchGameContext(@JsonProperty(SESSION_KEY) String session,
+                            @JsonProperty("currentSession") String currentSession,
                             @JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
                             @JsonProperty(value = "parent", required = false) GameContext<?> parent,
                             @JsonProperty("pot") long pot,
@@ -43,11 +43,11 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
         return pot;
     }
 
-    public GameSessionKey getCurrentSession() {
+    public String getCurrentSession() {
         return currentSession;
     }
     
-    public void setCurrentSession(GameSessionKey currentSession) {
+    public void setCurrentSession(String currentSession) {
         this.currentSession = currentSession;
     }
 

@@ -2,7 +2,6 @@ package com.clemble.casino.game.event.server;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.construct.GameInitiationAware;
 
@@ -15,7 +14,7 @@ abstract public class GameInitiationEvent extends GameManagementEvent implements
 
     final private GameInitiation initiation;
 
-    public GameInitiationEvent(GameSessionKey sessionKey, GameInitiation initiation) {
+    public GameInitiationEvent(String sessionKey, GameInitiation initiation) {
         super(sessionKey);
         this.initiation = checkNotNull(initiation);
     }

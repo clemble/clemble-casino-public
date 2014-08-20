@@ -1,7 +1,7 @@
 package com.clemble.casino.payment.service;
 
 import com.clemble.casino.game.Game;
-import com.clemble.casino.game.GameSessionKey;
+import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.payment.bonus.PaymentBonusSource;
@@ -38,8 +38,8 @@ public class PaymentTransactionOperations implements PaymentTransactionService {
         return delegate.myTransactions(source.name());
     }
 
-    public PaymentTransaction getTransaction(GameSessionKey sessionKey) {
-        return delegate.getTransaction(sessionKey.getGame().name(), sessionKey.getSession());
+    public PaymentTransaction getTransaction(String sessionKey) {
+        return delegate.getTransaction(GameSessionAware.TRANSACTION_TOKEN, sessionKey);
     }
 
     public PaymentTransaction getTransaction(PaymentTransactionKey transactionKey) {

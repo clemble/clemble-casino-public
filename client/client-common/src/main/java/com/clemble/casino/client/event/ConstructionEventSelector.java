@@ -3,7 +3,6 @@ package com.clemble.casino.client.event;
 import com.clemble.casino.game.event.GameConstructionEvent;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 
 public class ConstructionEventSelector implements EventSelector, GameSessionAware {
 
@@ -12,9 +11,9 @@ public class ConstructionEventSelector implements EventSelector, GameSessionAwar
      */
     private static final long serialVersionUID = 4072930365311184802L;
 
-    final private GameSessionKey sessionKey;
+    final private String sessionKey;
 
-    public ConstructionEventSelector(GameSessionKey sessionKey) {
+    public ConstructionEventSelector(String sessionKey) {
         this.sessionKey = sessionKey;
     }
 
@@ -24,7 +23,7 @@ public class ConstructionEventSelector implements EventSelector, GameSessionAwar
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return sessionKey;
     }
 

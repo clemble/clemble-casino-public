@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TestSpecialCaseMapping {
 
-    final private String JSON = "[{\"player\":\"aaa1dd49369-45c6-4243-b742-f4dc8af41cb4\",\"sessionKey\":{\"game\":null,\"session\":null},\"presence\":\"online\"}]";
+    final private String JSON = "[{\"player\":\"aaa1dd49369-45c6-4243-b742-f4dc8af41cb4\",\"sessionKey\":\"e22\",\"presence\":\"online\"}]";
 
     ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
 

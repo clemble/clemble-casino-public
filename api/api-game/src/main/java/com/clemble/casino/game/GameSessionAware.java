@@ -7,8 +7,9 @@ import java.io.Serializable;
 public interface GameSessionAware extends KeyAware {
 
     final public String SESSION_KEY = "sessionKey";
-    final GameSessionKey DEFAULT_SESSION = new GameSessionKey();
+    final public String TRANSACTION_TOKEN = "GAME";
+    final String DEFAULT_SESSION = "";
 
-    GameSessionKey getSessionKey();
+    String getSessionKey();
 
 }

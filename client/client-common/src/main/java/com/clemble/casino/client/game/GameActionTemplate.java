@@ -22,12 +22,12 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     private static final long serialVersionUID = -2263303118851762598L;
 
     final private String player;
-    final private GameSessionKey session;
+    final private String session;
     final private GameActionService gameActionService;
     final private EventListenerOperations eventListenersManager;
     final private AtomicReference<RoundGameState> currentState = new AtomicReference<RoundGameState>();
 
-    public GameActionTemplate(String player, GameSessionKey session, EventListenerOperations eventListenersManager, GameActionService gameActionService) {
+    public GameActionTemplate(String player, String session, EventListenerOperations eventListenersManager, GameActionService gameActionService) {
         this.player = player;
         this.session = session;
         this.eventListenersManager = checkNotNull(eventListenersManager);
@@ -46,12 +46,12 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     @Override
     public State getState(){
         // TODO fix it
-        return (State) gameActionService.getState(session.getGame(), session.getSession());
+        return (State) gameActionService.getState(session);
     }
 
     @Override
     public GameContext<?> getContext() {
-        return gameActionService.getContext(session.getGame(), session.getSession());
+        return gameActionService.getContext(session);
     }
 
     private RoundGameState getCurrentState(){
@@ -123,12 +123,12 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public GameManagementEvent process(GameAction move) {
-        return gameActionService.process(session.getGame(), session.getSession(), move);
+        return gameActionService.process(session, move);
     }
 
     @Override
     public EventListenerController subscribe(EventListener<GameSessionAwareEvent> eventListener) {
-        return eventListenersManager.subscribe(session, eventListener);
+        return eventListenersManager.subscribeToGameSession(session, eventListener);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return session;
     }
 

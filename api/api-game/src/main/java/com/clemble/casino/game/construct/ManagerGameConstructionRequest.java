@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.clemble.casino.game.GamePlayerRole;
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.specification.GameConfiguration;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,18 +19,18 @@ public class ManagerGameConstructionRequest extends ServerGameConstructionReques
      */
     private static final long serialVersionUID = 805665880501624573L;
 
+    final private String sessionKey;
     final private List<GamePlayerRole> participants;
-    final private GameSessionKey sessionKey;
 
     @JsonCreator
-    public ManagerGameConstructionRequest(@JsonProperty("participants") Collection<GamePlayerRole> participants, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey, @JsonProperty("configuration") GameConfiguration configuration) {
+    public ManagerGameConstructionRequest(@JsonProperty("participants") Collection<GamePlayerRole> participants, @JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty("configuration") GameConfiguration configuration) {
         super(configuration);
         this.sessionKey = sessionKey;
         this.participants = CollectionUtils.immutableList(participants);
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return sessionKey;
     }
 

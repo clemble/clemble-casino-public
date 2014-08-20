@@ -1,7 +1,5 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +18,7 @@ public class GameInitiatedEvent extends GameInitiationEvent {
     }
 
     @JsonCreator
-    public GameInitiatedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey, @JsonProperty("initiation") GameInitiation initiation) {
+    public GameInitiatedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty("initiation") GameInitiation initiation) {
         super(sessionKey, initiation);
     }
 

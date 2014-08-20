@@ -1,7 +1,6 @@
 package com.clemble.casino.game.event.schedule;
 
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -15,11 +14,11 @@ public class InvitationAcceptedEvent implements InvitationResponseEvent {
     private static final long serialVersionUID = -4465974655141746411L;
 
     final private String player;
-    final private GameSessionKey session;
+    final private String sessionKey;
 
     @JsonCreator
-    public InvitationAcceptedEvent(@JsonProperty(PLAYER) String player, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session) {
-        this.session = session;
+    public InvitationAcceptedEvent(@JsonProperty(PLAYER) String player, @JsonProperty(GameSessionAware.SESSION_KEY) String sessionKey) {
+        this.sessionKey = sessionKey;
         this.player = player;
     }
 
@@ -29,13 +28,13 @@ public class InvitationAcceptedEvent implements InvitationResponseEvent {
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
-        return session;
+    public String getSessionKey() {
+        return sessionKey;
     }
 
     @Override
     public int hashCode() {
-        return player.hashCode() + session.hashCode();
+        return player.hashCode() + sessionKey.hashCode();
     }
 
     @Override
@@ -52,7 +51,7 @@ public class InvitationAcceptedEvent implements InvitationResponseEvent {
 
     @Override
     public String toString(){
-        return "accepted:" + player + ":" + session;
+        return "accepted:" + player + ":" + sessionKey;
     }
 
 }

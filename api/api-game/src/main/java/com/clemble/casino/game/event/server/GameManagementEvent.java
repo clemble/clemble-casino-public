@@ -1,9 +1,7 @@
 package com.clemble.casino.game.event.server;
 
 import java.io.Serializable;
-
 import com.clemble.casino.game.GameSessionAwareEvent;
-import com.clemble.casino.game.GameSessionKey;
 
 abstract public class GameManagementEvent implements GameSessionAwareEvent, Serializable {
 
@@ -12,22 +10,22 @@ abstract public class GameManagementEvent implements GameSessionAwareEvent, Seri
      */
     private static final long serialVersionUID = -4837244615682915463L;
 
-    final private GameSessionKey session;
+    final private String sessionKey;
 
-    public GameManagementEvent(GameSessionKey sessionKey) {
-        this.session = sessionKey;
+    public GameManagementEvent(String sessionKey) {
+        this.sessionKey = sessionKey;
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
-        return session;
+    public String getSessionKey() {
+        return sessionKey;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((session == null) ? 0 : session.hashCode());
+        result = prime * result + ((sessionKey == null) ? 0 : sessionKey.hashCode());
         return result;
     }
 
@@ -40,10 +38,10 @@ abstract public class GameManagementEvent implements GameSessionAwareEvent, Seri
         if (getClass() != obj.getClass())
             return false;
         GameManagementEvent other = (GameManagementEvent) obj;
-        if (session == null) {
-            if (other.session != null)
+        if (sessionKey == null) {
+            if (other.sessionKey != null)
                 return false;
-        } else if (!session.equals(other.session))
+        } else if (!sessionKey.equals(other.sessionKey))
             return false;
         return true;
     }

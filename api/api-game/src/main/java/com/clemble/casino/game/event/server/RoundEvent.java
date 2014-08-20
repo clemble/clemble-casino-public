@@ -1,8 +1,5 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
-import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.RoundGameState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,7 +14,7 @@ public class RoundEvent<State extends RoundGameState> extends GameManagementEven
     final private State state;
 
     @JsonCreator
-    public RoundEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey, @JsonProperty("state") State state) {
+    public RoundEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty("state") State state) {
         super(sessionKey);
         this.state = state;
     }

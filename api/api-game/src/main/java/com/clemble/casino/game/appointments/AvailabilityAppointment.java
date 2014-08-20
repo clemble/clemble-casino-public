@@ -1,9 +1,7 @@
 package com.clemble.casino.game.appointments;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
-
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 
 public class AvailabilityAppointment implements GameSessionAware {
 
@@ -12,14 +10,14 @@ public class AvailabilityAppointment implements GameSessionAware {
      */
     private static final long serialVersionUID = -4128392579492490548L;
 
-    final private GameSessionKey sessionKey;
+    final private String sessionKey;
 
-    public AvailabilityAppointment(GameSessionKey sessionKey) {
+    public AvailabilityAppointment(String sessionKey) {
         this.sessionKey = checkNotNull(sessionKey);
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
+    public String getSessionKey() {
         return sessionKey;
     }
 

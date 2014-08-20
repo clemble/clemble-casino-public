@@ -18,7 +18,6 @@ import com.clemble.casino.client.payment.PaymentEventSelector;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.event.NotificationMapping;
 import com.clemble.casino.game.GameSessionAwareEvent;
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.player.event.PlayerPresenceChangedEvent;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -59,7 +58,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     }
 
     @Override
-    final public EventListenerController subscribe(GameSessionKey sessionKey, EventListener<GameSessionAwareEvent> listener) {
+    final public EventListenerController subscribeToGameSession(String sessionKey, EventListener<GameSessionAwareEvent> listener) {
         return subscribe(new GameSessionEventSelector(sessionKey), listener);
     }
 

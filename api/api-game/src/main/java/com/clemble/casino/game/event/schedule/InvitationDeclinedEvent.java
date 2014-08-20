@@ -1,7 +1,5 @@
 package com.clemble.casino.game.event.schedule;
 
-import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionKey;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -15,12 +13,12 @@ public class InvitationDeclinedEvent implements InvitationResponseEvent {
     private static final long serialVersionUID = 655381424177654890L;
 
     final private String player;
-    final private GameSessionKey session;
+    final private String sessionKey;
 
     @JsonCreator
-    public InvitationDeclinedEvent(@JsonProperty(PLAYER) String player, @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey session) {
+    public InvitationDeclinedEvent(@JsonProperty(PLAYER) String player, @JsonProperty(SESSION_KEY) String session) {
         this.player = player;
-        this.session = session;
+        this.sessionKey = session;
     }
 
     @Override
@@ -29,8 +27,8 @@ public class InvitationDeclinedEvent implements InvitationResponseEvent {
     }
 
     @Override
-    public GameSessionKey getSessionKey() {
-        return session;
+    public String getSessionKey() {
+        return sessionKey;
     }
 
     @Override
@@ -38,7 +36,7 @@ public class InvitationDeclinedEvent implements InvitationResponseEvent {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (player == null ? 0 : player.hashCode());
-        result = prime * result + (int) (session.hashCode());
+        result = prime * result + (int) (sessionKey.hashCode());
         return result;
     }
 
@@ -51,14 +49,14 @@ public class InvitationDeclinedEvent implements InvitationResponseEvent {
         if (getClass() != obj.getClass())
             return false;
         InvitationDeclinedEvent other = (InvitationDeclinedEvent) obj;
-        if (!session.equals(other.session))
+        if (!sessionKey.equals(other.sessionKey))
             return false;
         return player.equals(other.player);
     }
 
     @Override
     public String toString(){
-        return "declined:" + player + ":" + session;
+        return "declined:" + player + ":" + sessionKey;
     }
 
 }

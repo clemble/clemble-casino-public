@@ -20,8 +20,8 @@ public class AndroidGameInitiationService  extends AbstractClembleCasinoOperatio
     }
 
     @Override
-    public GameInitiation confirm(Game game, String session, String player) {
-        return restTemplate.postForObject(buildUriWith(toGameUrl(INITIATION_READY), game, session, player), null, GameInitiation.class);
+    public GameInitiation confirm(String sessionKey, String player) {
+        return restTemplate.postForObject(buildUriWith(toGameUrl(INITIATION_READY), sessionKey, player), null, GameInitiation.class);
     }
 
 

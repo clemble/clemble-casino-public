@@ -25,7 +25,7 @@ public class TournamentGameContext extends GameContext<TournamentGamePlayerConte
 
     @JsonCreator
     public TournamentGameContext(
-            @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
+            @JsonProperty(SESSION_KEY) String sessionKey,
             @JsonProperty("parent") GameContext<?> parent,
             @JsonProperty("playerContexts") List<TournamentGamePlayerContext> playerContexts,
             @JsonProperty("leaf") TournamentLeaf leaf) {

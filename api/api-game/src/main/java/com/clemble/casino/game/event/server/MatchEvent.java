@@ -1,6 +1,5 @@
 package com.clemble.casino.game.event.server;
 
-import com.clemble.casino.game.GameSessionKey;
 import com.clemble.casino.game.MatchGameContext;
 
 abstract public class MatchEvent extends GameManagementEvent {
@@ -12,7 +11,7 @@ abstract public class MatchEvent extends GameManagementEvent {
     
     final private MatchGameContext context;
 
-    public MatchEvent(GameSessionKey sessionKey, MatchGameContext context) {
+    public MatchEvent(String sessionKey, MatchGameContext context) {
         super(sessionKey);
         this.context = context;
     }

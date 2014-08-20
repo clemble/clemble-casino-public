@@ -25,7 +25,7 @@ public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent im
     }
 
     @JsonCreator
-    public RoundEndedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
+    public RoundEndedEvent(@JsonProperty(SESSION_KEY) String sessionKey,
                            @JsonProperty("state") RoundGameState state,
                            @JsonProperty("outcome") GameOutcome outcome,
                            @JsonProperty("context") GameContext<RoundGamePlayerContext> context) {

@@ -17,12 +17,12 @@ public class TournamentLeaf implements GameSessionAware, PlayerAware{
     private static final long serialVersionUID = 4460145959220006489L;
 
     final private String player;
-    final private GameSessionKey sessionKey;
+    final private String sessionKey;
     final private Collection<TournamentLeaf> leafs;
 
     @JsonCreator
     public TournamentLeaf(@JsonProperty(PLAYER) String player,
-                          @JsonProperty(GameSessionAware.SESSION_KEY) GameSessionKey sessionKey,
+                          @JsonProperty(SESSION_KEY) String sessionKey,
                           @JsonProperty("leafs") Collection<TournamentLeaf> leafs) {
         this.player = player;
         this.sessionKey = sessionKey;
@@ -36,7 +36,7 @@ public class TournamentLeaf implements GameSessionAware, PlayerAware{
     }
 
     @Override
-    public GameSessionKey getSessionKey(){
+    public String getSessionKey(){
         return sessionKey;
     }
 
