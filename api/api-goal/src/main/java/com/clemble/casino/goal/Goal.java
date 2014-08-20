@@ -15,7 +15,7 @@ import java.util.Date;
 public class Goal implements GoalAware, GoalDescriptionAware, PlayerAware, BidAware {
 
     @Id
-    final private GoalKey goalKey;
+    final private String goalKey;
     final private String player;
     final private String judge;
     final private String goal;
@@ -27,7 +27,7 @@ public class Goal implements GoalAware, GoalDescriptionAware, PlayerAware, BidAw
 
     @JsonCreator
     public Goal(
-            @JsonProperty(GOAL_KEY) GoalKey goalKey,
+            @JsonProperty(GOAL_KEY) String goalKey,
             @JsonProperty(PLAYER) String player,
             @JsonProperty("judge") String judge,
             @JsonProperty("goal") String goal,
@@ -48,7 +48,7 @@ public class Goal implements GoalAware, GoalDescriptionAware, PlayerAware, BidAw
     }
 
     @Override
-    public GoalKey getGoalKey() {
+    public String getGoalKey() {
         return goalKey;
     }
 
@@ -90,10 +90,6 @@ public class Goal implements GoalAware, GoalDescriptionAware, PlayerAware, BidAw
 
     public Goal cloneWithStatus(GoalStatus status) {
         return new Goal(goalKey, player, judge, goal, startDate, dueDate, state, status, bid);
-    }
-
-    public Goal cloneWithPlayerAndGoal(String player, String goal, GoalState state) {
-        return new Goal(new GoalKey(player, goal), player, judge, this.goal, startDate, dueDate, state, status, bid);
     }
 
     @Override

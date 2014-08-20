@@ -2,7 +2,6 @@ package com.clemble.casino.goal.service;
 
 import com.clemble.casino.AdvancedClembleService;
 import com.clemble.casino.goal.GoalJudgeInvitation;
-import com.clemble.casino.goal.GoalKey;
 
 import java.util.Collection;
 
@@ -18,6 +17,6 @@ public interface GoalJudgeInvitationService extends AdvancedClembleService {
 
     public Collection<GoalJudgeInvitation> myDutiesAndInvitations();
 
-    public GoalJudgeInvitation reply(GoalKey goalKey, GoalJudgeInvitation response);
+    public GoalJudgeInvitation reply(String goalKey, GoalJudgeInvitation response);
 
 }

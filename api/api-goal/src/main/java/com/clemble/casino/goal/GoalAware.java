@@ -10,6 +10,6 @@ public interface GoalAware extends KeyAware {
 
     final public static String GOAL_KEY = "goalKey";
 
-    public GoalKey getGoalKey();
+    public String getGoalKey();
 
 }

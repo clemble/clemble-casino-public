@@ -1,9 +1,7 @@
 package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.goal.Goal;
 import com.clemble.casino.goal.GoalJudgeInvitation;
-import com.clemble.casino.goal.GoalKey;
 import com.clemble.casino.goal.service.GoalJudgeInvitationService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -51,7 +49,7 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
     }
 
     @Override
-    public GoalJudgeInvitation reply(GoalKey goalKey, GoalJudgeInvitation response) {
+    public GoalJudgeInvitation reply(String goalKey, GoalJudgeInvitation response) {
         // Step 1. Generating goal duties URI
         URI replyUrl = buildUriWith(toGoalJudgeUrl(INVITATION_REPLY));
         // Step 2. Post to Player URI

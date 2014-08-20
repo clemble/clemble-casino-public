@@ -8,15 +8,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class GoalJudgeDuty implements GoalAware {
 
-    final private GoalKey goalKey;
+    final private String goalKey;
 
     @JsonCreator
-    public GoalJudgeDuty(@JsonProperty(GOAL_KEY) GoalKey goalKey) {
+    public GoalJudgeDuty(@JsonProperty(GOAL_KEY) String goalKey) {
         this.goalKey = goalKey;
     }
 
     @Override
-    public GoalKey getGoalKey() {
+    public String getGoalKey() {
         return goalKey;
     }
 

@@ -13,14 +13,14 @@ import static com.clemble.casino.goal.GoalJudgeInvitationStatus.*;
 public class GoalJudgeInvitation implements PlayerAware, GoalAware {
 
     @Id
-    final private GoalKey goalKey;
+    final private String goalKey;
     final private String player;
     final private String judge;
     final private Goal goal;
     final private GoalJudgeInvitationStatus status;
 
     @JsonCreator
-    public GoalJudgeInvitation(@JsonProperty(PLAYER) String player, @JsonProperty("judge") String judge, @JsonProperty(GOAL_KEY) GoalKey goalKey, @JsonProperty("goal") Goal goal, @JsonProperty("status") GoalJudgeInvitationStatus status) {
+    public GoalJudgeInvitation(@JsonProperty(PLAYER) String player, @JsonProperty("judge") String judge, @JsonProperty(GOAL_KEY) String goalKey, @JsonProperty("goal") Goal goal, @JsonProperty("status") GoalJudgeInvitationStatus status) {
         this.player = player;
         this.judge = judge;
         this.goalKey = goalKey;
@@ -29,7 +29,7 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware {
     }
 
     @Override
-    public GoalKey getGoalKey() {
+    public String getGoalKey() {
         return goalKey;
     }
 
