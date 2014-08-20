@@ -21,7 +21,8 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
     private static final long serialVersionUID = -6572596573895530995L;
 
     @EmbeddedId
-    private String session;
+    @org.springframework.data.annotation.Id
+    private String sessionKey;
 
     @Embedded
     private GameConfigurationKey configurationKey;
@@ -51,11 +52,11 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
 
     @Override
     public String getSessionKey() {
-        return session;
+        return sessionKey;
     }
 
     public GameRecord setSessionKey(String newSession) {
-        this.session = newSession;
+        this.sessionKey= newSession;
         return this;
     }
 
@@ -106,7 +107,7 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
         int result = 1;
         result = prime * result + ((eventRecords == null) ? 0 : eventRecords.hashCode());
         result = prime * result + ((players == null) ? 0 : players.hashCode());
-        result = prime * result + ((session == null) ? 0 : session.hashCode());
+        result = prime * result + ((sessionKey == null) ? 0 : sessionKey.hashCode());
         result = prime * result + ((sessionState == null) ? 0 : sessionState.hashCode());
         result = prime * result + ((configurationKey == null) ? 0 : configurationKey.hashCode());
         return result;
@@ -131,7 +132,7 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
                 return false;
         } else if (!players.equals(other.players))
             return false;
-        if (!session.equals(other.session))
+        if (!sessionKey.equals(other.sessionKey))
             return false;
         if (sessionState != other.sessionState)
             return false;

@@ -20,10 +20,6 @@ public class AvailabilityGameRequest extends PlayerGameConstructionRequest imple
     final private GameDeclineBehavior declineBehavior;
     final private Collection<String> participants;
 
-    public AvailabilityGameRequest(String player, GameConfiguration configuration, Collection<String> participants) {
-        this(player, configuration, participants, GameDeclineBehavior.invalidate);
-    }
-
     @JsonCreator
     public AvailabilityGameRequest(@JsonProperty(PLAYER) String player,
             @JsonProperty("configuration") GameConfiguration configuration,

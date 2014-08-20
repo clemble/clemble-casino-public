@@ -1,6 +1,8 @@
 package com.clemble.casino.game.specification;
 
-public interface GameConfigurationAware {
+import java.io.Serializable;
+
+public interface GameConfigurationAware extends Serializable {
 
     GameConfiguration getConfiguration();
 

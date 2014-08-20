@@ -28,13 +28,13 @@ public class MatchGamePlayerContext implements GamePlayerContext {
             @JsonProperty(PLAYER) String player,
             @JsonProperty("account") GamePlayerAccount account,
             @JsonProperty("clock") GamePlayerClock clock,
-            @JsonProperty("wonOutcomes") List<PlayerWonOutcome> outcomes,
+            @JsonProperty("wonOutcomes") List<PlayerWonOutcome> wonOutcomes,
             @JsonProperty("units") GamePlayerUnit units) {
         this.units = units;
         this.clock = clock;
         this.player = player;
         this.account = account;
-        this.wonOutcomes.addAll(outcomes);
+        this.wonOutcomes.addAll(wonOutcomes);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class MatchGamePlayerContext implements GamePlayerContext {
         GameConfiguration specification = initiation.getConfiguration();
         List<MatchGamePlayerContext> playerContexts = new ArrayList<MatchGamePlayerContext>();
         for(String player: initiation.getParticipants()) {
-            GamePlayerAccount account = new GamePlayerAccount(specification.getPrice());
+            GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
             GamePlayerClock clock = new GamePlayerClock(0, 0);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
             playerContexts.add(new MatchGamePlayerContext(player, account, clock, Collections.<PlayerWonOutcome>emptyList(), unit));

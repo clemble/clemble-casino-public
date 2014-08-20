@@ -9,10 +9,7 @@ import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionAwareEvent;
-import com.clemble.casino.game.construct.AutomaticGameRequest;
-import com.clemble.casino.game.construct.AvailabilityGameRequest;
-import com.clemble.casino.game.construct.GameConstruction;
-import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.construct.*;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 import com.clemble.casino.game.event.schedule.InvitationDeclinedEvent;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
@@ -65,7 +62,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     @Override
     public GameConstruction constructAvailability(GameConfiguration specification, Collection<String> participants) {
         // Step 1. Constructing availability request
-        AvailabilityGameRequest availabilityGameRequest = new AvailabilityGameRequest(player, specification, participants);
+        AvailabilityGameRequest availabilityGameRequest = new AvailabilityGameRequest(player, specification, participants, GameDeclineBehavior.invalidate);
         // Step 2. Making actual construction
         return availabilityConstructionService.construct(availabilityGameRequest);
     }

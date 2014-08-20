@@ -36,16 +36,6 @@ public class RoundGameContext extends GameContext<RoundGamePlayerContext> {
         this.actionLatch = actionLatch;
     }
 
-    public RoundGameContext(GameInitiation initiation) {
-        this(initiation, null);
-    }
-
-    public RoundGameContext(GameInitiation initiation, GameContext<?> parent) {
-        super(initiation.getSessionKey(), parent, RoundGamePlayerContext.construct(initiation));
-        this.playerIterator = GamePlayerIteratorFactory.create(initiation);
-        this.actionLatch = new ActionLatch();
-    }
-
     public GamePlayerIterator getPlayerIterator() {
         return playerIterator;
     }
@@ -83,6 +73,10 @@ public class RoundGameContext extends GameContext<RoundGamePlayerContext> {
         } else if (!playerIterator.equals(other.playerIterator))
             return false;
         return true;
+    }
+
+    public static RoundGameContext fromInitiation(GameInitiation initiation, GameContext<?> parent) {
+        return new RoundGameContext(initiation.getSessionKey(), RoundGamePlayerContext.construct(initiation), GamePlayerIteratorFactory.create(initiation), new ActionLatch(), parent);
     }
 
 }

@@ -13,8 +13,8 @@ public class GiveUpAction extends SurrenderAction {
     private static final long serialVersionUID = 4501169964446540650L;
 
     @JsonCreator
-    public GiveUpAction(@JsonProperty(PLAYER) String playerId) {
-        super(playerId);
+    public GiveUpAction(@JsonProperty(PLAYER) String player) {
+        super(player);
     }
 
 

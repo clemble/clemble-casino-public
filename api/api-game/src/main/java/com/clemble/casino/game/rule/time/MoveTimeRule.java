@@ -22,9 +22,9 @@ public class MoveTimeRule implements TimeRule {
     final private long limit;
 
     @JsonCreator
-    public MoveTimeRule(@JsonProperty("limit") long limit, @JsonProperty("punishment") TimeBreachPunishment breachPunishment) {
+    public MoveTimeRule(@JsonProperty("limit") long limit, @JsonProperty("punishment") TimeBreachPunishment punishment) {
         this.limit = limit;
-        this.punishment = breachPunishment;
+        this.punishment = punishment;
     }
 
     public TimeBreachPunishment getPunishment() {

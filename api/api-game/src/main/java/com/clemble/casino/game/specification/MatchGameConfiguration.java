@@ -38,7 +38,7 @@ public class MatchGameConfiguration implements GameConfiguration {
 
     @JsonCreator
     public MatchGameConfiguration(
-            @JsonProperty("configurationKey") GameConfigurationKey key,
+            @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
             @JsonProperty("price") Money price,
             @JsonProperty("privacyRule") PrivacyRule privacyRule,
             @JsonProperty("numberRule") PlayerNumberRule numberRule,
@@ -49,7 +49,7 @@ public class MatchGameConfiguration implements GameConfiguration {
             @JsonProperty("drawRule") DrawRule drawRule,
             @JsonProperty("configurations") List<GameConfiguration> configurations,
             @JsonProperty(value = "playerUnits", required = false) List<GameUnit> playerUnits) {
-        this.configurationKey = key;
+        this.configurationKey = configurationKey;
         this.price = price;
         this.privacyRule = privacyRule;
         this.matchFillRule = matchFillRule;

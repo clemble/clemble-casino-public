@@ -71,14 +71,14 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(ExpectedEvent.class, new AbstractValueGenerator<ExpectedEvent>() {
             @Override
             public ExpectedEvent generate() {
-            return new ExpectedEvent("S", InvitationAcceptedEvent.class);
+            return ExpectedEvent.fromClass("S", InvitationAcceptedEvent.class);
             }
         });
         ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {
             @Override
             public RoundGameContext generate() {
             GameInitiation initiation = new GameInitiation(GameSessionAware.DEFAULT_SESSION, ImmutableList.of("A", "B"), RoundGameConfiguration.DEFAULT);
-            return new RoundGameContext(initiation);
+            return RoundGameContext.fromInitiation(initiation, null);
             }
 
         });
@@ -143,11 +143,10 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(GameConstruction.class, new AbstractValueGenerator<GameConstruction>() {
             @Override
             public GameConstruction generate() {
-            return new GameConstruction()
-                .setSessionKey(ObjectGenerator.generate(String.class))
-                .setRequest(new AutomaticGameRequest(RandomStringUtils.random(5), RoundGameConfiguration.DEFAULT))
-                .setResponses(new ActionLatch().expectNext(ImmutableList.<String>of(RandomStringUtils.random(5), RandomStringUtils.random(5)), InvitationResponseEvent.class))
-                .setState(GameConstructionState.pending);
+            return new GameConstruction("0",
+                new AutomaticGameRequest(RandomStringUtils.random(5), RoundGameConfiguration.DEFAULT),
+                GameConstructionState.pending,
+                new ActionLatch().expectNext(ImmutableList.<String> of(RandomStringUtils.random(5), RandomStringUtils.random(5)), InvitationResponseEvent.class));
             }
         });
         ObjectGenerator.register(LimitedBetRule.class, new AbstractValueGenerator<LimitedBetRule>() {

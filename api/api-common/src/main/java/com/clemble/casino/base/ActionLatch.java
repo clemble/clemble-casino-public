@@ -17,6 +17,7 @@ public class ActionLatch implements Serializable {
      */
     private static final long serialVersionUID = -7689529505293361503L;
 
+    private Set<String> participants = new HashSet<String>();
     private Collection<PlayerAwareEvent> actions = new ArrayList<PlayerAwareEvent>();
 
     public ActionLatch() {
@@ -29,22 +30,22 @@ public class ActionLatch implements Serializable {
 
     public ActionLatch expectNext(final String player, Class<? extends PlayerAwareEvent> expectedClass) {
         this.actions.clear();
-        this.actions.add(new ExpectedEvent(player, expectedClass));
+        this.actions.add(ExpectedEvent.fromClass(player, expectedClass));
         return this;
     }
 
     public ActionLatch expectNext(final Collection<String> participants, Class<? extends PlayerAwareEvent> expectedClass) {
         this.actions.clear();
         for (String participant : participants) {
-            this.actions.add(new ExpectedEvent(participant, expectedClass));
+            this.actions.add(ExpectedEvent.fromClass(participant, expectedClass));
         }
         return this;
     }
 
     public void expectNext(final String player, final Collection<String> participants, final Class<? extends PlayerAwareEvent> expectedClass) {
-        this.actions.add(new ExpectedEvent(player, expectedClass));
+        this.actions.add(ExpectedEvent.fromClass(player, expectedClass));
         for (String participant : participants) {
-            this.actions.add(new ExpectedEvent(participant, expectedClass));
+            this.actions.add(ExpectedEvent.fromClass(participant, expectedClass));
         }
     }
 
@@ -62,7 +63,11 @@ public class ActionLatch implements Serializable {
     }
 
     public Set<String> fetchParticipants() {
-        return PlayerAwareUtils.toPlayerSet(actions);
+        try {
+            return PlayerAwareUtils.toPlayerSet(actions);
+        } catch (ConcurrentModificationException cme) {
+            return fetchParticipants();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -82,14 +87,14 @@ public class ActionLatch implements Serializable {
         return PlayerAwareUtils.filterAll(player, actions);
     }
 
-    public <T extends PlayerAwareEvent> PlayerAwareEvent put(T action) {
+    public <T extends PlayerAwareEvent> ActionLatch put(T action) {
         PlayerAwareEvent event = filterAction(action.getPlayer());
         if (event instanceof ExpectedEvent) {
             if (!((ExpectedEvent) event).isExpected(action.getClass()))
                 throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType);
             actions.remove(event);
             actions.add(action);
-            return event;
+            return this;
         } else if (event != null) {
             throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayMoveAlreadyMade);
         }

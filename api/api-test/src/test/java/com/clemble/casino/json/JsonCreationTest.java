@@ -11,6 +11,7 @@ import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameState;
+import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.specification.RoundGameConfiguration;
 import com.clemble.test.random.AbstractValueGenerator;
 import org.junit.Assert;
@@ -69,9 +70,10 @@ public class JsonCreationTest {
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
-        checkSerialization(ExpectedEvent.class);
-        checkSerialization(MatchGameContext.class);
-        checkSerialization(GameInitiationCanceledEvent.class);
+        Assert.assertEquals(checkSerialization(GameConstruction.class), null);
+        Assert.assertEquals(checkSerialization(ExpectedEvent.class), null);
+        Assert.assertEquals(checkSerialization(MatchGameContext.class), null);
+        Assert.assertEquals(checkSerialization(GameInitiationCanceledEvent.class), null);
         ClembleCasinoFailure casinoFailure = objectMapper.readValue(ERROR_JSON, ClembleCasinoFailure.class);
         assertEquals(casinoFailure.getError().getCode(), "0C1");
         assertEquals(casinoFailure.getPlayer(), "f>RvzG{LHn");

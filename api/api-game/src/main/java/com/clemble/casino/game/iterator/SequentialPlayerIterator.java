@@ -17,19 +17,17 @@ public class SequentialPlayerIterator implements GamePlayerIterator {
      */
     private static final long serialVersionUID = -4182637038671660855L;
 
+    private int index;
     final private List<String> players;
 
-    private int index;
-
-    public SequentialPlayerIterator(Collection<String> playerIds) {
-        this.index = 0;
-        this.players = new ArrayList<String>(playerIds);
+    public static SequentialPlayerIterator fromCollection(Collection<String> playerIds) {
+        return new SequentialPlayerIterator(0, new ArrayList<String>(playerIds));
     }
 
     @JsonCreator
-    public SequentialPlayerIterator(@JsonProperty("index") final int current, @JsonProperty("players") List<String> players) {
+    public SequentialPlayerIterator(@JsonProperty("index") int index, @JsonProperty("players") List<String> players) {
+        this.index = index;
         this.players = players;
-        this.index = current;
     }
 
     @Override
@@ -98,7 +96,7 @@ public class SequentialPlayerIterator implements GamePlayerIterator {
         for (PlayerAware playerAware : playerAwares) {
             playerIds.add(playerAware.getPlayer());
         }
-        return new SequentialPlayerIterator(playerIds);
+        return SequentialPlayerIterator.fromCollection(playerIds);
     }
 
 }

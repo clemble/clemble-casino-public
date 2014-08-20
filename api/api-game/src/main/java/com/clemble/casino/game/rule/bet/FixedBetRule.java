@@ -22,8 +22,8 @@ public class FixedBetRule implements BetRule {
     final private long[] bets;
 
     @JsonCreator
-    public FixedBetRule(@JsonProperty("bets") final long[] useBets) {
-        this.bets = useBets;
+    public FixedBetRule(@JsonProperty("bets") final long[] bets) {
+        this.bets = bets;
     }
 
     public long[] getBets() {

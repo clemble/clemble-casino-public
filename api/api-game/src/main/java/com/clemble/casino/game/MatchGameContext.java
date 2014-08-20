@@ -1,6 +1,7 @@
 package com.clemble.casino.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
@@ -23,20 +24,26 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
     final private List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
 
     @JsonCreator
-    public MatchGameContext(@JsonProperty(SESSION_KEY) String session,
+    public MatchGameContext(@JsonProperty(SESSION_KEY) String sessionKey,
                             @JsonProperty("currentSession") String currentSession,
                             @JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
                             @JsonProperty(value = "parent", required = false) GameContext<?> parent,
                             @JsonProperty("pot") long pot,
                             @JsonProperty("outcomes") List<GameOutcome> outcomes) {
-        super(session, parent, playerContexts);
+        super(sessionKey, parent, playerContexts);
         this.pot = pot;
         this.currentSession = currentSession;
         this.outcomes.addAll(outcomes);
     }
 
-    public MatchGameContext(GameInitiation initiation, GameContext<?> parent) {
-        super(initiation.getSessionKey(), parent, MatchGamePlayerContext.construct(initiation));
+    public static MatchGameContext fromInitiation(GameInitiation initiation, GameContext<?> parent) {
+        return new MatchGameContext(
+            initiation.getSessionKey(),
+            null,
+            MatchGamePlayerContext.construct(initiation),
+            parent,
+            0L,
+            Collections.<GameOutcome>emptyList());
     }
 
     public long getPot() {

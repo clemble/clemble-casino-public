@@ -1,7 +1,10 @@
 package com.clemble.casino.game.construct;
 
 import javax.persistence.*;
+import javax.persistence.Id;
+
 import com.clemble.casino.game.GameSessionAware;
+import org.springframework.data.annotation.*;
 
 @Entity
 @Table(name = "GAME_SCHEDULE")
@@ -13,6 +16,7 @@ public class ScheduledGame implements GameSessionAware {
     private static final long serialVersionUID = 1773102437262489956L;
 
     @Id
+    @org.springframework.data.annotation.Id
     private String sessionKey;
 
     @Column(name = "START_TIME")

@@ -16,8 +16,8 @@ public class PlayerMovedEvent extends GameManagementEvent implements PlayerAware
     final private String player;
 
     @JsonCreator
-    public PlayerMovedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty(PLAYER) String player) {
-        super(session);
+    public PlayerMovedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty(PLAYER) String player) {
+        super(sessionKey);
         this.player = player;
     }
 

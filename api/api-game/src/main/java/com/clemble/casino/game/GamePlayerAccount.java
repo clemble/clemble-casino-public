@@ -18,12 +18,6 @@ public class GamePlayerAccount implements Serializable {
     private long spent;
     private long owned;
 
-    public GamePlayerAccount(long left) {
-        this.left = left;
-        this.owned = 0;
-        this.spent = 0;
-    }
-
     @JsonCreator
     public GamePlayerAccount(
             @JsonProperty("left") long left,
@@ -32,10 +26,6 @@ public class GamePlayerAccount implements Serializable {
         this.left = left;
         this.spent = spent;
         this.owned = owned;
-    }
-
-    public GamePlayerAccount(Money price) {
-        this(price.getAmount());
     }
 
     public long getLeft() {

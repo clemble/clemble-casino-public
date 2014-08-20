@@ -4,6 +4,7 @@ import com.clemble.casino.event.PlayerAwareEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.springframework.data.annotation.Transient;
 
 @JsonTypeName("expected")
 public class ExpectedEvent implements PlayerAwareEvent {
@@ -16,14 +17,8 @@ public class ExpectedEvent implements PlayerAwareEvent {
 
     final private String player;
     final private String action;
+    @Transient
     final private Class<? extends PlayerAwareEvent> event;
-
-    public ExpectedEvent(String player,
-        Class<? extends PlayerAwareEvent> action) {
-        this.event = action;
-        this.player = player;
-        this.action = ExpectedEventUtils.toActionName(action);
-    }
 
     @JsonCreator
     public ExpectedEvent(
@@ -49,6 +44,10 @@ public class ExpectedEvent implements PlayerAwareEvent {
 
     public boolean isExpected(Class<? extends PlayerAwareEvent> expected) {
         return event.isAssignableFrom(expected);
+    }
+
+    public static ExpectedEvent fromClass(String player, Class<? extends PlayerAwareEvent> action) {
+        return new ExpectedEvent(player, ExpectedEventUtils.toActionName(action));
     }
 
     @Override

@@ -18,12 +18,6 @@ public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent im
     final private GameOutcome outcome;
     final private GameContext<RoundGamePlayerContext> context;
 
-    public RoundEndedEvent(GameContext<RoundGamePlayerContext> context, State state, GameOutcome outcome) {
-        super(context.getSessionKey(), state);
-        this.outcome = outcome;
-        this.context = context;
-    }
-
     @JsonCreator
     public RoundEndedEvent(@JsonProperty(SESSION_KEY) String sessionKey,
                            @JsonProperty("state") RoundGameState state,
@@ -73,4 +67,10 @@ public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent im
     public String toString() {
         return "round:ended:" + getSessionKey() + ":" + outcome;
     }
+
+
+    public static <State extends RoundGameState> RoundEndedEvent<State> fromContext(GameContext<RoundGamePlayerContext> context, State state, GameOutcome outcome) {
+        return new RoundEndedEvent<State>(context.getSessionKey(), state, outcome, context);
+    }
+
 }
