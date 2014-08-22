@@ -7,7 +7,7 @@ import com.clemble.casino.payment.PaymentTransaction;
 
 public interface PaymentTransactionServiceContract extends ClembleService {
 
-    public PaymentTransaction getTransaction(String source, String transactionId);
+    public PaymentTransaction getTransaction(String transactionKey);
 
     public List<PaymentTransaction> getPlayerTransactions(String player);
 

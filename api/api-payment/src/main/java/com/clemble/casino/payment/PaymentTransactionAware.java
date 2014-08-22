@@ -6,6 +6,6 @@ public interface PaymentTransactionAware extends KeyAware {
 
     final public static String TRANSACTION_KEY = "transactionKey";
 
-    public PaymentTransactionKey getTransactionKey();
+    public String getTransactionKey();
 
 }

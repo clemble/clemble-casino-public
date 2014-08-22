@@ -6,7 +6,6 @@ import com.clemble.casino.money.Operation;
 import com.clemble.casino.payment.PaymentOperation;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PaymentTransactionAware;
-import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,13 +17,13 @@ import java.util.*;
  */
 public class BetPaymentTransaction implements PaymentTransactionAware {
 
-    final private PaymentTransactionKey transactionKey;
+    final private String transactionKey;
     final private BetSpecification specification;
     final private Collection<PlayerBid> playerBids;
 
     @JsonCreator
     public BetPaymentTransaction(
-        @JsonProperty(TRANSACTION_KEY) PaymentTransactionKey transactionKey,
+        @JsonProperty(TRANSACTION_KEY) String transactionKey,
         @JsonProperty("specification") BetSpecification specification,
         @JsonProperty("bids") Collection<PlayerBid> bids) {
         this.transactionKey = transactionKey;
@@ -41,7 +40,7 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
     }
 
     @Override
-    public PaymentTransactionKey getTransactionKey() {
+    public String getTransactionKey() {
         return transactionKey;
     }
 

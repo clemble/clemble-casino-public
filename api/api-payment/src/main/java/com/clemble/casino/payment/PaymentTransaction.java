@@ -30,7 +30,7 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
 
     @EmbeddedId
     @Id
-    private PaymentTransactionKey transactionKey;
+    private String transactionKey;
 
     @DebitMatchCreditConstraint
     @ElementCollection(fetch = FetchType.EAGER)
@@ -45,11 +45,11 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
     @Column(name = "TRANSACTION_PROCESSING_DATE")
     private Date processingDate = new Date();
 
-    public PaymentTransactionKey getTransactionKey() {
+    public String getTransactionKey() {
         return transactionKey;
     }
 
-    public PaymentTransaction setTransactionKey(PaymentTransactionKey transactionId) {
+    public PaymentTransaction setTransactionKey(String transactionId) {
         this.transactionKey = transactionId;
         return this;
     }

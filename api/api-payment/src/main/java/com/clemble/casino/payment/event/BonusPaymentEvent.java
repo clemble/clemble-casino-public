@@ -1,7 +1,6 @@
 package com.clemble.casino.payment.event;
 
 import com.clemble.casino.payment.AmountAware;
-import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.payment.bonus.PaymentBonusSource;
 import com.clemble.casino.payment.bonus.PaymentBonusSourceAware;
 import com.clemble.casino.money.Money;
@@ -21,14 +20,14 @@ public class BonusPaymentEvent implements PaymentEvent, PlayerAware, AmountAware
     final private String player;
     final private Money amount;
     final private PaymentBonusSource bonusSource;
-    final private PaymentTransactionKey transactionKey;
+    final private String transactionKey;
 
     @JsonCreator
     public BonusPaymentEvent(
             @JsonProperty(PLAYER) String player,
             @JsonProperty("amount") Money money,
             @JsonProperty("bonusSource") PaymentBonusSource bonusSource,
-            @JsonProperty(TRANSACTION_KEY) PaymentTransactionKey transactionKey) {
+            @JsonProperty(TRANSACTION_KEY) String transactionKey) {
         this.player = player;
         this.amount = money;
         this.bonusSource = bonusSource;
@@ -51,7 +50,7 @@ public class BonusPaymentEvent implements PaymentEvent, PlayerAware, AmountAware
     }
 
     @Override
-    public PaymentTransactionKey getTransactionKey() {
+    public String getTransactionKey() {
         return transactionKey;
     }
 

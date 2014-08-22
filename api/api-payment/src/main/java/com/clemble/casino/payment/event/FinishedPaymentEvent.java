@@ -1,7 +1,6 @@
 package com.clemble.casino.payment.event;
 
 import com.clemble.casino.payment.PaymentOperation;
-import com.clemble.casino.payment.PaymentTransactionKey;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.money.Operation;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -19,9 +18,9 @@ public class FinishedPaymentEvent implements PaymentEvent {
     final private String player;
     final private Money amount;
     final private Operation operation;
-    final private PaymentTransactionKey transactionKey;
+    final private String transactionKey;
 
-    public FinishedPaymentEvent(PaymentTransactionKey transactionKey, PaymentOperation paymentOperation) {
+    public FinishedPaymentEvent(String transactionKey, PaymentOperation paymentOperation) {
         this.player = paymentOperation.getPlayer();
         this.amount = paymentOperation.getAmount();
         this.operation = paymentOperation.getOperation();
@@ -30,7 +29,7 @@ public class FinishedPaymentEvent implements PaymentEvent {
 
     @JsonCreator
     public FinishedPaymentEvent(@JsonProperty(PLAYER) String player, @JsonProperty("amount") Money amount, @JsonProperty("operation") Operation operation,
-            @JsonProperty(TRANSACTION_KEY) PaymentTransactionKey transactionKey) {
+            @JsonProperty(TRANSACTION_KEY) String transactionKey) {
         this.player = player;
         this.amount = amount;
         this.operation = operation;
@@ -52,7 +51,7 @@ public class FinishedPaymentEvent implements PaymentEvent {
     }
 
     @Override
-    public PaymentTransactionKey getTransactionKey() {
+    public String getTransactionKey() {
         return transactionKey;
     }
 
