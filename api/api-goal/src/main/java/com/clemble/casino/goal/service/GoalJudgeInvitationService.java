@@ -11,11 +11,11 @@ import java.util.Collection;
  */
 public interface GoalJudgeInvitationService extends AdvancedClembleService {
 
-    public Collection<GoalJudgeInvitation> myDuties();
+    public Collection<GoalJudgeInvitation> myPending();
 
-    public Collection<GoalJudgeInvitation> myInvitations();
+    public Collection<GoalJudgeInvitation> myAccepted();
 
-    public Collection<GoalJudgeInvitation> myDutiesAndInvitations();
+    public Collection<GoalJudgeInvitation> myDeclined();
 
     public GoalJudgeInvitation reply(String goalKey, GoalJudgeInvitation response);
 

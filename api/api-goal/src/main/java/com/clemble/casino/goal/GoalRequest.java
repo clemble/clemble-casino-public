@@ -11,16 +11,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class GoalRequest implements GoalDescriptionAware, AmountAware {
 
-    final private String goal;
-    final private int time;
+    final private int timeInDays;
     final private Money amount;
+    final private String goal;
     final private String judge;
 
     // TODO Consider removing player from GoalDescription, less errors during construction
     @JsonCreator
-    public GoalRequest(@JsonProperty("judge") String judge, @JsonProperty("goal") String goal, @JsonProperty("timeInDays") int time, @JsonProperty("amount") Money amount) {
+    public GoalRequest(@JsonProperty("judge") String judge, @JsonProperty("goal") String goal, @JsonProperty("timeInDays") int timeInDays, @JsonProperty("amount") Money amount) {
         this.goal = goal;
-        this.time = time;
+        this.timeInDays = timeInDays;
         this.judge = judge;
         this.amount = amount;
     }
@@ -31,7 +31,7 @@ public class GoalRequest implements GoalDescriptionAware, AmountAware {
     }
 
     public int getTimeInDays() {
-        return time;
+        return timeInDays;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class GoalRequest implements GoalDescriptionAware, AmountAware {
 
         GoalRequest request = (GoalRequest) o;
 
-        if (time != request.time) return false;
+        if (timeInDays != request.timeInDays) return false;
         if (amount != null ? !amount.equals(request.amount) : request.amount != null) return false;
         if (goal != null ? !goal.equals(request.goal) : request.goal != null) return false;
         if (judge != null ? !judge.equals(request.judge) : request.judge != null) return false;
@@ -62,7 +62,7 @@ public class GoalRequest implements GoalDescriptionAware, AmountAware {
     @Override
     public int hashCode() {
         int result = (goal != null ? goal.hashCode() : 0);
-        result = 31 * result + time;
+        result = 31 * result + timeInDays;
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
         result = 31 * result + (judge != null ? judge.hashCode() : 0);
         return result;
@@ -70,6 +70,6 @@ public class GoalRequest implements GoalDescriptionAware, AmountAware {
 
     @Override
     public String toString() {
-        return "goal:builder:" + judge + ":" + goal + ":" + time + ":" + amount;
+        return "goal:builder:" + judge + ":" + goal + ":" + timeInDays + ":" + amount;
     }
 }

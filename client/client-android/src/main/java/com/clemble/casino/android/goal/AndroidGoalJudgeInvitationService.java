@@ -25,27 +25,27 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
     }
 
     @Override
-    public Collection<GoalJudgeInvitation> myDuties() {
+    public Collection<GoalJudgeInvitation> myPending() {
         // Step 1. Generating goal duties URI
-        URI myDutiesUrl = buildUriWith(toGoalJudgeUrl(MY_DUTIES));
+        URI myDutiesUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS_PENDING));
         // Step 2. Post to Player URI
         return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myDutiesUrl, GoalJudgeInvitation[].class));
     }
 
     @Override
-    public Collection<GoalJudgeInvitation> myInvitations() {
+    public Collection<GoalJudgeInvitation> myAccepted() {
         // Step 1. Generating goal duties URI
-        URI myInvitationsUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS));
+        URI myInvitationsUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS_ACCEPTED));
         // Step 2. Post to Player URI
         return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myInvitationsUrl, GoalJudgeInvitation[].class));
     }
 
     @Override
-    public Collection<GoalJudgeInvitation> myDutiesAndInvitations() {
+    public Collection<GoalJudgeInvitation> myDeclined() {
         // Step 1. Generating goal duties URI
-        URI myInvitationsAndDutiesUrl = buildUriWith(toGoalJudgeUrl(MY_DUTIES_AND_INVITATIONS));
+        URI myInvitationsUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS_DECLINED));
         // Step 2. Post to Player URI
-        return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myInvitationsAndDutiesUrl, GoalJudgeInvitation[].class));
+        return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myInvitationsUrl, GoalJudgeInvitation[].class));
     }
 
     @Override

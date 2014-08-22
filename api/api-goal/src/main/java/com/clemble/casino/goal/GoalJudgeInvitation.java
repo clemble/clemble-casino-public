@@ -10,17 +10,17 @@ import static com.clemble.casino.goal.GoalJudgeInvitationStatus.*;
 /**
  * Created by mavarazy on 8/17/14.
  */
-public class GoalJudgeInvitation implements PlayerAware, GoalAware {
+public class GoalJudgeInvitation implements PlayerAware, GoalAware, GoalDescriptionAware {
 
     @Id
     final private String goalKey;
     final private String player;
     final private String judge;
-    final private Goal goal;
+    final private String goal;
     final private GoalJudgeInvitationStatus status;
 
     @JsonCreator
-    public GoalJudgeInvitation(@JsonProperty(PLAYER) String player, @JsonProperty("judge") String judge, @JsonProperty(GOAL_KEY) String goalKey, @JsonProperty("goal") Goal goal, @JsonProperty("status") GoalJudgeInvitationStatus status) {
+    public GoalJudgeInvitation(@JsonProperty(PLAYER) String player, @JsonProperty("judge") String judge, @JsonProperty(GOAL_KEY) String goalKey, @JsonProperty("goal") String goal, @JsonProperty("status") GoalJudgeInvitationStatus status) {
         this.player = player;
         this.judge = judge;
         this.goalKey = goalKey;
@@ -33,7 +33,7 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware {
         return goalKey;
     }
 
-    public Goal getGoal() {
+    public String getGoal() {
         return goal;
     }
 
@@ -51,7 +51,7 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware {
     }
 
     public static GoalJudgeInvitation fromGoal(Goal goal) {
-        return new GoalJudgeInvitation(goal.getPlayer(), goal.getJudge(), goal.getGoalKey(), goal, pending);
+        return new GoalJudgeInvitation(goal.getPlayer(), goal.getJudge(), goal.getGoalKey(), goal.getGoal(), pending);
     }
 
     @Override
