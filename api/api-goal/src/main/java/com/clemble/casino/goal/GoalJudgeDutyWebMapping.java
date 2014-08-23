@@ -5,7 +5,7 @@ package com.clemble.casino.goal;
  */
 public class GoalJudgeDutyWebMapping {
 
-    final private static String GOAL_JUDGE_DUTY_URL = "http://{host}//goal/judge/duties";
+    final private static String GOAL_JUDGE_DUTY_URL = "http://{host}//goal/duty";
 
     final public static String MY_DUTIES = "/my";
 

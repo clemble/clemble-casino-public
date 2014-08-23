@@ -2,7 +2,6 @@ package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.GoalJudgeDuty;
-import com.clemble.casino.goal.GoalJudgeInvitation;
 import com.clemble.casino.goal.service.GoalJudgeDutyService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -27,7 +26,7 @@ public class AndroidGoalJudgeDutyService extends AbstractClembleCasinoOperations
 
     @Override
     public List<GoalJudgeDuty> myDuties() {
-                // Step 1. Generating goal duties URI
+        // Step 1. Generating goal duties URI
         URI myDutiesUrl = buildUriWith(toGoalJudgeDutyUrl(MY_DUTIES));
         // Step 2. Post to Player URI
         return CollectionUtils.<GoalJudgeDuty>immutableList(restTemplate.getForObject(myDutiesUrl, GoalJudgeDuty[].class));

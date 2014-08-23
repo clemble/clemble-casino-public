@@ -11,8 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.Collection;
 
-import static com.clemble.casino.goal.GoalJudgeWebMapping.*;
-import static com.clemble.casino.goal.GoalJudgeWebMapping.toGoalJudgeUrl;
+import static com.clemble.casino.goal.GoalJudgeInvitationWebMapping.*;
+import static com.clemble.casino.goal.GoalJudgeInvitationWebMapping.toGoalJudgeInvitationUrl;
 
 /**
  * Created by mavarazy on 8/18/14.
@@ -29,7 +29,7 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
     @Override
     public Collection<GoalJudgeInvitation> myPending() {
         // Step 1. Generating goal duties URI
-        URI myInvitationsUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS_PENDING));
+        URI myInvitationsUrl = buildUriWith(toGoalJudgeInvitationUrl(MY_INVITATIONS_PENDING));
         // Step 2. Post to Player URI
         return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myInvitationsUrl, GoalJudgeInvitation[].class));
     }
@@ -37,7 +37,7 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
     @Override
     public Collection<GoalJudgeInvitation> myAccepted() {
         // Step 1. Generating goal duties URI
-        URI myInvitationsUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS_ACCEPTED));
+        URI myInvitationsUrl = buildUriWith(toGoalJudgeInvitationUrl(MY_INVITATIONS_ACCEPTED));
         // Step 2. Post to Player URI
         return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myInvitationsUrl, GoalJudgeInvitation[].class));
     }
@@ -45,7 +45,7 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
     @Override
     public Collection<GoalJudgeInvitation> myDeclined() {
         // Step 1. Generating goal duties URI
-        URI myInvitationsUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS_DECLINED));
+        URI myInvitationsUrl = buildUriWith(toGoalJudgeInvitationUrl(MY_INVITATIONS_DECLINED));
         // Step 2. Post to Player URI
         return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myInvitationsUrl, GoalJudgeInvitation[].class));
     }
@@ -53,8 +53,8 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
     @Override
     public GoalJudgeInvitation reply(String goalKey, GoalJudgeInvitation response) {
         // Step 1. Generating goal duties URI
-        URI replyUrl = buildUriWith(toGoalJudgeUrl(INVITATION_REPLY));
+        URI replyUrl = buildUriWith(toGoalJudgeInvitationUrl(INVITATION_REPLY), goalKey);
         // Step 2. Post to Player URI
-        return restTemplate.exchange(INVITATION_REPLY, HttpMethod.PUT, new HttpEntity<GoalJudgeInvitation>(response), GoalJudgeInvitation.class, response.getGoalKey()).getBody();
+        return restTemplate.exchange(replyUrl, HttpMethod.PUT, new HttpEntity<GoalJudgeInvitation>(response), GoalJudgeInvitation.class).getBody();
     }
 }
