@@ -17,7 +17,7 @@ public abstract class GoalJudgeWebMapping implements WebMapping {
     final public static String MY_INVITATIONS_ACCEPTED = "/invitations/my/accepted";
     final public static String MY_INVITATIONS_DECLINED = "/invitations/my/declined";
 
-    final public static String INVITATION_REPLY = "/invitations/{player}/{id}";
+    final public static String INVITATION_REPLY = "/invitations/my/pending/{goalKey}";
 
     public static String toGoalJudgeUrl(String path) {
         return GOAL_JUDGE_URL + path;

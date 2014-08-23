@@ -4,6 +4,8 @@ import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.GoalJudgeInvitation;
 import com.clemble.casino.goal.service.GoalJudgeInvitationService;
 import com.clemble.casino.utils.CollectionUtils;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -53,6 +55,6 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
         // Step 1. Generating goal duties URI
         URI replyUrl = buildUriWith(toGoalJudgeUrl(INVITATION_REPLY));
         // Step 2. Post to Player URI
-        return restTemplate.postForObject(replyUrl, response, GoalJudgeInvitation.class);
+        return restTemplate.exchange(INVITATION_REPLY, HttpMethod.PUT, new HttpEntity<GoalJudgeInvitation>(response), GoalJudgeInvitation.class, response.getGoalKey()).getBody();
     }
 }
