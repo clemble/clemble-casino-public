@@ -13,6 +13,7 @@ public abstract class GoalJudgeWebMapping implements WebMapping {
 
     final private static String GOAL_JUDGE_URL = "http://{host}//goal/judge";
 
+    // TODO Consider leaving only pending invitations
     final public static String MY_INVITATIONS_PENDING = "/invitations/my/pending";
     final public static String MY_INVITATIONS_ACCEPTED = "/invitations/my/accepted";
     final public static String MY_INVITATIONS_DECLINED = "/invitations/my/declined";

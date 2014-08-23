@@ -9,6 +9,7 @@ import com.clemble.casino.player.PlayerAware;
 public interface GoalAware extends KeyAware {
 
     final public static String GOAL_KEY = "goalKey";
+    final public static String JUDGE = "judge";
 
     public String getGoalKey();
 

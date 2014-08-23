@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 public interface PlayerAware extends KeyAware, Serializable {
 
-    final public String DEFAULT_PLAYER = "casino";
-    final public String PLAYER = "player";
+    final public static String DEFAULT_PLAYER = "casino";
+    final public static String PLAYER = "player";
 
     public String getPlayer();
 

@@ -124,13 +124,14 @@ public class Goal implements GoalAware, GoalDescriptionAware, PlayerAware, BidAw
 
     @Override
     public String toString() {
-        return "goal:" + goalKey + ":player:" + player +
-            "judge:" + judge +
-            "goal:" + goal +
+        return "goal:" + goalKey +
+            ":player:" + player +
+            ":judge:" + judge +
+            ":goal:" + goal +
             ":" + startDate +
             ":to:" + dueDate +
             ":bid:" + bid +
-            ":status" + status +
-            ":state" + state;
+            ":status:" + status +
+            ":state:" + state;
     }
 }
