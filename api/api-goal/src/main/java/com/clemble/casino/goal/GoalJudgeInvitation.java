@@ -50,6 +50,10 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware, GoalDescript
         return player;
     }
 
+    public GoalJudgeInvitation cloneWithStatus(GoalJudgeInvitationStatus status) {
+        return new GoalJudgeInvitation(player, judge, goalKey, goal, status);
+    }
+
     public static GoalJudgeInvitation fromGoal(Goal goal) {
         return new GoalJudgeInvitation(goal.getPlayer(), goal.getJudge(), goal.getGoalKey(), goal.getGoal(), pending);
     }

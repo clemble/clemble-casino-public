@@ -29,9 +29,9 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
     @Override
     public Collection<GoalJudgeInvitation> myPending() {
         // Step 1. Generating goal duties URI
-        URI myDutiesUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS_PENDING));
+        URI myInvitationsUrl = buildUriWith(toGoalJudgeUrl(MY_INVITATIONS_PENDING));
         // Step 2. Post to Player URI
-        return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myDutiesUrl, GoalJudgeInvitation[].class));
+        return CollectionUtils.<GoalJudgeInvitation>immutableList(restTemplate.getForObject(myInvitationsUrl, GoalJudgeInvitation[].class));
     }
 
     @Override

@@ -3,10 +3,12 @@ package com.clemble.casino.android;
 import java.io.IOException;
 
 import com.clemble.casino.android.game.*;
+import com.clemble.casino.android.goal.AndroidGoalJudgeDutyService;
 import com.clemble.casino.android.goal.AndroidGoalJudgeInvitationService;
 import com.clemble.casino.android.goal.AndroidGoalService;
 import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
+import com.clemble.casino.goal.service.GoalJudgeDutyService;
 import com.clemble.casino.goal.service.GoalJudgeInvitationService;
 import com.clemble.casino.goal.service.GoalService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
@@ -68,6 +70,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     final private GoalService goalService;
     final private GoalJudgeInvitationService invitationService;
+    final private GoalJudgeDutyService dutyService;
 
     @SuppressWarnings({ "rawtypes" })
     public ClembleCasinoTemplate(
@@ -124,6 +127,8 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.accountService = new AndroidPlayerAccountService(restTemplate, host);
         // Step 8. Creating invitation service
         this.invitationService = new AndroidGoalJudgeInvitationService(restTemplate, host);
+        // Step 9. Creating Duty service
+        this.dutyService = new AndroidGoalJudgeDutyService(restTemplate, host);
     }
 
     @Override
@@ -179,6 +184,11 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     @Override
     public GoalJudgeInvitationService goalInvitationOperations() {
         return invitationService;
+    }
+
+    @Override
+    public GoalJudgeDutyService goalDutyOperations() {
+        return dutyService;
     }
 
     @Override
