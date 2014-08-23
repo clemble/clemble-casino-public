@@ -8,10 +8,11 @@ import org.springframework.data.annotation.Id;
 /**
  * Created by mavarazy on 8/17/14.
  */
-public class GoalJudgeDuty implements GoalAware, PlayerAware {
+public class GoalJudgeDuty implements GoalAware, GoalDescriptionAware, PlayerAware {
 
     @Id
     final private String goalKey;
+    final private String goal;
     final private String player;
     final private String judge;
     final private GoalJudgeDutyStatus status;
@@ -19,10 +20,12 @@ public class GoalJudgeDuty implements GoalAware, PlayerAware {
     @JsonCreator
     public GoalJudgeDuty(
         @JsonProperty(GOAL_KEY) String goalKey,
+        @JsonProperty("goal") String goal,
         @JsonProperty(PLAYER) String player,
         @JsonProperty(JUDGE) String judge,
         @JsonProperty("status") GoalJudgeDutyStatus status) {
         this.goalKey = goalKey;
+        this.goal = goal;
         this.player = player;
         this.judge = judge;
         this.status = status;
@@ -31,6 +34,11 @@ public class GoalJudgeDuty implements GoalAware, PlayerAware {
     @Override
     public String getGoalKey() {
         return goalKey;
+    }
+
+    @Override
+    public String getGoal() {
+        return goal;
     }
 
     @Override
@@ -47,7 +55,7 @@ public class GoalJudgeDuty implements GoalAware, PlayerAware {
     }
 
     public static GoalJudgeDuty fromInvitation(GoalJudgeInvitation invitation){
-        return new GoalJudgeDuty(invitation.getGoalKey(), invitation.getPlayer(), invitation.getJudge(), GoalJudgeDutyStatus.pending);
+        return new GoalJudgeDuty(invitation.getGoalKey(), invitation.getGoal(), invitation.getPlayer(), invitation.getJudge(), GoalJudgeDutyStatus.pending);
     }
 
     @Override
