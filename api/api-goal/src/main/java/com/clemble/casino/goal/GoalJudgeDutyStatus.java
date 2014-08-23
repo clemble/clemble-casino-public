@@ -5,6 +5,7 @@ package com.clemble.casino.goal;
  */
 public enum GoalJudgeDutyStatus {
 
-    pending;
+    pending,
+    due;
 
 }

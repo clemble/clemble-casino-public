@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+
 import static com.clemble.casino.goal.GoalJudgeInvitationStatus.*;
 
 /**
@@ -17,12 +19,19 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware, GoalDescript
     final private String player;
     final private String judge;
     final private String goal;
+    final private Date dueDate;
     final private GoalJudgeInvitationStatus status;
 
     @JsonCreator
-    public GoalJudgeInvitation(@JsonProperty(PLAYER) String player, @JsonProperty("judge") String judge, @JsonProperty(GOAL_KEY) String goalKey, @JsonProperty("goal") String goal, @JsonProperty("status") GoalJudgeInvitationStatus status) {
+    public GoalJudgeInvitation(@JsonProperty(PLAYER) String player,
+        @JsonProperty("judge") String judge,
+        @JsonProperty(GOAL_KEY) String goalKey,
+        @JsonProperty("goal") String goal,
+        @JsonProperty("status") GoalJudgeInvitationStatus status,
+        @JsonProperty("dueDate") Date dueDate) {
         this.player = player;
         this.judge = judge;
+        this.dueDate = dueDate;
         this.goalKey = goalKey;
         this.status = status;
         this.goal = goal;
@@ -45,17 +54,21 @@ public class GoalJudgeInvitation implements PlayerAware, GoalAware, GoalDescript
         return judge;
     }
 
+    public Date getDueDate() {
+        return dueDate;
+    }
+
     @Override
     public String getPlayer() {
         return player;
     }
 
     public GoalJudgeInvitation cloneWithStatus(GoalJudgeInvitationStatus status) {
-        return new GoalJudgeInvitation(player, judge, goalKey, goal, status);
+        return new GoalJudgeInvitation(player, judge, goalKey, goal, status, dueDate);
     }
 
     public static GoalJudgeInvitation fromGoal(Goal goal) {
-        return new GoalJudgeInvitation(goal.getPlayer(), goal.getJudge(), goal.getGoalKey(), goal.getGoal(), pending);
+        return new GoalJudgeInvitation(goal.getPlayer(), goal.getJudge(), goal.getGoalKey(), goal.getGoal(), pending, goal.getDueDate());
     }
 
     @Override

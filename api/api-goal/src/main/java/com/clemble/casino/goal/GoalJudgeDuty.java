@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+
 /**
  * Created by mavarazy on 8/17/14.
  */
@@ -15,6 +17,7 @@ public class GoalJudgeDuty implements GoalAware, GoalDescriptionAware, PlayerAwa
     final private String goal;
     final private String player;
     final private String judge;
+    final private Date dueDate;
     final private GoalJudgeDutyStatus status;
 
     @JsonCreator
@@ -23,12 +26,14 @@ public class GoalJudgeDuty implements GoalAware, GoalDescriptionAware, PlayerAwa
         @JsonProperty("goal") String goal,
         @JsonProperty(PLAYER) String player,
         @JsonProperty(JUDGE) String judge,
-        @JsonProperty("status") GoalJudgeDutyStatus status) {
+        @JsonProperty("status") GoalJudgeDutyStatus status,
+        @JsonProperty("dueDate") Date dueDate) {
         this.goalKey = goalKey;
         this.goal = goal;
         this.player = player;
         this.judge = judge;
         this.status = status;
+        this.dueDate = dueDate;
     }
 
     @Override
@@ -46,6 +51,10 @@ public class GoalJudgeDuty implements GoalAware, GoalDescriptionAware, PlayerAwa
         return player;
     }
 
+    public Date getDueDate() {
+        return dueDate;
+    }
+
     public String getJudge() {
         return judge;
     }
@@ -54,8 +63,12 @@ public class GoalJudgeDuty implements GoalAware, GoalDescriptionAware, PlayerAwa
         return status;
     }
 
+    public GoalJudgeDuty cloneWithStatus(GoalJudgeDutyStatus status) {
+        return new GoalJudgeDuty(goalKey, goal, player, judge, status, dueDate);
+    }
+
     public static GoalJudgeDuty fromInvitation(GoalJudgeInvitation invitation){
-        return new GoalJudgeDuty(invitation.getGoalKey(), invitation.getGoal(), invitation.getPlayer(), invitation.getJudge(), GoalJudgeDutyStatus.pending);
+        return new GoalJudgeDuty(invitation.getGoalKey(), invitation.getGoal(), invitation.getPlayer(), invitation.getJudge(), GoalJudgeDutyStatus.pending, invitation.getDueDate());
     }
 
     @Override
@@ -80,6 +93,11 @@ public class GoalJudgeDuty implements GoalAware, GoalDescriptionAware, PlayerAwa
         result = 31 * result + judge.hashCode();
         result = 31 * result + status.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "goal:duty:" + goalKey + ":judge:" + judge + ":player:" + player + ":status:" + status;
     }
 
 }
