@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.specification.RoundGameConfiguration;
+import com.clemble.casino.game.configuration.RoundGameConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

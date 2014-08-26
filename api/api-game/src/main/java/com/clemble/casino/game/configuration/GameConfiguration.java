@@ -1,4 +1,4 @@
-package com.clemble.casino.game.specification;
+package com.clemble.casino.game.configuration;
 
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;

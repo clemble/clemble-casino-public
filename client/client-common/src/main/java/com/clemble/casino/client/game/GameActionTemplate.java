@@ -11,6 +11,7 @@ import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.GiveUpAction;
+import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.event.server.RoundEvent;
 import com.clemble.casino.game.service.GameActionService;

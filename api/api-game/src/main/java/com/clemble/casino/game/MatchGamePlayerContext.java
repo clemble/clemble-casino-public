@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
-import com.clemble.casino.game.specification.GameConfiguration;
+import com.clemble.casino.game.configuration.GameConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

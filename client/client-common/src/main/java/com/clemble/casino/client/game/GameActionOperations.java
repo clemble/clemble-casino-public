@@ -5,7 +5,7 @@ import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventSelector;
 import com.clemble.casino.game.GameContext;
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameSessionAwareEvent;
+import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;

@@ -1,6 +1,6 @@
 package com.clemble.casino.game.construct;
 
-import com.clemble.casino.game.specification.GameConfiguration;
+import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

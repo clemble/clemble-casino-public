@@ -1,4 +1,4 @@
-package com.clemble.casino.game.specification;
+package com.clemble.casino.game.configuration;
 
 import java.io.Serializable;
 

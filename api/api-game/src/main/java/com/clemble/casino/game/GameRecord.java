@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.*;
 
 import com.clemble.casino.game.action.GameEventRecord;
-import com.clemble.casino.game.specification.GameConfigurationKey;
-import com.clemble.casino.game.specification.GameConfigurationKeyAware;
+import com.clemble.casino.game.configuration.GameConfigurationKey;
+import com.clemble.casino.game.configuration.GameConfigurationKeyAware;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 

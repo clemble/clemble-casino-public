@@ -1,6 +1,6 @@
 package com.clemble.casino.game.construct;
 
-import com.clemble.casino.game.specification.GameConfiguration;
+import com.clemble.casino.game.configuration.GameConfiguration;
 
 abstract public class ServerGameConstructionRequest extends GameConstructionRequest {
 

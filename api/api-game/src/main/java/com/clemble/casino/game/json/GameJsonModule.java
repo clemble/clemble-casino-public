@@ -44,9 +44,9 @@ import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
-import com.clemble.casino.game.specification.MatchGameConfiguration;
-import com.clemble.casino.game.specification.RoundGameConfiguration;
-import com.clemble.casino.game.specification.TournamentGameConfiguration;
+import com.clemble.casino.game.configuration.MatchGameConfiguration;
+import com.clemble.casino.game.configuration.RoundGameConfiguration;
+import com.clemble.casino.game.configuration.TournamentGameConfiguration;
 import com.clemble.casino.game.TournamentGameContext;
 import com.clemble.casino.game.unit.Chip;
 

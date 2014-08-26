@@ -3,7 +3,7 @@ package com.clemble.casino.game.construct;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.clemble.casino.game.specification.GameConfiguration;
+import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
