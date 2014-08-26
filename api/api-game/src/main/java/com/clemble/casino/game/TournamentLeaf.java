@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * Created by mavarazy on 15/02/14.
  */
-public class TournamentLeaf implements GameSessionAware, PlayerAware{
+public class TournamentLeaf implements GameSessionAware, PlayerAware {
 
     /**
      * Generated 

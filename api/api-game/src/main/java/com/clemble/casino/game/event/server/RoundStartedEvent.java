@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("round_started")
-public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent implements GameSessionAware, GameStartedEvent {
+public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent implements GameStartedEvent {
 
     /**
      * Generated

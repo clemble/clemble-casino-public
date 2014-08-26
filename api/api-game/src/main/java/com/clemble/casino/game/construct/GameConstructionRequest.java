@@ -7,7 +7,7 @@ import com.clemble.casino.game.specification.GameConfigurationAware;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-abstract public class GameConstructionRequest implements GameConfigurationAware, Serializable {
+abstract public class GameConstructionRequest implements GameConfigurationAware {
 
     /**
      * Generated 28/11/13
