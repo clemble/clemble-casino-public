@@ -6,7 +6,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.event.PlayerAwareEvent;
-import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
@@ -28,27 +27,27 @@ public class AndroidAvailabilityGameConstructionService<T extends GameState> ext
 
     @Override
     public GameConstruction construct(AvailabilityGameRequest gameRequest) {
-        return restTemplate.postForObject(buildUriWith(toGameUrl(CONSTRUCTION_AVAILABILITY)), gameRequest, GameConstruction.class);
+        return restTemplate.postForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AVAILABILITY)), gameRequest, GameConstruction.class);
     }
 
     @Override
     public GameConstruction getConstruction(String sessionKey) {
-        return restTemplate.getForObject(buildUriWith(toGameUrl(GAME_CONSTRUCTION), sessionKey), GameConstruction.class);
+        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION), sessionKey), GameConstruction.class);
     }
 
     @Override
     public PlayerAwareEvent getReply(String sessionKey, String player) {
-        return restTemplate.getForObject(buildUriWith(toGameUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerAwareEvent.class);
+        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerAwareEvent.class);
     }
 
     @Override
     public GameConstruction reply(InvitationResponseEvent request) {
-        return restTemplate.postForObject(buildUriWith(toGameUrl(CONSTRUCTION_RESPONSES)), request, GameConstruction.class);
+        return restTemplate.postForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES), request.getSessionKey()), request, GameConstruction.class);
     }
 
     @Override
     public Collection<GameInitiation> getPending(String player) {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toGameUrl(CONSTRUCTION_AVAILABILITY_PENDING), player), GameInitiation[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AVAILABILITY_PENDING), player), GameInitiation[].class));
     }
 
 }

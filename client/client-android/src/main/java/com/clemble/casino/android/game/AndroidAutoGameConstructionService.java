@@ -1,7 +1,7 @@
 package com.clemble.casino.android.game;
 
 import static com.clemble.casino.game.GameWebMapping.CONSTRUCTION_AUTO;
-import static com.clemble.casino.game.GameWebMapping.toGameUrl;
+import static com.clemble.casino.game.GameWebMapping.toGameConstructionUrl;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +22,7 @@ public class AndroidAutoGameConstructionService<T extends GameState> extends Abs
 
     @Override
     public GameConstruction construct(AutomaticGameRequest gameRequest) {
-        return restTemplate.postForObject(buildUriWith(toGameUrl(CONSTRUCTION_AUTO)), gameRequest, GameConstruction.class);
+        return restTemplate.postForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AUTO)), gameRequest, GameConstruction.class);
     }
 
 }

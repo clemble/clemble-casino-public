@@ -11,13 +11,18 @@ abstract public class GameWebMapping implements WebMapping {
     final public static String GAME_CONFIGURATION_URL = "http://{host}/game/configuration";
     final public static String CONFIGURATION = "/";
 
-    final public static String CONSTRUCTION_AUTO = "/construction/auto";
-    final public static String CONSTRUCTION_AVAILABILITY = "/construction/availability";
-    final public static String CONSTRUCTION_AVAILABILITY_PENDING = "/construction/availability/{playerId}";
+    final public static String GAME_CONSTRUCTION_URL = "http://{host}/game/construction";
+    final public static String CONSTRUCTION_AUTO = "/auto";
+    final public static String CONSTRUCTION_AVAILABILITY = "/availability";
+    final public static String CONSTRUCTION_AVAILABILITY_PENDING = "/pending/{playerId}";
 
-    final public static String GAME_CONSTRUCTION = "/construction/{session}";
-    final public static String CONSTRUCTION_RESPONSES = "/construction/availability/reply";
-    final public static String CONSTRUCTION_RESPONSES_PLAYER = "/construction/availability/reply/{session}/{playerId}";
+    final public static String CONSTRUCTION = "/{session}";
+    final public static String CONSTRUCTION_RESPONSES = "/availability/{session}/reply";
+    final public static String CONSTRUCTION_RESPONSES_PLAYER = "/availability/{session}/reply/{playerId}";
+
+    public static String toGameConstructionUrl(String path){
+        return GAME_CONSTRUCTION_URL + path;
+    }
 
     final public static String SESSIONS_RECORD = "/{session}";
 
