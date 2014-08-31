@@ -1,6 +1,7 @@
 package com.clemble.casino.android.game;
 
 import static com.clemble.casino.game.GameWebMapping.CONFIGURATION;
+import static com.clemble.casino.game.GameWebMapping.toGameConfigurationUrl;
 import static com.clemble.casino.game.GameWebMapping.toGameUrl;
 
 import org.springframework.web.client.RestTemplate;
@@ -20,7 +21,7 @@ public class AndroidGameConfigurationService extends AbstractClembleCasinoOperat
 
     @Override
     public GameConfigurations getConfigurations() {
-        return restTemplate.getForObject(buildUri(toGameUrl(CONFIGURATION)), GameConfigurations.class);
+        return restTemplate.getForObject(buildUri(toGameConfigurationUrl(CONFIGURATION)), GameConfigurations.class);
     }
 
 }

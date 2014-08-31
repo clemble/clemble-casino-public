@@ -1,7 +1,7 @@
 package com.clemble.casino.goal.rule.privacy;
 
 /**
- * Created by mavarazy on 8/26/14.
+ * TODO generalize with GamePrivacyRule
  */
 public enum GoalPrivacyRule {
 

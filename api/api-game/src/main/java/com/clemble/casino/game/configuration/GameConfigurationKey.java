@@ -54,34 +54,24 @@ public class GameConfigurationKey implements GameAware {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((specificationName == null) ? 0 : specificationName.hashCode());
-        result = prime * result + ((game == null) ? 0 : game.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GameConfigurationKey that = (GameConfigurationKey) o;
+
+        if (game != that.game) return false;
+        if (specificationName != null ? !specificationName.equals(that.specificationName) : that.specificationName != null)
+            return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        GameConfigurationKey other = (GameConfigurationKey) obj;
-        if (specificationName == null) {
-            if (other.specificationName != null)
-                return false;
-        } else if (!specificationName.equals(other.specificationName))
-            return false;
-        if (game == null) {
-            if (other.game != null)
-                return false;
-        } else if (!game.equals(other.game))
-            return false;
-        return true;
+    public int hashCode() {
+        int result = game != null ? game.hashCode() : 0;
+        result = 31 * result + (specificationName != null ? specificationName.hashCode() : 0);
+        return result;
     }
 
     @Override

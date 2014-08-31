@@ -153,64 +153,47 @@ public class RoundGameConfiguration implements GameConfiguration {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((betRule == null) ? 0 : betRule.hashCode());
-        result = prime * result + ((giveUpRule == null) ? 0 : giveUpRule.hashCode());
-        result = prime * result + ((moveTimeRule == null) ? 0 : moveTimeRule.hashCode());
-        result = prime * result + ((configurationKey == null) ? 0 : configurationKey.hashCode());
-        result = prime * result + ((numberRule == null) ? 0 : numberRule.hashCode());
-        result = prime * result + ((price == null) ? 0 : price.hashCode());
-        result = prime * result + ((privacyRule == null) ? 0 : privacyRule.hashCode());
-        result = prime * result + ((totalTimeRule == null) ? 0 : totalTimeRule.hashCode());
-        result = prime * result + ((visibilityRule == null) ? 0 : visibilityRule.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RoundGameConfiguration that = (RoundGameConfiguration) o;
+
+        if (betRule != null ? !betRule.equals(that.betRule) : that.betRule != null) return false;
+        if (configurationKey != null ? !configurationKey.equals(that.configurationKey) : that.configurationKey != null)
+            return false;
+        if (drawRule != that.drawRule) return false;
+        if (giveUpRule != that.giveUpRule) return false;
+        if (moveTimeRule != null ? !moveTimeRule.equals(that.moveTimeRule) : that.moveTimeRule != null) return false;
+        if (numberRule != that.numberRule) return false;
+        if (playerUnits != null ? !playerUnits.equals(that.playerUnits) : that.playerUnits != null) return false;
+        if (price != null ? !price.equals(that.price) : that.price != null) return false;
+        if (privacyRule != that.privacyRule) return false;
+        if (roles != null ? !roles.equals(that.roles) : that.roles != null) return false;
+        if (totalTimeRule != null ? !totalTimeRule.equals(that.totalTimeRule) : that.totalTimeRule != null)
+            return false;
+        if (visibilityRule != that.visibilityRule) return false;
+        if (wonRule != that.wonRule) return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        RoundGameConfiguration other = (RoundGameConfiguration) obj;
-        if (betRule == null) {
-            if (other.betRule != null)
-                return false;
-        } else if (!betRule.equals(other.betRule))
-            return false;
-        if (giveUpRule != other.giveUpRule)
-            return false;
-        if (moveTimeRule == null) {
-            if (other.moveTimeRule != null)
-                return false;
-        } else if (!moveTimeRule.equals(other.moveTimeRule))
-            return false;
-        if (configurationKey == null) {
-            if (other.configurationKey != null)
-                return false;
-        } else if (!configurationKey.equals(other.configurationKey))
-            return false;
-        if (numberRule != other.numberRule)
-            return false;
-        if (price == null) {
-            if (other.price != null)
-                return false;
-        } else if (!price.equals(other.price))
-            return false;
-        if (privacyRule != other.privacyRule)
-            return false;
-        if (totalTimeRule == null) {
-            if (other.totalTimeRule != null)
-                return false;
-        } else if (!totalTimeRule.equals(other.totalTimeRule))
-            return false;
-        if (visibilityRule != other.visibilityRule)
-            return false;
-        return true;
+    public int hashCode() {
+        int result = configurationKey != null ? configurationKey.hashCode() : 0;
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (betRule != null ? betRule.hashCode() : 0);
+        result = 31 * result + (giveUpRule != null ? giveUpRule.hashCode() : 0);
+        result = 31 * result + (moveTimeRule != null ? moveTimeRule.hashCode() : 0);
+        result = 31 * result + (totalTimeRule != null ? totalTimeRule.hashCode() : 0);
+        result = 31 * result + (privacyRule != null ? privacyRule.hashCode() : 0);
+        result = 31 * result + (numberRule != null ? numberRule.hashCode() : 0);
+        result = 31 * result + (visibilityRule != null ? visibilityRule.hashCode() : 0);
+        result = 31 * result + (drawRule != null ? drawRule.hashCode() : 0);
+        result = 31 * result + (wonRule != null ? wonRule.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
+        result = 31 * result + (playerUnits != null ? playerUnits.hashCode() : 0);
+        return result;
     }
 
     public String toString(){

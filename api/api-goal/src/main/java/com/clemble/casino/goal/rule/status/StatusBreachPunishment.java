@@ -5,5 +5,6 @@ package com.clemble.casino.goal.rule.status;
  */
 public enum StatusBreachPunishment {
     countdown,
+    fee,
     none;
 }

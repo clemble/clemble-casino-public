@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.*;
 
 import com.clemble.casino.game.action.GameEventRecord;
-import com.clemble.casino.game.configuration.GameConfigurationKey;
-import com.clemble.casino.game.configuration.GameConfigurationKeyAware;
+import com.clemble.casino.game.configuration.GameConfiguration;
+import com.clemble.casino.game.configuration.GameConfigurationAware;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "GAME_RECORD")
-public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, Serializable {
+public class GameRecord implements GameConfigurationAware, GameSessionAware, Serializable {
 
     /**
      * Generated 16/02/13
@@ -25,7 +25,7 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
     private String sessionKey;
 
     @Embedded
-    private GameConfigurationKey configurationKey;
+    private GameConfiguration configuration;
 
     @Column(name = "RECORD_STATE")
     private GameSessionState sessionState;
@@ -61,12 +61,12 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
     }
 
     @Override
-    public GameConfigurationKey getConfigurationKey() {
-        return configurationKey;
+    public GameConfiguration getConfiguration() {
+        return configuration;
     }
 
-    public GameRecord setConfiguration(GameConfigurationKey configurationKey) {
-        this.configurationKey = configurationKey;
+    public GameRecord setConfiguration(GameConfiguration configurationKey) {
+        this.configuration = configurationKey;
         return this;
     }
 
@@ -102,46 +102,30 @@ public class GameRecord implements GameConfigurationKeyAware, GameSessionAware, 
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((eventRecords == null) ? 0 : eventRecords.hashCode());
-        result = prime * result + ((players == null) ? 0 : players.hashCode());
-        result = prime * result + ((sessionKey == null) ? 0 : sessionKey.hashCode());
-        result = prime * result + ((sessionState == null) ? 0 : sessionState.hashCode());
-        result = prime * result + ((configurationKey == null) ? 0 : configurationKey.hashCode());
-        return result;
-    }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        GameRecord other = (GameRecord) obj;
-        if (eventRecords == null) {
-            if (other.eventRecords != null)
-                return false;
-        } else if (!eventRecords.containsAll(other.eventRecords) || !(other.eventRecords.containsAll(eventRecords)))
-            return false;
-        if (players == null) {
-            if (other.players != null)
-                return false;
-        } else if (!players.equals(other.players))
-            return false;
-        if (!sessionKey.equals(other.sessionKey))
-            return false;
-        if (sessionState != other.sessionState)
-            return false;
-        if (configurationKey == null) {
-            if (other.configurationKey != null)
-                return false;
-        } else if (!configurationKey.equals(other.configurationKey))
-            return false;
+        GameRecord that = (GameRecord) o;
+
+        if (version != that.version) return false;
+        if (!configuration.equals(that.configuration)) return false;
+        if (!eventRecords.equals(that.eventRecords)) return false;
+        if (!players.equals(that.players)) return false;
+        if (!sessionKey.equals(that.sessionKey)) return false;
+        if (sessionState != that.sessionState) return false;
+
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = sessionKey.hashCode();
+        result = 31 * result + configuration.hashCode();
+        result = 31 * result + sessionState.hashCode();
+        result = 31 * result + players.hashCode();
+        result = 31 * result + eventRecords.hashCode();
+        result = 31 * result + version;
+        return result;
+    }
 }
