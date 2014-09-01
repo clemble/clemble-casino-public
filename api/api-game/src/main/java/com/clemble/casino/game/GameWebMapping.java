@@ -6,7 +6,7 @@ abstract public class GameWebMapping implements WebMapping {
 
     final public static String TABLE_CHANNEL_POSTFIX = ".table";
 
-    final public static String GAME_URL = "http://{host}/game";
+    final public static String GAME_URL = "http://{host}/game/management";
 
     final public static String GAME_CONFIGURATION_URL = "http://{host}/game/configuration";
     final public static String CONFIGURATION = "/";

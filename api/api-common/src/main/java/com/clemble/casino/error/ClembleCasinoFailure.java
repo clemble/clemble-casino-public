@@ -1,5 +1,6 @@
 package com.clemble.casino.error;
 
+import com.clemble.casino.KeyAware;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
