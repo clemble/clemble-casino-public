@@ -20,7 +20,7 @@ public class GameConfigurations {
         return configurations;
     }
     
-    public GameConfiguration getConfiguration(GameConfigurationKey configurationKey) {
+    public GameConfiguration getConfiguration(String configurationKey) {
         // Step 1. Sanity check
         if (configurationKey == null)
             return null;
@@ -39,7 +39,7 @@ public class GameConfigurations {
     public List<RoundGameConfiguration> matchConfigurations(Game game) {
         List<RoundGameConfiguration> configurations = new ArrayList<RoundGameConfiguration>();
         for (RoundGameConfiguration configuration : filter(RoundGameConfiguration.class))
-            if (game.equals(configuration.getConfigurationKey().getGame()))
+            if (game.equals(configuration.getGame()))
                 configurations.add(configuration);
         return configurations;
     }

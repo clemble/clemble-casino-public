@@ -1,5 +1,6 @@
 package com.clemble.casino.game.configuration;
 
+import com.clemble.casino.game.Game;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
@@ -23,7 +24,8 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
      */
     private static final long serialVersionUID = -1614743782407940253L;
 
-    final private GameConfigurationKey configurationKey;
+    final private Game game;
+    final private String configurationKey;
     final private Money price;
 
     final private WonRule wonRule;
@@ -38,16 +40,18 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
 
     @JsonCreator
     public TournamentGameConfiguration(
-            @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
-            @JsonProperty("price") Money price,
-            @JsonProperty("privacyRule") PrivacyRule privacyRule,
-            @JsonProperty("numberRule") PlayerNumberRule numberRule,
-            @JsonProperty("configuration") GameConfiguration configuration,
-            @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
-            @JsonProperty("wonRule") WonRule wonRule,
-            @JsonProperty("drawRule") DrawRule drawRule,
-            @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
-            @JsonProperty(value = "playerUnits", required = false) List<GameUnit> playerUnits) {
+        @JsonProperty("game") Game game,
+        @JsonProperty("configurationKey") String configurationKey,
+        @JsonProperty("price") Money price,
+        @JsonProperty("privacyRule") PrivacyRule privacyRule,
+        @JsonProperty("numberRule") PlayerNumberRule numberRule,
+        @JsonProperty("configuration") GameConfiguration configuration,
+        @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
+        @JsonProperty("wonRule") WonRule wonRule,
+        @JsonProperty("drawRule") DrawRule drawRule,
+        @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
+        @JsonProperty(value = "playerUnits", required = false) List<GameUnit> playerUnits) {
+        this.game = game;
         this.price = price;
         this.wonRule = wonRule;
         this.drawRule = drawRule;
@@ -61,7 +65,12 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
     }
 
     @Override
-    public GameConfigurationKey getConfigurationKey() {
+    public Game getGame() {
+        return game;
+    }
+
+    @Override
+    public String getConfigurationKey() {
         return configurationKey;
     }
 

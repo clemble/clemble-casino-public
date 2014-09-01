@@ -18,7 +18,11 @@ public class GoalConfiguration {
     final private GoalStatusRule statusRule;
 
     @JsonCreator
-    public GoalConfiguration(@JsonProperty("bid") Bid bid, @JsonProperty("timeRule") GoalTimeRule timeRule, @JsonProperty("privacyRule") GoalPrivacyRule privacyRule, @JsonProperty("statusRule") GoalStatusRule statusRule) {
+    public GoalConfiguration(
+        @JsonProperty("bid") Bid bid,
+        @JsonProperty("timeRule") GoalTimeRule timeRule,
+        @JsonProperty("privacyRule") GoalPrivacyRule privacyRule,
+        @JsonProperty("statusRule") GoalStatusRule statusRule) {
         this.bid = bid;
         this.timeRule = timeRule;
         this.privacyRule = privacyRule;

@@ -1,5 +1,6 @@
 package com.clemble.casino.game.configuration;
 
+import com.clemble.casino.game.GameAware;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.rule.construct.PrivacyRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
@@ -13,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.List;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-public interface GameConfiguration extends GameConfigurationKeyAware {
+public interface GameConfiguration extends GameConfigurationKeyAware, GameAware {
 
     public Money getPrice();
 

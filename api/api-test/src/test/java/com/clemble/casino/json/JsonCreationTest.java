@@ -32,7 +32,6 @@ import com.clemble.casino.game.rule.time.TimeBreachPunishment;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
 import com.clemble.casino.game.configuration.GameConfiguration;
-import com.clemble.casino.game.configuration.GameConfigurationKey;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.money.Money;
 import com.clemble.test.random.ObjectGenerator;
@@ -66,7 +65,7 @@ public class JsonCreationTest {
     // + "\"session\":{\"game\":null,\"session\":null}"
     // + "}]}";
     final private String ERROR_JSON = "{\"error\":{\"code\":\"0C1\",\"description\":\"Server critical error\"},\"player\":\"f>RvzG{LHn\"}";
-    final private String MATCH_JSON = "[{\"type\":\"round\",\"configurationKey\":{\"game\":\"num\",\"specificationName\":\"low\"},\"price\":{\"currency\":\"FakeMoney\",\"amount\":50},\"betRule\":{\"betType\":\"unlimited\"},\"giveUpRule\":{\"giveUp\":\"all\"},\"moveTimeRule\":{\"rule\":\"moveTime\",\"limit\":2000,\"punishment\":\"loose\"},\"totalTimeRule\":{\"rule\":\"totalTime\",\"limit\":4000,\"punishment\":\"loose\"},\"privacyRule\":[\"privacy\",\"everybody\"],\"numberRule\":[\"participants\",\"two\"],\"visibilityRule\":\"visible\",\"drawRule\":[\"DrawRule\",\"owned\"],\"wonRule\":[\"WonRule\",\"price\"],\"roles\":[\"A\",\"B\"],\"playerUnits\":null}]";
+    final private String MATCH_JSON = "[{\"type\":\"round\",\"game\":\"num\",\"configurationKey\":\"low\",\"price\":{\"currency\":\"FakeMoney\",\"amount\":50},\"betRule\":{\"betType\":\"unlimited\"},\"giveUpRule\":{\"giveUp\":\"all\"},\"moveTimeRule\":{\"rule\":\"moveTime\",\"limit\":2000,\"punishment\":\"loose\"},\"totalTimeRule\":{\"rule\":\"totalTime\",\"limit\":4000,\"punishment\":\"loose\"},\"privacyRule\":[\"privacy\",\"everybody\"],\"numberRule\":[\"participants\",\"two\"],\"visibilityRule\":\"visible\",\"drawRule\":[\"DrawRule\",\"owned\"],\"wonRule\":[\"WonRule\",\"price\"],\"roles\":[\"A\",\"B\"],\"playerUnits\":null}]";
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
@@ -111,7 +110,7 @@ public class JsonCreationTest {
 
     @Test
     public void test() throws JsonProcessingException {
-        RoundGameConfiguration configuration = new RoundGameConfiguration(new GameConfigurationKey(Game.num, "low"), new Money(Currency.FakeMoney, 50),
+        RoundGameConfiguration configuration = new RoundGameConfiguration(Game.num, "low", new Money(Currency.FakeMoney, 50),
                 UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, TimeBreachPunishment.loose), new TotalTimeRule(4000,
                         TimeBreachPunishment.loose), PrivacyRule.everybody, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
                 ImmutableList.<String> of("A", "B"), null);

@@ -32,21 +32,23 @@ public class RoundGameConfiguration implements GameConfiguration {
     private static final long serialVersionUID = 6573909004152898162L;
 
     final public static RoundGameConfiguration DEFAULT = new RoundGameConfiguration(
-            new GameConfigurationKey(Game.pic, "DEFAULT"),
-            Money.create(Currency.FakeMoney, 50),
-            FixedBetRule.DEFAULT,
-            GiveUpRule.lost,
-            new MoveTimeRule(4000, TimeBreachPunishment.loose),
-            new TotalTimeRule(4000, TimeBreachPunishment.loose),
-            PrivacyRule.everybody,
-            PlayerNumberRule.two,
-            VisibilityRule.hidden,
-            DrawRule.owned,
-            WonRule.spent,
-            CollectionUtils.immutableList("X", "O"),
-            Collections.<GameUnit>emptyList());
+        Game.pic,
+        "DEFAULT",
+        Money.create(Currency.FakeMoney, 50),
+        FixedBetRule.DEFAULT,
+        GiveUpRule.lost,
+        new MoveTimeRule(4000, TimeBreachPunishment.loose),
+        new TotalTimeRule(4000, TimeBreachPunishment.loose),
+        PrivacyRule.everybody,
+        PlayerNumberRule.two,
+        VisibilityRule.hidden,
+        DrawRule.owned,
+        WonRule.spent,
+        CollectionUtils.immutableList("X", "O"),
+        Collections.<GameUnit>emptyList());
 
-    final private GameConfigurationKey configurationKey;
+    final private Game game;
+    final private String configurationKey;
     final private Money price;
     final private BetRule betRule;
     final private GiveUpRule giveUpRule;
@@ -62,20 +64,22 @@ public class RoundGameConfiguration implements GameConfiguration {
 
     @JsonCreator
     public RoundGameConfiguration(
-            @JsonProperty("configurationKey") GameConfigurationKey configurationKey,
-            @JsonProperty("price") Money price,
-            @JsonProperty("betRule") BetRule betRule,
-            @JsonProperty("giveUpRule") GiveUpRule giveUpRule,
-            @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
-            @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
-            @JsonProperty("privacyRule") PrivacyRule privacyRule,
-            @JsonProperty("numberRule") PlayerNumberRule numberRule,
-            @JsonProperty("visibilityRule") VisibilityRule visibilityRule,
-            @JsonProperty("drawRule") DrawRule drawRule,
-            @JsonProperty("wonRule") WonRule wonRule,
-            @JsonProperty("roles") List<String> roles,
-            @JsonProperty(value = "playerUnits", required = false) List<GameUnit> playerUnits
+        @JsonProperty("game") Game game,
+        @JsonProperty("configurationKey") String configurationKey,
+        @JsonProperty("price") Money price,
+        @JsonProperty("betRule") BetRule betRule,
+        @JsonProperty("giveUpRule") GiveUpRule giveUpRule,
+        @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
+        @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
+        @JsonProperty("privacyRule") PrivacyRule privacyRule,
+        @JsonProperty("numberRule") PlayerNumberRule numberRule,
+        @JsonProperty("visibilityRule") VisibilityRule visibilityRule,
+        @JsonProperty("drawRule") DrawRule drawRule,
+        @JsonProperty("wonRule") WonRule wonRule,
+        @JsonProperty("roles") List<String> roles,
+        @JsonProperty(value = "playerUnits", required = false) List<GameUnit> playerUnits
     ) {
+        this.game = game;
         this.configurationKey = configurationKey;
         this.price = price;
         this.betRule = betRule;
@@ -92,7 +96,12 @@ public class RoundGameConfiguration implements GameConfiguration {
     }
 
     @Override
-    public GameConfigurationKey getConfigurationKey() {
+    public Game getGame() {
+        return game;
+    }
+
+    @Override
+    public String getConfigurationKey() {
         return configurationKey;
     }
 
