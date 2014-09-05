@@ -7,12 +7,12 @@ import com.clemble.casino.game.Game;
 import com.clemble.casino.game.rule.bet.BetRule;
 import com.clemble.casino.game.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
+import com.clemble.casino.rule.breach.LooseBreachPunishment;
 import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
 import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
-import com.clemble.casino.game.rule.time.TimeBreachPunishment;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
 import com.clemble.casino.game.unit.GameUnit;
@@ -37,8 +37,8 @@ public class RoundGameConfiguration implements GameConfiguration {
         Money.create(Currency.FakeMoney, 50),
         FixedBetRule.DEFAULT,
         GiveUpRule.lost,
-        new MoveTimeRule(4000, TimeBreachPunishment.loose),
-        new TotalTimeRule(4000, TimeBreachPunishment.loose),
+        new MoveTimeRule(4000, LooseBreachPunishment.getInstance()),
+        new TotalTimeRule(4000, LooseBreachPunishment.getInstance()),
         PrivacyRule.everybody,
         PlayerNumberRule.two,
         VisibilityRule.hidden,

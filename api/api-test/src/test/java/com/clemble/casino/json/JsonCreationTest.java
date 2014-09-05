@@ -13,6 +13,7 @@ import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameState;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.configuration.RoundGameConfiguration;
+import com.clemble.casino.rule.breach.LooseBreachPunishment;
 import com.clemble.test.random.AbstractValueGenerator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,7 +29,6 @@ import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
 import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
-import com.clemble.casino.game.rule.time.TimeBreachPunishment;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.rule.visibility.VisibilityRule;
 import com.clemble.casino.game.configuration.GameConfiguration;
@@ -65,7 +65,6 @@ public class JsonCreationTest {
     // + "\"session\":{\"game\":null,\"session\":null}"
     // + "}]}";
     final private String ERROR_JSON = "{\"error\":{\"code\":\"0C1\",\"description\":\"Server critical error\"},\"player\":\"f>RvzG{LHn\"}";
-    final private String MATCH_JSON = "[{\"type\":\"round\",\"game\":\"num\",\"configurationKey\":\"low\",\"price\":{\"currency\":\"FakeMoney\",\"amount\":50},\"betRule\":{\"betType\":\"unlimited\"},\"giveUpRule\":{\"giveUp\":\"all\"},\"moveTimeRule\":{\"rule\":\"moveTime\",\"limit\":2000,\"punishment\":\"loose\"},\"totalTimeRule\":{\"rule\":\"totalTime\",\"limit\":4000,\"punishment\":\"loose\"},\"privacyRule\":[\"privacy\",\"everybody\"],\"numberRule\":[\"participants\",\"two\"],\"visibilityRule\":\"visible\",\"drawRule\":[\"DrawRule\",\"owned\"],\"wonRule\":[\"WonRule\",\"price\"],\"roles\":[\"A\",\"B\"],\"playerUnits\":null}]";
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
@@ -77,13 +76,6 @@ public class JsonCreationTest {
         assertEquals(casinoFailure.getError().getCode(), "0C1");
         assertEquals(casinoFailure.getPlayer(), "f>RvzG{LHn");
         // objectMapper.readValue(ERROR_FORMAT_JSON, ClembleCasinoFailureDescription.class);
-    }
-
-    @Test
-    public void testRead() throws JsonParseException, JsonMappingException, IOException {
-        GameConfiguration[] configurations = objectMapper.readValue(MATCH_JSON, RoundGameConfiguration[].class);
-        String arrJsonPresentation = objectMapper.writeValueAsString(configurations);
-        assertEquals(arrJsonPresentation, MATCH_JSON);
     }
 
     @Test
@@ -104,15 +96,14 @@ public class JsonCreationTest {
                 System.out.println("Problem " + problem.getKey().getSimpleName() + " > " + problem.getValue().getClass().getSimpleName());
             }
         }
-        Assert.assertTrue(errors.toString(), errors.isEmpty());
 
+        Assert.assertTrue(errors.toString(), errors.isEmpty());
     }
 
     @Test
     public void test() throws JsonProcessingException {
         RoundGameConfiguration configuration = new RoundGameConfiguration(Game.num, "low", new Money(Currency.FakeMoney, 50),
-                UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, TimeBreachPunishment.loose), new TotalTimeRule(4000,
-                        TimeBreachPunishment.loose), PrivacyRule.everybody, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
+                UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, LooseBreachPunishment.getInstance()), new TotalTimeRule(4000, LooseBreachPunishment.getInstance()), PrivacyRule.everybody, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
                 ImmutableList.<String> of("A", "B"), null);
 
         System.out.println(objectMapper.writeValueAsString(configuration));

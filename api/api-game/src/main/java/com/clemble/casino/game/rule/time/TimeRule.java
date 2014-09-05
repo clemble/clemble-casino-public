@@ -5,10 +5,12 @@ import java.util.Date;
 import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.rule.ConfigurationRule;
+import com.clemble.casino.rule.breach.BreachPunishment;
+import com.clemble.casino.rule.breach.BreachPunishmentAware;
 
-public interface TimeRule extends ConfigurationRule {
+public interface TimeRule extends ConfigurationRule, BreachPunishmentAware {
 
-    public TimeBreachPunishment getPunishment();
+    public BreachPunishment getPunishment();
 
     public long getLimit();
 

@@ -1,23 +1,27 @@
 package com.clemble.casino.goal.rule.status;
 
+import com.clemble.casino.goal.rule.GoalRule;
+import com.clemble.casino.rule.breach.BreachPunishment;
+import com.clemble.casino.rule.breach.BreachPunishmentAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 8/26/14.
  */
-public class GoalStatusRule {
+public class GoalStatusRule implements GoalRule, BreachPunishmentAware {
 
-    final private StatusBreachPunishment punishment;
+    final private BreachPunishment punishment;
     final private StatusUpdateFrequency updateFrequency;
 
     @JsonCreator
-    public GoalStatusRule(@JsonProperty("punishment") StatusBreachPunishment punishment, @JsonProperty("updateFrequency")  StatusUpdateFrequency updateFrequency) {
+    public GoalStatusRule(@JsonProperty("punishment") BreachPunishment punishment, @JsonProperty("updateFrequency")  StatusUpdateFrequency updateFrequency) {
         this.punishment = punishment;
         this.updateFrequency = updateFrequency;
     }
 
-    public StatusBreachPunishment getPunishment() {
+    @Override
+    public BreachPunishment getPunishment() {
         return punishment;
     }
 

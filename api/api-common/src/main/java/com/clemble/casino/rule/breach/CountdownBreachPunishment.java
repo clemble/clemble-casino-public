@@ -1,6 +1,7 @@
 package com.clemble.casino.rule.breach;
 
 import com.clemble.casino.money.Money;
+import com.clemble.casino.payment.AmountAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -9,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 8/30/14.
  */
 @JsonTypeName("countdown")
-public class CountdownBreachPunishment extends BreachPunishment {
+public class CountdownBreachPunishment extends BreachPunishment implements AmountAware {
 
     final private Money amount;
     final private long timeInMinutes;
@@ -20,6 +21,7 @@ public class CountdownBreachPunishment extends BreachPunishment {
         this.timeInMinutes = timeInMinutes;
     }
 
+    @Override
     public Money getAmount() {
         return amount;
     }

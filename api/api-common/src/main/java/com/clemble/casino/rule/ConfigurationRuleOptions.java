@@ -1,23 +1,21 @@
-package com.clemble.casino.game.configuration;
+package com.clemble.casino.rule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
-import com.clemble.casino.game.rule.RoundRule;
-import com.clemble.casino.rule.ConfigurationRule;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GameRuleOptions<T extends ConfigurationRule> {
+public class ConfigurationRuleOptions<T extends ConfigurationRule> {
 
     final private T defaultOption;
 
     final private Set<T> allOptions;
 
-    public GameRuleOptions(T defaultOption, Collection<T> otherOptions) {
+    public ConfigurationRuleOptions(T defaultOption, Collection<T> otherOptions) {
         this.defaultOption = defaultOption;
         if (otherOptions == null || otherOptions.size() == 0) {
             this.allOptions = CollectionUtils.immutableSet(defaultOption);
@@ -29,7 +27,7 @@ public class GameRuleOptions<T extends ConfigurationRule> {
     }
 
     @JsonCreator
-    public GameRuleOptions(@JsonProperty("default") T defaultOption, @JsonProperty("options") T... otherOptions) {
+    public ConfigurationRuleOptions(@JsonProperty("default") T defaultOption, @JsonProperty("options") T... otherOptions) {
         this(defaultOption, Arrays.asList(otherOptions));
     }
 
@@ -63,7 +61,7 @@ public class GameRuleOptions<T extends ConfigurationRule> {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameRuleOptions<T> other = (GameRuleOptions<T>) obj;
+        ConfigurationRuleOptions<T> other = (ConfigurationRuleOptions<T>) obj;
         if (allOptions == null) {
             if (other.allOptions != null)
                 return false;

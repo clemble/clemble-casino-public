@@ -6,12 +6,15 @@ import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.TotalTimeoutSurrenderAction;
+import com.clemble.casino.rule.breach.BreachPunishment;
+import com.clemble.casino.rule.breach.BreachPunishmentAware;
+import com.clemble.casino.rule.breach.LooseBreachPunishment;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("totalTime")
-public class TotalTimeRule implements TimeRule {
+public class TotalTimeRule implements TimeRule, BreachPunishmentAware {
 
     /**
      * Generated 09/04/13
@@ -19,15 +22,16 @@ public class TotalTimeRule implements TimeRule {
     private static final long serialVersionUID = 7452918511506230595L;
 
     final private long limit;
-    final private TimeBreachPunishment punishment;
+    final private BreachPunishment punishment;
 
     @JsonCreator
-    public TotalTimeRule(@JsonProperty("limit") long limit, @JsonProperty("punishment") TimeBreachPunishment punishment) {
+    public TotalTimeRule(@JsonProperty("limit") long limit, @JsonProperty("punishment") BreachPunishment punishment) {
         this.limit = limit;
         this.punishment = punishment;
     }
 
-    public TimeBreachPunishment getPunishment() {
+    @Override
+    public BreachPunishment getPunishment() {
         return punishment;
     }
 
@@ -53,38 +57,31 @@ public class TotalTimeRule implements TimeRule {
 
     @Override
     public GameAction toTimeBreachedEvent(String player) {
-        switch (punishment) {
-            case loose:
-                return new TotalTimeoutSurrenderAction(player);
-            case minimal:
-            default:
-                return new DefaultGameAction(player);
+        if (punishment instanceof LooseBreachPunishment) {
+            return new TotalTimeoutSurrenderAction(player);
+        } else {
+            return new DefaultGameAction(player);
         }
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (limit ^ (limit >>> 32));
-        result = prime * result + ((punishment == null) ? 0 : punishment.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TotalTimeRule that = (TotalTimeRule) o;
+
+        if (limit != that.limit) return false;
+        if (!punishment.equals(that.punishment)) return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        TotalTimeRule other = (TotalTimeRule) obj;
-        if (limit != other.limit)
-            return false;
-        if (punishment != other.punishment)
-            return false;
-        return true;
+    public int hashCode() {
+        int result = (int) (limit ^ (limit >>> 32));
+        result = 31 * result + punishment.hashCode();
+        return result;
     }
 
 }

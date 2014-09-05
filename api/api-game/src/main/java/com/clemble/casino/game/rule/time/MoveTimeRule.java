@@ -6,6 +6,8 @@ import com.clemble.casino.game.GamePlayerClock;
 import com.clemble.casino.game.action.DefaultGameAction;
 import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.action.surrender.MoveTimeoutSurrenderAction;
+import com.clemble.casino.rule.breach.BreachPunishment;
+import com.clemble.casino.rule.breach.LooseBreachPunishment;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -18,16 +20,16 @@ public class MoveTimeRule implements TimeRule {
      */
     private static final long serialVersionUID = -2949008185370674021L;
 
-    final private TimeBreachPunishment punishment;
+    final private BreachPunishment punishment;
     final private long limit;
 
     @JsonCreator
-    public MoveTimeRule(@JsonProperty("limit") long limit, @JsonProperty("punishment") TimeBreachPunishment punishment) {
+    public MoveTimeRule(@JsonProperty("limit") long limit, @JsonProperty("punishment") BreachPunishment punishment) {
         this.limit = limit;
         this.punishment = punishment;
     }
 
-    public TimeBreachPunishment getPunishment() {
+    public BreachPunishment getPunishment() {
         return punishment;
     }
 
@@ -48,12 +50,10 @@ public class MoveTimeRule implements TimeRule {
 
     @Override
     public GameAction toTimeBreachedEvent(String player) {
-        switch (punishment) {
-            case loose:
-                return new MoveTimeoutSurrenderAction(player);
-            case minimal:
-            default:
-                return new DefaultGameAction(player);
+        if (punishment instanceof LooseBreachPunishment) {
+            return new MoveTimeoutSurrenderAction(player);
+        } else {
+            return new DefaultGameAction(player);
         }
     }
 
@@ -63,28 +63,23 @@ public class MoveTimeRule implements TimeRule {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (limit ^ (limit >>> 32));
-        result = prime * result + ((punishment == null) ? 0 : punishment.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MoveTimeRule that = (MoveTimeRule) o;
+
+        if (limit != that.limit) return false;
+        if (!punishment.equals(that.punishment)) return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        MoveTimeRule other = (MoveTimeRule) obj;
-        if (limit != other.limit)
-            return false;
-        if (punishment != other.punishment)
-            return false;
-        return true;
+    public int hashCode() {
+        int result = punishment.hashCode();
+        result = 31 * result + (int) (limit ^ (limit >>> 32));
+        return result;
     }
 
 }

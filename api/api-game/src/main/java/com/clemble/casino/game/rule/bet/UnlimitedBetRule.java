@@ -34,6 +34,11 @@ public class UnlimitedBetRule implements BetRule {
 
     // TODO this is a workaround for mongo serialization, used by springMongo, which is not general ObjectMapper, used in the system
     @Override
+    public int hashCode(){
+        return 31;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other != null && other.getClass() == UnlimitedBetRule.class;
     }

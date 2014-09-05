@@ -1,18 +1,21 @@
 package com.clemble.casino.goal.rule.time;
 
+import com.clemble.casino.goal.rule.GoalRule;
+import com.clemble.casino.rule.breach.BreachPunishment;
+import com.clemble.casino.rule.breach.BreachPunishmentAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 8/26/14.
  */
-public class GoalTimeRule {
+public class GoalTimeRule implements GoalRule, BreachPunishmentAware {
 
     final private int timeInDays;
-    final private GoalTimeBreachPunishment punishment;
+    final private BreachPunishment punishment;
 
     @JsonCreator
-    public GoalTimeRule(@JsonProperty("timeInDays") int timeInDays, @JsonProperty("punishment") GoalTimeBreachPunishment punishment) {
+    public GoalTimeRule(@JsonProperty("timeInDays") int timeInDays, @JsonProperty("punishment") BreachPunishment punishment) {
         this.timeInDays = timeInDays;
         this.punishment = punishment;
     }
@@ -21,7 +24,8 @@ public class GoalTimeRule {
         return timeInDays;
     }
 
-    public GoalTimeBreachPunishment getPunishment() {
+    @Override
+    public BreachPunishment getPunishment() {
         return punishment;
     }
 
@@ -33,7 +37,7 @@ public class GoalTimeRule {
         GoalTimeRule that = (GoalTimeRule) o;
 
         if (timeInDays != that.timeInDays) return false;
-        if (punishment != that.punishment) return false;
+        if (!punishment.equals(that.punishment)) return false;
 
         return true;
     }
@@ -44,5 +48,4 @@ public class GoalTimeRule {
         result = 31 * result + punishment.hashCode();
         return result;
     }
-
 }
