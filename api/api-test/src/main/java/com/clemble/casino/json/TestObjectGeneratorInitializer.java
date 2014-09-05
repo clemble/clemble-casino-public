@@ -14,7 +14,7 @@ import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
-import com.clemble.casino.game.rule.RoundRule;
+import com.clemble.casino.game.rule.GameRule;
 import com.clemble.casino.game.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.unit.Chip;
 import com.clemble.casino.game.unit.GameUnit;
@@ -37,7 +37,7 @@ import com.clemble.casino.game.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.bet.LimitedBetRule;
 import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
-import com.clemble.casino.game.rule.construct.PrivacyRule;
+import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.TournamentGameConfiguration;
 import com.clemble.casino.payment.PaymentOperation;
@@ -130,10 +130,10 @@ public class TestObjectGeneratorInitializer {
                 .setPlayer(RandomStringUtils.random(5));
             }
         });
-        ObjectGenerator.register(RoundRule.class, new AbstractValueGenerator<RoundRule>() {
+        ObjectGenerator.register(GameRule.class, new AbstractValueGenerator<GameRule>() {
             @Override
-            public RoundRule generate() {
-            return UnlimitedBetRule.INSTANCE;
+            public GameRule generate() {
+                return UnlimitedBetRule.INSTANCE;
             }
         });
         ObjectGenerator.register(GameConstruction.class, new AbstractValueGenerator<GameConstruction>() {
@@ -155,6 +155,12 @@ public class TestObjectGeneratorInitializer {
             @Override
             public RoundGameConfiguration generate() {
             return RoundGameConfiguration.DEFAULT;
+            }
+        });
+        ObjectGenerator.register(PrivacyRule.class, new AbstractValueGenerator<PrivacyRule>() {
+            @Override
+            public PrivacyRule generate() {
+                return PrivacyRule.everybody;
             }
         });
         ObjectGenerator.register(VersionAware.class, "version", new ValueGenerator<Integer>() {

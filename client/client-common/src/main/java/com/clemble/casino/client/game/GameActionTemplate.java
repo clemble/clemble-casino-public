@@ -15,6 +15,7 @@ import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.event.server.RoundEvent;
 import com.clemble.casino.game.service.GameActionService;
+import com.clemble.casino.game.GamePlayerClock;
 
 public class GameActionTemplate<State extends GameState> implements GameActionOperationsExtenstion<State> {
 

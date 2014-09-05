@@ -1,6 +1,7 @@
 package com.clemble.casino.game.json;
 
 import com.clemble.casino.game.event.schedule.*;
+import com.clemble.casino.game.rule.match.MatchFillRule;
 import com.clemble.casino.json.ClembleJsonModule;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -40,7 +41,7 @@ import com.clemble.casino.game.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.bet.LimitedBetRule;
 import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
-import com.clemble.casino.game.rule.construct.PrivacyRule;
+import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
@@ -103,6 +104,7 @@ public class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(TournamentGameConfiguration.class, TournamentGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(TournamentGameContext.class, TournamentGameContext.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(Chip.class, Chip.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchFillRule.class, MatchFillRule.class.getAnnotation(JsonTypeName.class).value()));
         return module;
     }
 

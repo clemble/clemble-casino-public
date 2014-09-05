@@ -1,5 +1,7 @@
 package com.clemble.casino.game.rule;
 
-public interface TournamentRule extends ConfigurationRule {
+import com.clemble.casino.rule.ConfigurationRule;
+
+public interface TournamentRule extends GameRule {
 
 }

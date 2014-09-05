@@ -1,5 +1,7 @@
 package com.clemble.casino.game.rule;
 
-public interface RoundRule extends ConfigurationRule {
+import com.clemble.casino.rule.ConfigurationRule;
+
+public interface RoundRule extends GameRule {
 
 }

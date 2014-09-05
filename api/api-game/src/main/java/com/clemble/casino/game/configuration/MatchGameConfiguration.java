@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
-import com.clemble.casino.game.rule.construct.PrivacyRule;
+import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
 import com.clemble.casino.game.rule.outcome.WonRule;
-import com.clemble.casino.game.rule.pot.MatchFillRule;
+import com.clemble.casino.game.rule.match.MatchFillRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;
 import com.clemble.casino.game.rule.time.TotalTimeRule;
 import com.clemble.casino.game.unit.GameUnit;

@@ -15,7 +15,6 @@ public class LimitedBetRule implements BetRule {
     final static private long serialVersionUID = -5560244451652751412L;
 
     final private int minBet;
-
     final private int maxBet;
 
     @JsonIgnore

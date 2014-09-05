@@ -46,7 +46,7 @@ abstract public class AbstractObjectMapperTest {
 
     }
 
-    private Throwable checkSerialization(Class<?> candidate) {
+    protected Throwable checkSerialization(Class<?> candidate) {
         Throwable error = null;
         try {
             Object expected = ObjectGenerator.generate(candidate);
@@ -57,10 +57,11 @@ abstract public class AbstractObjectMapperTest {
 
             if (!candidate.isInterface()) {
                 Class<?> originalClass = getOriginal(candidate);
-                assertNotNull(originalClass);
-                actual = objectMapper.readValue(stringPresentation, originalClass);
+                if (originalClass != null) {
+                    actual = objectMapper.readValue(stringPresentation, originalClass);
 
-                assertEquals(expected, actual);
+                    assertEquals(expected, actual);
+                }
             }
         } catch (Throwable throwable) {
             throwable.printStackTrace();

@@ -2,7 +2,7 @@ package com.clemble.casino.game.configuration;
 
 import com.clemble.casino.game.GameAware;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
-import com.clemble.casino.game.rule.construct.PrivacyRule;
+import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.rule.outcome.DrawRule;
 import com.clemble.casino.game.rule.outcome.WonRule;
 import com.clemble.casino.game.rule.time.MoveTimeRule;

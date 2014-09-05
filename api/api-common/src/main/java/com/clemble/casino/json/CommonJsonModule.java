@@ -1,10 +1,9 @@
 package com.clemble.casino.json;
 
 import com.clemble.casino.base.ExpectedEvent;
-import com.clemble.casino.rule.BreachPunishment;
-import com.clemble.casino.rule.CountdownBreachPunishment;
-import com.clemble.casino.rule.LooseBreachPunishment;
-import com.clemble.casino.rule.PenaltyBreachPunishment;
+import com.clemble.casino.rule.breach.CountdownBreachPunishment;
+import com.clemble.casino.rule.breach.LooseBreachPunishment;
+import com.clemble.casino.rule.breach.PenaltyBreachPunishment;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;

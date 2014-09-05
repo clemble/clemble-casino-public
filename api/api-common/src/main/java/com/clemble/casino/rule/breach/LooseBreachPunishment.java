@@ -1,4 +1,4 @@
-package com.clemble.casino.rule;
+package com.clemble.casino.rule.breach;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;

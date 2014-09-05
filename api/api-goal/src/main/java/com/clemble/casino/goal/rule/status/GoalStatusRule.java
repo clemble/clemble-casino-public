@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class GoalStatusRule {
 
-
     final private StatusBreachPunishment punishment;
     final private StatusUpdateFrequency updateFrequency;
 

@@ -6,11 +6,12 @@ import java.util.Collection;
 import java.util.Set;
 
 import com.clemble.casino.game.rule.RoundRule;
+import com.clemble.casino.rule.ConfigurationRule;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GameRuleOptions<T extends RoundRule> {
+public class GameRuleOptions<T extends ConfigurationRule> {
 
     final private T defaultOption;
 
