@@ -7,6 +7,7 @@ import java.util.List;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.configuration.GameConfiguration;
+import com.clemble.casino.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,7 +19,7 @@ public class MatchGamePlayerContext implements GamePlayerContext {
     private static final long serialVersionUID = 1006013553217498447L;
 
     final private String player;
-    final private GamePlayerClock clock;
+    final private PlayerClock clock;
     final private GamePlayerAccount account;
     final private GamePlayerUnit units;
     final private List<PlayerWonOutcome> wonOutcomes = new ArrayList<PlayerWonOutcome>();
@@ -27,7 +28,7 @@ public class MatchGamePlayerContext implements GamePlayerContext {
     public MatchGamePlayerContext(
             @JsonProperty(PLAYER) String player,
             @JsonProperty("account") GamePlayerAccount account,
-            @JsonProperty("clock") GamePlayerClock clock,
+            @JsonProperty("clock") PlayerClock clock,
             @JsonProperty("wonOutcomes") List<PlayerWonOutcome> wonOutcomes,
             @JsonProperty("units") GamePlayerUnit units) {
         this.units = units;
@@ -43,7 +44,7 @@ public class MatchGamePlayerContext implements GamePlayerContext {
     }
 
     @Override
-    public GamePlayerClock getClock() {
+    public PlayerClock getClock() {
         return clock;
     }
 
@@ -74,7 +75,7 @@ public class MatchGamePlayerContext implements GamePlayerContext {
         List<MatchGamePlayerContext> playerContexts = new ArrayList<MatchGamePlayerContext>();
         for(String player: initiation.getParticipants()) {
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
-            GamePlayerClock clock = new GamePlayerClock(0, 0);
+            PlayerClock clock = new PlayerClock(0, 0);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
             playerContexts.add(new MatchGamePlayerContext(player, account, clock, Collections.<PlayerWonOutcome>emptyList(), unit));
         }

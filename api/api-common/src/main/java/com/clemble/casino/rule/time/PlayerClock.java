@@ -1,4 +1,4 @@
-package com.clemble.casino.game;
+package com.clemble.casino.rule.time;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 24/12/13.
  */
-public class GamePlayerClock implements Serializable {
+public class PlayerClock implements Serializable {
 
     /**
      * Generated 29/12/13
@@ -19,7 +19,7 @@ public class GamePlayerClock implements Serializable {
     private long moveStart;
 
     @JsonCreator
-    public GamePlayerClock(@JsonProperty("timeSpent") long timeSpent, @JsonProperty("moveStart") long moveStart) {
+    public PlayerClock(@JsonProperty("timeSpent") long timeSpent, @JsonProperty("moveStart") long moveStart) {
         this.timeSpent = timeSpent;
         this.moveStart = moveStart;
     }
@@ -56,7 +56,7 @@ public class GamePlayerClock implements Serializable {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        GamePlayerClock that = (GamePlayerClock) o;
+        PlayerClock that = (PlayerClock) o;
 
         if (moveStart != that.moveStart)
             return false;

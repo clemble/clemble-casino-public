@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.clemble.casino.event.GameEvent;
+import com.clemble.casino.event.Event;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Type;
@@ -23,7 +23,7 @@ public class GameEventRecord implements Serializable, Comparable<GameEventRecord
 
     @Type(type = "com.clemble.casino.event.ClientEventHibernate")
     @Column(name = "EVENT", length = 4096)
-    private GameEvent event;
+    private Event event;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED")
@@ -33,17 +33,17 @@ public class GameEventRecord implements Serializable, Comparable<GameEventRecord
     }
 
     @JsonCreator
-    public GameEventRecord(@JsonProperty("event") GameEvent event,
+    public GameEventRecord(@JsonProperty("event") Event event,
                            @JsonProperty("created") Date created) {
         this.event = event;
         this.created = created;
     }
 
-    public GameEvent getEvent() {
+    public Event getEvent() {
         return event;
     }
 
-    public GameEventRecord setEvent(GameEvent request) {
+    public GameEventRecord setEvent(Event request) {
         this.event = request;
         return this;
     }

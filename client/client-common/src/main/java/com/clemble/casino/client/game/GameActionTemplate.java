@@ -7,15 +7,15 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.clemble.casino.base.ExpectedEvent;
 import com.clemble.casino.client.event.*;
+import com.clemble.casino.event.Event;
 import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.event.surrender.GiveUpEvent;
 import com.clemble.casino.game.*;
-import com.clemble.casino.game.action.GameAction;
-import com.clemble.casino.game.action.surrender.GiveUpAction;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.event.server.RoundEvent;
 import com.clemble.casino.game.service.GameActionService;
-import com.clemble.casino.game.GamePlayerClock;
+import com.clemble.casino.rule.time.PlayerClock;
 
 public class GameActionTemplate<State extends GameState> implements GameActionOperationsExtenstion<State> {
 
@@ -97,12 +97,12 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public GamePlayerClock getPlayerClock(){
+    public PlayerClock getPlayerClock(){
         return getPlayerClock(player);
     }
 
     @Override
-    public GamePlayerClock getPlayerClock(String player) {
+    public PlayerClock getPlayerClock(String player) {
         RoundGameState state = currentState.get();
         return state != null ? state.getContext().getPlayerContext(player).getClock() : null;
     }
@@ -120,11 +120,11 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public GameManagementEvent giveUp(){
-        return process(new GiveUpAction(player));
+        return process(new GiveUpEvent(player));
     }
 
     @Override
-    public GameManagementEvent process(GameAction move) {
+    public GameManagementEvent process(Event move) {
         return gameActionService.process(session, move);
     }
 

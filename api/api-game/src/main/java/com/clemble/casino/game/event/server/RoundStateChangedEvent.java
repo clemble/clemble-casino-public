@@ -3,7 +3,7 @@ package com.clemble.casino.game.event.server;
 import java.util.Collection;
 
 import com.clemble.casino.game.RoundGameState;
-import com.clemble.casino.game.action.GameAction;
+import com.clemble.casino.game.action.ClientGameEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -16,15 +16,15 @@ public class RoundStateChangedEvent<State extends RoundGameState> extends RoundE
      */
     private static final long serialVersionUID = -7618933855585060716L;
 
-    final private Collection<? extends GameAction> actions;
+    final private Collection<? extends ClientGameEvent> actions;
 
     @JsonCreator
-    public RoundStateChangedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("state") State state, @JsonProperty("actions") Collection<? extends GameAction> actions) {
+    public RoundStateChangedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("state") State state, @JsonProperty("actions") Collection<? extends ClientGameEvent> actions) {
         super(session, state);
         this.actions = actions;
     }
 
-    public Collection<? extends GameAction> getActions() {
+    public Collection<? extends ClientGameEvent> getActions() {
         return actions;
     }
 

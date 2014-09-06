@@ -3,14 +3,13 @@ package com.clemble.casino.android.game;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import static com.clemble.casino.game.GameWebMapping.*;
 
+import com.clemble.casino.event.Event;
 import com.clemble.casino.game.GameContext;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.client.game.ClientGameActionOperations;
-import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.action.GameAction;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 
 public class AndroidGameActionTemplate extends AbstractClembleCasinoOperations implements ClientGameActionOperations {
@@ -33,7 +32,7 @@ public class AndroidGameActionTemplate extends AbstractClembleCasinoOperations i
     }
 
     @Override
-    public GameManagementEvent process(String sessionKey, GameAction move) {
+    public GameManagementEvent process(String sessionKey, Event move) {
         return restTemplate.postForObject(buildUriWith(toGameUrl(SESSIONS_ACTIONS), sessionKey), move, GameManagementEvent.class);
     }
 

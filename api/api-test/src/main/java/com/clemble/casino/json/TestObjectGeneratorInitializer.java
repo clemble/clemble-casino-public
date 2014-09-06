@@ -11,7 +11,10 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import com.clemble.casino.base.ExpectedEvent;
+import com.clemble.casino.event.Event;
+import com.clemble.casino.event.surrender.GiveUpEvent;
 import com.clemble.casino.game.*;
+import com.clemble.casino.game.action.BetEvent;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import com.clemble.casino.game.rule.GameRule;
@@ -25,9 +28,6 @@ import org.springframework.security.oauth.common.signature.RSAKeySecret;
 import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.game.RoundGameContext;
-import com.clemble.casino.game.action.BetAction;
-import com.clemble.casino.game.action.GameAction;
-import com.clemble.casino.game.action.surrender.GiveUpAction;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameConstructionState;
@@ -84,16 +84,16 @@ public class TestObjectGeneratorInitializer {
             return FixedBetRule.create(new long[]{10});
             }
         });
-        ObjectGenerator.register(GameAction.class, new AbstractValueGenerator<GameAction>() {
+        ObjectGenerator.register(Event.class, new AbstractValueGenerator<Event>() {
             @Override
-            public GameAction generate() {
-            return new GiveUpAction(RandomStringUtils.random(5));
+            public Event generate() {
+                return new GiveUpEvent(RandomStringUtils.random(5));
             }
         });
-        ObjectGenerator.register(BetAction.class, new AbstractValueGenerator<BetAction>() {
+        ObjectGenerator.register(BetEvent.class, new AbstractValueGenerator<BetEvent>() {
             @Override
-            public BetAction generate() {
-            return new BetAction(RandomStringUtils.random(5), 100);
+            public BetEvent generate() {
+            return new BetEvent(RandomStringUtils.random(5), 100);
             }
         });
         ObjectGenerator.register(PlayerAccount.class, new AbstractValueGenerator<PlayerAccount>() {

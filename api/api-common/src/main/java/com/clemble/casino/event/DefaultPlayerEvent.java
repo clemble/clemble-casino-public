@@ -1,11 +1,12 @@
-package com.clemble.casino.game.action;
+package com.clemble.casino.event;
 
+import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("default")
-public class DefaultGameAction implements GameAction {
+public class DefaultPlayerEvent implements PlayerAwareEvent {
 
     /**
      * Generated 23/12/13
@@ -15,7 +16,7 @@ public class DefaultGameAction implements GameAction {
     final private String player;
 
     @JsonCreator
-    public DefaultGameAction(@JsonProperty(PLAYER) String player) {
+    public DefaultPlayerEvent(@JsonProperty(PlayerAware.PLAYER) String player) {
         this.player = player;
     }
 
@@ -27,9 +28,9 @@ public class DefaultGameAction implements GameAction {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof DefaultGameAction)) return false;
+        if (!(o instanceof DefaultPlayerEvent)) return false;
 
-        DefaultGameAction that = (DefaultGameAction) o;
+        DefaultPlayerEvent that = (DefaultPlayerEvent) o;
 
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
 

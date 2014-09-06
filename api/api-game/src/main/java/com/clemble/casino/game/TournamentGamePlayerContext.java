@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.configuration.GameConfiguration;
+import com.clemble.casino.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,14 +18,14 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
 
     final private String player;
     final private GamePlayerUnit units;
-    final private GamePlayerClock clock;
+    final private PlayerClock clock;
     final private GamePlayerAccount account;
 
     @JsonCreator
     public TournamentGamePlayerContext(
         @JsonProperty(PLAYER) String player,
         @JsonProperty("account") GamePlayerAccount account,
-        @JsonProperty("clock") GamePlayerClock clock,
+        @JsonProperty("clock") PlayerClock clock,
         @JsonProperty("units") GamePlayerUnit units) {
         this.clock = clock;
         this.units = units;
@@ -38,7 +39,7 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
     }
 
     @Override
-    public GamePlayerClock getClock() {
+    public PlayerClock getClock() {
         return clock;
     }
 
@@ -57,7 +58,7 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
         List<TournamentGamePlayerContext> playerContexts = new ArrayList<TournamentGamePlayerContext>();
         for(String player: initiation.getParticipants()) {
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
-            GamePlayerClock clock = new GamePlayerClock(0, 0);
+            PlayerClock clock = new PlayerClock(0, 0);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
             playerContexts.add(new TournamentGamePlayerContext(player, account, clock, unit));
         }

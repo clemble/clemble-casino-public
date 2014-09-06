@@ -1,5 +1,11 @@
 package com.clemble.casino.game.json;
 
+import com.clemble.casino.event.DefaultPlayerEvent;
+import com.clemble.casino.event.surrender.GiveUpEvent;
+import com.clemble.casino.event.surrender.MoveTimeoutSurrenderEvent;
+import com.clemble.casino.event.surrender.TotalTimeoutSurrenderEvent;
+import com.clemble.casino.game.action.BetEvent;
+import com.clemble.casino.game.action.SelectEvent;
 import com.clemble.casino.game.event.schedule.*;
 import com.clemble.casino.game.rule.match.MatchFillRule;
 import com.clemble.casino.json.ClembleJsonModule;
@@ -8,12 +14,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import com.clemble.casino.game.action.BetAction;
-import com.clemble.casino.game.action.DefaultGameAction;
-import com.clemble.casino.game.action.SelectAction;
-import com.clemble.casino.game.action.surrender.GiveUpAction;
-import com.clemble.casino.game.action.surrender.MoveTimeoutSurrenderAction;
-import com.clemble.casino.game.action.surrender.TotalTimeoutSurrenderAction;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.ManagerGameConstructionRequest;
@@ -43,8 +43,8 @@ import com.clemble.casino.game.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.rule.giveup.GiveUpRule;
-import com.clemble.casino.game.rule.time.MoveTimeRule;
-import com.clemble.casino.game.rule.time.TotalTimeRule;
+import com.clemble.casino.rule.time.MoveTimeRule;
+import com.clemble.casino.rule.time.TotalTimeRule;
 import com.clemble.casino.game.configuration.MatchGameConfiguration;
 import com.clemble.casino.game.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.configuration.TournamentGameConfiguration;
@@ -56,12 +56,12 @@ public class GameJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Game");
-        module.registerSubtypes(new NamedType(BetAction.class, BetAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(DefaultGameAction.class, DefaultGameAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(SelectAction.class, SelectAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(MoveTimeoutSurrenderAction.class, MoveTimeoutSurrenderAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(TotalTimeoutSurrenderAction.class, TotalTimeoutSurrenderAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(BetEvent.class, BetEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(DefaultPlayerEvent.class, DefaultPlayerEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(SelectEvent.class, SelectEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GiveUpEvent.class, GiveUpEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MoveTimeoutSurrenderEvent.class, MoveTimeoutSurrenderEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(TotalTimeoutSurrenderEvent.class, TotalTimeoutSurrenderEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(AutomaticGameRequest.class, AutomaticGameRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(AvailabilityGameRequest.class, AvailabilityGameRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(ManagerGameConstructionRequest.class, ManagerGameConstructionRequest.class.getAnnotation(JsonTypeName.class).value()));

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.configuration.RoundGameConfiguration;
+import com.clemble.casino.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,7 +19,7 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
 
     final private String role;
     final private String player;
-    final private GamePlayerClock clock;
+    final private PlayerClock clock;
     final private GamePlayerUnit units;
     final private GamePlayerAccount account;
 
@@ -26,7 +27,7 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
     public RoundGamePlayerContext(
             @JsonProperty(PLAYER) String player,
             @JsonProperty("account") GamePlayerAccount account,
-            @JsonProperty("clock") GamePlayerClock clock,
+            @JsonProperty("clock") PlayerClock clock,
             @JsonProperty("role") String role,
             @JsonProperty("units") GamePlayerUnit units) {
         this.role = role;
@@ -47,7 +48,7 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
     }
 
     @Override
-    public GamePlayerClock getClock() {
+    public PlayerClock getClock() {
         return clock;
     }
 
@@ -68,7 +69,7 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
         for(String role: specification.getRoles()) {
             String player = players.next();
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
-            GamePlayerClock clock = new GamePlayerClock(0, 0);
+            PlayerClock clock = new PlayerClock(0, 0);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
             playerContexts.add(new RoundGamePlayerContext(player, account, clock, role, unit));
         }

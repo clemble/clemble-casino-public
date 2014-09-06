@@ -1,11 +1,11 @@
-package com.clemble.casino.game.action.surrender;
+package com.clemble.casino.event.surrender;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("totalTimeBreached")
-public class TotalTimeoutSurrenderAction extends SurrenderAction {
+public class TotalTimeoutSurrenderEvent extends SurrenderEvent {
 
     /**
      * Generated 10/06/13
@@ -13,7 +13,7 @@ public class TotalTimeoutSurrenderAction extends SurrenderAction {
     private static final long serialVersionUID = 6999945454488627240L;
 
     @JsonCreator
-    public TotalTimeoutSurrenderAction(@JsonProperty(PLAYER) String playerId) {
+    public TotalTimeoutSurrenderEvent(@JsonProperty(PLAYER) String playerId) {
         super(playerId);
     }
 

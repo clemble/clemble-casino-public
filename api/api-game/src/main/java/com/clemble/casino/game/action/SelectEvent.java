@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("select")
-public class SelectAction<T extends GameUnit> implements GameAction {
+public class SelectEvent<T extends GameUnit> implements ClientGameEvent {
 
     /**
      * Generated 21/12/13
@@ -17,7 +17,7 @@ public class SelectAction<T extends GameUnit> implements GameAction {
     final private String player;
 
     @JsonCreator
-    public SelectAction(@JsonProperty(PLAYER) String player, @JsonProperty("select") T select) {
+    public SelectEvent(@JsonProperty(PLAYER) String player, @JsonProperty("select") T select) {
         this.player = player;
         this.select = select;
     }
@@ -45,7 +45,7 @@ public class SelectAction<T extends GameUnit> implements GameAction {
             return true;
         if (getClass() != obj.getClass())
             return false;
-        SelectAction<?> other = (SelectAction<?>) obj;
+        SelectEvent<?> other = (SelectEvent<?>) obj;
         if (select == null) {
             if (other.select != null)
                 return false;

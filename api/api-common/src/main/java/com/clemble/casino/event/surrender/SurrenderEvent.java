@@ -1,8 +1,8 @@
-package com.clemble.casino.game.action.surrender;
+package com.clemble.casino.event.surrender;
 
-import com.clemble.casino.game.action.GameAction;
+import com.clemble.casino.event.PlayerAwareEvent;
 
-abstract public class SurrenderAction implements GameAction {
+abstract public class SurrenderEvent implements PlayerAwareEvent {
 
     /**
      * Generated 10/06/2013
@@ -11,7 +11,7 @@ abstract public class SurrenderAction implements GameAction {
 
     final private String player;
 
-    public SurrenderAction(String player) {
+    public SurrenderEvent(String player) {
         this.player = player;
     }
 
@@ -23,9 +23,9 @@ abstract public class SurrenderAction implements GameAction {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SurrenderAction)) return false;
+        if (!(o instanceof SurrenderEvent)) return false;
 
-        SurrenderAction that = (SurrenderAction) o;
+        SurrenderEvent that = (SurrenderEvent) o;
 
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
 

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("bet")
-public class BetAction implements GameAction {
+public class BetEvent implements ClientGameEvent {
 
     /**
      * Generated 10/06/13
@@ -22,7 +22,7 @@ public class BetAction implements GameAction {
     final private String player;
 
     @JsonCreator
-    public BetAction(@JsonProperty(PLAYER) String player, @JsonProperty("bet") int bet) {
+    public BetEvent(@JsonProperty(PLAYER) String player, @JsonProperty("bet") int bet) {
         this.player = player;
         this.bet = bet;
         if (bet < 0)
@@ -39,17 +39,17 @@ public class BetAction implements GameAction {
         return player;
     }
 
-    static public String whoBetMore(BetAction[] bets) {
+    static public String whoBetMore(BetEvent[] bets) {
         return whoBetMore(Arrays.asList(bets));
     }
 
-    static public String whoBetMore(Collection<BetAction> bets) {
+    static public String whoBetMore(Collection<BetEvent> bets) {
         if (bets == null || bets.size() == 0)
             return DEFAULT_PLAYER;
 
         long maxBet = 0;
         String playerWithMaxBet = null;
-        for (BetAction bet : bets) {
+        for (BetEvent bet : bets) {
             if (bet.getBet() > maxBet) {
                 maxBet = bet.getBet();
                 playerWithMaxBet = bet.getPlayer();
@@ -61,25 +61,25 @@ public class BetAction implements GameAction {
         return playerWithMaxBet;
     }
 
-    static public Map<String, Collection<BetAction>> group(Collection<BetAction> actions) {
-        Map<String, Collection<BetAction>> group = new HashMap<String, Collection<BetAction>>();
-        for(BetAction bet: actions) {
+    static public Map<String, Collection<BetEvent>> group(Collection<BetEvent> actions) {
+        Map<String, Collection<BetEvent>> group = new HashMap<String, Collection<BetEvent>>();
+        for(BetEvent bet: actions) {
             if (group.get(bet.getPlayer()) == null)
-                group.put(bet.getPlayer(), new ArrayList<BetAction>());
+                group.put(bet.getPlayer(), new ArrayList<BetEvent>());
             group.get(bet.getPlayer()).add(bet);
         }
         return group;
     }
     
-    static public Collection<BetAction> merge(Collection<BetAction> actions) {
-        Map<String, Collection<BetAction>> grouped = group(actions);
-        Collection<BetAction> resBetAction = new ArrayList<BetAction>();
+    static public Collection<BetEvent> merge(Collection<BetEvent> actions) {
+        Map<String, Collection<BetEvent>> grouped = group(actions);
+        Collection<BetEvent> resBetAction = new ArrayList<BetEvent>();
         for(String player: grouped.keySet()) {
             int totalBet = 0;
-            for(BetAction bet: grouped.get(player)) {
+            for(BetEvent bet: grouped.get(player)) {
                 totalBet += bet.getBet();
             }
-            resBetAction.add(new BetAction(player, totalBet));
+            resBetAction.add(new BetEvent(player, totalBet));
         }
         return resBetAction;
     }
@@ -100,7 +100,7 @@ public class BetAction implements GameAction {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        BetAction other = (BetAction) obj;
+        BetEvent other = (BetEvent) obj;
         if (bet != other.bet)
             return false;
         return true;

@@ -3,7 +3,7 @@ package com.clemble.casino.client.game;
 import java.util.Collection;
 
 import com.clemble.casino.game.GamePlayerAccount;
-import com.clemble.casino.game.GamePlayerClock;
+import com.clemble.casino.rule.time.PlayerClock;
 import com.clemble.casino.game.GameState;
 
 public interface GameActionOperationsExtenstion<S extends GameState> extends GameActionOperations<S> {
@@ -22,8 +22,8 @@ public interface GameActionOperationsExtenstion<S extends GameState> extends Gam
 
     public GamePlayerAccount getPlayerAccount(String player);
 
-    public GamePlayerClock getPlayerClock();
+    public PlayerClock getPlayerClock();
 
-    public GamePlayerClock getPlayerClock(String player);
+    public PlayerClock getPlayerClock(String player);
 
 }

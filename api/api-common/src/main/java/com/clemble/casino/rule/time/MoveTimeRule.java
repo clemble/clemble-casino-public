@@ -1,11 +1,10 @@
-package com.clemble.casino.game.rule.time;
+package com.clemble.casino.rule.time;
 
 import java.util.Date;
 
-import com.clemble.casino.game.GamePlayerClock;
-import com.clemble.casino.game.action.DefaultGameAction;
-import com.clemble.casino.game.action.GameAction;
-import com.clemble.casino.game.action.surrender.MoveTimeoutSurrenderAction;
+import com.clemble.casino.event.DefaultPlayerEvent;
+import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.event.surrender.MoveTimeoutSurrenderEvent;
 import com.clemble.casino.rule.breach.BreachPunishment;
 import com.clemble.casino.rule.breach.LooseBreachPunishment;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,21 +38,21 @@ public class MoveTimeRule implements TimeRule {
     }
 
     @Override
-    public long timeUntilBreach(GamePlayerClock clock) {
+    public long timeUntilBreach(PlayerClock clock) {
         return clock.getMoveStart() == 0 ? Long.MAX_VALUE : timeUntilBreach(System.currentTimeMillis() - clock.getMoveStart());
     }
 
     @Override
-    public Date breachDate(GamePlayerClock clock) {
+    public Date breachDate(PlayerClock clock) {
         return clock.getMoveStart() == 0 ? new Date(Long.MAX_VALUE) : new Date(clock.getMoveStart() + limit); 
     }
 
     @Override
-    public GameAction toTimeBreachedEvent(String player) {
+    public PlayerAwareEvent toTimeBreachedEvent(String player) {
         if (punishment instanceof LooseBreachPunishment) {
-            return new MoveTimeoutSurrenderAction(player);
+            return new MoveTimeoutSurrenderEvent(player);
         } else {
-            return new DefaultGameAction(player);
+            return new DefaultPlayerEvent(player);
         }
     }
 
