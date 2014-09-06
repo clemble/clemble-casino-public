@@ -1,4 +1,4 @@
-package com.clemble.casino.game.action;
+package com.clemble.casino.event.bet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,12 +6,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.clemble.casino.event.PlayerAwareEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("bet")
-public class BetEvent implements ClientGameEvent {
+public class BetEvent implements PlayerAwareEvent {
 
     /**
      * Generated 10/06/13

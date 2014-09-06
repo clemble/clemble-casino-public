@@ -17,12 +17,18 @@ import java.util.List;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public interface GameConfiguration extends GameConfigurationKeyAware, GameAware, Configuration {
 
-    public PlayerNumberRule getNumberRule();
+    Money getPrice();
 
-    public WonRule getWonRule();
+    MoveTimeRule getMoveTimeRule();
 
-    public DrawRule getDrawRule();
+    TotalTimeRule getTotalTimeRule();
 
-    public List<GameUnit> getPlayerUnits();
+    PlayerNumberRule getNumberRule();
+
+    WonRule getWonRule();
+
+    DrawRule getDrawRule();
+
+    List<GameUnit> getPlayerUnits();
 
 }

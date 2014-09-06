@@ -3,7 +3,6 @@ package com.clemble.casino.game.service;
 import java.util.Collection;
 
 import com.clemble.casino.event.PlayerAwareEvent;
-import com.clemble.casino.game.Game;
 import com.clemble.casino.game.construct.AvailabilityGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 import com.clemble.casino.game.construct.GameInitiation;

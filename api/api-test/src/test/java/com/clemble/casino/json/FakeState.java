@@ -5,7 +5,6 @@ import com.clemble.casino.error.ClembleCasinoException;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameState;
-import com.clemble.casino.game.action.ClientGameEvent;
 import com.clemble.casino.game.event.server.GameManagementEvent;
 import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonCreator;

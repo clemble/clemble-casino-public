@@ -2,7 +2,6 @@ package com.clemble.casino.base;
 
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.json.ObjectMapperUtils;
-import com.clemble.casino.player.PlayerAware;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,10 +1,10 @@
-package com.clemble.casino.game.rule.bet;
+package com.clemble.casino.rule.bet;
 
 import java.util.Arrays;
 
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
-import com.clemble.casino.game.action.BetEvent;
+import com.clemble.casino.event.bet.BetEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;

@@ -7,10 +7,12 @@ import com.clemble.casino.rule.time.MoveTimeRule;
 import com.clemble.casino.rule.time.TotalTimeRule;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 8/26/14.
  */
+@JsonTypeName("goal")
 public class GoalConfiguration implements Configuration {
 
     final private Money price;
@@ -30,17 +32,14 @@ public class GoalConfiguration implements Configuration {
         this.privacyRule = privacyRule;
     }
 
-    @Override
     public Money getPrice() {
         return price;
     }
 
-    @Override
     public MoveTimeRule getMoveTimeRule() {
         return moveTimeRule;
     }
 
-    @Override
     public TotalTimeRule getTotalTimeRule() {
         return totalTimeRule;
     }

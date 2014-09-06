@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.clemble.casino.game.Game;
-import com.clemble.casino.game.rule.bet.BetRule;
-import com.clemble.casino.game.rule.bet.FixedBetRule;
+import com.clemble.casino.rule.bet.BetRule;
+import com.clemble.casino.rule.bet.FixedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.rule.breach.LooseBreachPunishment;
 import com.clemble.casino.rule.privacy.PrivacyRule;

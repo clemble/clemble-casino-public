@@ -2,12 +2,10 @@ package com.clemble.casino.game.construct;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 
-import com.clemble.casino.VersionAware;
 import com.clemble.casino.base.ActionLatch;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionAware;
