@@ -8,7 +8,6 @@ import com.clemble.test.random.ObjectGenerator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -19,18 +18,13 @@ public class CommonObjectMapperTest extends AbstractObjectMapperTest {
     @BeforeClass
     public static void init(){
         ObjectGenerator.register(RoundGameState.class, new AbstractValueGenerator<RoundGameState>() {
+
             @Override
             public RoundGameState generate() {
                 RoundGameContext roundGameContext = ObjectGenerator.generate(RoundGameContext.class);
                 return new FakeState(roundGameContext, null, 0);
             }
-        });
-        ObjectGenerator.register(FakeState.class, new AbstractValueGenerator<FakeState>(){
-            @Override
-            public FakeState generate() {
-                RoundGameContext roundGameContext = ObjectGenerator.generate(RoundGameContext.class);
-                return new FakeState(roundGameContext, null, 0);
-            }
+
         });
     }
 

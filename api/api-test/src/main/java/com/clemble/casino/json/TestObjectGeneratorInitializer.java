@@ -21,6 +21,8 @@ import com.clemble.casino.game.rule.GameRule;
 import com.clemble.casino.game.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.unit.Chip;
 import com.clemble.casino.game.unit.GameUnit;
+import com.clemble.casino.rule.Configuration;
+import com.clemble.casino.rule.ConfigurationRule;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
@@ -130,9 +132,9 @@ public class TestObjectGeneratorInitializer {
                 .setPlayer(RandomStringUtils.random(5));
             }
         });
-        ObjectGenerator.register(GameRule.class, new AbstractValueGenerator<GameRule>() {
+        ObjectGenerator.register(ConfigurationRule.class, new AbstractValueGenerator<ConfigurationRule>() {
             @Override
-            public GameRule generate() {
+            public ConfigurationRule generate() {
                 return UnlimitedBetRule.INSTANCE;
             }
         });

@@ -1,5 +1,6 @@
 package com.clemble.casino.bet.json;
 
+import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.json.ClembleJsonModule;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.Module;
@@ -14,6 +15,7 @@ public class BetJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Bet");
+        module.registerSubtypes(new NamedType(BetConfiguration.class, BetConfiguration.class.getAnnotation(JsonTypeName.class).value()));
         return module;
     }
 
