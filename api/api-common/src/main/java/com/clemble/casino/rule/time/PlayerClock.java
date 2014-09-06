@@ -32,10 +32,6 @@ public class PlayerClock implements Serializable {
         return moveStart;
     }
 
-    public void markToMove() {
-        markToMove(0);
-    }
-
     public void markToMove(long timeout) {
         if (moveStart == 0)
             moveStart = System.currentTimeMillis() + timeout;
