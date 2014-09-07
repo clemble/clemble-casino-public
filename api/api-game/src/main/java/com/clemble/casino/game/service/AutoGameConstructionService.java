@@ -4,9 +4,14 @@ import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.construct.AutomaticGameRequest;
 import com.clemble.casino.game.construct.GameConstruction;
 
+import java.util.Collection;
+
 public interface AutoGameConstructionService extends GameConstructionService<AutomaticGameRequest> {
 
     @Override
-    public GameConstruction construct(final AutomaticGameRequest request);
+    GameConstruction construct(final AutomaticGameRequest request);
+
+    @Override
+    Collection<GameConstruction> getPending(String player);
 
 }
