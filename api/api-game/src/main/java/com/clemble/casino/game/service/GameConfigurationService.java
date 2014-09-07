@@ -1,10 +1,13 @@
 package com.clemble.casino.game.service;
 
 import com.clemble.casino.ClembleService;
-import com.clemble.casino.game.configuration.GameConfigurations;
+import com.clemble.casino.configuration.ConfigurationService;
+import com.clemble.casino.game.configuration.GameConfiguration;
 
-public interface GameConfigurationService extends ClembleService {
+import java.util.List;
 
-    public GameConfigurations getConfigurations();
+public interface GameConfigurationService extends ConfigurationService<GameConfiguration>, ClembleService {
+
+    public List<GameConfiguration> getConfigurations();
 
 }

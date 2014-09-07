@@ -3,6 +3,7 @@ package com.clemble.casino.client.game;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
@@ -18,7 +19,6 @@ import com.clemble.casino.game.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.service.GameConfigurationService;
 import com.clemble.casino.game.service.GameInitiationService;
 import com.clemble.casino.game.configuration.GameConfiguration;
-import com.clemble.casino.game.configuration.GameConfigurations;
 import com.clemble.casino.utils.CollectionUtils;
 import com.clemble.casino.game.GameWebMapping;
 
@@ -112,7 +112,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     }
 
     @Override
-    public GameConfigurations getConfigurations() {
+    public List<GameConfiguration> getConfigurations() {
         return configurationService.getConfigurations();
     }
 
