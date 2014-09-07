@@ -59,6 +59,10 @@ public class GameConstruction implements Construction<GameConfiguration>, GameSe
         return configuration;
     }
 
+    public Collection<String> getParticipants() {
+        return participants;
+    }
+
     public GameConstructionRequest getRequest() {
         return request;
     }
