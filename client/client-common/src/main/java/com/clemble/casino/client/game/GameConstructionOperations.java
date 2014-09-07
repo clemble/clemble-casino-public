@@ -29,7 +29,7 @@ public interface GameConstructionOperations extends GameConfigurationOperations 
 
     public GameConstruction reply(String sessionKey, InvitationResponseEvent gameRequest);
 
-    public Collection<GameInitiation> pending();
+    public Collection<GameConstruction> pending();
 
     public GameInitiation confirm(String sessionKey);
 

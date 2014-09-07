@@ -46,8 +46,8 @@ public class AndroidAvailabilityGameConstructionService<T extends GameState> ext
     }
 
     @Override
-    public Collection<GameInitiation> getPending(String player) {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AVAILABILITY_PENDING), player), GameInitiation[].class));
+    public Collection<GameConstruction> getPending(String player) {
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AVAILABILITY_PENDING), player), GameConstruction[].class));
     }
 
 }

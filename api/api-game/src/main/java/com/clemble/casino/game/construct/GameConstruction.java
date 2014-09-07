@@ -1,6 +1,7 @@
 package com.clemble.casino.game.construct;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -27,6 +28,7 @@ public class GameConstruction implements Construction<GameConfiguration>, GameSe
     @Id
     final private String sessionKey;
     final private ConstructionState state;
+    final private Collection<String> participants;
     final private GameConfiguration configuration;
     final private GameConstructionRequest request;
     final private ActionLatch responses;
@@ -37,10 +39,12 @@ public class GameConstruction implements Construction<GameConfiguration>, GameSe
         @JsonProperty("request") GameConstructionRequest request,
         @JsonProperty("state") ConstructionState state,
         @JsonProperty("responses") ActionLatch responses,
-        @JsonProperty("configuration") GameConfiguration configuration) {
+        @JsonProperty("configuration") GameConfiguration configuration,
+        @JsonProperty("participants") Collection<String> participants) {
         this.sessionKey = sessionKey;
         this.request = request;
         this.configuration = configuration;
+        this.participants = participants;
         this.state = state;
         this.responses = responses;
     }
@@ -84,11 +88,11 @@ public class GameConstruction implements Construction<GameConfiguration>, GameSe
     }
 
     public GameConstruction cloneWithState(ConstructionState state) {
-        return new GameConstruction(sessionKey, request, state, responses, configuration);
+        return new GameConstruction(sessionKey, request, state, responses, configuration, participants);
     }
 
     public GameConstruction cloneWithResponses(ActionLatch responses) {
-        return new GameConstruction(sessionKey, request, state, responses, configuration);
+        return new GameConstruction(sessionKey, request, state, responses, configuration, participants);
     }
 
     @Override
@@ -115,20 +119,25 @@ public class GameConstruction implements Construction<GameConfiguration>, GameSe
         return result;
     }
 
-    public static GameConstruction fromAvailability(String sessionKey, AvailabilityGameRequest request) {
-        // Step 1. Generating Responses
-        ActionLatch responses = new ActionLatch();
-        responses.expectNext(request.getParticipants(), InvitationResponseEvent.class);
-        responses.put(new InvitationAcceptedEvent(request.getPlayer(), sessionKey));
-        // Step 2. Creating new GameConstruction
-        return new GameConstruction(sessionKey, request, ConstructionState.pending, responses, request.getConfiguration());
-    }
-
     public static GameConstruction fromRequest(String sessionKey, GameConstructionRequest request) {
-        // Step 1. Generating Responses
+        // Step 1. Generating empty Responses
         ActionLatch responses = new ActionLatch();
-        // Step 2. Creating new GameConstruction
-        return new GameConstruction(sessionKey, request, ConstructionState.pending, responses, request.getConfiguration());
+        if (request instanceof AvailabilityGameRequest) {
+            // Step 2. In case of Availability request construct with expected responses
+            AvailabilityGameRequest aRequest = (AvailabilityGameRequest) request;
+            responses.expectNext(aRequest.getParticipants(), InvitationResponseEvent.class);
+            responses.put(new InvitationAcceptedEvent(aRequest.getPlayer(), sessionKey));
+            // Step 2. Creating new GameConstruction
+            return new GameConstruction(sessionKey, request, ConstructionState.pending, responses, request.getConfiguration(), aRequest.getParticipants());
+        }if (request instanceof PlayerGameConstructionRequest) {
+            String player = ((PlayerGameConstructionRequest) request).getPlayer();
+            List<String> participants = new ArrayList<String>();
+            participants.add(player);
+            // Step 2. Creating new GameConstruction
+            return new GameConstruction(sessionKey, request, ConstructionState.pending, responses, request.getConfiguration(), participants);
+        } else {
+            return new GameConstruction(sessionKey, request, ConstructionState.pending, responses, request.getConfiguration(), new ArrayList<String>());
+        }
     }
 
 }

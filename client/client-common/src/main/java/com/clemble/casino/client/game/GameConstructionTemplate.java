@@ -88,7 +88,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     }
 
     @Override
-    public Collection<GameInitiation> pending() {
+    public Collection<GameConstruction> pending() {
         return availabilityConstructionService.getPending(player);
     }
 

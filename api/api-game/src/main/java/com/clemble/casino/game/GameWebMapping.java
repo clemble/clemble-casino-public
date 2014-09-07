@@ -12,7 +12,10 @@ abstract public class GameWebMapping implements WebMapping {
     final public static String CONFIGURATION = "/";
 
     final public static String GAME_CONSTRUCTION_URL = "http://{host}/game/construction";
+
     final public static String CONSTRUCTION_AUTO = "/auto";
+    final public static String CONSTRUCTION_AUTO_PENDING = "/auto/{player}";
+
     final public static String CONSTRUCTION_AVAILABILITY = "/availability";
     final public static String CONSTRUCTION_AVAILABILITY_PENDING = "/pending/{playerId}";
 
