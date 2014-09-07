@@ -5,7 +5,7 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.clemble.casino.base.ExpectedEvent;
+import com.clemble.casino.event.ExpectedEvent;
 import com.clemble.casino.client.event.*;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.event.PlayerAwareEvent;

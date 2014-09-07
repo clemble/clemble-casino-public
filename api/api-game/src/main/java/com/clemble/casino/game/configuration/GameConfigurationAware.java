@@ -1,8 +1,8 @@
 package com.clemble.casino.game.configuration;
 
-import com.clemble.casino.ConfigurationAware;
+import com.clemble.casino.configuration.ConfigurationAware;
 
-public interface GameConfigurationAware extends ConfigurationAware {
+public interface GameConfigurationAware extends ConfigurationAware<GameConfiguration> {
 
     GameConfiguration getConfiguration();
 

@@ -2,10 +2,11 @@ package com.clemble.casino.game.construct;
 
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.GameConfigurationAware;
+import com.clemble.casino.construct.ConstructionRequest;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-abstract public class GameConstructionRequest implements GameConfigurationAware {
+abstract public class GameConstructionRequest implements GameConfigurationAware, ConstructionRequest<GameConfiguration> {
 
     /**
      * Generated 28/11/13

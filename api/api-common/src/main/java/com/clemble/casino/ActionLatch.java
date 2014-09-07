@@ -1,5 +1,6 @@
-package com.clemble.casino.base;
+package com.clemble.casino;
 
+import com.clemble.casino.event.ExpectedEvent;
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
 import com.clemble.casino.event.PlayerAwareEvent;

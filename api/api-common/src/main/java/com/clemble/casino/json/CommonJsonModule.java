@@ -1,6 +1,6 @@
 package com.clemble.casino.json;
 
-import com.clemble.casino.base.ExpectedEvent;
+import com.clemble.casino.event.ExpectedEvent;
 import com.clemble.casino.rule.bet.BetRule;
 import com.clemble.casino.rule.bet.FixedBetRule;
 import com.clemble.casino.rule.bet.LimitedBetRule;

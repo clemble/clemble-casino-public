@@ -1,7 +1,7 @@
 package com.clemble.casino.client.event;
 
-import com.clemble.casino.base.ActionLatch;
-import com.clemble.casino.base.ExpectedEvent;
+import com.clemble.casino.ActionLatch;
+import com.clemble.casino.event.ExpectedEvent;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.event.server.RoundEvent;
 import com.clemble.casino.game.event.server.RoundStartedEvent;

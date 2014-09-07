@@ -1,4 +1,4 @@
-package com.clemble.casino.rule;
+package com.clemble.casino.configuration;
 
 import com.clemble.casino.money.Money;
 import com.clemble.casino.rule.privacy.PrivacyRule;

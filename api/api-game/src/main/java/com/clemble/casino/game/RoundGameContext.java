@@ -2,7 +2,7 @@ package com.clemble.casino.game;
 
 import java.util.List;
 
-import com.clemble.casino.base.ActionLatch;
+import com.clemble.casino.ActionLatch;
 import com.clemble.casino.game.construct.GameInitiation;
 import com.clemble.casino.game.iterator.GamePlayerIterator;
 import com.clemble.casino.game.iterator.GamePlayerIteratorFactory;

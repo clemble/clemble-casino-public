@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import com.clemble.casino.construct.ConstructionState;
+import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 
-import com.clemble.casino.base.ActionLatch;
+import com.clemble.casino.ActionLatch;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.event.schedule.InvitationAcceptedEvent;
+import com.clemble.casino.construct.Construction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
-public class GameConstruction implements GameSessionAware {
+public class GameConstruction implements Construction<GameConfiguration>, GameSessionAware {
 
     /**
      * Generated 10/07/13
@@ -23,18 +26,21 @@ public class GameConstruction implements GameSessionAware {
 
     @Id
     final private String sessionKey;
+    final private ConstructionState state;
+    final private GameConfiguration configuration;
     final private GameConstructionRequest request;
-    final private GameConstructionState state;
     final private ActionLatch responses;
 
     @JsonCreator
     public GameConstruction(
         @JsonProperty(SESSION_KEY) String sessionKey,
         @JsonProperty("request") GameConstructionRequest request,
-        @JsonProperty("state") GameConstructionState state,
-        @JsonProperty("responses") ActionLatch responses) {
+        @JsonProperty("state") ConstructionState state,
+        @JsonProperty("responses") ActionLatch responses,
+        @JsonProperty("configuration") GameConfiguration configuration) {
         this.sessionKey = sessionKey;
         this.request = request;
+        this.configuration = configuration;
         this.state = state;
         this.responses = responses;
     }
@@ -44,11 +50,17 @@ public class GameConstruction implements GameSessionAware {
         return sessionKey;
     }
 
+    @Override
+    public GameConfiguration getConfiguration(){
+        return configuration;
+    }
+
     public GameConstructionRequest getRequest() {
         return request;
     }
 
-    public GameConstructionState getState() {
+    @Override
+    public ConstructionState getState() {
         return state;
     }
 
@@ -71,12 +83,12 @@ public class GameConstruction implements GameSessionAware {
         return new GameInitiation(this);
     }
 
-    public GameConstruction cloneWithState(GameConstructionState state) {
-        return new GameConstruction(sessionKey, request, state, responses);
+    public GameConstruction cloneWithState(ConstructionState state) {
+        return new GameConstruction(sessionKey, request, state, responses, configuration);
     }
 
     public GameConstruction cloneWithResponses(ActionLatch responses) {
-        return new GameConstruction(sessionKey, request, state, responses);
+        return new GameConstruction(sessionKey, request, state, responses, configuration);
     }
 
     @Override
@@ -109,14 +121,14 @@ public class GameConstruction implements GameSessionAware {
         responses.expectNext(request.getParticipants(), InvitationResponseEvent.class);
         responses.put(new InvitationAcceptedEvent(request.getPlayer(), sessionKey));
         // Step 2. Creating new GameConstruction
-        return new GameConstruction(sessionKey, request, GameConstructionState.pending, responses);
+        return new GameConstruction(sessionKey, request, ConstructionState.pending, responses, request.getConfiguration());
     }
 
     public static GameConstruction fromRequest(String sessionKey, GameConstructionRequest request) {
         // Step 1. Generating Responses
         ActionLatch responses = new ActionLatch();
         // Step 2. Creating new GameConstruction
-        return new GameConstruction(sessionKey, request, GameConstructionState.pending, responses);
+        return new GameConstruction(sessionKey, request, ConstructionState.pending, responses, request.getConfiguration());
     }
 
 }

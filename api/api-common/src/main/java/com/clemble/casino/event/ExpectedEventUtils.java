@@ -1,4 +1,4 @@
-package com.clemble.casino.base;
+package com.clemble.casino.event;
 
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.json.ObjectMapperUtils;

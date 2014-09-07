@@ -1,7 +1,7 @@
 package com.clemble.casino.goal.configuration;
 
 import com.clemble.casino.money.Money;
-import com.clemble.casino.rule.Configuration;
+import com.clemble.casino.configuration.Configuration;
 import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.casino.rule.time.MoveTimeRule;
 import com.clemble.casino.rule.time.TotalTimeRule;
