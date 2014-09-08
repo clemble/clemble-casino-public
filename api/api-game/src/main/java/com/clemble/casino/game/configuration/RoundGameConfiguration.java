@@ -22,6 +22,7 @@ import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.springframework.data.annotation.Id;
 
 @JsonTypeName("round")
 public class RoundGameConfiguration implements GameConfiguration {
@@ -47,8 +48,9 @@ public class RoundGameConfiguration implements GameConfiguration {
         CollectionUtils.immutableList("X", "O"),
         Collections.<GameUnit>emptyList());
 
-    final private Game game;
+    @Id
     final private String configurationKey;
+    final private Game game;
     final private Money price;
     final private BetRule betRule;
     final private GiveUpRule giveUpRule;

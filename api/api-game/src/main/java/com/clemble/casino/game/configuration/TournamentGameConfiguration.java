@@ -12,6 +12,7 @@ import com.clemble.casino.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
@@ -24,8 +25,9 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
      */
     private static final long serialVersionUID = -1614743782407940253L;
 
-    final private Game game;
+    @Id
     final private String configurationKey;
+    final private Game game;
     final private Money price;
 
     final private WonRule wonRule;

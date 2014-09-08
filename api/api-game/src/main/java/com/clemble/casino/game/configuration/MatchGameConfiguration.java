@@ -15,8 +15,8 @@ import com.clemble.casino.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.springframework.data.annotation.Id;
 
-// TODO Pot with single Configurations and num of outcomes
 @JsonTypeName("match")
 public class MatchGameConfiguration implements GameConfiguration {
 
@@ -25,8 +25,9 @@ public class MatchGameConfiguration implements GameConfiguration {
      */
     private static final long serialVersionUID = 8629255451613655461L;
 
-    final private Game game;
+    @Id
     final private String configurationKey;
+    final private Game game;
     final private Money price;
     final private PlayerNumberRule numberRule;
     final private PrivacyRule privacyRule;
