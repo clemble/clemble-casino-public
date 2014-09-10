@@ -30,7 +30,7 @@ public class GoalConfiguration implements Configuration, BetConfigurationConvert
     public GoalConfiguration(
         @JsonProperty("price") Bid bid,
         @JsonProperty("betRule") BetRule betRule,
-        @JsonProperty("GoalJudgeRule") JudgeRule judgeRule,
+        @JsonProperty("judgeRule") JudgeRule judgeRule,
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule) {

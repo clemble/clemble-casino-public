@@ -1,4 +1,4 @@
-package com.clemble.casino.game.service;
+package com.clemble.casino.game.construct;
 
 import com.clemble.casino.ClembleService;
 import com.clemble.casino.construct.ConstructionService;
@@ -8,7 +8,7 @@ import com.clemble.casino.game.construct.GameConstructionRequest;
 
 import java.util.Collection;
 
-public interface GameConstructionService<T extends GameConstructionRequest> extends ConstructionService<GameConfiguration, T>, ClembleService {
+public interface GameConstructionService<T extends GameConstructionRequest> extends ConstructionService<GameConfiguration, T> {
 
     GameConstruction construct(T request);
 

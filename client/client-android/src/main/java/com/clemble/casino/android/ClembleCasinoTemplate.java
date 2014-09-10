@@ -41,10 +41,10 @@ import com.clemble.casino.client.game.GameRecordTemplate;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.event.server.GameInitiatedEvent;
 import com.clemble.casino.game.event.server.RoundEvent;
-import com.clemble.casino.game.service.AutoGameConstructionService;
-import com.clemble.casino.game.service.AvailabilityGameConstructionService;
+import com.clemble.casino.game.construct.AutoGameConstructionService;
+import com.clemble.casino.game.construct.AvailabilityGameConstructionService;
 import com.clemble.casino.game.service.GameActionService;
-import com.clemble.casino.game.service.GameConfigurationService;
+import com.clemble.casino.game.configuration.GameConfigurationService;
 import com.clemble.casino.game.service.GameInitiationService;
 
 public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements ClembleCasinoOperations {

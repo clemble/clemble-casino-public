@@ -1,8 +1,4 @@
-package com.clemble.casino.game.service;
-
-import com.clemble.casino.game.configuration.GameConfiguration;
-import com.clemble.casino.game.construct.AutomaticGameRequest;
-import com.clemble.casino.game.construct.GameConstruction;
+package com.clemble.casino.game.construct;
 
 import java.util.Collection;
 
