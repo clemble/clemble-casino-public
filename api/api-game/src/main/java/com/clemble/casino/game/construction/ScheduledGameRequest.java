@@ -39,6 +39,10 @@ public class ScheduledGameRequest extends PlayerGameConstructionRequest {
         return startTime;
     }
 
+    public GameConstruction toConstruction(String sessionKey) {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

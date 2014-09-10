@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.client.game.ClientGameActionOperations;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.server.GameManagementEvent;
+import com.clemble.casino.game.event.GameManagementEvent;
 
 public class AndroidGameActionTemplate extends AbstractClembleCasinoOperations implements ClientGameActionOperations {
 

@@ -1,7 +1,7 @@
 package com.clemble.casino.game;
 
 import com.clemble.casino.event.Event;
-import com.clemble.casino.game.event.server.GameManagementEvent;
+import com.clemble.casino.game.event.GameManagementEvent;
 import com.clemble.casino.game.unit.GameUnit;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

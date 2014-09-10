@@ -12,7 +12,7 @@ abstract public class PlayerGameConstructionRequest extends GameConstructionRequ
      */
     private static final long serialVersionUID = 4949060894194971610L;
 
-    final private String player;
+    final protected String player;
 
     public PlayerGameConstructionRequest(String player, GameConfiguration configuration) {
         super(configuration);

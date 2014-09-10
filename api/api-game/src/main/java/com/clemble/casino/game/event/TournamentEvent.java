@@ -1,4 +1,4 @@
-package com.clemble.casino.game.event.server;
+package com.clemble.casino.game.event;
 
 abstract public class TournamentEvent extends GameManagementEvent {
 

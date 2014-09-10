@@ -8,7 +8,7 @@ import com.clemble.casino.game.GameContext;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.server.GameManagementEvent;
+import com.clemble.casino.game.event.GameManagementEvent;
 import com.clemble.casino.player.PlayerAware;
 
 public interface GameActionOperations<S extends GameState> extends GameSessionAware, PlayerAware {

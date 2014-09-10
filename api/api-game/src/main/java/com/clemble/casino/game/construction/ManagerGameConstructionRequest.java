@@ -1,11 +1,15 @@
 package com.clemble.casino.game.construction;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.clemble.casino.ActionLatch;
+import com.clemble.casino.construction.ConstructionState;
 import com.clemble.casino.game.GamePlayerRole;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.configuration.GameConfiguration;
+import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -36,6 +40,11 @@ public class ManagerGameConstructionRequest extends ServerGameConstructionReques
 
     public Collection<GamePlayerRole> getParticipants() {
         return participants;
+    }
+
+    @Override
+    public GameConstruction toConstruction(String sessionKey) {
+        return new GameConstruction(sessionKey, PlayerAware.DEFAULT_PLAYER, ConstructionState.pending, new ActionLatch(), configuration, new ArrayList<String>());
     }
 
     @Override

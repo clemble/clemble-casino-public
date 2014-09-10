@@ -3,9 +3,9 @@ package com.clemble.casino.client.event;
 import com.clemble.casino.ActionLatch;
 import com.clemble.casino.event.ExpectedEvent;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.game.event.server.RoundEvent;
-import com.clemble.casino.game.event.server.RoundStartedEvent;
-import com.clemble.casino.game.event.server.RoundStateChangedEvent;
+import com.clemble.casino.game.event.RoundEvent;
+import com.clemble.casino.game.event.RoundStartedEvent;
+import com.clemble.casino.game.event.RoundStateChangedEvent;
 
 public class PlayerToMoveEventEmulator implements EventListener<RoundEvent>, EventSelector {
 

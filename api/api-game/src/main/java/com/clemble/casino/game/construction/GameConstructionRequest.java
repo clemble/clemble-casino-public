@@ -13,7 +13,7 @@ abstract public class GameConstructionRequest implements GameConfigurationAware,
      */
     private static final long serialVersionUID = -7124151122750295287L;
 
-    final private GameConfiguration configuration;
+    final protected GameConfiguration configuration;
 
     public GameConstructionRequest(GameConfiguration specification) {
         this.configuration = specification;
@@ -23,6 +23,8 @@ abstract public class GameConstructionRequest implements GameConfigurationAware,
     public GameConfiguration getConfiguration() {
         return configuration;
     }
+
+    abstract public GameConstruction toConstruction(String sessionKey);
 
     @Override
     public int hashCode() {

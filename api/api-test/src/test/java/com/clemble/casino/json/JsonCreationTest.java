@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import com.clemble.casino.error.ClembleCasinoFailure;
 import com.clemble.casino.game.Game;
-import com.clemble.casino.game.event.server.GameInitiationCanceledEvent;
+import com.clemble.casino.game.event.GameInitiationCanceledEvent;
 import com.clemble.casino.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.rule.construct.PlayerNumberRule;
 import com.clemble.casino.rule.privacy.PrivacyRule;

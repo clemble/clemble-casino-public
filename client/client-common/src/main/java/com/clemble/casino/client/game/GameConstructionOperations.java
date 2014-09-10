@@ -8,7 +8,7 @@ import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.construction.GameConstruction;
 import com.clemble.casino.game.construction.GameInitiation;
-import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
+import com.clemble.casino.game.construction.event.InvitationResponseEvent;
 import com.clemble.casino.game.configuration.GameConfiguration;
 
 public interface GameConstructionOperations extends GameConfigurationOperations {

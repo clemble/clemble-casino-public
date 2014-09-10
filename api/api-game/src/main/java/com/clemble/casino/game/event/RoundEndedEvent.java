@@ -1,4 +1,4 @@
-package com.clemble.casino.game.event.server;
+package com.clemble.casino.game.event;
 
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.RoundGamePlayerContext;

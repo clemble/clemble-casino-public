@@ -12,8 +12,8 @@ import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.event.surrender.GiveUpEvent;
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
-import com.clemble.casino.game.event.server.GameManagementEvent;
-import com.clemble.casino.game.event.server.RoundEvent;
+import com.clemble.casino.game.event.GameManagementEvent;
+import com.clemble.casino.game.event.RoundEvent;
 import com.clemble.casino.game.service.GameActionService;
 import com.clemble.casino.rule.time.PlayerClock;
 
