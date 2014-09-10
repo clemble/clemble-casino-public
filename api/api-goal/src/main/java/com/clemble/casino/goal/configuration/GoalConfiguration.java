@@ -4,7 +4,7 @@ import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
 import com.clemble.casino.configuration.Configuration;
-import com.clemble.casino.money.Money;
+import com.clemble.casino.goal.rule.judge.JudgeRule;
 import com.clemble.casino.rule.bet.BetRule;
 import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.casino.rule.time.MoveTimeRule;
@@ -21,6 +21,7 @@ public class GoalConfiguration implements Configuration, BetConfigurationConvert
 
     final private Bid bid;
     final private BetRule betRule;
+    final private JudgeRule judgeRule;
     final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
@@ -29,11 +30,13 @@ public class GoalConfiguration implements Configuration, BetConfigurationConvert
     public GoalConfiguration(
         @JsonProperty("price") Bid bid,
         @JsonProperty("betRule") BetRule betRule,
+        @JsonProperty("GoalJudgeRule") JudgeRule judgeRule,
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule) {
         this.bid = bid;
         this.betRule = betRule;
+        this.judgeRule = judgeRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
@@ -45,6 +48,10 @@ public class GoalConfiguration implements Configuration, BetConfigurationConvert
 
     public BetRule getBetRule() {
         return betRule;
+    }
+
+    public JudgeRule getJudgeRule() {
+        return judgeRule;
     }
 
     public MoveTimeRule getMoveTimeRule() {
@@ -72,8 +79,10 @@ public class GoalConfiguration implements Configuration, BetConfigurationConvert
         GoalConfiguration that = (GoalConfiguration) o;
 
         if (!betRule.equals(that.betRule)) return false;
-        if (privacyRule != that.privacyRule) return false;
+        if (!bid.equals(that.bid)) return false;
+        if (judgeRule != that.judgeRule) return false;
         if (!moveTimeRule.equals(that.moveTimeRule)) return false;
+        if (privacyRule != that.privacyRule) return false;
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;
 
         return true;
@@ -81,11 +90,12 @@ public class GoalConfiguration implements Configuration, BetConfigurationConvert
 
     @Override
     public int hashCode() {
-        int result = betRule.hashCode();
+        int result = bid.hashCode();
+        result = 31 * result + betRule.hashCode();
+        result = 31 * result + judgeRule.hashCode();
+        result = 31 * result + privacyRule.hashCode();
         result = 31 * result + moveTimeRule.hashCode();
         result = 31 * result + totalTimeRule.hashCode();
-        result = 31 * result + privacyRule.hashCode();
         return result;
     }
-
 }
