@@ -1,10 +1,9 @@
-package com.clemble.casino.game.construct;
+package com.clemble.casino.game.construction;
 
 import javax.persistence.*;
 import javax.persistence.Id;
 
 import com.clemble.casino.game.GameSessionAware;
-import org.springframework.data.annotation.*;
 
 @Entity
 @Table(name = "GAME_SCHEDULE")

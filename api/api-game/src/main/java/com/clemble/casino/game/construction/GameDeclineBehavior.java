@@ -1,4 +1,4 @@
-package com.clemble.casino.game.construct;
+package com.clemble.casino.game.construction;
 
 public enum GameDeclineBehavior {
 

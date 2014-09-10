@@ -11,7 +11,7 @@ import com.clemble.casino.event.ExpectedEvent;
 import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameState;
-import com.clemble.casino.game.construct.GameConstruction;
+import com.clemble.casino.game.construction.GameConstruction;
 import com.clemble.casino.game.configuration.RoundGameConfiguration;
 import com.clemble.casino.rule.breach.LooseBreachPunishment;
 import com.clemble.test.random.AbstractValueGenerator;

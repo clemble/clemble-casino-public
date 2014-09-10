@@ -9,9 +9,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.construct.AutomaticGameRequest;
-import com.clemble.casino.game.construct.GameConstruction;
-import com.clemble.casino.game.construct.AutoGameConstructionService;
+import com.clemble.casino.game.construction.AutomaticGameRequest;
+import com.clemble.casino.game.construction.GameConstruction;
+import com.clemble.casino.game.construction.AutoGameConstructionService;
 
 import java.util.Collection;
 

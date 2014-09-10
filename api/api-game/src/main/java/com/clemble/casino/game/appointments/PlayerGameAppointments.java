@@ -4,7 +4,7 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Set;
 
-import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.construction.GameInitiation;
 import com.clemble.casino.player.PlayerAware;
 
 public class PlayerGameAppointments implements PlayerAware {

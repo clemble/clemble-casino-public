@@ -1,4 +1,4 @@
-package com.clemble.casino.construct;
+package com.clemble.casino.construction;
 
 public enum ConstructionState {
 

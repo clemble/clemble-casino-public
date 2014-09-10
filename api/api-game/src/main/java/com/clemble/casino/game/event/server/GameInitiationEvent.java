@@ -2,8 +2,8 @@ package com.clemble.casino.game.event.server;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
-import com.clemble.casino.game.construct.GameInitiation;
-import com.clemble.casino.game.construct.GameInitiationAware;
+import com.clemble.casino.game.construction.GameInitiation;
+import com.clemble.casino.game.construction.GameInitiationAware;
 
 abstract public class GameInitiationEvent extends GameManagementEvent implements GameInitiationAware {
 

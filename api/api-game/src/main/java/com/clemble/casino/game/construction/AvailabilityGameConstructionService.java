@@ -1,4 +1,4 @@
-package com.clemble.casino.game.construct;
+package com.clemble.casino.game.construction;
 
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;

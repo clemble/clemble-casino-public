@@ -1,6 +1,6 @@
 package com.clemble.casino.client.game;
 
-import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.construction.GameInitiation;
 
 public interface GameInitiationOperations {
 

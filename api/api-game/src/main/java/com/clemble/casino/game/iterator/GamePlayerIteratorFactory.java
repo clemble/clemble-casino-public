@@ -1,6 +1,6 @@
 package com.clemble.casino.game.iterator;
 
-import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.construction.GameInitiation;
 
 public class GamePlayerIteratorFactory {
 

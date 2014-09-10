@@ -6,8 +6,8 @@ import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
-import com.clemble.casino.game.construct.GameConstruction;
-import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.construction.GameConstruction;
+import com.clemble.casino.game.construction.GameInitiation;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
 import com.clemble.casino.game.configuration.GameConfiguration;
 

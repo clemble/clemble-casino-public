@@ -3,7 +3,7 @@ package com.clemble.casino.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.construction.GameInitiation;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;

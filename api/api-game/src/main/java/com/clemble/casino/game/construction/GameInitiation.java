@@ -1,4 +1,4 @@
-package com.clemble.casino.game.construct;
+package com.clemble.casino.game.construction;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 

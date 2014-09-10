@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.construction.GameInitiation;
 import com.clemble.casino.game.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.rule.time.PlayerClock;

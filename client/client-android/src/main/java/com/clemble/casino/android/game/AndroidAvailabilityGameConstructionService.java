@@ -7,10 +7,10 @@ import org.springframework.web.client.RestTemplate;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.construct.AvailabilityGameRequest;
-import com.clemble.casino.game.construct.GameConstruction;
+import com.clemble.casino.game.construction.AvailabilityGameRequest;
+import com.clemble.casino.game.construction.GameConstruction;
 import com.clemble.casino.game.event.schedule.InvitationResponseEvent;
-import com.clemble.casino.game.construct.AvailabilityGameConstructionService;
+import com.clemble.casino.game.construction.AvailabilityGameConstructionService;
 import com.clemble.casino.utils.CollectionUtils;
 
 import static com.clemble.casino.game.GameWebMapping.*;

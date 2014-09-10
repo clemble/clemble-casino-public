@@ -1,9 +1,9 @@
-package com.clemble.casino.goal.construct;
+package com.clemble.casino.goal.construction;
 
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
 import com.clemble.casino.goal.configuration.GoalConfigurationAware;
-import com.clemble.casino.construct.ConstructionRequest;
+import com.clemble.casino.construction.ConstructionRequest;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

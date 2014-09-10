@@ -6,7 +6,7 @@ import static com.clemble.casino.game.GameWebMapping.toGameUrl;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.game.construct.GameInitiation;
+import com.clemble.casino.game.construction.GameInitiation;
 import com.clemble.casino.game.service.GameInitiationService;
 
 public class AndroidGameInitiationService  extends AbstractClembleCasinoOperations implements GameInitiationService {

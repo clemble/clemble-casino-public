@@ -1,10 +1,7 @@
-package com.clemble.casino.game.construct;
+package com.clemble.casino.game.construction;
 
-import com.clemble.casino.ClembleService;
-import com.clemble.casino.construct.ConstructionService;
+import com.clemble.casino.construction.ConstructionService;
 import com.clemble.casino.game.configuration.GameConfiguration;
-import com.clemble.casino.game.construct.GameConstruction;
-import com.clemble.casino.game.construct.GameConstructionRequest;
 
 import java.util.Collection;
 

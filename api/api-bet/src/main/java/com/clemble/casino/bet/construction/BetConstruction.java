@@ -1,8 +1,8 @@
 package com.clemble.casino.bet.construction;
 
 import com.clemble.casino.bet.configuration.BetConfiguration;
-import com.clemble.casino.construct.Construction;
-import com.clemble.casino.construct.ConstructionState;
+import com.clemble.casino.construction.Construction;
+import com.clemble.casino.construction.ConstructionState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

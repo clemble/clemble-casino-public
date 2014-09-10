@@ -1,19 +1,23 @@
-package com.clemble.casino.goal.construct;
+package com.clemble.casino.goal.construction;
 
-import com.clemble.casino.construct.Construction;
-import com.clemble.casino.construct.ConstructionState;
+import com.clemble.casino.construction.Construction;
+import com.clemble.casino.construction.ConstructionState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
+import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
 /**
  * Created by mavarazy on 9/7/14.
  */
-public class GoalConstruction implements Construction<GoalConfiguration>, GoalAware, GoalDescriptionAware {
+public class GoalConstruction implements Construction<GoalConfiguration>, GoalAware, GoalDescriptionAware, PlayerAware {
 
+    @Id
     final private String goalKey;
+    final private String player;
     final private String goal;
     final private String judge;
     final private ConstructionState state;
@@ -22,15 +26,22 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @JsonCreator
     public GoalConstruction(
         @JsonProperty("goalKey") String goalKey,
+        @JsonProperty("player") String player,
         @JsonProperty("judge") String judge,
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("state") ConstructionState state) {
         this.goalKey = goalKey;
+        this.player = player;
         this.goal = goal;
         this.judge = judge;
         this.configuration = configuration;
         this.state = state;
+    }
+
+    @Override
+    public String getPlayer() {
+        return player;
     }
 
     @Override
@@ -58,6 +69,14 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
         return judge;
     }
 
+    public GoalConstruction clone(ConstructionState state) {
+        return new GoalConstruction(goalKey, player, judge, goal, configuration, state);
+    }
+
+    public GoalConstruction clone(String goalKey, ConstructionState state) {
+        return new GoalConstruction(goalKey, player, judge, goal, configuration, state);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,6 +89,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
         if (goal != null ? !goal.equals(that.goal) : that.goal != null) return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (judge != null ? !judge.equals(that.judge) : that.judge != null) return false;
+        if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (state != that.state) return false;
 
         return true;
@@ -78,6 +98,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public int hashCode() {
         int result = goalKey != null ? goalKey.hashCode() : 0;
+        result = 31 * result + (player != null ? player.hashCode() : 0);
         result = 31 * result + (goal != null ? goal.hashCode() : 0);
         result = 31 * result + (judge != null ? judge.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
