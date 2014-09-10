@@ -16,8 +16,8 @@ public class BetConstruction implements Construction<BetConfiguration> {
 
     @JsonCreator
     public BetConstruction(
-        @JsonProperty("state") ConstructionState state,
-        @JsonProperty("configuration") BetConfiguration configuration) {
+        @JsonProperty("configuration") BetConfiguration configuration,
+        @JsonProperty("state") ConstructionState state) {
         this.state = state;
         this.configuration = configuration;
     }

@@ -24,8 +24,6 @@ abstract public class GameConstructionRequest implements GameConfigurationAware,
         return configuration;
     }
 
-    abstract public GameConstruction toConstruction(String sessionKey);
-
     @Override
     public int hashCode() {
         return ((configuration == null) ? 0 : configuration.hashCode());

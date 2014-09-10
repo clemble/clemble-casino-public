@@ -3,6 +3,7 @@ package com.clemble.casino.bet.construction;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationAware;
 import com.clemble.casino.construction.ConstructionRequest;
+import com.clemble.casino.construction.ConstructionState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,6 +21,10 @@ public class BetConstructionRequest implements BetConfigurationAware, Constructi
 
     public BetConfiguration getConfiguration() {
         return configuration;
+    }
+
+    public BetConstruction toConstruction(String betKey) {
+        return new BetConstruction(configuration, ConstructionState.pending);
     }
 
     @Override
