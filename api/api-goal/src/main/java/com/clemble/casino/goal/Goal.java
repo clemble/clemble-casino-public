@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public class Goal implements GoalAware, GoalDescriptionAware, PlayerAware, BidAware {
+public class Goal implements GoalAware, GoalJudgeAware, GoalDescriptionAware, PlayerAware, BidAware {
 
     @Id
     final private String goalKey;

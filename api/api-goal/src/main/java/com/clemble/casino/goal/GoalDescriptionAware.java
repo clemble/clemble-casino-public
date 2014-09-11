@@ -9,6 +9,4 @@ public interface GoalDescriptionAware {
 
     public String getGoal();
 
-    public String getJudge();
-
 }

@@ -1,36 +1,30 @@
 package com.clemble.casino.goal.construction;
 
+import com.clemble.casino.construction.ConstructionRequest;
 import com.clemble.casino.construction.ConstructionState;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
-import com.clemble.casino.goal.configuration.GoalConfigurationAware;
-import com.clemble.casino.construction.ConstructionRequest;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.spi.ConfigurationState;
-
 /**
  * Created by mavarazy on 8/26/14.
  */
-public class GoalConstructionRequest implements GoalConfigurationAware, ConstructionRequest<GoalConfiguration>, GoalDescriptionAware, PlayerAware {
+public class GoalConstructionRequest implements ConstructionRequest<GoalConfiguration>, PlayerAware, GoalDescriptionAware {
 
     final private String player;
     final private String goal;
-    final private String judge;
     final private GoalConfiguration configuration;
 
     @JsonCreator
     public GoalConstructionRequest(
         @JsonProperty("player") String player,
         @JsonProperty("configuration") GoalConfiguration configuration,
-        @JsonProperty("goal") String goal,
-        @JsonProperty("judge") String judge) {
+        @JsonProperty("goal") String goal) {
         this.player = player;
         this.configuration = configuration;
         this.goal = goal;
-        this.judge = judge;
     }
 
     @Override
@@ -48,13 +42,8 @@ public class GoalConstructionRequest implements GoalConfigurationAware, Construc
         return goal;
     }
 
-    @Override
-    public String getJudge() {
-        return judge;
-    }
-
     public GoalConstruction toConstruction(String goalKey) {
-        return new GoalConstruction(goalKey, player, judge, goal, configuration, ConstructionState.pending);
+        return new GoalConstruction(goalKey, player, player, goal, configuration, ConstructionState.pending);
     }
 
     @Override
@@ -64,10 +53,8 @@ public class GoalConstructionRequest implements GoalConfigurationAware, Construc
 
         GoalConstructionRequest that = (GoalConstructionRequest) o;
 
-        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
-            return false;
+        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null) return false;
         if (goal != null ? !goal.equals(that.goal) : that.goal != null) return false;
-        if (judge != null ? !judge.equals(that.judge) : that.judge != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
 
         return true;
@@ -77,7 +64,6 @@ public class GoalConstructionRequest implements GoalConfigurationAware, Construc
     public int hashCode() {
         int result = player != null ? player.hashCode() : 0;
         result = 31 * result + (goal != null ? goal.hashCode() : 0);
-        result = 31 * result + (judge != null ? judge.hashCode() : 0);
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         return result;
     }

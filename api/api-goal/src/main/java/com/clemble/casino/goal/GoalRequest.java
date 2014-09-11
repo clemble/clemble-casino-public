@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 8/16/14.
  */
-public class GoalRequest implements GoalDescriptionAware, AmountAware {
+public class GoalRequest implements GoalDescriptionAware, GoalJudgeAware, AmountAware {
 
     final private int timeInDays;
     final private Money amount;

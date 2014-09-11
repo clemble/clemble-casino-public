@@ -11,7 +11,7 @@ import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construction.AutomaticGameRequest;
 import com.clemble.casino.game.construction.GameConstruction;
-import com.clemble.casino.game.construction.AutoGameConstructionService;
+import com.clemble.casino.game.construction.service.AutoGameConstructionService;
 
 import java.util.Collection;
 

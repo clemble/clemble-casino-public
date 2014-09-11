@@ -1,4 +1,4 @@
-package com.clemble.casino.game.configuration;
+package com.clemble.casino.game.configuration.service;
 
 import com.clemble.casino.ClembleService;
 import com.clemble.casino.configuration.ConfigurationService;

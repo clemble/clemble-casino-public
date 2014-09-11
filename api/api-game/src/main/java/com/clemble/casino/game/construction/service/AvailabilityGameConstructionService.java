@@ -1,9 +1,9 @@
-package com.clemble.casino.game.construction;
+package com.clemble.casino.game.construction.service;
 
 import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.game.construction.AvailabilityGameRequest;
+import com.clemble.casino.game.construction.GameConstruction;
 import com.clemble.casino.game.construction.event.InvitationResponseEvent;
-
-import java.util.List;
 
 public interface AvailabilityGameConstructionService extends GameConstructionService<AvailabilityGameRequest> {
 

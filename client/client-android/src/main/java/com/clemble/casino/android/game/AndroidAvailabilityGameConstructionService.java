@@ -10,7 +10,7 @@ import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construction.AvailabilityGameRequest;
 import com.clemble.casino.game.construction.GameConstruction;
 import com.clemble.casino.game.construction.event.InvitationResponseEvent;
-import com.clemble.casino.game.construction.AvailabilityGameConstructionService;
+import com.clemble.casino.game.construction.service.AvailabilityGameConstructionService;
 import com.clemble.casino.utils.CollectionUtils;
 
 import static com.clemble.casino.game.GameWebMapping.*;

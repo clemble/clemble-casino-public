@@ -7,6 +7,6 @@ import com.clemble.casino.goal.construction.GoalConstructionRequest;
 /**
  * Created by mavarazy on 9/10/14.
  */
-public interface GoalConstructionService extends ConstructionService<GoalConfiguration, GoalConstructionRequest> {
+public interface GoalConstructionService<T extends GoalConstructionRequest> extends ConstructionService<GoalConfiguration, T> {
 
 }

@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.game.construction.GameInitiation;
-import com.clemble.casino.game.service.GameInitiationService;
+import com.clemble.casino.game.construction.service.GameInitiationService;
 
 public class AndroidGameInitiationService  extends AbstractClembleCasinoOperations implements GameInitiationService {
 

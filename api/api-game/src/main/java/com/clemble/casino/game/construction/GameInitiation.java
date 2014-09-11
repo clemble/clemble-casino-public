@@ -4,7 +4,6 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.configuration.GameConfiguration;
@@ -12,7 +11,7 @@ import com.clemble.casino.game.configuration.GameConfigurationAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GameInitiation implements GameConfigurationAware, GameSessionAware {
+public class GameInitiation implements GameConfigurationAware, GameParticipantsAware, GameSessionAware {
 
     /**
      * Generated 10/07/13
@@ -38,6 +37,7 @@ public class GameInitiation implements GameConfigurationAware, GameSessionAware 
         return configuration;
     }
 
+    @Override
     public LinkedHashSet<String> getParticipants() {
         return participants;
     }

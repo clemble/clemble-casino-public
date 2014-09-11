@@ -4,6 +4,7 @@ import com.clemble.casino.construction.Construction;
 import com.clemble.casino.construction.ConstructionState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
+import com.clemble.casino.goal.GoalJudgeAware;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,7 +14,7 @@ import org.springframework.data.annotation.Id;
 /**
  * Created by mavarazy on 9/7/14.
  */
-public class GoalConstruction implements Construction<GoalConfiguration>, GoalAware, GoalDescriptionAware, PlayerAware {
+public class GoalConstruction implements Construction<GoalConfiguration>, GoalAware, GoalJudgeAware, GoalDescriptionAware, PlayerAware {
 
     @Id
     final private String goalKey;

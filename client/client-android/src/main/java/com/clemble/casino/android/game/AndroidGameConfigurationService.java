@@ -8,7 +8,7 @@ import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.game.configuration.GameConfigurationService;
+import com.clemble.casino.game.configuration.service.GameConfigurationService;
 
 import java.util.List;
 

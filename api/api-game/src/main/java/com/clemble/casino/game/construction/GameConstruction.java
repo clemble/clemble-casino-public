@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.clemble.casino.construction.ConstructionState;
 import com.clemble.casino.game.configuration.GameConfiguration;
-import com.clemble.casino.game.construction.event.InvitationResponseEvent;
 
 import com.clemble.casino.ActionLatch;
 import com.clemble.casino.event.PlayerAwareEvent;
@@ -19,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
-public class GameConstruction implements Construction<GameConfiguration>, PlayerAware, GameSessionAware {
+public class GameConstruction implements Construction<GameConfiguration>, PlayerAware, GameSessionAware, GameParticipantsAware {
 
     /**
      * Generated 10/07/13
@@ -65,6 +64,7 @@ public class GameConstruction implements Construction<GameConfiguration>, Player
         return configuration;
     }
 
+    @Override
     public Collection<String> getParticipants() {
         return participants;
     }

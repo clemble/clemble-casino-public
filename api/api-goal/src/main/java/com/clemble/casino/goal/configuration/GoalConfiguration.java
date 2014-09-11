@@ -80,7 +80,7 @@ public class GoalConfiguration implements Configuration, BetConfigurationConvert
 
         if (!betRule.equals(that.betRule)) return false;
         if (!bid.equals(that.bid)) return false;
-        if (judgeRule != that.judgeRule) return false;
+        if (!judgeRule.equals(that.judgeRule)) return false;
         if (!moveTimeRule.equals(that.moveTimeRule)) return false;
         if (privacyRule != that.privacyRule) return false;
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;

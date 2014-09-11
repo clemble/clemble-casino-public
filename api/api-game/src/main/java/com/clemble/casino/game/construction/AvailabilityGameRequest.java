@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("availability")
-public class AvailabilityGameRequest extends PlayerGameConstructionRequest implements GameOpponentsAware {
+public class AvailabilityGameRequest extends PlayerGameConstructionRequest implements GameParticipantsAware {
 
     /**
      * Generated 12/06/13
