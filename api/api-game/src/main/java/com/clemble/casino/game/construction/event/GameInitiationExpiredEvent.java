@@ -1,15 +1,19 @@
 package com.clemble.casino.game.construction.event;
 
-import com.clemble.casino.event.GameEvent;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 9/12/14.
  */
-public class GameInitiationExpired implements GameConstructionEvent {
+@JsonTypeName("initiationExpired")
+public class GameInitiationExpiredEvent implements GameConstructionEvent {
 
     final private String sessionKey;
 
-    public GameInitiationExpired(String sessionKey) {
+    @JsonCreator
+    public GameInitiationExpiredEvent(@JsonProperty(SESSION_KEY) String sessionKey) {
         this.sessionKey = sessionKey;
     }
 
@@ -23,7 +27,7 @@ public class GameInitiationExpired implements GameConstructionEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GameInitiationExpired that = (GameInitiationExpired) o;
+        GameInitiationExpiredEvent that = (GameInitiationExpiredEvent) o;
 
         if (sessionKey != null ? !sessionKey.equals(that.sessionKey) : that.sessionKey != null) return false;
 
