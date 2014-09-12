@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ClembleCasinoFailure implements PlayerAware {
+public class ClembleCasinoFailure implements PlayerAware, KeyAware {
 
     /**
      * Generated 12/06/13
@@ -17,22 +17,29 @@ public class ClembleCasinoFailure implements PlayerAware {
     private static final long serialVersionUID = 8151325637613551745L;
 
     final private String player;
+    final private String key;
     final private ClembleCasinoError error;
 
     public ClembleCasinoFailure(final ClembleCasinoError error) {
-        this(PlayerAware.DEFAULT_PLAYER, error);
+        this(PlayerAware.DEFAULT_PLAYER, null, error);
     }
 
     public ClembleCasinoFailure(final ClembleCasinoError error, final String playerId) {
-        this(playerId, error);
+        this(playerId, null, error);
     }
 
     @JsonCreator
     public ClembleCasinoFailure(
         @JsonProperty(PLAYER) final String player,
+        @JsonProperty("key") final String key,
         @JsonProperty("error") final ClembleCasinoError error) {
         this.player = player;
+        this.key = key;
         this.error = error;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public ClembleCasinoError getError() {
@@ -46,7 +53,7 @@ public class ClembleCasinoFailure implements PlayerAware {
 
     @Override
     public String toString() {
-        return "ClembleCasinoFailure [error = " + error + ", player = " + player + "]";
+        return error + " > " + player + " > " + key;
     }
 
     @Override

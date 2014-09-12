@@ -35,7 +35,7 @@ public class FakeState implements RoundGameState {
     @Override
     public GameManagementEvent process(PlayerAwareEvent action) {
         // Step 1. Processing Select cell move
-        throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayGameEnded);
+        throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayGameEnded, action.getPlayer(), context.getSessionKey());
     }
 
     @Override

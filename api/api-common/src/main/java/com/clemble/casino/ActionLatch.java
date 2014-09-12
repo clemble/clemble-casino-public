@@ -92,14 +92,14 @@ public class ActionLatch implements Serializable {
         PlayerAwareEvent event = filterAction(action.getPlayer());
         if (event instanceof ExpectedEvent) {
             if (!((ExpectedEvent) event).isExpected(action.getClass()))
-                throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType);
+                throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType, action.getPlayer());
             actions.remove(event);
             actions.add(action);
             return this;
         } else if (event != null) {
-            throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayMoveAlreadyMade);
+            throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayMoveAlreadyMade, action.getPlayer());
         }
-        throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayNoMoveExpected);
+        throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayNoMoveExpected, action.getPlayer());
     }
 
     public boolean complete() {

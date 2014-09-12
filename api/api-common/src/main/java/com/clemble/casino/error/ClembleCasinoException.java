@@ -1,5 +1,7 @@
 package com.clemble.casino.error;
 
+import com.clemble.casino.player.PlayerAware;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +29,19 @@ public class ClembleCasinoException extends RuntimeException {
     public static ClembleCasinoException fromError(ClembleCasinoError error) {
         return new ClembleCasinoException(new ClembleCasinoFailureDescription().addError(error));
     }
+
+    public static ClembleCasinoException fromError(ClembleCasinoError error, String player) {
+        return new ClembleCasinoException(new ClembleCasinoFailureDescription().addProblem(new ClembleCasinoFailure(error, player)));
+    }
+
+    public static ClembleCasinoException fromError(ClembleCasinoError error, String player, String key) {
+        return new ClembleCasinoException(new ClembleCasinoFailureDescription().addProblem(new ClembleCasinoFailure(player, key, error)));
+    }
+
+    public static ClembleCasinoException withKey(ClembleCasinoError error, String key) {
+        return new ClembleCasinoException(new ClembleCasinoFailureDescription().addProblem(new ClembleCasinoFailure(PlayerAware.DEFAULT_PLAYER, key, error)));
+    }
+
 
     public static ClembleCasinoException fromFailures(Collection<ClembleCasinoFailure> failures) {
         return new ClembleCasinoException(new ClembleCasinoFailureDescription().setProblems(failures));
