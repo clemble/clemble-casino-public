@@ -5,6 +5,6 @@ import com.clemble.casino.game.construction.GameInitiation;
 
 public interface GameInitiationService extends ClembleService {
 
-    public GameInitiation confirm(String sessionKey, String player);
+    public GameInitiation confirm(String sessionKey);
 
 }

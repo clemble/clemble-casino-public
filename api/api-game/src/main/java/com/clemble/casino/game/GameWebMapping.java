@@ -33,7 +33,7 @@ abstract public class GameWebMapping implements WebMapping {
     final public static String SESSIONS_CONTEXT = "/{session}/context";
     final public static String SESSIONS_ACTIONS = "/{session}/action";
 
-    final public static String INITIATION_READY = "/{session}/initiation/ready/{playerId}";
+    final public static String INITIATION_READY = "/{session}/initiation/confirm";
 
     public static String toGameConfigurationUrl(String path){
         return GAME_CONFIGURATION_URL + path;

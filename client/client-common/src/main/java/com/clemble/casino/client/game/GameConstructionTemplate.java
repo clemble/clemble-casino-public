@@ -94,7 +94,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
 
     @Override
     public GameInitiation confirm(String sessionKey) {
-        return initiationService.confirm(sessionKey, player);
+        return initiationService.confirm(sessionKey);
     }
 
     @Override
