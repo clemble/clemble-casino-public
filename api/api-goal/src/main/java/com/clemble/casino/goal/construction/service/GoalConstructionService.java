@@ -1,6 +1,6 @@
 package com.clemble.casino.goal.construction.service;
 
-import com.clemble.casino.construction.ConstructionService;
+import com.clemble.casino.construction.service.ConstructionService;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
 import com.clemble.casino.goal.construction.GoalConstructionRequest;
 

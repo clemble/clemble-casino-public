@@ -1,6 +1,7 @@
-package com.clemble.casino.configuration;
+package com.clemble.casino.configuration.service;
 
 import com.clemble.casino.ClembleService;
+import com.clemble.casino.configuration.Configuration;
 
 import java.util.List;
 
