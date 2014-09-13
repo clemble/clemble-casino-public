@@ -5,16 +5,24 @@ import com.clemble.casino.goal.configuration.GoalConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
+
 /**
  * Created by mavarazy on 9/12/14.
  */
 public class GoalInitiation implements Initiation<GoalConfiguration> {
 
+    final private Date startDate;
     final private GoalConfiguration configuration;
 
     @JsonCreator
-    public GoalInitiation(@JsonProperty("configuration") GoalConfiguration configuration) {
+    public GoalInitiation(@JsonProperty("configuration") GoalConfiguration configuration, @JsonProperty("startDate") Date startDate) {
         this.configuration = configuration;
+        this.startDate = startDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
     }
 
     @Override
@@ -29,15 +37,16 @@ public class GoalInitiation implements Initiation<GoalConfiguration> {
 
         GoalInitiation that = (GoalInitiation) o;
 
-        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
-            return false;
+        if (!configuration.equals(that.configuration)) return false;
+        if (!startDate.equals(that.startDate)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return configuration != null ? configuration.hashCode() : 0;
+        int result = startDate.hashCode();
+        result = 31 * result + configuration.hashCode();
+        return result;
     }
-
 }
