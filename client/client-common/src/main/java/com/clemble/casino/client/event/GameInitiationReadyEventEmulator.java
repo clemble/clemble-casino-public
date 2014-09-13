@@ -1,7 +1,7 @@
 package com.clemble.casino.client.event;
 
 import com.clemble.casino.game.construction.service.GameInitiationService;
-import com.clemble.casino.game.event.GameInitiatedEvent;
+import com.clemble.casino.game.construction.event.GameInitiatedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

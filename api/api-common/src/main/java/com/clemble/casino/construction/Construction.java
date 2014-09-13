@@ -10,4 +10,6 @@ public interface Construction<T extends Configuration> extends ConfigurationAwar
 
     ConstructionState getState();
 
+    Initiation<T> toInitiation();
+
 }

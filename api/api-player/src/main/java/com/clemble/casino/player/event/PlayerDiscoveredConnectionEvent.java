@@ -1,12 +1,11 @@
 package com.clemble.casino.player.event;
 
-import com.clemble.casino.event.PlayerAwareEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("connectionDiscovered")
-public class PlayerDiscoveredConnectionEvent implements PlayerAwareEvent {
+public class PlayerDiscoveredConnectionEvent implements PlayerEvent {
 
     /**
      * Generated 07/01/14

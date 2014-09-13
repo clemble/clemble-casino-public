@@ -8,6 +8,8 @@ import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
+
 /**
  * Created by mavarazy on 8/26/14.
  */
@@ -21,6 +23,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
     public GoalConstructionRequest(
         @JsonProperty("player") String player,
         @JsonProperty("configuration") GoalConfiguration configuration,
+        @JsonProperty("startDate") Date startDate,
         @JsonProperty("goal") String goal) {
         this.player = player;
         this.configuration = configuration;
@@ -42,6 +45,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
         return goal;
     }
 
+    @Override
     public GoalConstruction toConstruction(String goalKey) {
         return new GoalConstruction(goalKey, player, player, goal, configuration, ConstructionState.pending);
     }
@@ -53,7 +57,8 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
 
         GoalConstructionRequest that = (GoalConstructionRequest) o;
 
-        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null) return false;
+        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
+            return false;
         if (goal != null ? !goal.equals(that.goal) : that.goal != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
 
@@ -67,5 +72,4 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         return result;
     }
-
 }

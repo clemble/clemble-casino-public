@@ -8,13 +8,13 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.clemble.casino.event.ExpectedEvent;
 import com.clemble.casino.client.event.*;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.event.surrender.GiveUpEvent;
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.event.GameManagementEvent;
 import com.clemble.casino.game.event.RoundEvent;
 import com.clemble.casino.game.service.GameActionService;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.rule.time.PlayerClock;
 
 public class GameActionTemplate<State extends GameState> implements GameActionOperationsExtenstion<State> {
@@ -92,7 +92,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     @Override
     public Class<?> expectedMove(String player) {
         RoundGameState state = currentState.get();
-        PlayerAwareEvent event = state != null ? state.getContext().getActionLatch().filterAction(player) : null;
+        PlayerEvent event = state != null ? state.getContext().getActionLatch().filterAction(player) : null;
         return event == null || !(event instanceof ExpectedEvent) ? null : ((ExpectedEvent) event).expected();
     }
 

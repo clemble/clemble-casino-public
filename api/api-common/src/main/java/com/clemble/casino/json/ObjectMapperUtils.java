@@ -1,6 +1,6 @@
 package com.clemble.casino.json;
 
-import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.AnnotatedClass;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
@@ -37,7 +37,7 @@ public class ObjectMapperUtils {
         // Step 2. Constructing ObjectMapper // TODO reuse already constructed ObjectMapper
         ObjectMapper mapper = OBJECT_MAPPER;
         AnnotatedClass annotatedClass = AnnotatedClass.construct(
-                PlayerAwareEvent.class,
+                PlayerEvent.class,
                 mapper.getSerializationConfig().getAnnotationIntrospector(),
                 mapper.getSerializationConfig());
         // Step 3. Collecting NamedTypes

@@ -3,8 +3,8 @@ package com.clemble.casino;
 import com.clemble.casino.event.ExpectedEvent;
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
-import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.player.PlayerAwareUtils;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,23 +19,23 @@ public class ActionLatch implements Serializable {
     private static final long serialVersionUID = -7689529505293361503L;
 
     private Set<String> participants = new HashSet<String>();
-    private Collection<PlayerAwareEvent> actions = new ArrayList<PlayerAwareEvent>();
+    private Collection<PlayerEvent> actions = new ArrayList<PlayerEvent>();
 
     public ActionLatch() {
     }
 
     @JsonCreator
-    public ActionLatch(@JsonProperty("actions") final Collection<? extends PlayerAwareEvent> expectedActions) {
+    public ActionLatch(@JsonProperty("actions") final Collection<? extends PlayerEvent> expectedActions) {
         this.actions.addAll(expectedActions);
     }
 
-    public ActionLatch expectNext(final String player, Class<? extends PlayerAwareEvent> expectedClass) {
+    public ActionLatch expectNext(final String player, Class<? extends PlayerEvent> expectedClass) {
         this.actions.clear();
         this.actions.add(ExpectedEvent.fromClass(player, expectedClass));
         return this;
     }
 
-    public ActionLatch expectNext(final Collection<String> participants, Class<? extends PlayerAwareEvent> expectedClass) {
+    public ActionLatch expectNext(final Collection<String> participants, Class<? extends PlayerEvent> expectedClass) {
         this.actions.clear();
         for (String participant : participants) {
             this.actions.add(ExpectedEvent.fromClass(participant, expectedClass));
@@ -43,7 +43,7 @@ public class ActionLatch implements Serializable {
         return this;
     }
 
-    public void expectNext(final String player, final Collection<String> participants, final Class<? extends PlayerAwareEvent> expectedClass) {
+    public void expectNext(final String player, final Collection<String> participants, final Class<? extends PlayerEvent> expectedClass) {
         this.actions.add(ExpectedEvent.fromClass(player, expectedClass));
         for (String participant : participants) {
             this.actions.add(ExpectedEvent.fromClass(participant, expectedClass));
@@ -56,7 +56,7 @@ public class ActionLatch implements Serializable {
 
     public boolean acted(String player) {
         // Step 1. Processing all assosiated player events
-        for(PlayerAwareEvent playerEvent: filterAllActions(player))
+        for(PlayerEvent playerEvent: filterAllActions(player))
             if(playerEvent instanceof ExpectedEvent)
                 return false;
         // Step 2. If no events expected return true
@@ -72,24 +72,24 @@ public class ActionLatch implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends PlayerAwareEvent> Collection<T> getActions() {
+    public <T extends PlayerEvent> Collection<T> getActions() {
         return (Collection<T>) actions;
     }
 
-    public void append(PlayerAwareEvent event) {
+    public void append(PlayerEvent event) {
         this.actions.add(event);
     }
 
-    public PlayerAwareEvent filterAction(String player) {
+    public PlayerEvent filterAction(String player) {
         return PlayerAwareUtils.filter(player, actions);
     }
 
-    public Collection<PlayerAwareEvent> filterAllActions(String player) {
+    public Collection<PlayerEvent> filterAllActions(String player) {
         return PlayerAwareUtils.filterAll(player, actions);
     }
 
-    public <T extends PlayerAwareEvent> ActionLatch put(T action) {
-        PlayerAwareEvent event = filterAction(action.getPlayer());
+    public <T extends PlayerEvent> ActionLatch put(T action) {
+        PlayerEvent event = filterAction(action.getPlayer());
         if (event instanceof ExpectedEvent) {
             if (!((ExpectedEvent) event).isExpected(action.getClass()))
                 throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType, action.getPlayer());
@@ -103,7 +103,7 @@ public class ActionLatch implements Serializable {
     }
 
     public boolean complete() {
-        for (PlayerAwareEvent action : actions)
+        for (PlayerEvent action : actions)
             if (action instanceof ExpectedEvent)
                 return false;
         return true;

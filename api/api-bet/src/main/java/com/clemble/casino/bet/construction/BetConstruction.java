@@ -3,6 +3,7 @@ package com.clemble.casino.bet.construction;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.construction.Construction;
 import com.clemble.casino.construction.ConstructionState;
+import com.clemble.casino.construction.Initiation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -30,6 +31,11 @@ public class BetConstruction implements Construction<BetConfiguration> {
     @Override
     public BetConfiguration getConfiguration() {
         return configuration;
+    }
+
+    @Override
+    public Initiation<BetConfiguration> toInitiation() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

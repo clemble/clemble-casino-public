@@ -1,8 +1,8 @@
 package com.clemble.casino.event.surrender;
 
-import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.player.event.PlayerEvent;
 
-abstract public class SurrenderEvent implements PlayerAwareEvent {
+abstract public class SurrenderEvent implements PlayerEvent {
 
     /**
      * Generated 10/06/2013

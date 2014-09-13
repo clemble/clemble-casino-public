@@ -1,7 +1,7 @@
 package com.clemble.casino.player.event;
 
 import com.clemble.casino.event.Event;
-import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.player.PlayerAware;
 
-public interface PlayerEvent extends PlayerAwareEvent, Event {
+public interface PlayerEvent extends PlayerAware, Event {
 }

@@ -2,7 +2,7 @@ package com.clemble.casino.rule.time;
 
 import java.util.Date;
 
-import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.rule.ConfigurationRule;
 import com.clemble.casino.rule.breach.BreachPunishment;
 import com.clemble.casino.rule.breach.BreachPunishmentAware;
@@ -19,6 +19,6 @@ public interface TimeRule extends ConfigurationRule, BreachPunishmentAware {
 
     public Date breachDate(PlayerClock clock);
 
-    public PlayerAwareEvent toTimeBreachedEvent(String player);
+    public PlayerEvent toTimeBreachedEvent(String player);
 
 }

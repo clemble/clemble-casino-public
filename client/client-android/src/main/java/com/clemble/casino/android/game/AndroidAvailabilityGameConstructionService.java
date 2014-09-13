@@ -2,10 +2,10 @@ package com.clemble.casino.android.game;
 
 import java.util.Collection;
 
+import com.clemble.casino.player.event.PlayerEvent;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construction.AvailabilityGameRequest;
 import com.clemble.casino.game.construction.GameConstruction;
@@ -35,8 +35,8 @@ public class AndroidAvailabilityGameConstructionService<T extends GameState> ext
     }
 
     @Override
-    public PlayerAwareEvent getReply(String sessionKey, String player) {
-        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerAwareEvent.class);
+    public PlayerEvent getReply(String sessionKey, String player) {
+        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerEvent.class);
     }
 
     @Override

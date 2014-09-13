@@ -8,7 +8,6 @@ import java.util.List;
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.construction.*;
 import com.clemble.casino.game.construction.event.InvitationAcceptedEvent;
@@ -19,6 +18,7 @@ import com.clemble.casino.game.construction.service.AvailabilityGameConstruction
 import com.clemble.casino.game.configuration.service.GameConfigurationService;
 import com.clemble.casino.game.construction.service.GameInitiationService;
 import com.clemble.casino.game.configuration.GameConfiguration;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.utils.CollectionUtils;
 import com.clemble.casino.game.GameWebMapping;
 
@@ -98,7 +98,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     }
 
     @Override
-    public PlayerAwareEvent getResponce(String sessionKey, String fromPlayer) {
+    public PlayerEvent getResponse(String sessionKey, String fromPlayer) {
         return availabilityConstructionService.getReply(sessionKey, fromPlayer);
     }
 

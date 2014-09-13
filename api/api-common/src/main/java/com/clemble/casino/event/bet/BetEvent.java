@@ -6,13 +6,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("bet")
-public class BetEvent implements PlayerAwareEvent {
+public class BetEvent implements PlayerEvent {
 
     /**
      * Generated 10/06/13

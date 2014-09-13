@@ -1,12 +1,13 @@
 package com.clemble.casino.event;
 
 import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("default")
-public class DefaultPlayerEvent implements PlayerAwareEvent {
+public class DefaultPlayerEvent implements PlayerEvent {
 
     /**
      * Generated 23/12/13

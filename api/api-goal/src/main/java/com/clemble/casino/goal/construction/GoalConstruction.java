@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by mavarazy on 9/7/14.
  */
@@ -68,6 +71,12 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public String getJudge() {
         return judge;
+    }
+
+    @Override
+    public GoalInitiation toInitiation(){
+        // TODO make this more intelligent
+        return new GoalInitiation(goalKey, player, configuration, new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)));
     }
 
     public GoalConstruction clone(ConstructionState state) {

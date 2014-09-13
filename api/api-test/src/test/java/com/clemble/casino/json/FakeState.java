@@ -2,11 +2,11 @@ package com.clemble.casino.json;
 
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
-import com.clemble.casino.event.PlayerAwareEvent;
 import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameState;
 import com.clemble.casino.game.event.GameManagementEvent;
 import com.clemble.casino.game.unit.GameUnit;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -33,7 +33,7 @@ public class FakeState implements RoundGameState {
     }
 
     @Override
-    public GameManagementEvent process(PlayerAwareEvent action) {
+    public GameManagementEvent process(PlayerEvent action) {
         // Step 1. Processing Select cell move
         throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayGameEnded, action.getPlayer(), context.getSessionKey());
     }

@@ -38,7 +38,7 @@ import com.clemble.casino.client.game.GameConstructionTemplate;
 import com.clemble.casino.client.game.GameRecordOperations;
 import com.clemble.casino.client.game.GameRecordTemplate;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.GameInitiatedEvent;
+import com.clemble.casino.game.construction.event.GameInitiatedEvent;
 import com.clemble.casino.game.event.RoundEvent;
 import com.clemble.casino.game.construction.service.AutoGameConstructionService;
 import com.clemble.casino.game.construction.service.AvailabilityGameConstructionService;

@@ -1,12 +1,12 @@
 package com.clemble.casino.game.event;
 
-import com.clemble.casino.event.PlayerAwareEvent;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("moved")
-public class PlayerMovedEvent extends GameManagementEvent implements PlayerAwareEvent {
+public class PlayerMovedEvent extends GameManagementEvent implements PlayerEvent {
 
     /**
      * Generated 25/12/13
