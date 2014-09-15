@@ -19,7 +19,7 @@ public class AndroidGoalJudgeDutyService extends AbstractClembleCasinoOperations
 
     final private RestTemplate restTemplate;
 
-    public AndroidGoalJudgeDutyService(RestTemplate restTemplate, String host) {
+    public AndroidGoalJudgeDutyService(String host, RestTemplate restTemplate) {
         super(host);
         this.restTemplate = restTemplate;
     }

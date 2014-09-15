@@ -21,7 +21,7 @@ public class AndroidGoalJudgeInvitationService extends AbstractClembleCasinoOper
 
     final private RestTemplate restTemplate;
 
-    public AndroidGoalJudgeInvitationService(RestTemplate restTemplate, String host) {
+    public AndroidGoalJudgeInvitationService(String host, RestTemplate restTemplate) {
         super(host);
         this.restTemplate = restTemplate;
     }

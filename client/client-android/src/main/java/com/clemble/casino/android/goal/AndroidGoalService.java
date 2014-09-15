@@ -21,7 +21,7 @@ public class AndroidGoalService extends AbstractClembleCasinoOperations implemen
 
     final private RestTemplate restTemplate;
 
-    public AndroidGoalService(RestTemplate restTemplate, String host) {
+    public AndroidGoalService(String host, RestTemplate restTemplate) {
         super(host);
         this.restTemplate = restTemplate;
     }

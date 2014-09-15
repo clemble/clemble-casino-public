@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.clemble.casino.web.player.PlayerWebMapping.*;
+
+import com.clemble.casino.json.ObjectMapperUtils;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import com.clemble.casino.android.ClembleCasinoConstants;
 import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
 import com.clemble.casino.registration.PlayerToken;
 import com.clemble.casino.registration.service.PlayerFacadeRegistrationService;
@@ -28,9 +29,9 @@ public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegis
         this.host = checkNotNull(host);
         this.restTemplate = new RestTemplate();
 
-        this.restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ClembleCasinoConstants.OBJECT_MAPPER));
+        this.restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ObjectMapperUtils.OBJECT_MAPPER));
         MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-        jackson2HttpMessageConverter.setObjectMapper(ClembleCasinoConstants.OBJECT_MAPPER);
+        jackson2HttpMessageConverter.setObjectMapper(ObjectMapperUtils.OBJECT_MAPPER);
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
         messageConverters.add(jackson2HttpMessageConverter);
 

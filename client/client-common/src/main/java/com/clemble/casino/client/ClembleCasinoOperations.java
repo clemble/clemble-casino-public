@@ -2,6 +2,7 @@ package com.clemble.casino.client;
 
 import java.io.Closeable;
 
+import com.clemble.casino.client.goal.GoalOperations;
 import com.clemble.casino.goal.service.GoalJudgeDutyService;
 import com.clemble.casino.goal.service.GoalJudgeInvitationService;
 import com.clemble.casino.goal.service.GoalService;
@@ -20,39 +21,34 @@ import com.clemble.casino.player.PlayerAware;
 
 public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAware {
 
-    public PlayerProfileService profileOperations();
+    PlayerProfileService profileOperations();
 
-    public PlayerImageService imageOperations();
+    PlayerImageService imageOperations();
 
-    public PlayerConnectionService connectionOperations();
+    PlayerConnectionService connectionOperations();
 
-    public PlayerPresenceService presenceOperations();
+    PlayerPresenceService presenceOperations();
 
-    public PlayerSessionService sessionOperations();
+    PlayerSessionService sessionOperations();
 
-    public PlayerAccountService accountService();
+    PlayerAccountService accountService();
 
-    public PaymentTransactionOperations paymentOperations();
+    PaymentTransactionOperations paymentOperations();
 
-    public GoalService goalOperations();
+    EventListenerOperations listenerOperations();
 
-    public GoalJudgeInvitationService goalInvitationOperations();
+    GameConstructionOperations gameConstructionOperations();
 
-    public GoalJudgeDutyService goalDutyOperations();
+    <State extends GameState> GameActionOperations<State> gameActionOperations(String sessionKey);
 
-    public EventListenerOperations listenerOperations();
+    GameRecordOperations gameRecordOperations();
 
-    public GameConstructionOperations gameConstructionOperations();
-
-    public <State extends GameState> GameActionOperations<State> gameActionOperations(String sessionKey);
-
-    public GameRecordOperations gameRecordOperations();
-
-    public String getHost();
+    GoalOperations goalOperations();
 
     // TODO safety concern, since RestTemplate is reused all over the place, make a deep copy of returned rest template
-    public RestTemplate getRestTemplate();
+    RestTemplate getRestTemplate();
 
     @Override
-    public void close();
+    void close();
+
 }

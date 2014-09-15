@@ -25,14 +25,14 @@ public abstract class GoalWebMapping implements WebMapping {
         return GOAL_URL + path;
     }
 
-    final public static String GOAL_CONFIGURATIONS_URL = "http://{host}/goal/configuration";
+    final private static String GOAL_CONFIGURATIONS_URL = "http://{host}/goal/configuration";
     final public static String MY_CONFIGURATIONS = "/my";
 
     public static String toGoalConfigurationUrl(String path) {
         return GOAL_CONFIGURATIONS_URL + path;
     }
 
-    final public static String GOAL_CONSTRUCTION_URL = "http://{host}/goal/construction";
+    final private static String GOAL_CONSTRUCTION_URL = "http://{host}/goal/construction";
     final public static String GOAL_CONSTRUCTION = "/";
     final public static String GOAL_CONSTRUCTION_PENDING = "/my/pending";
 
