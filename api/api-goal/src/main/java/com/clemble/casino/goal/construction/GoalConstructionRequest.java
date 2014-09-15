@@ -13,26 +13,17 @@ import java.util.Date;
 /**
  * Created by mavarazy on 8/26/14.
  */
-public class GoalConstructionRequest implements ConstructionRequest<GoalConfiguration>, PlayerAware, GoalDescriptionAware {
+public class GoalConstructionRequest implements ConstructionRequest<GoalConfiguration>, GoalDescriptionAware {
 
-    final private String player;
     final private String goal;
     final private GoalConfiguration configuration;
 
     @JsonCreator
     public GoalConstructionRequest(
-        @JsonProperty("player") String player,
         @JsonProperty("configuration") GoalConfiguration configuration,
-        @JsonProperty("startDate") Date startDate,
         @JsonProperty("goal") String goal) {
-        this.player = player;
         this.configuration = configuration;
         this.goal = goal;
-    }
-
-    @Override
-    public String getPlayer() {
-        return player;
     }
 
     @Override
@@ -46,7 +37,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
     }
 
     @Override
-    public GoalConstruction toConstruction(String goalKey) {
+    public GoalConstruction toConstruction(String player, String goalKey) {
         return new GoalConstruction(goalKey, player, player, goal, configuration, ConstructionState.pending);
     }
 
@@ -60,15 +51,13 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
         if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
             return false;
         if (goal != null ? !goal.equals(that.goal) : that.goal != null) return false;
-        if (player != null ? !player.equals(that.player) : that.player != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player != null ? player.hashCode() : 0;
-        result = 31 * result + (goal != null ? goal.hashCode() : 0);
+        int result = 31 + (goal != null ? goal.hashCode() : 0);
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         return result;
     }

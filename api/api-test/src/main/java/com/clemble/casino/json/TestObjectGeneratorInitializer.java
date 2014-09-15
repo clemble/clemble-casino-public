@@ -136,7 +136,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(GameConstruction.class, new AbstractValueGenerator<GameConstruction>() {
             @Override
             public GameConstruction generate() {
-            return new AutomaticGameRequest(RandomStringUtils.random(5), RoundGameConfiguration.DEFAULT).toConstruction(RandomStringUtils.random(5));
+            return new AutomaticGameRequest(RoundGameConfiguration.DEFAULT).toConstruction(RandomStringUtils.random(5), RandomStringUtils.random(5));
             }
         });
         ObjectGenerator.register(LimitedBetRule.class, new AbstractValueGenerator<LimitedBetRule>() {

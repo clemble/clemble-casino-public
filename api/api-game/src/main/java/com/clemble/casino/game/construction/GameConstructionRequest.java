@@ -15,8 +15,8 @@ abstract public class GameConstructionRequest implements GameConfigurationAware,
 
     final protected GameConfiguration configuration;
 
-    public GameConstructionRequest(GameConfiguration specification) {
-        this.configuration = specification;
+    public GameConstructionRequest(GameConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     @Override

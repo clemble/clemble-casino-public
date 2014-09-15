@@ -49,7 +49,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     @Override
     public GameConstruction constructAutomatch(GameConfiguration specification) {
         // Step 1. Constructing automatic request
-        AutomaticGameRequest automaticGameRequest = new AutomaticGameRequest(player, specification);
+        AutomaticGameRequest automaticGameRequest = new AutomaticGameRequest(specification);
         // Step 2. Making actual construction
         return constructionService.construct(automaticGameRequest);
     }
@@ -62,7 +62,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     @Override
     public GameConstruction constructAvailability(GameConfiguration specification, Collection<String> participants) {
         // Step 1. Constructing availability request
-        AvailabilityGameRequest availabilityGameRequest = new AvailabilityGameRequest(player, specification, participants, GameDeclineBehavior.invalidate);
+        AvailabilityGameRequest availabilityGameRequest = new AvailabilityGameRequest(specification, participants, GameDeclineBehavior.invalidate);
         // Step 2. Making actual construction
         return availabilityConstructionService.construct(availabilityGameRequest);
     }

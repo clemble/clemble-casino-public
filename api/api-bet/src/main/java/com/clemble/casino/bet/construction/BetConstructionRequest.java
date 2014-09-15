@@ -23,7 +23,7 @@ public class BetConstructionRequest implements BetConfigurationAware, Constructi
         return configuration;
     }
 
-    public BetConstruction toConstruction(String betKey) {
+    public BetConstruction toConstruction(String player, String betKey) {
         return new BetConstruction(configuration, ConstructionState.pending);
     }
 

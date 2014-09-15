@@ -20,12 +20,12 @@ public class AutomaticGameRequest extends PlayerGameConstructionRequest {
     private static final long serialVersionUID = -529992778342722143L;
 
     @JsonCreator
-    public AutomaticGameRequest(@JsonProperty(PLAYER) String player, @JsonProperty("configuration") GameConfiguration configuration) {
-        super(player, configuration);
+    public AutomaticGameRequest(@JsonProperty("configuration") GameConfiguration configuration) {
+        super(configuration);
     }
 
     @Override
-    public GameConstruction toConstruction(String sessionKey) {
+    public GameConstruction toConstruction(String player, String sessionKey) {
         // Step 1. Generate participants
         List<String> participants = new ArrayList<String>();
         participants.add(player);

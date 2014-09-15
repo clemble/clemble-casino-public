@@ -25,16 +25,12 @@ public class AvailabilityGameRequest extends PlayerGameConstructionRequest imple
     final private Collection<String> participants;
 
     @JsonCreator
-    public AvailabilityGameRequest(@JsonProperty(PLAYER) String player,
+    public AvailabilityGameRequest(
             @JsonProperty("configuration") GameConfiguration configuration,
             @JsonProperty("participants") Collection<String> participants,
             @JsonProperty("declineBehavior") GameDeclineBehavior declineBehavior) {
-        super(player, configuration);
+        super(configuration);
         this.declineBehavior = declineBehavior != null ? declineBehavior : GameDeclineBehavior.invalidate;
-        if (!participants.contains(player)) {
-            participants = new ArrayList<String>(participants);
-            participants.add(player);
-        }
         this.participants = CollectionUtils.immutableList(participants);
     }
 
@@ -48,13 +44,20 @@ public class AvailabilityGameRequest extends PlayerGameConstructionRequest imple
     }
 
     @Override
-    public GameConstruction toConstruction(String sessionKey) {
+    public GameConstruction toConstruction(String player, String sessionKey) {
+        Collection<String> allParticipants = new ArrayList<String>();
+        if (!participants.contains(player)) {
+            allParticipants = new ArrayList<String>(participants);
+            allParticipants.add(player);
+        } else {
+            allParticipants = participants;
+        }
         // Step 1. Generating GameConstruction
         ActionLatch responses = new ActionLatch();
-        responses.expectNext(participants, InvitationResponseEvent.class);
+        responses.expectNext(allParticipants, InvitationResponseEvent.class);
         responses.put(new InvitationAcceptedEvent(player, sessionKey));
         // Step 2. Creating new GameConstruction
-        return new GameConstruction(sessionKey, player, ConstructionState.pending, responses, configuration, participants);
+        return new GameConstruction(sessionKey, player, ConstructionState.pending, responses, configuration, allParticipants);
     }
 
     @Override

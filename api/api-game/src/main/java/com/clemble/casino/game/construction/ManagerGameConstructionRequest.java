@@ -43,7 +43,7 @@ public class ManagerGameConstructionRequest extends ServerGameConstructionReques
     }
 
     @Override
-    public GameConstruction toConstruction(String sessionKey) {
+    public GameConstruction toConstruction(String player, String sessionKey) {
         return new GameConstruction(sessionKey, PlayerAware.DEFAULT_PLAYER, ConstructionState.pending, new ActionLatch(), configuration, new ArrayList<String>());
     }
 

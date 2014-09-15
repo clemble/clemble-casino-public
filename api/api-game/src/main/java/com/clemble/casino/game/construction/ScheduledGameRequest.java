@@ -21,12 +21,12 @@ public class ScheduledGameRequest extends PlayerGameConstructionRequest {
     final private Date startTime;
 
     @JsonCreator
-    public ScheduledGameRequest(@JsonProperty(PLAYER) String player,
+    public ScheduledGameRequest(
             @JsonProperty("configuration") GameConfiguration configuration,
             @JsonProperty("participants") Collection<String> participants,
             @JsonProperty("declineBehavior") GameDeclineBehavior declineBehavior,
             @JsonProperty("startTime") Date startTime) {
-        super(player, configuration);
+        super(configuration);
         this.declineBehavior = declineBehavior != null ? declineBehavior : GameDeclineBehavior.invalidate;
         this.startTime = startTime;
     }
@@ -39,7 +39,7 @@ public class ScheduledGameRequest extends PlayerGameConstructionRequest {
         return startTime;
     }
 
-    public GameConstruction toConstruction(String sessionKey) {
+    public GameConstruction toConstruction(String player, String sessionKey) {
         throw new UnsupportedOperationException();
     }
 
