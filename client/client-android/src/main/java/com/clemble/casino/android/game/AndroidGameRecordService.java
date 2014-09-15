@@ -10,6 +10,8 @@ import com.clemble.casino.game.Game;
 import com.clemble.casino.game.GameRecord;
 import com.clemble.casino.game.service.GameRecordService;
 
+import java.net.URI;
+
 public class AndroidGameRecordService extends AbstractClembleCasinoOperations implements GameRecordService {
 
     final private RestTemplate restTemplate;
@@ -21,7 +23,8 @@ public class AndroidGameRecordService extends AbstractClembleCasinoOperations im
 
     @Override
     public GameRecord get(String session) {
-        return restTemplate.getForObject(buildUriWith(toGameUrl(SESSIONS_RECORD), session), GameRecord.class);
+        URI recordURL = buildUriWith(toGameUrl(SESSIONS_RECORD), session);
+        return restTemplate.getForObject(recordURL, GameRecord.class);
     }
 
 }

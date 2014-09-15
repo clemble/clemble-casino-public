@@ -7,6 +7,7 @@ import com.clemble.casino.android.goal.AndroidGoalOperations;
 import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
 import com.clemble.casino.client.goal.GoalOperations;
+import com.clemble.casino.game.service.GameRecordService;
 import com.clemble.casino.json.ObjectMapperUtils;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
@@ -32,8 +33,6 @@ import com.clemble.casino.client.game.GameActionOperationsFactory;
 import com.clemble.casino.client.game.GameActionTemplateFactory;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameConstructionTemplate;
-import com.clemble.casino.client.game.GameRecordOperations;
-import com.clemble.casino.client.game.GameRecordTemplate;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construction.event.GameInitiatedEvent;
 import com.clemble.casino.game.event.RoundEvent;
@@ -60,7 +59,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerPresenceService presenceOperations;
     final private PaymentTransactionOperations transactionOperations;
     final private PlayerAccountService accountService;
-    final private GameRecordOperations recordOperations;
+    final private GameRecordService recordOperations;
     final private GameConstructionOperations constructionOperations;
     final private GameActionOperationsFactory actionOperationsFactory;
 
@@ -112,7 +111,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         GameActionService actionService = new AndroidGameActionTemplate(host, restTemplate);
         this.actionOperationsFactory = new GameActionTemplateFactory(player, listenerOperations, actionService);
         this.constructionOperations = new GameConstructionTemplate(player, constructionService, availabilityConstructionService, initiationService, configurationService, listenerOperations);
-        this.recordOperations = new GameRecordTemplate(new AndroidGameRecordService(restTemplate, host));
+        this.recordOperations = new AndroidGameRecordService(restTemplate, host);
         // Step 5. Registering listener operations
         this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(initiationService));
         // Step 6. Creating goal service
@@ -157,7 +156,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public GameRecordOperations gameRecordOperations() {
+    public GameRecordService gameRecordOperations() {
         return recordOperations;
     }
 
