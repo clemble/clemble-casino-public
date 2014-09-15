@@ -4,17 +4,19 @@ import com.clemble.casino.goal.rule.GoalRule;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 9/10/14.
  */
+@JsonTypeName("judgeRule")
 public class JudgeRule implements GoalRule, PlayerAware {
 
     final private String player;
     final private JudgeType type;
 
     @JsonCreator
-    public JudgeRule(@JsonProperty("player") String player, @JsonProperty("judgeType") JudgeType type) {
+    public JudgeRule(@JsonProperty("player") String player, @JsonProperty("type") JudgeType type) {
         this.player = player;
         this.type = type;
     }

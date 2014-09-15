@@ -2,6 +2,7 @@ package com.clemble.casino.json;
 
 import com.clemble.test.random.ObjectGenerator;
 import com.clemble.test.reflection.AnnotationReflectionUtils;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,6 +46,29 @@ abstract public class AbstractObjectMapperTest {
         assertTrue(errors.toString(), errors.isEmpty());
 
     }
+
+    @Test
+    public void testJsonCreatorSerialization() throws IOException {
+        List<Class<?>> candidates = AnnotationReflectionUtils.findCandidates("com.clemble.casino", JsonCreator.class);
+
+        Map<Class<?>, Throwable> errors = new HashMap<Class<?>, Throwable>();
+
+        for (Class<?> candidate : candidates) {
+            Throwable error = checkSerialization(candidate);
+            if (error != null) {
+                errors.put(candidate, error);
+            }
+        }
+
+        if (errors.size() != 0) {
+            for (Map.Entry<Class<?>, Throwable> problem : errors.entrySet()) {
+                System.out.println("Problem " + problem.getKey().getSimpleName() + " > " + problem.getValue().getClass().getSimpleName());
+            }
+        }
+        assertTrue(errors.toString(), errors.isEmpty());
+
+    }
+
 
     protected Throwable checkSerialization(Class<?> candidate) {
         Throwable error = null;

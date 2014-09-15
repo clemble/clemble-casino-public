@@ -2,6 +2,7 @@ package com.clemble.casino.json;
 
 import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameState;
+import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.clemble.test.random.AbstractValueGenerator;
 import com.clemble.test.random.ObjectGenerator;
@@ -31,5 +32,7 @@ public class CommonObjectMapperTest extends AbstractObjectMapperTest {
     @Test
     public void testSpecialCases() {
         assertNull(checkSerialization(PrivacyRule.class));
+        assertNull(checkSerialization(PlayerProfile.class));
     }
+
 }
