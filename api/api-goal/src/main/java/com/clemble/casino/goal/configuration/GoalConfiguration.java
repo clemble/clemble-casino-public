@@ -17,8 +17,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 8/26/14.
  */
 @JsonTypeName("goal")
-public class GoalConfiguration implements Configuration, BetConfigurationConvertible {
+public class GoalConfiguration implements Configuration, GoalConfigurationKeyAware, BetConfigurationConvertible {
 
+    final private String configurationKey;
     final private Bid bid;
     final private BetRule betRule;
     final private JudgeRule judgeRule;
@@ -28,18 +29,25 @@ public class GoalConfiguration implements Configuration, BetConfigurationConvert
 
     @JsonCreator
     public GoalConfiguration(
+        @JsonProperty("configurationKey") String configurationKey,
         @JsonProperty("price") Bid bid,
         @JsonProperty("betRule") BetRule betRule,
         @JsonProperty("judgeRule") JudgeRule judgeRule,
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule) {
+        this.configurationKey = configurationKey;
         this.bid = bid;
         this.betRule = betRule;
         this.judgeRule = judgeRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
+    }
+
+    @Override
+    public String getConfigurationKey() {
+        return configurationKey;
     }
 
     public Bid getBid() {
