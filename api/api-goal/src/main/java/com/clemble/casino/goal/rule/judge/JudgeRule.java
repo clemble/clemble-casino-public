@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 9/10/14.
  */
-@JsonTypeName("judgeRule")
+@JsonTypeName("rule:judge")
 public class JudgeRule implements GoalRule, PlayerAware {
 
     final private String player;

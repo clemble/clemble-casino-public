@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 9/13/14.
  */
 @JsonTypeName("goal:initiation:created")
-public class GoalInitiatedEvent implements GoalEvent {
+public class GoalInitiationCreatedEvent implements GoalEvent {
 
     final private String goalKey;
 
     @JsonCreator
-    public GoalInitiatedEvent(@JsonProperty(GOAL_KEY) String goalKey) {
+    public GoalInitiationCreatedEvent(@JsonProperty(GOAL_KEY) String goalKey) {
         this.goalKey = goalKey;
     }
 
@@ -28,7 +28,7 @@ public class GoalInitiatedEvent implements GoalEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalInitiatedEvent that = (GoalInitiatedEvent) o;
+        GoalInitiationCreatedEvent that = (GoalInitiationCreatedEvent) o;
 
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
 

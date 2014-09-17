@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("gameConstructed")
-public class GameConstructedEvent implements GameConstructionEvent {
+@JsonTypeName("game:construction:complete")
+public class GameConstructionCompleteEvent implements GameConstructionEvent {
 
     /**
      * Generated 24/06/13
@@ -15,7 +15,7 @@ public class GameConstructedEvent implements GameConstructionEvent {
     final private String sessionKey;
 
     @JsonCreator
-    public GameConstructedEvent(@JsonProperty(SESSION_KEY) String session) {
+    public GameConstructionCompleteEvent(@JsonProperty(SESSION_KEY) String session) {
         this.sessionKey = session;
     }
 
@@ -37,7 +37,7 @@ public class GameConstructedEvent implements GameConstructionEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameConstructedEvent other = (GameConstructedEvent) obj;
+        GameConstructionCompleteEvent other = (GameConstructionCompleteEvent) obj;
         return sessionKey.equals(other.sessionKey);
     }
 

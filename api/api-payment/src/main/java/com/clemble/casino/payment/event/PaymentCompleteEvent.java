@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("finished_payment")
-public class FinishedPaymentEvent implements PaymentEvent {
+@JsonTypeName("payment:complete")
+public class PaymentCompleteEvent implements PaymentEvent {
 
     /**
      * Generated 16/12/13
@@ -20,7 +20,7 @@ public class FinishedPaymentEvent implements PaymentEvent {
     final private Operation operation;
     final private String transactionKey;
 
-    public FinishedPaymentEvent(String transactionKey, PaymentOperation paymentOperation) {
+    public PaymentCompleteEvent(String transactionKey, PaymentOperation paymentOperation) {
         this.player = paymentOperation.getPlayer();
         this.amount = paymentOperation.getAmount();
         this.operation = paymentOperation.getOperation();
@@ -28,8 +28,8 @@ public class FinishedPaymentEvent implements PaymentEvent {
     }
 
     @JsonCreator
-    public FinishedPaymentEvent(@JsonProperty(PLAYER) String player, @JsonProperty("amount") Money amount, @JsonProperty("operation") Operation operation,
-            @JsonProperty(TRANSACTION_KEY) String transactionKey) {
+    public PaymentCompleteEvent(@JsonProperty(PLAYER) String player, @JsonProperty("amount") Money amount, @JsonProperty("operation") Operation operation,
+                                @JsonProperty(TRANSACTION_KEY) String transactionKey) {
         this.player = player;
         this.amount = amount;
         this.operation = operation;
@@ -74,7 +74,7 @@ public class FinishedPaymentEvent implements PaymentEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        FinishedPaymentEvent other = (FinishedPaymentEvent) obj;
+        PaymentCompleteEvent other = (PaymentCompleteEvent) obj;
         if (amount == null) {
             if (other.amount != null)
                 return false;

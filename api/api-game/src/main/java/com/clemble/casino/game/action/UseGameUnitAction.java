@@ -5,7 +5,7 @@ import com.clemble.casino.game.unit.GameUnit;
 /**
  * Created by mavarazy on 15/03/14.
  */
-public interface UseGameUnitEvent extends ClientGameEvent {
+public interface UseGameUnitAction extends PlayerGameAction {
 
     public GameUnit getUnit();
 

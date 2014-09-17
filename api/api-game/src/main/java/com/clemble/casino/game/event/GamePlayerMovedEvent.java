@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("moved")
-public class PlayerMovedEvent extends GameManagementEvent implements PlayerEvent {
+@JsonTypeName("game:player:moved")
+public class GamePlayerMovedEvent extends GameManagementEvent implements PlayerEvent {
 
     /**
      * Generated 25/12/13
@@ -16,7 +16,7 @@ public class PlayerMovedEvent extends GameManagementEvent implements PlayerEvent
     final private String player;
 
     @JsonCreator
-    public PlayerMovedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty(PLAYER) String player) {
+    public GamePlayerMovedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty(PLAYER) String player) {
         super(sessionKey);
         this.player = player;
     }
@@ -42,7 +42,7 @@ public class PlayerMovedEvent extends GameManagementEvent implements PlayerEvent
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PlayerMovedEvent other = (PlayerMovedEvent) obj;
+        GamePlayerMovedEvent other = (GamePlayerMovedEvent) obj;
         if (player == null) {
             if (other.player != null)
                 return false;

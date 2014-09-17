@@ -8,11 +8,11 @@ import java.util.List;
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
+import com.clemble.casino.game.construction.event.GameInvitationAcceptedEvent;
+import com.clemble.casino.game.construction.event.GameInvitationDeclinedEvent;
+import com.clemble.casino.game.construction.event.GameInvitationResponseEvent;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.construction.*;
-import com.clemble.casino.game.construction.event.InvitationAcceptedEvent;
-import com.clemble.casino.game.construction.event.InvitationDeclinedEvent;
-import com.clemble.casino.game.construction.event.InvitationResponseEvent;
 import com.clemble.casino.game.construction.service.AutoGameConstructionService;
 import com.clemble.casino.game.construction.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.configuration.service.GameConfigurationService;
@@ -74,16 +74,16 @@ public class GameConstructionTemplate implements GameConstructionOperations {
 
     @Override
     public GameConstruction accept(String sessionKey) {
-        return reply(sessionKey, new InvitationAcceptedEvent(player, sessionKey));
+        return reply(sessionKey, new GameInvitationAcceptedEvent(player, sessionKey));
     }
 
     @Override
     public GameConstruction decline(String sessionKey) {
-        return reply(sessionKey, new InvitationDeclinedEvent(player, sessionKey));
+        return reply(sessionKey, new GameInvitationDeclinedEvent(player, sessionKey));
     }
 
     @Override
-    public GameConstruction reply(String sessionKey, InvitationResponseEvent responce) {
+    public GameConstruction reply(String sessionKey, GameInvitationResponseEvent responce) {
         return availabilityConstructionService.reply(responce);
     }
 

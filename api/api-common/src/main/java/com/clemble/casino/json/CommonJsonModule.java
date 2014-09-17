@@ -1,6 +1,9 @@
 package com.clemble.casino.json;
 
-import com.clemble.casino.event.ExpectedEvent;
+import com.clemble.casino.event.PlayerDefaultAction;
+import com.clemble.casino.event.PlayerExpectedAction;
+import com.clemble.casino.event.bet.PlayerBetAction;
+import com.clemble.casino.event.surrender.GiveUpAction;
 import com.clemble.casino.rule.bet.BetRule;
 import com.clemble.casino.rule.bet.FixedBetRule;
 import com.clemble.casino.rule.bet.LimitedBetRule;
@@ -18,7 +21,10 @@ public class CommonJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Common");
-        module.registerSubtypes(new NamedType(ExpectedEvent.class, ExpectedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerExpectedAction.class, PlayerExpectedAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerBetAction.class, PlayerBetAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerDefaultAction.class, PlayerDefaultAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.class.getAnnotation(JsonTypeName.class).value()));
 
         module.registerSubtypes(new NamedType(CountdownBreachPunishment.class, CountdownBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PenaltyBreachPunishment.class, PenaltyBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));
@@ -28,7 +34,6 @@ public class CommonJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(FixedBetRule.class, FixedBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(LimitedBetRule.class, LimitedBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(UnlimitedBetRule.class, UnlimitedBetRule.class.getAnnotation(JsonTypeName.class).value()));
-
 
         return module;
     }

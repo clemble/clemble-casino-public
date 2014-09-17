@@ -6,20 +6,20 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("initiated")
-public class GameInitiatedEvent extends GameInitiationEvent {
+@JsonTypeName("game:initiation:created")
+public class GameInitiationCreatedEvent extends GameInitiationEvent {
 
     /**
      * Generated 04/01/14
      */
     private static final long serialVersionUID = 1894571231006850214L;
 
-    public GameInitiatedEvent(GameInitiation initiation) {
+    public GameInitiationCreatedEvent(GameInitiation initiation) {
         this(initiation.getSessionKey(), initiation);
     }
 
     @JsonCreator
-    public GameInitiatedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) String sessionKey, @JsonProperty("initiation") GameInitiation initiation) {
+    public GameInitiationCreatedEvent(@JsonProperty(GameSessionAware.SESSION_KEY) String sessionKey, @JsonProperty("initiation") GameInitiation initiation) {
         super(sessionKey, initiation);
     }
 

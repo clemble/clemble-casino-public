@@ -1,6 +1,6 @@
 package com.clemble.casino.rule.bet;
 
-import com.clemble.casino.event.bet.BetEvent;
+import com.clemble.casino.event.bet.PlayerBetAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -41,8 +41,8 @@ public class LimitedBetRule implements BetRule {
     }
 
     @Override
-    public boolean isValid(BetEvent betEvent) {
-        return minBet <= betEvent.getBet() && betEvent.getBet() <= maxBet;
+    public boolean isValid(PlayerBetAction playerBetAction) {
+        return minBet <= playerBetAction.getBet() && playerBetAction.getBet() <= maxBet;
     }
 
     @Override

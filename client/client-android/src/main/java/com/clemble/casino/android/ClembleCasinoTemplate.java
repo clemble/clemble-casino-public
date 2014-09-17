@@ -7,6 +7,7 @@ import com.clemble.casino.android.goal.AndroidGoalOperations;
 import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
 import com.clemble.casino.client.goal.GoalOperations;
+import com.clemble.casino.game.construction.event.GameInitiationCreatedEvent;
 import com.clemble.casino.game.service.GameRecordService;
 import com.clemble.casino.json.ObjectMapperUtils;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
@@ -34,7 +35,6 @@ import com.clemble.casino.client.game.GameActionTemplateFactory;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameConstructionTemplate;
 import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.construction.event.GameInitiatedEvent;
 import com.clemble.casino.game.event.RoundEvent;
 import com.clemble.casino.game.construction.service.AutoGameConstructionService;
 import com.clemble.casino.game.construction.service.AvailabilityGameConstructionService;
@@ -113,7 +113,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.constructionOperations = new GameConstructionTemplate(player, constructionService, availabilityConstructionService, initiationService, configurationService, listenerOperations);
         this.recordOperations = new AndroidGameRecordService(restTemplate, host);
         // Step 5. Registering listener operations
-        this.listenerOperations.subscribe(new EventTypeSelector(GameInitiatedEvent.class), new GameInitiationReadyEventEmulator(initiationService));
+        this.listenerOperations.subscribe(new EventTypeSelector(GameInitiationCreatedEvent.class), new GameInitiationReadyEventEmulator(initiationService));
         // Step 6. Creating goal service
         this.goalOperations = new AndroidGoalOperations(host, restTemplate);
         // Step 7. Creating account service

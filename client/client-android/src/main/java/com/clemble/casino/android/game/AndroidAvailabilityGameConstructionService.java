@@ -2,6 +2,7 @@ package com.clemble.casino.android.game;
 
 import java.util.Collection;
 
+import com.clemble.casino.game.construction.event.GameInvitationResponseEvent;
 import com.clemble.casino.player.event.PlayerEvent;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,7 +10,6 @@ import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.game.GameState;
 import com.clemble.casino.game.construction.AvailabilityGameRequest;
 import com.clemble.casino.game.construction.GameConstruction;
-import com.clemble.casino.game.construction.event.InvitationResponseEvent;
 import com.clemble.casino.game.construction.service.AvailabilityGameConstructionService;
 import com.clemble.casino.utils.CollectionUtils;
 
@@ -40,7 +40,7 @@ public class AndroidAvailabilityGameConstructionService<T extends GameState> ext
     }
 
     @Override
-    public GameConstruction reply(InvitationResponseEvent request) {
+    public GameConstruction reply(GameInvitationResponseEvent request) {
         return restTemplate.postForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES), request.getSessionKey()), request, GameConstruction.class);
     }
 

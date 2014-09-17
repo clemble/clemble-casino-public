@@ -1,12 +1,12 @@
 package com.clemble.casino.game.action.management;
 
-import com.clemble.casino.game.action.ClientGameEvent;
+import com.clemble.casino.game.action.PlayerGameAction;
 
 
 /**
  * Created by mavarazy on 23/12/13.
  */
-public class GameManagementEvent implements ClientGameEvent {
+public class GameManagementAction implements PlayerGameAction {
 
     /**
      * Generated 02/01/2012
@@ -15,7 +15,7 @@ public class GameManagementEvent implements ClientGameEvent {
 
     final private String player;
 
-    public GameManagementEvent(String player) {
+    public GameManagementAction(String player) {
         this.player = player;
     }
 

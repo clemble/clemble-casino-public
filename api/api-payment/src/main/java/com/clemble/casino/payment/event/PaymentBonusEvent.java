@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("bonus")
-public class BonusPaymentEvent implements PaymentEvent, PlayerAware, AmountAware, PaymentBonusSourceAware {
+@JsonTypeName("payment:bonus")
+public class PaymentBonusEvent implements PaymentEvent, PlayerAware, AmountAware, PaymentBonusSourceAware {
 
     /**
      * Generated 16/12/13
@@ -23,11 +23,11 @@ public class BonusPaymentEvent implements PaymentEvent, PlayerAware, AmountAware
     final private String transactionKey;
 
     @JsonCreator
-    public BonusPaymentEvent(
-            @JsonProperty(PLAYER) String player,
-            @JsonProperty("amount") Money money,
-            @JsonProperty("bonusSource") PaymentBonusSource bonusSource,
-            @JsonProperty(TRANSACTION_KEY) String transactionKey) {
+    public PaymentBonusEvent(
+        @JsonProperty(PLAYER) String player,
+        @JsonProperty("amount") Money money,
+        @JsonProperty("bonusSource") PaymentBonusSource bonusSource,
+        @JsonProperty(TRANSACTION_KEY) String transactionKey) {
         this.player = player;
         this.amount = money;
         this.bonusSource = bonusSource;
@@ -72,7 +72,7 @@ public class BonusPaymentEvent implements PaymentEvent, PlayerAware, AmountAware
             return false;
         if (getClass() != obj.getClass())
             return false;
-        BonusPaymentEvent other = (BonusPaymentEvent) obj;
+        PaymentBonusEvent other = (PaymentBonusEvent) obj;
         if (amount == null) {
             if (other.amount != null)
                 return false;

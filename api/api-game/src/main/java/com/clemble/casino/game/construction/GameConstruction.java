@@ -10,7 +10,7 @@ import com.clemble.casino.game.configuration.GameConfiguration;
 
 import com.clemble.casino.ActionLatch;
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.construction.event.InvitationAcceptedEvent;
+import com.clemble.casino.game.construction.event.GameInvitationAcceptedEvent;
 import com.clemble.casino.construction.Construction;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.player.event.PlayerEvent;
@@ -82,7 +82,7 @@ public class GameConstruction implements Construction<GameConfiguration>, Player
         List<String> acceptedParticipants = new ArrayList<String>(responses.fetchParticipants().size());
 
         for (PlayerEvent responseEntry : responses.getActions()) {
-            if (responseEntry instanceof InvitationAcceptedEvent)
+            if (responseEntry instanceof GameInvitationAcceptedEvent)
                 acceptedParticipants.add(responseEntry.getPlayer());
         }
 

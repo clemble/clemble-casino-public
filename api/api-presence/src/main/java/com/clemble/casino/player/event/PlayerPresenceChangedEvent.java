@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("presence")
+@JsonTypeName("player:presence:changed")
 public class PlayerPresenceChangedEvent extends PlayerPresence implements PlayerEvent {
 
     /**

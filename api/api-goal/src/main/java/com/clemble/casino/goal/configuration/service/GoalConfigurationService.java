@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * Created by mavarazy on 9/1/14.
  */
-public interface GoalConfigurationService extends ConfigurationService<GoalConfiguration> {
+public interface GoalConfigurationService<T extends GoalConfiguration> extends ConfigurationService<T> {
 
-    public List<GoalConfiguration> getConfigurations();
+    public List<T> getConfigurations();
 
 }

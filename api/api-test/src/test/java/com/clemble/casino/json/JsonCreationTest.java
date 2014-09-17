@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.clemble.casino.event.ExpectedEvent;
+import com.clemble.casino.event.PlayerExpectedAction;
 import com.clemble.casino.game.MatchGameContext;
 import com.clemble.casino.game.RoundGameContext;
 import com.clemble.casino.game.RoundGameState;
@@ -68,7 +68,7 @@ public class JsonCreationTest {
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
         Assert.assertEquals(checkSerialization(GameConstruction.class), null);
-        Assert.assertEquals(checkSerialization(ExpectedEvent.class), null);
+        Assert.assertEquals(checkSerialization(PlayerExpectedAction.class), null);
         Assert.assertEquals(checkSerialization(MatchGameContext.class), null);
         Assert.assertEquals(checkSerialization(GameInitiationCanceledEvent.class), null);
         ClembleCasinoFailure casinoFailure = objectMapper.readValue(ERROR_JSON, ClembleCasinoFailure.class);

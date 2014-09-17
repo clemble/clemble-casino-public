@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("canceled")
-public class GameCanceledEvent implements GameConstructionEvent {
+@JsonTypeName("game:construction:canceled")
+public class GameConstructionCanceledEvent implements GameConstructionEvent {
 
     /**
      * Generated 10/06/13
@@ -16,7 +16,7 @@ public class GameCanceledEvent implements GameConstructionEvent {
     final private String session;
 
     @JsonCreator
-    public GameCanceledEvent(@JsonProperty(SESSION_KEY) String session) {
+    public GameConstructionCanceledEvent(@JsonProperty(SESSION_KEY) String session) {
         this.session = session;
     }
 
@@ -38,7 +38,7 @@ public class GameCanceledEvent implements GameConstructionEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        return session.equals(((GameCanceledEvent) obj).session);
+        return session.equals(((GameConstructionCanceledEvent) obj).session);
     }
 
     @Override

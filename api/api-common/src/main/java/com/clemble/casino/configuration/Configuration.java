@@ -11,7 +11,6 @@ import java.io.Serializable;
 /**
  * Created by mavarazy on 9/6/14.
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "configuration")
 public interface Configuration extends Serializable {
 
     public PrivacyRule getPrivacyRule();

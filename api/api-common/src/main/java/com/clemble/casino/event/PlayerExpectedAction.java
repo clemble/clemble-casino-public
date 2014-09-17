@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.springframework.data.annotation.Transient;
 
-@JsonTypeName("expected")
-public class ExpectedEvent implements PlayerEvent {
+@JsonTypeName("player:expected:event")
+public class PlayerExpectedAction implements PlayerEvent {
 
 
     /**
@@ -21,7 +21,7 @@ public class ExpectedEvent implements PlayerEvent {
     final private Class<? extends PlayerEvent> event;
 
     @JsonCreator
-    public ExpectedEvent(
+    public PlayerExpectedAction(
         @JsonProperty(PLAYER) String player,
         @JsonProperty("action") String action) {
         this.player = player;
@@ -46,8 +46,8 @@ public class ExpectedEvent implements PlayerEvent {
         return event.isAssignableFrom(expected);
     }
 
-    public static ExpectedEvent fromClass(String player, Class<? extends PlayerEvent> action) {
-        return new ExpectedEvent(player, ExpectedEventUtils.toActionName(action));
+    public static PlayerExpectedAction fromClass(String player, Class<? extends PlayerEvent> action) {
+        return new PlayerExpectedAction(player, ExpectedEventUtils.toActionName(action));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ExpectedEvent implements PlayerEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ExpectedEvent other = (ExpectedEvent) obj;
+        PlayerExpectedAction other = (PlayerExpectedAction) obj;
         if (action == null) {
             if (other.action != null)
                 return false;

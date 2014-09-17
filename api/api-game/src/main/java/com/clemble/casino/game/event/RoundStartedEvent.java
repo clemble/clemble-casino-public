@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("round_started")
+@JsonTypeName("game:round:started")
 public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent implements GameStartedEvent {
 
     /**

@@ -5,10 +5,10 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.clemble.casino.event.ExpectedEvent;
+import com.clemble.casino.event.PlayerExpectedAction;
 import com.clemble.casino.client.event.*;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.event.surrender.GiveUpEvent;
+import com.clemble.casino.event.surrender.GiveUpAction;
 import com.clemble.casino.game.*;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.event.GameManagementEvent;
@@ -93,7 +93,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     public Class<?> expectedMove(String player) {
         RoundGameState state = currentState.get();
         PlayerEvent event = state != null ? state.getContext().getActionLatch().filterAction(player) : null;
-        return event == null || !(event instanceof ExpectedEvent) ? null : ((ExpectedEvent) event).expected();
+        return event == null || !(event instanceof PlayerExpectedAction) ? null : ((PlayerExpectedAction) event).expected();
     }
 
     @Override
@@ -120,7 +120,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public GameManagementEvent giveUp(){
-        return process(new GiveUpEvent(player));
+        return process(new GiveUpAction(player));
     }
 
     @Override

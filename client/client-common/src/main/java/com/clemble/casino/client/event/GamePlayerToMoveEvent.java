@@ -3,7 +3,7 @@ package com.clemble.casino.client.event;
 import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.player.PlayerAware;
 
-public class PlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
+public class GamePlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
 
     /**
      * Generated 28/12/13
@@ -15,7 +15,7 @@ public class PlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
     final private String expectedMove;
     final private boolean isMyTurn;
 
-    public PlayerToMoveEvent(String sessionKey, String player, String expectedMove, boolean isMyTurn) {
+    public GamePlayerToMoveEvent(String sessionKey, String player, String expectedMove, boolean isMyTurn) {
         this.player = player;
         this.sessionKey = sessionKey;
         this.expectedMove = expectedMove;

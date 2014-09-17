@@ -3,28 +3,28 @@ package com.clemble.casino.game.event;
 import java.util.Collection;
 
 import com.clemble.casino.game.RoundGameState;
-import com.clemble.casino.game.action.ClientGameEvent;
+import com.clemble.casino.game.action.PlayerGameAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("round_changed")
-public class RoundStateChangedEvent<State extends RoundGameState> extends RoundEvent {
+@JsonTypeName("game:round:changed")
+public class RoundChangedEvent<State extends RoundGameState> extends RoundEvent {
 
     /**
      * Generated 25/12/13
      */
     private static final long serialVersionUID = -7618933855585060716L;
 
-    final private Collection<? extends ClientGameEvent> actions;
+    final private Collection<? extends PlayerGameAction> actions;
 
     @JsonCreator
-    public RoundStateChangedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("state") State state, @JsonProperty("actions") Collection<? extends ClientGameEvent> actions) {
+    public RoundChangedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("state") State state, @JsonProperty("actions") Collection<? extends PlayerGameAction> actions) {
         super(session, state);
         this.actions = actions;
     }
 
-    public Collection<? extends ClientGameEvent> getActions() {
+    public Collection<? extends PlayerGameAction> getActions() {
         return actions;
     }
 
@@ -44,7 +44,7 @@ public class RoundStateChangedEvent<State extends RoundGameState> extends RoundE
             return false;
         if (getClass() != obj.getClass())
             return false;
-        RoundStateChangedEvent other = (RoundStateChangedEvent) obj;
+        RoundChangedEvent other = (RoundChangedEvent) obj;
         if (actions == null) {
             if (other.actions != null)
                 return false;

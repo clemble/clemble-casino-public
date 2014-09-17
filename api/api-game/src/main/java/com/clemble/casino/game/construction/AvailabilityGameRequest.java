@@ -6,8 +6,8 @@ import java.util.Collection;
 import com.clemble.casino.ActionLatch;
 import com.clemble.casino.construction.ConstructionState;
 import com.clemble.casino.game.configuration.GameConfiguration;
-import com.clemble.casino.game.construction.event.InvitationAcceptedEvent;
-import com.clemble.casino.game.construction.event.InvitationResponseEvent;
+import com.clemble.casino.game.construction.event.GameInvitationAcceptedEvent;
+import com.clemble.casino.game.construction.event.GameInvitationResponseEvent;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -54,8 +54,8 @@ public class AvailabilityGameRequest extends PlayerGameConstructionRequest imple
         }
         // Step 1. Generating GameConstruction
         ActionLatch responses = new ActionLatch();
-        responses.expectNext(allParticipants, InvitationResponseEvent.class);
-        responses.put(new InvitationAcceptedEvent(player, sessionKey));
+        responses.expectNext(allParticipants, GameInvitationResponseEvent.class);
+        responses.put(new GameInvitationAcceptedEvent(player, sessionKey));
         // Step 2. Creating new GameConstruction
         return new GameConstruction(sessionKey, player, ConstructionState.pending, responses, configuration, allParticipants);
     }

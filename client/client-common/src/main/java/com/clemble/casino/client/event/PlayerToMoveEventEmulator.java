@@ -1,11 +1,11 @@
 package com.clemble.casino.client.event;
 
 import com.clemble.casino.ActionLatch;
-import com.clemble.casino.event.ExpectedEvent;
+import com.clemble.casino.event.PlayerExpectedAction;
 import com.clemble.casino.event.Event;
+import com.clemble.casino.game.event.RoundChangedEvent;
 import com.clemble.casino.game.event.RoundEvent;
 import com.clemble.casino.game.event.RoundStartedEvent;
-import com.clemble.casino.game.event.RoundStateChangedEvent;
 
 public class PlayerToMoveEventEmulator implements EventListener<RoundEvent>, EventSelector {
 
@@ -27,15 +27,15 @@ public class PlayerToMoveEventEmulator implements EventListener<RoundEvent>, Eve
             ActionLatch actionLatch = smEvent.getState().getContext().getActionLatch();
             for (String participant : actionLatch.fetchParticipants())
                 if (!actionLatch.acted(participant)) {
-                    ExpectedEvent expectedEvent = (ExpectedEvent) actionLatch.filterAction(participant);
-                    listenerOperations.update(new PlayerToMoveEvent(sessionKey, participant, expectedEvent.getAction(), player.equals(participant)));
+                    PlayerExpectedAction expectedEvent = (PlayerExpectedAction) actionLatch.filterAction(participant);
+                    listenerOperations.update(new GamePlayerToMoveEvent(sessionKey, participant, expectedEvent.getAction(), player.equals(participant)));
                 }
         }
     }
 
     @Override
     public boolean filter(Event event) {
-        return (event instanceof RoundStartedEvent) || (event instanceof RoundStateChangedEvent);
+        return (event instanceof RoundStartedEvent) || (event instanceof RoundChangedEvent);
     };
 
 }

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("initiationCanceled")
+@JsonTypeName("game:initiation:canceled")
 public class GameInitiationCanceledEvent extends GameInitiationEvent {
 
     /**

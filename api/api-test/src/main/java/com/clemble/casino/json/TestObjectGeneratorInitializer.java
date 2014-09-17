@@ -10,12 +10,12 @@ import java.util.Date;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-import com.clemble.casino.event.ExpectedEvent;
+import com.clemble.casino.event.PlayerExpectedAction;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.event.surrender.GiveUpEvent;
+import com.clemble.casino.event.bet.PlayerBetAction;
+import com.clemble.casino.event.surrender.GiveUpAction;
 import com.clemble.casino.game.*;
-import com.clemble.casino.event.bet.BetEvent;
-import com.clemble.casino.game.construction.event.InvitationAcceptedEvent;
+import com.clemble.casino.game.construction.event.GameInvitationAcceptedEvent;
 import com.clemble.casino.game.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.unit.Chip;
 import com.clemble.casino.game.unit.GameUnit;
@@ -61,10 +61,10 @@ public class TestObjectGeneratorInitializer {
                 return Chip.zero;
             }
         });
-        ObjectGenerator.register(ExpectedEvent.class, new AbstractValueGenerator<ExpectedEvent>() {
+        ObjectGenerator.register(PlayerExpectedAction.class, new AbstractValueGenerator<PlayerExpectedAction>() {
             @Override
-            public ExpectedEvent generate() {
-            return ExpectedEvent.fromClass("S", InvitationAcceptedEvent.class);
+            public PlayerExpectedAction generate() {
+            return PlayerExpectedAction.fromClass("S", GameInvitationAcceptedEvent.class);
             }
         });
         ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {
@@ -84,13 +84,13 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(Event.class, new AbstractValueGenerator<Event>() {
             @Override
             public Event generate() {
-                return new GiveUpEvent(RandomStringUtils.random(5));
+                return new GiveUpAction(RandomStringUtils.random(5));
             }
         });
-        ObjectGenerator.register(BetEvent.class, new AbstractValueGenerator<BetEvent>() {
+        ObjectGenerator.register(PlayerBetAction.class, new AbstractValueGenerator<PlayerBetAction>() {
             @Override
-            public BetEvent generate() {
-            return new BetEvent(RandomStringUtils.random(5), 100);
+            public PlayerBetAction generate() {
+            return new PlayerBetAction(RandomStringUtils.random(5), 100);
             }
         });
         ObjectGenerator.register(PlayerAccount.class, new AbstractValueGenerator<PlayerAccount>() {

@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("default")
-public class DefaultPlayerEvent implements PlayerEvent {
+@JsonTypeName("player:default:action")
+public class PlayerDefaultAction implements PlayerEvent {
 
     /**
      * Generated 23/12/13
@@ -17,7 +17,7 @@ public class DefaultPlayerEvent implements PlayerEvent {
     final private String player;
 
     @JsonCreator
-    public DefaultPlayerEvent(@JsonProperty(PlayerAware.PLAYER) String player) {
+    public PlayerDefaultAction(@JsonProperty(PlayerAware.PLAYER) String player) {
         this.player = player;
     }
 
@@ -29,9 +29,9 @@ public class DefaultPlayerEvent implements PlayerEvent {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof DefaultPlayerEvent)) return false;
+        if (!(o instanceof PlayerDefaultAction)) return false;
 
-        DefaultPlayerEvent that = (DefaultPlayerEvent) o;
+        PlayerDefaultAction that = (PlayerDefaultAction) o;
 
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
 
