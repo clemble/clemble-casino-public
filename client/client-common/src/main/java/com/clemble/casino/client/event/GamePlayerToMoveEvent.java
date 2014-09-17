@@ -1,9 +1,9 @@
 package com.clemble.casino.client.event;
 
-import com.clemble.casino.game.event.GameSessionAwareEvent;
+import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.player.PlayerAware;
 
-public class GamePlayerToMoveEvent implements GameSessionAwareEvent, PlayerAware {
+public class GamePlayerToMoveEvent implements GameEvent, PlayerAware {
 
     /**
      * Generated 28/12/13

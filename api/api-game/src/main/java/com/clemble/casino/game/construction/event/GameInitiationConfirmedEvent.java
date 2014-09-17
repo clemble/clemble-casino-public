@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("game:initiation:confirmed")
-public class GameInitiationConfirmedEvent extends GameInitiationEvent implements PlayerAware {
+public class GameInitiationConfirmedEvent implements GameInitiationEvent, PlayerAware {
 
     /**
      * Generated 04/01/14
@@ -16,13 +16,16 @@ public class GameInitiationConfirmedEvent extends GameInitiationEvent implements
     private static final long serialVersionUID = -2483272558882430664L;
 
     final private String player;
+    final private String sessionKey;
+    final private GameInitiation initiation;
 
     @JsonCreator
     public GameInitiationConfirmedEvent(
         @JsonProperty(GameSessionAware.SESSION_KEY) String sessionKey,
         @JsonProperty("initiation") GameInitiation initiation,
         @JsonProperty(PLAYER) String player) {
-        super(sessionKey, initiation);
+        this.sessionKey = sessionKey;
+        this.initiation = initiation;
         this.player = player;
     }
 
@@ -32,28 +35,35 @@ public class GameInitiationConfirmedEvent extends GameInitiationEvent implements
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((player == null) ? 0 : player.hashCode());
-        return result;
+    public String getSessionKey() {
+        return sessionKey;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        GameInitiationConfirmedEvent other = (GameInitiationConfirmedEvent) obj;
-        if (player == null) {
-            if (other.player != null)
-                return false;
-        } else if (!player.equals(other.player))
-            return false;
+    public GameInitiation getInitiation() {
+        return initiation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GameInitiationConfirmedEvent that = (GameInitiationConfirmedEvent) o;
+
+        if (!initiation.equals(that.initiation)) return false;
+        if (!player.equals(that.player)) return false;
+        if (!sessionKey.equals(that.sessionKey)) return false;
+
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = player.hashCode();
+        result = 31 * result + sessionKey.hashCode();
+        result = 31 * result + initiation.hashCode();
+        return result;
     }
 
     @Override

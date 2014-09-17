@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.event.Event;
-import com.clemble.casino.game.event.GameSessionAwareEvent;
+import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.player.event.PlayerPresenceChangedEvent;
@@ -14,7 +14,7 @@ public interface EventListenerOperations extends PlayerAware, Closeable {
 
     public EventListenerController subscribe(EventListener<Event> listener);
 
-    public EventListenerController subscribeToGameSession(String sessionKey, EventListener<GameSessionAwareEvent> listener);
+    public EventListenerController subscribeToGameSession(String sessionKey, EventListener<GameEvent> listener);
 
     public EventListenerController subscribe(EventSelector selector, EventListener<? extends Event> listener);
 

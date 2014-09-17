@@ -68,7 +68,7 @@ public class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GameConstructionCompleteEvent.class, GameConstructionCompleteEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameInvitationAcceptedEvent.class, GameInvitationAcceptedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameInvitationDeclinedEvent.class, GameInvitationDeclinedEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GamePlayerInvitedEvent.class, GamePlayerInvitedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GameConstructionPlayerInvitedEvent.class, GameConstructionPlayerInvitedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameInitiationCreatedEvent.class, GameInitiationCreatedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameInitiationCanceledEvent.class, GameInitiationCanceledEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameInitiationConfirmedEvent.class, GameInitiationConfirmedEvent.class.getAnnotation(JsonTypeName.class).value()));

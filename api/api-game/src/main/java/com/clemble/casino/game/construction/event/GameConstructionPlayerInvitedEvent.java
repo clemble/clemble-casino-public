@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:player:invited")
-public class GamePlayerInvitedEvent implements GameConstructionEvent {
+@JsonTypeName("game:construction:player:invited")
+public class GameConstructionPlayerInvitedEvent implements GameConstructionEvent {
 
     /**
      * Generated 02/06/2013
@@ -18,7 +18,7 @@ public class GamePlayerInvitedEvent implements GameConstructionEvent {
     final private PlayerGameConstructionRequest gameRequest;
 
     @JsonCreator
-    public GamePlayerInvitedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("gameRequest") PlayerGameConstructionRequest request) {
+    public GameConstructionPlayerInvitedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("gameRequest") PlayerGameConstructionRequest request) {
         this.sessionKey = session;
         this.gameRequest = request;
     }
@@ -49,7 +49,7 @@ public class GamePlayerInvitedEvent implements GameConstructionEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GamePlayerInvitedEvent other = (GamePlayerInvitedEvent) obj;
+        GameConstructionPlayerInvitedEvent other = (GameConstructionPlayerInvitedEvent) obj;
         if (gameRequest == null) {
             if (other.gameRequest != null)
                 return false;

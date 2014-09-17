@@ -11,13 +11,13 @@ import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.game.construction.event.GameInvitationAcceptedEvent;
 import com.clemble.casino.game.construction.event.GameInvitationDeclinedEvent;
 import com.clemble.casino.game.construction.event.GameInvitationResponseEvent;
-import com.clemble.casino.game.event.GameSessionAwareEvent;
 import com.clemble.casino.game.construction.*;
 import com.clemble.casino.game.construction.service.AutoGameConstructionService;
 import com.clemble.casino.game.construction.service.AvailabilityGameConstructionService;
 import com.clemble.casino.game.configuration.service.GameConfigurationService;
 import com.clemble.casino.game.construction.service.GameInitiationService;
 import com.clemble.casino.game.configuration.GameConfiguration;
+import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.utils.CollectionUtils;
 import com.clemble.casino.game.GameWebMapping;
@@ -103,7 +103,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     }
 
     @Override
-    public EventListenerController watch(String sessionKey, EventListener<GameSessionAwareEvent> constructionListener) {
+    public EventListenerController watch(String sessionKey, EventListener<GameEvent> constructionListener) {
         // Step 1. Sanity checks
         if (sessionKey == null || constructionListener == null)
             return null;

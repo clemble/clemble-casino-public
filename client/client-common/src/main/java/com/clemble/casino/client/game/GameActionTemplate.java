@@ -10,7 +10,7 @@ import com.clemble.casino.client.event.*;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.event.surrender.GiveUpAction;
 import com.clemble.casino.game.*;
-import com.clemble.casino.game.event.GameSessionAwareEvent;
+import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.game.event.GameManagementEvent;
 import com.clemble.casino.game.event.RoundEvent;
 import com.clemble.casino.game.service.GameActionService;
@@ -129,12 +129,12 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     }
 
     @Override
-    public EventListenerController subscribe(EventListener<GameSessionAwareEvent> eventListener) {
+    public EventListenerController subscribe(EventListener<GameEvent> eventListener) {
         return eventListenersManager.subscribeToGameSession(session, eventListener);
     }
 
     @Override
-    public EventListenerController subscribe(EventSelector selector, EventListener<? extends GameSessionAwareEvent> eventListener) {
+    public EventListenerController subscribe(EventSelector selector, EventListener<? extends GameEvent> eventListener) {
         return eventListenersManager.subscribe(EventSelectors.where(new GameSessionEventSelector(session)).and(selector), eventListener);
     }
 

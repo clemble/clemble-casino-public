@@ -2,7 +2,7 @@ package com.clemble.casino.game.event;
 
 import java.io.Serializable;
 
-abstract public class GameManagementEvent implements GameSessionAwareEvent, Serializable {
+abstract public class GameManagementEvent implements GameEvent, Serializable {
 
     /**
      * Generated 07/05/13
