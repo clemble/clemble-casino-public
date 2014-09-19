@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import com.clemble.casino.construction.ConstructionState;
+import com.clemble.casino.construction.InitiationState;
 import com.clemble.casino.game.configuration.GameConfiguration;
 
 import com.clemble.casino.ActionLatch;
@@ -91,7 +92,7 @@ public class GameConstruction implements Construction<GameConfiguration>, Player
 
     @Override
     public GameInitiation toInitiation() {
-        return new GameInitiation(sessionKey, fetchAcceptedParticipants(), configuration);
+        return new GameInitiation(sessionKey, InitiationState.pending, fetchAcceptedParticipants(), configuration);
     }
 
     public GameConstruction cloneWithState(ConstructionState state) {

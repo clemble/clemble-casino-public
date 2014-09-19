@@ -17,12 +17,12 @@ public class PlayerAccount implements PlayerAware {
     private static final long serialVersionUID = 6508845694631953306L;
 
     final private String player;
-    final private Map<Currency, Money> cash;
+    final private Map<Currency, Money> money;
 
     @JsonCreator
     public PlayerAccount(@JsonProperty(PLAYER) String player, @JsonProperty("money") Map<Currency, Money> amounts) {
         this.player = player;
-        this.cash = CollectionUtils.immutableMap(amounts);
+        this.money = CollectionUtils.immutableMap(amounts);
     }
 
     @Override
@@ -31,18 +31,18 @@ public class PlayerAccount implements PlayerAware {
     }
 
     public Map<Currency, Money> getMoney() {
-        return cash;
+        return money;
     }
 
     public Money getMoney(Currency currency) {
         if (currency == null)
             throw new IllegalArgumentException();
-        return cash.get(currency);
+        return money.get(currency);
     }
 
     @Override
     public String toString() {
-        return "account:" + player + ":" + cash;
+        return "account:" + player + ":" + money;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PlayerAccount implements PlayerAware {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (player != null ? player.hashCode() : 0);
-        result = prime * result + ((cash == null) ? 0 : cash.hashCode());
+        result = prime * result + ((money == null) ? 0 : money.hashCode());
         return result;
     }
 
@@ -65,10 +65,10 @@ public class PlayerAccount implements PlayerAware {
         PlayerAccount other = (PlayerAccount) obj;
         if (!player.equals(other.player))
             return false;
-        if (cash == null) {
-            if (other.cash != null)
+        if (money == null) {
+            if (other.money != null)
                 return false;
-        } else if (!cash.equals(other.cash))
+        } else if (!money.equals(other.money))
             return false;
         return true;
     }

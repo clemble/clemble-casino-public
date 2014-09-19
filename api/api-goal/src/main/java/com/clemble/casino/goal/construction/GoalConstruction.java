@@ -2,6 +2,8 @@ package com.clemble.casino.goal.construction;
 
 import com.clemble.casino.construction.Construction;
 import com.clemble.casino.construction.ConstructionState;
+import com.clemble.casino.construction.InitiationState;
+import com.clemble.casino.construction.service.InitiationService;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalJudgeAware;
@@ -76,7 +78,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, player, configuration, new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)));
+        return new GoalInitiation(goalKey, InitiationState.pending, player, goal, judge, configuration, new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1)));
     }
 
     public GoalConstruction clone(ConstructionState state) {

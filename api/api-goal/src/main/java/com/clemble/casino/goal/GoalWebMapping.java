@@ -36,7 +36,7 @@ public abstract class GoalWebMapping implements WebMapping {
     final public static String GOAL_CONSTRUCTION = "/";
     final public static String GOAL_CONSTRUCTION_PENDING = "/my/pending";
 
-    final public static String GOAL_INITIATION_PENDING = "/initiation/my/pending";
+    final public static String GOAL_INITIATION_PENDING = "/initiation/my";
 
     public static String toGoalConstructionUrl(String path) {
         return GOAL_CONSTRUCTION_URL + path;

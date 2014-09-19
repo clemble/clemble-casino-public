@@ -1,7 +1,10 @@
 package com.clemble.casino.goal.construction;
 
 import com.clemble.casino.construction.Initiation;
+import com.clemble.casino.construction.InitiationState;
 import com.clemble.casino.goal.GoalAware;
+import com.clemble.casino.goal.GoalDescriptionAware;
+import com.clemble.casino.goal.GoalJudgeAware;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,29 +16,53 @@ import java.util.Date;
 /**
  * Created by mavarazy on 9/12/14.
  */
-public class GoalInitiation implements GoalAware, PlayerAware, Initiation<GoalConfiguration> {
+public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudgeAware, PlayerAware, Initiation<GoalConfiguration> {
 
     @Id
     final private String goalKey;
+    final private String goal;
+    final private String judge;
     final private String player;
     final private Date startDate;
+    final private InitiationState state;
     final private GoalConfiguration configuration;
 
     @JsonCreator
     public GoalInitiation(
         @JsonProperty("goalKey") String goalKey,
+        @JsonProperty("state") InitiationState state,
         @JsonProperty("player") String player,
+        @JsonProperty("goal") String goal,
+        @JsonProperty("judge") String judge,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("startDate") Date startDate) {
+        this.goal = goal;
+        this.state = state;
+        this.judge = judge;
         this.player = player;
-        this.configuration = configuration;
-        this.startDate = startDate;
         this.goalKey = goalKey;
+        this.startDate = startDate;
+        this.configuration = configuration;
     }
 
     @Override
     public String getGoalKey() {
         return goalKey;
+    }
+
+    @Override
+    public String getGoal() {
+        return goal;
+    }
+
+    @Override
+    public String getJudge() {
+        return judge;
+    }
+
+    @Override
+    public InitiationState getState() {
+        return state;
     }
 
     @Override
@@ -63,6 +90,7 @@ public class GoalInitiation implements GoalAware, PlayerAware, Initiation<GoalCo
             return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
+        if (state != null ? !state.equals(that.state) : that.state != null) return false;
         if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
 
         return true;
@@ -72,6 +100,7 @@ public class GoalInitiation implements GoalAware, PlayerAware, Initiation<GoalCo
     public int hashCode() {
         int result = goalKey != null ? goalKey.hashCode() : 0;
         result = 31 * result + (player != null ? player.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         return result;

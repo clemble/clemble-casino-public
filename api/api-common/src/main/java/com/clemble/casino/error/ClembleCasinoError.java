@@ -119,6 +119,7 @@ public enum ClembleCasinoError {
     // TODO consider removing, this is no longer valid
     GoalPlayerIncorrect(Code.GOAL_PLAYER_INCORRECT, "Goal Player is incorrect"),
     GoalBidInvalid(Code.GOAL_BID_INVALID, "Goal Bid is invalid"),
+    GoalIsEmpty(Code.GOAL_IS_EMPTY, "Goal must be specified"),
 
     GoalJudgeOnlyJudgeCanReplay(Code.GOAL_JUDGE_ONLY_JUDGE_CAN_REPLY, "Only judge can reply to invitation")
     ;
@@ -299,6 +300,7 @@ public enum ClembleCasinoError {
         final public static String GOAL_DUE_DATE_IN_PAST = "0N1";
         final public static String GOAL_PLAYER_INCORRECT = "0N2";
         final public static String GOAL_BID_INVALID = "0N3";
+        final public static String GOAL_IS_EMPTY = "0N4";
 
         // Goal judge errors
         final public static String GOAL_JUDGE_ONLY_JUDGE_CAN_REPLY = "0P0";

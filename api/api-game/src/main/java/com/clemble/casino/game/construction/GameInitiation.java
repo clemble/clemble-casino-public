@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import com.clemble.casino.construction.Initiation;
+import com.clemble.casino.construction.InitiationState;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.GameConfigurationAware;
@@ -20,16 +21,19 @@ public class GameInitiation implements Initiation<GameConfiguration>, GameConfig
     private static final long serialVersionUID = -8584404446775359390L;
 
     final private String sessionKey;
+    final private InitiationState state;
     final private GameConfiguration configuration;
     final private LinkedHashSet<String> participants = new LinkedHashSet<String>();
 
     @JsonCreator
     public GameInitiation(
         @JsonProperty(GameSessionAware.SESSION_KEY) String session,
+        @JsonProperty("state") InitiationState state,
         @JsonProperty("participants") Collection<String> participants,
         @JsonProperty("configuration") GameConfiguration specification) {
-        this.configuration = checkNotNull(specification);
+        this.state = state;
         this.sessionKey = checkNotNull(session);
+        this.configuration = checkNotNull(specification);
         this.participants.addAll(participants);
     }
 
@@ -41,6 +45,11 @@ public class GameInitiation implements Initiation<GameConfiguration>, GameConfig
     @Override
     public LinkedHashSet<String> getParticipants() {
         return participants;
+    }
+
+    @Override
+    public InitiationState getState() {
+        return state;
     }
 
     public boolean isParticipates(String player) {
