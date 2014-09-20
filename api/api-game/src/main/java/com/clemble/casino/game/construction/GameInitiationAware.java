@@ -1,7 +1,10 @@
 package com.clemble.casino.game.construction;
 
-public interface GameInitiationAware {
+import com.clemble.casino.construction.InitiationAware;
 
-    public GameInitiation getInitiation();
+public interface GameInitiationAware extends InitiationAware<GameInitiation>{
+
+    @Override
+    GameInitiation getInitiation();
 
 }

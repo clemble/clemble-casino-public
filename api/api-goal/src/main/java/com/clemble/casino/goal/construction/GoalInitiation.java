@@ -79,6 +79,10 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
         return configuration;
     }
 
+    public GoalInitiation copyWithState(InitiationState state) {
+        return new GoalInitiation(goalKey, state, player, goal, judge, configuration, startDate);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
