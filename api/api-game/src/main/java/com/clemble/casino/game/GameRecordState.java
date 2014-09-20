@@ -1,6 +1,6 @@
 package com.clemble.casino.game;
 
-public enum GameSessionState {
+public enum GameRecordState {
 
     pending,
     active,

@@ -6,6 +6,8 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Date;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -56,6 +58,12 @@ import com.google.common.collect.ImmutableList;
 public class TestObjectGeneratorInitializer {
 
     public static void init() {
+        ObjectGenerator.register(SortedSet.class, new AbstractValueGenerator<SortedSet>() {
+            @Override
+            public SortedSet generate() {
+                return new TreeSet();
+            }
+        });
         ObjectGenerator.register(GameUnit.class, new AbstractValueGenerator<GameUnit>() {
             @Override
             public GameUnit generate() {

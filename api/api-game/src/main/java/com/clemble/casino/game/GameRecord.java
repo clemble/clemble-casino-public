@@ -3,9 +3,10 @@ package com.clemble.casino.game;
 import java.io.Serializable;
 import java.util.*;
 
-import com.clemble.casino.game.action.GameEventRecord;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.GameConfigurationAware;
+import com.clemble.casino.management.EventRecord;
+import com.clemble.casino.management.Record;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "GAME_RECORD")
-public class GameRecord implements GameConfigurationAware, GameSessionAware, Serializable {
+public class GameRecord implements Record<GameConfiguration>, GameConfigurationAware, GameSessionAware {
 
     /**
      * Generated 16/02/13
@@ -28,7 +29,7 @@ public class GameRecord implements GameConfigurationAware, GameSessionAware, Ser
     private GameConfiguration configuration;
 
     @Column(name = "RECORD_STATE")
-    private GameSessionState sessionState;
+    private GameRecordState sessionState;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name = "PLAYERS_ORDER")
@@ -41,7 +42,7 @@ public class GameRecord implements GameConfigurationAware, GameSessionAware, Ser
     @CollectionTable(name = "GAME_RECORD_EVENT",
         uniqueConstraints = @UniqueConstraint(columnNames = {"SESSION_ID", "GAME", "CREATED"}),
         joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
-    private SortedSet<GameEventRecord> eventRecords = new TreeSet<GameEventRecord>();
+    private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
 
     @Version
     @Column(name = "VERSION")
@@ -70,11 +71,11 @@ public class GameRecord implements GameConfigurationAware, GameSessionAware, Ser
         return this;
     }
 
-    public GameSessionState getSessionState() {
+    public GameRecordState getSessionState() {
         return sessionState;
     }
 
-    public GameRecord setSessionState(GameSessionState gameSessionState) {
+    public GameRecord setSessionState(GameRecordState gameSessionState) {
         this.sessionState = gameSessionState;
         return this;
     }
@@ -89,7 +90,8 @@ public class GameRecord implements GameConfigurationAware, GameSessionAware, Ser
         return this;
     }
 
-    public SortedSet<GameEventRecord> getEventRecords() {
+    @Override
+    public SortedSet<EventRecord> getEventRecords() {
         return eventRecords;
     }
 
