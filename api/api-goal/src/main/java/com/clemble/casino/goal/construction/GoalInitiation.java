@@ -5,13 +5,16 @@ import com.clemble.casino.construction.InitiationState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalJudgeAware;
+import com.clemble.casino.goal.management.GoalRecord;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
+import com.clemble.casino.management.EventRecord;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
+import java.util.TreeSet;
 
 /**
  * Created by mavarazy on 9/12/14.
@@ -77,6 +80,16 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
     @Override
     public GoalConfiguration getConfiguration() {
         return configuration;
+    }
+
+    @Override
+    public GoalRecord toRecord() {
+        return new GoalRecord(goalKey,
+            player,
+            goal,
+            judge,
+            configuration,
+            new TreeSet<EventRecord>());
     }
 
     public GoalInitiation copyWithState(InitiationState state) {

@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 
 import com.clemble.casino.construction.Initiation;
 import com.clemble.casino.construction.InitiationState;
+import com.clemble.casino.game.GameRecord;
+import com.clemble.casino.game.GameRecordState;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.GameConfigurationAware;
@@ -59,6 +61,15 @@ public class GameInitiation implements Initiation<GameConfiguration>, GameConfig
     @Override
     public String getSessionKey() {
         return sessionKey;
+    }
+
+    @Override
+    public GameRecord toRecord(){
+        return new GameRecord()
+            .setSessionKey(sessionKey)
+            .setConfiguration(configuration)
+            .setSessionState(GameRecordState.active)
+            .setPlayers(participants);
     }
 
     @Override

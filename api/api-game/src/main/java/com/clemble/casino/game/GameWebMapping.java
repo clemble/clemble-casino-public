@@ -27,7 +27,8 @@ abstract public class GameWebMapping implements WebMapping {
         return GAME_CONSTRUCTION_URL + path;
     }
 
-    final public static String SESSIONS_RECORD = "/{session}";
+    final public static String MY_RECORDS = "/record/my";
+    final public static String SESSIONS_RECORD = "/record/{session}";
 
     final public static String SESSIONS_STATE = "/{session}/state";
     final public static String SESSIONS_CONTEXT = "/{session}/context";

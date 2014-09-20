@@ -1,13 +1,16 @@
-package com.clemble.casino.goal;
+package com.clemble.casino.goal.management;
 
+import com.clemble.casino.goal.GoalAware;
+import com.clemble.casino.goal.GoalDescriptionAware;
+import com.clemble.casino.goal.GoalJudgeAware;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
 import com.clemble.casino.goal.configuration.GoalConfigurationAware;
-import com.clemble.casino.goal.event.GoalEvent;
 import com.clemble.casino.management.EventRecord;
 import com.clemble.casino.management.Record;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
 import java.util.SortedSet;
 
@@ -16,6 +19,7 @@ import java.util.SortedSet;
  */
 public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJudgeAware, GoalDescriptionAware, PlayerAware, GoalConfigurationAware {
 
+    @Id
     final private String goalKey;
     final private String player;
     final private String goal;

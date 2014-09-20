@@ -42,4 +42,13 @@ public abstract class GoalWebMapping implements WebMapping {
         return GOAL_CONSTRUCTION_URL + path;
     }
 
+    final private static String GOAL_MANAGEMENT_URL = "http://{host}/goal/management";
+
+    final public static String MY_RECORDS = "/record/my";
+    final public static String GOAL_RECORD = "/record/{goalKey}";
+
+    public static String toGoalManagementUrl(String path) {
+        return GOAL_MANAGEMENT_URL + path;
+    }
+
 }
