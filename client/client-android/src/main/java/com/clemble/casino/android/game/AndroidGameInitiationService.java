@@ -4,8 +4,8 @@ import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.game.construction.GameInitiation;
-import com.clemble.casino.game.construction.service.GameInitiationService;
+import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
+import com.clemble.casino.game.lifecycle.initiation.service.GameInitiationService;
 
 import java.util.Collection;
 

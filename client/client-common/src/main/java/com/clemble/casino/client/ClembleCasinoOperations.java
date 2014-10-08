@@ -3,7 +3,7 @@ package com.clemble.casino.client;
 import java.io.Closeable;
 
 import com.clemble.casino.client.goal.GoalOperations;
-import com.clemble.casino.game.service.GameRecordService;
+import com.clemble.casino.game.lifecycle.record.service.GameRecordService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.game.GameActionOperations;
 import com.clemble.casino.client.game.GameConstructionOperations;
-import com.clemble.casino.game.GameState;
+import com.clemble.casino.game.lifecycle.management.GameState;
 import com.clemble.casino.player.PlayerAware;
 
 public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAware {

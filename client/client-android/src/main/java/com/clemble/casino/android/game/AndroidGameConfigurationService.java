@@ -3,12 +3,12 @@ package com.clemble.casino.android.game;
 import static com.clemble.casino.game.GameWebMapping.CONFIGURATION;
 import static com.clemble.casino.game.GameWebMapping.toGameConfigurationUrl;
 
-import com.clemble.casino.game.configuration.GameConfiguration;
+import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.game.configuration.service.GameConfigurationService;
+import com.clemble.casino.game.lifecycle.configuration.service.GameConfigurationService;
 
 import java.util.List;
 

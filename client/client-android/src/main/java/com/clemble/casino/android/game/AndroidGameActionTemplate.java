@@ -4,13 +4,13 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import static com.clemble.casino.game.GameWebMapping.*;
 
 import com.clemble.casino.event.Event;
-import com.clemble.casino.game.GameContext;
+import com.clemble.casino.game.lifecycle.management.GameContext;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.client.game.ClientGameActionOperations;
-import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.GameManagementEvent;
+import com.clemble.casino.game.lifecycle.management.GameState;
+import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
 
 public class AndroidGameActionTemplate extends AbstractClembleCasinoOperations implements ClientGameActionOperations {
 

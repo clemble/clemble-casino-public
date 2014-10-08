@@ -4,11 +4,11 @@ import java.util.Collection;
 
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
-import com.clemble.casino.game.construction.event.GameInvitationResponseEvent;
-import com.clemble.casino.game.construction.GameConstruction;
-import com.clemble.casino.game.construction.GameInitiation;
-import com.clemble.casino.game.configuration.GameConfiguration;
-import com.clemble.casino.game.event.GameEvent;
+import com.clemble.casino.game.lifecycle.construction.event.GameInvitationResponseEvent;
+import com.clemble.casino.game.lifecycle.construction.GameConstruction;
+import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
+import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
+import com.clemble.casino.game.lifecycle.management.event.GameEvent;
 import com.clemble.casino.player.event.PlayerEvent;
 
 public interface GameConstructionOperations extends GameConfigurationOperations {

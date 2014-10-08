@@ -1,11 +1,12 @@
 package com.clemble.casino.goal.management;
 
-import com.clemble.casino.rule.time.PlayerClock;
+import com.clemble.casino.lifecycle.management.State;
+import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 
 /**
  * Created by mavarazy on 9/20/14.
  */
-public class GoalState {
+public class GoalState implements State {
 
     final private PlayerClock clock;
 

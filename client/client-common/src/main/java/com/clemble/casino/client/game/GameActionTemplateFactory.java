@@ -3,8 +3,8 @@ package com.clemble.casino.client.game;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.service.GameActionService;
+import com.clemble.casino.game.lifecycle.management.GameState;
+import com.clemble.casino.game.lifecycle.management.service.GameActionService;
 
 public class GameActionTemplateFactory implements GameActionOperationsFactory {
 

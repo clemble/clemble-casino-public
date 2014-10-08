@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.event.Event;
-import com.clemble.casino.game.event.GameEvent;
+import com.clemble.casino.game.lifecycle.management.event.GameEvent;
 import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.player.event.PlayerPresenceChangedEvent;

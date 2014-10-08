@@ -7,8 +7,8 @@ import com.clemble.casino.android.goal.AndroidGoalOperations;
 import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
 import com.clemble.casino.client.goal.GoalOperations;
-import com.clemble.casino.game.construction.event.GameInitiationCreatedEvent;
-import com.clemble.casino.game.service.GameRecordService;
+import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCreatedEvent;
+import com.clemble.casino.game.lifecycle.record.service.GameRecordService;
 import com.clemble.casino.json.ObjectMapperUtils;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
@@ -34,13 +34,13 @@ import com.clemble.casino.client.game.GameActionOperationsFactory;
 import com.clemble.casino.client.game.GameActionTemplateFactory;
 import com.clemble.casino.client.game.GameConstructionOperations;
 import com.clemble.casino.client.game.GameConstructionTemplate;
-import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.RoundEvent;
-import com.clemble.casino.game.construction.service.AutoGameConstructionService;
-import com.clemble.casino.game.construction.service.AvailabilityGameConstructionService;
-import com.clemble.casino.game.service.GameActionService;
-import com.clemble.casino.game.configuration.service.GameConfigurationService;
-import com.clemble.casino.game.construction.service.GameInitiationService;
+import com.clemble.casino.game.lifecycle.management.GameState;
+import com.clemble.casino.game.lifecycle.management.event.RoundEvent;
+import com.clemble.casino.game.lifecycle.construction.service.AutoGameConstructionService;
+import com.clemble.casino.game.lifecycle.construction.service.AvailabilityGameConstructionService;
+import com.clemble.casino.game.lifecycle.management.service.GameActionService;
+import com.clemble.casino.game.lifecycle.configuration.service.GameConfigurationService;
+import com.clemble.casino.game.lifecycle.initiation.service.GameInitiationService;
 
 public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements ClembleCasinoOperations {
 

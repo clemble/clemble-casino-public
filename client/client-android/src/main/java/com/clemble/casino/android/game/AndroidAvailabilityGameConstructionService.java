@@ -2,15 +2,15 @@ package com.clemble.casino.android.game;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.construction.event.GameInvitationResponseEvent;
+import com.clemble.casino.game.lifecycle.construction.event.GameInvitationResponseEvent;
 import com.clemble.casino.player.event.PlayerEvent;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.construction.AvailabilityGameRequest;
-import com.clemble.casino.game.construction.GameConstruction;
-import com.clemble.casino.game.construction.service.AvailabilityGameConstructionService;
+import com.clemble.casino.game.lifecycle.management.GameState;
+import com.clemble.casino.game.lifecycle.construction.AvailabilityGameRequest;
+import com.clemble.casino.game.lifecycle.construction.GameConstruction;
+import com.clemble.casino.game.lifecycle.construction.service.AvailabilityGameConstructionService;
 import com.clemble.casino.utils.CollectionUtils;
 
 import static com.clemble.casino.game.GameWebMapping.*;

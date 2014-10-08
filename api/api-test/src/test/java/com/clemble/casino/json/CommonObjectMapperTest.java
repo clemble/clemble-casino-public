@@ -1,9 +1,9 @@
 package com.clemble.casino.json;
 
-import com.clemble.casino.game.RoundGameContext;
-import com.clemble.casino.game.RoundGameState;
+import com.clemble.casino.game.lifecycle.management.RoundGameContext;
+import com.clemble.casino.game.lifecycle.management.RoundGameState;
 import com.clemble.casino.player.PlayerProfile;
-import com.clemble.casino.rule.privacy.PrivacyRule;
+import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.test.random.AbstractValueGenerator;
 import com.clemble.test.random.ObjectGenerator;
 import org.junit.BeforeClass;

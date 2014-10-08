@@ -8,14 +8,17 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.clemble.casino.event.PlayerExpectedAction;
 import com.clemble.casino.client.event.*;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.event.surrender.GiveUpAction;
-import com.clemble.casino.game.*;
-import com.clemble.casino.game.event.GameEvent;
-import com.clemble.casino.game.event.GameManagementEvent;
-import com.clemble.casino.game.event.RoundEvent;
-import com.clemble.casino.game.service.GameActionService;
+import com.clemble.casino.game.lifecycle.management.GameContext;
+import com.clemble.casino.game.lifecycle.management.GamePlayerAccount;
+import com.clemble.casino.game.lifecycle.management.GameState;
+import com.clemble.casino.game.lifecycle.management.RoundGameState;
+import com.clemble.casino.lifecycle.management.event.surrender.GiveUpAction;
+import com.clemble.casino.game.lifecycle.management.event.GameEvent;
+import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
+import com.clemble.casino.game.lifecycle.management.event.RoundEvent;
+import com.clemble.casino.game.lifecycle.management.service.GameActionService;
 import com.clemble.casino.player.event.PlayerEvent;
-import com.clemble.casino.rule.time.PlayerClock;
+import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 
 public class GameActionTemplate<State extends GameState> implements GameActionOperationsExtenstion<State> {
 

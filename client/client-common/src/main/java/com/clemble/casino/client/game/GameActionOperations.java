@@ -4,11 +4,11 @@ import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventSelector;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.game.GameContext;
+import com.clemble.casino.game.lifecycle.management.GameContext;
 import com.clemble.casino.game.GameSessionAware;
-import com.clemble.casino.game.GameState;
-import com.clemble.casino.game.event.GameEvent;
-import com.clemble.casino.game.event.GameManagementEvent;
+import com.clemble.casino.game.lifecycle.management.GameState;
+import com.clemble.casino.game.lifecycle.management.event.GameEvent;
+import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
 import com.clemble.casino.player.PlayerAware;
 
 public interface GameActionOperations<S extends GameState> extends GameSessionAware, PlayerAware {
