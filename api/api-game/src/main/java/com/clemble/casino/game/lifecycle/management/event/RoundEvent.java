@@ -2,7 +2,7 @@ package com.clemble.casino.game.lifecycle.management.event;
 
 import com.clemble.casino.game.lifecycle.management.RoundGameState;
 
-abstract public class RoundEvent<State extends RoundGameState> extends GameManagementEvent {
+abstract public class RoundEvent<State extends RoundGameState> implements GameManagementEvent {
 
     /**
      * Generated 07/05/13
@@ -10,10 +10,16 @@ abstract public class RoundEvent<State extends RoundGameState> extends GameManag
     private static final long serialVersionUID = -4837244615682915463L;
 
     final private State state;
+    final private String sessionKey;
 
     public RoundEvent(String sessionKey, State state) {
-        super(sessionKey);
         this.state = state;
+        this.sessionKey = sessionKey;
+    }
+
+    @Override
+    public String getSessionKey() {
+        return sessionKey;
     }
 
     public State getState() {

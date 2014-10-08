@@ -13,7 +13,7 @@ import com.clemble.casino.game.lifecycle.management.GamePlayerAccount;
 import com.clemble.casino.game.lifecycle.management.GameState;
 import com.clemble.casino.game.lifecycle.management.RoundGameState;
 import com.clemble.casino.lifecycle.management.event.surrender.GiveUpAction;
-import com.clemble.casino.game.lifecycle.management.event.GameEvent;
+import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
 import com.clemble.casino.game.lifecycle.management.event.RoundEvent;
 import com.clemble.casino.game.lifecycle.management.service.GameActionService;

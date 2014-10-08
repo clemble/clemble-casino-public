@@ -1,4 +1,4 @@
-package com.clemble.casino.goal.management;
+package com.clemble.casino.goal.lifecycle.management;
 
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;

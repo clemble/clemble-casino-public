@@ -1,4 +1,4 @@
-package com.clemble.casino.goal.construction;
+package com.clemble.casino.goal.lifecycle.initiation;
 
 import com.clemble.casino.lifecycle.initiation.InitiationAware;
 

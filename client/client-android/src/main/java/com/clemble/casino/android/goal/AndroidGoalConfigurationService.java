@@ -1,10 +1,8 @@
 package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.goal.GoalJudgeDuty;
-import com.clemble.casino.goal.configuration.GoalConfiguration;
-import com.clemble.casino.goal.configuration.service.GoalConfigurationService;
-import com.clemble.casino.goal.service.GoalJudgeDutyService;
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.goal.lifecycle.configuration.service.GoalConfigurationService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 

@@ -1,7 +1,6 @@
 package com.clemble.casino.goal.json;
 
-import com.clemble.casino.goal.configuration.GoalConfiguration;
-import com.clemble.casino.goal.construction.event.GoalInitiationCreatedEvent;
+import com.clemble.casino.goal.lifecycle.construction.event.GoalInitiationCreatedEvent;
 import com.clemble.casino.goal.rule.judge.JudgeRule;
 import com.clemble.casino.json.ClembleJsonModule;
 import com.fasterxml.jackson.annotation.JsonTypeName;

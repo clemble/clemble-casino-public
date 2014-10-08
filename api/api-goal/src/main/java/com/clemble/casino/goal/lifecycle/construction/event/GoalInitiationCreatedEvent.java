@@ -1,4 +1,4 @@
-package com.clemble.casino.goal.construction.event;
+package com.clemble.casino.goal.lifecycle.construction.event;
 
 import com.clemble.casino.goal.event.GoalEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;

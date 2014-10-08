@@ -7,7 +7,7 @@ import com.clemble.casino.event.Event;
 import com.clemble.casino.game.lifecycle.management.GameContext;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.lifecycle.management.GameState;
-import com.clemble.casino.game.lifecycle.management.event.GameEvent;
+import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
 import com.clemble.casino.player.PlayerAware;
 

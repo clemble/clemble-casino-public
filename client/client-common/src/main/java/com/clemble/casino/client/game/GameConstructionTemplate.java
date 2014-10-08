@@ -17,7 +17,7 @@ import com.clemble.casino.game.lifecycle.construction.service.AvailabilityGameCo
 import com.clemble.casino.game.lifecycle.configuration.service.GameConfigurationService;
 import com.clemble.casino.game.lifecycle.initiation.service.GameInitiationService;
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
-import com.clemble.casino.game.lifecycle.management.event.GameEvent;
+import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.utils.CollectionUtils;

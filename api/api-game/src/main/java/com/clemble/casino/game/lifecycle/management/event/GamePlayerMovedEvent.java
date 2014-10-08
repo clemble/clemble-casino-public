@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("game:player:moved")
-public class GamePlayerMovedEvent extends GameManagementEvent implements PlayerEvent {
+public class GamePlayerMovedEvent implements GameManagementEvent, PlayerEvent {
 
     /**
      * Generated 25/12/13
@@ -14,11 +14,17 @@ public class GamePlayerMovedEvent extends GameManagementEvent implements PlayerE
     private static final long serialVersionUID = -4497503502857646005L;
 
     final private String player;
+    final private String sessionKey;
 
     @JsonCreator
     public GamePlayerMovedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty(PLAYER) String player) {
-        super(sessionKey);
+        this.sessionKey = sessionKey;
         this.player = player;
+    }
+
+    @Override
+    public String getSessionKey() {
+        return sessionKey;
     }
 
     @Override
@@ -27,28 +33,23 @@ public class GamePlayerMovedEvent extends GameManagementEvent implements PlayerE
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((player == null) ? 0 : player.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GamePlayerMovedEvent that = (GamePlayerMovedEvent) o;
+
+        if (!player.equals(that.player)) return false;
+        if (!sessionKey.equals(that.sessionKey)) return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        GamePlayerMovedEvent other = (GamePlayerMovedEvent) obj;
-        if (player == null) {
-            if (other.player != null)
-                return false;
-        } else if (!player.equals(other.player))
-            return false;
-        return true;
+    public int hashCode() {
+        int result = player.hashCode();
+        result = 31 * result + sessionKey.hashCode();
+        return result;
     }
 
     @Override

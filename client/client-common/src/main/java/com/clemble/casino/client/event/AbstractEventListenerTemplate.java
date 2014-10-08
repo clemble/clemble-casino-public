@@ -17,7 +17,7 @@ import com.clemble.casino.ImmutablePair;
 import com.clemble.casino.client.payment.PaymentEventSelector;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.event.NotificationMapping;
-import com.clemble.casino.game.lifecycle.management.event.GameEvent;
+import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.player.event.PlayerPresenceChangedEvent;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;

@@ -1,7 +1,7 @@
-package com.clemble.casino.goal.configuration.service;
+package com.clemble.casino.goal.lifecycle.configuration.service;
 
 import com.clemble.casino.lifecycle.configuration.service.ConfigurationService;
-import com.clemble.casino.goal.configuration.GoalConfiguration;
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 
 import java.util.List;
 

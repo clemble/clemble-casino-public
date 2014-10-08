@@ -1,5 +1,7 @@
 package com.clemble.casino.game.lifecycle.management.event;
 
-public interface GameStartedEvent extends GameEvent {
+import com.clemble.casino.game.event.GameEvent;
+
+public interface GameStartedEvent extends GameManagementEvent {
 
 }

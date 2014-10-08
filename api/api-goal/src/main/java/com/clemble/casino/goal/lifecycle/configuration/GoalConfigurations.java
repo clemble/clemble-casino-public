@@ -1,4 +1,4 @@
-package com.clemble.casino.goal.configuration;
+package com.clemble.casino.goal.lifecycle.configuration;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

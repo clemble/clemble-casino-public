@@ -1,16 +1,14 @@
 package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.goal.construction.GoalConstruction;
-import com.clemble.casino.goal.construction.GoalInitiation;
-import com.clemble.casino.goal.construction.service.GoalInitiationService;
+import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.goal.lifecycle.initiation.service.GoalInitiationService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.Collection;
 
-import static com.clemble.casino.goal.GoalWebMapping.GOAL_CONSTRUCTION_PENDING;
 import static com.clemble.casino.goal.GoalWebMapping.GOAL_INITIATION_PENDING;
 import static com.clemble.casino.goal.GoalWebMapping.toGoalConstructionUrl;
 

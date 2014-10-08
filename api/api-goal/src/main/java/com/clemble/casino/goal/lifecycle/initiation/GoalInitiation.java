@@ -1,12 +1,12 @@
-package com.clemble.casino.goal.construction;
+package com.clemble.casino.goal.lifecycle.initiation;
 
 import com.clemble.casino.lifecycle.initiation.Initiation;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalJudgeAware;
-import com.clemble.casino.goal.management.GoalRecord;
-import com.clemble.casino.goal.configuration.GoalConfiguration;
+import com.clemble.casino.goal.lifecycle.record.GoalRecord;
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.RecordState;
 import com.clemble.casino.player.PlayerAware;

@@ -1,4 +1,4 @@
-package com.clemble.casino.goal.configuration;
+package com.clemble.casino.goal.lifecycle.configuration;
 
 /**
  * Created by mavarazy on 9/1/14.
