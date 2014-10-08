@@ -1,4 +1,4 @@
-package com.clemble.casino.lifecycle.management;
+package com.clemble.casino.lifecycle.record;
 
 /**
  * Created by mavarazy on 10/8/14.

@@ -1,4 +1,4 @@
-package com.clemble.casino.lifecycle.management;
+package com.clemble.casino.lifecycle.record;
 
 import com.clemble.casino.event.Event;
 import com.fasterxml.jackson.annotation.JsonCreator;

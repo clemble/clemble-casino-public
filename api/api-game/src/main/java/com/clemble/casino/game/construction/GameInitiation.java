@@ -11,7 +11,7 @@ import com.clemble.casino.game.GameRecord;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.GameConfigurationAware;
-import com.clemble.casino.lifecycle.management.RecordState;
+import com.clemble.casino.lifecycle.record.RecordState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

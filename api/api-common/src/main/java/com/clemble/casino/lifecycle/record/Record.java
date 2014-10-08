@@ -1,4 +1,4 @@
-package com.clemble.casino.lifecycle.management;
+package com.clemble.casino.lifecycle.record;
 
 import com.clemble.casino.KeyAware;
 import com.clemble.casino.lifecycle.configuration.Configuration;

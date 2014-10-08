@@ -4,9 +4,9 @@ import java.util.*;
 
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.GameConfigurationAware;
-import com.clemble.casino.lifecycle.management.EventRecord;
-import com.clemble.casino.lifecycle.management.Record;
-import com.clemble.casino.lifecycle.management.RecordState;
+import com.clemble.casino.lifecycle.record.EventRecord;
+import com.clemble.casino.lifecycle.record.Record;
+import com.clemble.casino.lifecycle.record.RecordState;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 

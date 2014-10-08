@@ -2,7 +2,7 @@ package com.clemble.casino.goal.management.service;
 
 import com.clemble.casino.goal.configuration.GoalConfiguration;
 import com.clemble.casino.goal.management.GoalRecord;
-import com.clemble.casino.lifecycle.management.service.RecordService;
+import com.clemble.casino.lifecycle.record.service.RecordService;
 
 import java.util.List;
 
