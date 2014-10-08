@@ -18,7 +18,6 @@ public abstract class PlayerWebMapping implements WebMapping {
         return PROFILE_URL + path;
     }
 
-
     final private static String CONNECTION_URL = "http://{host}/player/connection";
     final public static String PLAYER_CONNECTIONS = "/{player}";
     final public static String PLAYER_OWNED_CONNECTIONS = "/{player}/owned";
@@ -28,14 +27,6 @@ public abstract class PlayerWebMapping implements WebMapping {
     final public static String MY_CONNECTED_CONNECTIONS = "/my/connected";
     public static String toConnectionUrl(String path) {
         return CONNECTION_URL + path;
-    }
-
-    final private static String SOCIAL_URL = "http://{host}/player/social";
-    final public static String SOCIAL_PLAYER = "/{player}";
-    final public static String SOCIAL_REGISTRATION_DESCRIPTION = "/registration/social";
-    final public static String SOCIAL_REGISTRATION_GRANT = "/registration/grant";
-    public static String toSocialUrl(String host, String path) {
-        return SOCIAL_URL.replace("{host}", host) + path;
     }
 
 }
