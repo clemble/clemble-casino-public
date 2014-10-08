@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.clemble.casino.player.PlayerWebMapping.*;
+import static com.clemble.casino.registration.RegistrationWebMapping.*;
 
 import com.clemble.casino.json.ObjectMapperUtils;
 import org.springframework.http.converter.HttpMessageConverter;
