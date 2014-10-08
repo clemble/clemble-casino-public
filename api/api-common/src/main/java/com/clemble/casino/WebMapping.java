@@ -1,4 +1,4 @@
-package com.clemble.casino.web.mapping;
+package com.clemble.casino;
 
 public interface WebMapping {
 

@@ -13,9 +13,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.PlayerPresence;
-import com.clemble.casino.player.service.PlayerPresenceService;
 import com.clemble.casino.utils.CollectionUtils;
-import static com.clemble.casino.web.player.PlayerWebMapping.*;
+import static com.clemble.casino.player.PlayerWebMapping.*;
 
 public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperations implements PlayerPresenceService {
 

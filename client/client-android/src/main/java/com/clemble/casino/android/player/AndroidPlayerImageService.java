@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
-import static com.clemble.casino.web.player.PlayerWebMapping.*;
+import static com.clemble.casino.player.PlayerWebMapping.*;
 
 /**
  * Created by mavarazy on 7/26/14.

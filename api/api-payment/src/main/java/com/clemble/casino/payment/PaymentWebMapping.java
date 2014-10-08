@@ -1,6 +1,6 @@
 package com.clemble.casino.payment;
 
-import com.clemble.casino.web.mapping.WebMapping;
+import com.clemble.casino.WebMapping;
 
 public abstract class PaymentWebMapping implements WebMapping {
 

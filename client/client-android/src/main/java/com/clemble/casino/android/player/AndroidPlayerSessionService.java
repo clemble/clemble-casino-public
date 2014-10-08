@@ -2,7 +2,7 @@ package com.clemble.casino.android.player;
 
 import java.net.URI;
 
-import static com.clemble.casino.web.player.PlayerWebMapping.*;
+import static com.clemble.casino.player.PlayerWebMapping.*;
 
 import com.clemble.casino.player.service.PlayerSessionService;
 import org.springframework.web.client.RestTemplate;

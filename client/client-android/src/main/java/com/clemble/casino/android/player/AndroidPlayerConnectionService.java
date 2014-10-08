@@ -1,10 +1,9 @@
 package com.clemble.casino.android.player;
 
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
-import static com.clemble.casino.web.player.PlayerWebMapping.*;
+import static com.clemble.casino.player.PlayerWebMapping.*;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Set;
 
 import com.clemble.casino.player.PlayerConnections;

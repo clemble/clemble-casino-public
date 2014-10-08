@@ -14,8 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.PlayerProfile;
 import com.clemble.casino.utils.CollectionUtils;
-import static com.clemble.casino.web.player.PlayerWebMapping.*;
-import static com.clemble.casino.web.player.PlayerWebMapping.toProfileUrl;
+import static com.clemble.casino.player.PlayerWebMapping.*;
+import static com.clemble.casino.player.PlayerWebMapping.toProfileUrl;
 
 public class AndroidPlayerProfileService extends AbstractClembleCasinoOperations implements PlayerProfileService {
 

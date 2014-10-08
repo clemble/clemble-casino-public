@@ -1,6 +1,6 @@
 package com.clemble.casino.goal.service;
 
-import com.clemble.casino.AdvancedClembleService;
+import com.clemble.casino.ClembleService;
 import com.clemble.casino.goal.Goal;
 import com.clemble.casino.goal.GoalRequest;
 import com.clemble.casino.goal.GoalStatus;
@@ -10,7 +10,7 @@ import java.util.Collection;
 /**
  * Created by mavarazy on 8/2/14.
  */
-public interface GoalService extends AdvancedClembleService {
+public interface GoalService extends ClembleService {
 
     /**
      * @throws com.clemble.casino.error.ClembleCasinoException {@link com.clemble.casino.error.ClembleCasinoError#GoalStateIncorrect} in case state is not null or pending

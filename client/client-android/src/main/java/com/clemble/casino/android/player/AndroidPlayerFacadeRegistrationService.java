@@ -5,7 +5,7 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.clemble.casino.web.player.PlayerWebMapping.*;
+import static com.clemble.casino.player.PlayerWebMapping.*;
 
 import com.clemble.casino.json.ObjectMapperUtils;
 import org.springframework.http.converter.HttpMessageConverter;

@@ -4,7 +4,7 @@ package com.clemble.casino.goal;
  * Created by mavarazy on 8/17/14.
  */
 
-import com.clemble.casino.web.mapping.WebMapping;
+import com.clemble.casino.WebMapping;
 
 /**
  * Created by mavarazy on 8/2/14.

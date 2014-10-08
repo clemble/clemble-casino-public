@@ -8,8 +8,6 @@ import com.clemble.casino.game.lifecycle.configuration.GameConfigurationAware;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.Record;
 import com.clemble.casino.lifecycle.record.RecordState;
-import org.hibernate.annotations.Sort;
-import org.hibernate.annotations.SortType;
 
 import javax.persistence.*;
 
@@ -22,31 +20,17 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
      */
     private static final long serialVersionUID = -6572596573895530995L;
 
-    @EmbeddedId
     @org.springframework.data.annotation.Id
     private String sessionKey;
 
-    @Embedded
     private GameConfiguration configuration;
 
-    @Column(name = "RECORD_STATE")
     private RecordState state;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @OrderColumn(name = "PLAYERS_ORDER")
-    @CollectionTable(name = "GAME_RECORD_PLAYER",
-        joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
     private List<String> players = new ArrayList<String>();
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Sort(type = SortType.NATURAL)
-    @CollectionTable(name = "GAME_RECORD_EVENT",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"SESSION_ID", "GAME", "CREATED"}),
-        joinColumns = {@JoinColumn(name = "SESSION_ID"), @JoinColumn(name = "GAME")})
     private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
 
-    @Version
-    @Column(name = "VERSION")
     private int version;
 
     public GameRecord() {

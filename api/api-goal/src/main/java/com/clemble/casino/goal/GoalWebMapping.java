@@ -1,6 +1,6 @@
 package com.clemble.casino.goal;
 
-import com.clemble.casino.web.mapping.WebMapping;
+import com.clemble.casino.WebMapping;
 
 /**
  * Created by mavarazy on 8/2/14.
