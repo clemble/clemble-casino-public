@@ -84,4 +84,19 @@ abstract public class EventSelectors implements EventSelector {
 
     }
 
+    public static class EventTypeSelector implements EventSelector {
+
+        final private Class<?> eventType;
+
+        public EventTypeSelector(Class<?> eventType) {
+            this.eventType = eventType;
+        }
+
+        @Override
+        public boolean filter(Event event) {
+            return event != null && eventType.isAssignableFrom(event.getClass());
+        }
+
+    }
+
 }

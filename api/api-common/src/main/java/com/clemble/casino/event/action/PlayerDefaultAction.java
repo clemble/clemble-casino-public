@@ -1,13 +1,13 @@
-package com.clemble.casino.event;
+package com.clemble.casino.event.action;
 
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.player.PlayerAware;
-import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("player:default:action")
-public class PlayerDefaultAction implements PlayerEvent {
+public class PlayerDefaultAction implements PlayerAction {
 
     /**
      * Generated 23/12/13

@@ -12,16 +12,16 @@ import java.util.TreeSet;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAcceptedAction;
 import com.clemble.casino.game.lifecycle.management.MatchGameContext;
 import com.clemble.casino.game.lifecycle.management.MatchGamePlayerContext;
 import com.clemble.casino.game.lifecycle.management.TournamentGameContext;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
-import com.clemble.casino.event.PlayerExpectedAction;
+import com.clemble.casino.event.action.PlayerExpectedAction;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.lifecycle.management.event.bet.PlayerBetAction;
-import com.clemble.casino.lifecycle.management.event.surrender.GiveUpAction;
+import com.clemble.casino.lifecycle.management.event.action.bet.PlayerBetAction;
+import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
 import com.clemble.casino.game.*;
-import com.clemble.casino.game.lifecycle.construction.event.GameInvitationAcceptedEvent;
 import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.lifecycle.management.unit.Chip;
 import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
@@ -76,7 +76,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PlayerExpectedAction.class, new AbstractValueGenerator<PlayerExpectedAction>() {
             @Override
             public PlayerExpectedAction generate() {
-            return PlayerExpectedAction.fromClass("S", GameInvitationAcceptedEvent.class);
+            return PlayerExpectedAction.fromClass("S", PlayerInvitationAcceptedAction.class);
             }
         });
         ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {

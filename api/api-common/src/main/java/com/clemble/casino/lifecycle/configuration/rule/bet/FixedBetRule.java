@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
-import com.clemble.casino.lifecycle.management.event.bet.PlayerBetAction;
+import com.clemble.casino.lifecycle.management.event.action.bet.PlayerBetAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;

@@ -1,6 +1,8 @@
 package com.clemble.casino.lifecycle.record;
 
 import com.clemble.casino.event.Event;
+import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

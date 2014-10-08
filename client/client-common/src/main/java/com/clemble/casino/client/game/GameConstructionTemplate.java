@@ -8,9 +8,9 @@ import java.util.List;
 import com.clemble.casino.client.event.EventListener;
 import com.clemble.casino.client.event.EventListenerController;
 import com.clemble.casino.client.event.EventListenerOperations;
-import com.clemble.casino.game.lifecycle.construction.event.GameInvitationAcceptedEvent;
-import com.clemble.casino.game.lifecycle.construction.event.GameInvitationDeclinedEvent;
-import com.clemble.casino.game.lifecycle.construction.event.GameInvitationResponseEvent;
+import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAcceptedAction;
+import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationDeclinedAction;
+import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAction;
 import com.clemble.casino.game.lifecycle.construction.*;
 import com.clemble.casino.game.lifecycle.construction.service.AutoGameConstructionService;
 import com.clemble.casino.game.lifecycle.construction.service.AvailabilityGameConstructionService;
@@ -19,6 +19,7 @@ import com.clemble.casino.game.lifecycle.initiation.service.GameInitiationServic
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
 import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.utils.CollectionUtils;
 import com.clemble.casino.game.GameWebMapping;
@@ -75,16 +76,16 @@ public class GameConstructionTemplate implements GameConstructionOperations {
 
     @Override
     public GameConstruction accept(String sessionKey) {
-        return reply(sessionKey, new GameInvitationAcceptedEvent(player, sessionKey));
+        return reply(sessionKey, new PlayerInvitationAcceptedAction(player, sessionKey));
     }
 
     @Override
     public GameConstruction decline(String sessionKey) {
-        return reply(sessionKey, new GameInvitationDeclinedEvent(player, sessionKey));
+        return reply(sessionKey, new PlayerInvitationDeclinedAction(player, sessionKey));
     }
 
     @Override
-    public GameConstruction reply(String sessionKey, GameInvitationResponseEvent responce) {
+    public GameConstruction reply(String sessionKey, PlayerInvitationAction responce) {
         return availabilityConstructionService.reply(responce);
     }
 
@@ -99,7 +100,7 @@ public class GameConstructionTemplate implements GameConstructionOperations {
     }
 
     @Override
-    public PlayerEvent getResponse(String sessionKey, String fromPlayer) {
+    public PlayerAction getResponse(String sessionKey, String fromPlayer) {
         return availabilityConstructionService.getReply(sessionKey, fromPlayer);
     }
 

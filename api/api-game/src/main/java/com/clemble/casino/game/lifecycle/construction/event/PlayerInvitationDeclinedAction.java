@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("game:invitation:declined")
-public class GameInvitationDeclinedEvent implements GameInvitationResponseEvent {
+public class PlayerInvitationDeclinedAction implements PlayerInvitationAction {
 
     /**
      * Generated 02/06/13
@@ -16,7 +16,7 @@ public class GameInvitationDeclinedEvent implements GameInvitationResponseEvent 
     final private String sessionKey;
 
     @JsonCreator
-    public GameInvitationDeclinedEvent(@JsonProperty(PLAYER) String player, @JsonProperty(SESSION_KEY) String session) {
+    public PlayerInvitationDeclinedAction(@JsonProperty(PLAYER) String player, @JsonProperty(SESSION_KEY) String session) {
         this.player = player;
         this.sessionKey = session;
     }
@@ -48,7 +48,7 @@ public class GameInvitationDeclinedEvent implements GameInvitationResponseEvent 
             return false;
         if (getClass() != obj.getClass())
             return false;
-        GameInvitationDeclinedEvent other = (GameInvitationDeclinedEvent) obj;
+        PlayerInvitationDeclinedAction other = (PlayerInvitationDeclinedAction) obj;
         if (!sessionKey.equals(other.sessionKey))
             return false;
         return player.equals(other.player);

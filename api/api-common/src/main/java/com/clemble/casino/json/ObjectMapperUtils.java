@@ -37,7 +37,7 @@ public class ObjectMapperUtils {
         // Step 2. Constructing ObjectMapper // TODO reuse already constructed ObjectMapper
         ObjectMapper mapper = OBJECT_MAPPER;
         AnnotatedClass annotatedClass = AnnotatedClass.construct(
-                PlayerEvent.class,
+                type,
                 mapper.getSerializationConfig().getAnnotationIntrospector(),
                 mapper.getSerializationConfig());
         // Step 3. Collecting NamedTypes

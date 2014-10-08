@@ -1,10 +1,10 @@
 package com.clemble.casino.game.json;
 
-import com.clemble.casino.event.PlayerDefaultAction;
-import com.clemble.casino.lifecycle.management.event.bet.PlayerBetAction;
-import com.clemble.casino.lifecycle.management.event.surrender.GiveUpAction;
-import com.clemble.casino.lifecycle.management.event.surrender.MoveTimeoutSurrenderEvent;
-import com.clemble.casino.lifecycle.management.event.surrender.TotalTimeoutSurrenderEvent;
+import com.clemble.casino.event.action.PlayerDefaultAction;
+import com.clemble.casino.lifecycle.management.event.action.bet.PlayerBetAction;
+import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
+import com.clemble.casino.lifecycle.management.event.action.surrender.MoveTimeoutSurrenderAction;
+import com.clemble.casino.lifecycle.management.event.action.surrender.TotalTimeoutSurrenderAction;
 import com.clemble.casino.game.lifecycle.management.event.action.SelectAction;
 import com.clemble.casino.game.lifecycle.construction.event.*;
 import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCompleteEvent;
@@ -56,16 +56,16 @@ public class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(PlayerDefaultAction.class, PlayerDefaultAction.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(SelectAction.class, SelectAction.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(MoveTimeoutSurrenderEvent.class, MoveTimeoutSurrenderEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(TotalTimeoutSurrenderEvent.class, TotalTimeoutSurrenderEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MoveTimeoutSurrenderAction.class, MoveTimeoutSurrenderAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(TotalTimeoutSurrenderAction.class, TotalTimeoutSurrenderAction.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(AutomaticGameRequest.class, AutomaticGameRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(AvailabilityGameRequest.class, AvailabilityGameRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(ManagerGameConstructionRequest.class, ManagerGameConstructionRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameConstructionCanceledEvent.class, GameConstructionCanceledEvent.class.getAnnotation(JsonTypeName.class).value()));
 
         module.registerSubtypes(new NamedType(GameConstructionCompleteEvent.class, GameConstructionCompleteEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GameInvitationAcceptedEvent.class, GameInvitationAcceptedEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GameInvitationDeclinedEvent.class, GameInvitationDeclinedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerInvitationAcceptedAction.class, PlayerInvitationAcceptedAction.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerInvitationDeclinedAction.class, PlayerInvitationDeclinedAction.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameConstructionPlayerInvitedEvent.class, GameConstructionPlayerInvitedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameInitiationCreatedEvent.class, GameInitiationCreatedEvent.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GameInitiationCanceledEvent.class, GameInitiationCanceledEvent.class.getAnnotation(JsonTypeName.class).value()));

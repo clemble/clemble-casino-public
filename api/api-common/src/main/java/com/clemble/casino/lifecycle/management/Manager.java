@@ -1,6 +1,7 @@
 package com.clemble.casino.lifecycle.management;
 
 import com.clemble.casino.event.Event;
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 
 /**
  * Created by mavarazy on 10/8/14.

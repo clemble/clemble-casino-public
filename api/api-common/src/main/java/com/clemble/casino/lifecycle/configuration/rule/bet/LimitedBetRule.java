@@ -1,6 +1,6 @@
 package com.clemble.casino.lifecycle.configuration.rule.bet;
 
-import com.clemble.casino.lifecycle.management.event.bet.PlayerBetAction;
+import com.clemble.casino.lifecycle.management.event.action.bet.PlayerBetAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

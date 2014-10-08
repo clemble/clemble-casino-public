@@ -2,7 +2,8 @@ package com.clemble.casino.android.game;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.lifecycle.construction.event.GameInvitationResponseEvent;
+import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAction;
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.player.event.PlayerEvent;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,12 +36,12 @@ public class AndroidAvailabilityGameConstructionService<T extends GameState> ext
     }
 
     @Override
-    public PlayerEvent getReply(String sessionKey, String player) {
-        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerEvent.class);
+    public PlayerAction getReply(String sessionKey, String player) {
+        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerAction.class);
     }
 
     @Override
-    public GameConstruction reply(GameInvitationResponseEvent request) {
+    public GameConstruction reply(PlayerInvitationAction request) {
         return restTemplate.postForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES), request.getSessionKey()), request, GameConstruction.class);
     }
 

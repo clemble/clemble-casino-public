@@ -2,8 +2,9 @@ package com.clemble.casino.lifecycle.configuration.rule.time;
 
 import java.util.Date;
 
-import com.clemble.casino.event.PlayerDefaultAction;
-import com.clemble.casino.lifecycle.management.event.surrender.TotalTimeoutSurrenderEvent;
+import com.clemble.casino.event.action.PlayerDefaultAction;
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
+import com.clemble.casino.lifecycle.management.event.action.surrender.TotalTimeoutSurrenderAction;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishmentAware;
@@ -55,9 +56,9 @@ public class TotalTimeRule implements TimeRule, BreachPunishmentAware {
     }
 
     @Override
-    public PlayerEvent toTimeBreachedEvent(String player) {
+    public PlayerAction toTimeBreachedEvent(String player) {
         if (punishment instanceof LooseBreachPunishment) {
-            return new TotalTimeoutSurrenderEvent(player);
+            return new TotalTimeoutSurrenderAction(player);
         } else {
             return new PlayerDefaultAction(player);
         }

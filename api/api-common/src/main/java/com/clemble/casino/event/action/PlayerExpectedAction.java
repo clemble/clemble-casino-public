@@ -1,5 +1,8 @@
-package com.clemble.casino.event;
+package com.clemble.casino.event.action;
 
+import com.clemble.casino.event.Event;
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
+import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.utils.ExpectedEventUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -8,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.springframework.data.annotation.Transient;
 
 @JsonTypeName("player:expected:event")
-public class PlayerExpectedAction implements PlayerEvent {
+public class PlayerExpectedAction implements PlayerAction {
 
 
     /**
@@ -43,11 +46,11 @@ public class PlayerExpectedAction implements PlayerEvent {
         return event;
     }
 
-    public boolean isExpected(Class<? extends PlayerEvent> expected) {
+    public <T extends Event & PlayerAware> boolean isExpected(Class<T> expected) {
         return event.isAssignableFrom(expected);
     }
 
-    public static PlayerExpectedAction fromClass(String player, Class<? extends PlayerEvent> action) {
+    public static <T extends Event & PlayerAware> PlayerExpectedAction fromClass(String player, Class<T> action) {
         return new PlayerExpectedAction(player, ExpectedEventUtils.toActionName(action));
     }
 

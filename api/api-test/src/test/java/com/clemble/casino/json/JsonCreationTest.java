@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.clemble.casino.event.PlayerExpectedAction;
+import com.clemble.casino.event.action.PlayerExpectedAction;
 import com.clemble.casino.game.lifecycle.management.MatchGameContext;
 import com.clemble.casino.game.lifecycle.management.RoundGameContext;
 import com.clemble.casino.game.lifecycle.management.RoundGameState;

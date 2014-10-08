@@ -12,21 +12,21 @@ public class GameConstructionCanceledEvent implements GameConstructionEvent {
      */
     private static final long serialVersionUID = 1L;
 
-    final private String session;
+    final private String sessionKey;
 
     @JsonCreator
     public GameConstructionCanceledEvent(@JsonProperty(SESSION_KEY) String session) {
-        this.session = session;
+        this.sessionKey = session;
     }
 
     @Override
     public String getSessionKey() {
-        return session;
+        return sessionKey;
     }
 
     @Override
     public int hashCode() {
-        return session.hashCode();
+        return sessionKey.hashCode();
     }
 
     @Override
@@ -37,12 +37,12 @@ public class GameConstructionCanceledEvent implements GameConstructionEvent {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        return session.equals(((GameConstructionCanceledEvent) obj).session);
+        return sessionKey.equals(((GameConstructionCanceledEvent) obj).sessionKey);
     }
 
     @Override
     public String toString() {
-        return "canceled:" + session;
+        return "canceled:" + sessionKey;
     }
 
 }

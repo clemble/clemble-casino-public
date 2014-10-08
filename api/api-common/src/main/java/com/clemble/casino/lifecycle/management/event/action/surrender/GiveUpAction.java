@@ -1,11 +1,11 @@
-package com.clemble.casino.lifecycle.management.event.surrender;
+package com.clemble.casino.lifecycle.management.event.action.surrender;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("player:action:surrender")
-public class GiveUpAction extends SurrenderEvent {
+public class GiveUpAction extends SurrenderAction {
 
     /**
      * Generated 29/05/13
@@ -16,7 +16,5 @@ public class GiveUpAction extends SurrenderEvent {
     public GiveUpAction(@JsonProperty(PLAYER) String player) {
         super(player);
     }
-
-
 
 }

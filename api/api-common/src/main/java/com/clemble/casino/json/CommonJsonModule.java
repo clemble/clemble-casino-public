@@ -1,9 +1,9 @@
 package com.clemble.casino.json;
 
-import com.clemble.casino.event.PlayerDefaultAction;
-import com.clemble.casino.event.PlayerExpectedAction;
-import com.clemble.casino.lifecycle.management.event.bet.PlayerBetAction;
-import com.clemble.casino.lifecycle.management.event.surrender.GiveUpAction;
+import com.clemble.casino.event.action.PlayerDefaultAction;
+import com.clemble.casino.event.action.PlayerExpectedAction;
+import com.clemble.casino.lifecycle.management.event.action.bet.PlayerBetAction;
+import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.FixedBetRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.LimitedBetRule;

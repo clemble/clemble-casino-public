@@ -2,8 +2,9 @@ package com.clemble.casino.lifecycle.configuration.rule.time;
 
 import java.util.Date;
 
-import com.clemble.casino.event.PlayerDefaultAction;
-import com.clemble.casino.lifecycle.management.event.surrender.MoveTimeoutSurrenderEvent;
+import com.clemble.casino.event.action.PlayerDefaultAction;
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
+import com.clemble.casino.lifecycle.management.event.action.surrender.MoveTimeoutSurrenderAction;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
@@ -48,9 +49,9 @@ public class MoveTimeRule implements TimeRule {
     }
 
     @Override
-    public PlayerEvent toTimeBreachedEvent(String player) {
+    public PlayerAction toTimeBreachedEvent(String player) {
         if (punishment instanceof LooseBreachPunishment) {
-            return new MoveTimeoutSurrenderEvent(player);
+            return new MoveTimeoutSurrenderAction(player);
         } else {
             return new PlayerDefaultAction(player);
         }
