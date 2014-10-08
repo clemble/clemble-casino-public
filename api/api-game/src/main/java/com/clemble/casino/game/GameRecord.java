@@ -1,12 +1,12 @@
 package com.clemble.casino.game;
 
-import java.io.Serializable;
 import java.util.*;
 
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.GameConfigurationAware;
-import com.clemble.casino.management.EventRecord;
-import com.clemble.casino.management.Record;
+import com.clemble.casino.lifecycle.management.EventRecord;
+import com.clemble.casino.lifecycle.management.Record;
+import com.clemble.casino.lifecycle.management.RecordState;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -29,7 +29,7 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
     private GameConfiguration configuration;
 
     @Column(name = "RECORD_STATE")
-    private GameRecordState sessionState;
+    private RecordState state;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn(name = "PLAYERS_ORDER")
@@ -71,12 +71,12 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
         return this;
     }
 
-    public GameRecordState getSessionState() {
-        return sessionState;
+    public RecordState getState() {
+        return state;
     }
 
-    public GameRecord setSessionState(GameRecordState gameSessionState) {
-        this.sessionState = gameSessionState;
+    public GameRecord setState(RecordState gameSessionState) {
+        this.state = gameSessionState;
         return this;
     }
 
@@ -115,7 +115,7 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
         if (!eventRecords.equals(that.eventRecords)) return false;
         if (!players.equals(that.players)) return false;
         if (!sessionKey.equals(that.sessionKey)) return false;
-        if (sessionState != that.sessionState) return false;
+        if (state != that.state) return false;
 
         return true;
     }
@@ -124,7 +124,7 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
     public int hashCode() {
         int result = sessionKey.hashCode();
         result = 31 * result + configuration.hashCode();
-        result = 31 * result + sessionState.hashCode();
+        result = 31 * result + state.hashCode();
         result = 31 * result + players.hashCode();
         result = 31 * result + eventRecords.hashCode();
         result = 31 * result + version;

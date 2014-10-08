@@ -1,13 +1,14 @@
 package com.clemble.casino.goal.construction;
 
-import com.clemble.casino.construction.Initiation;
-import com.clemble.casino.construction.InitiationState;
+import com.clemble.casino.lifecycle.initiation.Initiation;
+import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalJudgeAware;
 import com.clemble.casino.goal.management.GoalRecord;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
-import com.clemble.casino.management.EventRecord;
+import com.clemble.casino.lifecycle.management.EventRecord;
+import com.clemble.casino.lifecycle.management.RecordState;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -86,6 +87,7 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
     public GoalRecord toRecord() {
         return new GoalRecord(goalKey,
             player,
+            RecordState.active,
             goal,
             judge,
             configuration,

@@ -1,8 +1,6 @@
 package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.construction.Construction;
-import com.clemble.casino.goal.configuration.GoalConfiguration;
 import com.clemble.casino.goal.construction.GoalConstruction;
 import com.clemble.casino.goal.construction.GoalConstructionRequest;
 import com.clemble.casino.goal.construction.service.GoalConstructionService;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.clemble.casino.ActionLatch;
-import com.clemble.casino.construction.ConstructionState;
+import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.construction.event.GameInvitationAcceptedEvent;
 import com.clemble.casino.game.construction.event.GameInvitationResponseEvent;

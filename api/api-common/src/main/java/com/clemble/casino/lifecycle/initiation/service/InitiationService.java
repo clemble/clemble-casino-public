@@ -1,6 +1,6 @@
-package com.clemble.casino.construction.service;
+package com.clemble.casino.lifecycle.initiation.service;
 
-import com.clemble.casino.construction.Initiation;
+import com.clemble.casino.lifecycle.initiation.Initiation;
 
 import java.util.Collection;
 

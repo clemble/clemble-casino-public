@@ -38,7 +38,7 @@ public class FixedBetRule implements BetRule {
         return true;
     }
 
-    public static FixedBetRule create(long[] useBets) {
+    public static FixedBetRule create(long ... useBets) {
         if (useBets == null || useBets.length == 0)
             throw ClembleCasinoException.fromError(ClembleCasinoError.ClientJsonFormatError);
         long[] bets = new long[useBets.length];

@@ -1,8 +1,8 @@
-package com.clemble.casino.management;
+package com.clemble.casino.lifecycle.management;
 
 import com.clemble.casino.KeyAware;
-import com.clemble.casino.configuration.Configuration;
-import com.clemble.casino.configuration.ConfigurationAware;
+import com.clemble.casino.lifecycle.configuration.Configuration;
+import com.clemble.casino.lifecycle.configuration.ConfigurationAware;
 
 import java.util.SortedSet;
 
@@ -12,5 +12,7 @@ import java.util.SortedSet;
 public interface Record<T extends Configuration> extends ConfigurationAware<T>, KeyAware {
 
     SortedSet<EventRecord> getEventRecords();
+
+    RecordState getState();
 
 }

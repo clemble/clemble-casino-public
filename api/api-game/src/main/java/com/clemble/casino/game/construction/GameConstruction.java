@@ -5,14 +5,14 @@ import java.util.Collection;
 import java.util.List;
 
 
-import com.clemble.casino.construction.ConstructionState;
-import com.clemble.casino.construction.InitiationState;
+import com.clemble.casino.lifecycle.construction.Construction;
+import com.clemble.casino.lifecycle.construction.ConstructionState;
+import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.game.configuration.GameConfiguration;
 
 import com.clemble.casino.ActionLatch;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.construction.event.GameInvitationAcceptedEvent;
-import com.clemble.casino.construction.Construction;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;

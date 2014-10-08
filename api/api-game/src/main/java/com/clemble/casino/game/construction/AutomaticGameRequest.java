@@ -1,14 +1,13 @@
 package com.clemble.casino.game.construction;
 
 import com.clemble.casino.ActionLatch;
-import com.clemble.casino.construction.ConstructionState;
+import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @JsonTypeName("automatic")

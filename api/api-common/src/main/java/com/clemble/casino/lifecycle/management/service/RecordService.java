@@ -1,8 +1,8 @@
-package com.clemble.casino.management.service;
+package com.clemble.casino.lifecycle.management.service;
 
 import com.clemble.casino.ClembleService;
-import com.clemble.casino.configuration.Configuration;
-import com.clemble.casino.management.Record;
+import com.clemble.casino.lifecycle.configuration.Configuration;
+import com.clemble.casino.lifecycle.management.Record;
 
 import java.util.List;
 

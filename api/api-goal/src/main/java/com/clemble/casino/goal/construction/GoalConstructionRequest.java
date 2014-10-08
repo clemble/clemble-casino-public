@@ -1,14 +1,11 @@
 package com.clemble.casino.goal.construction;
 
-import com.clemble.casino.construction.ConstructionRequest;
-import com.clemble.casino.construction.ConstructionState;
+import com.clemble.casino.lifecycle.construction.ConstructionRequest;
+import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.configuration.GoalConfiguration;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Date;
 
 /**
  * Created by mavarazy on 8/26/14.

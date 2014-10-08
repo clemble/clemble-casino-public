@@ -1,7 +1,7 @@
 package com.clemble.casino.game.construction.service;
 
 import com.clemble.casino.ClembleService;
-import com.clemble.casino.construction.service.InitiationService;
+import com.clemble.casino.lifecycle.initiation.service.InitiationService;
 import com.clemble.casino.game.construction.GameInitiation;
 
 import java.util.Collection;

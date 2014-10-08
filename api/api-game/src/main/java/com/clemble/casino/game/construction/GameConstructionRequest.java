@@ -2,7 +2,7 @@ package com.clemble.casino.game.construction;
 
 import com.clemble.casino.game.configuration.GameConfiguration;
 import com.clemble.casino.game.configuration.GameConfigurationAware;
-import com.clemble.casino.construction.ConstructionRequest;
+import com.clemble.casino.lifecycle.construction.ConstructionRequest;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")

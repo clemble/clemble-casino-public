@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.clemble.casino.ActionLatch;
-import com.clemble.casino.construction.ConstructionState;
+import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.game.GamePlayerRole;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.configuration.GameConfiguration;

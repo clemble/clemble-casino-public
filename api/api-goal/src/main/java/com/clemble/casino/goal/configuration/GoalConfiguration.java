@@ -3,7 +3,7 @@ package com.clemble.casino.goal.configuration;
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
-import com.clemble.casino.configuration.Configuration;
+import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.goal.rule.judge.JudgeRule;
 import com.clemble.casino.rule.bet.BetRule;
 import com.clemble.casino.rule.privacy.PrivacyRule;
@@ -11,7 +11,6 @@ import com.clemble.casino.rule.time.MoveTimeRule;
 import com.clemble.casino.rule.time.TotalTimeRule;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 8/26/14.

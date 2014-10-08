@@ -1,4 +1,4 @@
-package com.clemble.casino.construction;
+package com.clemble.casino.lifecycle.initiation;
 
 /**
  * Created by mavarazy on 9/20/14.

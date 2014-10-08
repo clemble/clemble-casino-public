@@ -1,9 +1,8 @@
 package com.clemble.casino.goal.construction;
 
-import com.clemble.casino.construction.Construction;
-import com.clemble.casino.construction.ConstructionState;
-import com.clemble.casino.construction.InitiationState;
-import com.clemble.casino.construction.service.InitiationService;
+import com.clemble.casino.lifecycle.construction.Construction;
+import com.clemble.casino.lifecycle.construction.ConstructionState;
+import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalJudgeAware;

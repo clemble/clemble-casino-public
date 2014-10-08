@@ -1,11 +1,10 @@
 package com.clemble.casino.bet.configuration;
 
-import com.clemble.casino.configuration.Configuration;
+import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.rule.bet.BetRule;
 import com.clemble.casino.rule.privacy.PrivacyRule;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 9/6/14.

@@ -1,6 +1,6 @@
 package com.clemble.casino.goal.configuration;
 
-import com.clemble.casino.configuration.ConfigurationAware;
+import com.clemble.casino.lifecycle.configuration.ConfigurationAware;
 
 /**
  * Created by mavarazy on 8/26/14.

@@ -1,7 +1,7 @@
-package com.clemble.casino.construction;
+package com.clemble.casino.lifecycle.construction;
 
-import com.clemble.casino.configuration.Configuration;
-import com.clemble.casino.configuration.ConfigurationAware;
+import com.clemble.casino.lifecycle.configuration.Configuration;
+import com.clemble.casino.lifecycle.configuration.ConfigurationAware;
 
 /**
  * Created by mavarazy on 9/7/14.
