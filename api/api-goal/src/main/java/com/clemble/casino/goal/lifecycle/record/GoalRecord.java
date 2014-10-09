@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.record;
 
+import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalJudgeAware;
@@ -81,6 +82,16 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    public GoalRecord copy(RecordState state) {
+        return new GoalRecord(goalKey,
+            player,
+            state,
+            goal,
+            judge,
+            configuration,
+            eventRecords);
     }
 
     @Override
