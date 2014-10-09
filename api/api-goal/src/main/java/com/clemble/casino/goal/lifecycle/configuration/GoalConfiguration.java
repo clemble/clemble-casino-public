@@ -3,6 +3,7 @@ package com.clemble.casino.goal.lifecycle.configuration;
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
+import com.clemble.casino.goal.lifecycle.configuration.rule.parts.GoalPartsRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.goal.lifecycle.configuration.rule.judge.JudgeRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
@@ -21,6 +22,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
     final private Bid bid;
     final private BetRule betRule;
     final private JudgeRule judgeRule;
+    final private GoalPartsRule partsRule;
     final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
@@ -31,6 +33,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         @JsonProperty("bid") Bid bid,
         @JsonProperty("betRule") BetRule betRule,
         @JsonProperty("judgeRule") JudgeRule judgeRule,
+        @JsonProperty("partsRule") GoalPartsRule partsRule,
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule) {
@@ -38,6 +41,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         this.bid = bid;
         this.betRule = betRule;
         this.judgeRule = judgeRule;
+        this.partsRule = partsRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
@@ -54,6 +58,10 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
 
     public BetRule getBetRule() {
         return betRule;
+    }
+
+    public GoalPartsRule getPartsRule() {
+        return partsRule;
     }
 
     public JudgeRule getJudgeRule() {
