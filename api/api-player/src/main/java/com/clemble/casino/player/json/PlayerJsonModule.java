@@ -15,7 +15,7 @@ public class PlayerJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Common");
-        module.registerSubtypes(new NamedType(PlayerDiscoveredConnectionEvent.class, PlayerDiscoveredConnectionEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerDiscoveredConnectionEvent.class, PlayerDiscoveredConnectionEvent.JSON_TYPE));
         return module;
     }
 

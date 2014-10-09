@@ -10,9 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.springframework.data.annotation.Transient;
 
-@JsonTypeName("player:expected:event")
+@JsonTypeName(PlayerExpectedAction.JSON_TYPE)
 public class PlayerExpectedAction implements PlayerAction {
 
+    final public static String JSON_TYPE = "player:expected:event";
 
     /**
      * Generated 02/07/13
@@ -80,5 +81,9 @@ public class PlayerExpectedAction implements PlayerAction {
         return player.equals(other.player);
     }
 
+    @Override
+    public String toString() {
+        return player + " > " + JSON_TYPE + " > " + action;
+    }
 
 }

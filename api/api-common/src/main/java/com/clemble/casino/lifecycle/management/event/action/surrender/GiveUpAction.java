@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("player:action:surrender")
+@JsonTypeName(GiveUpAction.JSON_TYPE)
 public class GiveUpAction extends SurrenderAction {
 
     /**
@@ -12,9 +12,16 @@ public class GiveUpAction extends SurrenderAction {
      */
     private static final long serialVersionUID = 4501169964446540650L;
 
+    final public static String JSON_TYPE = "player:action:surrender";
+
     @JsonCreator
     public GiveUpAction(@JsonProperty(PLAYER) String player) {
         super(player);
+    }
+
+    @Override
+    public String toString() {
+        return getPlayer() + " > " + JSON_TYPE;
     }
 
 }

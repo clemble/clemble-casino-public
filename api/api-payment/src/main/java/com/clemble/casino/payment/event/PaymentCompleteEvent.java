@@ -7,8 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("payment:complete")
+@JsonTypeName(PaymentCompleteEvent.JSON_TYPE)
 public class PaymentCompleteEvent implements PaymentEvent {
+
+    final public static String JSON_TYPE = "payment:complete";
 
     /**
      * Generated 16/12/13
@@ -97,7 +99,7 @@ public class PaymentCompleteEvent implements PaymentEvent {
 
     @Override
     public String toString() {
-        return player + ":" + amount + ":" + operation + ":" + transactionKey;
+        return transactionKey + " > " + JSON_TYPE + " > " + operation + ":" + amount + ":" + player;
     }
 
 }

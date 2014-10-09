@@ -77,4 +77,5 @@ public class GoalStatusUpdatedEvent implements GoalManagementEvent, GoalStatusAw
     public String toString() {
         return goalKey + ':' + player + " > " + JSON_TYPE + " > " + status + " > " + progress;
     }
+
 }

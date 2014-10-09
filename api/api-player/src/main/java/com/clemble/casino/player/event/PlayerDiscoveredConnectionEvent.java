@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("player:discovered:connection")
+@JsonTypeName(PlayerDiscoveredConnectionEvent.JSON_TYPE)
 public class PlayerDiscoveredConnectionEvent implements PlayerEvent {
+
+    final public static String JSON_TYPE = "player:discovered:connection";
 
     /**
      * Generated 07/01/14
@@ -63,7 +65,7 @@ public class PlayerDiscoveredConnectionEvent implements PlayerEvent {
 
     @Override
     public String toString() {
-        return "connection:" + player + "->" + connection;
+        return player + " > " + JSON_TYPE + " > " + connection;
     }
 
 }

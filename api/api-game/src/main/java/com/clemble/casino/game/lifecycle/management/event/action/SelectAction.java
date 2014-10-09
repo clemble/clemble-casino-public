@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:action:select")
+@JsonTypeName(SelectAction.JSON_TYPE)
 public class SelectAction<T extends GameUnit> implements PlayerGameAction {
 
     /**
      * Generated 21/12/13
      */
     private static final long serialVersionUID = -1260530154110392266L;
+
+    final public static String JSON_TYPE = "game:action:select";
 
     final private T select;
     final private String player;
@@ -56,7 +58,7 @@ public class SelectAction<T extends GameUnit> implements PlayerGameAction {
 
     @Override
     public String toString() {
-        return "selectAction:" + getPlayer() + ":" + select;
+        return player + " > " + JSON_TYPE + " > " + select;
     }
 
 }

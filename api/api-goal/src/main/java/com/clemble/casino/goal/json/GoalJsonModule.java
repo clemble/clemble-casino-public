@@ -23,14 +23,14 @@ public class GoalJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Goal");
-        module.registerSubtypes(new NamedType(GoalInitiationCreatedEvent.class, GoalInitiationCreatedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GoalInitiationCreatedEvent.class, GoalInitiationCreatedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(JudgeRule.class, JudgeRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GoalPartsRule.class, GoalPartsRule.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GoalStartedEvent.class, GoalStartedEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GoalReachedEvent.class, GoalReachedEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GoalConstructionCompleteEvent.class, GoalConstructionCompleteEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GoalStatusUpdateAction.class, GoalStatusUpdateAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GoalStatusUpdatedEvent.class, GoalStatusUpdatedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GoalStartedEvent.class, GoalStartedEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalReachedEvent.class, GoalReachedEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalConstructionCompleteEvent.class, GoalConstructionCompleteEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalStatusUpdateAction.class, GoalStatusUpdateAction.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalStatusUpdatedEvent.class, GoalStatusUpdatedEvent.JSON_TYPE));
         return module;
     }
 

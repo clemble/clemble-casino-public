@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName(PlayerInvitationDeclinedAction.JSON_TYPE)
 public class PlayerInvitationDeclinedAction implements PlayerInvitationAction {
 
-    final public static String JSON_TYPE = "game:construction:invitation:declined";
+    final public static String JSON_TYPE = "game:construction:invitation:declined:action";
 
     /**
      * Generated 02/06/13

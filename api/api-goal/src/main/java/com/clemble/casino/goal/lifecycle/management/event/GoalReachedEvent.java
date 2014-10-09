@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 10/9/14.
  */
-@JsonTypeName("goal:management:reached")
+@JsonTypeName(GoalReachedEvent.JSON_TYPE)
 public class GoalReachedEvent implements GoalManagementEvent {
+
+    final public static String JSON_TYPE = "goal:management:reached";
 
     final private String goalKey;
 
@@ -38,6 +40,11 @@ public class GoalReachedEvent implements GoalManagementEvent {
     @Override
     public int hashCode() {
         return goalKey != null ? goalKey.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return goalKey + " > " + JSON_TYPE;
     }
 
 }

@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("payment:bonus")
+@JsonTypeName(PaymentBonusEvent.JSON_TYPE)
 public class PaymentBonusEvent implements PaymentEvent, PlayerAware, AmountAware, PaymentBonusSourceAware {
+
+    final public static String JSON_TYPE = "payment:bonus";
 
     /**
      * Generated 16/12/13
@@ -90,7 +92,7 @@ public class PaymentBonusEvent implements PaymentEvent, PlayerAware, AmountAware
 
     @Override
     public String toString() {
-        return "bonus:" + player + ":" + amount + ":" + bonusSource;
+        return transactionKey + " > " + JSON_TYPE + " > " + bonusSource + ":" + player + ":" + amount;
     }
 
 }

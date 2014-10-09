@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("player:default:action")
+@JsonTypeName(PlayerDefaultAction.JSON_TYPE)
 public class PlayerDefaultAction implements PlayerAction {
+
+    final public static String JSON_TYPE = "player:default:action";
 
     /**
      * Generated 23/12/13
@@ -42,4 +44,10 @@ public class PlayerDefaultAction implements PlayerAction {
     public int hashCode() {
         return player != null ? player.hashCode() : 0;
     }
+
+    @Override
+    public String toString() {
+        return player + " > " + JSON_TYPE;
+    }
+
 }

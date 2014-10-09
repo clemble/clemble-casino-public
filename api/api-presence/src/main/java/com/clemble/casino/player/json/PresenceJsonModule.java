@@ -15,7 +15,7 @@ public class PresenceJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Presence");
-        module.registerSubtypes(new NamedType(PlayerPresenceChangedEvent.class, PlayerPresenceChangedEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerPresenceChangedEvent.class, PlayerPresenceChangedEvent.JSON_TYPE));
         return module;
     }
 

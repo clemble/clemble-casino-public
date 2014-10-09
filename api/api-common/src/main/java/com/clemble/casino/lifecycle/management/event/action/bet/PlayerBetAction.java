@@ -11,8 +11,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("player:bet")
+@JsonTypeName(PlayerBetAction.JSON_TYPE)
 public class PlayerBetAction implements PlayerAction {
+
+    final public static String JSON_TYPE = "player:bet:action";
 
     /**
      * Generated 10/06/13
@@ -109,7 +111,7 @@ public class PlayerBetAction implements PlayerAction {
 
     @Override
     public String toString() {
-        return "betAction:" + getPlayer() + ":" + bet;
+        return player + " > " + JSON_TYPE + " > " + bet;
     }
 
 }

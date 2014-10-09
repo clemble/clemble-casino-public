@@ -13,8 +13,8 @@ public class PaymentJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Payment");
-        module.registerSubtypes(new NamedType(PaymentBonusEvent.class, PaymentBonusEvent.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(PaymentCompleteEvent.class, PaymentCompleteEvent.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PaymentBonusEvent.class, PaymentBonusEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(PaymentCompleteEvent.class, PaymentCompleteEvent.JSON_TYPE));
         return module;
     }
 

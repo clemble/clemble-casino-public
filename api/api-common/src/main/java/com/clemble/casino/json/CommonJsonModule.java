@@ -21,10 +21,11 @@ public class CommonJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Common");
-        module.registerSubtypes(new NamedType(PlayerExpectedAction.class, PlayerExpectedAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(PlayerBetAction.class, PlayerBetAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(PlayerDefaultAction.class, PlayerDefaultAction.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.class.getAnnotation(JsonTypeName.class).value()));
+
+        module.registerSubtypes(new NamedType(PlayerExpectedAction.class, PlayerExpectedAction.JSON_TYPE));
+        module.registerSubtypes(new NamedType(PlayerBetAction.class, PlayerBetAction.JSON_TYPE));
+        module.registerSubtypes(new NamedType(PlayerDefaultAction.class, PlayerDefaultAction.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.JSON_TYPE));
 
         module.registerSubtypes(new NamedType(CountdownBreachPunishment.class, CountdownBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PenaltyBreachPunishment.class, PenaltyBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));

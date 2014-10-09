@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("goal:initiation:created")
 public class GoalInitiationCreatedEvent implements GoalInitiationEvent {
 
+    final public static String JSON_TYPE = "goal:initiation:created";
+
     final private String goalKey;
 
     @JsonCreator
@@ -38,4 +40,10 @@ public class GoalInitiationCreatedEvent implements GoalInitiationEvent {
     public int hashCode() {
         return goalKey != null ? goalKey.hashCode() : 0;
     }
+
+    @Override
+    public String toString() {
+        return goalKey + " > " + JSON_TYPE;
+    }
+
 }
