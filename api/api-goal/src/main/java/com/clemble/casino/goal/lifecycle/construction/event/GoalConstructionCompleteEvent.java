@@ -1,5 +1,8 @@
 package com.clemble.casino.goal.lifecycle.construction.event;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -12,7 +15,8 @@ public class GoalConstructionCompleteEvent implements GoalConstructionEvent {
 
     final private String goalKey;
 
-    public GoalConstructionCompleteEvent(String goalKey) {
+    @JsonCreator
+    public GoalConstructionCompleteEvent(@JsonProperty(GOAL_KEY) String goalKey) {
         this.goalKey = goalKey;
     }
 
