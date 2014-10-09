@@ -8,7 +8,7 @@ import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-public interface GameState<GC extends GameContext> extends State<GameManagementEvent> {
+public interface GameState<GC extends GameContext> extends State<GameManagementEvent, GC> {
 
     public GC getContext();
 

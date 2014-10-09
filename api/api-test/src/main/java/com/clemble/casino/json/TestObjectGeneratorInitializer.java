@@ -4,10 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.util.Collections;
-import java.util.Date;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -16,6 +13,8 @@ import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAcce
 import com.clemble.casino.game.lifecycle.management.MatchGameContext;
 import com.clemble.casino.game.lifecycle.management.MatchGamePlayerContext;
 import com.clemble.casino.game.lifecycle.management.TournamentGameContext;
+import com.clemble.casino.goal.lifecycle.management.GoalContext;
+import com.clemble.casino.goal.lifecycle.management.GoalPlayerContext;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.event.action.PlayerExpectedAction;
 import com.clemble.casino.event.Event;
@@ -77,6 +76,13 @@ public class TestObjectGeneratorInitializer {
             @Override
             public PlayerExpectedAction generate() {
             return PlayerExpectedAction.fromClass("S", PlayerInvitationAcceptedAction.class);
+            }
+        });
+        ObjectGenerator.register(GoalContext.class, new AbstractValueGenerator<GoalContext>() {
+            @Override
+            public GoalContext generate() {
+                List<GoalPlayerContext> playerContexts = Collections.emptyList();
+                return new GoalContext(null, playerContexts);
             }
         });
         ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {

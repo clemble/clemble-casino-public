@@ -12,7 +12,7 @@ import org.springframework.data.annotation.Id;
 /**
  * Created by mavarazy on 9/20/14.
  */
-public interface GoalState extends State<GoalEvent>, GoalAware, GoalConfigurationAware, GoalPartsAware {
+public interface GoalState extends State<GoalEvent, GoalContext>, GoalAware, GoalConfigurationAware, GoalPartsAware {
 
     @Id
     public String getGoalKey();

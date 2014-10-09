@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.clemble.casino.game.GameSessionAware;
+import com.clemble.casino.lifecycle.management.StateContext;
 import com.clemble.casino.player.PlayerAwareUtils;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-abstract public class GameContext<T extends GamePlayerContext> implements Serializable, GameSessionAware {
+abstract public class GameContext<T extends GamePlayerContext> implements Serializable, GameSessionAware, StateContext<T> {
 
     /**
      * Generated 01/02/14
@@ -34,10 +35,12 @@ abstract public class GameContext<T extends GamePlayerContext> implements Serial
         return sessionKey;
     }
 
+    @Override
     public List<T> getPlayerContexts() {
         return playerContexts;
     }
 
+    @Override
     public T getPlayerContext(String player) {
         return PlayerAwareUtils.filter(player, playerContexts);
     }
