@@ -8,7 +8,7 @@ import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 /**
  * Created by mavarazy on 9/20/14.
  */
-public class GoalState implements State {
+public class GoalState implements State<GoalEvent> {
 
     final private PlayerClock clock;
 
