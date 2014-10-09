@@ -6,9 +6,9 @@ import com.clemble.casino.game.lifecycle.management.GameContext;
 import com.clemble.casino.ClembleService;
 import com.clemble.casino.game.lifecycle.management.GameState;
 import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
-import com.clemble.casino.lifecycle.management.service.ManagerService;
+import com.clemble.casino.lifecycle.management.service.ActionService;
 
-public interface GameActionService extends ClembleService, ManagerService{
+public interface GameActionService extends ClembleService, ActionService {
 
     @Override
     public GameState getState(String sessionKey);

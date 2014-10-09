@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * Created by mavarazy on 10/8/14.
  */
-public interface ManagerService {
+public interface ActionService {
 
     public Event process(String sessionKey, Event action);
 

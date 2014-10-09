@@ -3,7 +3,6 @@ package com.clemble.casino.goal.json;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.configuration.rule.parts.GoalPartsRule;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionCompleteEvent;
-import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionEvent;
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCreatedEvent;
 import com.clemble.casino.goal.lifecycle.configuration.rule.judge.JudgeRule;
 import com.clemble.casino.goal.lifecycle.management.event.GoalMissedEvent;
