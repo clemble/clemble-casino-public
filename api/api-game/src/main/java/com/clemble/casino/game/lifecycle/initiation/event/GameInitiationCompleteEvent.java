@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("game:initiation:complete")
 public class GameInitiationCompleteEvent implements GameInitiationEvent {
 
+    final public static String JSON_TYPE = "game:initiation:complete";
+
     final private String sessionKey;
     final private GameInitiation initiation;
 
@@ -48,5 +50,9 @@ public class GameInitiationCompleteEvent implements GameInitiationEvent {
         int result = sessionKey.hashCode();
         result = 31 * result + initiation.hashCode();
         return result;
+    }
+
+    public String toString() {
+        return getSessionKey() + " > " + JSON_TYPE + " > " + initiation;
     }
 }

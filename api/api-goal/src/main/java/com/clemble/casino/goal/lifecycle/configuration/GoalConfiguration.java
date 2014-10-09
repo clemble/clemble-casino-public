@@ -4,7 +4,7 @@ import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
 import com.clemble.casino.lifecycle.configuration.Configuration;
-import com.clemble.casino.goal.rule.judge.JudgeRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.judge.JudgeRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;

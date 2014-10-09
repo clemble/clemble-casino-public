@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:invitation:declined")
+@JsonTypeName(PlayerInvitationDeclinedAction.JSON_TYPE)
 public class PlayerInvitationDeclinedAction implements PlayerInvitationAction {
+
+    final public static String JSON_TYPE = "game:construction:invitation:declined";
 
     /**
      * Generated 02/06/13
@@ -56,7 +58,7 @@ public class PlayerInvitationDeclinedAction implements PlayerInvitationAction {
 
     @Override
     public String toString(){
-        return "declined:" + player + ":" + sessionKey;
+        return sessionKey + ":" + player + " > " + JSON_TYPE;
     }
 
 }

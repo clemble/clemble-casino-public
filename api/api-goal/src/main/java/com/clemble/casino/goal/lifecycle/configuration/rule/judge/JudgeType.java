@@ -1,4 +1,4 @@
-package com.clemble.casino.goal.rule.judge;
+package com.clemble.casino.goal.lifecycle.configuration.rule.judge;
 
 /**
  * Created by mavarazy on 9/10/14.

@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:tournament:started")
+@JsonTypeName(TournamentStartedEvent.JSON_TYPE)
 public class TournamentStartedEvent extends TournamentEvent implements GameStartedEvent {
+
+    final public static String JSON_TYPE = "game:management:tournament:started";
 
     /**
      * Generated 01/02/14
@@ -15,6 +17,11 @@ public class TournamentStartedEvent extends TournamentEvent implements GameStart
     @JsonCreator
     public TournamentStartedEvent(@JsonProperty(SESSION_KEY) String sessionKey) {
         super(sessionKey);
+    }
+
+    @Override
+    public String toString() {
+        return getSessionKey() + " > " + JSON_TYPE;
     }
 
 }

@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("game:match:started")
 public class MatchStartedEvent extends MatchEvent implements GameStartedEvent {
 
+    final public static String JSON_TYPE = "game:management:match:started";
+
     /**
      * Generated 01/02/14
      */
@@ -20,7 +22,7 @@ public class MatchStartedEvent extends MatchEvent implements GameStartedEvent {
 
     @Override
     public String toString() {
-        return "match:started:" + getSessionKey();
+        return getSessionKey() + " > " + JSON_TYPE;
     }
 
 }

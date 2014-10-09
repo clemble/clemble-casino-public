@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:match:changed")
+@JsonTypeName(MatchChangedEvent.JSON_TYPE)
 public class MatchChangedEvent extends MatchEvent {
+
+    final public static String JSON_TYPE = "game:management:match:changed";
 
     /**
      * Generated 7/02/14
@@ -29,7 +31,7 @@ public class MatchChangedEvent extends MatchEvent {
 
     @Override
     public String toString(){
-        return "match:changed:" + getSessionKey();
+        return getSessionKey() + " > " + JSON_TYPE;
     }
 
     @Override

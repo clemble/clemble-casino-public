@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:initiation:created")
+@JsonTypeName(GameInitiationCreatedEvent.JSON_TYPE)
 public class GameInitiationCreatedEvent implements GameInitiationEvent {
+
+    final public static String JSON_TYPE = "game:initiation:created";
 
     /**
      * Generated 04/01/14
@@ -39,7 +41,7 @@ public class GameInitiationCreatedEvent implements GameInitiationEvent {
 
     @Override
     public String toString() {
-        return sessionKey + " > game:initiation:created";
+        return sessionKey + " > " + JSON_TYPE;
     }
 
     @Override

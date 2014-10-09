@@ -1,6 +1,6 @@
-package com.clemble.casino.goal.rule.judge;
+package com.clemble.casino.goal.lifecycle.configuration.rule.judge;
 
-import com.clemble.casino.goal.rule.GoalRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.GoalRule;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

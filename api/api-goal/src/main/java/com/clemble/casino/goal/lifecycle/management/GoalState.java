@@ -1,5 +1,7 @@
 package com.clemble.casino.goal.lifecycle.management;
 
+import com.clemble.casino.event.Event;
+import com.clemble.casino.goal.event.GoalEvent;
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 
@@ -16,6 +18,10 @@ public class GoalState implements State {
 
     public PlayerClock getClock() {
         return clock;
+    }
+
+    public GoalEvent process(Event action){
+        return null;
     }
 
     @Override

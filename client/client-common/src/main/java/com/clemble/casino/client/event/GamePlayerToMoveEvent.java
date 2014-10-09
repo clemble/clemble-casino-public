@@ -3,8 +3,12 @@ package com.clemble.casino.client.event;
 import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
 import com.clemble.casino.player.PlayerAware;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName(GamePlayerToMoveEvent.JSON_TYPE)
 public class GamePlayerToMoveEvent implements GameManagementEvent, PlayerAware {
+
+    final public static String JSON_TYPE = "game:management:player:move:expected";
 
     /**
      * Generated 28/12/13
@@ -43,7 +47,7 @@ public class GamePlayerToMoveEvent implements GameManagementEvent, PlayerAware {
 
     @Override
     public String toString(){
-        return "toMove:" + player + ":" + sessionKey + ":" + (expectedMove != null ? expectedMove : "unknown");
+        return sessionKey + ":" + player + " > " + JSON_TYPE + " > " + expectedMove;
     }
 
 }

@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:construction:canceled")
+@JsonTypeName(GameConstructionCanceledEvent.JSON_TYPE)
 public class GameConstructionCanceledEvent implements GameConstructionEvent {
+
+    final public static String JSON_TYPE = "game:construction:canceled";
 
     /**
      * Generated 10/06/13
@@ -42,7 +44,7 @@ public class GameConstructionCanceledEvent implements GameConstructionEvent {
 
     @Override
     public String toString() {
-        return "canceled:" + sessionKey;
+        return sessionKey + " > " + JSON_TYPE;
     }
 
 }

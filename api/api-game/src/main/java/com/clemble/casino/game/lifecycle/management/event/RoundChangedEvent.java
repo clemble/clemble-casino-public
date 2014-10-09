@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:round:changed")
+@JsonTypeName(RoundChangedEvent.JSON_TYPE)
 public class RoundChangedEvent<State extends RoundGameState> extends RoundEvent {
+
+    final public static String JSON_TYPE = "game:round:changed";
 
     /**
      * Generated 25/12/13
@@ -55,7 +57,7 @@ public class RoundChangedEvent<State extends RoundGameState> extends RoundEvent 
 
     @Override
     public String toString(){
-        return "round:changed:" + actions;
+        return getSessionKey() + " > " + JSON_TYPE + " > " + actions;
     }
 
 }

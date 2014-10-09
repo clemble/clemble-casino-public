@@ -7,8 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:initiation:confirmed")
+@JsonTypeName(GameInitiationConfirmedEvent.JSON_TYPE)
 public class GameInitiationConfirmedEvent implements GameInitiationEvent, PlayerAware {
+
+    final public static String JSON_TYPE = "game:initiation:confirmed";
 
     /**
      * Generated 04/01/14
@@ -68,7 +70,7 @@ public class GameInitiationConfirmedEvent implements GameInitiationEvent, Player
 
     @Override
     public String toString() {
-        return "initiationConfirmed:" + player + ":" + super.toString();
+        return sessionKey + ":" + player + " > " +  JSON_TYPE;
     }
 
 }

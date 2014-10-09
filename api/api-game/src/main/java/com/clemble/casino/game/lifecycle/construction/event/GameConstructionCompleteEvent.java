@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:construction:complete")
+@JsonTypeName(GameConstructionCompleteEvent.JSON_TYPE)
 public class GameConstructionCompleteEvent implements GameConstructionEvent {
+
+    final public static String JSON_TYPE = "game:construction:complete";
 
     /**
      * Generated 24/06/13
@@ -43,7 +45,7 @@ public class GameConstructionCompleteEvent implements GameConstructionEvent {
 
     @Override
     public String toString() {
-        return "constructed:" + sessionKey;
+        return sessionKey + " > " + JSON_TYPE;
     }
 
 }

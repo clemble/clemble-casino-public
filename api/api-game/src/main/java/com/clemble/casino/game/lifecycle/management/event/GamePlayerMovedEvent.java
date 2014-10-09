@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:player:moved")
+@JsonTypeName(GamePlayerMovedEvent.JSON_TYPE)
 public class GamePlayerMovedEvent implements GameManagementEvent, PlayerAware {
+
+    final public static String JSON_TYPE = "game:management:player:moved";
 
     /**
      * Generated 25/12/13
@@ -55,7 +57,7 @@ public class GamePlayerMovedEvent implements GameManagementEvent, PlayerAware {
 
     @Override
     public String toString(){
-        return "moved:" + player;
+        return sessionKey + ":" + player + " > " + JSON_TYPE;
     }
 
 }

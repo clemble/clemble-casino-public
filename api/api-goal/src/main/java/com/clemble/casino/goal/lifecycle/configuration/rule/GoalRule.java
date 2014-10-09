@@ -1,4 +1,4 @@
-package com.clemble.casino.goal.rule;
+package com.clemble.casino.goal.lifecycle.configuration.rule;
 
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
 

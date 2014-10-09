@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:construction:player:invited")
+@JsonTypeName(GameConstructionPlayerInvitedEvent.JSON_TYPE)
 public class GameConstructionPlayerInvitedEvent implements GameConstructionEvent {
+
+    final public static String JSON_TYPE = "game:construction:invitation";
 
     /**
      * Generated 02/06/2013
@@ -14,7 +16,6 @@ public class GameConstructionPlayerInvitedEvent implements GameConstructionEvent
     private static final long serialVersionUID = 1753173974867187325L;
 
     final private String sessionKey;
-
     final private PlayerGameConstructionRequest gameRequest;
 
     @JsonCreator
@@ -60,7 +61,7 @@ public class GameConstructionPlayerInvitedEvent implements GameConstructionEvent
     
     @Override
     public String toString() {
-        return "invited:" + sessionKey;
+        return sessionKey + " > " + JSON_TYPE;
     }
 
 }

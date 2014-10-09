@@ -7,8 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("game:tournament:ended")
+@JsonTypeName(TournamentEndedEvent.JSON_TYPE)
 public class TournamentEndedEvent extends TournamentEvent implements GameEndedEvent<TournamentGamePlayerContext> {
+
+    final public static String JSON_TYPE = "game:management:tournament:ended";
 
     /**
      * Generated 01/02/14
@@ -56,4 +58,10 @@ public class TournamentEndedEvent extends TournamentEvent implements GameEndedEv
         result = 31 * result + (context != null ? context.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return getSessionKey() + " > " + JSON_TYPE;
+    }
+
 }
