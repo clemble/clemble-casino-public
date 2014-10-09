@@ -8,15 +8,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 10/9/14.
  */
-@JsonTypeName(GoalReachedEvent.JSON_TYPE)
-public class GoalReachedEvent implements GoalEndedEvent {
+@JsonTypeName(GoalMissedEvent.JSON_TYPE)
+public class GoalMissedEvent implements GoalEndedEvent {
 
-    final public static String JSON_TYPE = "goal:management:end:reached";
+    final public static String JSON_TYPE = "goal:management:end:missed";
 
     final private String goalKey;
 
     @JsonCreator
-    public GoalReachedEvent(@JsonProperty(GOAL_KEY) String goalKey) {
+    public GoalMissedEvent(@JsonProperty("goalKey") String goalKey) {
         this.goalKey = goalKey;
     }
 
@@ -30,7 +30,7 @@ public class GoalReachedEvent implements GoalEndedEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalReachedEvent that = (GoalReachedEvent) o;
+        GoalMissedEvent that = (GoalMissedEvent) o;
 
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
 
