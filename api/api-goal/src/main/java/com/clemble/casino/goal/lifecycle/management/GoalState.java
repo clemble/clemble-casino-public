@@ -2,6 +2,7 @@ package com.clemble.casino.goal.lifecycle.management;
 
 import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.GoalAware;
+import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalPartsAware;
 import com.clemble.casino.goal.event.GoalEvent;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
@@ -19,20 +20,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 10/9/14.
  */
-public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, GoalConfigurationAware, GoalPartsAware, PlayerAware {
+public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, GoalDescriptionAware, GoalConfigurationAware, GoalPartsAware, PlayerAware {
 
-    private String goalKey;
-    private String player;
-    private GoalConfiguration configuration;
+    final private String goalKey;
+    final private String player;
+    final private String goal;
+    final private GoalConfiguration configuration;
+    final private int parts;
+    final private GoalContext context;
     private String status;
-    private int parts;
-    private GoalContext context;
     private int progress;
 
     @JsonCreator
     public GoalState(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
+        @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
         @JsonProperty("status") String status,
@@ -42,6 +45,7 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
         this.player = player;
         this.configuration = configuration;
         this.context = context;
+        this.goal = goal;
         this.status = status;
         this.progress = progress;
         this.parts = parts;
@@ -59,6 +63,10 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
 
     public int getParts() {
         return parts;
+    }
+
+    public String getGoal() {
+        return goal;
     }
 
     public int getProgress() {
