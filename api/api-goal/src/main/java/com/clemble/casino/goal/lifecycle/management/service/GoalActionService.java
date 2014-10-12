@@ -6,10 +6,16 @@ import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.service.ActionService;
 
+import java.util.List;
+
 /**
  * Created by mavarazy on 10/9/14.
  */
 public interface GoalActionService extends ActionService {
+
+    public List<GoalState> myActive();
+
+    public List<GoalState> getActive(String player);
 
     public GoalEvent process(String goalKey, Event action);
 
