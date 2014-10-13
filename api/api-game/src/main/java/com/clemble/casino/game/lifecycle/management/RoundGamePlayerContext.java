@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
 import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
-import com.clemble.casino.lifecycle.configuration.rule.time.MovePlayerClock;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +20,6 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
     final private String role;
     final private String player;
     final private PlayerClock clock;
-    final private MovePlayerClock moveClock;
     final private GamePlayerUnit units;
     final private GamePlayerAccount account;
 
@@ -30,12 +28,10 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
             @JsonProperty(PLAYER) String player,
             @JsonProperty("account") GamePlayerAccount account,
             @JsonProperty("clock") PlayerClock clock,
-            @JsonProperty("moveClock") MovePlayerClock moveClock,
             @JsonProperty("role") String role,
             @JsonProperty("units") GamePlayerUnit units) {
         this.role = role;
         this.clock = clock;
-        this.moveClock = moveClock;
         this.units = units;
         this.player = player;
         this.account = account;
@@ -57,11 +53,6 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
     }
 
     @Override
-    public MovePlayerClock getMoveClock() {
-        return moveClock;
-    }
-
-    @Override
     public String getRole() {
         return role;
     }
@@ -80,7 +71,7 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
             PlayerClock clock = new PlayerClock(0, 0);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
-            playerContexts.add(new RoundGamePlayerContext(player, account, clock, MovePlayerClock.DEFAULT, role, unit));
+            playerContexts.add(new RoundGamePlayerContext(player, account, clock, role, unit));
         }
         return playerContexts;
     }
@@ -94,7 +85,6 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
 
         if (account != null ? !account.equals(that.account) : that.account != null) return false;
         if (clock != null ? !clock.equals(that.clock) : that.clock != null) return false;
-        if (moveClock != null ? !moveClock.equals(that.moveClock) : that.moveClock != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (role != null ? !role.equals(that.role) : that.role != null) return false;
         if (units != null ? !units.equals(that.units) : that.units != null) return false;
@@ -107,7 +97,6 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
         int result = role != null ? role.hashCode() : 0;
         result = 31 * result + (player != null ? player.hashCode() : 0);
         result = 31 * result + (clock != null ? clock.hashCode() : 0);
-        result = 31 * result + (moveClock != null ? moveClock.hashCode() : 0);
         result = 31 * result + (units != null ? units.hashCode() : 0);
         result = 31 * result + (account != null ? account.hashCode() : 0);
         return result;

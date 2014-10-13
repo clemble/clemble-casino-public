@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
-import com.clemble.casino.lifecycle.configuration.rule.time.MovePlayerClock;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +19,6 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
     final private String player;
     final private GamePlayerUnit units;
     final private PlayerClock clock;
-    final private MovePlayerClock moveClock;
     final private GamePlayerAccount account;
 
     @JsonCreator
@@ -28,10 +26,8 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
         @JsonProperty(PLAYER) String player,
         @JsonProperty("account") GamePlayerAccount account,
         @JsonProperty("clock") PlayerClock clock,
-        @JsonProperty("moveClock") MovePlayerClock moveClock,
         @JsonProperty("units") GamePlayerUnit units) {
         this.clock = clock;
-        this.moveClock = moveClock;
         this.units = units;
         this.player = player;
         this.account = account;
@@ -45,11 +41,6 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
     @Override
     public PlayerClock getClock() {
         return clock;
-    }
-
-    @Override
-    public MovePlayerClock getMoveClock() {
-        return moveClock;
     }
 
     @Override
@@ -69,7 +60,7 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
             PlayerClock clock = new PlayerClock(0, 0);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
-            playerContexts.add(new TournamentGamePlayerContext(player, account, clock, MovePlayerClock.DEFAULT, unit));
+            playerContexts.add(new TournamentGamePlayerContext(player, account, clock, unit));
         }
         return playerContexts;
     }
@@ -83,7 +74,6 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
 
         if (account != null ? !account.equals(that.account) : that.account != null) return false;
         if (clock != null ? !clock.equals(that.clock) : that.clock != null) return false;
-        if (moveClock != null ? !moveClock.equals(that.moveClock) : that.moveClock != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (units != null ? !units.equals(that.units) : that.units != null) return false;
 

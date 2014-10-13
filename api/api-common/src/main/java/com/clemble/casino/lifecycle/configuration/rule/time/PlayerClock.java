@@ -19,7 +19,9 @@ public class PlayerClock implements Serializable {
     private long moveStart;
 
     @JsonCreator
-    public PlayerClock(@JsonProperty("timeSpent") long timeSpent, @JsonProperty("moveStart") long moveStart) {
+    public PlayerClock(
+        @JsonProperty("timeSpent") long timeSpent,
+        @JsonProperty("moveStart") long moveStart) {
         this.timeSpent = timeSpent;
         this.moveStart = moveStart;
     }
@@ -32,12 +34,13 @@ public class PlayerClock implements Serializable {
         return moveStart;
     }
 
-    public void markToMove(long timeout) {
+    // TODO this is used as a hack, really bad practice
+    public void start(long timeout) {
         if (moveStart == 0)
             moveStart = System.currentTimeMillis() + timeout;
     }
 
-    public void markMoved() {
+    public void stop() {
         if (moveStart != 0) {
             long add = System.currentTimeMillis() - moveStart;
             this.timeSpent += add > 0 ? add : 0;
