@@ -14,32 +14,13 @@ public class PlayerInvitationDeclinedAction implements PlayerInvitationAction {
      */
     private static final long serialVersionUID = 655381424177654890L;
 
-    final private String player;
-    final private String sessionKey;
-
     @JsonCreator
-    public PlayerInvitationDeclinedAction(@JsonProperty(PLAYER) String player, @JsonProperty(SESSION_KEY) String session) {
-        this.player = player;
-        this.sessionKey = session;
-    }
-
-    @Override
-    public String getPlayer() {
-        return player;
-    }
-
-    @Override
-    public String getSessionKey() {
-        return sessionKey;
+    public PlayerInvitationDeclinedAction() {
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (player == null ? 0 : player.hashCode());
-        result = prime * result + (int) (sessionKey.hashCode());
-        return result;
+        return 31;
     }
 
     @Override
@@ -48,17 +29,12 @@ public class PlayerInvitationDeclinedAction implements PlayerInvitationAction {
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PlayerInvitationDeclinedAction other = (PlayerInvitationDeclinedAction) obj;
-        if (!sessionKey.equals(other.sessionKey))
-            return false;
-        return player.equals(other.player);
+        return getClass() == obj.getClass();
     }
 
     @Override
     public String toString(){
-        return sessionKey + ":" + player + " > " + JSON_TYPE;
+        return JSON_TYPE;
     }
 
 }

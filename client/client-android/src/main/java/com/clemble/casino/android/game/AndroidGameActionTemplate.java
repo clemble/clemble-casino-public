@@ -5,6 +5,7 @@ import static com.clemble.casino.game.GameWebMapping.*;
 
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.lifecycle.management.GameContext;
+import com.clemble.casino.lifecycle.management.event.action.Action;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
@@ -32,7 +33,7 @@ public class AndroidGameActionTemplate extends AbstractClembleCasinoOperations i
     }
 
     @Override
-    public GameManagementEvent process(String sessionKey, Event move) {
+    public GameManagementEvent process(String sessionKey, Action move) {
         return restTemplate.postForObject(buildUriWith(toGameUrl(SESSIONS_ACTIONS), sessionKey), move, GameManagementEvent.class);
     }
 

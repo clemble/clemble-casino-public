@@ -16,17 +16,10 @@ public class SelectAction<T extends GameUnit> implements PlayerGameAction {
     final public static String JSON_TYPE = "game:action:select";
 
     final private T select;
-    final private String player;
 
     @JsonCreator
-    public SelectAction(@JsonProperty(PLAYER) String player, @JsonProperty("select") T select) {
-        this.player = player;
+    public SelectAction(@JsonProperty("select") T select) {
         this.select = select;
-    }
-
-    @Override
-    public String getPlayer() {
-        return player;
     }
 
     public T getSelect() {
@@ -58,7 +51,7 @@ public class SelectAction<T extends GameUnit> implements PlayerGameAction {
 
     @Override
     public String toString() {
-        return player + " > " + JSON_TYPE + " > " + select;
+        return JSON_TYPE + " > " + select;
     }
 
 }

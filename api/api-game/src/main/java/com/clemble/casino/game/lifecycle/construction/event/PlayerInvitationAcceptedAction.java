@@ -15,28 +15,13 @@ public class PlayerInvitationAcceptedAction implements PlayerInvitationAction {
      */
     private static final long serialVersionUID = -4465974655141746411L;
 
-    final private String player;
-    final private String sessionKey;
-
     @JsonCreator
-    public PlayerInvitationAcceptedAction(@JsonProperty(PLAYER) String player, @JsonProperty(GameSessionAware.SESSION_KEY) String sessionKey) {
-        this.sessionKey = sessionKey;
-        this.player = player;
-    }
-
-    @Override
-    public String getPlayer() {
-        return player;
-    }
-
-    @Override
-    public String getSessionKey() {
-        return sessionKey;
+    public PlayerInvitationAcceptedAction() {
     }
 
     @Override
     public int hashCode() {
-        return player.hashCode() + sessionKey.hashCode();
+        return 7;
     }
 
     @Override
@@ -45,15 +30,12 @@ public class PlayerInvitationAcceptedAction implements PlayerInvitationAction {
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PlayerInvitationAcceptedAction other = (PlayerInvitationAcceptedAction) obj;
-        return player.equals(other.player);
+        return getClass() == obj.getClass();
     }
 
     @Override
     public String toString(){
-        return sessionKey + ":" + player + " > " + JSON_TYPE;
+        return JSON_TYPE;
     }
 
 }

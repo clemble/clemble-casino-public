@@ -12,12 +12,14 @@ import com.clemble.casino.game.lifecycle.management.GameContext;
 import com.clemble.casino.game.lifecycle.management.GamePlayerAccount;
 import com.clemble.casino.game.lifecycle.management.GameState;
 import com.clemble.casino.game.lifecycle.management.RoundGameState;
+import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
 import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
 import com.clemble.casino.game.lifecycle.management.event.RoundEvent;
 import com.clemble.casino.game.lifecycle.management.service.GameActionService;
+import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 
@@ -96,7 +98,7 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
     @Override
     public Class<?> expectedMove(String player) {
         RoundGameState state = currentState.get();
-        PlayerAction event = state != null ? state.getContext().getActionLatch().filterAction(player) : null;
+        PlayerAware event = state != null ? state.getContext().getActionLatch().filterAction(player) : null;
         return event == null || !(event instanceof PlayerExpectedAction) ? null : ((PlayerExpectedAction) event).expected();
     }
 
@@ -124,11 +126,11 @@ public class GameActionTemplate<State extends GameState> implements GameActionOp
 
     @Override
     public GameManagementEvent giveUp(){
-        return process(new GiveUpAction(player));
+        return process(new GiveUpAction());
     }
 
     @Override
-    public GameManagementEvent process(Event move) {
+    public GameManagementEvent process(Action move) {
         return gameActionService.process(session, move);
     }
 

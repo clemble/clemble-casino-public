@@ -1,10 +1,10 @@
 package com.clemble.casino.game.json;
 
 import com.clemble.casino.event.action.PlayerDefaultAction;
-import com.clemble.casino.lifecycle.management.event.action.bet.PlayerBetAction;
+import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.MoveTimeoutSurrenderAction;
-import com.clemble.casino.lifecycle.management.event.action.surrender.TotalTimeoutSurrenderAction;
+import com.clemble.casino.lifecycle.management.event.action.surrender.TimeoutSurrenderAction;
 import com.clemble.casino.game.lifecycle.management.event.action.SelectAction;
 import com.clemble.casino.game.lifecycle.construction.event.*;
 import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCompleteEvent;
@@ -52,12 +52,12 @@ public class GameJsonModule implements ClembleJsonModule {
     @Override
     public Module construct() {
         SimpleModule module = new SimpleModule("Game");
-        module.registerSubtypes(new NamedType(PlayerBetAction.class, PlayerBetAction.JSON_TYPE));
+        module.registerSubtypes(new NamedType(BetAction.class, BetAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(PlayerDefaultAction.class, PlayerDefaultAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(SelectAction.class, SelectAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(MoveTimeoutSurrenderAction.class, MoveTimeoutSurrenderAction.JSON_TYPE));
-        module.registerSubtypes(new NamedType(TotalTimeoutSurrenderAction.class, TotalTimeoutSurrenderAction.JSON_TYPE));
+        module.registerSubtypes(new NamedType(TimeoutSurrenderAction.class, TimeoutSurrenderAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(AutomaticGameRequest.class, AutomaticGameRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(AvailabilityGameRequest.class, AvailabilityGameRequest.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(ManagerGameConstructionRequest.class, ManagerGameConstructionRequest.class.getAnnotation(JsonTypeName.class).value()));

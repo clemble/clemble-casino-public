@@ -20,8 +20,8 @@ public class DefaultBreachPunishment extends BreachPunishment{
 
 
     @Override
-    public PlayerAction toBreachEvent(String player) {
-        return new PlayerDefaultAction(player);
+    public PlayerAction toBreachEvent(String key, String player) {
+        return new PlayerAction(key, player, new PlayerDefaultAction());
     }
 
     // TODO this is a workaround for mongo serialization, used by springMongo, which is not general ObjectMapper, used in the system

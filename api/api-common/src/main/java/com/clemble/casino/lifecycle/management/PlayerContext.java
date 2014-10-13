@@ -1,5 +1,6 @@
 package com.clemble.casino.lifecycle.management;
 
+import com.clemble.casino.lifecycle.configuration.rule.time.MovePlayerClock;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.clemble.casino.player.PlayerAware;
 
@@ -9,5 +10,7 @@ import com.clemble.casino.player.PlayerAware;
 public interface PlayerContext extends PlayerAware {
 
     public PlayerClock getClock();
+
+    public MovePlayerClock getMoveClock();
 
 }

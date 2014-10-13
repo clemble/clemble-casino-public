@@ -15,13 +15,13 @@ public class MoveTimeoutSurrenderAction extends SurrenderAction {
     final public static String JSON_TYPE = "player:action:move:timeout";
 
     @JsonCreator
-    public MoveTimeoutSurrenderAction(@JsonProperty(PLAYER) String player) {
-        super(player);
+    public MoveTimeoutSurrenderAction() {
+        super();
     }
 
     @Override
     public String toString() {
-        return getPlayer() + " > " + JSON_TYPE;
+        return JSON_TYPE;
     }
 
 }

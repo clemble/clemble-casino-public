@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.management;
 
+import com.clemble.casino.lifecycle.configuration.rule.time.MovePlayerClock;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.clemble.casino.lifecycle.management.PlayerContext;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,11 +13,16 @@ public class GoalPlayerContext implements PlayerContext {
 
     final private String player;
     final private PlayerClock clock;
+    final private MovePlayerClock moveClock;
 
     @JsonCreator
-    public GoalPlayerContext(@JsonProperty(PLAYER) String player, @JsonProperty("clock") PlayerClock clock) {
+    public GoalPlayerContext(
+        @JsonProperty(PLAYER) String player,
+        @JsonProperty("clock") PlayerClock clock,
+        @JsonProperty("moveClock") MovePlayerClock moveClock) {
         this.player = player;
         this.clock = clock;
+        this.moveClock = moveClock;
     }
 
     @Override
@@ -30,6 +36,11 @@ public class GoalPlayerContext implements PlayerContext {
     }
 
     @Override
+    public MovePlayerClock getMoveClock() {
+        return moveClock;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -37,6 +48,7 @@ public class GoalPlayerContext implements PlayerContext {
         GoalPlayerContext that = (GoalPlayerContext) o;
 
         if (clock != null ? !clock.equals(that.clock) : that.clock != null) return false;
+        if (moveClock != null ? !moveClock.equals(that.moveClock) : that.moveClock != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
 
         return true;

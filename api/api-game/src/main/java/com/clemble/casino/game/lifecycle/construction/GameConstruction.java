@@ -85,7 +85,7 @@ public class GameConstruction implements Construction<GameConfiguration>, Player
         List<String> acceptedParticipants = new ArrayList<String>(responses.fetchParticipants().size());
 
         for (PlayerAction responseEntry : responses.getActions()) {
-            if (responseEntry instanceof PlayerInvitationAcceptedAction)
+            if (responseEntry.getAction() instanceof PlayerInvitationAcceptedAction)
                 acceptedParticipants.add(responseEntry.getPlayer());
         }
 

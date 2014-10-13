@@ -13,19 +13,13 @@ public class GoalStatusUpdateAction implements PlayerGoalAction, GoalStatusAware
 
     final public static String JSON_TYPE = "goal:management:status:update:action";
 
-    final private String player;
-    final private String goalKey;
     final private String status;
     final private int progress;
 
     @JsonCreator
     public GoalStatusUpdateAction(
-        @JsonProperty("player") String player,
-        @JsonProperty("goalKey") String goalKey,
         @JsonProperty("status") String status,
         @JsonProperty("progress") int progress) {
-        this.goalKey = goalKey;
-        this.player = player;
         this.status = status;
         this.progress = progress;
     }
@@ -41,38 +35,28 @@ public class GoalStatusUpdateAction implements PlayerGoalAction, GoalStatusAware
     }
 
     @Override
-    public String getPlayer() {
-        return player;
-    }
-
-    @Override
-    public String getGoalKey() {
-        return goalKey;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof GoalStatusUpdateAction)) return false;
 
         GoalStatusUpdateAction that = (GoalStatusUpdateAction) o;
 
-        if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
-        if (player != null ? !player.equals(that.player) : that.player != null) return false;
+        if (progress != that.progress) return false;
+        if (!status.equals(that.status)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player != null ? player.hashCode() : 0;
-        result = 31 * result + (goalKey != null ? goalKey.hashCode() : 0);
+        int result = status.hashCode();
+        result = 31 * result + progress;
         return result;
     }
 
     @Override
     public String toString() {
-        return goalKey + ":" + player + " > " + JSON_TYPE + " > " + status;
+        return JSON_TYPE + " > " + status;
     }
 
 }

@@ -4,6 +4,7 @@ import com.clemble.casino.game.lifecycle.construction.AvailabilityGameRequest;
 import com.clemble.casino.game.lifecycle.construction.GameConstruction;
 import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAction;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
+import com.clemble.casino.player.PlayerAware;
 
 public interface AvailabilityGameConstructionService extends GameConstructionService<AvailabilityGameRequest> {
 
@@ -14,6 +15,6 @@ public interface AvailabilityGameConstructionService extends GameConstructionSer
 
     public PlayerAction getReply(String sessionKey, String player);
 
-    public GameConstruction reply(PlayerInvitationAction gameRequest);
+    public GameConstruction reply(String sessionKey, PlayerInvitationAction gameRequest);
 
 }

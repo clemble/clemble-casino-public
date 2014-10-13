@@ -1,13 +1,6 @@
 package com.clemble.casino.lifecycle.configuration.rule.time;
 
-import java.util.Date;
-
-import com.clemble.casino.event.action.PlayerDefaultAction;
-import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
-import com.clemble.casino.lifecycle.management.event.action.surrender.MoveTimeoutSurrenderAction;
-import com.clemble.casino.player.event.PlayerEvent;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishment;
-import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;

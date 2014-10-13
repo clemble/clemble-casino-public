@@ -76,17 +76,17 @@ public class GameConstructionTemplate implements GameConstructionOperations {
 
     @Override
     public GameConstruction accept(String sessionKey) {
-        return reply(sessionKey, new PlayerInvitationAcceptedAction(player, sessionKey));
+        return reply(sessionKey, new PlayerInvitationAcceptedAction());
     }
 
     @Override
     public GameConstruction decline(String sessionKey) {
-        return reply(sessionKey, new PlayerInvitationDeclinedAction(player, sessionKey));
+        return reply(sessionKey, new PlayerInvitationDeclinedAction());
     }
 
     @Override
     public GameConstruction reply(String sessionKey, PlayerInvitationAction responce) {
-        return availabilityConstructionService.reply(responce);
+        return availabilityConstructionService.reply(sessionKey, responce);
     }
 
     @Override

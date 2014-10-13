@@ -15,13 +15,12 @@ public class GiveUpAction extends SurrenderAction {
     final public static String JSON_TYPE = "player:action:surrender";
 
     @JsonCreator
-    public GiveUpAction(@JsonProperty(PLAYER) String player) {
-        super(player);
+    public GiveUpAction() {
     }
 
     @Override
     public String toString() {
-        return getPlayer() + " > " + JSON_TYPE;
+        return JSON_TYPE;
     }
 
 }

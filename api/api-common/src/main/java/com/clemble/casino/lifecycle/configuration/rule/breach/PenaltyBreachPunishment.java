@@ -28,8 +28,8 @@ public class PenaltyBreachPunishment extends BreachPunishment implements AmountA
     }
 
     @Override
-    public PlayerAction toBreachEvent(String player) {
-        return new TimeoutPunishmentAction(player, amount);
+    public PlayerAction toBreachEvent(String key, String player) {
+        return new PlayerAction(key, player, new TimeoutPunishmentAction(amount));
     }
 
     @Override

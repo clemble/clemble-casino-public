@@ -9,6 +9,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "breach")
 abstract public class BreachPunishment {
 
-    abstract public PlayerAction toBreachEvent(String player);
+    abstract public PlayerAction toBreachEvent(String key, String player);
 
 }

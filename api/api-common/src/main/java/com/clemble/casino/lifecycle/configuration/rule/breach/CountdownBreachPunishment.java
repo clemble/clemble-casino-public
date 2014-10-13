@@ -2,7 +2,6 @@ package com.clemble.casino.lifecycle.configuration.rule.breach;
 
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
-import com.clemble.casino.lifecycle.management.event.action.surrender.TotalTimeoutSurrenderAction;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.AmountAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,8 +33,8 @@ public class CountdownBreachPunishment extends BreachPunishment implements Amoun
     }
 
     @Override
-    public PlayerAction toBreachEvent(String player) {
-        return new TimeoutPunishmentAction(player, amount);
+    public PlayerAction toBreachEvent(String key, String player) {
+        return new PlayerAction(key, player, new TimeoutPunishmentAction(amount));
     }
 
     @Override

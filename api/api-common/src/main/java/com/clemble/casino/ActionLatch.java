@@ -3,7 +3,9 @@ package com.clemble.casino;
 import com.clemble.casino.event.action.PlayerExpectedAction;
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.ClembleCasinoException;
+import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
+import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.player.PlayerAwareUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,29 +27,16 @@ public class ActionLatch implements Serializable {
     }
 
     @JsonCreator
-    public ActionLatch(@JsonProperty("actions") final Collection<? extends PlayerAction> expectedActions) {
-        this.actions.addAll(expectedActions);
+    public ActionLatch(@JsonProperty("actions") final Collection<PlayerAction> actions) {
+        this.actions.addAll(actions);
     }
 
-    public ActionLatch expectNext(final String player, Class<? extends PlayerAction> expectedClass) {
-        this.actions.clear();
-        this.actions.add(PlayerExpectedAction.fromClass(player, expectedClass));
-        return this;
-    }
-
-    public ActionLatch expectNext(final Collection<String> participants, Class<? extends PlayerAction> expectedClass) {
+    public ActionLatch expectNext(final String sessionKey, final Collection<String> participants, Class<? extends Action> expectedClass) {
         this.actions.clear();
         for (String participant : participants) {
-            this.actions.add(PlayerExpectedAction.fromClass(participant, expectedClass));
+            this.actions.add(new PlayerAction(sessionKey, participant, PlayerExpectedAction.fromClass(expectedClass)));
         }
         return this;
-    }
-
-    public void expectNext(final String player, final Collection<String> participants, final Class<? extends PlayerAction> expectedClass) {
-        this.actions.add(PlayerExpectedAction.fromClass(player, expectedClass));
-        for (String participant : participants) {
-            this.actions.add(PlayerExpectedAction.fromClass(participant, expectedClass));
-        }
     }
 
     public boolean contains(String participant) {
@@ -57,7 +46,7 @@ public class ActionLatch implements Serializable {
     public boolean acted(String player) {
         // Step 1. Processing all assosiated player events
         for(PlayerAction playerEvent: filterAllActions(player))
-            if(playerEvent instanceof PlayerExpectedAction)
+            if(playerEvent.getAction() instanceof PlayerExpectedAction)
                 return false;
         // Step 2. If no events expected return true
         return true;
@@ -73,7 +62,7 @@ public class ActionLatch implements Serializable {
 
     @SuppressWarnings("unchecked")
     public <T extends PlayerAction> Collection<T> getActions() {
-        return (Collection<T>) actions;
+        return (Collection<T>)(Collection<? extends PlayerAware>) actions;
     }
 
     public void append(PlayerAction event) {
@@ -88,23 +77,23 @@ public class ActionLatch implements Serializable {
         return PlayerAwareUtils.filterAll(player, actions);
     }
 
-    public <T extends PlayerAction> ActionLatch put(T action) {
-        PlayerAction event = filterAction(action.getPlayer());
-        if (event instanceof PlayerExpectedAction) {
-            if (!((PlayerExpectedAction) event).isExpected(action.getClass()))
-                throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType, action.getPlayer());
+    public <T extends PlayerAction> ActionLatch put(T playerAction) {
+        PlayerAction event = filterAction(playerAction.getPlayer());
+        if (event.getAction() instanceof PlayerExpectedAction) {
+            if (!((PlayerExpectedAction) event.getAction()).isExpected(playerAction.getAction().getClass()))
+                throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayWrongMoveType, playerAction.getPlayer());
             actions.remove(event);
-            actions.add(action);
+            actions.add(playerAction);
             return this;
         } else if (event != null) {
-            throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayMoveAlreadyMade, action.getPlayer());
+            throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayMoveAlreadyMade, playerAction.getPlayer());
         }
-        throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayNoMoveExpected, action.getPlayer());
+        throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayNoMoveExpected, playerAction.getPlayer());
     }
 
     public boolean complete() {
         for (PlayerAction action : actions)
-            if (action instanceof PlayerExpectedAction)
+            if (action.getAction() instanceof PlayerExpectedAction)
                 return false;
         return true;
     }
