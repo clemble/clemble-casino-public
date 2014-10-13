@@ -49,15 +49,6 @@ public class MoveTimeRule implements TimeRule {
     }
 
     @Override
-    public PlayerAction toTimeBreachedEvent(String player) {
-        if (punishment instanceof LooseBreachPunishment) {
-            return new MoveTimeoutSurrenderAction(player);
-        } else {
-            return new PlayerDefaultAction(player);
-        }
-    }
-
-    @Override
     public long getLimit() {
         return limit;
     }

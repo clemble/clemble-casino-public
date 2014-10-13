@@ -2,26 +2,24 @@ package com.clemble.casino.lifecycle.configuration.rule.breach;
 
 import com.clemble.casino.event.action.PlayerDefaultAction;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
-import com.clemble.casino.lifecycle.management.event.action.surrender.TotalTimeoutSurrenderAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * Created by mavarazy on 8/30/14.
+ * Created by mavarazy on 13/10/14.
  */
-@JsonTypeName("loose")
-public class LooseBreachPunishment extends BreachPunishment {
+public class DefaultBreachPunishment extends BreachPunishment{
 
-    final private static LooseBreachPunishment INSTANCE = new LooseBreachPunishment();
+    final private static DefaultBreachPunishment INSTANCE = new DefaultBreachPunishment();
 
     @JsonCreator
-    public static LooseBreachPunishment getInstance() {
+    public static DefaultBreachPunishment getInstance() {
         return INSTANCE;
     }
 
+
     @Override
     public PlayerAction toBreachEvent(String player) {
-        return new TotalTimeoutSurrenderAction(player);
+        return new PlayerDefaultAction(player);
     }
 
     // TODO this is a workaround for mongo serialization, used by springMongo, which is not general ObjectMapper, used in the system
@@ -32,7 +30,7 @@ public class LooseBreachPunishment extends BreachPunishment {
 
     @Override
     public boolean equals(Object other) {
-        return other != null && other.getClass() == LooseBreachPunishment.class;
+        return other != null && other.getClass() == DefaultBreachPunishment.class;
     }
 
 }

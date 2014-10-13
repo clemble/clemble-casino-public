@@ -20,6 +20,4 @@ public interface TimeRule extends ConfigurationRule, BreachPunishmentAware {
 
     public Date breachDate(PlayerClock clock);
 
-    public PlayerAction toTimeBreachedEvent(String player);
-
 }

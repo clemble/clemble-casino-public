@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("totalTime")
-public class TotalTimeRule implements TimeRule, BreachPunishmentAware {
+public class TotalTimeRule implements TimeRule {
 
     /**
      * Generated 09/04/13
@@ -53,15 +53,6 @@ public class TotalTimeRule implements TimeRule, BreachPunishmentAware {
     @Override
     public Date breachDate(PlayerClock clock) {
         return clock.getMoveStart() == 0 ? new Date(Long.MAX_VALUE) : new Date(clock.getMoveStart() + limit - clock.getTimeSpent());
-    }
-
-    @Override
-    public PlayerAction toTimeBreachedEvent(String player) {
-        if (punishment instanceof LooseBreachPunishment) {
-            return new TotalTimeoutSurrenderAction(player);
-        } else {
-            return new PlayerDefaultAction(player);
-        }
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.clemble.casino.lifecycle.configuration.rule.breach;
 
+import com.clemble.casino.event.action.PlayerDefaultAction;
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
+import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.AmountAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -22,6 +25,11 @@ public class PenaltyBreachPunishment extends BreachPunishment implements AmountA
     @Override
     public Money getAmount() {
         return amount;
+    }
+
+    @Override
+    public PlayerAction toBreachEvent(String player) {
+        return new TimeoutPunishmentAction(player, amount);
     }
 
     @Override
