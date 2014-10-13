@@ -2,48 +2,72 @@ package com.clemble.casino.lifecycle.configuration.rule.time;
 
 import java.io.Serializable;
 
+import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishment;
+import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishmentAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 24/12/13.
  */
-public class PlayerClock implements Serializable {
+public class PlayerClock implements BreachPunishmentAware, Serializable {
 
     /**
      * Generated 29/12/13
      */
     private static final long serialVersionUID = 8179910545586680100L;
 
-    private long timeSpent;
     private long moveStart;
+    private long timeSpent;
+    private long breachTime;
+    private BreachPunishment punishment;
 
     @JsonCreator
     public PlayerClock(
+        @JsonProperty("moveStart") long moveStart,
         @JsonProperty("timeSpent") long timeSpent,
-        @JsonProperty("moveStart") long moveStart) {
-        this.timeSpent = timeSpent;
+        @JsonProperty("breachTime") long breachTime,
+        @JsonProperty("punishment") BreachPunishment punishment) {
         this.moveStart = moveStart;
-    }
-
-    public long getTimeSpent() {
-        return timeSpent;
+        this.breachTime = breachTime;
+        this.timeSpent = timeSpent;
+        this.punishment = punishment;
     }
 
     public long getMoveStart() {
         return moveStart;
     }
 
+    public long getBreachTime() {
+        return breachTime;
+    }
+
+    public long getTimeSpent() {
+        return timeSpent;
+    }
+
+    @Override
+    public BreachPunishment getPunishment() {
+        return punishment;
+    }
+
+    public void deduce(long time) {
+        this.timeSpent += time;
+    }
+
     // TODO this is used as a hack, really bad practice
-    public void start(long timeout) {
-        if (moveStart == 0)
-            moveStart = System.currentTimeMillis() + timeout;
+    public void start(long moveStart, long breachTime, BreachPunishment breachPunishment) {
+        if (moveStart == 0) {
+            this.moveStart = moveStart;
+            this.breachTime = breachTime;
+            this.punishment = breachPunishment;
+        }
     }
 
     public void stop() {
         if (moveStart != 0) {
             long add = System.currentTimeMillis() - moveStart;
-            this.timeSpent += add > 0 ? add : 0;
+            deduce(add > 0 ? add : 0);
             this.moveStart = 0;
         }
     }
