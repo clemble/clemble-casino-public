@@ -41,18 +41,8 @@ public class TotalTimeRule implements TimeRule {
     }
 
     @Override
-    public long timeUntilBreach(long totalTimeSpent) {
-        return limit - totalTimeSpent;
-    }
-
-    @Override
     public long timeUntilBreach(PlayerClock clock) {
-        return clock.getMoveStart() == 0 ? Long.MAX_VALUE : timeUntilBreach((System.currentTimeMillis() - clock.getMoveStart()) + clock.getTimeSpent());
-    }
-
-    @Override
-    public Date breachDate(PlayerClock clock) {
-        return clock.getMoveStart() == 0 ? new Date(Long.MAX_VALUE) : new Date(clock.getMoveStart() + limit - clock.getTimeSpent());
+        return clock.getMoveStart() == 0 ? Long.MAX_VALUE : limit - ((System.currentTimeMillis() - clock.getMoveStart()) + clock.getTimeSpent());
     }
 
     @Override
