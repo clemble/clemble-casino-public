@@ -3,10 +3,12 @@ package com.clemble.casino.lifecycle.configuration.rule.breach;
 import com.clemble.casino.event.action.PlayerDefaultAction;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 13/10/14.
  */
+@JsonTypeName("default")
 public class DefaultBreachPunishment extends BreachPunishment{
 
     final private static DefaultBreachPunishment INSTANCE = new DefaultBreachPunishment();
