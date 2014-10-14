@@ -1,6 +1,6 @@
 package com.clemble.casino.game.lifecycle.management.event;
 
-import com.clemble.casino.game.lifecycle.management.MatchGameContext;
+import com.clemble.casino.game.lifecycle.management.MatchGameState;
 
 abstract public class MatchEvent implements GameManagementEvent {
 
@@ -10,11 +10,11 @@ abstract public class MatchEvent implements GameManagementEvent {
     private static final long serialVersionUID = 1L;
 
     final private String sessionKey;
-    final private MatchGameContext context;
+    final private MatchGameState state;
 
-    public MatchEvent(String sessionKey, MatchGameContext context) {
+    public MatchEvent(String sessionKey, MatchGameState state) {
         this.sessionKey = sessionKey;
-        this.context = context;
+        this.state = state;
     }
 
     @Override
@@ -22,8 +22,8 @@ abstract public class MatchEvent implements GameManagementEvent {
         return sessionKey;
     }
 
-    public MatchGameContext getContext() {
-        return context;
+    public MatchGameState getState() {
+        return state;
     }
 
     @Override
@@ -33,7 +33,7 @@ abstract public class MatchEvent implements GameManagementEvent {
 
         MatchEvent that = (MatchEvent) o;
 
-        if (context != null ? !context.equals(that.context) : that.context != null) return false;
+        if (state != null ? !state.equals(that.state) : that.state != null) return false;
         if (sessionKey != null ? !sessionKey.equals(that.sessionKey) : that.sessionKey != null) return false;
 
         return true;
@@ -42,7 +42,7 @@ abstract public class MatchEvent implements GameManagementEvent {
     @Override
     public int hashCode() {
         int result = sessionKey != null ? sessionKey.hashCode() : 0;
-        result = 31 * result + (context != null ? context.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
 }

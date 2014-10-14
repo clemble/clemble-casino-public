@@ -30,13 +30,13 @@ public class GameInitiation implements Initiation<GameConfiguration>, GameConfig
 
     @JsonCreator
     public GameInitiation(
-        @JsonProperty(GameSessionAware.SESSION_KEY) String session,
+        @JsonProperty(GameSessionAware.SESSION_KEY) String sessionKey,
         @JsonProperty("state") InitiationState state,
         @JsonProperty("participants") Collection<String> participants,
-        @JsonProperty("configuration") GameConfiguration specification) {
+        @JsonProperty("configuration") GameConfiguration configuration) {
         this.state = state;
-        this.sessionKey = checkNotNull(session);
-        this.configuration = checkNotNull(specification);
+        this.sessionKey = checkNotNull(sessionKey);
+        this.configuration = checkNotNull(configuration);
         this.participants.addAll(participants);
     }
 

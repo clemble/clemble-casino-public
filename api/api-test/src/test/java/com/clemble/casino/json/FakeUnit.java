@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 09/03/14.
  */
-@JsonTypeName("fake")
+@JsonTypeName("fakeunit")
 public class FakeUnit implements GameUnit {
 
     @JsonCreator

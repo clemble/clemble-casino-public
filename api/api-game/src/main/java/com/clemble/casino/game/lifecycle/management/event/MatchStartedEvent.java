@@ -1,6 +1,8 @@
 package com.clemble.casino.game.lifecycle.management.event;
 
+import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
 import com.clemble.casino.game.lifecycle.management.MatchGameContext;
+import com.clemble.casino.game.lifecycle.management.MatchGameState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -15,9 +17,19 @@ public class MatchStartedEvent extends MatchEvent implements GameStartedEvent {
      */
     private static final long serialVersionUID = 3443199915321584272L;
 
+    final private GameInitiation nextInitiation;
+
     @JsonCreator
-    public MatchStartedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty("context") MatchGameContext context) {
-        super(sessionKey, context);
+    public MatchStartedEvent(
+        @JsonProperty(SESSION_KEY) String sessionKey,
+        @JsonProperty("state") MatchGameState state,
+        @JsonProperty("nextInitiation") GameInitiation nextInitiation) {
+        super(sessionKey, state);
+        this.nextInitiation = nextInitiation;
+    }
+
+    public GameInitiation getNextInitiation() {
+        return nextInitiation;
     }
 
     @Override

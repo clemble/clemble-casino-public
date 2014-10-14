@@ -1,6 +1,8 @@
 package com.clemble.casino.game.lifecycle.management.event;
 
+import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
 import com.clemble.casino.game.lifecycle.management.MatchGameContext;
+import com.clemble.casino.game.lifecycle.management.MatchGameState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -16,17 +18,25 @@ public class MatchChangedEvent extends MatchEvent {
     private static final long serialVersionUID = 4602160261299590501L;
 
     final private String nextSession;
+    final private GameInitiation nextInitiation;
 
     @JsonCreator
-    public MatchChangedEvent(@JsonProperty(SESSION_KEY) String sessionKey,
-                             @JsonProperty("context") MatchGameContext context,
-                             @JsonProperty("nextSession") String nextSession) {
-        super(sessionKey, context);
+    public MatchChangedEvent(
+        @JsonProperty(SESSION_KEY) String sessionKey,
+        @JsonProperty("context") MatchGameState state,
+        @JsonProperty("nextSession") String nextSession,
+        @JsonProperty("nextInitiation") GameInitiation nextInitiation) {
+        super(sessionKey, state);
         this.nextSession = nextSession;
+        this.nextInitiation = nextInitiation;
     }
 
     public String getNextSession() {
         return nextSession;
+    }
+
+    public GameInitiation getNextInitiation() {
+        return nextInitiation;
     }
 
     @Override
@@ -55,6 +65,11 @@ public class MatchChangedEvent extends MatchEvent {
             if (other.nextSession != null)
                 return false;
         } else if (!nextSession.equals(other.nextSession))
+            return false;
+        if (nextInitiation == null) {
+            if (other.nextInitiation != null)
+                return false;
+        } else if (!nextInitiation.equals(other.nextInitiation))
             return false;
         return true;
     }

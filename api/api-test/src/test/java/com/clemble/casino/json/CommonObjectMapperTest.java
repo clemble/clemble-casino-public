@@ -20,13 +20,11 @@ public class CommonObjectMapperTest extends AbstractObjectMapperTest {
     @BeforeClass
     public static void init(){
         ObjectGenerator.register(RoundGameState.class, new AbstractValueGenerator<RoundGameState>() {
-
             @Override
             public RoundGameState generate() {
                 RoundGameContext roundGameContext = ObjectGenerator.generate(RoundGameContext.class);
-                return new FakeState(roundGameContext, null, 0);
+                return new RoundGameState(roundGameContext, new FakeState(), 0);
             }
-
         });
     }
 

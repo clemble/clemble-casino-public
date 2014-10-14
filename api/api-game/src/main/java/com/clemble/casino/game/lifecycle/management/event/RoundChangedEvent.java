@@ -3,13 +3,14 @@ package com.clemble.casino.game.lifecycle.management.event;
 import java.util.Collection;
 
 import com.clemble.casino.game.lifecycle.management.RoundGameState;
-import com.clemble.casino.game.lifecycle.management.event.action.PlayerGameAction;
+import com.clemble.casino.game.lifecycle.management.RoundState;
+import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(RoundChangedEvent.JSON_TYPE)
-public class RoundChangedEvent<State extends RoundGameState> extends RoundEvent {
+public class RoundChangedEvent<State extends RoundState> extends RoundEvent {
 
     final public static String JSON_TYPE = "game:round:changed";
 
@@ -18,15 +19,18 @@ public class RoundChangedEvent<State extends RoundGameState> extends RoundEvent 
      */
     private static final long serialVersionUID = -7618933855585060716L;
 
-    final private Collection<? extends PlayerGameAction> actions;
+    final private Collection<PlayerAction> actions;
 
     @JsonCreator
-    public RoundChangedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("state") State state, @JsonProperty("actions") Collection<? extends PlayerGameAction> actions) {
-        super(session, state);
+    public RoundChangedEvent(
+        @JsonProperty(SESSION_KEY) String sessionKey,
+        @JsonProperty("state") RoundGameState state,
+        @JsonProperty("actions") Collection<PlayerAction> actions) {
+        super(sessionKey, state);
         this.actions = actions;
     }
 
-    public Collection<? extends PlayerGameAction> getActions() {
+    public Collection<PlayerAction> getActions() {
         return actions;
     }
 

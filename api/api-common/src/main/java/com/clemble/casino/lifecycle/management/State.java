@@ -8,6 +8,8 @@ import com.clemble.casino.event.Event;
  */
 public interface State<R extends Event, C extends StateContext> {
 
+    R start();
+
     R process(Event action);
 
     C getContext();

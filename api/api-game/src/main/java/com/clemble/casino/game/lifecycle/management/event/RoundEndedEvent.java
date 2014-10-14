@@ -1,15 +1,13 @@
 package com.clemble.casino.game.lifecycle.management.event;
 
-import com.clemble.casino.game.lifecycle.management.GameContext;
-import com.clemble.casino.game.lifecycle.management.RoundGamePlayerContext;
-import com.clemble.casino.game.lifecycle.management.RoundGameState;
+import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(RoundEndedEvent.JSON_TYPE)
-public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent implements GameEndedEvent<RoundGamePlayerContext> {
+public class RoundEndedEvent extends RoundEvent implements GameEndedEvent {
 
     final public static String JSON_TYPE = "game:management:round:ended";
 
@@ -19,26 +17,19 @@ public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent im
     private static final long serialVersionUID = 820200145932972096L;
 
     final private GameOutcome outcome;
-    final private GameContext<RoundGamePlayerContext> context;
 
     @JsonCreator
-    public RoundEndedEvent(@JsonProperty(SESSION_KEY) String sessionKey,
-                           @JsonProperty("state") RoundGameState state,
-                           @JsonProperty("outcome") GameOutcome outcome,
-                           @JsonProperty("context") GameContext<RoundGamePlayerContext> context) {
+    public RoundEndedEvent(
+        @JsonProperty(SESSION_KEY) String sessionKey,
+        @JsonProperty("state") RoundGameState state,
+        @JsonProperty("outcome") GameOutcome outcome) {
         super(sessionKey, state);
         this.outcome = outcome;
-        this.context = context;
     }
 
     @Override
     public GameOutcome getOutcome() {
         return outcome;
-    }
-
-    @Override
-    public GameContext<RoundGamePlayerContext> getContext() {
-        return context;
     }
 
     @Override
@@ -72,8 +63,8 @@ public class RoundEndedEvent<State extends RoundGameState> extends RoundEvent im
     }
 
 
-    public static <State extends RoundGameState> RoundEndedEvent<State> fromContext(GameContext<RoundGamePlayerContext> context, State state, GameOutcome outcome) {
-        return new RoundEndedEvent<State>(context.getSessionKey(), state, outcome, context);
+    public static RoundEndedEvent fromContext(RoundGameState state, GameOutcome outcome) {
+        return new RoundEndedEvent(state.getContext().getSessionKey(), state, outcome);
     }
 
 }

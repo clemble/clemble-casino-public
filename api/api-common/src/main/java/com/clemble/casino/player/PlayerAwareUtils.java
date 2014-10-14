@@ -69,6 +69,8 @@ public class PlayerAwareUtils {
     }
 
     public static <M extends PlayerAware> List<String> toPlayerList(Iterable<? extends M> sourceCollection) {
+        if (sourceCollection == null || !sourceCollection.iterator().hasNext())
+            return Collections.emptyList();
         List<String> playerList = new ArrayList<String>();
         for (M playerAware : sourceCollection)
             playerList.add(playerAware.getPlayer());

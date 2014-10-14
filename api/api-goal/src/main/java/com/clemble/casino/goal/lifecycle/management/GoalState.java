@@ -8,10 +8,12 @@ import com.clemble.casino.goal.event.GoalEvent;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
+import com.clemble.casino.goal.lifecycle.management.event.GoalChangedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.GoalMissedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.GoalReachedEvent;
-import com.clemble.casino.goal.lifecycle.management.event.GoalStatusUpdatedEvent;
+import com.clemble.casino.goal.lifecycle.management.event.GoalStartedEvent;
 import com.clemble.casino.lifecycle.management.State;
+import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
@@ -90,8 +92,15 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
     }
 
     @Override
+    public GoalStartedEvent start() {
+        return new GoalStartedEvent(goalKey);
+    }
+
+    @Override
     public GoalEvent process(Event actionEvent){
-        if(actionEvent instanceof PlayerAction<?>) {
+        if(actionEvent instanceof LifecycleStartedEvent) {
+            return new GoalStartedEvent(goalKey);
+        } else if(actionEvent instanceof PlayerAction<?>) {
             String player = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
             if(action instanceof GoalStatusUpdateAction) {
@@ -101,7 +110,7 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
                 if(this.progress >= parts) {
                     return new GoalReachedEvent(goalKey);
                 } else {
-                    return new GoalStatusUpdatedEvent(goalKey, player, status, progress);
+                    return new GoalChangedEvent(goalKey, player, status, progress);
                 }
             } else if(action instanceof SurrenderAction) {
                 return new GoalMissedEvent(goalKey);

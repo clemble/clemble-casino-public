@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(RoundStartedEvent.JSON_TYPE)
-public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent implements GameStartedEvent {
+public class RoundStartedEvent extends RoundEvent implements GameStartedEvent {
 
     final public static String JSON_TYPE = "game:management:round:started";
 
@@ -16,8 +16,10 @@ public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent 
     private static final long serialVersionUID = -4474960027054354888L;
 
     @JsonCreator
-    public RoundStartedEvent(@JsonProperty(SESSION_KEY) String session, @JsonProperty("state") State state) {
-        super(session, state);
+    public RoundStartedEvent(
+        @JsonProperty(SESSION_KEY) String sessionKey,
+        @JsonProperty("state") RoundGameState state) {
+        super(sessionKey, state);
     }
 
     @Override
@@ -36,7 +38,7 @@ public class RoundStartedEvent<State extends RoundGameState> extends RoundEvent 
             return false;
         if (getClass() != obj.getClass())
             return false;
-        RoundStartedEvent<?> other = (RoundStartedEvent<?>) obj;
+        RoundStartedEvent other = (RoundStartedEvent) obj;
         if (!super.equals(other))
             return false;
         return true;

@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.clemble.casino.event.action.PlayerExpectedAction;
-import com.clemble.casino.game.lifecycle.management.MatchGameContext;
-import com.clemble.casino.game.lifecycle.management.RoundGameContext;
-import com.clemble.casino.game.lifecycle.management.RoundGameState;
+import com.clemble.casino.game.GameSessionAware;
+import com.clemble.casino.game.lifecycle.configuration.TournamentGameConfiguration;
+import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.game.lifecycle.construction.GameConstruction;
 import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.test.random.AbstractValueGenerator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,22 @@ public class JsonCreationTest {
         ObjectGenerator.register(RoundGameState.class, new AbstractValueGenerator<RoundGameState>() {
             @Override
             public RoundGameState generate() {
-                return new FakeState(ObjectGenerator.generate(RoundGameContext.class), null, 0);
+                return new RoundGameState(ObjectGenerator.generate(RoundGameContext.class), new FakeState(), 0);
+            }
+        });
+        ObjectGenerator.register(TournamentGameState.class, new AbstractValueGenerator<TournamentGameState>() {
+            @Override
+            public TournamentGameState generate() {
+                TournamentGameContext context = new TournamentGameContext(
+                    "",
+                    null,
+                    ObjectGenerator.generateList(TournamentGamePlayerContext.class, 10),
+                    null);
+                return new TournamentGameState(
+                        ObjectGenerator.generate(TournamentGameConfiguration.class),
+                        context,
+                        null,
+                        0);
             }
         });
     }
@@ -67,6 +83,8 @@ public class JsonCreationTest {
 
     @Test
     public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
+        Assert.assertEquals(checkSerialization(TournamentGameState.class), null);
+        Assert.assertEquals(checkSerialization(MatchGameState.class), null);
         Assert.assertEquals(checkSerialization(GameConstruction.class), null);
         Assert.assertEquals(checkSerialization(PlayerExpectedAction.class), null);
         Assert.assertEquals(checkSerialization(MatchGameContext.class), null);

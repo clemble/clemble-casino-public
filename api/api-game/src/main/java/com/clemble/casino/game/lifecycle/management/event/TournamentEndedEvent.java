@@ -2,13 +2,14 @@ package com.clemble.casino.game.lifecycle.management.event;
 
 import com.clemble.casino.game.lifecycle.management.GameContext;
 import com.clemble.casino.game.lifecycle.management.TournamentGamePlayerContext;
+import com.clemble.casino.game.lifecycle.management.TournamentGameState;
 import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(TournamentEndedEvent.JSON_TYPE)
-public class TournamentEndedEvent extends TournamentEvent implements GameEndedEvent<TournamentGamePlayerContext> {
+public class TournamentEndedEvent extends TournamentEvent implements GameEndedEvent {
 
     final public static String JSON_TYPE = "game:management:tournament:ended";
 
@@ -18,13 +19,16 @@ public class TournamentEndedEvent extends TournamentEvent implements GameEndedEv
     private static final long serialVersionUID = -8432784863604445232L;
 
     final private GameOutcome outcome;
-    final private GameContext<TournamentGamePlayerContext> context;
+    final private TournamentGameState state;
 
     @JsonCreator
-    public TournamentEndedEvent(@JsonProperty(SESSION_KEY) String sessionKey, @JsonProperty("outcome") GameOutcome outcome, @JsonProperty("context") GameContext<TournamentGamePlayerContext> context) {
+    public TournamentEndedEvent(
+        @JsonProperty(SESSION_KEY) String sessionKey,
+        @JsonProperty("outcome") GameOutcome outcome,
+        @JsonProperty("context") TournamentGameState state) {
         super(sessionKey);
         this.outcome = outcome;
-        this.context = context;
+        this.state = state;
     }
 
     @Override
@@ -32,9 +36,8 @@ public class TournamentEndedEvent extends TournamentEvent implements GameEndedEv
         return outcome;
     }
 
-    @Override
-    public GameContext<TournamentGamePlayerContext> getContext() {
-        return context;
+    public TournamentGameState getState() {
+        return state;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class TournamentEndedEvent extends TournamentEvent implements GameEndedEv
 
         TournamentEndedEvent that = (TournamentEndedEvent) o;
 
-        if (context != null ? !context.equals(that.context) : that.context != null) return false;
+        if (state != null ? !state.equals(that.state) : that.state != null) return false;
         if (outcome != null ? !outcome.equals(that.outcome) : that.outcome != null) return false;
 
         return true;
@@ -55,7 +58,7 @@ public class TournamentEndedEvent extends TournamentEvent implements GameEndedEv
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (outcome != null ? outcome.hashCode() : 0);
-        result = 31 * result + (context != null ? context.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
 

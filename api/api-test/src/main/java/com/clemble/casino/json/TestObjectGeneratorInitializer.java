@@ -10,9 +10,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAcceptedAction;
-import com.clemble.casino.game.lifecycle.management.MatchGameContext;
-import com.clemble.casino.game.lifecycle.management.MatchGamePlayerContext;
-import com.clemble.casino.game.lifecycle.management.TournamentGameContext;
+import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.goal.lifecycle.management.GoalContext;
 import com.clemble.casino.goal.lifecycle.management.GoalPlayerContext;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
@@ -30,7 +28,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
 import com.clemble.casino.VersionAware;
-import com.clemble.casino.game.lifecycle.management.RoundGameContext;
 import com.clemble.casino.game.lifecycle.construction.AutomaticGameRequest;
 import com.clemble.casino.game.lifecycle.construction.GameConstruction;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
@@ -60,6 +57,21 @@ import com.google.common.collect.ImmutableList;
 public class TestObjectGeneratorInitializer {
 
     public static void init() {
+        ObjectGenerator.register(TournamentGameState.class, new AbstractValueGenerator<TournamentGameState>() {
+            @Override
+            public TournamentGameState generate() {
+                TournamentGameContext context = new TournamentGameContext(
+                        "",
+                        null,
+                        ObjectGenerator.generateList(TournamentGamePlayerContext.class, 10),
+                        null);
+                return new TournamentGameState(
+                        ObjectGenerator.generate(TournamentGameConfiguration.class),
+                        context,
+                        null,
+                        0);
+            }
+        });
         ObjectGenerator.register(SortedSet.class, new AbstractValueGenerator<SortedSet>() {
             @Override
             public SortedSet generate() {

@@ -5,6 +5,7 @@ import com.clemble.casino.error.ClembleCasinoException;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.lifecycle.management.RoundGameContext;
 import com.clemble.casino.game.lifecycle.management.RoundGameState;
+import com.clemble.casino.game.lifecycle.management.RoundState;
 import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
 import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
@@ -18,65 +19,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 22/12/13.
  */
 @JsonTypeName("fake")
-public class FakeState implements RoundGameState {
-
-    /**
-     * Generated 20/12/13
-     */
-    private static final long serialVersionUID = 6467228372170341563L;
-
-    final private RoundGameContext context;
-    private int version;
-
-    @JsonCreator
-    public FakeState(@JsonProperty("context") RoundGameContext context,
-            @JsonProperty("state") GameUnit root,
-            @JsonProperty("version") int version) {
-        this.context = context;
-    }
+public class FakeState implements RoundState {
 
     @Override
-    public GameManagementEvent process(Event action) {
-        // Step 1. Processing Select cell move
-        throw ClembleCasinoException.fromError(ClembleCasinoError.GamePlayGameEnded, ((PlayerAware) action).getPlayer(), context.getSessionKey());
-    }
-
-    @Override
-    public GameUnit getState() {
+    public GameManagementEvent process(PlayerAction action, RoundGameState state) {
         return null;
     }
 
     @Override
-    public RoundGameContext getContext() {
-        return context;
-    }
-
-    @Override
-    public int getVersion() {
-        return version;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        FakeState fakeState = (FakeState) o;
-
-        if (version != fakeState.version)
-            return false;
-        if (!context.equals(fakeState.context))
-            return false;
-
-        return true;
-    }
-
-    @Override
     public int hashCode() {
-        int result = context.hashCode();
-        result = 31 * result + version;
-        return result;
+        return 29;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && obj instanceof FakeState;
+    }
+
 }

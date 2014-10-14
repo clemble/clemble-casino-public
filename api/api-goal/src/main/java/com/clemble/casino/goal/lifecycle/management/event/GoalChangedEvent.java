@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 10/9/14.
  */
-@JsonTypeName(GoalStatusUpdatedEvent.JSON_TYPE)
-public class GoalStatusUpdatedEvent implements GoalManagementEvent, GoalStatusAware, PlayerAware {
+@JsonTypeName(GoalChangedEvent.JSON_TYPE)
+public class GoalChangedEvent implements GoalManagementEvent, GoalStatusAware, PlayerAware {
 
     final public static String JSON_TYPE = "goal:management:status:update";
 
@@ -20,11 +20,11 @@ public class GoalStatusUpdatedEvent implements GoalManagementEvent, GoalStatusAw
     final private int progress;
 
     @JsonCreator
-    public GoalStatusUpdatedEvent(
-        @JsonProperty("goalKey") String goalKey,
-        @JsonProperty("player") String player,
-        @JsonProperty("status") String status,
-        @JsonProperty("progress") int progress) {
+    public GoalChangedEvent(
+            @JsonProperty("goalKey") String goalKey,
+            @JsonProperty("player") String player,
+            @JsonProperty("status") String status,
+            @JsonProperty("progress") int progress) {
         this.goalKey = goalKey;
         this.player = player;
         this.status = status;
@@ -56,7 +56,7 @@ public class GoalStatusUpdatedEvent implements GoalManagementEvent, GoalStatusAw
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalStatusUpdatedEvent that = (GoalStatusUpdatedEvent) o;
+        GoalChangedEvent that = (GoalChangedEvent) o;
 
         if (progress != that.progress) return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;

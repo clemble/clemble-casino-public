@@ -5,10 +5,10 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.parts.GoalPartsRule;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionCompleteEvent;
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCreatedEvent;
 import com.clemble.casino.goal.lifecycle.configuration.rule.judge.JudgeRule;
+import com.clemble.casino.goal.lifecycle.management.event.GoalChangedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.GoalMissedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.GoalReachedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.GoalStartedEvent;
-import com.clemble.casino.goal.lifecycle.management.event.GoalStatusUpdatedEvent;
 import com.clemble.casino.json.ClembleJsonModule;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.Module;
@@ -31,7 +31,7 @@ public class GoalJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GoalMissedEvent.class, GoalMissedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalConstructionCompleteEvent.class, GoalConstructionCompleteEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalStatusUpdateAction.class, GoalStatusUpdateAction.JSON_TYPE));
-        module.registerSubtypes(new NamedType(GoalStatusUpdatedEvent.class, GoalStatusUpdatedEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalChangedEvent.class, GoalChangedEvent.JSON_TYPE));
         return module;
     }
 
