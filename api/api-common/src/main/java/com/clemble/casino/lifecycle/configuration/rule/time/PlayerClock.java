@@ -57,7 +57,7 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
 
     // TODO this is used as a hack, really bad practice
     public void start(long moveStart, long breachTime, BreachPunishment breachPunishment) {
-        if (moveStart == 0) {
+        if (this.moveStart == 0) {
             this.moveStart = moveStart;
             this.breachTime = breachTime;
             this.punishment = breachPunishment;
