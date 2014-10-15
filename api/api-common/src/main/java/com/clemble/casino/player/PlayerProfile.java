@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Version;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
 
@@ -16,7 +14,7 @@ import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.NickNameConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayerProfile implements PlayerAware, VersionAware {
+public class PlayerProfile implements PlayerAware {
 
     /**
      * Generated 03/11/13
@@ -48,10 +46,6 @@ public class PlayerProfile implements PlayerAware, VersionAware {
 
     private Set<ConnectionKey> socialConnections = new HashSet<ConnectionKey>();
 
-    @Version
-    @JsonProperty("version")
-    private int version;
-
     public PlayerProfile() {
     }
 
@@ -78,16 +72,6 @@ public class PlayerProfile implements PlayerAware, VersionAware {
                 return key;
         // Step 3. No connection found returning null
         return null;
-    }
-
-    @Override
-    public int getVersion() {
-        return version;
-    }
-
-    public PlayerProfile setVersion(int version) {
-        this.version = version;
-        return this;
     }
 
     public PlayerProfile setSocialConnections(Set<ConnectionKey> socialConnections) {
@@ -156,7 +140,6 @@ public class PlayerProfile implements PlayerAware, VersionAware {
         result = prime * result + ((nickName == null) ? 0 : nickName.hashCode());
         result = prime * result + ((player == null) ? 0 : player.hashCode());
         result = prime * result + ((socialConnections == null) ? 0 : socialConnections.hashCode());
-        result = prime * result + version;
         return result;
     }
 
@@ -200,8 +183,6 @@ public class PlayerProfile implements PlayerAware, VersionAware {
             if (other.socialConnections != null)
                 return false;
         } else if (!socialConnections.equals(other.socialConnections))
-            return false;
-        if (version != other.version)
             return false;
         return true;
     }
