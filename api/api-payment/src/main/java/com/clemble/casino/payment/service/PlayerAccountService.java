@@ -17,5 +17,4 @@ public interface PlayerAccountService {
 
     public List<String> canAfford(Collection<String> players, Currency currency, Long amount);
 
-
 }

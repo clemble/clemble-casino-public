@@ -35,7 +35,7 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
     @DebitMatchCreditConstraint
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PAYMENT_TRANSACTION_OPERATION", joinColumns = { @JoinColumn(name = "TRANSACTION_ID"), @JoinColumn(name = "MONEY_SOURCE") })
-    private Set<PaymentOperation> paymentOperations = new HashSet<PaymentOperation>();
+    private Set<PaymentOperation> operations = new HashSet<PaymentOperation>();
 
     @NotNull(message = Code.PAYMENT_TRANSACTION_TRANSACTION_DATE_MISSING)
     @Column(name = "TRANSACTION_DATE")
@@ -55,41 +55,41 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
     }
 
     public boolean isParticipant(String player) {
-        for (PaymentOperation paymentOperation : paymentOperations)
+        for (PaymentOperation paymentOperation : operations)
             if (paymentOperation.getPlayer().equals(player))
                 return true;
         return false;
     }
 
-    public Set<PaymentOperation> getPaymentOperations() {
-        return paymentOperations;
+    public Set<PaymentOperation> getOperations() {
+        return operations;
     }
 
-    public PaymentOperation getPaymentOperation(String player) {
+    public PaymentOperation getOperation(String player) {
         // Step 1. Sanity check
         if (player == null)
             return null;
         // Step 2. Processing payment
-        for (PaymentOperation paymentOperation : paymentOperations)
+        for (PaymentOperation paymentOperation : operations)
             if (paymentOperation.getPlayer().equals(player))
                 return paymentOperation;
         // Step 3. Returning nothing
         return null;
     }
 
-    public PaymentTransaction setPaymentOperations(Set<PaymentOperation> paymentOperations) {
-        this.paymentOperations = paymentOperations;
+    public PaymentTransaction setOperations(Set<PaymentOperation> operations) {
+        this.operations = operations;
         return this;
     }
 
-    public PaymentTransaction addPaymentOperation(PaymentOperation paymentOperation) {
+    public PaymentTransaction addOperation(PaymentOperation paymentOperation) {
         if (paymentOperation != null) {
-            PaymentOperation playerOperation = getPaymentOperation(paymentOperation.getPlayer());
+            PaymentOperation playerOperation = getOperation(paymentOperation.getPlayer());
             if(playerOperation != null) {
-                paymentOperations.remove(playerOperation);
-                paymentOperations.add(playerOperation.combine(paymentOperation));
+                operations.remove(playerOperation);
+                operations.add(playerOperation.combine(paymentOperation));
             } else {
-                this.paymentOperations.add(paymentOperation);
+                this.operations.add(paymentOperation);
             }
         }
         return this;
@@ -119,7 +119,7 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
         int result = 1;
         result = prime * result + ((transactionDate == null) ? 0 : transactionDate.hashCode());
         result = prime * result + ((transactionKey == null) ? 0 : transactionKey.hashCode());
-        result = prime * result + ((paymentOperations == null) ? 0 : paymentOperations.hashCode());
+        result = prime * result + ((operations == null) ? 0 : operations.hashCode());
         return result;
     }
 
@@ -142,17 +142,17 @@ public class PaymentTransaction implements PaymentTransactionAware, Serializable
                 return false;
         } else if (!transactionKey.equals(other.transactionKey))
             return false;
-        if (paymentOperations == null) {
-            if (other.paymentOperations != null)
+        if (operations == null) {
+            if (other.operations != null)
                 return false;
-        } else if (!paymentOperations.equals(other.paymentOperations))
+        } else if (!operations.equals(other.operations))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "payment:" + transactionKey + ":" + paymentOperations + ":" + transactionDate + ":" + processingDate;
+        return "payment:" + transactionKey + ":" + operations + ":" + transactionDate + ":" + processingDate;
     }
 
 }

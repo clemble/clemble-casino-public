@@ -141,10 +141,10 @@ public class TestObjectGeneratorInitializer {
                     .setTransactionKey(RandomStringUtils.random(5))
                     .setTransactionDate(new Date())
                     .setProcessingDate(new Date())
-                    .addPaymentOperation(
-                        new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Credit))
-                    .addPaymentOperation(
-                        new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Debit));
+                    .addOperation(
+                            new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Credit))
+                    .addOperation(
+                            new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Debit));
             }
         });
         ObjectGenerator.register(PlayerCredential.class, new AbstractValueGenerator<PlayerCredential>() {

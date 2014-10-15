@@ -51,17 +51,17 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
             setTransactionKey(transactionKey);
         for(PlayerBid bid: playerBids) {
             if(!bid.getWinner().equals(winner)) {
-                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), bid.getBid().getAmount(), Operation.Credit));
+                transaction.addOperation(new PaymentOperation(bid.getBidder(), bid.getBid().getAmount(), Operation.Credit));
                 balance.add(bid.getBid().getAmount());
             } else {
                 Money amountWithInterest = bid.getBid().getAmount().add(bid.getBid().getInterest());
-                transaction.addPaymentOperation(new PaymentOperation(bid.getBidder(), amountWithInterest, Operation.Debit));
+                transaction.addOperation(new PaymentOperation(bid.getBidder(), amountWithInterest, Operation.Debit));
                 balance.subtract(amountWithInterest);
             }
         }
         // Step 2. Adding casino to compensate Debit & Credit
         if(balance.getAmount() != 0) {
-            transaction.addPaymentOperation(new PaymentOperation(PlayerAware.DEFAULT_PLAYER, balance, Operation.Debit));
+            transaction.addOperation(new PaymentOperation(PlayerAware.DEFAULT_PLAYER, balance, Operation.Debit));
         }
         // Step 3. Creating new transaction
         return transaction;
