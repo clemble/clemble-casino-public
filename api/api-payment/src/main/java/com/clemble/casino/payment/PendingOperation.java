@@ -10,14 +10,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class PendingOperation implements PlayerAware, PaymentTransactionAware, AmountAware {
 
+    final private String transactionKey;
     final private Money amount;
     final private String player;
-    final private String transactionKey;
 
     @JsonCreator
     public PendingOperation(
-        @JsonProperty("player") String player,
         @JsonProperty("transactionKey") String transactionKey,
+        @JsonProperty("player") String player,
         @JsonProperty("amount") Money amount) {
         this.amount = amount;
         this.player = player;
@@ -37,6 +37,11 @@ public class PendingOperation implements PlayerAware, PaymentTransactionAware, A
     @Override
     public Money getAmount() {
         return amount;
+    }
+
+    @Override
+    public String toString() {
+        return "pending:" + transactionKey + ":" + player + ":" + amount;
     }
 
     @Override
@@ -60,6 +65,10 @@ public class PendingOperation implements PlayerAware, PaymentTransactionAware, A
         result = 31 * result + (player != null ? player.hashCode() : 0);
         result = 31 * result + (transactionKey != null ? transactionKey.hashCode() : 0);
         return result;
+    }
+
+    public static PendingOperation fromOperation(String transactionKey, PaymentOperation operation) {
+        return new PendingOperation(transactionKey, operation.getPlayer(), operation.getAmount());
     }
 
 }

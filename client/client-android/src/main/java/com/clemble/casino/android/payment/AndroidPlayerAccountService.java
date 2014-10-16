@@ -1,6 +1,7 @@
 package com.clemble.casino.android.payment;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
+import com.clemble.casino.payment.PendingTransaction;
 import com.clemble.casino.payment.PlayerAccount;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.payment.service.PlayerAccountService;
@@ -44,4 +45,5 @@ public class AndroidPlayerAccountService extends AbstractClembleCasinoOperations
         // Step 2. Sending and receiving response
         return CollectionUtils.immutableList(restTemplate.getForObject(url, String[].class));
     }
+
 }

@@ -2,6 +2,7 @@ package com.clemble.casino.payment.service;
 
 import com.clemble.casino.ClembleService;
 import com.clemble.casino.money.Currency;
+import com.clemble.casino.payment.PendingTransaction;
 import com.clemble.casino.payment.PlayerAccount;
 
 import java.util.Collection;
