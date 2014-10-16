@@ -9,14 +9,15 @@ import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.management.event.GoalChangedEvent;
-import com.clemble.casino.goal.lifecycle.management.event.GoalMissedEvent;
-import com.clemble.casino.goal.lifecycle.management.event.GoalReachedEvent;
+import com.clemble.casino.goal.lifecycle.management.event.GoalEndedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.GoalStartedEvent;
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
+import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
+import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -110,12 +111,12 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
                 this.status = statusUpdateAction.getStatus();
                 this.progress = progress + statusUpdateAction.getProgress();
                 if(this.progress >= parts) {
-                    return new GoalReachedEvent(goalKey);
+                    return new GoalEndedEvent(goalKey, new PlayerWonOutcome(player));
                 } else {
                     return new GoalChangedEvent(goalKey, player, status, progress);
                 }
             } else if(action instanceof SurrenderAction) {
-                return new GoalMissedEvent(goalKey);
+                return new GoalEndedEvent(goalKey, new PlayerLostOutcome(player));
             } else {
                 throw new IllegalArgumentException();
             }

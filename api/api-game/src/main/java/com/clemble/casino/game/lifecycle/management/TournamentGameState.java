@@ -7,11 +7,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.clemble.casino.ImmutablePair;
 import com.clemble.casino.game.lifecycle.management.event.*;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
-import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
-import com.clemble.casino.game.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
 import com.clemble.casino.game.lifecycle.configuration.GameConfigurationAware;
 import com.clemble.casino.game.lifecycle.configuration.TournamentGameConfiguration;
@@ -74,10 +74,10 @@ public class TournamentGameState implements GameState<TournamentGameContext> {
         if (event instanceof GameEndedEvent) {
             // Step 0. Reading session key and outcome
             GameContext context = ((GameEndedEvent) event).getState().getContext();
-            GameOutcome outcome = ((GameEndedEvent) event).getOutcome();
+            Outcome outcome = ((GameEndedEvent) event).getOutcome();
             TournamentGameContext leafContext = (TournamentGameContext) context.getParent();
             if (outcome instanceof PlayerWonOutcome) {
-                String leader = ((PlayerWonOutcome) outcome).getWinner();
+                String leader = ((PlayerWonOutcome) outcome).getPlayer();
                 TournamentLeaf leaf = leafContext.getLeaf();
                 String sessionStr = leafContext.getSessionKey();
                 // Step 1. Reading group and level

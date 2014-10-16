@@ -1,6 +1,6 @@
 package com.clemble.casino.game;
 
-import com.clemble.casino.game.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 
 import java.util.Comparator;
 import java.util.List;

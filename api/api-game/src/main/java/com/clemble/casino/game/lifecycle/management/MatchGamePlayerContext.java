@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
-import com.clemble.casino.game.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -64,7 +64,7 @@ public class MatchGamePlayerContext implements GamePlayerContext {
 
     public void addOutcome(PlayerWonOutcome outcome) {
         // Step 1. Sanity check
-        if (!player.equals(outcome.getWinner()))
+        if (!player.equals(outcome.getPlayer()))
             throw new IllegalArgumentException();
         // Step 2. Adding to outcomes
         this.wonOutcomes.add(outcome);

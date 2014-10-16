@@ -50,7 +50,7 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
         PaymentTransaction transaction = new PaymentTransaction().
             setTransactionKey(transactionKey);
         for(PlayerBid bid: playerBids) {
-            if(!bid.getWinner().equals(winner)) {
+            if(!bid.getPlayer().equals(winner)) {
                 transaction.addOperation(new PaymentOperation(bid.getBidder(), bid.getBid().getAmount(), Operation.Credit));
                 balance.add(bid.getBid().getAmount());
             } else {

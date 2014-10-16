@@ -1,6 +1,6 @@
 package com.clemble.casino.game;
 
-import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
 
 /**
@@ -8,7 +8,7 @@ import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
  */
 public interface GameTerminalChecker<T extends GameUnit> {
 
-    public GameOutcome toOutcome(T unit);
+    public Outcome toOutcome(T unit);
 
     public boolean outcomePossible(T unit);
 

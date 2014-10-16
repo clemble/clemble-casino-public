@@ -23,9 +23,9 @@ import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCreatedE
 import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCanceledEvent;
 import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationConfirmedEvent;
 import com.clemble.casino.game.lifecycle.management.iterator.SequentialPlayerIterator;
-import com.clemble.casino.game.lifecycle.management.outcome.DrawOutcome;
-import com.clemble.casino.game.lifecycle.management.outcome.NoOutcome;
-import com.clemble.casino.game.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.lifecycle.management.outcome.DrawOutcome;
+import com.clemble.casino.lifecycle.management.outcome.NoOutcome;
+import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.giveup.GiveUpRule;
@@ -75,9 +75,6 @@ public class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(TournamentStartedEvent.class, TournamentStartedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(SequentialPlayerIterator.class, SequentialPlayerIterator.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(MatchGameContext.class, MatchGameContext.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(DrawOutcome.class, DrawOutcome.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(NoOutcome.class, NoOutcome.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(PlayerWonOutcome.class, PlayerWonOutcome.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(RoundGameContext.class, RoundGameContext.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PlayerNumberRule.class, PlayerNumberRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PrivacyRule.class, PrivacyRule.class.getAnnotation(JsonTypeName.class).value()));

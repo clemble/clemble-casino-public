@@ -1,11 +1,18 @@
-package com.clemble.casino.game.lifecycle.management.outcome;
+package com.clemble.casino.lifecycle.management.outcome;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "outcome")
-abstract public class GameOutcome implements Serializable {
+@JsonSubTypes(value = {
+    @JsonSubTypes.Type(name = "no", value = NoOutcome.class),
+    @JsonSubTypes.Type(name = "draw", value = DrawOutcome.class),
+    @JsonSubTypes.Type(name = "won", value = PlayerWonOutcome.class),
+    @JsonSubTypes.Type(name = "lost", value = PlayerLostOutcome.class)
+})
+abstract public class Outcome implements Serializable {
 
     private static final long serialVersionUID = -7763234573172626298L;
 

@@ -1,13 +1,13 @@
 package com.clemble.casino.game.lifecycle.management;
 
 import com.clemble.casino.game.lifecycle.management.event.*;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.game.ComparatorUtils;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
-import com.clemble.casino.game.lifecycle.management.outcome.DrawOutcome;
-import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
-import com.clemble.casino.game.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.lifecycle.management.outcome.DrawOutcome;
+import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.game.lifecycle.configuration.MatchGameConfiguration;
 import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
 import com.clemble.casino.player.PlayerAwareUtils;
@@ -69,9 +69,9 @@ public class MatchGameState implements GameState<MatchGameContext> {
             context.addOutcome(((GameEndedEvent) event).getOutcome());
             int gamesLeft = configuration.getConfigurations().size() - context.getOutcomes().size();
             MultiValueMap<String, PlayerWonOutcome> wonOutcomes = new LinkedMultiValueMap<String, PlayerWonOutcome>();
-            for(GameOutcome outcome: context.getOutcomes())
+            for(Outcome outcome: context.getOutcomes())
                 if(outcome instanceof  PlayerWonOutcome)
-                    wonOutcomes.add(((PlayerWonOutcome) outcome).getWinner(), (PlayerWonOutcome) outcome);
+                    wonOutcomes.add(((PlayerWonOutcome) outcome).getPlayer(), (PlayerWonOutcome) outcome);
             // Step 1. Searching for a leader in the pot
             List<Entry<String, List<PlayerWonOutcome>>> sortedContexts = new ArrayList<Entry<String, List<PlayerWonOutcome>>>(wonOutcomes.entrySet());
             Collections.sort(sortedContexts, ComparatorUtils.WON_OUT_COMPARATOR);

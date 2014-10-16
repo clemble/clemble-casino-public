@@ -1,7 +1,7 @@
 package com.clemble.casino.game.lifecycle.management.event;
 
 import com.clemble.casino.game.lifecycle.management.*;
-import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -16,19 +16,19 @@ public class RoundEndedEvent extends RoundEvent implements GameEndedEvent {
      */
     private static final long serialVersionUID = 820200145932972096L;
 
-    final private GameOutcome outcome;
+    final private Outcome outcome;
 
     @JsonCreator
     public RoundEndedEvent(
         @JsonProperty(SESSION_KEY) String sessionKey,
         @JsonProperty("state") RoundGameState state,
-        @JsonProperty("outcome") GameOutcome outcome) {
+        @JsonProperty("outcome") Outcome outcome) {
         super(sessionKey, state);
         this.outcome = outcome;
     }
 
     @Override
-    public GameOutcome getOutcome() {
+    public Outcome getOutcome() {
         return outcome;
     }
 
@@ -63,7 +63,7 @@ public class RoundEndedEvent extends RoundEvent implements GameEndedEvent {
     }
 
 
-    public static RoundEndedEvent fromContext(RoundGameState state, GameOutcome outcome) {
+    public static RoundEndedEvent fromContext(RoundGameState state, Outcome outcome) {
         return new RoundEndedEvent(state.getContext().getSessionKey(), state, outcome);
     }
 

@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
-import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
-import com.clemble.casino.game.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
+import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -22,7 +22,7 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
 
     private long pot; // TODO make this immutable
     private String currentSession;
-    final private List<GameOutcome> outcomes = new ArrayList<GameOutcome>();
+    final private List<Outcome> outcomes = new ArrayList<Outcome>();
 
     @JsonCreator
     public MatchGameContext(@JsonProperty(GameSessionAware.SESSION_KEY) String sessionKey,
@@ -30,7 +30,7 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
                             @JsonProperty("playerContexts") List<MatchGamePlayerContext> playerContexts,
                             @JsonProperty(value = "parent", required = false) GameContext<?> parent,
                             @JsonProperty("pot") long pot,
-                            @JsonProperty("outcomes") List<GameOutcome> outcomes) {
+                            @JsonProperty("outcomes") List<Outcome> outcomes) {
         super(sessionKey, parent, playerContexts);
         this.pot = pot;
         this.currentSession = currentSession;
@@ -44,7 +44,7 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
             MatchGamePlayerContext.construct(initiation),
             parent,
             0L,
-            Collections.<GameOutcome>emptyList());
+            Collections.<Outcome>emptyList());
     }
 
     public long getPot() {
@@ -63,14 +63,14 @@ public class MatchGameContext extends GameContext<MatchGamePlayerContext> {
         this.pot += addition;
     }
 
-    public List<GameOutcome> getOutcomes() {
+    public List<Outcome> getOutcomes() {
         return outcomes;
     }
 
-    public void addOutcome(GameOutcome outcome) {
+    public void addOutcome(Outcome outcome) {
         this.outcomes.add(outcome);
         if (outcome instanceof PlayerWonOutcome) {
-            getPlayerContext(((PlayerWonOutcome) outcome).getWinner()).addOutcome((PlayerWonOutcome) outcome);
+            getPlayerContext(((PlayerWonOutcome) outcome).getPlayer()).addOutcome((PlayerWonOutcome) outcome);
         }
     }
 

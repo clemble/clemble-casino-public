@@ -1,9 +1,7 @@
 package com.clemble.casino.game.lifecycle.management.event;
 
-import com.clemble.casino.game.lifecycle.management.MatchGameContext;
-import com.clemble.casino.game.lifecycle.management.MatchGamePlayerContext;
 import com.clemble.casino.game.lifecycle.management.MatchGameState;
-import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -18,20 +16,20 @@ public class MatchEndedEvent extends MatchEvent implements GameEndedEvent {
      */
     private static final long serialVersionUID = 8084693422808106856L;
 
-    final private GameOutcome outcome;
+    final private Outcome outcome;
 
     @JsonCreator
     public MatchEndedEvent(
         @JsonProperty(SESSION_KEY) String sessionKey,
         @JsonProperty("state") MatchGameState state,
-        @JsonProperty("outcome") GameOutcome outcome
+        @JsonProperty("outcome") Outcome outcome
     ) {
         super(sessionKey, state);
         this.outcome = outcome;
     }
 
     @Override
-    public GameOutcome getOutcome() {
+    public Outcome getOutcome() {
         return outcome;
     }
 

@@ -1,30 +1,28 @@
 package com.clemble.casino.bet;
 
-import com.clemble.casino.money.Money;
-import com.clemble.casino.payment.AmountAware;
-import com.clemble.casino.player.WinnerAware;
+import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 8/10/14.
  */
-public class PlayerBid implements WinnerAware, BidAware {
+public class PlayerBid implements PlayerAware, BidAware {
 
-    final private String winner;
+    final private String player;
     final private String bidder;
     final private Bid bid;
 
     @JsonCreator
-    public PlayerBid(@JsonProperty("winner") String winner, @JsonProperty("bidder") String bidder, @JsonProperty("bid") Bid bid) {
-        this.winner = winner;
+    public PlayerBid(@JsonProperty("player") String player, @JsonProperty("bidder") String bidder, @JsonProperty("bid") Bid bid) {
+        this.player = player;
         this.bidder = bidder;
         this.bid = bid;
     }
 
     @Override
-    public String getWinner() {
-        return winner;
+    public String getPlayer() {
+        return player;
     }
 
     public String getBidder() {
@@ -44,7 +42,7 @@ public class PlayerBid implements WinnerAware, BidAware {
         PlayerBid payerBid = (PlayerBid) o;
 
         if (!bidder.equals(payerBid.bidder)) return false;
-        if (!winner.equals(payerBid.winner)) return false;
+        if (!player.equals(payerBid.player)) return false;
         if (!payerBid.bid.equals(payerBid.bid)) return false;
 
         return true;
@@ -52,7 +50,7 @@ public class PlayerBid implements WinnerAware, BidAware {
 
     @Override
     public int hashCode() {
-        int result = winner.hashCode();
+        int result = player.hashCode();
         result = 31 * result + bidder.hashCode();
         result = 31 * result + bid.hashCode();
         return result;
@@ -60,7 +58,7 @@ public class PlayerBid implements WinnerAware, BidAware {
 
     @Override
     public String toString() {
-        return "bid:winner:" + winner + ":" + bidder + ":" + bid;
+        return "bid:winner:" + player + ":" + bidder + ":" + bid;
     }
 
 }

@@ -1,9 +1,7 @@
 package com.clemble.casino.game.lifecycle.management.event;
 
-import com.clemble.casino.game.lifecycle.management.GameContext;
-import com.clemble.casino.game.lifecycle.management.TournamentGamePlayerContext;
 import com.clemble.casino.game.lifecycle.management.TournamentGameState;
-import com.clemble.casino.game.lifecycle.management.outcome.GameOutcome;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -18,13 +16,13 @@ public class TournamentEndedEvent extends TournamentEvent implements GameEndedEv
      */
     private static final long serialVersionUID = -8432784863604445232L;
 
-    final private GameOutcome outcome;
+    final private Outcome outcome;
     final private TournamentGameState state;
 
     @JsonCreator
     public TournamentEndedEvent(
         @JsonProperty(SESSION_KEY) String sessionKey,
-        @JsonProperty("outcome") GameOutcome outcome,
+        @JsonProperty("outcome") Outcome outcome,
         @JsonProperty("context") TournamentGameState state) {
         super(sessionKey);
         this.outcome = outcome;
@@ -32,7 +30,7 @@ public class TournamentEndedEvent extends TournamentEvent implements GameEndedEv
     }
 
     @Override
-    public GameOutcome getOutcome() {
+    public Outcome getOutcome() {
         return outcome;
     }
 
