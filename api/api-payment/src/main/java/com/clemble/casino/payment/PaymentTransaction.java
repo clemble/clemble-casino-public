@@ -1,28 +1,12 @@
 package com.clemble.casino.payment;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import com.clemble.casino.VersionAware;
-import com.clemble.casino.error.ClembleCasinoError.Code;
-import com.clemble.casino.payment.validation.DebitMatchCreditConstraint;
 import org.springframework.data.annotation.Id;
 
-@Entity
-@Table(name = "PAYMENT_TRANSACTION")
-public class PaymentTransaction implements PaymentTransactionAware {
+public class PaymentTransaction implements AccountTransaction, PaymentTransactionAware {
 
     /**
      * Generated 05/05/13
@@ -33,7 +17,6 @@ public class PaymentTransaction implements PaymentTransactionAware {
     @Id
     private String transactionKey;
 
-    @DebitMatchCreditConstraint
     private Set<PaymentOperation> operations = new HashSet<PaymentOperation>();
     private Date transactionDate;
     private Date processingDate = new Date();
@@ -57,10 +40,12 @@ public class PaymentTransaction implements PaymentTransactionAware {
         return false;
     }
 
+    @Override
     public Set<PaymentOperation> getOperations() {
         return operations;
     }
 
+    @Override
     public PaymentOperation getOperation(String player) {
         // Step 1. Sanity check
         if (player == null)

@@ -5,12 +5,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mavarazy on 15/10/14.
+ *
+ * After thought, all this can be replaced by creating PaymentTransaction prior to processing
+ * there for this can be ignored at the end.
  */
-public class PendingTransaction implements PaymentTransactionAware, VersionAware {
+public class PendingTransaction implements AccountTransaction, VersionAware {
 
     /**
      * Generated 16/10/14
@@ -19,13 +22,13 @@ public class PendingTransaction implements PaymentTransactionAware, VersionAware
 
     @Id
     final private String transactionKey;
-    final private List<PaymentOperation> operations;
+    final private Set<PaymentOperation> operations;
     final private Integer version;
 
     @JsonCreator
     public PendingTransaction(
         @JsonProperty("transactionKey") String transactionKey,
-        @JsonProperty("operations") List<PaymentOperation> operations,
+        @JsonProperty("operations") Set<PaymentOperation> operations,
         @JsonProperty("version") Integer version) {
         this.transactionKey = transactionKey;
         this.operations = operations;
@@ -37,8 +40,35 @@ public class PendingTransaction implements PaymentTransactionAware, VersionAware
         return transactionKey;
     }
 
-    public List<PaymentOperation> getOperations() {
+    @Override
+    public Set<PaymentOperation> getOperations() {
         return operations;
+    }
+
+    @Override
+    public PaymentOperation getOperation(String player) {
+        // Step 1. Sanity check
+        if (player == null)
+            return null;
+        // Step 2. Processing payment
+        for (PaymentOperation paymentOperation : operations)
+            if (paymentOperation.getPlayer().equals(player))
+                return paymentOperation;
+        // Step 3. Returning nothing
+        return null;
+    }
+
+    public PendingTransaction addOperation(PaymentOperation paymentOperation) {
+        if (paymentOperation != null) {
+            PaymentOperation playerOperation = getOperation(paymentOperation.getPlayer());
+            if(playerOperation != null) {
+                operations.remove(playerOperation);
+                operations.add(playerOperation.combine(paymentOperation));
+            } else {
+                this.operations.add(paymentOperation);
+            }
+        }
+        return this;
     }
 
     @Override
