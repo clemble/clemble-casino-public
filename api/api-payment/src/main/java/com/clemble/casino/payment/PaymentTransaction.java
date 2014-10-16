@@ -15,35 +15,31 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.clemble.casino.VersionAware;
 import com.clemble.casino.error.ClembleCasinoError.Code;
 import com.clemble.casino.payment.validation.DebitMatchCreditConstraint;
 import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name = "PAYMENT_TRANSACTION")
-public class PaymentTransaction implements PaymentTransactionAware, Serializable {
+public class PaymentTransaction implements PaymentTransactionAware {
 
     /**
      * Generated 05/05/13
      */
     private static final long serialVersionUID = 2610517770966910840L;
 
-    @EmbeddedId
+
     @Id
     private String transactionKey;
 
     @DebitMatchCreditConstraint
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PAYMENT_TRANSACTION_OPERATION", joinColumns = { @JoinColumn(name = "TRANSACTION_ID"), @JoinColumn(name = "MONEY_SOURCE") })
     private Set<PaymentOperation> operations = new HashSet<PaymentOperation>();
-
-    @NotNull(message = Code.PAYMENT_TRANSACTION_TRANSACTION_DATE_MISSING)
-    @Column(name = "TRANSACTION_DATE")
     private Date transactionDate;
-
-    @NotNull(message = Code.PAYMENT_TRANSACTION_PROCESSING_DATE_MISSING)
-    @Column(name = "TRANSACTION_PROCESSING_DATE")
     private Date processingDate = new Date();
+
+    public PaymentTransaction() {
+    }
 
     public String getTransactionKey() {
         return transactionKey;

@@ -11,7 +11,6 @@ import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Version;
 
 
 public class PlayerAccount implements PlayerAware, VersionAware {

@@ -10,7 +10,7 @@ import com.clemble.casino.money.Operation;
 import com.clemble.casino.player.PlayerAware;
 
 @Embeddable
-public class PaymentOperation implements PlayerAware, AmountAware {
+public class PaymentOperation implements AccountOperation {
 
     /**
      * Generated 05/05/13
@@ -54,6 +54,10 @@ public class PaymentOperation implements PlayerAware, AmountAware {
         } else {
             return new PaymentOperation(player, newAmount, operation);
         }
+    }
+
+    public PaymentOperation toDebit() {
+        return operation == Operation.Debit ? this : new PaymentOperation(player, amount.negate(), Operation.Debit);
     }
 
     @Override
