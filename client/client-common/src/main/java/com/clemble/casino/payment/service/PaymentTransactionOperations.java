@@ -23,16 +23,16 @@ public class PaymentTransactionOperations implements PaymentTransactionService {
     }
 
     @Override
-    public List<PaymentTransaction> myTransactions(String source) {
-        return delegate.myTransactions(source);
+    public List<PaymentTransaction> myTransactionsBySource(String source) {
+        return delegate.myTransactionsBySource(source);
     }
 
     public List<PaymentTransaction> myTransactions(Game game) {
-        return delegate.myTransactions(game.name());
+        return delegate.myTransactionsBySource(game.name());
     }
 
     public List<PaymentTransaction> myTransactions(PaymentBonusSource source) {
-        return delegate.myTransactions(source.name());
+        return delegate.myTransactionsBySource(source.name());
     }
 
     public PaymentTransaction getTransaction(String sessionKey) {
