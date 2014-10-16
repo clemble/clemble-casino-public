@@ -20,12 +20,14 @@ import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderA
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
 /**
  * Created by mavarazy on 10/9/14.
  */
 public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, GoalDescriptionAware, GoalConfigurationAware, GoalPartsAware, PlayerAware {
 
+    @Id
     final private String goalKey;
     final private String player;
     final private String goal;
