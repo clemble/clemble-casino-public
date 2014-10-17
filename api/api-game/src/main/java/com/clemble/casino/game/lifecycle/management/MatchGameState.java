@@ -31,9 +31,9 @@ public class MatchGameState implements GameState<MatchGameContext> {
     final static private Logger LOG = LoggerFactory.getLogger(MatchGameState.class);
 
     final private GameUnit state;
-    final private int version;
     final private MatchGameContext context;
     final private MatchGameConfiguration configuration;
+    final private int version;
 
     @JsonCreator
     public MatchGameState(

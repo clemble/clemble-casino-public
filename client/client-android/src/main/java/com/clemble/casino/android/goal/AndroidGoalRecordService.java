@@ -3,6 +3,7 @@ package com.clemble.casino.android.goal;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.lifecycle.record.GoalRecord;
 import com.clemble.casino.goal.lifecycle.record.service.GoalRecordService;
+import com.clemble.casino.lifecycle.record.RecordState;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,9 +27,17 @@ public class AndroidGoalRecordService extends AbstractClembleCasinoOperations im
     @Override
     public List<GoalRecord> myRecords() {
         // Step 1. Generating goal construction URI
-        URI pendingConstructionUrl = buildUriWith(toGoalConstructionUrl(MY_RECORDS));
+        URI recordUrl = buildUriWith(toGoalConstructionUrl(MY_RECORDS));
         // Step 2. Creating new GoalConstruction
-        return CollectionUtils.immutableList(restTemplate.getForObject(pendingConstructionUrl, GoalRecord[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(recordUrl, GoalRecord[].class));
+    }
+
+    @Override
+    public List<GoalRecord> myRecordsWithState(RecordState state) {
+        // Step 1. Generating goal construction URI
+        URI recordUrl = buildUriWith(toGoalConstructionUrl(MY_RECORDS_STATE), state);
+        // Step 2. Creating new GoalConstruction
+        return CollectionUtils.immutableList(restTemplate.getForObject(recordUrl, GoalRecord[].class));
     }
 
     @Override

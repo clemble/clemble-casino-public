@@ -1,6 +1,8 @@
 package com.clemble.casino.lifecycle.management;
 
 import com.clemble.casino.event.Event;
+import com.clemble.casino.lifecycle.configuration.Configuration;
+import com.clemble.casino.lifecycle.configuration.ConfigurationAware;
 
 
 /**
@@ -13,5 +15,7 @@ public interface State<R extends Event, C extends StateContext> {
     R process(Event action);
 
     C getContext();
+
+    Configuration getConfiguration();
 
 }

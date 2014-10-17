@@ -1,6 +1,7 @@
 package com.clemble.casino.game.lifecycle.management;
 
 import com.clemble.casino.event.Event;
+import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.lifecycle.management.event.GameManagementEvent;
 import com.clemble.casino.game.lifecycle.management.event.MatchStartedEvent;
 import com.clemble.casino.game.lifecycle.management.event.RoundStartedEvent;
@@ -17,13 +18,16 @@ public class RoundGameState implements GameState<RoundGameContext> {
 
     private RoundState state;
     private RoundGameContext context;
+    private RoundGameConfiguration configuration;
     private int version;
 
     @JsonCreator
     public RoundGameState(
+        @JsonProperty("configuration") RoundGameConfiguration configuration,
         @JsonProperty("context") RoundGameContext context,
         @JsonProperty("state") RoundState state,
         @JsonProperty("version") int version) {
+        this.configuration = configuration;
         this.context = context;
         this.state = state;
         this.version = version;
@@ -46,6 +50,10 @@ public class RoundGameState implements GameState<RoundGameContext> {
         return context;
     }
 
+    public RoundGameConfiguration getConfiguration() {
+        return configuration;
+    }
+
     @Override
     public RoundState getState() {
         return state;
@@ -66,6 +74,7 @@ public class RoundGameState implements GameState<RoundGameContext> {
         if (version != that.version) return false;
         if (!context.equals(that.context)) return false;
         if (!state.equals(that.state)) return false;
+        if (!configuration.equals(that.configuration)) return false;
 
         return true;
     }
@@ -74,6 +83,7 @@ public class RoundGameState implements GameState<RoundGameContext> {
     public int hashCode() {
         int result = state.hashCode();
         result = 31 * result + context.hashCode();
+        result = 31 * result + configuration.hashCode();
         result = 31 * result + version;
         return result;
     }

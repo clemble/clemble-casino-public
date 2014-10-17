@@ -1,5 +1,6 @@
 package com.clemble.casino.json;
 
+import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.lifecycle.management.RoundGameContext;
 import com.clemble.casino.game.lifecycle.management.RoundGameState;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
@@ -23,7 +24,7 @@ public class CommonObjectMapperTest extends AbstractObjectMapperTest {
             @Override
             public RoundGameState generate() {
                 RoundGameContext roundGameContext = ObjectGenerator.generate(RoundGameContext.class);
-                return new RoundGameState(roundGameContext, new FakeState(), 0);
+                return new RoundGameState(ObjectGenerator.generate(RoundGameConfiguration.class), roundGameContext, new FakeState(), 0);
             }
         });
     }

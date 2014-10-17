@@ -53,7 +53,7 @@ public class JsonCreationTest {
         ObjectGenerator.register(RoundGameState.class, new AbstractValueGenerator<RoundGameState>() {
             @Override
             public RoundGameState generate() {
-                return new RoundGameState(ObjectGenerator.generate(RoundGameContext.class), new FakeState(), 0);
+                return new RoundGameState(ObjectGenerator.generate(RoundGameConfiguration.class), ObjectGenerator.generate(RoundGameContext.class), new FakeState(), 0);
             }
         });
         ObjectGenerator.register(TournamentGameState.class, new AbstractValueGenerator<TournamentGameState>() {

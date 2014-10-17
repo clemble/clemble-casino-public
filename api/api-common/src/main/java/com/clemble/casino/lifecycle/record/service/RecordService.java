@@ -3,6 +3,7 @@ package com.clemble.casino.lifecycle.record.service;
 import com.clemble.casino.ClembleService;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.record.Record;
+import com.clemble.casino.lifecycle.record.RecordState;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
 public interface RecordService<T extends Configuration> extends ClembleService {
 
     public List<? extends Record<T>> myRecords();
+
+    public List<? extends Record<T>> myRecordsWithState(RecordState state);
 
     public Record<T> get(String key);
 

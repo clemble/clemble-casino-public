@@ -28,6 +28,7 @@ abstract public class GameWebMapping implements WebMapping {
     }
 
     final public static String MY_RECORDS = "/record/my";
+    final public static String MY_RECORDS_STATE = "/record/my/{state}";
     final public static String SESSIONS_RECORD = "/record/{session}";
 
     final public static String SESSIONS_STATE = "/{session}/state";
