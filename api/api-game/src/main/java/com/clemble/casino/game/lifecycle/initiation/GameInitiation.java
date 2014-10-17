@@ -73,7 +73,8 @@ public class GameInitiation implements Initiation<GameConfiguration>, GameConfig
             configuration,
             RecordState.active,
             participants,
-            Collections.<EventRecord>emptySet()
+            Collections.<EventRecord>emptySet(),
+            null
         );
     }
 

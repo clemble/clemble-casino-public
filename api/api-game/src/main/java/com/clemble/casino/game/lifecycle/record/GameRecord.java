@@ -5,6 +5,7 @@ import java.util.*;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
 import com.clemble.casino.game.lifecycle.configuration.GameConfigurationAware;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.Record;
 import com.clemble.casino.lifecycle.record.RecordState;
@@ -25,6 +26,7 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
     final private RecordState state;
     final private List<String> players = new ArrayList<String>();
     final private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
+    final private Outcome outcome;
 
     @JsonCreator
     public GameRecord(
@@ -32,13 +34,14 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
         @JsonProperty("configuration") GameConfiguration configuration,
         @JsonProperty("state") RecordState state,
         @JsonProperty("players") Collection<String> players,
-        @JsonProperty("eventRecords") Set<EventRecord> eventRecords) {
+        @JsonProperty("eventRecords") Set<EventRecord> eventRecords,
+        @JsonProperty("outcome") Outcome outcome) {
         this.sessionKey = sessionKey;
         this.configuration = configuration;
         this.state = state;
         this.players.addAll(players);
         this.eventRecords.addAll(eventRecords);
-
+        this.outcome = outcome;
     }
 
     @Override
@@ -51,8 +54,14 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
         return configuration;
     }
 
+    @Override
     public RecordState getState() {
         return state;
+    }
+
+    @Override
+    public Outcome getOutcome() {
+        return outcome;
     }
 
     public List<String> getPlayers() {
@@ -64,13 +73,14 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
         return eventRecords;
     }
 
-    public GameRecord copy(RecordState state) {
+    public GameRecord copy(RecordState state, Outcome outcome) {
         return new GameRecord(
             sessionKey,
             configuration,
             state,
             players,
-            eventRecords
+            eventRecords,
+            outcome
         );
     }
 

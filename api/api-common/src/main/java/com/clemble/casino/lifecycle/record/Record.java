@@ -10,7 +10,7 @@ import java.util.SortedSet;
 /**
  * Created by mavarazy on 9/20/14.
  */
-public interface Record<T extends Configuration> extends ConfigurationAware<T>, KeyAware {
+public interface Record<T extends Configuration> extends ConfigurationAware<T>, KeyAware, OutcomeAware {
 
     SortedSet<EventRecord> getEventRecords();
 

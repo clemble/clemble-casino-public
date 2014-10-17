@@ -6,6 +6,7 @@ import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalJudgeAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.Record;
 import com.clemble.casino.lifecycle.record.RecordState;
@@ -14,7 +15,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Created by mavarazy on 9/20/14.
@@ -28,7 +31,8 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
     final private String goal;
     final private String judge;
     final private GoalConfiguration configuration;
-    final private SortedSet<EventRecord> eventRecords;
+    final private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
+    final private Outcome outcome;
 
     @JsonCreator
     public GoalRecord(
@@ -38,14 +42,16 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
         @JsonProperty("goal") String goal,
         @JsonProperty("judge") String judge,
         @JsonProperty("configuration") GoalConfiguration configuration,
-        @JsonProperty("eventRecords") SortedSet<EventRecord> eventRecords) {
+        @JsonProperty("eventRecords") Set<EventRecord> eventRecords,
+        @JsonProperty("outcome") Outcome outcome) {
         this.goal = goal;
         this.state = state;
         this.judge = judge;
         this.player = player;
         this.goalKey = goalKey;
         this.configuration = configuration;
-        this.eventRecords = eventRecords;
+        this.eventRecords.addAll(eventRecords);
+        this.outcome = outcome;
     }
 
 
@@ -84,14 +90,20 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
         return goal;
     }
 
-    public GoalRecord copy(RecordState state) {
+    @Override
+    public Outcome getOutcome() {
+        return outcome;
+    }
+
+    public GoalRecord copy(RecordState state, Outcome outcome) {
         return new GoalRecord(goalKey,
             player,
             state,
             goal,
             judge,
             configuration,
-            eventRecords);
+            eventRecords,
+            outcome);
     }
 
     @Override

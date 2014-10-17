@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.TreeSet;
 
@@ -91,7 +92,8 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
             goal,
             judge,
             configuration,
-            new TreeSet<EventRecord>());
+            Collections.<EventRecord>emptySet(),
+            null);
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
