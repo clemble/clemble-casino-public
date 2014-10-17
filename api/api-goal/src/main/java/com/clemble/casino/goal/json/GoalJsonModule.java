@@ -2,6 +2,7 @@ package com.clemble.casino.goal.json;
 
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.configuration.rule.parts.GoalPartsRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.start.GoalStartRule;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionCompleteEvent;
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCreatedEvent;
 import com.clemble.casino.goal.lifecycle.configuration.rule.judge.JudgeRule;
@@ -24,6 +25,7 @@ public class GoalJsonModule implements ClembleJsonModule {
         SimpleModule module = new SimpleModule("Goal");
         module.registerSubtypes(new NamedType(GoalInitiationCreatedEvent.class, GoalInitiationCreatedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(JudgeRule.class, JudgeRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GoalStartRule.class, GoalStartRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GoalPartsRule.class, GoalPartsRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GoalStartedEvent.class, GoalStartedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalEndedEvent.class, GoalEndedEvent.JSON_TYPE));

@@ -11,4 +11,6 @@ public interface InitiationService<T extends Initiation> {
 
     Collection<T> getPending();
 
+    T get(String key);
+
 }

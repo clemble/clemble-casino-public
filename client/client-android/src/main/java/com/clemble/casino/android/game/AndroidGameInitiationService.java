@@ -30,5 +30,9 @@ public class AndroidGameInitiationService  extends AbstractClembleCasinoOperatio
         return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toGameConstructionUrl(INITIATION_PENDING)), GameInitiation[].class));
     }
 
+    @Override
+    public GameInitiation get(String sessionKey) {
+        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(INITIATION), sessionKey), GameInitiation.class);
+    }
 
 }

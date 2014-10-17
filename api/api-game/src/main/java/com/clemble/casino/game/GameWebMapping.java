@@ -36,6 +36,7 @@ abstract public class GameWebMapping implements WebMapping {
 
     final public static String INITIATION_READY = "/initiation/confirm/{session}";
     final public static String INITIATION_PENDING = "/initiation/pending";
+    final public static String INITIATION = "/initiation/{sessionKey}";
 
     public static String toGameConfigurationUrl(String path){
         return GAME_CONFIGURATION_URL + path;

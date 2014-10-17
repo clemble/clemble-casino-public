@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.Collection;
 
+import static com.clemble.casino.goal.GoalWebMapping.GOAL_INITIATION;
 import static com.clemble.casino.goal.GoalWebMapping.GOAL_INITIATION_PENDING;
 import static com.clemble.casino.goal.GoalWebMapping.toGoalConstructionUrl;
 
@@ -30,6 +31,14 @@ public class AndroidGoalInitiationService extends AbstractClembleCasinoOperation
         URI pendingConstructionUrl = buildUriWith(toGoalConstructionUrl(GOAL_INITIATION_PENDING));
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(pendingConstructionUrl, GoalInitiation[].class));
+    }
+
+    @Override
+    public GoalInitiation get(String key) {
+        // Step 1. Generating goal construction URI
+        URI pendingConstructionUrl = buildUriWith(toGoalConstructionUrl(GOAL_INITIATION), key);
+        // Step 2. Creating new GoalConstruction
+        return restTemplate.getForObject(pendingConstructionUrl, GoalInitiation.class);
     }
 
 }
