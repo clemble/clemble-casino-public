@@ -1,6 +1,8 @@
 package com.clemble.casino.lifecycle.construction;
 
-public enum ConstructionState {
+import com.clemble.casino.lifecycle.LifecycleState;
+
+public enum ConstructionState implements LifecycleState {
 
     pending,
     constructed,
