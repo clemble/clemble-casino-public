@@ -3,6 +3,7 @@ package com.clemble.casino.game.lifecycle.initiation;
 import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.clemble.casino.game.GameParticipantsAware;
@@ -12,6 +13,7 @@ import com.clemble.casino.game.lifecycle.record.GameRecord;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
 import com.clemble.casino.game.lifecycle.configuration.GameConfigurationAware;
+import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.RecordState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -66,11 +68,13 @@ public class GameInitiation implements Initiation<GameConfiguration>, GameConfig
 
     @Override
     public GameRecord toRecord(){
-        return new GameRecord()
-            .setSessionKey(sessionKey)
-            .setConfiguration(configuration)
-            .setState(RecordState.active)
-            .setPlayers(participants);
+        return new GameRecord(
+            sessionKey,
+            configuration,
+            RecordState.active,
+            participants,
+            Collections.<EventRecord>emptySet()
+        );
     }
 
     @Override

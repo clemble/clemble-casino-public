@@ -8,11 +8,10 @@ import com.clemble.casino.game.lifecycle.configuration.GameConfigurationAware;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.Record;
 import com.clemble.casino.lifecycle.record.RecordState;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.*;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "GAME_RECORD")
 public class GameRecord implements Record<GameConfiguration>, GameConfigurationAware, GameSessionAware {
 
     /**
@@ -20,20 +19,26 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
      */
     private static final long serialVersionUID = -6572596573895530995L;
 
-    @org.springframework.data.annotation.Id
-    private String sessionKey;
+    @Id
+    final private String sessionKey;
+    final private GameConfiguration configuration;
+    final private RecordState state;
+    final private List<String> players = new ArrayList<String>();
+    final private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
 
-    private GameConfiguration configuration;
+    @JsonCreator
+    public GameRecord(
+        @JsonProperty("sessionKey") String sessionKey,
+        @JsonProperty("configuration") GameConfiguration configuration,
+        @JsonProperty("state") RecordState state,
+        @JsonProperty("players") Collection<String> players,
+        @JsonProperty("eventRecords") Set<EventRecord> eventRecords) {
+        this.sessionKey = sessionKey;
+        this.configuration = configuration;
+        this.state = state;
+        this.players.addAll(players);
+        this.eventRecords.addAll(eventRecords);
 
-    private RecordState state;
-
-    private List<String> players = new ArrayList<String>();
-
-    private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
-
-    private int version;
-
-    public GameRecord() {
     }
 
     @Override
@@ -41,38 +46,17 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
         return sessionKey;
     }
 
-    public GameRecord setSessionKey(String newSession) {
-        this.sessionKey= newSession;
-        return this;
-    }
-
     @Override
     public GameConfiguration getConfiguration() {
         return configuration;
-    }
-
-    public GameRecord setConfiguration(GameConfiguration configurationKey) {
-        this.configuration = configurationKey;
-        return this;
     }
 
     public RecordState getState() {
         return state;
     }
 
-    public GameRecord setState(RecordState gameSessionState) {
-        this.state = gameSessionState;
-        return this;
-    }
-
     public List<String> getPlayers() {
         return players;
-    }
-
-    public GameRecord setPlayers(Collection<String> players) {
-        this.players.clear();
-        this.players.addAll(players);
-        return this;
     }
 
     @Override
@@ -80,12 +64,14 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
         return eventRecords;
     }
 
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
+    public GameRecord copy(RecordState state) {
+        return new GameRecord(
+            sessionKey,
+            configuration,
+            state,
+            players,
+            eventRecords
+        );
     }
 
     @Override
@@ -95,7 +81,6 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
 
         GameRecord that = (GameRecord) o;
 
-        if (version != that.version) return false;
         if (!configuration.equals(that.configuration)) return false;
         if (!eventRecords.equals(that.eventRecords)) return false;
         if (!players.equals(that.players)) return false;
@@ -112,7 +97,7 @@ public class GameRecord implements Record<GameConfiguration>, GameConfigurationA
         result = 31 * result + state.hashCode();
         result = 31 * result + players.hashCode();
         result = 31 * result + eventRecords.hashCode();
-        result = 31 * result + version;
         return result;
     }
+
 }

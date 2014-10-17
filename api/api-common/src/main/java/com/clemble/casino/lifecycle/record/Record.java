@@ -3,6 +3,7 @@ package com.clemble.casino.lifecycle.record;
 import com.clemble.casino.KeyAware;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.ConfigurationAware;
+import com.clemble.casino.lifecycle.management.outcome.OutcomeAware;
 
 import java.util.SortedSet;
 
