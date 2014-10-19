@@ -21,6 +21,10 @@
     </modules>
     <dependencies>
         <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.clemble.casino</groupId>
             <artifactId>api-common</artifactId>
         </dependency>
