@@ -7,7 +7,7 @@ import com.clemble.casino.WebMapping;
  */
 public abstract class GoalWebMapping implements WebMapping {
 
-    final private static String GOAL_URL = "http://{host}/goal/track";
+    final private static String GOAL_URL = "http://{host}/track";
     final public static String PLAYER_GOALS = "/{player}";
     final public static String PLAYER_GOALS_GOAL = "/{player}/{id}";
     final public static String PLAYER_GOALS_PENDING = "/{player}/pending";
@@ -25,14 +25,14 @@ public abstract class GoalWebMapping implements WebMapping {
         return GOAL_URL + path;
     }
 
-    final private static String GOAL_CONFIGURATIONS_URL = "http://{host}/goal/configuration";
+    final private static String GOAL_CONFIGURATIONS_URL = "http://{host}/configuration";
     final public static String MY_CONFIGURATIONS = "/my";
 
     public static String toGoalConfigurationUrl(String path) {
         return GOAL_CONFIGURATIONS_URL + path;
     }
 
-    final private static String GOAL_CONSTRUCTION_URL = "http://{host}/goal/construction";
+    final private static String GOAL_CONSTRUCTION_URL = "http://{host}/construction";
     final public static String GOAL_CONSTRUCTION = "/";
     final public static String GOAL_CONSTRUCTION_PENDING = "/my/pending";
 
@@ -43,7 +43,7 @@ public abstract class GoalWebMapping implements WebMapping {
         return GOAL_CONSTRUCTION_URL + path;
     }
 
-    final private static String GOAL_MANAGEMENT_URL = "http://{host}/goal/management";
+    final private static String GOAL_MANAGEMENT_URL = "http://{host}/management";
 
     final public static String MY_RECORDS = "/record/my";
     final public static String MY_RECORDS_STATE = "/record/my/{state}";

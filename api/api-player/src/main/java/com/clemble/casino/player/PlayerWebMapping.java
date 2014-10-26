@@ -4,7 +4,7 @@ import com.clemble.casino.WebMapping;
 
 public abstract class PlayerWebMapping implements WebMapping {
 
-    final private static String PROFILE_URL = "http://{host}/player/profile";
+    final private static String PROFILE_URL = "http://{host}/profile";
 
     final public static String PLAYER_PROFILES = "/";
     final public static String PLAYER_PROFILE = "/{player}";
@@ -18,7 +18,7 @@ public abstract class PlayerWebMapping implements WebMapping {
         return PROFILE_URL + path;
     }
 
-    final private static String CONNECTION_URL = "http://{host}/player/connection";
+    final private static String CONNECTION_URL = "http://{host}/connection";
     final public static String PLAYER_CONNECTIONS = "/{player}";
     final public static String PLAYER_OWNED_CONNECTIONS = "/{player}/owned";
     final public static String PLAYER_CONNECTION_CONNECTIONS = "/{player}/connected";

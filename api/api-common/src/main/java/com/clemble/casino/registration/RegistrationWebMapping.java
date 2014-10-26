@@ -7,7 +7,7 @@ import com.clemble.casino.WebMapping;
  */
 public abstract class RegistrationWebMapping implements WebMapping {
 
-    final public static String REGISTRATION_URL = "http://{host}/player/registration/";
+    final public static String REGISTRATION_URL = "http://{host}/registration";
 
     final public static String REGISTRATION_LOGIN = "/login";
 

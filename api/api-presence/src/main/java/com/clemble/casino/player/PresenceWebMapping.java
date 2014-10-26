@@ -7,7 +7,7 @@ import com.clemble.casino.WebMapping;
  */
 public abstract class PresenceWebMapping implements WebMapping {
 
-    final private static String PRESENCE_URL = "http://{host}/player/presence";
+    final private static String PRESENCE_URL = "http://{host}/presence";
 
     final public static String PLAYER_PRESENCES = "/";
     final public static String PLAYER_PRESENCE = "/{player}";
