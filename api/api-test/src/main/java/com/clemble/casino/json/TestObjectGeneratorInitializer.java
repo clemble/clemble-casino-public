@@ -150,8 +150,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PlayerCredential.class, new AbstractValueGenerator<PlayerCredential>() {
             @Override
             public PlayerCredential generate() {
-            return new PlayerCredential().setEmail(RandomStringUtils.randomAlphabetic(10) + "@gmail.com").setPassword(RandomStringUtils.random(10))
-                        .setPlayer(RandomStringUtils.random(5));
+            return new PlayerCredential(RandomStringUtils.randomAlphabetic(10) + "@gmail.com", RandomStringUtils.random(10));
             }
         });
         ObjectGenerator.register(PlayerProfile.class, new AbstractValueGenerator<PlayerProfile>() {
