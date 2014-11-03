@@ -3,7 +3,6 @@ package com.clemble.casino.game.lifecycle.configuration.rule.construct;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("participants")
 public enum PlayerNumberRule implements ConfigurationRule {
 
     two(2, 2),

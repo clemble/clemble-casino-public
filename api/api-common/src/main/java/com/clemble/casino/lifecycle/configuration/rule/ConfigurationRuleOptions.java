@@ -26,8 +26,8 @@ public class ConfigurationRuleOptions<T extends ConfigurationRule> {
         }
     }
 
-    @JsonCreator
-    public ConfigurationRuleOptions(@JsonProperty("default") T defaultOption, @JsonProperty("options") T... otherOptions) {
+    // TODO enable serialization in future
+    public ConfigurationRuleOptions(T defaultOption, T... otherOptions) {
         this(defaultOption, Arrays.asList(otherOptions));
     }
 

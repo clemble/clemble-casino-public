@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeInfo(use = Id.NAME, include = As.WRAPPER_OBJECT, property = "giveUp")
-@JsonTypeName("giveUp")
 public enum GiveUpRule implements GameRule {
 
     lost(0),

@@ -31,8 +31,8 @@ public class CommonObjectMapperTest extends AbstractObjectMapperTest {
 
     @Test
     public void testSpecialCases() {
-        assertNull(checkSerialization(GoalState.class));
         assertNull(checkSerialization(PrivacyRule.class));
+        assertNull(checkSerialization(GoalState.class));
         assertNull(checkSerialization(PlayerProfile.class));
     }
 

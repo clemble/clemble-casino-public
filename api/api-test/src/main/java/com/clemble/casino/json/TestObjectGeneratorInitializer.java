@@ -188,7 +188,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PrivacyRule.class, new AbstractValueGenerator<PrivacyRule>() {
             @Override
             public PrivacyRule generate() {
-                return PrivacyRule.everybody;
+                return PrivacyRule.world;
             }
         });
         ObjectGenerator.register(VersionAware.class, "version", new ValueGenerator<Integer>() {
@@ -215,7 +215,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
             @Override
             public TournamentGameConfiguration generate() {
-            return new TournamentGameConfiguration(Game.pic, "AAA", new Money(Currency.FakeMoney, 50), PrivacyRule.players, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
+            return new TournamentGameConfiguration(Game.pic, "AAA", new Money(Currency.FakeMoney, 50), PrivacyRule.me, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
             }
         });
 

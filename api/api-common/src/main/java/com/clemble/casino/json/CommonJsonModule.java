@@ -2,15 +2,13 @@ package com.clemble.casino.json;
 
 import com.clemble.casino.event.action.PlayerDefaultAction;
 import com.clemble.casino.event.action.PlayerExpectedAction;
+import com.clemble.casino.lifecycle.configuration.rule.bet.*;
 import com.clemble.casino.lifecycle.configuration.rule.breach.DefaultBreachPunishment;
+import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
-import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
-import com.clemble.casino.lifecycle.configuration.rule.bet.FixedBetRule;
-import com.clemble.casino.lifecycle.configuration.rule.bet.LimitedBetRule;
-import com.clemble.casino.lifecycle.configuration.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.lifecycle.configuration.rule.breach.CountdownBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.PenaltyBreachPunishment;
@@ -37,10 +35,13 @@ public class CommonJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(LooseBreachPunishment.class, LooseBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(DefaultBreachPunishment.class, DefaultBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));
 
-        module.registerSubtypes(new NamedType(BetRule.class, BetRule.class.getAnnotation(JsonTypeName.class).value()));
+//        module.registerSubtypes(new NamedType(PrivacyRule.class, PrivacyRule.class.getAnnotation(JsonTypeName.class).value()));
+
+//        module.registerSubtypes(new NamedType(BetRule.class, BetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(FixedBetRule.class, FixedBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(LimitedBetRule.class, LimitedBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(UnlimitedBetRule.class, UnlimitedBetRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(ForbiddenBetRule.class, ForbiddenBetRule.class.getAnnotation(JsonTypeName.class).value()));
 
         return module;
     }

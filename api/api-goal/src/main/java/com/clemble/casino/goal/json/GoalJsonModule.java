@@ -24,14 +24,16 @@ public class GoalJsonModule implements ClembleJsonModule {
     public Module construct() {
         SimpleModule module = new SimpleModule("Goal");
         module.registerSubtypes(new NamedType(GoalInitiationCreatedEvent.class, GoalInitiationCreatedEvent.JSON_TYPE));
-        module.registerSubtypes(new NamedType(JudgeRule.class, JudgeRule.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GoalStartRule.class, GoalStartRule.class.getAnnotation(JsonTypeName.class).value()));
-        module.registerSubtypes(new NamedType(GoalPartsRule.class, GoalPartsRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(GoalStartedEvent.class, GoalStartedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalEndedEvent.class, GoalEndedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalConstructionCompleteEvent.class, GoalConstructionCompleteEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalStatusUpdateAction.class, GoalStatusUpdateAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalChangedEvent.class, GoalChangedEvent.JSON_TYPE));
+
+        //module.registerSubtypes(new NamedType(JudgeRule.class, JudgeRule.class.getAnnotation(JsonTypeName.class).value()));
+        //module.registerSubtypes(new NamedType(GoalStartRule.class, GoalStartRule.class.getAnnotation(JsonTypeName.class).value()));
+        //module.registerSubtypes(new NamedType(GoalPartsRule.class, GoalPartsRule.class.getAnnotation(JsonTypeName.class).value()));
+
         return module;
     }
 

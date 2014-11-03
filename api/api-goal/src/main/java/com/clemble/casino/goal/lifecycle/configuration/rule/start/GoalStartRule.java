@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  *
  * TODO This is quick workaround think of a better name for this
  */
-@JsonTypeName("start")
 public class GoalStartRule implements GoalRule {
 
     final private long timeout;

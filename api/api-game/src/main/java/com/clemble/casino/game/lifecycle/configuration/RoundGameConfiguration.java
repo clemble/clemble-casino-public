@@ -40,7 +40,7 @@ public class RoundGameConfiguration implements GameConfiguration {
         GiveUpRule.lost,
         new MoveTimeRule(4000, LooseBreachPunishment.getInstance()),
         new TotalTimeRule(4000, LooseBreachPunishment.getInstance()),
-        PrivacyRule.everybody,
+        PrivacyRule.world,
         PlayerNumberRule.two,
         VisibilityRule.hidden,
         DrawRule.owned,

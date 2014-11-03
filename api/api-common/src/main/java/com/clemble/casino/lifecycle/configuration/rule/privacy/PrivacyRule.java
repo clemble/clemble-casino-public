@@ -2,20 +2,19 @@ package com.clemble.casino.lifecycle.configuration.rule.privacy;
 
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRuleOptions;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("privacy")
+@JsonFormat(shape = JsonFormat.Shape.STRING)
 public enum PrivacyRule implements ConfigurationRule {
 
-    players,
-    connections,
-    everybody;
+    me,
+    friends,
+    world;
 
-    final private static ConfigurationRuleOptions<PrivacyRule> OPTIONS =
-        new ConfigurationRuleOptions<PrivacyRule>(players, connections, everybody, players);
-
-    public ConfigurationRuleOptions<PrivacyRule> getOptions() {
-        return OPTIONS;
+    public String getName() {
+        return name();
     }
 
 }

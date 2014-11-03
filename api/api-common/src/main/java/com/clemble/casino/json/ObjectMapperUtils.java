@@ -1,7 +1,9 @@
 package com.clemble.casino.json;
 
 import com.clemble.casino.player.event.PlayerEvent;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.AnnotatedClass;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 
@@ -27,7 +29,6 @@ public class ObjectMapperUtils {
         loadJsonModule("com.clemble.casino.json.ExtenstionJsonModule", objectMapper);
         // Step 1.1. Initializing Facebook module if available
         loadJsonModule("org.springframework.social.facebook.api.impl.json.FacebookModule", objectMapper);
-        // Step 2. Returning mapped ObjectMapper
         return objectMapper;
     }
 

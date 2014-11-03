@@ -8,14 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.clemble.casino.event.action.PlayerExpectedAction;
-import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.game.lifecycle.configuration.TournamentGameConfiguration;
 import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.game.lifecycle.construction.GameConstruction;
 import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.test.random.AbstractValueGenerator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -120,7 +118,7 @@ public class JsonCreationTest {
     @Test
     public void test() throws JsonProcessingException {
         RoundGameConfiguration configuration = new RoundGameConfiguration(Game.num, "low", new Money(Currency.FakeMoney, 50),
-                UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, LooseBreachPunishment.getInstance()), new TotalTimeRule(4000, LooseBreachPunishment.getInstance()), PrivacyRule.everybody, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
+                UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, LooseBreachPunishment.getInstance()), new TotalTimeRule(4000, LooseBreachPunishment.getInstance()), PrivacyRule.world, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
                 ImmutableList.<String> of("A", "B"), null);
 
         System.out.println(objectMapper.writeValueAsString(configuration));

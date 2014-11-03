@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 10/9/14.
  */
-@JsonTypeName("rule:goal:parts")
 public class GoalPartsRule implements GoalRule, GoalPartsAware {
 
     final private int parts;

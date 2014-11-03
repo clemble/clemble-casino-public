@@ -4,7 +4,6 @@ import com.clemble.casino.game.lifecycle.configuration.rule.MatchRule;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRuleOptions;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("matchFillRule")
 public enum MatchFillRule implements MatchRule {
 
     reminder,
