@@ -8,6 +8,7 @@ import com.clemble.casino.error.ClembleCasinoError.Code;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import oracle.jrockit.jfr.StringConstantPool;
 
 /**
  * Minimum social ConnectionData, that is sufficient to create a user profile in internal network.
@@ -101,6 +102,11 @@ public class SocialConnectionData implements Serializable {
      */
     public long getExpireTime() {
         return expireTime;
+    }
+
+    @Override
+    public String toString() {
+        return "scd:" + providerId + ":" + providerUserId;
     }
 
     @Override
