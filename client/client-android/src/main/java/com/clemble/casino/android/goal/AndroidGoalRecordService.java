@@ -27,7 +27,7 @@ public class AndroidGoalRecordService extends AbstractClembleCasinoOperations im
     @Override
     public List<GoalRecord> myRecords() {
         // Step 1. Generating goal construction URI
-        URI recordUrl = buildUriWith(toGoalConstructionUrl(MY_RECORDS));
+        URI recordUrl = buildUriWith(toGoalManagementUrl(MY_RECORDS));
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(recordUrl, GoalRecord[].class));
     }
@@ -35,7 +35,7 @@ public class AndroidGoalRecordService extends AbstractClembleCasinoOperations im
     @Override
     public List<GoalRecord> myRecordsWithState(RecordState state) {
         // Step 1. Generating goal construction URI
-        URI recordUrl = buildUriWith(toGoalConstructionUrl(MY_RECORDS_STATE), state);
+        URI recordUrl = buildUriWith(toGoalManagementUrl(MY_RECORDS_STATE), state);
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(recordUrl, GoalRecord[].class));
     }
@@ -43,7 +43,7 @@ public class AndroidGoalRecordService extends AbstractClembleCasinoOperations im
     @Override
     public GoalRecord get(String goalKey) {
         // Step 1. Generating goal construction URI
-        URI pendingConstructionUrl = buildUriWith(toGoalConstructionUrl(GOAL_RECORD), goalKey);
+        URI pendingConstructionUrl = buildUriWith(toGoalManagementUrl(GOAL_RECORD), goalKey);
         // Step 2. Creating new GoalConstruction
         return restTemplate.getForObject(pendingConstructionUrl, GoalRecord.class);
     }
