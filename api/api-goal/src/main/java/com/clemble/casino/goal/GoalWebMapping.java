@@ -55,6 +55,9 @@ public abstract class GoalWebMapping implements WebMapping {
     final public static String PLAYER_ACTIVE_GOALS = "/active/{player}";
     final public static String MY_ACTIVE_GOALS = "/active/my";
 
+    final public static String MY_CONNECTIONS_TIMELINE = "/connections/timeline/my";
+    final public static String PLAYER_CONNECTIONS_TIMELINE = "/connections/timeline/{player}";
+
     public static String toGoalManagementUrl(String path) {
         return GOAL_MANAGEMENT_URL + path;
     }
