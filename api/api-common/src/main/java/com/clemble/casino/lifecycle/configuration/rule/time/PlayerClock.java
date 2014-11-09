@@ -42,6 +42,10 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
         return breachTime;
     }
 
+    public boolean wasBreached() {
+        return System.currentTimeMillis() >= breachTime;
+    }
+
     public long getTimeSpent() {
         return timeSpent;
     }
