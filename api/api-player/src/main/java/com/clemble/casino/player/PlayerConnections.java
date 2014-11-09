@@ -17,10 +17,10 @@ public class PlayerConnections implements PlayerAware {
     @Id
     final private String player;
     final private Set<ConnectionKey> owned;
-    final private Set<ConnectionKey> connected;
+    final private Set<String> connected;
 
     @JsonCreator
-    public PlayerConnections(@JsonProperty(PLAYER) String player, @JsonProperty("owned") Set<ConnectionKey> owned, @JsonProperty("connected") Set<ConnectionKey> connected) {
+    public PlayerConnections(@JsonProperty(PLAYER) String player, @JsonProperty("owned") Set<ConnectionKey> owned, @JsonProperty("connected") Set<String> connected) {
         this.player = player;
         this.owned = owned;
         this.connected = connected;
@@ -35,7 +35,7 @@ public class PlayerConnections implements PlayerAware {
         return owned;
     }
 
-    public Set<ConnectionKey> getConnected() {
+    public Set<String> getConnected() {
         return connected;
     }
 

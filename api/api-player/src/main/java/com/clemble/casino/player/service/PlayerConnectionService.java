@@ -16,12 +16,12 @@ public interface PlayerConnectionService extends ClembleService {
     // TODO remove from public access
     public Set<ConnectionKey> getOwnedConnections(String player);
 
-    public Set<ConnectionKey> getConnectedConnection(String player);
+    public Set<String> getConnectedConnection(String player);
 
     public PlayerConnections myConnections();
 
     public Set<ConnectionKey> myOwnedConnections();
 
-    public Set<ConnectionKey> myConnectedConnections();
+    public Set<String> myConnectedConnections();
 
 }
