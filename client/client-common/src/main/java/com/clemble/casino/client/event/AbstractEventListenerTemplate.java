@@ -131,14 +131,17 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     }
 
     public void close() {
-        if (connectionCleaner.get() != null) {
-            try {
-                connectionCleaner.get().close();
-            } catch (IOException e) {
+        try {
+            if (connectionCleaner.get() != null) {
+                try {
+                    connectionCleaner.get().close();
+                } catch (IOException e) {
+                }
             }
+        } finally {
+            // Simple shutdown won't work, this would leave notifier hanging
+            executor.shutdownNow();
         }
-        // Simple shutdown won't work, this would leave notifier hanging
-        executor.shutdownNow();
     }
 
     private class GameNotificationThread implements Runnable {
