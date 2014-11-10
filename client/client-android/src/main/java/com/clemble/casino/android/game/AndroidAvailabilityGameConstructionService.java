@@ -2,7 +2,7 @@ package com.clemble.casino.android.game;
 
 import java.util.Collection;
 
-import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAction;
+import com.clemble.casino.player.event.PlayerInvitationAction;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import org.springframework.web.client.RestTemplate;
 

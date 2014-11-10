@@ -18,6 +18,10 @@
         </dependency>
         <dependency>
             <groupId>com.clemble.casino</groupId>
+            <artifactId>api-player</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
             <artifactId>api-bet</artifactId>
         </dependency>
     </dependencies>

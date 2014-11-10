@@ -18,17 +18,27 @@ public class PlayerConnections implements PlayerAware {
     final private String player;
     final private Set<ConnectionKey> owned;
     final private Set<String> connected;
+    final private Set<ConnectionRequest> connectionRequests;
 
     @JsonCreator
-    public PlayerConnections(@JsonProperty(PLAYER) String player, @JsonProperty("owned") Set<ConnectionKey> owned, @JsonProperty("connected") Set<String> connected) {
+    public PlayerConnections(
+        @JsonProperty(PLAYER) String player,
+        @JsonProperty("owned") Set<ConnectionKey> owned,
+        @JsonProperty("connected") Set<String> connected,
+        @JsonProperty("connectionRequests") Set<ConnectionRequest> connectionRequests) {
         this.player = player;
         this.owned = owned;
         this.connected = connected;
+        this.connectionRequests = connectionRequests;
     }
 
     @Override
     public String getPlayer() {
         return player;
+    }
+
+    public Set<ConnectionRequest> getConnectionRequests() {
+        return connectionRequests;
     }
 
     public Set<ConnectionKey> getOwned(){

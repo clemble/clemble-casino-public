@@ -9,7 +9,6 @@ import com.clemble.casino.lifecycle.management.event.action.surrender.TimeoutSur
 import com.clemble.casino.game.lifecycle.management.event.action.SelectAction;
 import com.clemble.casino.game.lifecycle.construction.event.*;
 import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCompleteEvent;
-import com.clemble.casino.game.lifecycle.configuration.rule.match.MatchFillRule;
 import com.clemble.casino.json.ClembleJsonModule;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -23,14 +22,6 @@ import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCreatedE
 import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCanceledEvent;
 import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationConfirmedEvent;
 import com.clemble.casino.game.lifecycle.management.iterator.SequentialPlayerIterator;
-import com.clemble.casino.lifecycle.management.outcome.DrawOutcome;
-import com.clemble.casino.lifecycle.management.outcome.NoOutcome;
-import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
-import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
-import com.clemble.casino.game.lifecycle.configuration.rule.giveup.GiveUpRule;
-import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;
-import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
 import com.clemble.casino.game.lifecycle.configuration.MatchGameConfiguration;
 import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.lifecycle.configuration.TournamentGameConfiguration;
@@ -56,8 +47,6 @@ public class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(TournamentGameState.class, TournamentGameState.class.getAnnotation(JsonTypeName.class).value()));
 
         module.registerSubtypes(new NamedType(GameConstructionCompleteEvent.class, GameConstructionCompleteEvent.JSON_TYPE));
-        module.registerSubtypes(new NamedType(PlayerInvitationAcceptedAction.class, PlayerInvitationAcceptedAction.JSON_TYPE));
-        module.registerSubtypes(new NamedType(PlayerInvitationDeclinedAction.class, PlayerInvitationDeclinedAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(GameConstructionPlayerInvitedEvent.class, GameConstructionPlayerInvitedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GameInitiationCreatedEvent.class, GameInitiationCreatedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GameInitiationCanceledEvent.class, GameInitiationCanceledEvent.JSON_TYPE));

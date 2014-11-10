@@ -1,7 +1,6 @@
-package com.clemble.casino.game.lifecycle.construction.event;
+package com.clemble.casino.player.event;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(PlayerInvitationDeclinedAction.JSON_TYPE)

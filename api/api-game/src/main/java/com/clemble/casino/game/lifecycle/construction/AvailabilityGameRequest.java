@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import com.clemble.casino.ActionLatch;
 import com.clemble.casino.game.GameParticipantsAware;
-import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAcceptedAction;
-import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAction;
+import com.clemble.casino.player.event.PlayerInvitationAcceptedAction;
+import com.clemble.casino.player.event.PlayerInvitationAction;
 import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;

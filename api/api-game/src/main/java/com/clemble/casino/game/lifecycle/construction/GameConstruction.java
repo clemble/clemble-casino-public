@@ -6,7 +6,6 @@ import java.util.List;
 
 
 import com.clemble.casino.game.GameParticipantsAware;
-import com.clemble.casino.game.lifecycle.construction.event.PlayerInvitationAcceptedAction;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
 import com.clemble.casino.lifecycle.construction.Construction;
 import com.clemble.casino.lifecycle.construction.ConstructionState;
@@ -17,6 +16,7 @@ import com.clemble.casino.ActionLatch;
 import com.clemble.casino.game.GameSessionAware;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.player.event.PlayerInvitationAcceptedAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
@@ -85,8 +85,9 @@ public class GameConstruction implements Construction<GameConfiguration>, Player
         List<String> acceptedParticipants = new ArrayList<String>(responses.fetchParticipants().size());
 
         for (PlayerAction responseEntry : responses.getActions()) {
-            if (responseEntry.getAction() instanceof PlayerInvitationAcceptedAction)
+            if (responseEntry.getAction() instanceof PlayerInvitationAcceptedAction) {
                 acceptedParticipants.add(responseEntry.getPlayer());
+            }
         }
 
         return acceptedParticipants;
