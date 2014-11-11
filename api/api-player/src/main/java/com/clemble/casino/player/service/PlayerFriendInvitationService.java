@@ -1,7 +1,7 @@
 package com.clemble.casino.player.service;
 
 import com.clemble.casino.ClembleService;
-import com.clemble.casino.player.FriendInvitation;
+import com.clemble.casino.player.Invitation;
 
 import java.util.List;
 
@@ -10,14 +10,10 @@ import java.util.List;
  */
 public interface PlayerFriendInvitationService extends ClembleService {
 
-    public List<FriendInvitation> myRequests();
+    public List<Invitation> myInvitations();
 
-    public List<FriendInvitation> myOutgoingRequests();
+    public Invitation invite(String player);
 
-    public List<FriendInvitation> myIncomingRequests();
-
-    public FriendInvitation connect(FriendInvitation friendRequest);
-
-    public FriendInvitation reply(String player, boolean accept);
+    public Invitation reply(String player, boolean accept);
 
 }

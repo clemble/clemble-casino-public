@@ -24,7 +24,7 @@ public class AndroidPlayerConnectionService extends AbstractClembleCasinoOperati
     @Override
     public Set<String> myConnections() {
         // Step 1. Fetching player connections
-        URI playerUri = buildUriWith(toConnectionUrl(MY_CONNECTED_CONNECTIONS));
+        URI playerUri = buildUriWith(toConnectionUrl(MY_CONNECTIONS));
         // Step 3. Requesting through RestTemplate
         return CollectionUtils.immutableSet(restTemplate.getForObject(playerUri, String[].class));
     }
@@ -32,7 +32,7 @@ public class AndroidPlayerConnectionService extends AbstractClembleCasinoOperati
     @Override
     public Set<String> getConnections(String player) {
         // Step 1. Fetching player connections
-        URI playerUri = buildUriWith(toConnectionUrl(PLAYER_CONNECTION_CONNECTIONS), player);
+        URI playerUri = buildUriWith(toConnectionUrl(PLAYER_CONNECTIONS), player);
         // Step 3. Requesting through RestTemplate
         return CollectionUtils.immutableSet(restTemplate.getForObject(playerUri, String[].class));
     }

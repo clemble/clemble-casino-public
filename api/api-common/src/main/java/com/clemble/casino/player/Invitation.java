@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 11/10/14.
  */
-public class FriendInvitation implements PlayerAware {
+public class Invitation implements PlayerAware {
 
     final private String player;
 
     @JsonCreator
-    public FriendInvitation(@JsonProperty(PLAYER) String player) {
+    public Invitation(@JsonProperty(PLAYER) String player) {
         this.player = player;
     }
 
@@ -25,7 +25,7 @@ public class FriendInvitation implements PlayerAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FriendInvitation that = (FriendInvitation) o;
+        Invitation that = (Invitation) o;
 
         if (!player.equals(that.player)) return false;
 

@@ -8,13 +8,10 @@ public class PlayerConnectionWebMapping {
     final private static String CONNECTION_URL = "http://{host}/connection";
 
     final public static String PLAYER_CONNECTIONS = "/{player}";
-    final public static String PLAYER_CONNECTION_CONNECTIONS = "/{player}/connected";
-    final public static String PLAYER_OWNED_CONNECTIONS = "/{player}/owned";
-
     final public static String MY_CONNECTIONS = "/my";
-    final public static String MY_OWNED_CONNECTIONS = "/my/owned";
-    final public static String MY_CONNECTED_CONNECTIONS = "/my/connected";
 
+    final public static String MY_INVITATIONS = "/my/invitations";
+    final public static String MY_INVITATIONS_REPLY = "/my/invitations/{player}";
 
     public static String toConnectionUrl(String path) {
         return CONNECTION_URL + path;

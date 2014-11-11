@@ -113,6 +113,7 @@ public enum ClembleCasinoError {
     PlayerNotSessionOwner(Code.PLAYER_NOT_SESSION_OWNER_ERROR_CODE, "Player can't change session, he does not own"),
     PlayerSessionClosed(Code.PLAYER_SESSION_CLOSED_ERROR_CODE, "Player session already closed"),
     PlayerAccountAccessDenied(Code.PLAYER_ACCOUNT_ACCESS_DENIED, "Player account access denied"),
+    PlayerNoInvitation(Code.PLAYER_NO_INVITATION, "Player no invitation"),
 
     GoalStateIncorrect(Code.GOAL_STATE_INCORRECT, "Goal State incorrect, supposed to be in Pending state"),
     GoalDueDateInPast(Code.GOAL_DUE_DATE_IN_PAST, "Goal Due Date in past"),
@@ -293,6 +294,7 @@ public enum ClembleCasinoError {
         final public static String PLAYER_NOT_SESSION_OWNER_ERROR_CODE = "0M5";
         final public static String PLAYER_SESSION_CLOSED_ERROR_CODE = "0M6";
         final public static String PLAYER_ACCOUNT_ACCESS_DENIED = "0M7";
+        final public static String PLAYER_NO_INVITATION = "0M8";
         // Payment errors
 
         // Goal errors
