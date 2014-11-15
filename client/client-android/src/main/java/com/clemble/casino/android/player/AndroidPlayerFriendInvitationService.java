@@ -33,11 +33,11 @@ public class AndroidPlayerFriendInvitationService extends AbstractClembleCasinoO
     }
 
     @Override
-    public Invitation invite(String player) {
+    public Invitation invite(Invitation invitation) {
         // Step 1. Generating url
         URI url = buildUri(toConnectionUrl(MY_INVITATIONS));
         // Step 2. Querying service
-        return restTemplate.postForObject(url, player, Invitation.class);
+        return restTemplate.postForObject(url, invitation, Invitation.class);
     }
 
     @Override

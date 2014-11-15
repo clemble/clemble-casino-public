@@ -12,7 +12,7 @@ public interface PlayerFriendInvitationService extends ClembleService {
 
     public List<Invitation> myInvitations();
 
-    public Invitation invite(String player);
+    public Invitation invite(Invitation player);
 
     public Invitation reply(String player, boolean accept);
 
