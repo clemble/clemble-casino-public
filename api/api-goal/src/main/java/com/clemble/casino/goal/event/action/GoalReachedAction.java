@@ -6,17 +6,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * Created by mavarazy on 10/9/14.
+ * Created by mavarazy on 11/16/14.
  */
-@JsonTypeName(GoalStatusUpdateAction.JSON_TYPE)
-public class GoalStatusUpdateAction implements PlayerGoalAction, GoalStatusAware {
+@JsonTypeName(GoalReachedAction.JSON_TYPE)
+public class GoalReachedAction implements PlayerGoalAction, GoalStatusAware {
 
-    final public static String JSON_TYPE = "goal:management:status:update:action";
+    final public static String JSON_TYPE = "goal:management:reached";
 
     final private String status;
 
     @JsonCreator
-    public GoalStatusUpdateAction(@JsonProperty("status") String status) {
+    public GoalReachedAction(@JsonProperty("status") String status) {
         this.status = status;
     }
 
@@ -28,18 +28,18 @@ public class GoalStatusUpdateAction implements PlayerGoalAction, GoalStatusAware
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GoalStatusUpdateAction)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        GoalStatusUpdateAction that = (GoalStatusUpdateAction) o;
+        GoalReachedAction that = (GoalReachedAction) o;
 
-        if (!status.equals(that.status)) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return status.hashCode();
+        return status != null ? status.hashCode() : 0;
     }
 
     @Override

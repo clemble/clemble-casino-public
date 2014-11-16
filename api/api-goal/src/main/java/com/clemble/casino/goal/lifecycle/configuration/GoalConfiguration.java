@@ -3,7 +3,6 @@ package com.clemble.casino.goal.lifecycle.configuration;
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
-import com.clemble.casino.goal.lifecycle.configuration.rule.parts.GoalPartsRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.start.GoalStartRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.goal.lifecycle.configuration.rule.judge.JudgeRule;
@@ -23,7 +22,6 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
     final private Bid bid;
     final private BetRule betRule;
     final private JudgeRule judgeRule;
-    final private GoalPartsRule partsRule;
     final private GoalStartRule startRule;
     final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
@@ -35,7 +33,6 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         @JsonProperty("bid") Bid bid,
         @JsonProperty("betRule") BetRule betRule,
         @JsonProperty("judgeRule") JudgeRule judgeRule,
-        @JsonProperty("partsRule") GoalPartsRule partsRule,
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
@@ -45,7 +42,6 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         this.betRule = betRule;
         this.startRule = startRule;
         this.judgeRule = judgeRule;
-        this.partsRule = partsRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
@@ -66,10 +62,6 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
 
     public GoalStartRule getStartRule() {
         return startRule;
-    }
-
-    public GoalPartsRule getPartsRule() {
-        return partsRule;
     }
 
     public JudgeRule getJudgeRule() {

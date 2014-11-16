@@ -3,8 +3,9 @@ package com.clemble.casino.goal.lifecycle.management;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
-import com.clemble.casino.goal.GoalPartsAware;
+import com.clemble.casino.goal.GoalStatusAware;
 import com.clemble.casino.goal.event.GoalEvent;
+import com.clemble.casino.goal.event.action.GoalReachedAction;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
@@ -26,17 +27,15 @@ import org.springframework.data.annotation.Id;
 /**
  * Created by mavarazy on 10/9/14.
  */
-public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, GoalDescriptionAware, GoalConfigurationAware, GoalPartsAware, PlayerAware {
+public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, GoalDescriptionAware, GoalConfigurationAware, GoalStatusAware, PlayerAware {
 
     @Id
     final private String goalKey;
     final private String player;
     final private String goal;
     final private GoalConfiguration configuration;
-    final private int parts;
     final private GoalContext context;
     private String status;
-    private int progress;
 
     @JsonCreator
     public GoalState(
@@ -45,17 +44,13 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
-        @JsonProperty("status") String status,
-        @JsonProperty("progress") int progress,
-        @JsonProperty("parts") int parts) {
+        @JsonProperty("status") String status) {
         this.goalKey = goalKey;
         this.player = player;
         this.configuration = configuration;
         this.context = context;
         this.goal = goal;
         this.status = status;
-        this.progress = progress;
-        this.parts = parts;
     }
 
     @Override
@@ -68,18 +63,12 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
         return goalKey;
     }
 
-    public int getParts() {
-        return parts;
-    }
-
+    @Override
     public String getGoal() {
         return goal;
     }
 
-    public int getProgress() {
-        return progress;
-    }
-
+    @Override
     public String getStatus() {
         return status;
     }
@@ -109,14 +98,13 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
             if(action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 this.status = statusUpdateAction.getStatus();
-                this.progress = progress + statusUpdateAction.getProgress();
-                if(this.progress >= parts) {
-                    return new GoalEndedEvent(goalKey, new PlayerWonOutcome(player));
-                } else {
-                    return new GoalChangedEvent(goalKey, player, status, progress);
-                }
+                return new GoalChangedEvent(goalKey, player, status);
             } else if(action instanceof SurrenderAction) {
                 return new GoalEndedEvent(goalKey, new PlayerLostOutcome(player));
+            } else if (action instanceof GoalReachedAction) {
+                GoalReachedAction reachedAction = (GoalReachedAction) action;
+                this.status = reachedAction.getStatus();
+                return new GoalEndedEvent(goalKey, new PlayerWonOutcome(player));
             } else {
                 throw new IllegalArgumentException();
             }
@@ -132,10 +120,7 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
 
         GoalState that = (GoalState) o;
 
-        if (parts != that.parts) return false;
-        if (progress != that.progress) return false;
-        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
-            return false;
+        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null) return false;
         if (context != null ? !context.equals(that.context) : that.context != null) return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
@@ -150,9 +135,7 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
         result = 31 * result + (player != null ? player.hashCode() : 0);
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + parts;
         result = 31 * result + (context != null ? context.hashCode() : 0);
-        result = 31 * result + progress;
         return result;
     }
 }

@@ -7,6 +7,4 @@ public interface GoalStatusAware {
 
     public String getStatus();
 
-    public int getProgress();
-
 }

@@ -17,18 +17,15 @@ public class GoalChangedEvent implements GoalManagementEvent, GoalStatusAware, P
     final private String goalKey;
     final private String player;
     final private String status;
-    final private int progress;
 
     @JsonCreator
     public GoalChangedEvent(
             @JsonProperty("goalKey") String goalKey,
             @JsonProperty("player") String player,
-            @JsonProperty("status") String status,
-            @JsonProperty("progress") int progress) {
+            @JsonProperty("status") String status) {
         this.goalKey = goalKey;
         this.player = player;
         this.status = status;
-        this.progress = progress;
     }
 
     @Override
@@ -47,18 +44,12 @@ public class GoalChangedEvent implements GoalManagementEvent, GoalStatusAware, P
     }
 
     @Override
-    public int getProgress() {
-        return progress;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         GoalChangedEvent that = (GoalChangedEvent) o;
 
-        if (progress != that.progress) return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
 
@@ -69,13 +60,12 @@ public class GoalChangedEvent implements GoalManagementEvent, GoalStatusAware, P
     public int hashCode() {
         int result = goalKey != null ? goalKey.hashCode() : 0;
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + progress;
         return result;
     }
 
     @Override
     public String toString() {
-        return goalKey + ':' + player + " > " + JSON_TYPE + " > " + status + " > " + progress;
+        return goalKey + ':' + player + " > " + JSON_TYPE + " > " + status;
     }
 
 }
