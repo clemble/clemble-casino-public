@@ -68,11 +68,6 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
         return goalKey;
     }
 
-    @Override
-    public String toKey() {
-        return goalKey;
-    }
-
     public int getParts() {
         return parts;
     }

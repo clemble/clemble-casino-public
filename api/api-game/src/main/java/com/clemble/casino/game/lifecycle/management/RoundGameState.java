@@ -46,11 +46,6 @@ public class RoundGameState implements GameState<RoundGameContext> {
     }
 
     @Override
-    public String toKey() {
-        return context.getSessionKey();
-    }
-
-    @Override
     public RoundGameContext getContext() {
         return context;
     }

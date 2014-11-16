@@ -18,6 +18,4 @@ public interface State<R extends Event, C extends StateContext> {
 
     Configuration getConfiguration();
 
-    String toKey(); // TODO this was added to generalize processing for notification, find a better way
-
 }
