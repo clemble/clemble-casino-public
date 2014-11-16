@@ -55,6 +55,11 @@ public class TournamentGameState implements GameState<TournamentGameContext> {
         }
     }
 
+    @Override
+    public String toKey() {
+        return context.getSessionKey();
+    }
+
     public TournamentGameContext getContext(){
         return context;
     }

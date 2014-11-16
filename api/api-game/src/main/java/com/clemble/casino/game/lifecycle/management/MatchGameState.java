@@ -53,6 +53,11 @@ public class MatchGameState implements GameState<MatchGameContext> {
         return context;
     }
 
+    @Override
+    public String toKey() {
+        return context.getSessionKey();
+    }
+
     public MatchGameConfiguration getConfiguration() {
         return configuration;
     }
