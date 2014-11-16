@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName(GoalInitiationCompleteEvent.JSON_TYPE)
 public class GoalInitiationCompleteEvent implements GoalInitiationEvent {
 
-    final public static String JSON_TYPE = "goal:initiation:created";
+    final public static String JSON_TYPE = "goal:initiation:complete";
 
     final private String goalKey;
 
