@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.management.event;
 
+import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -13,15 +14,23 @@ public class GoalStartedEvent implements GoalManagementEvent {
     final public static String JSON_TYPE = "goal:management:started";
 
     final private String goalKey;
+    final private GoalState state;
 
     @JsonCreator
-    public GoalStartedEvent(@JsonProperty(GOAL_KEY) String goalKey) {
+    public GoalStartedEvent(
+        @JsonProperty(GOAL_KEY) String goalKey,
+        @JsonProperty("state") GoalState state) {
         this.goalKey = goalKey;
+        this.state = state;
     }
 
     @Override
     public String getGoalKey() {
         return goalKey;
+    }
+
+    public GoalState getState() {
+        return state;
     }
 
     @Override
@@ -31,14 +40,17 @@ public class GoalStartedEvent implements GoalManagementEvent {
 
         GoalStartedEvent that = (GoalStartedEvent) o;
 
-        if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
+        if (!goalKey.equals(that.goalKey)) return false;
+        if (!state.equals(that.state)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return goalKey != null ? goalKey.hashCode() : 0;
+        int result = goalKey.hashCode();
+        result = 31 * result + state.hashCode();
+        return result;
     }
 
     @Override

@@ -96,13 +96,13 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
 
     @Override
     public GoalStartedEvent start() {
-        return new GoalStartedEvent(goalKey);
+        return new GoalStartedEvent(goalKey, this);
     }
 
     @Override
     public GoalEvent process(Event actionEvent){
         if(actionEvent instanceof LifecycleStartedEvent) {
-            return new GoalStartedEvent(goalKey);
+            return new GoalStartedEvent(goalKey, this);
         } else if(actionEvent instanceof PlayerAction<?>) {
             String player = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
