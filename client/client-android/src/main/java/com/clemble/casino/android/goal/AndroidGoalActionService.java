@@ -44,22 +44,6 @@ public class AndroidGoalActionService extends AbstractClembleCasinoOperations im
     }
 
     @Override
-    public List<GoalState> myConnectionsTimeLine() {
-        // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(MY_CONNECTIONS_TIMELINE));
-        // Step 2. Creating new GoalConstruction
-        return CollectionUtils.immutableList(restTemplate.getForObject(actionUrl, GoalState[].class));
-    }
-
-    @Override
-    public List<GoalState> getConnectionsTimeLine(String player) {
-        // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(PLAYER_CONNECTIONS_TIMELINE), player);
-        // Step 2. Creating new GoalConstruction
-        return CollectionUtils.immutableList(restTemplate.getForObject(actionUrl, GoalState[].class));
-    }
-
-    @Override
     public GoalEvent process(String goalKey, Action action) {
         // Step 1. Generating goal construction URI
         URI actionUrl = buildUriWith(toGoalManagementUrl(GOAL_ACTIONS), goalKey);

@@ -4,6 +4,7 @@ import com.clemble.casino.goal.lifecycle.configuration.service.GoalConfiguration
 import com.clemble.casino.goal.lifecycle.construction.service.GoalConstructionService;
 import com.clemble.casino.goal.lifecycle.initiation.service.GoalInitiationService;
 import com.clemble.casino.goal.lifecycle.management.service.GoalActionService;
+import com.clemble.casino.goal.lifecycle.management.service.GoalTimelineService;
 import com.clemble.casino.goal.lifecycle.record.service.GoalRecordService;
 
 /**
@@ -18,6 +19,8 @@ public interface GoalOperations {
     GoalInitiationService initiationService();
 
     GoalActionService actionService();
+
+    GoalTimelineService timelineService();
 
     GoalRecordService recordService();
 

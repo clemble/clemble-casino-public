@@ -18,13 +18,10 @@ public interface GoalActionService extends ActionService {
 
     public List<GoalState> getActive(String player);
 
-    public List<GoalState> myConnectionsTimeLine();
-
-    public List<GoalState> getConnectionsTimeLine(String player);
-
     @Override
     public GoalEvent process(String goalKey, Action action);
 
+    @Override
     public GoalState getState(String goalKey);
 
 }
