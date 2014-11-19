@@ -7,24 +7,6 @@ import com.clemble.casino.WebMapping;
  */
 public abstract class GoalWebMapping implements WebMapping {
 
-    final private static String GOAL_URL = "http://{host}/track";
-    final public static String PLAYER_GOALS = "/{player}";
-    final public static String PLAYER_GOALS_GOAL = "/{player}/{id}";
-    final public static String PLAYER_GOALS_PENDING = "/{player}/pending";
-    final public static String PLAYER_GOALS_REACHED = "/{player}/reached";
-    final public static String PLAYER_GOALS_MISSED = "/{player}/missed";
-
-    final public static String MY_GOALS = "/my";
-    final public static String MY_GOALS_GOAL = "/my/{id}";
-    final public static String MY_GOALS_GOAL_STATUS = "/my/{id}/status";
-    final public static String MY_GOALS_PENDING = "/my/pending";
-    final public static String MY_GOALS_REACHED = "/my/reached";
-    final public static String MY_GOALS_MISSED = "/my/missed";
-
-    public static String toGoalUrl(String path) {
-        return GOAL_URL + path;
-    }
-
     final private static String GOAL_CONFIGURATIONS_URL = "http://{host}/configuration";
     final public static String MY_CONFIGURATIONS = "/my";
 
@@ -38,6 +20,11 @@ public abstract class GoalWebMapping implements WebMapping {
 
     final public static String GOAL_INITIATION = "/initiation/{goalKey}";
     final public static String GOAL_INITIATION_PENDING = "/initiation/my";
+
+    final public static String MY_FRIEND_INITIATIONS = "/initiation/timeline/my";
+    final public static String MY_FRIEND_INITIATION = "/initiation/timeline/my/{goalKey}";
+    final public static String PLAYER_FRIEND_INITIATIONS = "/initiation/timeline/{player}";
+    final public static String PLAYER_FRIEND_INITIATION = "/initiation/timeline/{player}/{goalKey}";
 
     public static String toGoalConstructionUrl(String path) {
         return GOAL_CONSTRUCTION_URL + path;
@@ -55,10 +42,10 @@ public abstract class GoalWebMapping implements WebMapping {
     final public static String PLAYER_ACTIVE_GOALS = "/active/{player}";
     final public static String MY_ACTIVE_GOALS = "/active/my";
 
-    final public static String MY_CONNECTIONS_TIMELINES = "/connections/timeline/my";
-    final public static String MY_CONNECTIONS_TIMELINES_GOAL = "/connections/timeline/my/{goalKey}";
-    final public static String PLAYER_CONNECTIONS_TIMELINES = "/connections/timeline/{player}";
-    final public static String PLAYER_CONNECTIONS_TIMELINES_GOAL = "/connections/timeline/{player}/{goalKey}";
+    final public static String MY_FRIEND_GOALS = "/connections/timeline/my";
+    final public static String MY_FRIEND_GOAL = "/connections/timeline/my/{goalKey}";
+    final public static String PLAYER_FRIEND_GOALS = "/connections/timeline/{player}";
+    final public static String PLAYER_FRIEND_GOAL = "/connections/timeline/{player}/{goalKey}";
 
     public static String toGoalManagementUrl(String path) {
         return GOAL_MANAGEMENT_URL + path;
