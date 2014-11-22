@@ -30,14 +30,14 @@ public class Bank implements PlayerBidAware {
         return bids;
     }
 
-    public Bank add(PlayerBid playerBid) {
-        this.bids.add(playerBid);
-        this.total = total().add(playerBid.getBid());
-        return this;
+    public Bid getTotal() {
+        return total;
     }
 
-    public Bid total() {
-        return total;
+    public Bank add(PlayerBid playerBid) {
+        this.bids.add(playerBid);
+        this.total = total.add(playerBid.getBid());
+        return this;
     }
 
     public static Bank create(String player, Bid total) {

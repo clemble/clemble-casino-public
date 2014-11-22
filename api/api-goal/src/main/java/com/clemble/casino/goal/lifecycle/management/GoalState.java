@@ -106,13 +106,13 @@ public class GoalState implements
 
     @Override
     public GoalStartedEvent start() {
-        return new GoalStartedEvent(goalKey, this);
+        return new GoalStartedEvent(goalKey, player, this);
     }
 
     @Override
     public GoalEvent process(Event actionEvent){
         if(actionEvent instanceof LifecycleStartedEvent) {
-            return new GoalStartedEvent(goalKey, this);
+            return new GoalStartedEvent(goalKey, player, this);
         } else if(actionEvent instanceof PlayerAction<?>) {
             String player = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
@@ -121,11 +121,11 @@ public class GoalState implements
                 this.status = statusUpdateAction.getStatus();
                 return new GoalChangedEvent(goalKey, player, status);
             } else if(action instanceof SurrenderAction) {
-                return new GoalEndedEvent(goalKey, new PlayerLostOutcome(player));
+                return new GoalEndedEvent(goalKey, player, new PlayerLostOutcome(player));
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 this.status = reachedAction.getStatus();
-                return new GoalEndedEvent(goalKey, new PlayerWonOutcome(player));
+                return new GoalEndedEvent(goalKey, player, new PlayerWonOutcome(player));
             } else {
                 throw new IllegalArgumentException();
             }
