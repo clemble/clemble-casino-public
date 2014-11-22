@@ -7,6 +7,8 @@ import com.clemble.casino.lifecycle.initiation.InitiationAware;
  */
 public interface GoalInitiationAware extends InitiationAware<GoalInitiation> {
 
+    final public static String INITIATION = "initiation";
+
     @Override
     GoalInitiation getInitiation();
 

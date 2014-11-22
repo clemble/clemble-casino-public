@@ -9,6 +9,8 @@ import java.util.*;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+import com.clemble.casino.bet.Bid;
+import com.clemble.casino.lifecycle.configuration.rule.bet.FixedBidRule;
 import com.clemble.casino.player.event.PlayerInvitationAcceptedAction;
 import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.lifecycle.management.outcome.Outcome;
@@ -71,6 +73,12 @@ public class TestObjectGeneratorInitializer {
                         context,
                         null,
                         0);
+            }
+        });
+        ObjectGenerator.register(FixedBidRule.class, new AbstractValueGenerator<FixedBidRule>() {
+            @Override
+            public FixedBidRule generate() {
+                return FixedBidRule.create(ObjectGenerator.generate(Bid.class));
             }
         });
         ObjectGenerator.register(SortedSet.class, new AbstractValueGenerator<SortedSet>() {
