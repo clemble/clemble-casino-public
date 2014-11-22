@@ -11,6 +11,8 @@ import com.clemble.casino.goal.lifecycle.record.GoalRecord;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.RecordState;
+import com.clemble.casino.payment.Bank;
+import com.clemble.casino.payment.BankAware;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,7 +21,6 @@ import org.springframework.data.annotation.Id;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.TreeSet;
 
 /**
  * Created by mavarazy on 9/12/14.
@@ -30,14 +31,14 @@ public class GoalInitiation implements
     GoalJudgeAware,
     PlayerAware,
     Initiation<GoalConfiguration>,
-    PlayerBidAware {
+    BankAware {
 
     @Id
     final private String goalKey;
     final private String goal;
     final private String judge;
     final private String player;
-    final private Collection<PlayerBid> bids;
+    final private Bank bank;
     final private Date startDate;
     final private InitiationState state;
     final private GoalConfiguration configuration;
@@ -46,7 +47,7 @@ public class GoalInitiation implements
     public GoalInitiation(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("state") InitiationState state,
-        @JsonProperty("bids") Collection<PlayerBid> bids,
+        @JsonProperty("bank") Bank bank,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
         @JsonProperty("judge") String judge,
@@ -55,7 +56,7 @@ public class GoalInitiation implements
         this.goal = goal;
         this.state = state;
         this.judge = judge;
-        this.bids = bids;
+        this.bank = bank;
         this.player = player;
         this.goalKey = goalKey;
         this.startDate = startDate;
@@ -73,8 +74,8 @@ public class GoalInitiation implements
     }
 
     @Override
-    public Collection<PlayerBid> getBids() {
-        return bids;
+    public Bank getBank() {
+        return bank;
     }
 
     @Override
@@ -106,7 +107,7 @@ public class GoalInitiation implements
         return new GoalRecord(goalKey,
             player,
             RecordState.active,
-            bids,
+            bank,
             goal,
             judge,
             configuration,
@@ -115,7 +116,7 @@ public class GoalInitiation implements
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
-        return new GoalInitiation(goalKey, state, bids, player, goal, judge, configuration, startDate);
+        return new GoalInitiation(goalKey, state, bank, player, goal, judge, configuration, startDate);
     }
 
     @Override
@@ -125,13 +126,12 @@ public class GoalInitiation implements
 
         GoalInitiation that = (GoalInitiation) o;
 
-        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
-            return false;
+        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)  return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (state != null ? !state.equals(that.state) : that.state != null) return false;
         if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
-        if (bids != null ? !bids.equals(that.bids) : that.bids != null) return false;
+        if (bank != null ? !bank.equals(that.bank) : that.bank != null) return false;
 
         return true;
     }
@@ -143,7 +143,7 @@ public class GoalInitiation implements
         result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
-        result = 31 * result + (bids != null ? bids.hashCode() : 0);
+        result = 31 * result + (bank != null ? bank.hashCode() : 0);
         return result;
     }
 }

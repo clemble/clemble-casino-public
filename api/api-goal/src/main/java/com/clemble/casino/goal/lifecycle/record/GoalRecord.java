@@ -12,6 +12,8 @@ import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.Record;
 import com.clemble.casino.lifecycle.record.RecordState;
+import com.clemble.casino.payment.Bank;
+import com.clemble.casino.payment.BankAware;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,7 +33,7 @@ public class GoalRecord implements
     GoalJudgeAware,
     GoalDescriptionAware,
     PlayerAware,
-    PlayerBidAware,
+    BankAware,
     GoalConfigurationAware {
 
     @Id
@@ -40,7 +42,7 @@ public class GoalRecord implements
     final private String player;
     final private String goal;
     final private String judge;
-    final private Collection<PlayerBid> bids;
+    final private Bank bank;
     final private GoalConfiguration configuration;
     final private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
     final private Outcome outcome;
@@ -50,7 +52,7 @@ public class GoalRecord implements
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("state") RecordState state,
-        @JsonProperty("bids") Collection<PlayerBid> bids,
+        @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("judge") String judge,
         @JsonProperty("configuration") GoalConfiguration configuration,
@@ -61,7 +63,7 @@ public class GoalRecord implements
         this.judge = judge;
         this.player = player;
         this.goalKey = goalKey;
-        this.bids = bids;
+        this.bank = bank;
         this.configuration = configuration;
         this.eventRecords.addAll(eventRecords);
         this.outcome = outcome;
@@ -84,8 +86,8 @@ public class GoalRecord implements
     }
 
     @Override
-    public Collection<PlayerBid> getBids() {
-        return bids;
+    public Bank getBank() {
+        return bank;
     }
 
     @Override
@@ -117,7 +119,7 @@ public class GoalRecord implements
         return new GoalRecord(goalKey,
             player,
             state,
-            bids,
+            bank,
             goal,
             judge,
             configuration,
@@ -139,7 +141,7 @@ public class GoalRecord implements
         if (!judge.equals(that.judge)) return false;
         if (!player.equals(that.player)) return false;
         if (state != that.state) return false;
-        if (!bids.equals(that.bids)) return false;
+        if (!bank.equals(that.bank)) return false;
 
         return true;
     }
@@ -153,7 +155,7 @@ public class GoalRecord implements
         result = 31 * result + configuration.hashCode();
         result = 31 * result + eventRecords.hashCode();
         result = 31 * result + state.hashCode();
-        result = 31 * result + bids.hashCode();
+        result = 31 * result + bank.hashCode();
         return result;
     }
 

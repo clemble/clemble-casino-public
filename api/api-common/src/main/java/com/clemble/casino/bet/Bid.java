@@ -27,6 +27,10 @@ public class Bid implements AmountAware {
         return interest;
     }
 
+    public Bid add(Bid another) {
+        return new Bid(amount.add(another.amount), interest.add(another.interest));
+    }
+
     public Money total() {
         return amount.add(interest);
     }

@@ -21,6 +21,8 @@ import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
 import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
 import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.payment.Bank;
+import com.clemble.casino.payment.BankAware;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -38,13 +40,13 @@ public class GoalState implements
     GoalConfigurationAware,
     GoalStatusAware,
     PlayerAware,
-    PlayerBidAware {
+    BankAware {
 
     @Id
     final private String goalKey;
     final private String player;
     final private String goal;
-    final private Collection<PlayerBid> bids;
+    final private Bank bank;
     final private GoalConfiguration configuration;
     final private GoalContext context;
     private String status;
@@ -53,7 +55,7 @@ public class GoalState implements
     public GoalState(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
-        @JsonProperty("bids") Collection<PlayerBid> bids,
+        @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
@@ -62,7 +64,7 @@ public class GoalState implements
         this.player = player;
         this.configuration = configuration;
         this.context = context;
-        this.bids = bids;
+        this.bank = bank;
         this.goal = goal;
         this.status = status;
     }
@@ -73,8 +75,8 @@ public class GoalState implements
     }
 
     @Override
-    public Collection<PlayerBid> getBids() {
-        return bids;
+    public Bank getBank() {
+        return bank;
     }
 
     @Override
@@ -144,7 +146,7 @@ public class GoalState implements
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
-        if (bids != null ? !bids.equals(that.bids) : that.bids != null) return false;
+        if (bank != null ? !bank.equals(that.bank) : that.bank != null) return false;
 
         return true;
     }
@@ -156,7 +158,7 @@ public class GoalState implements
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (context != null ? context.hashCode() : 0);
-        result = 31 * result + (bids != null ? bids.hashCode() : 0);
+        result = 31 * result + (bank != null ? bank.hashCode() : 0);
         return result;
     }
 }

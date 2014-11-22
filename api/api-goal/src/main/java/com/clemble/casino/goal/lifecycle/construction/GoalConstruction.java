@@ -9,6 +9,7 @@ import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalJudgeAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -80,7 +81,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, new ArrayList<PlayerBid>(), player, goal, judge, configuration, new Date(System.currentTimeMillis() + configuration.getStartRule().getTimeout()));
+        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, judge, configuration, new Date(System.currentTimeMillis() + configuration.getStartRule().getTimeout()));
     }
 
     public GoalConstruction clone(ConstructionState state) {
