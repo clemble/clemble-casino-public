@@ -1,5 +1,7 @@
 package com.clemble.casino.goal.lifecycle.management;
 
+import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.bet.PlayerBidAware;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
@@ -24,15 +26,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Collection;
+
 /**
  * Created by mavarazy on 10/9/14.
  */
-public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, GoalDescriptionAware, GoalConfigurationAware, GoalStatusAware, PlayerAware {
+public class GoalState implements
+    State<GoalEvent, GoalContext>,
+    GoalAware,
+    GoalDescriptionAware,
+    GoalConfigurationAware,
+    GoalStatusAware,
+    PlayerAware,
+    PlayerBidAware {
 
     @Id
     final private String goalKey;
     final private String player;
     final private String goal;
+    final private Collection<PlayerBid> bids;
     final private GoalConfiguration configuration;
     final private GoalContext context;
     private String status;
@@ -41,6 +53,7 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
     public GoalState(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
+        @JsonProperty("bids") Collection<PlayerBid> bids,
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
@@ -49,6 +62,7 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
         this.player = player;
         this.configuration = configuration;
         this.context = context;
+        this.bids = bids;
         this.goal = goal;
         this.status = status;
     }
@@ -56,6 +70,11 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
     @Override
     public String getPlayer() {
         return player;
+    }
+
+    @Override
+    public Collection<PlayerBid> getBids() {
+        return bids;
     }
 
     @Override
@@ -125,6 +144,7 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (bids != null ? !bids.equals(that.bids) : that.bids != null) return false;
 
         return true;
     }
@@ -136,6 +156,7 @@ public class GoalState implements State<GoalEvent, GoalContext>, GoalAware, Goal
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (context != null ? context.hashCode() : 0);
+        result = 31 * result + (bids != null ? bids.hashCode() : 0);
         return result;
     }
 }

@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.construction;
 
+import com.clemble.casino.bet.PlayerBid;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.lifecycle.construction.Construction;
 import com.clemble.casino.lifecycle.construction.ConstructionState;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -78,7 +80,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, player, goal, judge, configuration, new Date(System.currentTimeMillis() + configuration.getStartRule().getTimeout()));
+        return new GoalInitiation(goalKey, InitiationState.pending, new ArrayList<PlayerBid>(), player, goal, judge, configuration, new Date(System.currentTimeMillis() + configuration.getStartRule().getTimeout()));
     }
 
     public GoalConstruction clone(ConstructionState state) {

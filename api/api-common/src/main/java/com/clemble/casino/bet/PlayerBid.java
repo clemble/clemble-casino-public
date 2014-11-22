@@ -10,23 +10,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PlayerBid implements PlayerAware, BidAware {
 
     final private String player;
-    final private String bidder;
     final private Bid bid;
 
     @JsonCreator
-    public PlayerBid(@JsonProperty("player") String player, @JsonProperty("bidder") String bidder, @JsonProperty("bid") Bid bid) {
+    public PlayerBid(
+        @JsonProperty("player") String player,
+        @JsonProperty("bid") Bid bid) {
         this.player = player;
-        this.bidder = bidder;
         this.bid = bid;
     }
 
     @Override
     public String getPlayer() {
         return player;
-    }
-
-    public String getBidder() {
-        return bidder;
     }
 
     @Override
@@ -41,7 +37,6 @@ public class PlayerBid implements PlayerAware, BidAware {
 
         PlayerBid payerBid = (PlayerBid) o;
 
-        if (!bidder.equals(payerBid.bidder)) return false;
         if (!player.equals(payerBid.player)) return false;
         if (!payerBid.bid.equals(payerBid.bid)) return false;
 
@@ -51,14 +46,13 @@ public class PlayerBid implements PlayerAware, BidAware {
     @Override
     public int hashCode() {
         int result = player.hashCode();
-        result = 31 * result + bidder.hashCode();
         result = 31 * result + bid.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "bid:winner:" + player + ":" + bidder + ":" + bid;
+        return "bid:" + player + ":" + bid;
     }
 
 }

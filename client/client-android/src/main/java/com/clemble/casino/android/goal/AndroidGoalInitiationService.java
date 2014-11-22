@@ -1,6 +1,7 @@
 package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
+import com.clemble.casino.bet.Bid;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.goal.lifecycle.initiation.service.GoalInitiationService;
 import com.clemble.casino.utils.CollectionUtils;
@@ -9,9 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.Collection;
 
-import static com.clemble.casino.goal.GoalWebMapping.GOAL_INITIATION;
-import static com.clemble.casino.goal.GoalWebMapping.GOAL_INITIATION_PENDING;
-import static com.clemble.casino.goal.GoalWebMapping.toGoalConstructionUrl;
+import static com.clemble.casino.goal.GoalWebMapping.*;
 
 /**
  * Created by mavarazy on 9/15/14.
@@ -28,7 +27,7 @@ public class AndroidGoalInitiationService extends AbstractClembleCasinoOperation
     @Override
     public Collection<GoalInitiation> getPending() {
         // Step 1. Generating goal construction URI
-        URI pendingConstructionUrl = buildUriWith(toGoalConstructionUrl(GOAL_INITIATION_PENDING));
+        URI pendingConstructionUrl = buildUriWith(toGoalConstructionUrl(MY_GOAL_INITIATION));
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(pendingConstructionUrl, GoalInitiation[].class));
     }
@@ -41,4 +40,11 @@ public class AndroidGoalInitiationService extends AbstractClembleCasinoOperation
         return restTemplate.getForObject(pendingConstructionUrl, GoalInitiation.class);
     }
 
+    @Override
+    public GoalInitiation bid(String goalKey, Bid bid) {
+        // Step 1. Generating goal construction URI
+        URI initiationBidUrl = buildUriWith(toGoalConstructionUrl(GOAL_INITIATION_BID), goalKey);
+        // Step 2. Creating new GoalConstruction
+        return restTemplate.postForObject(initiationBidUrl, bid, GoalInitiation.class);
+    }
 }

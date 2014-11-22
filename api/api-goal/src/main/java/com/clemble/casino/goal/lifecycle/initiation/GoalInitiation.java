@@ -1,5 +1,7 @@
 package com.clemble.casino.goal.lifecycle.initiation;
 
+import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.bet.PlayerBidAware;
 import com.clemble.casino.lifecycle.initiation.Initiation;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.goal.GoalAware;
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.TreeSet;
@@ -21,13 +24,20 @@ import java.util.TreeSet;
 /**
  * Created by mavarazy on 9/12/14.
  */
-public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudgeAware, PlayerAware, Initiation<GoalConfiguration> {
+public class GoalInitiation implements
+    GoalAware,
+    GoalDescriptionAware,
+    GoalJudgeAware,
+    PlayerAware,
+    Initiation<GoalConfiguration>,
+    PlayerBidAware {
 
     @Id
     final private String goalKey;
     final private String goal;
     final private String judge;
     final private String player;
+    final private Collection<PlayerBid> bids;
     final private Date startDate;
     final private InitiationState state;
     final private GoalConfiguration configuration;
@@ -36,6 +46,7 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
     public GoalInitiation(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("state") InitiationState state,
+        @JsonProperty("bids") Collection<PlayerBid> bids,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
         @JsonProperty("judge") String judge,
@@ -44,6 +55,7 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
         this.goal = goal;
         this.state = state;
         this.judge = judge;
+        this.bids = bids;
         this.player = player;
         this.goalKey = goalKey;
         this.startDate = startDate;
@@ -58,6 +70,11 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public Collection<PlayerBid> getBids() {
+        return bids;
     }
 
     @Override
@@ -89,6 +106,7 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
         return new GoalRecord(goalKey,
             player,
             RecordState.active,
+            bids,
             goal,
             judge,
             configuration,
@@ -97,7 +115,7 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
-        return new GoalInitiation(goalKey, state, player, goal, judge, configuration, startDate);
+        return new GoalInitiation(goalKey, state, bids, player, goal, judge, configuration, startDate);
     }
 
     @Override
@@ -113,6 +131,7 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (state != null ? !state.equals(that.state) : that.state != null) return false;
         if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
+        if (bids != null ? !bids.equals(that.bids) : that.bids != null) return false;
 
         return true;
     }
@@ -124,6 +143,7 @@ public class GoalInitiation implements GoalAware, GoalDescriptionAware, GoalJudg
         result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
+        result = 31 * result + (bids != null ? bids.hashCode() : 0);
         return result;
     }
 }

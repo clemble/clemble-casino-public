@@ -1,5 +1,7 @@
 package com.clemble.casino.goal.lifecycle.record;
 
+import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.bet.PlayerBidAware;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
@@ -15,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -22,7 +25,14 @@ import java.util.TreeSet;
 /**
  * Created by mavarazy on 9/20/14.
  */
-public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJudgeAware, GoalDescriptionAware, PlayerAware, GoalConfigurationAware {
+public class GoalRecord implements
+    Record<GoalConfiguration>,
+    GoalAware,
+    GoalJudgeAware,
+    GoalDescriptionAware,
+    PlayerAware,
+    PlayerBidAware,
+    GoalConfigurationAware {
 
     @Id
     final private String goalKey;
@@ -30,6 +40,7 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
     final private String player;
     final private String goal;
     final private String judge;
+    final private Collection<PlayerBid> bids;
     final private GoalConfiguration configuration;
     final private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
     final private Outcome outcome;
@@ -39,6 +50,7 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("state") RecordState state,
+        @JsonProperty("bids") Collection<PlayerBid> bids,
         @JsonProperty("goal") String goal,
         @JsonProperty("judge") String judge,
         @JsonProperty("configuration") GoalConfiguration configuration,
@@ -49,6 +61,7 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
         this.judge = judge;
         this.player = player;
         this.goalKey = goalKey;
+        this.bids = bids;
         this.configuration = configuration;
         this.eventRecords.addAll(eventRecords);
         this.outcome = outcome;
@@ -68,6 +81,11 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
     @Override
     public String getJudge() {
         return judge;
+    }
+
+    @Override
+    public Collection<PlayerBid> getBids() {
+        return bids;
     }
 
     @Override
@@ -99,6 +117,7 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
         return new GoalRecord(goalKey,
             player,
             state,
+            bids,
             goal,
             judge,
             configuration,
@@ -120,6 +139,7 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
         if (!judge.equals(that.judge)) return false;
         if (!player.equals(that.player)) return false;
         if (state != that.state) return false;
+        if (!bids.equals(that.bids)) return false;
 
         return true;
     }
@@ -133,6 +153,7 @@ public class GoalRecord implements Record<GoalConfiguration>, GoalAware, GoalJud
         result = 31 * result + configuration.hashCode();
         result = 31 * result + eventRecords.hashCode();
         result = 31 * result + state.hashCode();
+        result = 31 * result + bids.hashCode();
         return result;
     }
 

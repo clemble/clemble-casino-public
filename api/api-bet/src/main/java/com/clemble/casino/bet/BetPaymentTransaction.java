@@ -51,11 +51,11 @@ public class BetPaymentTransaction implements PaymentTransactionAware {
             setTransactionKey(transactionKey);
         for(PlayerBid bid: playerBids) {
             if(!bid.getPlayer().equals(winner)) {
-                transaction.addOperation(new PaymentOperation(bid.getBidder(), bid.getBid().getAmount(), Operation.Credit));
+                transaction.addOperation(new PaymentOperation(bid.getPlayer(), bid.getBid().getAmount(), Operation.Credit));
                 balance.add(bid.getBid().getAmount());
             } else {
                 Money amountWithInterest = bid.getBid().getAmount().add(bid.getBid().getInterest());
-                transaction.addOperation(new PaymentOperation(bid.getBidder(), amountWithInterest, Operation.Debit));
+                transaction.addOperation(new PaymentOperation(bid.getPlayer(), amountWithInterest, Operation.Debit));
                 balance.subtract(amountWithInterest);
             }
         }
