@@ -9,6 +9,8 @@ import java.util.Collection;
  */
 public interface InitiationService<T extends Initiation> {
 
+    T confirm(String key);
+
     Collection<T> getPending();
 
     T get(String key);

@@ -47,4 +47,12 @@ public class AndroidGoalInitiationService extends AbstractClembleCasinoOperation
         // Step 2. Creating new GoalConstruction
         return restTemplate.postForObject(initiationBidUrl, bid, GoalInitiation.class);
     }
+
+    @Override
+    public GoalInitiation confirm(String goalKey) {
+        // Step 1. Generating goal construction URI
+        URI confirmUrl = buildUriWith(toGoalConstructionUrl(GOAL_INITIATION_CONFIRM), goalKey);
+        // Step 2. Creating new GoalConstruction
+        return restTemplate.postForObject(confirmUrl, null, GoalInitiation.class);
+    }
 }

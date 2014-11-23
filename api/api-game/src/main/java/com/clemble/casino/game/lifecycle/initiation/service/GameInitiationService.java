@@ -8,9 +8,4 @@ import java.util.Collection;
 
 public interface GameInitiationService extends InitiationService<GameInitiation>, ClembleService {
 
-    GameInitiation confirm(String sessionKey);
-
-    @Override
-    Collection<GameInitiation> getPending();
-
 }
