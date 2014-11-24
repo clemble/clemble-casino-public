@@ -20,9 +20,9 @@ public class PaymentBonusEvent implements PaymentEvent, PlayerAware, AmountAware
     private static final long serialVersionUID = -8235452183888519660L;
 
     final private String player;
+    final private String transactionKey;
     final private Money amount;
     final private PaymentBonusSource bonusSource;
-    final private String transactionKey;
 
     @JsonCreator
     public PaymentBonusEvent(

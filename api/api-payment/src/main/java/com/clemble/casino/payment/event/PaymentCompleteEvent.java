@@ -18,9 +18,9 @@ public class PaymentCompleteEvent implements PaymentEvent {
     private static final long serialVersionUID = 2294519340534141788L;
 
     final private String player;
+    final private String transactionKey;
     final private Money amount;
     final private Operation operation;
-    final private String transactionKey;
 
     public PaymentCompleteEvent(String transactionKey, PaymentOperation paymentOperation) {
         this.player = paymentOperation.getPlayer();

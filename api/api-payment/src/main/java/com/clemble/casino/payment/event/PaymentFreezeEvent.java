@@ -14,8 +14,8 @@ public class PaymentFreezeEvent implements PaymentEvent {
     final public static String JSON_TYPE = "payment:freeze";
 
     final private String player;
-    final private Money amount;
     final private String transactionKey;
+    final private Money amount;
 
     @JsonCreator
     public PaymentFreezeEvent(
