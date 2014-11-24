@@ -1,6 +1,8 @@
 package com.clemble.casino.goal.lifecycle.record.event;
 
 import com.clemble.casino.goal.lifecycle.record.GoalRecord;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
@@ -14,19 +16,20 @@ public class GoalRecordCreatedEvent implements GoalRecordEvent {
     final private String player;
     final private GoalRecord record;
 
-    public GoalRecordCreatedEvent(String player, GoalRecord record) {
+    @JsonCreator
+    public GoalRecordCreatedEvent(@JsonProperty(PLAYER) String player, @JsonProperty("body") GoalRecord record) {
         this.player = player;
         this.record = record;
     }
 
     @Override
     public GoalRecord getBody() {
-        return null;
+        return record;
     }
 
     @Override
     public String getPlayer() {
-        return null;
+        return player;
     }
 
     @Override
