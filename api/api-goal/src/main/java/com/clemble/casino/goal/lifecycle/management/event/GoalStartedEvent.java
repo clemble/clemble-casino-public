@@ -12,18 +12,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName(GoalStartedEvent.JSON_TYPE)
 public class GoalStartedEvent implements GoalManagementEvent, PlayerAware {
 
-    final public static String JSON_TYPE = "goal:management:started";
+    final public static String JSON_TYPE = "goal:management:created";
 
-    final private String goalKey;
     final private String player;
     final private GoalState state;
 
     @JsonCreator
     public GoalStartedEvent(
-        @JsonProperty(GOAL_KEY) String goalKey,
         @JsonProperty(PLAYER) String player,
-        @JsonProperty("state") GoalState state) {
-        this.goalKey = goalKey;
+        @JsonProperty("body") GoalState state) {
         this.player = player;
         this.state = state;
     }
@@ -34,11 +31,7 @@ public class GoalStartedEvent implements GoalManagementEvent, PlayerAware {
     }
 
     @Override
-    public String getGoalKey() {
-        return goalKey;
-    }
-
-    public GoalState getState() {
+    public GoalState getBody() {
         return state;
     }
 
@@ -49,7 +42,6 @@ public class GoalStartedEvent implements GoalManagementEvent, PlayerAware {
 
         GoalStartedEvent that = (GoalStartedEvent) o;
 
-        if (!goalKey.equals(that.goalKey)) return false;
         if (!state.equals(that.state)) return false;
         if (!player.equals(that.player)) return false;
 
@@ -58,15 +50,14 @@ public class GoalStartedEvent implements GoalManagementEvent, PlayerAware {
 
     @Override
     public int hashCode() {
-        int result = goalKey.hashCode();
-        result = 31 * result + state.hashCode();
+        int result = state.hashCode();
         result = 31 * result + player.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return player + " > " + goalKey + " > " + JSON_TYPE;
+        return player + " > " + state.getGoalKey() + " > " + JSON_TYPE;
     }
 
 }

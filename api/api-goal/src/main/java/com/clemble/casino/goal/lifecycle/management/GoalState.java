@@ -1,7 +1,5 @@
 package com.clemble.casino.goal.lifecycle.management;
 
-import com.clemble.casino.bet.PlayerBid;
-import com.clemble.casino.bet.PlayerBidAware;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
@@ -27,8 +25,6 @@ import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
-
-import java.util.Collection;
 
 /**
  * Created by mavarazy on 10/9/14.
@@ -106,26 +102,26 @@ public class GoalState implements
 
     @Override
     public GoalStartedEvent start() {
-        return new GoalStartedEvent(goalKey, player, this);
+        return new GoalStartedEvent(player, this);
     }
 
     @Override
     public GoalEvent process(Event actionEvent){
         if(actionEvent instanceof LifecycleStartedEvent) {
-            return new GoalStartedEvent(goalKey, player, this);
+            return new GoalStartedEvent(player, this);
         } else if(actionEvent instanceof PlayerAction<?>) {
             String player = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
             if(action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 this.status = statusUpdateAction.getStatus();
-                return new GoalChangedEvent(goalKey, player, status);
+                return new GoalChangedEvent(player, this);
             } else if(action instanceof SurrenderAction) {
-                return new GoalEndedEvent(goalKey, player, new PlayerLostOutcome(player));
+                return new GoalEndedEvent(player, this, new PlayerLostOutcome(player));
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 this.status = reachedAction.getStatus();
-                return new GoalEndedEvent(goalKey, player, new PlayerWonOutcome(player));
+                return new GoalEndedEvent(player, this, new PlayerWonOutcome(player));
             } else {
                 throw new IllegalArgumentException();
             }

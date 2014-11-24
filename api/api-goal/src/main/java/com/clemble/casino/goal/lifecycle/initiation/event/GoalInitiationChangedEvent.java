@@ -10,31 +10,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 11/24/14.
  */
 @JsonTypeName(GoalInitiationChangedEvent.JSON_TYPE)
-public class GoalInitiationChangedEvent implements GoalInitiationEvent, GoalInitiationAware {
+public class GoalInitiationChangedEvent implements GoalInitiationEvent {
     final public static String JSON_TYPE = "goal:initiation:changed";
 
-    final private String goalKey;
     final private String player;
     final private GoalInitiation initiation;
 
     @JsonCreator
-    public GoalInitiationChangedEvent(@JsonProperty(GOAL_KEY) String goalKey, @JsonProperty(PLAYER) String player, @JsonProperty(INITIATION) GoalInitiation initiation) {
-        this.goalKey = goalKey;
+    public GoalInitiationChangedEvent(@JsonProperty(PLAYER) String player, @JsonProperty("body") GoalInitiation initiation) {
         this.player = player;
         this.initiation = initiation;
     }
 
     @Override
-    public String getGoalKey() {
-        return goalKey;
-    }
-
     public String getPlayer() {
         return player;
     }
 
     @Override
-    public GoalInitiation getInitiation() {
+    public GoalInitiation getBody() {
         return initiation;
     }
 
@@ -45,7 +39,6 @@ public class GoalInitiationChangedEvent implements GoalInitiationEvent, GoalInit
 
         GoalInitiationChangedEvent that = (GoalInitiationChangedEvent) o;
 
-        if (!goalKey.equals(that.goalKey)) return false;
         if (!initiation.equals(that.initiation)) return false;
         if (!player.equals(that.player)) return false;
 
@@ -54,14 +47,13 @@ public class GoalInitiationChangedEvent implements GoalInitiationEvent, GoalInit
 
     @Override
     public int hashCode() {
-        int result = goalKey.hashCode();
-        result = 31 * result + player.hashCode();
+        int result = player.hashCode();
         result = 31 * result + initiation.hashCode();
         return result;
     }
 
     public static GoalInitiationChangedEvent create(GoalInitiation initiation) {
-        return new GoalInitiationChangedEvent(initiation.getGoalKey(), initiation.getPlayer(), initiation);
+        return new GoalInitiationChangedEvent(initiation.getPlayer(), initiation);
     }
 
 }
