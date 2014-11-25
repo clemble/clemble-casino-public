@@ -9,9 +9,9 @@ public enum PlayerGender {
             return null;
         // Step 2. Checking for male
         gender = gender.toLowerCase().trim();
-        if (gender.startsWith("m")) {
+        if (gender.startsWith("m") || gender.startsWith("м")) {
             return PlayerGender.M;
-        } else if (gender.startsWith("w") || gender.startsWith("f")) {
+        } else if (gender.startsWith("w") || gender.startsWith("f") || gender.startsWith("ж")) {
             return PlayerGender.W;
         }
         // Step 3. If you can't parse it consider it unknown
