@@ -54,11 +54,11 @@ public class TournamentGamePlayerContext implements GamePlayerContext {
     }
 
     public static List<TournamentGamePlayerContext> construct(GameInitiation initiation) {
-        GameConfiguration specification = initiation.getConfiguration();
+        GameConfiguration configuration = initiation.getConfiguration();
         List<TournamentGamePlayerContext> playerContexts = new ArrayList<TournamentGamePlayerContext>();
         for(String player: initiation.getParticipants()) {
-            GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
-            PlayerClock clock = new PlayerClock(0, 0, 0, null);
+            GamePlayerAccount account = new GamePlayerAccount(configuration.getPrice().getAmount(), 0, 0);
+            PlayerClock clock = PlayerClock.create(configuration);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
             playerContexts.add(new TournamentGamePlayerContext(player, account, clock, unit));
         }

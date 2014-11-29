@@ -69,7 +69,7 @@ public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware 
         for(String role: specification.getRoles()) {
             String player = players.next();
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
-            PlayerClock clock = new PlayerClock(0, 0, 0, null);
+            PlayerClock clock = PlayerClock.create(specification);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
             playerContexts.add(new RoundGamePlayerContext(player, account, clock, role, unit));
         }

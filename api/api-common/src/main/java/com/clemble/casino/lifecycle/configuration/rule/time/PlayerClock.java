@@ -2,6 +2,7 @@ package com.clemble.casino.lifecycle.configuration.rule.time;
 
 import java.io.Serializable;
 
+import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishmentAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,6 +21,7 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
     private long moveStart;
     private long timeSpent;
     private long breachTime;
+    private long deadline;
     private BreachPunishment punishment;
 
     @JsonCreator
@@ -27,9 +29,11 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
         @JsonProperty("moveStart") long moveStart,
         @JsonProperty("timeSpent") long timeSpent,
         @JsonProperty("breachTime") long breachTime,
+        @JsonProperty("deadline") long deadline,
         @JsonProperty("punishment") BreachPunishment punishment) {
         this.moveStart = moveStart;
         this.breachTime = breachTime;
+        this.deadline = deadline;
         this.timeSpent = timeSpent;
         this.punishment = punishment;
     }
@@ -40,6 +44,10 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
 
     public long getBreachTime() {
         return breachTime;
+    }
+
+    public long getDeadline() {
+        return deadline;
     }
 
     public boolean wasBreached() {
@@ -60,10 +68,11 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
     }
 
     // TODO this is used as a hack, really bad practice
-    public void start(long moveStart, long breachTime, BreachPunishment breachPunishment) {
+    public void start(long moveStart, long breachTime, long deadline, BreachPunishment breachPunishment) {
         if (this.moveStart == 0) {
             this.moveStart = moveStart;
             this.breachTime = breachTime;
+            this.deadline = deadline;
             this.punishment = breachPunishment;
         }
     }
@@ -72,6 +81,7 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
         if (moveStart != 0) {
             long add = System.currentTimeMillis() - moveStart;
             deduce(add > 0 ? add : 0);
+            deadline = 0;
             this.moveStart = 0;
         }
     }
@@ -100,4 +110,7 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
         return result;
     }
 
+    public static PlayerClock create(Configuration configuration) {
+        return new PlayerClock(0, 0, 0, 0, null);
+    }
 }

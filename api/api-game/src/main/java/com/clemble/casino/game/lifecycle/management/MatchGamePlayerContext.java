@@ -75,7 +75,7 @@ public class MatchGamePlayerContext implements GamePlayerContext {
         List<MatchGamePlayerContext> playerContexts = new ArrayList<MatchGamePlayerContext>();
         for(String player: initiation.getParticipants()) {
             GamePlayerAccount account = new GamePlayerAccount(specification.getPrice().getAmount(), 0, 0);
-            PlayerClock clock = new PlayerClock(0, 0, 0, null);
+            PlayerClock clock = PlayerClock.create(specification);
             GamePlayerUnit unit = new GamePlayerUnit(initiation.getConfiguration().getPlayerUnits());
             playerContexts.add(new MatchGamePlayerContext(player, account, clock, Collections.<PlayerWonOutcome>emptyList(), unit));
         }
