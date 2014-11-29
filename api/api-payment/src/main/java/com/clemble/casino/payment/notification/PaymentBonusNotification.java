@@ -15,18 +15,18 @@ public class PaymentBonusNotification implements PaymentNotification, PaymentBon
 
     final public static String JSON_TYPE = "notification:payment:bonus";
 
+    final private Money amount;
     final private String player;
     final private PaymentBonusSource bonusSource;
-    final private Money amount;
 
     @JsonCreator
     public PaymentBonusNotification(
         @JsonProperty(PLAYER) String player,
-        @JsonProperty("bonusSource") PaymentBonusSource source,
+        @JsonProperty("bonusSource") PaymentBonusSource bonusSource,
         @JsonProperty("amount") Money amount) {
         this.player = player;
         this.amount = amount;
-        this.bonusSource = source;
+        this.bonusSource = bonusSource;
     }
 
     @Override
