@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import java.util.Date;
+
 /**
  * Created by mavarazy on 11/29/14.
  */
@@ -31,7 +33,9 @@ public class GoalBidNotification implements GoalNotification, BidAware {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("bid") Bid bid,
         @JsonProperty("goal") String goal,
-        @JsonProperty("deadline") long deadline) {
+        @JsonProperty("deadline") long deadline,
+        @JsonProperty("created") Date created
+    ) {
         this.goalKey = goalKey;
         this.player = player;
         this.bidder = bidder;
