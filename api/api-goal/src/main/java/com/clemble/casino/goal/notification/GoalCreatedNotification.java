@@ -1,16 +1,12 @@
 package com.clemble.casino.goal.notification;
 
-import com.clemble.casino.goal.GoalAware;
-import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
-import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCreatedEvent;
-import com.clemble.casino.lifecycle.configuration.rule.time.DeadlineAware;
-import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.payment.Bank;
-import com.clemble.casino.payment.BankAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import java.util.Date;
 
 /**
  * Created by mavarazy on 11/29/14.
@@ -24,6 +20,7 @@ public class GoalCreatedNotification implements GoalNotification {
     final private Bank bank;
     final private String goal;
     final private String goalKey;
+    final private Date startDate;
     final private long deadline;
 
     @JsonCreator
@@ -32,9 +29,11 @@ public class GoalCreatedNotification implements GoalNotification {
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
+        @JsonProperty("startDate") Date startDate,
         @JsonProperty("deadline") long deadline) {
         this.goalKey = goalKey;
         this.player = player;
+        this.startDate = startDate;
         this.goal = goal;
         this.bank = bank;
         this.deadline = deadline;
@@ -54,6 +53,10 @@ public class GoalCreatedNotification implements GoalNotification {
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    public Date getStartDate() {
+        return startDate;
     }
 
     @Override
@@ -78,6 +81,7 @@ public class GoalCreatedNotification implements GoalNotification {
         if (!goal.equals(that.goal)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
         if (!player.equals(that.player)) return false;
+        if (!startDate.equals(that.startDate)) return false;
 
         return true;
     }
@@ -98,6 +102,7 @@ public class GoalCreatedNotification implements GoalNotification {
             initiation.getPlayer(),
             initiation.getBank(),
             initiation.getGoal(),
+            initiation.getStartDate(),
             initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit()
         );
     }

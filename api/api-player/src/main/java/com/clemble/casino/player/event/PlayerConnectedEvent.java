@@ -1,6 +1,9 @@
-package com.clemble.casino.player.notification;
+package com.clemble.casino.player.event;
 
-import com.clemble.casino.player.event.PlayerConnectedEvent;
+import com.clemble.casino.notification.PlayerNotification;
+import com.clemble.casino.notification.PlayerNotificationConvertible;
+import com.clemble.casino.player.PlayerConnectionAware;
+import com.clemble.casino.player.notification.PlayerConnectedNotification;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -8,18 +11,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 11/29/14.
  */
-@JsonTypeName(PlayerConnectedNotification.JSON_TYPE)
-public class PlayerConnectedNotification implements PlayerConnectionNotification {
+@JsonTypeName(PlayerConnectedEvent.JSON_TYPE)
+public class PlayerConnectedEvent implements PlayerConnectionAware, PlayerNotificationConvertible, PlayerEvent {
 
-    final public static String JSON_TYPE = "notification:player:connected";
+    final public static String JSON_TYPE = "player:connection:add";
 
     final private String player;
     final private String connection;
 
     @JsonCreator
-    public PlayerConnectedNotification(
-        @JsonProperty("player") String player,
-        @JsonProperty("connection")String connection) {
+    public PlayerConnectedEvent(@JsonProperty(PLAYER) String player, @JsonProperty("connection") String connection) {
         this.player = player;
         this.connection = connection;
     }
@@ -34,8 +35,9 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
         return connection;
     }
 
-    public static PlayerConnectedNotification create(PlayerConnectedEvent connectedEvent) {
-        return new PlayerConnectedNotification(connectedEvent.getPlayer(), connectedEvent.getConnection());
+    @Override
+    public PlayerNotification toNotification() {
+        return PlayerConnectedNotification.create(this);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlayerConnectedNotification that = (PlayerConnectedNotification) o;
+        PlayerConnectedEvent that = (PlayerConnectedEvent) o;
 
         if (!connection.equals(that.connection)) return false;
         if (!player.equals(that.player)) return false;

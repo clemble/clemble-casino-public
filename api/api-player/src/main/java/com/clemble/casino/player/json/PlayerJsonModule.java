@@ -1,5 +1,6 @@
 package com.clemble.casino.player.json;
 
+import com.clemble.casino.player.event.PlayerConnectedEvent;
 import com.clemble.casino.player.event.PlayerDiscoveredConnectionEvent;
 import com.clemble.casino.player.event.PlayerInvitationAcceptedAction;
 import com.clemble.casino.player.event.PlayerInvitationDeclinedAction;
@@ -21,6 +22,7 @@ public class PlayerJsonModule implements ClembleJsonModule {
     public Module construct() {
         SimpleModule module = new SimpleModule("Common");
         module.registerSubtypes(new NamedType(PlayerDiscoveredConnectionEvent.class, PlayerDiscoveredConnectionEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(PlayerConnectedEvent.class, PlayerConnectedEvent.JSON_TYPE));
 
         module.registerSubtypes(new NamedType(PlayerInvitationAcceptedAction.class, PlayerInvitationAcceptedAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(PlayerInvitationDeclinedAction.class, PlayerInvitationDeclinedAction.JSON_TYPE));

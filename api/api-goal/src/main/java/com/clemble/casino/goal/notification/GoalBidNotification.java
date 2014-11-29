@@ -24,6 +24,7 @@ public class GoalBidNotification implements GoalNotification {
     final private PlayerBid playerBid;
     final private String goal;
     final private String goalKey;
+    final private Date startDate;
     final private long deadline;
 
     @JsonCreator
@@ -33,7 +34,7 @@ public class GoalBidNotification implements GoalNotification {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("deadline") long deadline,
-        @JsonProperty("created") Date created,
+        @JsonProperty("startDate") Date startDate,
         @JsonProperty("playerBid") PlayerBid playerBid
     ) {
         this.goalKey = goalKey;
@@ -41,6 +42,7 @@ public class GoalBidNotification implements GoalNotification {
         this.playerBid = playerBid;
         this.goal = goal;
         this.bank = bank;
+        this.startDate = startDate;
         this.deadline = deadline;
     }
 
@@ -69,6 +71,10 @@ public class GoalBidNotification implements GoalNotification {
         return bank;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
     @Override
     public long getDeadline() {
         return deadline;
@@ -81,7 +87,7 @@ public class GoalBidNotification implements GoalNotification {
             initiation.getBank(),
             initiation.getGoal(),
             initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit(),
-            new Date(),
+            initiation.getStartDate(),
             bid
         );
     }
