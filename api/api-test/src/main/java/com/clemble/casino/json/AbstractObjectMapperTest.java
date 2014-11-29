@@ -18,7 +18,7 @@ import java.util.*;
  */
 abstract public class AbstractObjectMapperTest {
 
-    private ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
+    protected ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
 
     @Before
     public void initialize() {

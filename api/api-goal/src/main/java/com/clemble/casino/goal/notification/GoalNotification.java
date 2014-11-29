@@ -5,6 +5,7 @@ import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.lifecycle.configuration.rule.time.DeadlineAware;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.payment.BankAware;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * Created by mavarazy on 11/29/14.

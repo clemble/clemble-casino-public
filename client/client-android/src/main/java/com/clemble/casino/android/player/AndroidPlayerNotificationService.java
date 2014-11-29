@@ -24,11 +24,11 @@ public class AndroidPlayerNotificationService extends AbstractClembleCasinoOpera
     }
 
     @Override
-    public List<PlayerNotification> myNotifications() {
+    public PlayerNotification[] myNotifications() {
         // Step 1. Fetching player notifications
         URI notificationUri = buildUriWith(toNotificationUrl(MY_NOTIFICATIONS));
         // Step 2. Requesting through RestTemplate
-        return CollectionUtils.immutableList(restTemplate.getForObject(notificationUri, PlayerNotification[].class));
+        return restTemplate.getForObject(notificationUri, PlayerNotification[].class);
 
     }
 

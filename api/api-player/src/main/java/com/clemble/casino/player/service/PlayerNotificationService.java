@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface PlayerNotificationService extends ClembleService {
 
-    List<PlayerNotification> myNotifications();
+    PlayerNotification[] myNotifications();
 
 }
