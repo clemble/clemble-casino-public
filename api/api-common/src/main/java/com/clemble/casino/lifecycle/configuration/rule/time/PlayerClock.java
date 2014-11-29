@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 24/12/13.
  */
-public class PlayerClock implements BreachPunishmentAware, Serializable {
+public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serializable {
 
     /**
      * Generated 29/12/13
@@ -46,6 +46,7 @@ public class PlayerClock implements BreachPunishmentAware, Serializable {
         return breachTime;
     }
 
+    @Override
     public long getDeadline() {
         return deadline;
     }

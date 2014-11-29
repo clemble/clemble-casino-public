@@ -30,8 +30,11 @@ public class PaymentCompleteEvent implements PaymentEvent {
     }
 
     @JsonCreator
-    public PaymentCompleteEvent(@JsonProperty(PLAYER) String player, @JsonProperty("amount") Money amount, @JsonProperty("operation") Operation operation,
-                                @JsonProperty(TRANSACTION_KEY) String transactionKey) {
+    public PaymentCompleteEvent(
+        @JsonProperty(PLAYER) String player,
+        @JsonProperty("amount") Money amount,
+        @JsonProperty("operation") Operation operation,
+        @JsonProperty(TRANSACTION_KEY) String transactionKey) {
         this.player = player;
         this.amount = amount;
         this.operation = operation;
