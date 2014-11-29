@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.notification;
 
+import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,7 +38,6 @@ public class GoalUpdatedNotification implements GoalNotification {
         this.deadline = deadline;
     }
 
-
     @Override
     public String getPlayer() {
         return player;
@@ -67,6 +67,17 @@ public class GoalUpdatedNotification implements GoalNotification {
         return deadline;
     }
 
+    public static GoalUpdatedNotification create(GoalState state) {
+        return new GoalUpdatedNotification(
+            state.getGoalKey(),
+            state.getPlayer(),
+            state.getBank(),
+            state.getGoal(),
+            state.getStatus(),
+            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline()
+        );
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,5 +105,7 @@ public class GoalUpdatedNotification implements GoalNotification {
         result = 31 * result + (int) (deadline ^ (deadline >>> 32));
         return result;
     }
+
+
 
 }

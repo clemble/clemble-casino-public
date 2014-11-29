@@ -2,6 +2,8 @@ package com.clemble.casino.goal.notification;
 
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.BidAware;
+import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,14 +15,13 @@ import java.util.Date;
  * Created by mavarazy on 11/29/14.
  */
 @JsonTypeName(GoalBidNotification.JSON_TYPE)
-public class GoalBidNotification implements GoalNotification, BidAware {
+public class GoalBidNotification implements GoalNotification {
 
     final public static String JSON_TYPE = "notification:goal:bid";
 
     final private String player;
     final private Bank bank;
-    final private String bidder;
-    final private Bid bid;
+    final private PlayerBid playerBid;
     final private String goal;
     final private String goalKey;
     final private long deadline;
@@ -29,19 +30,17 @@ public class GoalBidNotification implements GoalNotification, BidAware {
     public GoalBidNotification(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
-        @JsonProperty("bidder") String bidder,
         @JsonProperty("bank") Bank bank,
-        @JsonProperty("bid") Bid bid,
         @JsonProperty("goal") String goal,
         @JsonProperty("deadline") long deadline,
-        @JsonProperty("created") Date created
+        @JsonProperty("created") Date created,
+        @JsonProperty("playerBid") PlayerBid playerBid
     ) {
         this.goalKey = goalKey;
         this.player = player;
-        this.bidder = bidder;
+        this.playerBid = playerBid;
         this.goal = goal;
         this.bank = bank;
-        this.bid = bid;
         this.deadline = deadline;
     }
 
@@ -61,13 +60,8 @@ public class GoalBidNotification implements GoalNotification, BidAware {
         return goal;
     }
 
-    @Override
-    public Bid getBid() {
-        return bid;
-    }
-
-    public String getBidder() {
-        return bidder;
+    public PlayerBid getPlayerBid() {
+        return playerBid;
     }
 
     @Override
@@ -80,6 +74,18 @@ public class GoalBidNotification implements GoalNotification, BidAware {
         return deadline;
     }
 
+    public static GoalBidNotification create(PlayerBid bid, GoalInitiation initiation) {
+        return new GoalBidNotification(
+            initiation.getGoalKey(),
+            initiation.getPlayer(),
+            initiation.getBank(),
+            initiation.getGoal(),
+            initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit(),
+            new Date(),
+            bid
+        );
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,8 +95,7 @@ public class GoalBidNotification implements GoalNotification, BidAware {
 
         if (deadline != that.deadline) return false;
         if (!bank.equals(that.bank)) return false;
-        if (!bid.equals(that.bid)) return false;
-        if (!bidder.equals(that.bidder)) return false;
+        if (!playerBid.equals(that.playerBid)) return false;
         if (!goal.equals(that.goal)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
         if (!player.equals(that.player)) return false;
@@ -102,8 +107,7 @@ public class GoalBidNotification implements GoalNotification, BidAware {
     public int hashCode() {
         int result = player.hashCode();
         result = 31 * result + bank.hashCode();
-        result = 31 * result + bidder.hashCode();
-        result = 31 * result + bid.hashCode();
+        result = 31 * result + playerBid.hashCode();
         result = 31 * result + goal.hashCode();
         result = 31 * result + goalKey.hashCode();
         result = 31 * result + (int) (deadline ^ (deadline >>> 32));

@@ -2,6 +2,8 @@ package com.clemble.casino.goal.notification;
 
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
+import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCreatedEvent;
 import com.clemble.casino.lifecycle.configuration.rule.time.DeadlineAware;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.payment.Bank;
@@ -88,6 +90,16 @@ public class GoalCreatedNotification implements GoalNotification {
         result = 31 * result + goalKey.hashCode();
         result = 31 * result + (int) (deadline ^ (deadline >>> 32));
         return result;
+    }
+
+    public static GoalCreatedNotification create(GoalInitiation initiation) {
+        return new GoalCreatedNotification(
+            initiation.getGoalKey(),
+            initiation.getPlayer(),
+            initiation.getBank(),
+            initiation.getGoal(),
+            initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit()
+        );
     }
 
 }

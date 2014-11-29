@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.notification;
 
+import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -63,6 +64,16 @@ public class GoalReachedNotification implements GoalNotification{
     @Override
     public long getDeadline() {
         return deadline;
+    }
+
+    public static GoalReachedNotification create(GoalState state) {
+        return new GoalReachedNotification(
+            state.getGoalKey(),
+            state.getPlayer(),
+            state.getBank(),
+            state.getGoal(),
+            state.getStatus(),
+            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline());
     }
 
     @Override

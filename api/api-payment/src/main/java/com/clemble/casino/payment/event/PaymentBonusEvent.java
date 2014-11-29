@@ -1,16 +1,19 @@
 package com.clemble.casino.payment.event;
 
+import com.clemble.casino.notification.PlayerNotification;
+import com.clemble.casino.notification.PlayerNotificationConvertible;
 import com.clemble.casino.payment.AmountAware;
 import com.clemble.casino.payment.bonus.PaymentBonusSource;
 import com.clemble.casino.payment.bonus.PaymentBonusSourceAware;
 import com.clemble.casino.money.Money;
+import com.clemble.casino.payment.notification.PaymentBonusNotification;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(PaymentBonusEvent.JSON_TYPE)
-public class PaymentBonusEvent implements PaymentEvent, PlayerAware, AmountAware, PaymentBonusSourceAware {
+public class PaymentBonusEvent implements PaymentEvent, PlayerAware, AmountAware, PaymentBonusSourceAware, PlayerNotificationConvertible {
 
     final public static String JSON_TYPE = "payment:bonus";
 
@@ -93,6 +96,11 @@ public class PaymentBonusEvent implements PaymentEvent, PlayerAware, AmountAware
     @Override
     public String toString() {
         return transactionKey + " > " + JSON_TYPE + " > " + bonusSource + ":" + player + ":" + amount;
+    }
+
+    @Override
+    public PlayerNotification toNotification() {
+        return new PaymentBonusNotification(player, bonusSource, amount);
     }
 
 }

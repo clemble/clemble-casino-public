@@ -9,6 +9,7 @@ import com.clemble.casino.payment.BankAware;
 /**
  * Created by mavarazy on 11/29/14.
  */
+// TODO separate Goal notifications to Goal posts
 public interface GoalNotification extends
     PlayerNotification,
     GoalAware,

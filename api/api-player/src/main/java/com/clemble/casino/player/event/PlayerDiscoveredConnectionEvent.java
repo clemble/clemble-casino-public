@@ -1,11 +1,15 @@
 package com.clemble.casino.player.event;
 
+import com.clemble.casino.notification.PlayerNotification;
+import com.clemble.casino.notification.PlayerNotificationConvertible;
+import com.clemble.casino.player.PlayerConnectionAware;
+import com.clemble.casino.player.notification.PlayerDiscoveredNotification;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(PlayerDiscoveredConnectionEvent.JSON_TYPE)
-public class PlayerDiscoveredConnectionEvent implements PlayerEvent {
+public class PlayerDiscoveredConnectionEvent implements PlayerEvent, PlayerConnectionAware, PlayerNotificationConvertible {
 
     final public static String JSON_TYPE = "player:discovered:connection";
 
@@ -28,8 +32,14 @@ public class PlayerDiscoveredConnectionEvent implements PlayerEvent {
         return player;
     }
 
+    @Override
     public String getConnection() {
         return connection;
+    }
+
+    @Override
+    public PlayerNotification toNotification() {
+        return new PlayerDiscoveredNotification(player, connection);
     }
 
     @Override
