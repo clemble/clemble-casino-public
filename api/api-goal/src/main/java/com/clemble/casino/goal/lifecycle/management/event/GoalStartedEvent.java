@@ -1,10 +1,12 @@
 package com.clemble.casino.goal.lifecycle.management.event;
 
 import com.clemble.casino.goal.lifecycle.management.GoalState;
-import com.clemble.casino.goal.notification.GoalStartedNotification;
+import com.clemble.casino.goal.post.GoalStartedPost;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.notification.PlayerNotificationConvertible;
 import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.post.PlayerPost;
+import com.clemble.casino.post.PlayerPostConvertible;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -13,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 10/9/14.
  */
 @JsonTypeName(GoalStartedEvent.JSON_TYPE)
-public class GoalStartedEvent implements GoalManagementEvent, PlayerAware, PlayerNotificationConvertible {
+public class GoalStartedEvent implements GoalManagementEvent, PlayerAware, PlayerPostConvertible {
 
     final public static String JSON_TYPE = "goal:management:created";
 
@@ -39,8 +41,8 @@ public class GoalStartedEvent implements GoalManagementEvent, PlayerAware, Playe
     }
 
     @Override
-    public PlayerNotification toNotification() {
-        return GoalStartedNotification.create(state);
+    public PlayerPost toPost() {
+        return GoalStartedPost.create(state);
     }
 
     @Override

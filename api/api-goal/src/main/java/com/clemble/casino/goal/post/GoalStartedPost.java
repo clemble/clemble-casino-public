@@ -1,6 +1,6 @@
-package com.clemble.casino.goal.notification;
+package com.clemble.casino.goal.post;
 
-import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,34 +11,39 @@ import java.util.Date;
 /**
  * Created by mavarazy on 11/29/14.
  */
-@JsonTypeName(GoalCreatedNotification.JSON_TYPE)
-public class GoalCreatedNotification implements GoalNotification {
+@JsonTypeName(GoalStartedPost.JSON_TYPE)
+public class GoalStartedPost implements GoalPost {
 
-    final public static String JSON_TYPE = "notification:goal:created";
+    final public static String JSON_TYPE = "notification:goal:started";
 
     final private String player;
     final private Bank bank;
     final private String goal;
     final private String goalKey;
-    final private Date startDate;
     final private long deadline;
+    final private Date created;
 
     @JsonCreator
-    public GoalCreatedNotification(
+    public GoalStartedPost(
+        @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
-        @JsonProperty("startDate") Date startDate,
-        @JsonProperty("deadline") long deadline) {
+        @JsonProperty("deadline") long deadline,
+        @JsonProperty("created") Date created) {
         this.goalKey = goalKey;
         this.player = player;
-        this.startDate = startDate;
         this.goal = goal;
         this.bank = bank;
         this.deadline = deadline;
+        this.created = created;
     }
 
+    @Override
+    public String getKey() {
+        return goalKey;
+    }
 
     @Override
     public String getPlayer() {
@@ -55,10 +60,6 @@ public class GoalCreatedNotification implements GoalNotification {
         return goal;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
     @Override
     public Bank getBank() {
         return bank;
@@ -70,18 +71,34 @@ public class GoalCreatedNotification implements GoalNotification {
     }
 
     @Override
+    public Date getCreated() {
+        return created;
+    }
+
+    public static GoalStartedPost create(GoalState state) {
+        return new GoalStartedPost(
+            state.getGoalKey(),
+            state.getGoalKey(),
+            state.getPlayer(),
+            state.getBank(),
+            state.getGoal(),
+            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
+            new Date()
+        );
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalCreatedNotification that = (GoalCreatedNotification) o;
+        GoalStartedPost that = (GoalStartedPost) o;
 
         if (deadline != that.deadline) return false;
         if (!bank.equals(that.bank)) return false;
         if (!goal.equals(that.goal)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
         if (!player.equals(that.player)) return false;
-        if (!startDate.equals(that.startDate)) return false;
 
         return true;
     }
@@ -95,16 +112,4 @@ public class GoalCreatedNotification implements GoalNotification {
         result = 31 * result + (int) (deadline ^ (deadline >>> 32));
         return result;
     }
-
-    public static GoalCreatedNotification create(GoalInitiation initiation) {
-        return new GoalCreatedNotification(
-            initiation.getGoalKey(),
-            initiation.getPlayer(),
-            initiation.getBank(),
-            initiation.getGoal(),
-            initiation.getStartDate(),
-            initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit()
-        );
-    }
-
 }

@@ -1,14 +1,15 @@
 package com.clemble.casino.goal.lifecycle.management.event;
 
 import com.clemble.casino.goal.lifecycle.management.GoalState;
-import com.clemble.casino.goal.notification.GoalMissedNotification;
-import com.clemble.casino.goal.notification.GoalReachedNotification;
+import com.clemble.casino.goal.post.GoalMissedPost;
+import com.clemble.casino.goal.post.GoalReachedPost;
 import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.management.outcome.OutcomeAware;
 import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.notification.PlayerNotificationConvertible;
-import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.post.PlayerPost;
+import com.clemble.casino.post.PlayerPostConvertible;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 10/9/14.
  */
 @JsonTypeName(GoalEndedEvent.JSON_TYPE)
-public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware, PlayerNotificationConvertible {
+public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware, PlayerPostConvertible {
 
     final public static String JSON_TYPE = "goal:management:complete";
 
@@ -51,11 +52,11 @@ public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware, Player
     }
 
     @Override
-    public PlayerNotification toNotification() {
+    public PlayerPost toPost() {
         if (outcome instanceof PlayerWonOutcome)
-            return GoalReachedNotification.create(state);
+            return GoalReachedPost.create(state);
         else
-            return GoalMissedNotification.create(state);
+            return GoalMissedPost.create(state);
     }
 
     @Override

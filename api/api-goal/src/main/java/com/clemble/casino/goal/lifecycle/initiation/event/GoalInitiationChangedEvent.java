@@ -2,10 +2,11 @@ package com.clemble.casino.goal.lifecycle.initiation.event;
 
 import com.clemble.casino.bet.PlayerBid;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
-import com.clemble.casino.goal.lifecycle.initiation.GoalInitiationAware;
-import com.clemble.casino.goal.notification.GoalBidNotification;
+import com.clemble.casino.goal.post.GoalBidPost;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.notification.PlayerNotificationConvertible;
+import com.clemble.casino.post.PlayerPost;
+import com.clemble.casino.post.PlayerPostConvertible;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 11/24/14.
  */
 @JsonTypeName(GoalInitiationChangedEvent.JSON_TYPE)
-public class GoalInitiationChangedEvent implements GoalInitiationEvent, PlayerNotificationConvertible {
+public class GoalInitiationChangedEvent implements GoalInitiationEvent, PlayerPostConvertible {
     final public static String JSON_TYPE = "goal:initiation:changed";
 
     final private String player;
@@ -70,7 +71,8 @@ public class GoalInitiationChangedEvent implements GoalInitiationEvent, PlayerNo
     }
 
     @Override
-    public PlayerNotification toNotification() {
-        return GoalBidNotification.create(bid, initiation);
+    public PlayerPost toPost() {
+        return GoalBidPost.create(bid, initiation);
     }
+
 }
