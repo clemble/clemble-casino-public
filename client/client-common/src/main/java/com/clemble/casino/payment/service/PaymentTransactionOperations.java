@@ -2,7 +2,7 @@ package com.clemble.casino.payment.service;
 
 import com.clemble.casino.game.Game;
 import com.clemble.casino.payment.PaymentTransaction;
-import com.clemble.casino.payment.bonus.PaymentBonusSource;
+import com.clemble.casino.payment.bonus.BonusSource;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class PaymentTransactionOperations implements PaymentTransactionService {
         return delegate.myTransactionsBySource(game.name());
     }
 
-    public List<PaymentTransaction> myTransactions(PaymentBonusSource source) {
+    public List<PaymentTransaction> myTransactions(BonusSource source) {
         return delegate.myTransactionsBySource(source.name());
     }
 

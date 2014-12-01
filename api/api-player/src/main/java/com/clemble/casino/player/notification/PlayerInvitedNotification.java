@@ -15,6 +15,7 @@ public class PlayerInvitedNotification implements PlayerConnectionNotification {
     final private String player;
     final private String connection;
 
+    // TODO remove extra player reference
     @JsonCreator
     public PlayerInvitedNotification(@JsonProperty(PLAYER) String player, @JsonProperty("connection") String connection) {
         this.player = player;

@@ -1,14 +1,19 @@
 package com.clemble.casino.payment.event;
 
+import com.clemble.casino.notification.PlayerNotification;
+import com.clemble.casino.notification.PlayerNotificationConvertible;
 import com.clemble.casino.payment.PaymentOperation;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.money.Operation;
+import com.clemble.casino.payment.PaymentSource;
+import com.clemble.casino.payment.PaymentSourceAware;
+import com.clemble.casino.payment.notification.PaymentNotification;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(PaymentCompleteEvent.JSON_TYPE)
-public class PaymentCompleteEvent implements PaymentEvent {
+public class PaymentCompleteEvent implements PaymentEvent, PaymentSourceAware, PlayerNotificationConvertible {
 
     final public static String JSON_TYPE = "payment:complete";
 
@@ -21,12 +26,14 @@ public class PaymentCompleteEvent implements PaymentEvent {
     final private String transactionKey;
     final private Money amount;
     final private Operation operation;
+    final private PaymentSource source;
 
-    public PaymentCompleteEvent(String transactionKey, PaymentOperation paymentOperation) {
+    public PaymentCompleteEvent(String transactionKey, PaymentOperation paymentOperation, PaymentSource source) {
         this.player = paymentOperation.getPlayer();
         this.amount = paymentOperation.getAmount();
         this.operation = paymentOperation.getOperation();
         this.transactionKey = transactionKey;
+        this.source = source;
     }
 
     @JsonCreator
@@ -34,11 +41,13 @@ public class PaymentCompleteEvent implements PaymentEvent {
         @JsonProperty(PLAYER) String player,
         @JsonProperty("amount") Money amount,
         @JsonProperty("operation") Operation operation,
-        @JsonProperty(TRANSACTION_KEY) String transactionKey) {
+        @JsonProperty(TRANSACTION_KEY) String transactionKey,
+        @JsonProperty("source") PaymentSource source) {
         this.player = player;
         this.amount = amount;
         this.operation = operation;
         this.transactionKey = transactionKey;
+        this.source = source;
     }
 
     @Override
@@ -58,6 +67,16 @@ public class PaymentCompleteEvent implements PaymentEvent {
     @Override
     public String getTransactionKey() {
         return transactionKey;
+    }
+
+    @Override
+    public PaymentSource getSource() {
+        return source;
+    }
+
+    @Override
+    public PlayerNotification toNotification() {
+        return PaymentNotification.create(this);
     }
 
     @Override

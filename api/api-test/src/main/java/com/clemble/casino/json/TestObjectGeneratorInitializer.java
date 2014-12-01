@@ -145,14 +145,12 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PaymentTransaction.class, new AbstractValueGenerator<PaymentTransaction>() {
             @Override
             public PaymentTransaction generate() {
-            return new PaymentTransaction()
-                    .setTransactionKey(RandomStringUtils.random(5))
-                    .setTransactionDate(new Date())
-                    .setProcessingDate(new Date())
-                    .addOperation(
-                            new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Credit))
-                    .addOperation(
-                            new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Debit));
+            return new PaymentTransaction().
+                setTransactionKey(RandomStringUtils.random(5)).
+                setTransactionDate(new Date()).
+                setProcessingDate(new Date()).
+                addOperation(new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Credit)).
+                addOperation(new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Debit));
             }
         });
         ObjectGenerator.register(PlayerCredential.class, new AbstractValueGenerator<PlayerCredential>() {

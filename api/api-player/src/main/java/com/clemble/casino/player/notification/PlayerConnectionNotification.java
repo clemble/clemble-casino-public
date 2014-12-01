@@ -10,4 +10,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public interface PlayerConnectionNotification extends PlayerNotification, PlayerConnectionAware {
 
+    // TODO Notificaitons are personal, no need to duplicate players each time
+
 }

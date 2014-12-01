@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 
-public class PaymentTransaction implements AccountTransaction, PaymentTransactionAware {
+public class PaymentTransaction implements AccountTransaction, PaymentTransactionAware, PaymentSourceAware {
 
     /**
      * Generated 05/05/13
@@ -18,6 +18,7 @@ public class PaymentTransaction implements AccountTransaction, PaymentTransactio
     private String transactionKey;
 
     private Set<PaymentOperation> operations = new HashSet<PaymentOperation>();
+    private PaymentSource source;
     private Date transactionDate;
     private Date processingDate = new Date();
 
@@ -91,6 +92,16 @@ public class PaymentTransaction implements AccountTransaction, PaymentTransactio
 
     public PaymentTransaction setProcessingDate(Date processingDate) {
         this.processingDate = processingDate;
+        return this;
+    }
+
+    @Override
+    public PaymentSource getSource() {
+        return source;
+    }
+
+    public PaymentTransaction setSource(PaymentSource source) {
+        this.source = source;
         return this;
     }
 
