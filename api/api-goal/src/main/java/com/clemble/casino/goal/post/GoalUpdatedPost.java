@@ -14,7 +14,7 @@ import java.util.Date;
 @JsonTypeName(GoalUpdatedPost.JSON_TYPE)
 public class GoalUpdatedPost implements GoalPost {
 
-    final public static String JSON_TYPE = "notification:goal:updated";
+    final public static String JSON_TYPE = "post:goal:updated";
 
     final private String player;
     final private Bank bank;
@@ -25,14 +25,12 @@ public class GoalUpdatedPost implements GoalPost {
 
     @JsonCreator
     public GoalUpdatedPost(
-        @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("status") String status,
-        @JsonProperty("deadline") long deadline,
-        @JsonProperty("created") Date created) {
+        @JsonProperty("deadline") long deadline) {
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
@@ -73,13 +71,11 @@ public class GoalUpdatedPost implements GoalPost {
     public static GoalUpdatedPost create(GoalState state) {
         return new GoalUpdatedPost(
             state.getGoalKey(),
-            state.getGoalKey(),
             state.getPlayer(),
             state.getBank(),
             state.getGoal(),
             state.getStatus(),
-            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
-            new Date()
+            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline()
         );
     }
 

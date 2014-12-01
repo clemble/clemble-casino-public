@@ -13,7 +13,7 @@ import java.util.Date;
  */
 @JsonTypeName(GoalReachedPost.JSON_TYPE)
 public class GoalReachedPost implements GoalPost {
-    final public static String JSON_TYPE = "notification:goal:reached";
+    final public static String JSON_TYPE = "post:goal:reached";
 
     final private String player;
     final private Bank bank;

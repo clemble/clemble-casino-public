@@ -7,7 +7,7 @@ import com.clemble.casino.WebMapping;
  */
 public class PlayerPostWebMapping implements WebMapping {
 
-    final private static String POST_URL = "http://{host}/post";
+    final private static String POST_URL = "http://{host}/feed";
 
     final public static String MY_POSTS = "/my";
 

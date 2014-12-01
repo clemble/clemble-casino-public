@@ -16,7 +16,7 @@ import java.util.Date;
 @JsonTypeName(GoalBidPost.JSON_TYPE)
 public class GoalBidPost implements GoalPost {
 
-    final public static String JSON_TYPE = "notification:goal:bid";
+    final public static String JSON_TYPE = "post:goal:bid";
 
     final private String goalKey;
     final private String player;
