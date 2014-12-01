@@ -24,6 +24,8 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
 
     PlayerNotificationService notificationService();
 
+    PlayerFeedService feedService();
+
     PlayerConnectionService connectionOperations();
 
     PlayerFriendInvitationService friendInvitationService();
