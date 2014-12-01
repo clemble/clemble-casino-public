@@ -21,30 +21,21 @@ public class GoalReachedPost implements GoalPost {
     final private String status;
     final private String goalKey;
     final private long deadline;
-    final private Date created;
 
     @JsonCreator
     public GoalReachedPost(
-        @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("status") String status,
-        @JsonProperty("deadline") long deadline,
-        @JsonProperty("created") Date created) {
+        @JsonProperty("deadline") long deadline) {
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
         this.bank = bank;
         this.status = status;
         this.deadline = deadline;
-        this.created = created;
-    }
-
-    @Override
-    public String getKey() {
-        return goalKey;
     }
 
     @Override
@@ -76,21 +67,14 @@ public class GoalReachedPost implements GoalPost {
         return deadline;
     }
 
-    @Override
-    public Date getCreated() {
-        return created;
-    }
-
     public static GoalReachedPost create(GoalState state) {
         return new GoalReachedPost(
-            state.getGoalKey(),
             state.getGoalKey(),
             state.getPlayer(),
             state.getBank(),
             state.getGoal(),
             state.getStatus(),
-            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
-            new Date());
+            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline());
     }
 
     @Override

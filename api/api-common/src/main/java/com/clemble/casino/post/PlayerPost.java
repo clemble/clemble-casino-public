@@ -10,9 +10,4 @@ import java.util.Date;
  */
 public interface PlayerPost extends PlayerEvent {
 
-    @Id
-    String getKey();
-
-    Date getCreated();
-
 }

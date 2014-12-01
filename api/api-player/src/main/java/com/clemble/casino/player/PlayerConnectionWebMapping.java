@@ -1,9 +1,11 @@
 package com.clemble.casino.player;
 
+import com.clemble.casino.WebMapping;
+
 /**
  * Created by mavarazy on 11/11/14.
  */
-public class PlayerConnectionWebMapping {
+public class PlayerConnectionWebMapping implements WebMapping {
 
     final private static String CONNECTION_URL = "http://{host}/connection";
 

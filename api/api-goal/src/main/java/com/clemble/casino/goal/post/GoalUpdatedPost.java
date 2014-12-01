@@ -22,7 +22,6 @@ public class GoalUpdatedPost implements GoalPost {
     final private String status;
     final private String goalKey;
     final private long deadline;
-    final private Date created;
 
     @JsonCreator
     public GoalUpdatedPost(
@@ -40,12 +39,6 @@ public class GoalUpdatedPost implements GoalPost {
         this.bank = bank;
         this.status = status;
         this.deadline = deadline;
-        this.created = created;
-    }
-
-    @Override
-    public String getKey() {
-        return goalKey;
     }
 
     @Override
@@ -75,11 +68,6 @@ public class GoalUpdatedPost implements GoalPost {
     @Override
     public long getDeadline() {
         return deadline;
-    }
-
-    @Override
-    public Date getCreated() {
-        return created;
     }
 
     public static GoalUpdatedPost create(GoalState state) {

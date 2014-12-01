@@ -18,7 +18,6 @@ public class GoalBidPost implements GoalPost {
 
     final public static String JSON_TYPE = "notification:goal:bid";
 
-    @Id
     final private String goalKey;
     final private String player;
     final private Bank bank;
@@ -26,19 +25,16 @@ public class GoalBidPost implements GoalPost {
     final private String goal;
     final private Date startDate;
     final private long deadline;
-    final private Date created;
 
     @JsonCreator
     public GoalBidPost(
-        @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("deadline") long deadline,
         @JsonProperty("startDate") Date startDate,
-        @JsonProperty("playerBid") PlayerBid playerBid,
-        @JsonProperty("created") Date created
+        @JsonProperty("playerBid") PlayerBid playerBid
     ) {
         this.goalKey = goalKey;
         this.player = player;
@@ -47,12 +43,6 @@ public class GoalBidPost implements GoalPost {
         this.bank = bank;
         this.startDate = startDate;
         this.deadline = deadline;
-        this.created = created;
-    }
-
-    @Override
-    public String getKey() {
-        return goalKey;
     }
 
     @Override
@@ -88,22 +78,15 @@ public class GoalBidPost implements GoalPost {
         return deadline;
     }
 
-    @Override
-    public Date getCreated() {
-        return created;
-    }
-
     public static GoalBidPost create(PlayerBid bid, GoalInitiation initiation) {
         return new GoalBidPost(
-            initiation.getGoalKey(),
             initiation.getGoalKey(),
             initiation.getPlayer(),
             initiation.getBank(),
             initiation.getGoal(),
             initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit(),
             initiation.getStartDate(),
-            bid,
-            new Date()
+            bid
         );
     }
 

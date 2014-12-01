@@ -22,30 +22,21 @@ public class GoalCreatedPost implements GoalPost {
     final private String goalKey;
     final private Date startDate;
     final private long deadline;
-    final private Date created;
 
     @JsonCreator
     public GoalCreatedPost(
-        @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("startDate") Date startDate,
-        @JsonProperty("deadline") long deadline,
-        @JsonProperty("created") Date created) {
+        @JsonProperty("deadline") long deadline) {
         this.goalKey = goalKey;
         this.player = player;
         this.startDate = startDate;
         this.goal = goal;
         this.bank = bank;
         this.deadline = deadline;
-        this.created = created;
-    }
-
-    @Override
-    public String getKey() {
-        return goalKey;
     }
 
     @Override
@@ -78,11 +69,6 @@ public class GoalCreatedPost implements GoalPost {
     }
 
     @Override
-    public Date getCreated() {
-        return created;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -112,13 +98,11 @@ public class GoalCreatedPost implements GoalPost {
     public static GoalCreatedPost create(GoalInitiation initiation) {
         return new GoalCreatedPost(
             initiation.getGoalKey(),
-            initiation.getGoalKey(),
             initiation.getPlayer(),
             initiation.getBank(),
             initiation.getGoal(),
             initiation.getStartDate(),
-            initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit(),
-            new Date()
+            initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit()
         );
     }
 
