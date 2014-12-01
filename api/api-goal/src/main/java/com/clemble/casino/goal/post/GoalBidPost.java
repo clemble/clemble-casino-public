@@ -1,6 +1,8 @@
 package com.clemble.casino.goal.post;
 
 import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,13 +16,14 @@ import java.util.Date;
  * Created by mavarazy on 11/29/14.
  */
 @JsonTypeName(GoalBidPost.JSON_TYPE)
-public class GoalBidPost implements GoalPost {
+public class GoalBidPost implements GoalPost, GoalConfigurationAware {
 
     final public static String JSON_TYPE = "post:goal:bid";
 
     final private String goalKey;
     final private String player;
     final private Bank bank;
+    final private GoalConfiguration configuration;
     final private PlayerBid playerBid;
     final private String goal;
     final private Date startDate;
@@ -31,6 +34,7 @@ public class GoalBidPost implements GoalPost {
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
+        @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
         @JsonProperty("deadline") long deadline,
         @JsonProperty("startDate") Date startDate,
@@ -41,6 +45,7 @@ public class GoalBidPost implements GoalPost {
         this.playerBid = playerBid;
         this.goal = goal;
         this.bank = bank;
+        this.configuration = configuration;
         this.startDate = startDate;
         this.deadline = deadline;
     }
@@ -69,6 +74,11 @@ public class GoalBidPost implements GoalPost {
         return bank;
     }
 
+    @Override
+    public GoalConfiguration getConfiguration() {
+        return configuration;
+    }
+
     public Date getStartDate() {
         return startDate;
     }
@@ -83,6 +93,7 @@ public class GoalBidPost implements GoalPost {
             initiation.getGoalKey(),
             initiation.getPlayer(),
             initiation.getBank(),
+            initiation.getConfiguration(),
             initiation.getGoal(),
             initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit(),
             initiation.getStartDate(),

@@ -1,5 +1,7 @@
 package com.clemble.casino.goal.post;
 
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,7 +14,7 @@ import java.util.Date;
  * Created by mavarazy on 11/29/14.
  */
 @JsonTypeName(GoalCreatedPost.JSON_TYPE)
-public class GoalCreatedPost implements GoalPost {
+public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
 
     final public static String JSON_TYPE = "post:goal:created";
 
@@ -22,12 +24,14 @@ public class GoalCreatedPost implements GoalPost {
     final private String goalKey;
     final private Date startDate;
     final private long deadline;
+    final private GoalConfiguration configuration;
 
     @JsonCreator
     public GoalCreatedPost(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
+        @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
         @JsonProperty("startDate") Date startDate,
         @JsonProperty("deadline") long deadline) {
@@ -37,6 +41,7 @@ public class GoalCreatedPost implements GoalPost {
         this.goal = goal;
         this.bank = bank;
         this.deadline = deadline;
+        this.configuration = configuration;
     }
 
     @Override
@@ -56,6 +61,11 @@ public class GoalCreatedPost implements GoalPost {
 
     public Date getStartDate() {
         return startDate;
+    }
+
+    @Override
+    public GoalConfiguration getConfiguration() {
+        return configuration;
     }
 
     @Override
@@ -100,6 +110,7 @@ public class GoalCreatedPost implements GoalPost {
             initiation.getGoalKey(),
             initiation.getPlayer(),
             initiation.getBank(),
+            initiation.getConfiguration(),
             initiation.getGoal(),
             initiation.getStartDate(),
             initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit()
