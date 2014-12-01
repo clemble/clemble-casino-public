@@ -15,7 +15,7 @@ import java.util.Date;
 @JsonTypeName(DailyBonusPaymentSource.JSON_TYPE)
 public class DailyBonusPaymentSource implements BonusPaymentSource {
 
-    final public static String JSON_TYPE = "bonus:daily";
+    final public static String JSON_TYPE = "payment:bonus:daily";
 
     final private static DateFormat DATE_FORMAT = new SimpleDateFormat("ddmmyy");
 

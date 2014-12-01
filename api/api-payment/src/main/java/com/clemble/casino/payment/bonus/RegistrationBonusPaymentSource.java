@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName(RegistrationBonusPaymentSource.JSON_TYPE)
 public class RegistrationBonusPaymentSource implements BonusPaymentSource {
 
-    final public static String JSON_TYPE = "bonus:registration";
+    final public static String JSON_TYPE = "payment:bonus:registration";
 
     final public static RegistrationBonusPaymentSource INSTANCE = new RegistrationBonusPaymentSource();
 

@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.json;
 
+import com.clemble.casino.goal.GoalPaymentSource;
 import com.clemble.casino.goal.event.action.GoalReachedAction;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionCompleteEvent;
@@ -45,6 +46,8 @@ public class GoalJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GoalUpdatedPost.class, GoalUpdatedPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalReachedPost.class, GoalReachedPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalMissedPost.class, GoalMissedPost.JSON_TYPE));
+
+        module.registerSubtypes(new NamedType(GoalPaymentSource.class, GoalPaymentSource.JSON_TYPE));
 
         return module;
     }

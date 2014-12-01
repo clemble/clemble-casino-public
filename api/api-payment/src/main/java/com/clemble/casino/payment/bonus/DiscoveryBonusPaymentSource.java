@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName(DiscoveryBonusPaymentSource.JSON_TYPE)
 public class DiscoveryBonusPaymentSource implements BonusPaymentSource {
 
-    final public static String JSON_TYPE = "bonus:social:discovery";
+    final public static String JSON_TYPE = "payment:bonus:social:discovery";
 
     final private String discovered;
 

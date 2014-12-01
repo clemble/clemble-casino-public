@@ -1,6 +1,7 @@
 package com.clemble.casino.game.json;
 
 import com.clemble.casino.event.action.PlayerDefaultAction;
+import com.clemble.casino.game.GamePaymentSource;
 import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.game.lifecycle.management.event.*;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
@@ -77,6 +78,7 @@ public class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(RoundGameConfiguration.class, RoundGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(TournamentGameConfiguration.class, TournamentGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
 
+        module.registerSubtypes(new NamedType(GamePaymentSource.class, GamePaymentSource.JSON_TYPE));
         module.registerSubtypes(new NamedType(TournamentGameContext.class, TournamentGameContext.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(Chip.class, Chip.class.getAnnotation(JsonTypeName.class).value()));
         return module;
