@@ -3,6 +3,7 @@ package com.clemble.casino.goal.lifecycle.configuration;
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
+import com.clemble.casino.goal.lifecycle.configuration.rule.due.GoalDueRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.start.GoalStartRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.goal.lifecycle.configuration.rule.judge.JudgeRule;
@@ -23,6 +24,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
     final private BetRule betRule;
     final private JudgeRule judgeRule;
     final private GoalStartRule startRule;
+    final private GoalDueRule dueRule;
     final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
@@ -36,11 +38,13 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
+        @JsonProperty("dueRule") GoalDueRule dueRule,
         @JsonProperty("startRule") GoalStartRule startRule) {
         this.configurationKey = configurationKey;
         this.bid = bid;
         this.betRule = betRule;
         this.startRule = startRule;
+        this.dueRule = dueRule;
         this.judgeRule = judgeRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
@@ -72,6 +76,10 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         return moveTimeRule;
     }
 
+    public GoalDueRule getDueRule() {
+        return dueRule;
+    }
+
     public TotalTimeRule getTotalTimeRule() {
         return totalTimeRule;
     }
@@ -99,6 +107,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         if (privacyRule != that.privacyRule) return false;
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;
         if (!startRule.equals(that.startRule)) return false;
+        if (!dueRule.equals(that.dueRule)) return false;
 
         return true;
     }
@@ -112,6 +121,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         result = 31 * result + moveTimeRule.hashCode();
         result = 31 * result + totalTimeRule.hashCode();
         result = 31 * result + startRule.hashCode();
+        result = 31 * result + dueRule.hashCode();
         return result;
     }
 }
