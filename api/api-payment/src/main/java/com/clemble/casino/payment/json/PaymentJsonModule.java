@@ -1,10 +1,7 @@
 package com.clemble.casino.payment.json;
 
 import com.clemble.casino.json.ClembleJsonModule;
-import com.clemble.casino.payment.bonus.SocialAddedBonusPaymentSource;
-import com.clemble.casino.payment.bonus.DailyBonusPaymentSource;
-import com.clemble.casino.payment.bonus.DiscoveryBonusPaymentSource;
-import com.clemble.casino.payment.bonus.RegistrationBonusPaymentSource;
+import com.clemble.casino.payment.bonus.*;
 import com.clemble.casino.payment.event.PaymentCompleteEvent;
 import com.clemble.casino.payment.event.PaymentFreezeEvent;
 import com.clemble.casino.payment.notification.PaymentNotification;
@@ -25,6 +22,7 @@ public class PaymentJsonModule implements ClembleJsonModule {
 
         module.registerSubtypes(new NamedType(SocialAddedBonusPaymentSource.class, SocialAddedBonusPaymentSource.JSON_TYPE));
         module.registerSubtypes(new NamedType(DailyBonusPaymentSource.class, DailyBonusPaymentSource.JSON_TYPE));
+        module.registerSubtypes(new NamedType(EmailVerifiedBonusPaymentSource.class, EmailVerifiedBonusPaymentSource.JSON_TYPE));
         module.registerSubtypes(new NamedType(DiscoveryBonusPaymentSource.class, DiscoveryBonusPaymentSource.JSON_TYPE));
         module.registerSubtypes(new NamedType(RegistrationBonusPaymentSource.class, RegistrationBonusPaymentSource.JSON_TYPE));
 
