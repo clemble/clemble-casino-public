@@ -9,6 +9,8 @@ public interface PlayerPhoneService extends ClembleService {
 
     public boolean add(String phone);
 
+    public boolean remove();
+
     public boolean verify(String code);
 
 }
