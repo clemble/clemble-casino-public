@@ -19,7 +19,7 @@
         <guava.version>18.0</guava.version>
         <!-- AMQP dependencies -->
         <spring.amqp.version>1.4.0.RELEASE</spring.amqp.version>
-        <rabbitmq.driver.version>3.4.1</rabbitmq.driver.version>
+        <rabbitmq.driver.version>3.4.2</rabbitmq.driver.version>
         <!-- Dependencies for ORM -->
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
         <hibernate.version>4.2.4.Final</hibernate.version>
@@ -38,14 +38,14 @@
         <spring.social.vkontakte.version>1.0.4</spring.social.vkontakte.version>
         <spring.social.google.version>1.0.0.RELEASE</spring.social.google.version>
         <!-- Generic dependencies -->
-        <jackson.version>2.4.3</jackson.version>
+        <jackson.version>2.4.4</jackson.version>
         <jackson.jsonSchema.version>2.4.3</jackson.jsonSchema.version>
         <!-- Test dependencies -->
         <com.clemble.test.version>0.1.4-SNAPSHOT</com.clemble.test.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12</junit.version>
         <weberknecht.version>0.1.1</weberknecht.version>
         <gozirra-client.version>0.4.1</gozirra-client.version>
-        <async-http-client.version>1.8.14</async-http-client.version>
+        <async-http-client.version>1.9.0</async-http-client.version>
         <httpclient.version>4.3.6</httpclient.version>
         <!-- Plugin dependencies -->
         <maven.failsafe.plugin.version>2.14.1</maven.failsafe.plugin.version>
