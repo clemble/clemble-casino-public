@@ -9,7 +9,7 @@ public class PlayerEmailWebMapping implements WebMapping {
 
     final private static String EMAIL_URL = "http://{host}/email";
 
-    final public static String VERIFY = "/{verificationCode}";
+    final public static String VERIFY = "/verify";
 
     public static String toEmailUrl(String path) {
         return EMAIL_URL + path;
