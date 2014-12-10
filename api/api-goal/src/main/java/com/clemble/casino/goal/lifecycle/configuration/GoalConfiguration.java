@@ -4,6 +4,8 @@ import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
 import com.clemble.casino.goal.lifecycle.configuration.rule.due.GoalDueRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.remind.EmailReminderRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.remind.PhoneReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.remind.RemindRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.start.GoalStartRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
@@ -24,12 +26,13 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
     final private Bid bid;
     final private BetRule betRule;
     final private JudgeRule judgeRule;
-    final private RemindRule remindRule;
     final private GoalStartRule startRule;
     final private GoalDueRule dueRule;
     final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
+    final private EmailReminderRule emailReminderRule;
+    final private PhoneReminderRule phoneReminderRule;
 
     @JsonCreator
     public GoalConfiguration(
@@ -41,7 +44,8 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("dueRule") GoalDueRule dueRule,
-        @JsonProperty("remindRule") RemindRule remindRule,
+        @JsonProperty("emailReminderRule") EmailReminderRule emailReminderRule,
+        @JsonProperty("phoneReminderRule") PhoneReminderRule phoneReminderRule,
         @JsonProperty("startRule") GoalStartRule startRule) {
         this.configurationKey = configurationKey;
         this.bid = bid;
@@ -49,10 +53,11 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         this.startRule = startRule;
         this.dueRule = dueRule;
         this.judgeRule = judgeRule;
-        this.remindRule = remindRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
+        this.emailReminderRule = emailReminderRule;
+        this.phoneReminderRule = phoneReminderRule;
     }
 
     @Override
@@ -88,8 +93,12 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         return totalTimeRule;
     }
 
-    public RemindRule getRemindRule() {
-        return remindRule;
+    public EmailReminderRule getEmailReminderRule() {
+        return emailReminderRule;
+    }
+
+    public PhoneReminderRule getPhoneReminderRule() {
+        return phoneReminderRule;
     }
 
     @Override
@@ -116,7 +125,8 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;
         if (!startRule.equals(that.startRule)) return false;
         if (!dueRule.equals(that.dueRule)) return false;
-        if (!remindRule.equals(that.remindRule)) return false;
+        if (!emailReminderRule.equals(that.emailReminderRule)) return false;
+        if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
 
         return true;
     }
@@ -131,7 +141,8 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         result = 31 * result + totalTimeRule.hashCode();
         result = 31 * result + startRule.hashCode();
         result = 31 * result + dueRule.hashCode();
-        result = 31 * result + remindRule.hashCode();
+        result = 31 * result + emailReminderRule.hashCode();
+        result = 31 * result + phoneReminderRule.hashCode();
         return result;
     }
 }
