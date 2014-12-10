@@ -4,6 +4,7 @@ import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
 import com.clemble.casino.goal.lifecycle.configuration.rule.due.GoalDueRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.remind.RemindRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.start.GoalStartRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.goal.lifecycle.configuration.rule.judge.JudgeRule;
@@ -23,6 +24,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
     final private Bid bid;
     final private BetRule betRule;
     final private JudgeRule judgeRule;
+    final private RemindRule remindRule;
     final private GoalStartRule startRule;
     final private GoalDueRule dueRule;
     final private PrivacyRule privacyRule;
@@ -39,6 +41,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("dueRule") GoalDueRule dueRule,
+        @JsonProperty("remindRule") RemindRule remindRule,
         @JsonProperty("startRule") GoalStartRule startRule) {
         this.configurationKey = configurationKey;
         this.bid = bid;
@@ -46,6 +49,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         this.startRule = startRule;
         this.dueRule = dueRule;
         this.judgeRule = judgeRule;
+        this.remindRule = remindRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
@@ -84,6 +88,10 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         return totalTimeRule;
     }
 
+    public RemindRule getRemindRule() {
+        return remindRule;
+    }
+
     @Override
     public PrivacyRule getPrivacyRule() {
         return privacyRule;
@@ -108,6 +116,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;
         if (!startRule.equals(that.startRule)) return false;
         if (!dueRule.equals(that.dueRule)) return false;
+        if (!remindRule.equals(that.remindRule)) return false;
 
         return true;
     }
@@ -122,6 +131,7 @@ public class GoalConfiguration implements Configuration, GoalConfigurationKeyAwa
         result = 31 * result + totalTimeRule.hashCode();
         result = 31 * result + startRule.hashCode();
         result = 31 * result + dueRule.hashCode();
+        result = 31 * result + remindRule.hashCode();
         return result;
     }
 }
