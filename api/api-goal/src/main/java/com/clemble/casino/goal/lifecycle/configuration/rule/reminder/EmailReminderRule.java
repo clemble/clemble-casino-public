@@ -1,4 +1,4 @@
-package com.clemble.casino.goal.lifecycle.configuration.rule.remind;
+package com.clemble.casino.goal.lifecycle.configuration.rule.reminder;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
