@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import java.util.Date;
+
 /**
  * Created by mavarazy on 11/29/14.
  */
@@ -13,15 +15,26 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
 
     final public static String JSON_TYPE = "notification:player:connected";
 
+    final private String key;
     final private String player;
     final private String connection;
+    final private Date created;
 
     @JsonCreator
     public PlayerConnectedNotification(
+        @JsonProperty("key") String key,
         @JsonProperty("player") String player,
-        @JsonProperty("connection")String connection) {
+        @JsonProperty("connection")String connection,
+        @JsonProperty("created") Date created) {
+        this.key = key;
         this.player = player;
         this.connection = connection;
+        this.created = created;
+    }
+
+    @JsonProperty
+    public String getKey() {
+        return key;
     }
 
     @Override
@@ -34,8 +47,14 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
         return connection;
     }
 
+    @Override
+    public Date getCreated() {
+        return created;
+    }
+
     public static PlayerConnectedNotification create(PlayerConnectedEvent connectedEvent) {
-        return new PlayerConnectedNotification(connectedEvent.getPlayer(), connectedEvent.getConnection());
+        String key = connectedEvent.getPlayer() + ":" + connectedEvent.getConnection();
+        return new PlayerConnectedNotification(key, connectedEvent.getPlayer(), connectedEvent.getConnection(), new Date());
     }
 
     @Override
@@ -45,6 +64,7 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
 
         PlayerConnectedNotification that = (PlayerConnectedNotification) o;
 
+        if (!created.equals(that.created)) return false;
         if (!connection.equals(that.connection)) return false;
         if (!player.equals(that.player)) return false;
 

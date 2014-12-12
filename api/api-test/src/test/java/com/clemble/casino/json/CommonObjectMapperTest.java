@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertNull;
@@ -49,7 +50,7 @@ public class CommonObjectMapperTest extends AbstractObjectMapperTest {
     @Test
     public void testCollectionSerialization() throws IOException {
         // Step 1. Creating notifications
-        PlayerNotification[] events = new PlayerNotification[]{new PlayerDiscoveredNotification("A", "B"), new PlayerInvitedNotification("a", "v")};
+        PlayerNotification[] events = new PlayerNotification[]{new PlayerDiscoveredNotification("A:B", "A", "B", new Date()), new PlayerInvitedNotification("a:v", "a", "v", new Date())};
         // Step 2. Json notification
         String jsonNotifications = objectMapper.writeValueAsString(events);
         // Step 3. Reading notification

@@ -3,15 +3,16 @@ package com.clemble.casino.player.event;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.notification.PlayerNotificationConvertible;
 import com.clemble.casino.player.PlayerConnectionAware;
-import com.clemble.casino.player.notification.PlayerDiscoveredNotification;
+import com.clemble.casino.player.notification.PlayerInvitedNotification;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName(PlayerDiscoveredConnectionEvent.JSON_TYPE)
-public class PlayerDiscoveredConnectionEvent implements PlayerEvent, PlayerConnectionAware, PlayerNotificationConvertible {
+/**
+ * Created by mavarazy on 12/12/14.
+ */
+public class PlayerInvitedConnectionEvent implements PlayerEvent, PlayerConnectionAware, PlayerNotificationConvertible {
 
-    final public static String JSON_TYPE = "player:discovered:connection";
+    final public static String JSON_TYPE = "player:connection:invited";
 
     /**
      * Generated 07/01/14
@@ -22,7 +23,9 @@ public class PlayerDiscoveredConnectionEvent implements PlayerEvent, PlayerConne
     final private String connection;
 
     @JsonCreator
-    public PlayerDiscoveredConnectionEvent(@JsonProperty(PLAYER) String player, @JsonProperty("connection") String connection) {
+    public PlayerInvitedConnectionEvent(
+        @JsonProperty(PLAYER) String player,
+        @JsonProperty("connection") String connection) {
         this.player = player;
         this.connection = connection;
     }
@@ -39,7 +42,7 @@ public class PlayerDiscoveredConnectionEvent implements PlayerEvent, PlayerConne
 
     @Override
     public PlayerNotification toNotification() {
-        return PlayerDiscoveredNotification.create(this);
+        return PlayerInvitedNotification.create(this);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class PlayerDiscoveredConnectionEvent implements PlayerEvent, PlayerConne
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PlayerDiscoveredConnectionEvent other = (PlayerDiscoveredConnectionEvent) obj;
+        PlayerInvitedConnectionEvent other = (PlayerInvitedConnectionEvent) obj;
         if (connection == null) {
             if (other.connection != null)
                 return false;

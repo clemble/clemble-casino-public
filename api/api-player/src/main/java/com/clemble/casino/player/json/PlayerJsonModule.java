@@ -19,6 +19,7 @@ public class PlayerJsonModule implements ClembleJsonModule {
     public Module construct() {
         SimpleModule module = new SimpleModule("Player");
         module.registerSubtypes(new NamedType(PlayerDiscoveredConnectionEvent.class, PlayerDiscoveredConnectionEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(PlayerInvitedConnectionEvent.class, PlayerInvitedConnectionEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(PlayerConnectedEvent.class, PlayerConnectedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(PlayerProfileChangedEvent.class, PlayerProfileChangedEvent.JSON_TYPE));
 
