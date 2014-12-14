@@ -2,7 +2,6 @@ package com.clemble.casino.goal.lifecycle.configuration;
 
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
-import com.clemble.casino.goal.lifecycle.configuration.rule.due.GoalDueRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.EmailReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.PhoneReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.start.GoalStartRule;
@@ -24,7 +23,6 @@ public class ShortGoalConfiguration implements GoalConfiguration {
     final private Bid bid;
     final private BetRule betRule;
     final private GoalStartRule startRule;
-    final private GoalDueRule dueRule;
     final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
@@ -39,7 +37,6 @@ public class ShortGoalConfiguration implements GoalConfiguration {
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
-        @JsonProperty("dueRule") GoalDueRule dueRule,
         @JsonProperty("emailReminderRule") EmailReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") PhoneReminderRule phoneReminderRule,
         @JsonProperty("startRule") GoalStartRule startRule
@@ -48,7 +45,6 @@ public class ShortGoalConfiguration implements GoalConfiguration {
         this.bid = bid;
         this.betRule = betRule;
         this.startRule = startRule;
-        this.dueRule = dueRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
@@ -79,10 +75,6 @@ public class ShortGoalConfiguration implements GoalConfiguration {
     @Override
     public MoveTimeRule getMoveTimeRule() {
         return moveTimeRule;
-    }
-
-    public GoalDueRule getDueRule() {
-        return dueRule;
     }
 
     @Override
@@ -122,7 +114,6 @@ public class ShortGoalConfiguration implements GoalConfiguration {
         if (privacyRule != that.privacyRule) return false;
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;
         if (!startRule.equals(that.startRule)) return false;
-        if (!dueRule.equals(that.dueRule)) return false;
         if (!emailReminderRule.equals(that.emailReminderRule)) return false;
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
 
@@ -137,7 +128,6 @@ public class ShortGoalConfiguration implements GoalConfiguration {
         result = 31 * result + moveTimeRule.hashCode();
         result = 31 * result + totalTimeRule.hashCode();
         result = 31 * result + startRule.hashCode();
-        result = 31 * result + dueRule.hashCode();
         result = 31 * result + emailReminderRule.hashCode();
         result = 31 * result + phoneReminderRule.hashCode();
         return result;

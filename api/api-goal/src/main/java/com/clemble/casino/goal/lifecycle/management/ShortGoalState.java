@@ -1,19 +1,13 @@
 package com.clemble.casino.goal.lifecycle.management;
 
 import com.clemble.casino.event.Event;
-import com.clemble.casino.goal.GoalAware;
-import com.clemble.casino.goal.GoalDescriptionAware;
-import com.clemble.casino.goal.GoalStatusAware;
 import com.clemble.casino.goal.event.GoalEvent;
 import com.clemble.casino.goal.event.action.GoalReachedAction;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
-import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
-import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.configuration.ShortGoalConfiguration;
 import com.clemble.casino.goal.lifecycle.management.event.GoalChangedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.GoalEndedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.GoalStartedEvent;
-import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
@@ -21,8 +15,6 @@ import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderA
 import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
 import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.payment.Bank;
-import com.clemble.casino.payment.BankAware;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
