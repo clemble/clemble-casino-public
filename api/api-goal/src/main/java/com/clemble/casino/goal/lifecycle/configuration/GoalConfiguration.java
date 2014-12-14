@@ -4,7 +4,6 @@ import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.EmailReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.PhoneReminderRule;
-import com.clemble.casino.goal.lifecycle.configuration.rule.start.GoalStartRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;
@@ -25,8 +24,6 @@ public interface GoalConfiguration extends Configuration, GoalConfigurationKeyAw
     public Bid getBid();
 
     public BetRule getBetRule();
-
-    public GoalStartRule getStartRule();
 
     public MoveTimeRule getMoveTimeRule();
 

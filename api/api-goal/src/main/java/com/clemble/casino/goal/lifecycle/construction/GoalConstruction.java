@@ -24,6 +24,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     final private String goalKey;
     final private String player;
     final private String goal;
+    final private Date startDate;
     final private ConstructionState state;
     final private GoalConfiguration configuration;
 
@@ -32,11 +33,13 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
+        @JsonProperty("startDate") Date startDate,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("state") ConstructionState state) {
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
+        this.startDate = startDate;
         this.configuration = configuration;
         this.state = state;
     }
@@ -61,6 +64,10 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
         return goalKey;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
     @Override
     public String getGoal() {
         return goal;
@@ -69,15 +76,15 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, configuration, new Date(System.currentTimeMillis() + configuration.getStartRule().getTimeout()));
+        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, configuration, startDate);
     }
 
     public GoalConstruction clone(ConstructionState state) {
-        return new GoalConstruction(goalKey, player, goal, configuration, state);
+        return new GoalConstruction(goalKey, player, goal, startDate, configuration, state);
     }
 
     public GoalConstruction clone(String goalKey, ConstructionState state) {
-        return new GoalConstruction(goalKey, player, goal, configuration, state);
+        return new GoalConstruction(goalKey, player, goal, startDate, configuration, state);
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.EmailReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.PhoneReminderRule;
-import com.clemble.casino.goal.lifecycle.configuration.rule.start.GoalStartRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;
@@ -31,8 +30,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
     final private EmailReminderRule emailReminderRule;
     final private PhoneReminderRule phoneReminderRule;
 
-    final private GoalStartRule startRule;
-
     @JsonCreator
     public LongGoalConfiguration(
         @JsonProperty("configurationKey") String configurationKey,
@@ -41,7 +38,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
-        @JsonProperty("startRule") GoalStartRule startRule,
         @JsonProperty("emailReminderRule") EmailReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") PhoneReminderRule phoneReminderRule
     ) {
@@ -51,7 +47,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.configurationKey = configurationKey;
-        this.startRule = startRule;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
     }
@@ -69,11 +64,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
     @Override
     public BetRule getBetRule() {
         return betRule;
-    }
-
-    @Override
-    public GoalStartRule getStartRule() {
-        return startRule;
     }
 
     @Override
@@ -127,4 +117,5 @@ public class LongGoalConfiguration implements GoalConfiguration {
         result = 31 * result + configurationKey.hashCode();
         return result;
     }
+
 }

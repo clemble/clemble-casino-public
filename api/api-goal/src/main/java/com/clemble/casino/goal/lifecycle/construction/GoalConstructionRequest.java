@@ -7,25 +7,34 @@ import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
+
 /**
  * Created by mavarazy on 8/26/14.
  */
 public class GoalConstructionRequest implements ConstructionRequest<GoalConfiguration>, GoalDescriptionAware {
 
     final private String goal;
+    final private Date startDate;
     final private GoalConfiguration configuration;
 
     @JsonCreator
     public GoalConstructionRequest(
         @JsonProperty("configuration") GoalConfiguration configuration,
-        @JsonProperty("goal") String goal) {
+        @JsonProperty("goal") String goal,
+        @JsonProperty("startDate") Date startDate) {
         this.configuration = configuration;
+        this.startDate = startDate;
         this.goal = goal;
     }
 
     @Override
     public GoalConfiguration getConfiguration() {
         return configuration;
+    }
+
+    public Date getStartDate() {
+        return startDate;
     }
 
     @Override
@@ -35,7 +44,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
 
     @Override
     public GoalConstruction toConstruction(String player, String goalKey) {
-        return new GoalConstruction(goalKey, player, goal, configuration, ConstructionState.pending);
+        return new GoalConstruction(goalKey, player, goal, startDate, configuration, ConstructionState.pending);
     }
 
     @Override
