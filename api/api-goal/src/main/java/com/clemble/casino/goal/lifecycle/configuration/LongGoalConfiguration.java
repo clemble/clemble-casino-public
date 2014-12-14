@@ -21,7 +21,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
 
     final private String configurationKey;
     final private Bid bid;
-    final private int daysBetweenGoals;
     final private BetRule betRule;
 
     final private MoveTimeRule moveTimeRule;
@@ -39,7 +38,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
         @JsonProperty("configurationKey") String configurationKey,
         @JsonProperty("bid") Bid bid,
         @JsonProperty("betRule") BetRule betRule,
-        @JsonProperty("daysBetweenGoals") int daysBetweenGoals,
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
@@ -53,7 +51,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.configurationKey = configurationKey;
-        this.daysBetweenGoals = daysBetweenGoals;
         this.startRule = startRule;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
@@ -99,10 +96,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
         return phoneReminderRule;
     }
 
-    public int getDaysBetweenGoals() {
-        return daysBetweenGoals;
-    }
-
     @Override
     public PrivacyRule getPrivacyRule() {
         return privacyRule;
@@ -121,7 +114,6 @@ public class LongGoalConfiguration implements GoalConfiguration {
         LongGoalConfiguration that = (LongGoalConfiguration) o;
 
         if (!bid.equals(that.bid)) return false;
-        if (daysBetweenGoals != that.daysBetweenGoals) return false;
         if (!privacyRule.equals(that.privacyRule)) return false;
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
         if (!emailReminderRule.equals(that.emailReminderRule)) return false;
