@@ -35,7 +35,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
 
     @Override
     public GoalConstruction toConstruction(String player, String goalKey) {
-        return new GoalConstruction(goalKey, player, player, goal, configuration, ConstructionState.pending);
+        return new GoalConstruction(goalKey, player, goal, configuration, ConstructionState.pending);
     }
 
     @Override

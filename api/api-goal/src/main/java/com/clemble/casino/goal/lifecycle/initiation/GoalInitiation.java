@@ -1,12 +1,9 @@
 package com.clemble.casino.goal.lifecycle.initiation;
 
-import com.clemble.casino.bet.PlayerBid;
-import com.clemble.casino.bet.PlayerBidAware;
 import com.clemble.casino.lifecycle.initiation.Initiation;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
-import com.clemble.casino.goal.GoalJudgeAware;
 import com.clemble.casino.goal.lifecycle.record.GoalRecord;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.lifecycle.record.EventRecord;
@@ -18,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
@@ -28,7 +24,6 @@ import java.util.Date;
 public class GoalInitiation implements
     GoalAware,
     GoalDescriptionAware,
-    GoalJudgeAware,
     PlayerAware,
     Initiation<GoalConfiguration>,
     BankAware {
@@ -36,7 +31,6 @@ public class GoalInitiation implements
     @Id
     final private String goalKey;
     final private String goal;
-    final private String judge;
     final private String player;
     final private Bank bank;
     final private Date startDate;
@@ -50,12 +44,10 @@ public class GoalInitiation implements
         @JsonProperty("bank") Bank bank,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
-        @JsonProperty("judge") String judge,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("startDate") Date startDate) {
         this.goal = goal;
         this.state = state;
-        this.judge = judge;
         this.bank = bank;
         this.player = player;
         this.goalKey = goalKey;
@@ -76,11 +68,6 @@ public class GoalInitiation implements
     @Override
     public Bank getBank() {
         return bank;
-    }
-
-    @Override
-    public String getJudge() {
-        return judge;
     }
 
     @Override
@@ -109,14 +96,13 @@ public class GoalInitiation implements
             RecordState.active,
             bank,
             goal,
-            judge,
             configuration,
             Collections.<EventRecord>emptySet(),
             null);
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
-        return new GoalInitiation(goalKey, state, bank, player, goal, judge, configuration, startDate);
+        return new GoalInitiation(goalKey, state, bank, player, goal, configuration, startDate);
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.clemble.casino.goal.lifecycle.construction;
 
-import com.clemble.casino.bet.PlayerBid;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.lifecycle.construction.Construction;
 import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
-import com.clemble.casino.goal.GoalJudgeAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
@@ -15,20 +13,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by mavarazy on 9/7/14.
  */
-public class GoalConstruction implements Construction<GoalConfiguration>, GoalAware, GoalJudgeAware, GoalDescriptionAware, PlayerAware {
+public class GoalConstruction implements Construction<GoalConfiguration>, GoalAware, GoalDescriptionAware, PlayerAware {
 
     @Id
     final private String goalKey;
     final private String player;
     final private String goal;
-    final private String judge;
     final private ConstructionState state;
     final private GoalConfiguration configuration;
 
@@ -36,14 +31,12 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     public GoalConstruction(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
-        @JsonProperty("judge") String judge,
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("state") ConstructionState state) {
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
-        this.judge = judge;
         this.configuration = configuration;
         this.state = state;
     }
@@ -74,22 +67,17 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     }
 
     @Override
-    public String getJudge() {
-        return judge;
-    }
-
-    @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, judge, configuration, new Date(System.currentTimeMillis() + configuration.getStartRule().getTimeout()));
+        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, configuration, new Date(System.currentTimeMillis() + configuration.getStartRule().getTimeout()));
     }
 
     public GoalConstruction clone(ConstructionState state) {
-        return new GoalConstruction(goalKey, player, judge, goal, configuration, state);
+        return new GoalConstruction(goalKey, player, goal, configuration, state);
     }
 
     public GoalConstruction clone(String goalKey, ConstructionState state) {
-        return new GoalConstruction(goalKey, player, judge, goal, configuration, state);
+        return new GoalConstruction(goalKey, player, goal, configuration, state);
     }
 
     @Override
@@ -103,7 +91,6 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
             return false;
         if (goal != null ? !goal.equals(that.goal) : that.goal != null) return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
-        if (judge != null ? !judge.equals(that.judge) : that.judge != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (state != that.state) return false;
 
@@ -115,7 +102,6 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
         int result = goalKey != null ? goalKey.hashCode() : 0;
         result = 31 * result + (player != null ? player.hashCode() : 0);
         result = 31 * result + (goal != null ? goal.hashCode() : 0);
-        result = 31 * result + (judge != null ? judge.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         return result;
