@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import java.util.List;
+
 /**
  * Created by mavarazy on 12/13/14.
  */
@@ -32,6 +34,8 @@ public class GoalConfiguration implements
     final private EmailReminderRule emailReminderRule;
     final private PhoneReminderRule phoneReminderRule;
 
+    final private List<ChallengeConfiguration> challenges;
+
     @JsonCreator
     public GoalConfiguration(
         @JsonProperty("configurationKey") String configurationKey,
@@ -41,7 +45,8 @@ public class GoalConfiguration implements
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("emailReminderRule") EmailReminderRule emailReminderRule,
-        @JsonProperty("phoneReminderRule") PhoneReminderRule phoneReminderRule
+        @JsonProperty("phoneReminderRule") PhoneReminderRule phoneReminderRule,
+        @JsonProperty("challenges") List<ChallengeConfiguration> challenges
     ) {
         this.configurationKey = configurationKey;
         this.bid = bid;
@@ -51,6 +56,7 @@ public class GoalConfiguration implements
         this.privacyRule = privacyRule;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
+        this.challenges = challenges;
     }
 
     @Override
@@ -87,6 +93,10 @@ public class GoalConfiguration implements
         return privacyRule;
     }
 
+    public List<ChallengeConfiguration> getChallenges() {
+        return challenges;
+    }
+
     public BetConfiguration toBetConfiguration() {
         return new BetConfiguration(privacyRule, betRule);
     }
@@ -105,6 +115,7 @@ public class GoalConfiguration implements
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;
         if (!emailReminderRule.equals(that.emailReminderRule)) return false;
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
+        if (!challenges.equals(that.challenges)) return false;
 
         return true;
     }
@@ -118,6 +129,7 @@ public class GoalConfiguration implements
         result = 31 * result + totalTimeRule.hashCode();
         result = 31 * result + emailReminderRule.hashCode();
         result = 31 * result + phoneReminderRule.hashCode();
+        result = 31 * result + challenges.hashCode();
         return result;
     }
 
