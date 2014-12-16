@@ -1,7 +1,6 @@
 package com.clemble.casino.goal.lifecycle.configuration;
 
-import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.EmailReminderRule;
-import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.PhoneReminderRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
 import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,14 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class GoalRoleConfiguration {
 
     final private GoalRole role;
-    final private EmailReminderRule emailReminderRule;
-    final private PhoneReminderRule phoneReminderRule;
+    final private ReminderRule emailReminderRule;
+    final private ReminderRule phoneReminderRule;
 
     @JsonCreator
     public GoalRoleConfiguration(
         @JsonProperty("role") GoalRole role,
-        @JsonProperty("emailReminderRule") EmailReminderRule emailReminderRule,
-        @JsonProperty("phoneReminderRule") PhoneReminderRule phoneReminderRule
+        @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
+        @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule
     ) {
         this.role = role;
         this.emailReminderRule = emailReminderRule;
@@ -30,11 +29,11 @@ public class GoalRoleConfiguration {
         return role;
     }
 
-    public EmailReminderRule getEmailReminderRule() {
+    public ReminderRule getEmailReminderRule() {
         return emailReminderRule;
     }
 
-    public PhoneReminderRule getPhoneReminderRule() {
+    public ReminderRule getPhoneReminderRule() {
         return phoneReminderRule;
     }
 

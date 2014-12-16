@@ -3,19 +3,20 @@ package com.clemble.casino.goal.lifecycle.configuration.rule.reminder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Basic;
+
 /**
- * Created by mavarazy on 12/10/14.
+ * Created by mavarazy on 12/16/14.
  */
-public class EmailReminderRule implements RemindRule {
+public class BasicReminderRule implements ReminderRule {
 
     final private long reminder;
 
     @JsonCreator
-    public EmailReminderRule(@JsonProperty("reminder") long reminder) {
+    public BasicReminderRule(@JsonProperty("reminder") long reminder) {
         this.reminder = reminder;
     }
 
-    @Override
     public long getReminder() {
         return reminder;
     }
@@ -25,7 +26,7 @@ public class EmailReminderRule implements RemindRule {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EmailReminderRule that = (EmailReminderRule) o;
+        BasicReminderRule that = (BasicReminderRule) o;
 
         if (reminder != that.reminder) return false;
 
