@@ -8,6 +8,6 @@ import com.clemble.casino.player.PlayerAware;
  */
 public interface PlayerContext extends PlayerAware {
 
-    public PlayerClock getClock();
+    PlayerClock getClock();
 
 }

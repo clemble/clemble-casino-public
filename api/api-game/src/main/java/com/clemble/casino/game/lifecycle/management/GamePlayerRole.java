@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.clemble.casino.lifecycle.management.RoleAware;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by mavarazy on 21/12/13.
  */
 @Embeddable
-public class GamePlayerRole implements PlayerAware, GameRoleAware {
+public class GamePlayerRole implements PlayerAware, RoleAware {
 
     /**
      * Generated 20/12/13

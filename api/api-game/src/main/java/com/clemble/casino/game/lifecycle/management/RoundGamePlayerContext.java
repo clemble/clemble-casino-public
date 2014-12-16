@@ -7,10 +7,11 @@ import java.util.List;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
 import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
+import com.clemble.casino.lifecycle.management.RoleAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RoundGamePlayerContext implements GamePlayerContext, GameRoleAware {
+public class RoundGamePlayerContext implements GamePlayerContext, RoleAware {
 
     /**
      * Generated 25/12/13
