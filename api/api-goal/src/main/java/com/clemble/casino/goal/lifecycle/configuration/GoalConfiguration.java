@@ -5,6 +5,7 @@ import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.EmailReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.PhoneReminderRule;
+import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
@@ -31,8 +32,8 @@ public class GoalConfiguration implements
     final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
-    final private EmailReminderRule emailReminderRule;
-    final private PhoneReminderRule phoneReminderRule;
+
+    final private List<GoalRoleConfiguration> roleConfigurations;
 
     final private List<ChallengeConfiguration> challenges;
 
@@ -44,8 +45,7 @@ public class GoalConfiguration implements
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
-        @JsonProperty("emailReminderRule") EmailReminderRule emailReminderRule,
-        @JsonProperty("phoneReminderRule") PhoneReminderRule phoneReminderRule,
+        @JsonProperty("roleConfigurations") List<GoalRoleConfiguration> roleConfigurations,
         @JsonProperty("challenges") List<ChallengeConfiguration> challenges
     ) {
         this.configurationKey = configurationKey;
@@ -54,8 +54,7 @@ public class GoalConfiguration implements
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
-        this.emailReminderRule = emailReminderRule;
-        this.phoneReminderRule = phoneReminderRule;
+        this.roleConfigurations = roleConfigurations;
         this.challenges = challenges;
     }
 
@@ -80,12 +79,8 @@ public class GoalConfiguration implements
         return totalTimeRule;
     }
 
-    public EmailReminderRule getEmailReminderRule() {
-        return emailReminderRule;
-    }
-
-    public PhoneReminderRule getPhoneReminderRule() {
-        return phoneReminderRule;
+    public List<GoalRoleConfiguration> getRoleConfigurations() {
+        return roleConfigurations;
     }
 
     @Override
@@ -113,8 +108,7 @@ public class GoalConfiguration implements
         if (!moveTimeRule.equals(that.moveTimeRule)) return false;
         if (privacyRule != that.privacyRule) return false;
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;
-        if (!emailReminderRule.equals(that.emailReminderRule)) return false;
-        if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
+        if (!roleConfigurations.equals(that.roleConfigurations)) return false;
         if (!challenges.equals(that.challenges)) return false;
 
         return true;
@@ -127,8 +121,7 @@ public class GoalConfiguration implements
         result = 31 * result + privacyRule.hashCode();
         result = 31 * result + moveTimeRule.hashCode();
         result = 31 * result + totalTimeRule.hashCode();
-        result = 31 * result + emailReminderRule.hashCode();
-        result = 31 * result + phoneReminderRule.hashCode();
+        result = 31 * result + roleConfigurations.hashCode();
         result = 31 * result + challenges.hashCode();
         return result;
     }
