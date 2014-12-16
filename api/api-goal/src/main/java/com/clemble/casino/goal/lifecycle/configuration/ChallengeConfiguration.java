@@ -2,8 +2,8 @@ package com.clemble.casino.goal.lifecycle.configuration;
 
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
+import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
-import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,16 +14,19 @@ public class ChallengeConfiguration {
 
     final private Bid bid;
     final private BetRule betRule;
+    final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
 
     @JsonCreator
     public ChallengeConfiguration(
         @JsonProperty("bid") Bid bid,
         @JsonProperty("betRule") BetRule betRule,
+        @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule
     ) {
         this.bid = bid;
         this.betRule = betRule;
+        this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
     }
 
@@ -33,6 +36,10 @@ public class ChallengeConfiguration {
 
     public BetRule getBetRule() {
         return betRule;
+    }
+
+    public MoveTimeRule getMoveTimeRule() {
+        return moveTimeRule;
     }
 
     public TotalTimeRule getTotalTimeRule() {
@@ -49,6 +56,7 @@ public class ChallengeConfiguration {
         if (!betRule.equals(that.betRule)) return false;
         if (!bid.equals(that.bid)) return false;
         if (!totalTimeRule.equals(that.totalTimeRule)) return false;
+        if (!moveTimeRule.equals(that.moveTimeRule)) return false;
 
         return true;
     }
@@ -58,6 +66,7 @@ public class ChallengeConfiguration {
         int result = bid.hashCode();
         result = 31 * result + betRule.hashCode();
         result = 31 * result + totalTimeRule.hashCode();
+        result = 31 * result + moveTimeRule.hashCode();
         return result;
     }
 

@@ -89,7 +89,6 @@ public class GoalReachedPost implements GoalPost {
         if (!goal.equals(that.goal)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
         if (!player.equals(that.player)) return false;
-        if (!status.equals(that.status)) return false;
 
         return true;
     }
@@ -100,7 +99,6 @@ public class GoalReachedPost implements GoalPost {
         result = 31 * result + bank.hashCode();
         result = 31 * result + goal.hashCode();
         result = 31 * result + goalKey.hashCode();
-        result = 31 * result + status.hashCode();
         result = 31 * result + (int) (deadline ^ (deadline >>> 32));
         return result;
     }
