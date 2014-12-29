@@ -3,6 +3,7 @@ package com.clemble.casino.goal.lifecycle.configuration;
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.bet.configuration.BetConfigurationConvertible;
+import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
@@ -78,6 +79,13 @@ public class GoalConfiguration implements
 
     public List<GoalRoleConfiguration> getRoleConfigurations() {
         return roleConfigurations;
+    }
+
+    public GoalRoleConfiguration getRoleConfiguration(GoalRole goalRole) {
+        for(GoalRoleConfiguration roleConfiguration: roleConfigurations)
+            if (roleConfiguration.getRole() == goalRole)
+                return roleConfiguration;
+        return null;
     }
 
     @Override
