@@ -54,7 +54,7 @@ public class PlayerInvitedNotification implements PlayerConnectionNotification {
     }
 
     public static PlayerInvitedNotification create(PlayerInvitedConnectionEvent invitedEvent) {
-        String key = invitedEvent.getPlayer() + invitedEvent.getConnection();
+        String key = invitedEvent.getPlayer() + ":" + invitedEvent.getConnection();
         return new PlayerInvitedNotification(key, invitedEvent.getPlayer(), invitedEvent.getConnection(), new Date());
     }
 
