@@ -4,6 +4,7 @@ import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.goal.lifecycle.initiation.service.GoalInitiationService;
+import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -41,11 +42,11 @@ public class AndroidGoalInitiationService extends AbstractClembleCasinoOperation
     }
 
     @Override
-    public GoalInitiation bid(String goalKey, Bid bid) {
+    public GoalInitiation bid(String goalKey, GoalRole role) {
         // Step 1. Generating goal construction URI
         URI initiationBidUrl = buildUriWith(toGoalConstructionUrl(GOAL_INITIATION_BID), goalKey);
         // Step 2. Creating new GoalConstruction
-        return restTemplate.postForObject(initiationBidUrl, bid, GoalInitiation.class);
+        return restTemplate.postForObject(initiationBidUrl, role, GoalInitiation.class);
     }
 
     @Override

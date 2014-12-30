@@ -17,6 +17,7 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by mavarazy on 9/12/14.

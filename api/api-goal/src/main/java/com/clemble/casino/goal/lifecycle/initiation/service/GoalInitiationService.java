@@ -1,6 +1,7 @@
 package com.clemble.casino.goal.lifecycle.initiation.service;
 
 import com.clemble.casino.bet.Bid;
+import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.lifecycle.initiation.service.InitiationService;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
@@ -13,6 +14,6 @@ import java.util.Set;
  */
 public interface GoalInitiationService extends InitiationService<GoalInitiation> {
 
-    public GoalInitiation bid(String goalKey, Bid bid);
+    public GoalInitiation bid(String goalKey, GoalRole role);
 
 }

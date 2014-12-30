@@ -1,6 +1,7 @@
 package com.clemble.casino.goal.lifecycle.construction;
 
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.clemble.casino.lifecycle.construction.Construction;
 import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
@@ -76,7 +77,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, configuration, startDate);
+        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getRoleConfiguration(GoalRole.hero).getBid()), player, goal, configuration, startDate);
     }
 
     public GoalConstruction clone(ConstructionState state) {
