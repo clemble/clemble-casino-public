@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.initiation;
 
+import com.clemble.casino.goal.lifecycle.management.GoalRoleAware;
 import com.clemble.casino.lifecycle.initiation.Initiation;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.goal.GoalAware;
@@ -25,7 +26,7 @@ import java.util.Set;
 public class GoalInitiation implements
     GoalAware,
     GoalDescriptionAware,
-    PlayerAware,
+    GoalRoleAware,
     Initiation<GoalConfiguration>,
     BankAware {
 
@@ -36,6 +37,8 @@ public class GoalInitiation implements
     final private Bank bank;
     final private Date startDate;
     final private InitiationState state;
+    final private Set<String> observers;
+    final private Set<String> supporters;
     final private GoalConfiguration configuration;
 
     @JsonCreator
@@ -46,12 +49,16 @@ public class GoalInitiation implements
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
+        @JsonProperty("observers") Set<String> observers,
+        @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") Date startDate) {
         this.goal = goal;
         this.state = state;
         this.bank = bank;
         this.player = player;
         this.goalKey = goalKey;
+        this.observers = observers;
+        this.supporters = supporters;
         this.startDate = startDate;
         this.configuration = configuration;
     }
@@ -86,6 +93,16 @@ public class GoalInitiation implements
     }
 
     @Override
+    public Set<String> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public Set<String> getSupporters() {
+        return supporters;
+    }
+
+    @Override
     public GoalConfiguration getConfiguration() {
         return configuration;
     }
@@ -103,7 +120,7 @@ public class GoalInitiation implements
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
-        return new GoalInitiation(goalKey, state, bank, player, goal, configuration, startDate);
+        return new GoalInitiation(goalKey, state, bank, player, goal, configuration, observers, supporters, startDate);
     }
 
     @Override
@@ -133,4 +150,5 @@ public class GoalInitiation implements
         result = 31 * result + (bank != null ? bank.hashCode() : 0);
         return result;
     }
+
 }

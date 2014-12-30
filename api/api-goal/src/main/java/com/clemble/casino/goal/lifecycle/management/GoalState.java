@@ -26,6 +26,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
+import java.util.Set;
+
 /**
  * Created by mavarazy on 10/9/14.
  */
@@ -34,7 +36,7 @@ public class GoalState implements State<GoalEvent, GoalContext>,
     GoalDescriptionAware,
     GoalConfigurationAware,
     GoalStatusAware,
-    PlayerAware,
+    GoalRoleAware,
     BankAware {
 
     @Id
@@ -44,6 +46,8 @@ public class GoalState implements State<GoalEvent, GoalContext>,
     final private Bank bank;
     final private GoalConfiguration configuration;
     final private GoalContext context;
+    final private Set<String> observers;
+    final private Set<String> supporters;
     private String status;
 
     @JsonCreator
@@ -54,6 +58,8 @@ public class GoalState implements State<GoalEvent, GoalContext>,
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
+        @JsonProperty("observers") Set<String> observers,
+        @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("status") String status) {
         this.goalKey = goalKey;
         this.player = player;
@@ -61,6 +67,8 @@ public class GoalState implements State<GoalEvent, GoalContext>,
         this.context = context;
         this.bank = bank;
         this.goal = goal;
+        this.observers = observers;
+        this.supporters = supporters;
         this.status = status;
     }
 
@@ -87,6 +95,16 @@ public class GoalState implements State<GoalEvent, GoalContext>,
     @Override
     public String getStatus() {
         return status;
+    }
+
+    @Override
+    public Set<String> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public Set<String> getSupporters() {
+        return supporters;
     }
 
     @Override

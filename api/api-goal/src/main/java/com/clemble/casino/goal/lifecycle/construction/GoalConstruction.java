@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * Created by mavarazy on 9/7/14.
@@ -77,7 +78,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, configuration, startDate);
+        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, configuration, new HashSet<String>(), new HashSet<String>(), startDate);
     }
 
     public GoalConstruction clone(ConstructionState state) {
