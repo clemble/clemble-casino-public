@@ -1,5 +1,7 @@
 package com.clemble.casino.goal.lifecycle.configuration;
 
+import com.clemble.casino.bet.Bid;
+import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
 import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
@@ -20,6 +22,9 @@ public class GoalConfiguration implements
     GoalConfigurationKeyAware {
 
     final private String configurationKey;
+    final private Bid bid;
+    final private ReminderRule emailReminderRule;
+    final private ReminderRule phoneReminderRule;
     final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
@@ -28,12 +33,18 @@ public class GoalConfiguration implements
     @JsonCreator
     public GoalConfiguration(
         @JsonProperty("configurationKey") String configurationKey,
+        @JsonProperty("bid") Bid bid,
+        @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
+        @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule,
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("roleConfigurations") List<GoalRoleConfiguration> roleConfigurations
     ) {
         this.configurationKey = configurationKey;
+        this.bid = bid;
+        this.emailReminderRule = emailReminderRule;
+        this.phoneReminderRule = phoneReminderRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.privacyRule = privacyRule;
@@ -43,6 +54,18 @@ public class GoalConfiguration implements
     @Override
     public String getConfigurationKey() {
         return configurationKey;
+    }
+
+    public Bid getBid() {
+        return bid;
+    }
+
+    public ReminderRule getEmailReminderRule() {
+        return emailReminderRule;
+    }
+
+    public ReminderRule getPhoneReminderRule() {
+        return phoneReminderRule;
     }
 
     public MoveTimeRule getMoveTimeRule() {

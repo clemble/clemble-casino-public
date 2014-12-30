@@ -77,7 +77,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getRoleConfiguration(GoalRole.hero).getBid()), player, goal, configuration, startDate);
+        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBid()), player, goal, configuration, startDate);
     }
 
     public GoalConstruction clone(ConstructionState state) {
