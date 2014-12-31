@@ -12,4 +12,6 @@ public interface PlayerNotificationService extends ClembleService {
 
     PlayerNotification[] myNotifications();
 
+    void delete(String key);
+
 }
