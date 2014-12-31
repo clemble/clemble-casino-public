@@ -19,6 +19,7 @@ public class GoalConfiguration implements
     GoalConfigurationKeyAware {
 
     final private String configurationKey;
+    final private String name;
     final private Bid bid;
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
@@ -31,6 +32,7 @@ public class GoalConfiguration implements
     @JsonCreator
     public GoalConfiguration(
         @JsonProperty("configurationKey") String configurationKey,
+        @JsonProperty("name") String name,
         @JsonProperty("bid") Bid bid,
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule,
@@ -41,6 +43,7 @@ public class GoalConfiguration implements
         @JsonProperty("observerConfiguration") GoalRoleConfiguration observerConfiguration
     ) {
         this.configurationKey = configurationKey;
+        this.name = name;
         this.bid = bid;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
@@ -54,6 +57,10 @@ public class GoalConfiguration implements
     @Override
     public String getConfigurationKey() {
         return configurationKey;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Bid getBid() {
