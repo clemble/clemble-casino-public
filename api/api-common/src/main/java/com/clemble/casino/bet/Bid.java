@@ -31,10 +31,6 @@ public class Bid implements AmountAware {
         return new Bid(amount.add(another.amount), interest.add(another.interest));
     }
 
-    public Money total() {
-        return amount.add(interest);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
