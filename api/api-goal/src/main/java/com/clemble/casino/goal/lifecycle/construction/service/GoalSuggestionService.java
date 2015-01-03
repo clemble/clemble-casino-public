@@ -4,14 +4,16 @@ import com.clemble.casino.ClembleService;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestion;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestionRequest;
 
+import java.util.List;
+
 /**
  * Created by mavarazy on 1/3/15.
  */
 public interface GoalSuggestionService extends ClembleService {
 
-    GoalSuggestion listMy();
+    List<GoalSuggestion> listMy();
 
-    GoalSuggestion list(String player);
+    List<GoalSuggestion> list(String player);
 
     GoalSuggestion getSuggestion(String goalKey);
 
