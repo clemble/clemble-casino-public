@@ -38,7 +38,7 @@ public class PlayerBid implements PlayerAware, BidAware {
         PlayerBid payerBid = (PlayerBid) o;
 
         if (!player.equals(payerBid.player)) return false;
-        if (!payerBid.bid.equals(payerBid.bid)) return false;
+        if (!bid.equals(payerBid.bid)) return false;
 
         return true;
     }

@@ -38,21 +38,21 @@ public class Bid implements AmountAware {
 
         Bid bid = (Bid) o;
 
-        if (amount != null ? !amount.equals(bid.amount) : bid.amount != null) return false;
-        if (interest != null ? !interest.equals(bid.interest) : bid.interest != null) return false;
+        if (!amount.equals(bid.amount)) return false;
+        if (!interest.equals(bid.interest)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = amount != null ? amount.hashCode() : 0;
-        result = 31 * result + (interest != null ? interest.hashCode() : 0);
+        int result = amount.hashCode();
+        result = 31 * result + interest.hashCode();
         return result;
     }
 
-    @Override
     public String toString() {
         return "bid:" + amount + ":" + interest;
     }
+
 }

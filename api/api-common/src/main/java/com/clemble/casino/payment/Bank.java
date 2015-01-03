@@ -52,7 +52,7 @@ public class Bank implements PlayerBidAware {
 
         Bank bank = (Bank) o;
 
-        if (!bids.equals(bank.bids)) return false;
+        if (!bids.containsAll(bank.bids) || bids.size() != bank.bids.size()) return false;
         if (!total.equals(bank.total)) return false;
 
         return true;
