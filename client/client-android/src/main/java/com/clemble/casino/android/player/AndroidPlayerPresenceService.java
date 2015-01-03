@@ -29,14 +29,14 @@ public class AndroidPlayerPresenceService extends AbstractClembleCasinoOperation
 
     @Override
     public PlayerPresence myPresence() {
-        URI presenceURI = buildUriWith(toPresenceUrl(host, MY_PRESENCE));
+        URI presenceURI = buildUri(toPresenceUrl(host, MY_PRESENCE));
         // Step 1. Singleton GET request
         return restTemplate.getForObject(presenceURI, PlayerPresence.class);
     }
 
     @Override
     public PlayerPresence getPresence(String player) {
-        URI presenceURI = buildUriWith(toPresenceUrl(host, PLAYER_PRESENCE), player);
+        URI presenceURI = buildUri(toPresenceUrl(host, PLAYER_PRESENCE), player);
         // Step 1. Singleton GET request
         return restTemplate.getForObject(presenceURI, PlayerPresence.class);
     }

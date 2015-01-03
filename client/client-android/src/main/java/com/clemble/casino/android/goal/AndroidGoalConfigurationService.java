@@ -26,7 +26,7 @@ public class AndroidGoalConfigurationService extends AbstractClembleCasinoOperat
     @Override
     public List<GoalConfiguration> getConfigurations() {
         // Step 1. Generating my goal configuration URI
-        URI myConfigurationsUrl = buildUriWith(toGoalConfigurationUrl(MY_CONFIGURATIONS));
+        URI myConfigurationsUrl = buildUri(toGoalConfigurationUrl(MY_CONFIGURATIONS));
         // Step 2. GET available Goal configurations
         return CollectionUtils.<GoalConfiguration>immutableList(restTemplate.getForObject(myConfigurationsUrl, GoalConfiguration[].class));
     }

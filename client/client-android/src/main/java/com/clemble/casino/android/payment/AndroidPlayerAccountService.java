@@ -1,7 +1,6 @@
 package com.clemble.casino.android.payment;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.payment.PendingTransaction;
 import com.clemble.casino.payment.PlayerAccount;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.payment.service.PlayerAccountService;
@@ -28,18 +27,18 @@ public class AndroidPlayerAccountService extends AbstractClembleCasinoOperations
 
     @Override
     public PlayerAccount myAccount() {
-        return restTemplate.getForObject(buildUriWith(toPaymentUrl(MY_ACCOUNT)), PlayerAccount.class);
+        return restTemplate.getForObject(buildUri(toPaymentUrl(MY_ACCOUNT)), PlayerAccount.class);
     }
 
     @Override
     public PlayerAccount getAccount(String player) {
-        return restTemplate.getForObject(buildUriWith(toPaymentUrl(ACCOUNT), player), PlayerAccount.class);
+        return restTemplate.getForObject(buildUri(toPaymentUrl(ACCOUNT), player), PlayerAccount.class);
     }
 
     @Override
     public List<String> canAfford(Collection<String> players, Currency currency, Long amount) {
         // Step 1. Generating URL
-        String url = buildUriWith(toPaymentUrl(ACCOUNTS)) + "?currency=" + currency + "&amount=" + amount;
+        String url = buildUri(toPaymentUrl(ACCOUNTS)) + "?currency=" + currency + "&amount=" + amount;
         for(String player: players)
             url += "&player=" + player;
         // Step 2. Sending and receiving response

@@ -3,6 +3,7 @@ package com.clemble.casino.android.goal;
 import com.clemble.casino.client.goal.GoalOperations;
 import com.clemble.casino.goal.lifecycle.configuration.service.GoalConfigurationService;
 import com.clemble.casino.goal.lifecycle.construction.service.GoalConstructionService;
+import com.clemble.casino.goal.lifecycle.construction.service.GoalSuggestionService;
 import com.clemble.casino.goal.lifecycle.initiation.service.FriendInitiationService;
 import com.clemble.casino.goal.lifecycle.initiation.service.GoalInitiationService;
 import com.clemble.casino.goal.lifecycle.management.service.GoalActionService;
@@ -17,6 +18,7 @@ public class AndroidGoalOperations implements GoalOperations{
 
     final private GoalConfigurationService configurationService;
     final private GoalConstructionService constructionService;
+    final private GoalSuggestionService suggestionService;
     final private GoalInitiationService initiationService;
     final private FriendInitiationService friendInitiationService;
     final private GoalActionService actionService;
@@ -26,6 +28,7 @@ public class AndroidGoalOperations implements GoalOperations{
     public AndroidGoalOperations(String host, RestTemplate restTemplate) {
         this.configurationService = new AndroidGoalConfigurationService(host, restTemplate);
         this.constructionService = new AndroidGoalConstructionService(host, restTemplate);
+        this.suggestionService = new AndroidGoalSuggestionService(host, restTemplate);
         this.initiationService = new AndroidGoalInitiationService(host, restTemplate);
         this.friendInitiationService = new AndroidFriendInitiationService(host, restTemplate);
         this.actionService = new AndroidGoalActionService(host, restTemplate);
@@ -41,6 +44,11 @@ public class AndroidGoalOperations implements GoalOperations{
     @Override
     public GoalConstructionService constructionService() {
         return constructionService;
+    }
+
+    @Override
+    public GoalSuggestionService suggestionService() {
+        return suggestionService;
     }
 
     @Override

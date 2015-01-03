@@ -27,7 +27,7 @@ public class AndroidFriendGoalService extends AbstractClembleCasinoOperations im
     @Override
     public List<GoalState> myFriendGoals() {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(MY_FRIEND_GOALS));
+        URI actionUrl = buildUri(toGoalManagementUrl(MY_FRIEND_GOALS));
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(actionUrl, GoalState[].class));
     }
@@ -35,7 +35,7 @@ public class AndroidFriendGoalService extends AbstractClembleCasinoOperations im
     @Override
     public GoalState myFriendGoal(String goalKey) {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(MY_FRIEND_GOAL), goalKey);
+        URI actionUrl = buildUri(toGoalManagementUrl(MY_FRIEND_GOAL), goalKey);
         // Step 2. Creating new GoalConstruction
         return restTemplate.getForObject(actionUrl, GoalState.class);
     }
@@ -43,7 +43,7 @@ public class AndroidFriendGoalService extends AbstractClembleCasinoOperations im
     @Override
     public List<GoalState> getFriendGoals(String player) {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(PLAYER_FRIEND_GOALS), player);
+        URI actionUrl = buildUri(toGoalManagementUrl(PLAYER_FRIEND_GOALS), player);
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(actionUrl, GoalState[].class));
     }
@@ -51,7 +51,7 @@ public class AndroidFriendGoalService extends AbstractClembleCasinoOperations im
     @Override
     public GoalState getFriendGoal(String player, String goalKey) {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(PLAYER_FRIEND_GOALS), player, goalKey);
+        URI actionUrl = buildUri(toGoalManagementUrl(PLAYER_FRIEND_GOALS), player, goalKey);
         // Step 2. Creating new GoalConstruction
         return restTemplate.getForObject(actionUrl, GoalState.class);
     }

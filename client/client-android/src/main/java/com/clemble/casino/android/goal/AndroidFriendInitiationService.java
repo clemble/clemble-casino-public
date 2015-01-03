@@ -28,7 +28,7 @@ public class AndroidFriendInitiationService extends AbstractClembleCasinoOperati
     @Override
     public List<GoalInitiation> myFriendInitiations() {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(MY_FRIEND_INITIATIONS));
+        URI actionUrl = buildUri(toGoalManagementUrl(MY_FRIEND_INITIATIONS));
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(actionUrl, GoalInitiation[].class));
     }
@@ -36,7 +36,7 @@ public class AndroidFriendInitiationService extends AbstractClembleCasinoOperati
     @Override
     public GoalInitiation myFriendInitiation(String goalKey) {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(MY_FRIEND_INITIATION), goalKey);
+        URI actionUrl = buildUri(toGoalManagementUrl(MY_FRIEND_INITIATION), goalKey);
         // Step 2. Creating new GoalConstruction
         return restTemplate.getForObject(actionUrl, GoalInitiation.class);
     }
@@ -44,7 +44,7 @@ public class AndroidFriendInitiationService extends AbstractClembleCasinoOperati
     @Override
     public List<GoalInitiation> getFriendInitiations(String player) {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(PLAYER_FRIEND_INITIATIONS), player);
+        URI actionUrl = buildUri(toGoalManagementUrl(PLAYER_FRIEND_INITIATIONS), player);
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(actionUrl, GoalInitiation[].class));
     }
@@ -52,7 +52,7 @@ public class AndroidFriendInitiationService extends AbstractClembleCasinoOperati
     @Override
     public GoalInitiation getFriendInitiation(String player, String goalKey) {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUriWith(toGoalManagementUrl(PLAYER_FRIEND_INITIATION), player, goalKey);
+        URI actionUrl = buildUri(toGoalManagementUrl(PLAYER_FRIEND_INITIATION), player, goalKey);
         // Step 2. Creating new GoalConstruction
         return restTemplate.getForObject(actionUrl, GoalInitiation.class);
     }

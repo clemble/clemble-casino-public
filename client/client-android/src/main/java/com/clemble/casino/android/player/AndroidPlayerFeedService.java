@@ -1,7 +1,6 @@
 package com.clemble.casino.android.player;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.player.service.PlayerFeedService;
 import com.clemble.casino.post.PlayerPost;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +24,7 @@ public class AndroidPlayerFeedService extends AbstractClembleCasinoOperations im
     @Override
     public PlayerPost[] myFeed() {
         // Step 1. Fetching player notifications
-        URI notificationUri = buildUriWith(toPostUrl(MY_POSTS));
+        URI notificationUri = buildUri(toPostUrl(MY_POSTS));
         // Step 2. Requesting through RestTemplate
         return restTemplate.getForObject(notificationUri, PlayerPost[].class);
     }

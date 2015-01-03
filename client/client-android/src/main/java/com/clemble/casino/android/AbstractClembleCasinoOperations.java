@@ -14,15 +14,11 @@ abstract public class AbstractClembleCasinoOperations {
         this.apiBase = apiBase;
     }
 
-    protected URI buildUri(String path) {
-        return URIBuilder.fromUri(path.replace("{host}", apiBase)).build();
-    }
-
     protected URI buildUri(String path, MultiValueMap<String, String> parameters) {
         return URIBuilder.fromUri(path.replace("{host}", apiBase)).queryParams(parameters).build();
     }
 
-    protected URI buildUriWith(String path, Object ... parameters) {
+    protected URI buildUri(String path, Object... parameters) {
         String normalizedPath = path.replace("{host}", apiBase);
         String url = toUrl(normalizedPath, toStringArray(parameters));
         return URIBuilder.fromUri(url).build();

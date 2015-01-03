@@ -24,19 +24,19 @@ public class AndroidGameRecordService extends AbstractClembleCasinoOperations im
 
     @Override
     public List<GameRecord> myRecords() {
-        URI recordURL = buildUriWith(toGameUrl(MY_RECORDS));
+        URI recordURL = buildUri(toGameUrl(MY_RECORDS));
         return CollectionUtils.immutableList(restTemplate.getForObject(recordURL, GameRecord[].class));
     }
 
     @Override
     public List<GameRecord> myRecordsWithState(RecordState states) {
-        URI recordURL = buildUriWith(toGameUrl(MY_RECORDS_STATE), states);
+        URI recordURL = buildUri(toGameUrl(MY_RECORDS_STATE), states);
         return CollectionUtils.immutableList(restTemplate.getForObject(recordURL, GameRecord[].class));
     }
 
     @Override
     public GameRecord get(String session) {
-        URI recordURL = buildUriWith(toGameUrl(SESSIONS_RECORD), session);
+        URI recordURL = buildUri(toGameUrl(SESSIONS_RECORD), session);
         return restTemplate.getForObject(recordURL, GameRecord.class);
     }
 

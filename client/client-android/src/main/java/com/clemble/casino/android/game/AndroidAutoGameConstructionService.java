@@ -26,12 +26,12 @@ public class AndroidAutoGameConstructionService<T extends GameState> extends Abs
 
     @Override
     public GameConstruction construct(AutomaticGameRequest gameRequest) {
-        return restTemplate.postForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AUTO)), gameRequest, GameConstruction.class);
+        return restTemplate.postForObject(buildUri(toGameConstructionUrl(CONSTRUCTION_AUTO)), gameRequest, GameConstruction.class);
     }
 
     @Override
     public Collection<GameConstruction> getPending(String player) {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AUTO_PENDING), player), GameConstruction[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(toGameConstructionUrl(CONSTRUCTION_AUTO_PENDING), player), GameConstruction[].class));
     }
 
 }

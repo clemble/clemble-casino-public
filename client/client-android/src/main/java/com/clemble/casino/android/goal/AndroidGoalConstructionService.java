@@ -27,7 +27,7 @@ public class AndroidGoalConstructionService extends AbstractClembleCasinoOperati
     @Override
     public GoalConstruction construct(GoalConstructionRequest request) {
         // Step 1. Generating goal construction URI
-        URI constructionUrl = buildUriWith(toGoalConstructionUrl(GOAL_CONSTRUCTION));
+        URI constructionUrl = buildUri(toGoalConstructionUrl(GOAL_CONSTRUCTION));
         // Step 2. Creating new GoalConstruction
         return restTemplate.postForObject(constructionUrl, request, GoalConstruction.class);
     }
@@ -35,7 +35,7 @@ public class AndroidGoalConstructionService extends AbstractClembleCasinoOperati
     @Override
     public Collection<GoalConstruction> getPending(String player) {
         // Step 1. Generating goal construction URI
-        URI pendingConstructionUrl = buildUriWith(toGoalConstructionUrl(GOAL_CONSTRUCTION_PENDING));
+        URI pendingConstructionUrl = buildUri(toGoalConstructionUrl(GOAL_CONSTRUCTION_PENDING));
         // Step 2. Creating new GoalConstruction
         return CollectionUtils.immutableList(restTemplate.getForObject(pendingConstructionUrl, GoalConstruction[].class));
     }

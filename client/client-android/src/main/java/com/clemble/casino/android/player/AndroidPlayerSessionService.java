@@ -23,7 +23,7 @@ public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations
 
     @Override
     public PlayerSession create() {
-        URI uri = buildUriWith(toPresenceUrl(host, PRESENCE_SESSIONS_PLAYER));
+        URI uri = buildUri(toPresenceUrl(host, PRESENCE_SESSIONS_PLAYER));
         return restClientService
             .postForEntity(uri, "{}", PlayerSession.class)
             .getBody();
@@ -31,14 +31,14 @@ public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations
 
     @Override
     public PlayerSession refreshPlayerSession(String sessionId) {
-        URI uri = buildUriWith(toPresenceUrl(host, PRESENCE_SESSIONS_PLAYER_SESSION), sessionId);
+        URI uri = buildUri(toPresenceUrl(host, PRESENCE_SESSIONS_PLAYER_SESSION), sessionId);
         return restClientService.postForObject(uri, null, PlayerSession.class);
     }
 
     @Override
     public void endPlayerSession(String sessionId) {
         // Step 1. Building session URI
-        URI sessionUri = buildUriWith(toPresenceUrl(host, PRESENCE_SESSIONS_PLAYER_SESSION), sessionId);
+        URI sessionUri = buildUri(toPresenceUrl(host, PRESENCE_SESSIONS_PLAYER_SESSION), sessionId);
         // Step 2. Calling post for the generated URI
         restClientService.delete(sessionUri);
     }
@@ -46,7 +46,7 @@ public class AndroidPlayerSessionService extends AbstractClembleCasinoOperations
     @Override
     public PlayerSession getPlayerSession(String sessionId) {
         // Step 1. Building session URI
-        URI sessionUri = buildUriWith(toPresenceUrl(host, PRESENCE_SESSIONS_PLAYER_SESSION), sessionId);
+        URI sessionUri = buildUri(toPresenceUrl(host, PRESENCE_SESSIONS_PLAYER_SESSION), sessionId);
         // Step 2. Calling rest service
         return restClientService.getForObject(sessionUri, PlayerSession.class);
     }

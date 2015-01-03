@@ -3,11 +3,9 @@ package com.clemble.casino.android.player;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.player.service.PlayerNotificationService;
-import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.List;
 
 import static com.clemble.casino.player.PlayerNotificationWebMapping.*;
 
@@ -26,7 +24,7 @@ public class AndroidPlayerNotificationService extends AbstractClembleCasinoOpera
     @Override
     public PlayerNotification[] myNotifications() {
         // Step 1. Fetching player notifications
-        URI notificationUri = buildUriWith(toNotificationUrl(MY_NOTIFICATIONS));
+        URI notificationUri = buildUri(toNotificationUrl(MY_NOTIFICATIONS));
         // Step 2. Requesting through RestTemplate
         return restTemplate.getForObject(notificationUri, PlayerNotification[].class);
     }
@@ -34,7 +32,7 @@ public class AndroidPlayerNotificationService extends AbstractClembleCasinoOpera
     @Override
     public void delete(String key) {
         // Step 1. Fetching player notifications
-        URI notificationUri = buildUriWith(toNotificationUrl(MY_NOTIFICATIONS_DELETE), key);
+        URI notificationUri = buildUri(toNotificationUrl(MY_NOTIFICATIONS_DELETE), key);
         // Step 2. Requesting through RestTemplate
         restTemplate.delete(notificationUri);
     }

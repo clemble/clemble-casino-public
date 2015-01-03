@@ -26,27 +26,27 @@ public class AndroidAvailabilityGameConstructionService<T extends GameState> ext
 
     @Override
     public GameConstruction construct(AvailabilityGameRequest gameRequest) {
-        return restTemplate.postForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AVAILABILITY)), gameRequest, GameConstruction.class);
+        return restTemplate.postForObject(buildUri(toGameConstructionUrl(CONSTRUCTION_AVAILABILITY)), gameRequest, GameConstruction.class);
     }
 
     @Override
     public GameConstruction getConstruction(String sessionKey) {
-        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION), sessionKey), GameConstruction.class);
+        return restTemplate.getForObject(buildUri(toGameConstructionUrl(CONSTRUCTION), sessionKey), GameConstruction.class);
     }
 
     @Override
     public PlayerAction getReply(String sessionKey, String player) {
-        return restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerAction.class);
+        return restTemplate.getForObject(buildUri(toGameConstructionUrl(CONSTRUCTION_RESPONSES_PLAYER), sessionKey, player), PlayerAction.class);
     }
 
     @Override
     public GameConstruction reply(String sessionKey, PlayerInvitationAction request) {
-        return restTemplate.postForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_RESPONSES), sessionKey), request, GameConstruction.class);
+        return restTemplate.postForObject(buildUri(toGameConstructionUrl(CONSTRUCTION_RESPONSES), sessionKey), request, GameConstruction.class);
     }
 
     @Override
     public Collection<GameConstruction> getPending(String player) {
-        return CollectionUtils.immutableList(restTemplate.getForObject(buildUriWith(toGameConstructionUrl(CONSTRUCTION_AVAILABILITY_PENDING), player), GameConstruction[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(buildUri(toGameConstructionUrl(CONSTRUCTION_AVAILABILITY_PENDING), player), GameConstruction[].class));
     }
 
 }
