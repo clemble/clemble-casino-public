@@ -56,6 +56,7 @@ public abstract class GoalWebMapping implements WebMapping {
     final private static String GOAL_SUGGESTION_URL = "http://{host}/suggestion";
 
     final public static String MY_SUGGESTIONS = "/player/my";
+    final public static String MY_SUGGESTIONS_GOAL = "/player/my/{goalKey}";
     final public static String PLAYER_SUGGESTIONS = "/player/{player}";
 
     final public static String SUGGESTION = "/repository/{goalKey}";

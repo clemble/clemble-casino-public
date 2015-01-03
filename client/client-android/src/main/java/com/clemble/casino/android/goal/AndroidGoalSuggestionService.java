@@ -55,4 +55,13 @@ public class AndroidGoalSuggestionService extends AbstractClembleCasinoOperation
         // Step 2. Fetch suggestion
         return restTemplate.postForObject(uri, suggestionRequest, GoalSuggestion.class);
     }
+
+    @Override
+    public GoalSuggestion reply(String goalKey, boolean accept) {
+        // Step 1. Generating URI
+        URI uri = buildUri(toGoalSuggestionUrl(MY_SUGGESTIONS_GOAL), goalKey);
+        // Step 2. Publishing response
+        return restTemplate.postForObject(uri, accept, GoalSuggestion.class);
+    }
+
 }

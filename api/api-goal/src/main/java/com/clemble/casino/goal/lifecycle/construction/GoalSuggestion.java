@@ -4,10 +4,18 @@ import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
+import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.lifecycle.construction.Construction;
+import com.clemble.casino.lifecycle.initiation.InitiationState;
+import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by mavarazy on 1/3/15.
@@ -64,6 +72,23 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
 
     public GoalSuggestionState getState() {
         return  state;
+    }
+
+    public GoalInitiation toInitiation() {
+        return new GoalInitiation(
+            goalKey,
+            InitiationState.pending,
+            Bank.create(getPlayer(), getConfiguration().getBid()),
+            player,
+            goal,
+            configuration,
+            new HashSet<String>(),
+            new HashSet<String>(),
+            new Date());
+    }
+
+    public GoalSuggestion copyWithStatus(GoalSuggestionState state) {
+        return new GoalSuggestion(goalKey, goal, player, suggester, configuration, state);
     }
 
     @Override
