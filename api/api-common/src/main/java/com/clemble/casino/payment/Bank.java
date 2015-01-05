@@ -7,8 +7,7 @@ import com.clemble.casino.utils.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Created by mavarazy on 11/22/14.
@@ -16,13 +15,18 @@ import java.util.Collection;
 public class Bank implements PlayerBidAware {
 
     // TODO make this immutable
-    private Collection<PlayerBid> bids;
+    private Set<PlayerBid> bids = new TreeSet<PlayerBid>(new Comparator<PlayerBid>() {
+        @Override
+        public int compare(PlayerBid o1, PlayerBid o2) {
+            return o1.getPlayer().compareTo(o2.getPlayer());
+        }
+    });
     private Bid total;
 
     @JsonCreator
     public Bank(@JsonProperty("bids") Collection<PlayerBid> bids, @JsonProperty("total") Bid total) {
-        this.bids = bids;
         this.total = total;
+        this.bids.addAll(bids);
     }
 
     @Override
@@ -30,18 +34,33 @@ public class Bank implements PlayerBidAware {
         return bids;
     }
 
+    public PlayerBid getBid(String player) {
+        for(PlayerBid bid: bids) {
+            if (bid.getPlayer().equals(player)) {
+                return bid;
+            }
+        }
+        return null;
+    }
+
     public Bid getTotal() {
         return total;
     }
 
     public Bank add(PlayerBid playerBid) {
-        this.bids.add(playerBid);
+        PlayerBid existingBid = getBid(playerBid.getPlayer());
+        if (existingBid != null) {
+            this.bids.remove(existingBid);
+            this.bids.add(new PlayerBid(playerBid.getPlayer(), existingBid.getBid().add(playerBid.getBid())));
+        } else {
+            this.bids.add(playerBid);
+        }
         this.total = total.add(playerBid.getBid());
         return this;
     }
 
     public static Bank create(String player, Bid total) {
-        Collection<PlayerBid> bids = CollectionUtils.immutableList(new PlayerBid(player, total));
+        Collection<PlayerBid> bids = Collections.singleton(new PlayerBid(player, total));
         return new Bank(bids, total);
     }
 

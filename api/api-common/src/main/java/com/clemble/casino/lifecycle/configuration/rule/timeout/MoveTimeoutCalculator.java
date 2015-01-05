@@ -1,6 +1,5 @@
 package com.clemble.casino.lifecycle.configuration.rule.timeout;
 
-import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

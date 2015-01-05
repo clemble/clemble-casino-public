@@ -1,5 +1,7 @@
 package com.clemble.casino.goal.lifecycle.management;
 
+import com.clemble.casino.bet.Bid;
+import com.clemble.casino.bet.PlayerBid;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
@@ -16,9 +18,12 @@ import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
+import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
 import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
 import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.money.Currency;
+import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.payment.BankAware;
 import com.clemble.casino.player.PlayerAware;
@@ -139,6 +144,14 @@ public class GoalState implements State<GoalEvent, GoalContext>,
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 this.status = reachedAction.getStatus();
                 return new GoalEndedEvent(player, this, new PlayerWonOutcome(player));
+            } else if (action instanceof TimeoutPunishmentAction) {
+                TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
+                bank.add(new PlayerBid(player, new Bid(Money.create(Currency.FakeMoney, 0), punishmentAction.getAmount().negate())));
+                if (bank.getBid(player).getBid().getInterest().getAmount() == 0) {
+                    return new GoalEndedEvent(player, this, new PlayerLostOutcome(player));
+                } else {
+                    return new GoalChangedEvent(player, this);
+                }
             } else {
                 throw new IllegalArgumentException();
             }
