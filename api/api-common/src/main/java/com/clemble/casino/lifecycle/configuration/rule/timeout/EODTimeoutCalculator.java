@@ -25,13 +25,14 @@ public class EODTimeoutCalculator implements TimeoutCalculator {
     }
 
     @Override
-    public long calculate(PlayerClock clock) {
-        if (clock.getMoveStart() == 0) {
-            return Long.MAX_VALUE;
-        } else {
-            Date moveStart = new Date(clock.getMoveStart());
-            return ClembleDateUtils.getEndOfDay(DateUtils.addDays(moveStart, days)).getTime();
-        }
+    public long calculate(long moveStart) {
+        return calculate(moveStart, 0);
+    }
+
+    @Override
+    public long calculate(long moveStart, long timeSpent) {
+        Date moveStartDate = new Date(moveStart);
+        return ClembleDateUtils.getEndOfDay(DateUtils.addDays(moveStartDate, days)).getTime();
     }
 
     @Override

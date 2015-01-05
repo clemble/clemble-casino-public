@@ -113,7 +113,7 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
             initiation.getConfiguration(),
             initiation.getGoal(),
             initiation.getStartDate(),
-            initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit()
+            initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getTime())
         );
     }
 

@@ -8,7 +8,6 @@ import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
@@ -95,7 +94,7 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
             initiation.getBank(),
             initiation.getConfiguration(),
             initiation.getGoal(),
-            initiation.getStartDate().getTime() + initiation.getConfiguration().getTotalTimeRule().getLimit(),
+            initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getTime()),
             initiation.getStartDate(),
             bid
         );

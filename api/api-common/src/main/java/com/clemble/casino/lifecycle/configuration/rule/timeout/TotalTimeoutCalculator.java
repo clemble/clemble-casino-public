@@ -21,8 +21,13 @@ public class TotalTimeoutCalculator implements TimeoutCalculator {
     }
 
     @Override
-    public long calculate(PlayerClock clock) {
-        return clock.getMoveStart() == 0 ? Long.MAX_VALUE : limit - ((System.currentTimeMillis() - clock.getMoveStart()) + clock.getTimeSpent());
+    public long calculate(long moveStart) {
+        return calculate(moveStart, 0);
+    }
+
+    @Override
+    public long calculate(long moveStart, long timeSpent) {
+        return  limit - ((System.currentTimeMillis() - moveStart) + timeSpent);
     }
 
     @Override

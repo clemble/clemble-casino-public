@@ -20,16 +20,16 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
 
     private long moveStart;
     private long timeSpent;
-    private long breachTime;
     private long deadline;
+    private long breachTime;
     private BreachPunishment punishment;
 
     @JsonCreator
     public PlayerClock(
         @JsonProperty("moveStart") long moveStart,
         @JsonProperty("timeSpent") long timeSpent,
-        @JsonProperty("breachTime") long breachTime,
         @JsonProperty("deadline") long deadline,
+        @JsonProperty("breachTime") long breachTime,
         @JsonProperty("punishment") BreachPunishment punishment) {
         this.moveStart = moveStart;
         this.breachTime = breachTime;

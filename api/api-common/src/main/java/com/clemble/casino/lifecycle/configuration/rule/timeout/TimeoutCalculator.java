@@ -16,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public interface TimeoutCalculator {
 
-    public long calculate(PlayerClock clock);
+    public long calculate(long moveStart);
+
+    public long calculate(long moveStart, long timeSpent);
 
 }
