@@ -1,4 +1,4 @@
-package com.clemble.casino.lifecycle.configuration.rule.time;
+package com.clemble.casino.lifecycle.configuration.rule.timeout;
 
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishment;

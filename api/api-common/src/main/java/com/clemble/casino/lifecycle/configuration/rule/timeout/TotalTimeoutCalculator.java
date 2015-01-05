@@ -1,17 +1,18 @@
-package com.clemble.casino.lifecycle.configuration.rule.time;
+package com.clemble.casino.lifecycle.configuration.rule.timeout;
 
+import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 1/4/15.
  */
-public class MoveTimeoutCalculator implements TimeoutCalculator {
+public class TotalTimeoutCalculator implements TimeoutCalculator {
 
     final private long limit;
 
     @JsonCreator
-    public MoveTimeoutCalculator(@JsonProperty("limit") long limit) {
+    public TotalTimeoutCalculator(@JsonProperty("limit") long limit) {
         this.limit = limit;
     }
 
@@ -21,7 +22,7 @@ public class MoveTimeoutCalculator implements TimeoutCalculator {
 
     @Override
     public long calculate(PlayerClock clock) {
-        return clock.getMoveStart() == 0 ? Long.MAX_VALUE : limit - (System.currentTimeMillis() - clock.getMoveStart());
+        return clock.getMoveStart() == 0 ? Long.MAX_VALUE : limit - ((System.currentTimeMillis() - clock.getMoveStart()) + clock.getTimeSpent());
     }
 
     @Override
@@ -29,7 +30,7 @@ public class MoveTimeoutCalculator implements TimeoutCalculator {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MoveTimeoutCalculator that = (MoveTimeoutCalculator) o;
+        TotalTimeoutCalculator that = (TotalTimeoutCalculator) o;
 
         if (limit != that.limit) return false;
 
