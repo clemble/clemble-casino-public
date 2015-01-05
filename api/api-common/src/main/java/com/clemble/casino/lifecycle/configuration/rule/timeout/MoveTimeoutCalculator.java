@@ -27,7 +27,7 @@ public class MoveTimeoutCalculator implements TimeoutCalculator {
 
     @Override
     public long calculate(long moveStart, long timeSpent) {
-        return limit - (System.currentTimeMillis() - moveStart);
+        return System.currentTimeMillis() + (limit - (System.currentTimeMillis() - moveStart));
     }
 
     @Override
