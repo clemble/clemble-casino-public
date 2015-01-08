@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("fixed")
+@JsonTypeName("rule:bet:fixed")
 public class FixedBetRule implements BetRule {
 
     /**

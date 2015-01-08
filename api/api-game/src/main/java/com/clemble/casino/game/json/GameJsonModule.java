@@ -2,8 +2,15 @@ package com.clemble.casino.game.json;
 
 import com.clemble.casino.event.action.PlayerDefaultAction;
 import com.clemble.casino.game.GamePaymentSource;
+import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
+import com.clemble.casino.game.lifecycle.configuration.rule.giveup.GiveUpRule;
+import com.clemble.casino.game.lifecycle.configuration.rule.match.MatchFillRule;
+import com.clemble.casino.game.lifecycle.configuration.rule.outcome.DrawRule;
+import com.clemble.casino.game.lifecycle.configuration.rule.outcome.WonRule;
+import com.clemble.casino.game.lifecycle.configuration.rule.visibility.VisibilityRule;
 import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.game.lifecycle.management.event.*;
+import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.TimeoutSurrenderAction;
@@ -67,12 +74,12 @@ public class GameJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(MatchGameContext.class, MatchGameContext.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(RoundGameContext.class, RoundGameContext.class.getAnnotation(JsonTypeName.class).value()));
 
-//        module.registerSubtypes(new NamedType(PlayerNumberRule.class, PlayerNumberRule.class.getAnnotation(JsonTypeName.class).value()));
-//        module.registerSubtypes(new NamedType(PrivacyRule.class, PrivacyRule.class.getAnnotation(JsonTypeName.class).value()));
-//        module.registerSubtypes(new NamedType(GiveUpRule.class, GiveUpRule.class.getAnnotation(JsonTypeName.class).value()));
-//        module.registerSubtypes(new NamedType(MoveTimeRule.class, MoveTimeRule.class.getAnnotation(JsonTypeName.class).value()));
-//        module.registerSubtypes(new NamedType(TotalTimeRule.class, TotalTimeRule.class.getAnnotation(JsonTypeName.class).value()));
-//        module.registerSubtypes(new NamedType(MatchFillRule.class, MatchFillRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(PlayerNumberRule.class, PlayerNumberRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(GiveUpRule.class, GiveUpRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MatchFillRule.class, MatchFillRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(DrawRule.class, DrawRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(WonRule.class, WonRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(VisibilityRule.class, VisibilityRule.class.getAnnotation(JsonTypeName.class).value()));
 
         module.registerSubtypes(new NamedType(MatchGameConfiguration.class, MatchGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(RoundGameConfiguration.class, RoundGameConfiguration.class.getAnnotation(JsonTypeName.class).value()));

@@ -1,6 +1,10 @@
 package com.clemble.casino.game.lifecycle.configuration.rule.visibility;
 
-public enum VisibilityRule {
+import com.clemble.casino.game.lifecycle.configuration.rule.GameRule;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+@JsonTypeName("rule:game:visibility")
+public enum VisibilityRule implements GameRule {
 
     visible,
     hidden;

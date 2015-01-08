@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("totalTime")
+@JsonTypeName("rule:time:total")
 public class TotalTimeRule implements TimeRule {
 
     /**

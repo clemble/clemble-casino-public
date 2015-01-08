@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.clemble.casino.game.Game;
+import com.clemble.casino.game.lifecycle.configuration.rule.visibility.VisibilityRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.FixedBetRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
@@ -14,7 +15,6 @@ import com.clemble.casino.game.lifecycle.configuration.rule.outcome.DrawRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.WonRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
-import com.clemble.casino.game.lifecycle.configuration.rule.visibility.VisibilityRule;
 import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.money.Money;

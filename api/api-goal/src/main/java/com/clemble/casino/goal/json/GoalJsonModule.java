@@ -3,6 +3,8 @@ package com.clemble.casino.goal.json;
 import com.clemble.casino.goal.GoalPaymentSource;
 import com.clemble.casino.goal.event.action.GoalReachedAction;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
+import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.BasicReminderRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.NoReminderRule;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionCompleteEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionAcceptedEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionCreatedEvent;
@@ -16,6 +18,8 @@ import com.clemble.casino.goal.lifecycle.management.event.GoalStartedEvent;
 import com.clemble.casino.goal.lifecycle.record.event.GoalRecordCreatedEvent;
 import com.clemble.casino.goal.post.*;
 import com.clemble.casino.json.ClembleJsonModule;
+import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -55,6 +59,9 @@ public class GoalJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GoalMissedPost.class, GoalMissedPost.JSON_TYPE));
 
         module.registerSubtypes(new NamedType(GoalPaymentSource.class, GoalPaymentSource.JSON_TYPE));
+
+        module.registerSubtypes(new NamedType(BasicReminderRule.class, BasicReminderRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(NoReminderRule.class, NoReminderRule.class.getAnnotation(JsonTypeName.class).value()));
 
         return module;
     }

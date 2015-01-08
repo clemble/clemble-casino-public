@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("limited")
+@JsonTypeName("rule:bet:limited")
 public class LimitedBetRule implements BetRule {
 
     /**

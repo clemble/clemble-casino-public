@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 11/3/14.
  */
-@JsonTypeName("forbidden")
+@JsonTypeName("rule:bet:forbidden")
 public class ForbiddenBetRule implements BetRule {
 
     final public static ForbiddenBetRule INSTANCE = new ForbiddenBetRule();

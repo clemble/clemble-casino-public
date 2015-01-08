@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeInfo(use = Id.NAME, include = As.PROPERTY, property = "betType")
 public interface BetRule extends ConfigurationRule {
 
     public boolean isValid(BetAction betAction);

@@ -5,10 +5,12 @@ import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishmentAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 1/4/15.
  */
+@JsonTypeName("rule:timeout")
 public class TimeoutRule implements ConfigurationRule, BreachPunishmentAware {
 
     final private BreachPunishment punishment;
