@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by mavarazy on 11/29/14.
@@ -25,6 +26,8 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
     final private GoalConfiguration configuration;
     final private PlayerBid playerBid;
     final private String goal;
+    final private Set<String> observers;
+    final private Set<String> supporters;
     final private Date startDate;
     final private long deadline;
 
@@ -36,12 +39,16 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
         @JsonProperty("deadline") long deadline,
+        @JsonProperty("observers") Set<String> observers,
+        @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") Date startDate,
         @JsonProperty("playerBid") PlayerBid playerBid
     ) {
         this.goalKey = goalKey;
         this.player = player;
         this.playerBid = playerBid;
+        this.observers = observers;
+        this.supporters = supporters;
         this.goal = goal;
         this.bank = bank;
         this.configuration = configuration;
@@ -62,6 +69,16 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public Set<String> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public Set<String> getSupporters() {
+        return supporters;
     }
 
     public PlayerBid getPlayerBid() {
@@ -95,6 +112,8 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
             initiation.getConfiguration(),
             initiation.getGoal(),
             initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getTime()),
+            initiation.getObservers(),
+            initiation.getSupporters(),
             initiation.getStartDate(),
             bid
         );

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by mavarazy on 11/29/14.
@@ -21,6 +22,8 @@ public class GoalStartedPost implements GoalPost {
     final private String goal;
     final private String goalKey;
     final private long deadline;
+    final private Set<String> observers;
+    final private Set<String> supporters;
 
     @JsonCreator
     public GoalStartedPost(
@@ -28,12 +31,17 @@ public class GoalStartedPost implements GoalPost {
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
-        @JsonProperty("deadline") long deadline) {
+        @JsonProperty("deadline") long deadline,
+        @JsonProperty("observers") Set<String> observers,
+        @JsonProperty("supporters") Set<String> supporters
+    ) {
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
         this.bank = bank;
         this.deadline = deadline;
+        this.observers = observers;
+        this.supporters = supporters;
     }
 
     @Override
@@ -52,6 +60,16 @@ public class GoalStartedPost implements GoalPost {
     }
 
     @Override
+    public Set<String> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public Set<String> getSupporters() {
+        return supporters;
+    }
+
+    @Override
     public Bank getBank() {
         return bank;
     }
@@ -67,7 +85,9 @@ public class GoalStartedPost implements GoalPost {
             state.getPlayer(),
             state.getBank(),
             state.getGoal(),
-            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline()
+            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
+            state.getObservers(),
+            state.getSupporters()
         );
     }
 

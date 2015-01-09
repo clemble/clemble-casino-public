@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by mavarazy on 11/29/14.
@@ -24,6 +25,8 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
     final private String goalKey;
     final private Date startDate;
     final private long deadline;
+    final private Set<String> observers;
+    final private Set<String> supporters;
     final private GoalConfiguration configuration;
 
     @JsonCreator
@@ -34,7 +37,9 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
         @JsonProperty("startDate") Date startDate,
-        @JsonProperty("deadline") long deadline) {
+        @JsonProperty("deadline") long deadline,
+        @JsonProperty("observers") Set<String> observers,
+        @JsonProperty("supporters") Set<String> supporters) {
         this.goalKey = goalKey;
         this.player = player;
         this.startDate = startDate;
@@ -42,6 +47,8 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
         this.bank = bank;
         this.deadline = deadline;
         this.configuration = configuration;
+        this.observers = observers;
+        this.supporters = supporters;
     }
 
     @Override
@@ -57,6 +64,16 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public Set<String> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public Set<String> getSupporters() {
+        return supporters;
     }
 
     public Date getStartDate() {
@@ -113,7 +130,9 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
             initiation.getConfiguration(),
             initiation.getGoal(),
             initiation.getStartDate(),
-            initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getTime())
+            initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getTime()),
+            initiation.getObservers(),
+            initiation.getSupporters()
         );
     }
 

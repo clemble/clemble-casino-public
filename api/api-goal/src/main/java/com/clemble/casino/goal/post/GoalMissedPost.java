@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by mavarazy on 11/29/14.
@@ -22,6 +23,9 @@ public class GoalMissedPost implements GoalPost {
     final private String status;
     final private String goalKey;
     final private long deadline;
+    final private Set<String> observers;
+    final private Set<String> supporters;
+
 
     @JsonCreator
     public GoalMissedPost(
@@ -30,13 +34,18 @@ public class GoalMissedPost implements GoalPost {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("status") String status,
-        @JsonProperty("deadline") long deadline) {
+        @JsonProperty("deadline") long deadline,
+        @JsonProperty("observers") Set<String> observers,
+        @JsonProperty("supporters") Set<String> supporters
+    ) {
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
         this.bank = bank;
         this.status = status;
         this.deadline = deadline;
+        this.observers = observers;
+        this.supporters = supporters;
     }
 
     @Override
@@ -52,6 +61,16 @@ public class GoalMissedPost implements GoalPost {
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public Set<String> getObservers() {
+        return observers;
+    }
+
+    @Override
+    public Set<String> getSupporters() {
+        return supporters;
     }
 
     public String getStatus() {
@@ -75,7 +94,10 @@ public class GoalMissedPost implements GoalPost {
             state.getBank(),
             state.getGoal(),
             state.getStatus(),
-            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline());
+            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
+            state.getObservers(),
+            state.getSupporters()
+        );
     }
 
     @Override
