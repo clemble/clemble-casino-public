@@ -19,15 +19,17 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
 
     final public static String JSON_TYPE = "post:goal:created";
 
+    final private String key;
     final private String player;
     final private Bank bank;
     final private String goal;
     final private String goalKey;
-    final private Date startDate;
-    final private long deadline;
     final private Set<String> observers;
     final private Set<String> supporters;
     final private GoalConfiguration configuration;
+    final private Date startDate;
+    final private long deadline;
+    final private Date created;
 
     @JsonCreator
     public GoalCreatedPost(
@@ -40,21 +42,24 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("startDate") Date startDate,
         @JsonProperty("deadline") long deadline,
         @JsonProperty("observers") Set<String> observers,
-        @JsonProperty("supporters") Set<String> supporters) {
+        @JsonProperty("supporters") Set<String> supporters,
+        @JsonProperty("created") Date created) {
+        this.key = key;
         this.goalKey = goalKey;
         this.player = player;
-        this.startDate = startDate;
         this.goal = goal;
         this.bank = bank;
-        this.deadline = deadline;
         this.configuration = configuration;
         this.observers = observers;
         this.supporters = supporters;
+        this.startDate = startDate;
+        this.deadline = deadline;
+        this.created = created;
     }
 
     @Override
     public String getKey() {
-        return goalKey;
+        return key;
     }
 
     @Override
@@ -102,6 +107,11 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
     }
 
     @Override
+    public Date getCreated() {
+        return created;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -139,7 +149,8 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
             initiation.getStartDate(),
             initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getTime()),
             initiation.getObservers(),
-            initiation.getSupporters()
+            initiation.getSupporters(),
+            new Date()
         );
     }
 

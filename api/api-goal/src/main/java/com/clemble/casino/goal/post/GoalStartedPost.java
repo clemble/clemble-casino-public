@@ -17,13 +17,15 @@ public class GoalStartedPost implements GoalPost {
 
     final public static String JSON_TYPE = "post:goal:started";
 
+    final private String key;
     final private String player;
     final private Bank bank;
     final private String goal;
     final private String goalKey;
-    final private long deadline;
     final private Set<String> observers;
     final private Set<String> supporters;
+    final private long deadline;
+    final private Date created;
 
     @JsonCreator
     public GoalStartedPost(
@@ -34,8 +36,10 @@ public class GoalStartedPost implements GoalPost {
         @JsonProperty("goal") String goal,
         @JsonProperty("deadline") long deadline,
         @JsonProperty("observers") Set<String> observers,
-        @JsonProperty("supporters") Set<String> supporters
+        @JsonProperty("supporters") Set<String> supporters,
+        @JsonProperty("created") Date created
     ) {
+        this.key = key;
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
@@ -43,11 +47,12 @@ public class GoalStartedPost implements GoalPost {
         this.deadline = deadline;
         this.observers = observers;
         this.supporters = supporters;
+        this.created = created;
     }
 
     @Override
     public String getKey() {
-        return goalKey;
+        return key;
     }
 
     @Override
@@ -85,6 +90,11 @@ public class GoalStartedPost implements GoalPost {
         return deadline;
     }
 
+    @Override
+    public Date getCreated() {
+        return created;
+    }
+
     public static GoalStartedPost create(GoalState state) {
         return new GoalStartedPost(
             state.getGoalKey(),
@@ -94,7 +104,8 @@ public class GoalStartedPost implements GoalPost {
             state.getGoal(),
             state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
             state.getObservers(),
-            state.getSupporters()
+            state.getSupporters(),
+            new Date()
         );
     }
 

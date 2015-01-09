@@ -20,6 +20,7 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
 
     final public static String JSON_TYPE = "post:goal:bid";
 
+    final private String key;
     final private String goalKey;
     final private String player;
     final private Bank bank;
@@ -30,6 +31,7 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
     final private Set<String> supporters;
     final private Date startDate;
     final private long deadline;
+    final private Date created;
 
     @JsonCreator
     public GoalBidPost(
@@ -43,8 +45,10 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("observers") Set<String> observers,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") Date startDate,
-        @JsonProperty("playerBid") PlayerBid playerBid
+        @JsonProperty("playerBid") PlayerBid playerBid,
+        @JsonProperty("created") Date created
     ) {
+        this.key = key;
         this.goalKey = goalKey;
         this.player = player;
         this.playerBid = playerBid;
@@ -55,11 +59,12 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
         this.configuration = configuration;
         this.startDate = startDate;
         this.deadline = deadline;
+        this.created = created;
     }
 
     @Override
     public String getKey() {
-        return goalKey;
+        return key;
     }
 
     @Override
@@ -110,6 +115,11 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
         return deadline;
     }
 
+    @Override
+    public Date getCreated() {
+        return created;
+    }
+
     public static GoalBidPost create(PlayerBid bid, GoalInitiation initiation) {
         return new GoalBidPost(
             initiation.getGoalKey(),
@@ -122,7 +132,8 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
             initiation.getObservers(),
             initiation.getSupporters(),
             initiation.getStartDate(),
-            bid
+            bid,
+            new Date()
         );
     }
 
