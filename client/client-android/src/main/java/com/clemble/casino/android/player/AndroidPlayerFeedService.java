@@ -24,9 +24,17 @@ public class AndroidPlayerFeedService extends AbstractClembleCasinoOperations im
     @Override
     public PlayerPost[] myFeed() {
         // Step 1. Fetching player notifications
-        URI notificationUri = buildUri(toPostUrl(MY_POSTS));
+        URI feedUri = buildUri(toPostUrl(MY_POSTS));
         // Step 2. Requesting through RestTemplate
-        return restTemplate.getForObject(notificationUri, PlayerPost[].class);
+        return restTemplate.getForObject(feedUri, PlayerPost[].class);
+    }
+
+    @Override
+    public PlayerPost share(String key, String provider) {
+        // Step 1. Fetching player notifications
+        URI shareUri = buildUri(toPostUrl(POST_SHARE), key);
+        // Step 2. Requesting through RestTemplate
+        return restTemplate.postForObject(shareUri, provider, PlayerPost.class);
     }
 
 }

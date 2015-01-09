@@ -10,4 +10,6 @@ public interface PlayerFeedService extends ClembleService {
 
     PlayerPost[] myFeed();
 
+    PlayerPost share(String key, String provider);
+
 }

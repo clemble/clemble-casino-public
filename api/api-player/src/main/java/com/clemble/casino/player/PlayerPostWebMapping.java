@@ -11,6 +11,8 @@ public class PlayerPostWebMapping implements WebMapping {
 
     final public static String MY_POSTS = "/my";
 
+    final public static String POST_SHARE = "/post/{postKey}/share";
+
     public static String toPostUrl(String path) {
         return POST_URL + path;
     }
