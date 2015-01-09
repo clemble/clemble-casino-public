@@ -29,6 +29,7 @@ public class GoalMissedPost implements GoalPost {
 
     @JsonCreator
     public GoalMissedPost(
+        @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
@@ -46,6 +47,11 @@ public class GoalMissedPost implements GoalPost {
         this.deadline = deadline;
         this.observers = observers;
         this.supporters = supporters;
+    }
+
+    @Override
+    public String getKey() {
+        return goalKey;
     }
 
     @Override
@@ -89,6 +95,7 @@ public class GoalMissedPost implements GoalPost {
 
     public static GoalMissedPost create(GoalState state) {
         return new GoalMissedPost(
+            state.getGoalKey(),
             state.getGoalKey(),
             state.getPlayer(),
             state.getBank(),

@@ -33,6 +33,7 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
 
     @JsonCreator
     public GoalBidPost(
+        @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
@@ -54,6 +55,11 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
         this.configuration = configuration;
         this.startDate = startDate;
         this.deadline = deadline;
+    }
+
+    @Override
+    public String getKey() {
+        return goalKey;
     }
 
     @Override
@@ -106,6 +112,7 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
 
     public static GoalBidPost create(PlayerBid bid, GoalInitiation initiation) {
         return new GoalBidPost(
+            initiation.getGoalKey(),
             initiation.getGoalKey(),
             initiation.getPlayer(),
             initiation.getBank(),

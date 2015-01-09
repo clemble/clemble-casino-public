@@ -31,6 +31,7 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
 
     @JsonCreator
     public GoalCreatedPost(
+        @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
@@ -49,6 +50,11 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
         this.configuration = configuration;
         this.observers = observers;
         this.supporters = supporters;
+    }
+
+    @Override
+    public String getKey() {
+        return goalKey;
     }
 
     @Override
@@ -124,6 +130,7 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
 
     public static GoalCreatedPost create(GoalInitiation initiation) {
         return new GoalCreatedPost(
+            initiation.getGoalKey(),
             initiation.getGoalKey(),
             initiation.getPlayer(),
             initiation.getBank(),
