@@ -1,6 +1,7 @@
 package com.clemble.casino.notification;
 
 import com.clemble.casino.player.event.PlayerEvent;
+import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
@@ -9,7 +10,10 @@ import java.util.Date;
  */
 public interface PlayerNotification extends PlayerEvent {
 
+    @Id
     public String getKey();
+
+    public String getPlayer();
 
     public Date getCreated();
 

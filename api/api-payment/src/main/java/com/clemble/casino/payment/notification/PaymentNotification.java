@@ -22,8 +22,8 @@ public class PaymentNotification implements
 
     final public static String JSON_TYPE = "notification:payment";
 
-    final private String player;
     final private String key;
+    final private String player;
     final private Money amount;
     final private Operation operation;
     final private PaymentSource source;

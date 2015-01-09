@@ -32,7 +32,7 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
         this.created = created;
     }
 
-    @JsonProperty
+    @Override
     public String getKey() {
         return key;
     }
