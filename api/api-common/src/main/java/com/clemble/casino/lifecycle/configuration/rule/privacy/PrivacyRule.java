@@ -1,13 +1,11 @@
 package com.clemble.casino.lifecycle.configuration.rule.privacy;
 
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
-import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRuleOptions;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("rule:privacy")
-@JsonFormat(shape = JsonFormat.Shape.STRING)
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum PrivacyRule implements ConfigurationRule {
 
     me,

@@ -38,9 +38,6 @@ public class CommonJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(LooseBreachPunishment.class, LooseBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(DefaultBreachPunishment.class, DefaultBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));
 
-//        module.registerSubtypes(new NamedType(PrivacyRule.class, PrivacyRule.class.getAnnotation(JsonTypeName.class).value()));
-
-//        module.registerSubtypes(new NamedType(BetRule.class, BetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(MonoBidRule.class, MonoBidRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(FixedBetRule.class, FixedBetRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(FixedBidRule.class, FixedBidRule.class.getAnnotation(JsonTypeName.class).value()));
