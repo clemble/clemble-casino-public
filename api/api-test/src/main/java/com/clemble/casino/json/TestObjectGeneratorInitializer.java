@@ -77,7 +77,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(GoalConfigurationValue.class, new AbstractValueGenerator<GoalConfigurationValue>() {
             @Override
             public GoalConfigurationValue generate() {
-                return new GoalConfigurationValue(ObjectGenerator.generate(TotalTimeRule.class), ObjectGenerator.generate(Money.class));
+                return new GoalConfigurationValue(ObjectGenerator.generate(TotalTimeRule.class), ObjectGenerator.generate(Integer.class));
             }
         });
         ObjectGenerator.register(FixedBidRule.class, new AbstractValueGenerator<FixedBidRule>() {

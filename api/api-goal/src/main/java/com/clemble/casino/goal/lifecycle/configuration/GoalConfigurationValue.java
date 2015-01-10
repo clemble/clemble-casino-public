@@ -1,29 +1,25 @@
 package com.clemble.casino.goal.lifecycle.configuration;
 
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
-import com.clemble.casino.money.Money;
-import com.clemble.casino.payment.AmountAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 1/6/15.
  */
-public class GoalConfigurationValue<T extends ConfigurationRule> implements AmountAware {
+public class GoalConfigurationValue<T extends ConfigurationRule> {
 
     final private T rule;
-    final private Money amount;
+    final private int percentage;
 
     @JsonCreator
-    public GoalConfigurationValue(@JsonProperty("rule") T rule, @JsonProperty("amount") Money amount) {
+    public GoalConfigurationValue(@JsonProperty("rule") T rule, @JsonProperty("percentage") int percentage) {
         this.rule = rule;
-        this.amount = amount;
+        this.percentage = percentage;
     }
 
-    @Override
-    public Money getAmount() {
-        return amount;
+    public int getPercentage() {
+        return percentage;
     }
 
     public T getRule() {
@@ -37,7 +33,7 @@ public class GoalConfigurationValue<T extends ConfigurationRule> implements Amou
 
         GoalConfigurationValue that = (GoalConfigurationValue) o;
 
-        if (!amount.equals(that.amount)) return false;
+        if (percentage != that.percentage) return false;
         if (!rule.equals(that.rule)) return false;
 
         return true;
@@ -46,7 +42,7 @@ public class GoalConfigurationValue<T extends ConfigurationRule> implements Amou
     @Override
     public int hashCode() {
         int result = rule.hashCode();
-        result = 31 * result + amount.hashCode();
+        result = 31 * result + percentage;
         return result;
     }
 

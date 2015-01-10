@@ -2,6 +2,7 @@ package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationChoices;
 import com.clemble.casino.goal.lifecycle.configuration.service.GoalConfigurationService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -21,6 +22,14 @@ public class AndroidGoalConfigurationService extends AbstractClembleCasinoOperat
     public AndroidGoalConfigurationService(String host, RestTemplate restTemplate) {
         super(host);
         this.restTemplate = restTemplate;
+    }
+
+    @Override
+    public GoalConfigurationChoices getChoices() {
+        // Step 1. Generating choices URI
+        URI myConfigurationsUrl = buildUri(toGoalConfigurationUrl(MY_CONFIGURATIONS_CHOICES));
+        // Step 2. GET available Goal configurations
+        return restTemplate.getForObject(myConfigurationsUrl, GoalConfigurationChoices.class);
     }
 
     @Override
