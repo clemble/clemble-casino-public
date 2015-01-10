@@ -2,6 +2,7 @@ package com.clemble.casino.goal.lifecycle.configuration;
 
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
@@ -27,6 +28,7 @@ public class GoalConfiguration implements
     final private TimeoutRule totalTimeoutRule;
     final private GoalRoleConfiguration supporterConfiguration;
     final private GoalRoleConfiguration observerConfiguration;
+    final private ShareRule shareRule;
 
     @JsonCreator
     public GoalConfiguration(
@@ -39,7 +41,8 @@ public class GoalConfiguration implements
         @JsonProperty("totalTimeRule") TimeoutRule totalTimeoutRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("supporterConfiguration") GoalRoleConfiguration supporterConfiguration,
-        @JsonProperty("observerConfiguration") GoalRoleConfiguration observerConfiguration
+        @JsonProperty("observerConfiguration") GoalRoleConfiguration observerConfiguration,
+        @JsonProperty("shareRule") ShareRule shareRule
     ) {
         this.configurationKey = configurationKey;
         this.name = name;
@@ -51,6 +54,7 @@ public class GoalConfiguration implements
         this.privacyRule = privacyRule;
         this.supporterConfiguration = supporterConfiguration;
         this.observerConfiguration = observerConfiguration;
+        this.shareRule = shareRule;
     }
 
     @Override
@@ -93,6 +97,10 @@ public class GoalConfiguration implements
     @Override
     public PrivacyRule getPrivacyRule() {
         return privacyRule;
+    }
+
+    public ShareRule getShareRule() {
+        return shareRule;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.clemble.casino.goal.lifecycle.management.event;
 
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.goal.post.GoalMissedPost;
+import com.clemble.casino.goal.post.GoalPost;
 import com.clemble.casino.goal.post.GoalReachedPost;
 import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.management.outcome.OutcomeAware;
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 10/9/14.
  */
 @JsonTypeName(GoalEndedEvent.JSON_TYPE)
-public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware, PlayerPostConvertible {
+public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware {
 
     final public static String JSON_TYPE = "goal:management:complete";
 
@@ -52,7 +53,7 @@ public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware, Player
     }
 
     @Override
-    public PlayerPost toPost() {
+    public GoalPost toPost() {
         if (outcome instanceof PlayerWonOutcome)
             return GoalReachedPost.create(state);
         else
