@@ -9,7 +9,7 @@ public abstract class GoalWebMapping implements WebMapping {
 
     final private static String GOAL_CONFIGURATIONS_URL = "http://{host}/configuration";
     final public static String MY_CONFIGURATIONS = "/my";
-    final public static String MY_CONFIGURATIONS_CHOICES = "/my/choise";
+    final public static String MY_CONFIGURATIONS_CHOICES = "/my/choice";
 
     public static String toGoalConfigurationUrl(String path) {
         return GOAL_CONFIGURATIONS_URL + path;
