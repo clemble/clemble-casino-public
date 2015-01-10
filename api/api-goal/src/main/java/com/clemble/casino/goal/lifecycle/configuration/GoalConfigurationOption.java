@@ -1,6 +1,8 @@
 package com.clemble.casino.goal.lifecycle.configuration;
 
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -11,7 +13,8 @@ public class GoalConfigurationOption<T extends ConfigurationRule> {
 
     final private List<GoalConfigurationValue<T>> values;
 
-    public GoalConfigurationOption(List<GoalConfigurationValue<T>> values) {
+    @JsonCreator
+    public GoalConfigurationOption(@JsonProperty("values") List<GoalConfigurationValue<T>> values) {
         this.values = values;
     }
 

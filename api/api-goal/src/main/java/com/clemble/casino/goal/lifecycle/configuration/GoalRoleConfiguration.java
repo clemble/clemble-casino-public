@@ -7,10 +7,12 @@ import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 12/16/14.
  */
+@JsonTypeName("rule:role:configuration")
 public class GoalRoleConfiguration implements GoalRule {
 
     final private Bid bid;

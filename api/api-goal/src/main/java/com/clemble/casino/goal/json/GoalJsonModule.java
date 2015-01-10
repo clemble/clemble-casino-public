@@ -3,8 +3,10 @@ package com.clemble.casino.goal.json;
 import com.clemble.casino.goal.GoalPaymentSource;
 import com.clemble.casino.goal.event.action.GoalReachedAction;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
+import com.clemble.casino.goal.lifecycle.configuration.GoalRoleConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.BasicReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.NoReminderRule;
+import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionCompleteEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionAcceptedEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionCreatedEvent;
@@ -62,6 +64,9 @@ public class GoalJsonModule implements ClembleJsonModule {
 
         module.registerSubtypes(new NamedType(BasicReminderRule.class, BasicReminderRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(NoReminderRule.class, NoReminderRule.class.getAnnotation(JsonTypeName.class).value()));
+
+        module.registerSubtypes(new NamedType(GoalRoleConfiguration.class, GoalRoleConfiguration.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(ShareRule.class, ShareRule.class.getAnnotation(JsonTypeName.class).value()));
 
         return module;
     }
