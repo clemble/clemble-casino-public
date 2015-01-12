@@ -5,7 +5,6 @@ package com.clemble.casino.goal.lifecycle.management;
  */
 public enum GoalRole {
 
-    supporter,
-    observer;
+    supporter;
 
 }

@@ -22,7 +22,6 @@ public class GoalStartedPost implements GoalPost {
     final private Bank bank;
     final private String goal;
     final private String goalKey;
-    final private Set<String> observers;
     final private Set<String> supporters;
     final private long deadline;
     final private Date created;
@@ -35,7 +34,6 @@ public class GoalStartedPost implements GoalPost {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
         @JsonProperty("deadline") long deadline,
-        @JsonProperty("observers") Set<String> observers,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("created") Date created
     ) {
@@ -45,7 +43,6 @@ public class GoalStartedPost implements GoalPost {
         this.goal = goal;
         this.bank = bank;
         this.deadline = deadline;
-        this.observers = observers;
         this.supporters = supporters;
         this.created = created;
     }
@@ -68,11 +65,6 @@ public class GoalStartedPost implements GoalPost {
     @Override
     public String getGoal() {
         return goal;
-    }
-
-    @Override
-    public Set<String> getObservers() {
-        return observers;
     }
 
     @Override
@@ -103,7 +95,6 @@ public class GoalStartedPost implements GoalPost {
             state.getBank(),
             state.getGoal(),
             state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
-            state.getObservers(),
             state.getSupporters(),
             new Date()
         );

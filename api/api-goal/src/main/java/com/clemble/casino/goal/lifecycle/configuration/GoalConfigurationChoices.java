@@ -22,7 +22,6 @@ public class GoalConfigurationChoices {
     final private List<GoalConfigurationValue<PrivacyRule>> privacyRule;
     final private List<GoalConfigurationValue<TimeoutRule>> moveTimeoutRule;
     final private List<GoalConfigurationValue<GoalRoleConfiguration>> supporterConfiguration;
-    final private List<GoalConfigurationValue<GoalRoleConfiguration>> observerConfiguration;
     final private List<GoalConfigurationValue<ShareRule>> shareRule;
 
     @JsonCreator
@@ -34,7 +33,6 @@ public class GoalConfigurationChoices {
         @JsonProperty("phoneReminderRule") List<GoalConfigurationValue<ReminderRule>> phoneReminderRule,
         @JsonProperty("privacyRule") List<GoalConfigurationValue<PrivacyRule>> privacyRule,
         @JsonProperty("supporterConfiguration") List<GoalConfigurationValue<GoalRoleConfiguration>> supporterConfiguration,
-        @JsonProperty("observerConfiguration") List<GoalConfigurationValue<GoalRoleConfiguration>> observerConfiguration,
         @JsonProperty("shareRule") List<GoalConfigurationValue<ShareRule>> shareRule
     ) {
         this.bid = bid;
@@ -44,7 +42,6 @@ public class GoalConfigurationChoices {
         this.privacyRule = privacyRule;
         this.moveTimeoutRule = moveTimeoutRule;
         this.supporterConfiguration = supporterConfiguration;
-        this.observerConfiguration = observerConfiguration;
         this.shareRule = shareRule;
     }
 
@@ -76,10 +73,6 @@ public class GoalConfigurationChoices {
         return supporterConfiguration;
     }
 
-    public List<GoalConfigurationValue<GoalRoleConfiguration>> getObserverConfiguration() {
-        return observerConfiguration;
-    }
-
     public List<GoalConfigurationValue<ShareRule>> getShareRule() {
         return shareRule;
     }
@@ -94,7 +87,6 @@ public class GoalConfigurationChoices {
         if (!bid.equals(that.bid)) return false;
         if (!emailReminderRule.equals(that.emailReminderRule)) return false;
         if (!moveTimeoutRule.equals(that.moveTimeoutRule)) return false;
-        if (!observerConfiguration.equals(that.observerConfiguration)) return false;
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
         if (!privacyRule.equals(that.privacyRule)) return false;
         if (!shareRule.equals(that.shareRule)) return false;
@@ -113,7 +105,6 @@ public class GoalConfigurationChoices {
         result = 31 * result + privacyRule.hashCode();
         result = 31 * result + moveTimeoutRule.hashCode();
         result = 31 * result + supporterConfiguration.hashCode();
-        result = 31 * result + observerConfiguration.hashCode();
         result = 31 * result + shareRule.hashCode();
         return result;
     }

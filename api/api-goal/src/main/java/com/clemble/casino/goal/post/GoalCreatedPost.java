@@ -24,7 +24,6 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
     final private Bank bank;
     final private String goal;
     final private String goalKey;
-    final private Set<String> observers;
     final private Set<String> supporters;
     final private GoalConfiguration configuration;
     final private Date startDate;
@@ -41,7 +40,6 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("goal") String goal,
         @JsonProperty("startDate") Date startDate,
         @JsonProperty("deadline") long deadline,
-        @JsonProperty("observers") Set<String> observers,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("created") Date created) {
         this.key = key;
@@ -50,7 +48,6 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
         this.goal = goal;
         this.bank = bank;
         this.configuration = configuration;
-        this.observers = observers;
         this.supporters = supporters;
         this.startDate = startDate;
         this.deadline = deadline;
@@ -75,11 +72,6 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
     @Override
     public String getGoal() {
         return goal;
-    }
-
-    @Override
-    public Set<String> getObservers() {
-        return observers;
     }
 
     @Override
@@ -148,7 +140,6 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
             initiation.getGoal(),
             initiation.getStartDate(),
             initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getTime()),
-            initiation.getObservers(),
             initiation.getSupporters(),
             new Date()
         );

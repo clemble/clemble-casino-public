@@ -37,7 +37,6 @@ public class GoalInitiation implements
     final private Bank bank;
     final private Date startDate;
     final private InitiationState state;
-    final private Set<String> observers;
     final private Set<String> supporters;
     final private GoalConfiguration configuration;
 
@@ -49,7 +48,6 @@ public class GoalInitiation implements
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
-        @JsonProperty("observers") Set<String> observers,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") Date startDate) {
         this.goal = goal;
@@ -57,7 +55,6 @@ public class GoalInitiation implements
         this.bank = bank;
         this.player = player;
         this.goalKey = goalKey;
-        this.observers = observers;
         this.supporters = supporters;
         this.startDate = startDate;
         this.configuration = configuration;
@@ -93,11 +90,6 @@ public class GoalInitiation implements
     }
 
     @Override
-    public Set<String> getObservers() {
-        return observers;
-    }
-
-    @Override
     public Set<String> getSupporters() {
         return supporters;
     }
@@ -120,7 +112,7 @@ public class GoalInitiation implements
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
-        return new GoalInitiation(goalKey, state, bank, player, goal, configuration, observers, supporters, startDate);
+        return new GoalInitiation(goalKey, state, bank, player, goal, configuration, supporters, startDate);
     }
 
     @Override

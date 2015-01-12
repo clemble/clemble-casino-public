@@ -27,7 +27,6 @@ public class GoalConfiguration implements
     final private TimeoutRule moveTimeoutRule;
     final private TimeoutRule totalTimeoutRule;
     final private GoalRoleConfiguration supporterConfiguration;
-    final private GoalRoleConfiguration observerConfiguration;
     final private ShareRule shareRule;
 
     @JsonCreator
@@ -41,7 +40,6 @@ public class GoalConfiguration implements
         @JsonProperty("totalTimeRule") TimeoutRule totalTimeoutRule,
         @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("supporterConfiguration") GoalRoleConfiguration supporterConfiguration,
-        @JsonProperty("observerConfiguration") GoalRoleConfiguration observerConfiguration,
         @JsonProperty("shareRule") ShareRule shareRule
     ) {
         this.configurationKey = configurationKey;
@@ -53,7 +51,6 @@ public class GoalConfiguration implements
         this.totalTimeoutRule = totalTimeoutRule;
         this.privacyRule = privacyRule;
         this.supporterConfiguration = supporterConfiguration;
-        this.observerConfiguration = observerConfiguration;
         this.shareRule = shareRule;
     }
 
@@ -88,10 +85,6 @@ public class GoalConfiguration implements
 
     public GoalRoleConfiguration getSupporterConfiguration() {
         return supporterConfiguration;
-    }
-
-    public GoalRoleConfiguration getObserverConfiguration() {
-        return observerConfiguration;
     }
 
     @Override

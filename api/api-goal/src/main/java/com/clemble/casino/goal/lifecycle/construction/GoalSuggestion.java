@@ -83,7 +83,6 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
             goal,
             configuration,
             new HashSet<String>(),
-            new HashSet<String>(),
             new Date());
     }
 
