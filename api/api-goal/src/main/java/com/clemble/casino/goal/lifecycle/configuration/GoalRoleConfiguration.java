@@ -21,7 +21,7 @@ public class GoalRoleConfiguration implements GoalRule {
 
     @JsonCreator
     public GoalRoleConfiguration(
-        @JsonProperty("betRule") Bid bid,
+        @JsonProperty("bid") Bid bid,
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule
     ) {

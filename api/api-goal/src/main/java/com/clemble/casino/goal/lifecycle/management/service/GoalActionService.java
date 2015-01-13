@@ -2,6 +2,8 @@ package com.clemble.casino.goal.lifecycle.management.service;
 
 import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.event.GoalEvent;
+import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.goal.lifecycle.management.GoalRole;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.event.action.Action;

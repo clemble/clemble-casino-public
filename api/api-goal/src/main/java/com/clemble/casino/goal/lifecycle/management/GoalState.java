@@ -7,6 +7,7 @@ import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalStatusAware;
 import com.clemble.casino.goal.event.GoalEvent;
+import com.clemble.casino.goal.event.action.GoalForbidBetAction;
 import com.clemble.casino.goal.event.action.GoalReachedAction;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
@@ -52,6 +53,7 @@ public class GoalState implements State<GoalEvent, GoalContext>,
     final private GoalConfiguration configuration;
     final private GoalContext context;
     final private Set<String> supporters;
+    private boolean betsAllowed;
     private String status;
 
     @JsonCreator
@@ -63,14 +65,16 @@ public class GoalState implements State<GoalEvent, GoalContext>,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
         @JsonProperty("supporters") Set<String> supporters,
+        @JsonProperty("betsAllowed") boolean betsAllowed,
         @JsonProperty("status") String status) {
         this.goalKey = goalKey;
         this.player = player;
+        this.supporters = supporters;
+        this.betsAllowed = betsAllowed;
         this.configuration = configuration;
         this.context = context;
         this.bank = bank;
         this.goal = goal;
-        this.supporters = supporters;
         this.status = status;
     }
 
@@ -126,7 +130,10 @@ public class GoalState implements State<GoalEvent, GoalContext>,
         } else if(actionEvent instanceof PlayerAction<?>) {
             String player = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
-            if(action instanceof GoalStatusUpdateAction) {
+            if (action instanceof GoalForbidBetAction) {
+                betsAllowed = false;
+                return new GoalChangedEvent(player, this);
+            } else if (action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 this.status = statusUpdateAction.getStatus();
                 return new GoalChangedEvent(player, this);
