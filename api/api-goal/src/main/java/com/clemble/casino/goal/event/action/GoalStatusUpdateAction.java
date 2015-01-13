@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 10/9/14.
  */
 @JsonTypeName(GoalStatusUpdateAction.JSON_TYPE)
-public class GoalStatusUpdateAction implements PlayerGoalAction, GoalStatusAware {
+public class GoalStatusUpdateAction implements GoalAction, GoalStatusAware {
 
     final public static String JSON_TYPE = "goal:management:status:update:action";
 

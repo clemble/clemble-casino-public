@@ -7,7 +7,6 @@ import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.GoalStatusAware;
 import com.clemble.casino.goal.event.GoalEvent;
-import com.clemble.casino.goal.event.action.GoalForbidBetAction;
 import com.clemble.casino.goal.event.action.GoalReachedAction;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
@@ -27,7 +26,6 @@ import com.clemble.casino.money.Currency;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.payment.BankAware;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
@@ -53,7 +51,7 @@ public class GoalState implements State<GoalEvent, GoalContext>,
     final private GoalConfiguration configuration;
     final private GoalContext context;
     final private Set<String> supporters;
-    private boolean betsAllowed;
+    final private boolean betsAllowed;
     private String status;
 
     @JsonCreator
@@ -103,6 +101,10 @@ public class GoalState implements State<GoalEvent, GoalContext>,
         return status;
     }
 
+    public boolean getBetsAllowed() {
+        return betsAllowed;
+    }
+
     @Override
     public Set<String> getSupporters() {
         return supporters;
@@ -130,10 +132,7 @@ public class GoalState implements State<GoalEvent, GoalContext>,
         } else if(actionEvent instanceof PlayerAction<?>) {
             String player = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
-            if (action instanceof GoalForbidBetAction) {
-                betsAllowed = false;
-                return new GoalChangedEvent(player, this);
-            } else if (action instanceof GoalStatusUpdateAction) {
+            if (action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 this.status = statusUpdateAction.getStatus();
                 return new GoalChangedEvent(player, this);
@@ -156,6 +155,23 @@ public class GoalState implements State<GoalEvent, GoalContext>,
             }
         } else {
             throw new IllegalArgumentException();
+        }
+    }
+
+    public GoalState forbidBet() {
+        if (!betsAllowed) {
+            return this;
+        } else {
+            return new GoalState(goalKey,
+                player,
+                bank,
+                goal,
+                configuration,
+                context,
+                supporters,
+                false,
+                status
+            );
         }
     }
 
