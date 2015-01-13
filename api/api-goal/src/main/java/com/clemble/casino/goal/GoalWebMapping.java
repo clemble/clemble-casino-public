@@ -35,9 +35,10 @@ public abstract class GoalWebMapping implements WebMapping {
 
     final private static String GOAL_MANAGEMENT_URL = "http://{host}/management";
 
-    final public static String MY_RECORDS = "/record/my";
-    final public static String MY_RECORDS_STATE = "/record/my/{state}";
     final public static String GOAL_RECORD = "/record/{goalKey}";
+
+    final public static String MY_RECORDS = "/player/record/my";
+    final public static String MY_RECORDS_STATE = "player/record/my/{state}";
 
     final public static String GOAL_STATE = "/active/my/{goalKey}/context";
     final public static String GOAL_ACTIONS = "/active/my/{goalKey}/action";
