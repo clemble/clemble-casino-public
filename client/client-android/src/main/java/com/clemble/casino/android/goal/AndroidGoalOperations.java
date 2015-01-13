@@ -7,7 +7,6 @@ import com.clemble.casino.goal.lifecycle.construction.service.GoalSuggestionServ
 import com.clemble.casino.goal.lifecycle.initiation.service.FriendInitiationService;
 import com.clemble.casino.goal.lifecycle.initiation.service.GoalInitiationService;
 import com.clemble.casino.goal.lifecycle.management.service.GoalActionService;
-import com.clemble.casino.goal.lifecycle.management.service.FriendGoalService;
 import com.clemble.casino.goal.lifecycle.record.service.GoalRecordService;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +21,6 @@ public class AndroidGoalOperations implements GoalOperations{
     final private GoalInitiationService initiationService;
     final private FriendInitiationService friendInitiationService;
     final private GoalActionService actionService;
-    final private FriendGoalService friendGoalService;
     final private GoalRecordService recordService;
 
     public AndroidGoalOperations(String host, RestTemplate restTemplate) {
@@ -33,7 +31,6 @@ public class AndroidGoalOperations implements GoalOperations{
         this.friendInitiationService = new AndroidFriendInitiationService(host, restTemplate);
         this.actionService = new AndroidGoalActionService(host, restTemplate);
         this.recordService = new AndroidGoalRecordService(host, restTemplate);
-        this.friendGoalService = new AndroidFriendGoalService(host, restTemplate);
     }
 
     @Override
@@ -64,11 +61,6 @@ public class AndroidGoalOperations implements GoalOperations{
     @Override
     public GoalActionService actionService() {
         return actionService;
-    }
-
-    @Override
-    public FriendGoalService friendGoalService() {
-        return friendGoalService;
     }
 
     @Override
