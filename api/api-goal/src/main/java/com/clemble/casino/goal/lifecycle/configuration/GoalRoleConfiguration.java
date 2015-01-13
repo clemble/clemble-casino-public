@@ -16,22 +16,29 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 public class GoalRoleConfiguration implements GoalRule {
 
     final private Bid bid;
+    final private int betDays;
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
 
     @JsonCreator
     public GoalRoleConfiguration(
         @JsonProperty("bid") Bid bid,
+        @JsonProperty("betDays") int betDays,
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule
     ) {
         this.bid = bid;
+        this.betDays = betDays;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
     }
 
     public Bid getBid() {
         return bid;
+    }
+
+    public int getBetDays() {
+        return betDays;
     }
 
     public ReminderRule getEmailReminderRule() {
