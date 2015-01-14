@@ -44,7 +44,7 @@ public class AndroidGoalActionService extends AbstractClembleCasinoOperations im
     @Override
     public GoalEvent process(String goalKey, Action action) {
         // Step 1. Generating goal construction URI
-        URI actionUrl = buildUri(toGoalManagementUrl(GOAL_ACTIONS), goalKey);
+        URI actionUrl = buildUri(toGoalManagementUrl(GOAL_STATE_ACTION), goalKey);
         // Step 2. Creating new GoalConstruction
         return restTemplate.postForObject(actionUrl, action, GoalEvent.class);
     }
