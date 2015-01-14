@@ -6,6 +6,7 @@ import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -15,14 +16,14 @@ import java.util.Date;
 public class GoalConstructionRequest implements ConstructionRequest<GoalConfiguration>, GoalDescriptionAware {
 
     final private String goal;
-    final private Date startDate;
+    final private DateTime startDate;
     final private GoalConfiguration configuration;
 
     @JsonCreator
     public GoalConstructionRequest(
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
-        @JsonProperty("startDate") Date startDate) {
+        @JsonProperty("startDate") DateTime startDate) {
         this.configuration = configuration;
         this.startDate = startDate;
         this.goal = goal;
@@ -33,7 +34,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
         return configuration;
     }
 
-    public Date getStartDate() {
+    public DateTime getStartDate() {
         return startDate;
     }
 

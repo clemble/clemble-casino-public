@@ -4,6 +4,8 @@ import com.clemble.casino.player.event.PlayerConnectedEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.Date;
 
@@ -18,14 +20,14 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
     final private String key;
     final private String player;
     final private String connection;
-    final private Date created;
+    final private DateTime created;
 
     @JsonCreator
     public PlayerConnectedNotification(
         @JsonProperty("key") String key,
         @JsonProperty("player") String player,
         @JsonProperty("connection")String connection,
-        @JsonProperty("created") Date created) {
+        @JsonProperty("created") DateTime created) {
         this.key = key;
         this.player = player;
         this.connection = connection;
@@ -48,13 +50,13 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
     }
 
     @Override
-    public Date getCreated() {
+    public DateTime getCreated() {
         return created;
     }
 
     public static PlayerConnectedNotification create(PlayerConnectedEvent connectedEvent) {
         String key = connectedEvent.getPlayer() + ":" + connectedEvent.getConnection();
-        return new PlayerConnectedNotification(key, connectedEvent.getPlayer(), connectedEvent.getConnection(), new Date());
+        return new PlayerConnectedNotification(key, connectedEvent.getPlayer(), connectedEvent.getConnection(), DateTime.now(DateTimeZone.UTC));
     }
 
     @Override

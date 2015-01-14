@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
 
@@ -42,7 +43,7 @@ public class PlayerProfile implements PlayerAware {
     private PlayerGender gender;
 
     @JsonProperty("birthDate")
-    private Date birthDate;
+    private DateTime birthDate;
 
     private Set<ConnectionKey> socialConnections = new HashSet<ConnectionKey>();
 
@@ -120,11 +121,11 @@ public class PlayerProfile implements PlayerAware {
         return this;
     }
 
-    public Date getBirthDate() {
+    public DateTime getBirthDate() {
         return birthDate;
     }
 
-    public PlayerProfile setBirthDate(Date birthDate) {
+    public PlayerProfile setBirthDate(DateTime birthDate) {
         this.birthDate = birthDate;
         return this;
     }

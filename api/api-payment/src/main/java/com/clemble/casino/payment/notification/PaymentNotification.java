@@ -8,6 +8,8 @@ import com.clemble.casino.payment.event.PaymentCompleteEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.Date;
 
@@ -27,7 +29,7 @@ public class PaymentNotification implements
     final private Money amount;
     final private Operation operation;
     final private PaymentSource source;
-    final private Date created;
+    final private DateTime created;
 
     @JsonCreator
     public PaymentNotification(
@@ -36,7 +38,7 @@ public class PaymentNotification implements
         @JsonProperty("amount") Money amount,
         @JsonProperty("operation") Operation operation,
         @JsonProperty("source") PaymentSource source,
-        @JsonProperty("created") Date created) {
+        @JsonProperty("created") DateTime created) {
         this.key = key;
         this.created = created;
         this.player = player;
@@ -51,7 +53,7 @@ public class PaymentNotification implements
     }
 
     @Override
-    public Date getCreated() {
+    public DateTime getCreated() {
         return created;
     }
 
@@ -81,7 +83,7 @@ public class PaymentNotification implements
             completeEvent.getAmount(),
             completeEvent.getOperation(),
             completeEvent.getSource(),
-            new Date());
+            DateTime.now(DateTimeZone.UTC));
     }
 
     @Override

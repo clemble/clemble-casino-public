@@ -31,6 +31,8 @@ import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
 import com.clemble.casino.payment.PendingOperation;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
 import com.clemble.casino.VersionAware;
@@ -59,19 +61,25 @@ import com.google.common.collect.ImmutableList;
 public class TestObjectGeneratorInitializer {
 
     public static void init() {
+        ObjectGenerator.register(DateTime.class, new AbstractValueGenerator<DateTime>() {
+            @Override
+            public DateTime generate() {
+                return new DateTime(ObjectGenerator.generate(long.class));
+            }
+        });
         ObjectGenerator.register(TournamentGameState.class, new AbstractValueGenerator<TournamentGameState>() {
             @Override
             public TournamentGameState generate() {
                 TournamentGameContext context = new TournamentGameContext(
-                        "",
-                        null,
-                        ObjectGenerator.generateList(TournamentGamePlayerContext.class, 10),
-                        null);
+                    "",
+                    null,
+                    ObjectGenerator.generateList(TournamentGamePlayerContext.class, 10),
+                    null);
                 return new TournamentGameState(
-                        ObjectGenerator.generate(TournamentGameConfiguration.class),
-                        context,
-                        null,
-                        0);
+                    ObjectGenerator.generate(TournamentGameConfiguration.class),
+                    context,
+                    null,
+                    0);
             }
         });
         ObjectGenerator.register(GoalConfigurationValue.class, new AbstractValueGenerator<GoalConfigurationValue>() {
@@ -152,8 +160,8 @@ public class TestObjectGeneratorInitializer {
             public PaymentTransaction generate() {
             return new PaymentTransaction().
                 setTransactionKey(RandomStringUtils.random(5)).
-                setTransactionDate(new Date()).
-                setProcessingDate(new Date()).
+                setTransactionDate(DateTime.now(DateTimeZone.UTC)).
+                setProcessingDate(DateTime.now(DateTimeZone.UTC)).
                 addOperation(new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Credit)).
                 addOperation(new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Debit));
             }
@@ -167,7 +175,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PlayerProfile.class, new AbstractValueGenerator<PlayerProfile>() {
             @Override
             public PlayerProfile generate() {
-            return new PlayerProfile().setBirthDate(new Date(0)).setFirstName(RandomStringUtils.randomAlphabetic(10))
+            return new PlayerProfile().setBirthDate(new DateTime(0)).setFirstName(RandomStringUtils.randomAlphabetic(10))
                 .setGender(PlayerGender.M).setLastName(RandomStringUtils.randomAlphabetic(10)).setNickName(RandomStringUtils.randomAlphabetic(10))
                 .setPlayer(RandomStringUtils.random(5));
             }

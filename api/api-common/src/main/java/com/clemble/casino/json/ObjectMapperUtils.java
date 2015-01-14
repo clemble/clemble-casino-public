@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.AnnotatedClass;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import org.joda.time.DateTimeZone;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,8 +18,10 @@ public class ObjectMapperUtils {
     final static public ObjectMapper OBJECT_MAPPER = createObjectMapper();
 
     public static ObjectMapper createObjectMapper() {
+        DateTimeZone.setDefault(DateTimeZone.UTC);
         ObjectMapper objectMapper = new ObjectMapper();
         // Step 1. Adding all JsonTypeName files
+        objectMapper.registerModule(new JodaModule());
         loadJsonModule("com.clemble.casino.json.GenericJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.json.CommonJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.player.json.PlayerJsonModule", objectMapper);

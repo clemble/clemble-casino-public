@@ -1,12 +1,8 @@
 package com.clemble.casino.lifecycle.configuration.rule.timeout;
 
-import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
-import com.clemble.casino.utils.ClembleDateUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.time.DateUtils;
-
-import java.util.Date;
+import org.joda.time.DateTime;
 
 /**
  * Created by mavarazy on 1/4/15.
@@ -31,8 +27,7 @@ public class EODTimeoutCalculator implements TimeoutCalculator {
 
     @Override
     public long calculate(long moveStart, long timeSpent) {
-        Date moveStartDate = new Date(moveStart);
-        return ClembleDateUtils.getEndOfDay(DateUtils.addDays(moveStartDate, days)).getTime();
+        return new DateTime(moveStart).withHourOfDay(23).withMinuteOfHour(59).withSecondOfMinute(59).plusDays(days).getMillis();
     }
 
     @Override

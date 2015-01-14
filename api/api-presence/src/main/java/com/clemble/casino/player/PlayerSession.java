@@ -2,6 +2,8 @@ package com.clemble.casino.player;
 
 import java.util.Date;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 public class PlayerSession implements PlayerAware {
@@ -17,9 +19,9 @@ public class PlayerSession implements PlayerAware {
 
     private String player;
 
-    private Date startTime = new Date();
+    private DateTime startTime = DateTime.now(DateTimeZone.UTC);
 
-    private Date expirationTime = new Date();
+    private DateTime expirationTime = DateTime.now(DateTimeZone.UTC);
 
     public String getSessionId() {
         return sessionId;
@@ -39,29 +41,29 @@ public class PlayerSession implements PlayerAware {
         return this;
     }
 
-    public Date getStartTime() {
+    public DateTime getStartTime() {
         return startTime;
     }
 
-    public PlayerSession setStartTime(Date startTime) {
+    public PlayerSession setStartTime(DateTime startTime) {
         this.startTime = startTime;
         return this;
     }
 
-    public Date getExpirationTime() {
+    public DateTime getExpirationTime() {
         return expirationTime;
     }
 
-    public void setExpirationTime(Date expirationTime) {
+    public void setExpirationTime(DateTime expirationTime) {
         this.expirationTime = expirationTime;
     }
 
     public boolean expired() {
-        return System.currentTimeMillis() >= expirationTime.getTime();
+        return expirationTime.isBeforeNow();
     }
 
     public void markExpired() {
-        this.expirationTime = new Date();
+        this.expirationTime = DateTime.now(DateTimeZone.UTC);
     }
 
     @Override

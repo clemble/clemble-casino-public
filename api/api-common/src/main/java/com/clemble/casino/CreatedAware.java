@@ -1,5 +1,7 @@
 package com.clemble.casino;
 
+import org.joda.time.DateTime;
+
 import java.util.Date;
 
 /**
@@ -7,6 +9,6 @@ import java.util.Date;
  */
 public interface CreatedAware {
 
-    Date getCreated();
+    DateTime getCreated();
 
 }

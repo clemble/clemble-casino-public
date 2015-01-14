@@ -1,9 +1,10 @@
 package com.clemble.casino.payment;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 public class PaymentTransaction implements AccountTransaction, PaymentTransactionAware, PaymentSourceAware {
@@ -19,8 +20,8 @@ public class PaymentTransaction implements AccountTransaction, PaymentTransactio
 
     private Set<PaymentOperation> operations = new HashSet<PaymentOperation>();
     private PaymentSource source;
-    private Date transactionDate;
-    private Date processingDate = new Date();
+    private DateTime transactionDate;
+    private DateTime processingDate = DateTime.now(DateTimeZone.UTC);
 
     public PaymentTransaction() {
     }
@@ -77,20 +78,20 @@ public class PaymentTransaction implements AccountTransaction, PaymentTransactio
         return this;
     }
 
-    public Date getTransactionDate() {
+    public DateTime getTransactionDate() {
         return transactionDate;
     }
 
-    public PaymentTransaction setTransactionDate(Date transactionDate) {
+    public PaymentTransaction setTransactionDate(DateTime transactionDate) {
         this.transactionDate = transactionDate;
         return this;
     }
 
-    public Date getProcessingDate() {
+    public DateTime getProcessingDate() {
         return processingDate;
     }
 
-    public PaymentTransaction setProcessingDate(Date processingDate) {
+    public PaymentTransaction setProcessingDate(DateTime processingDate) {
         this.processingDate = processingDate;
         return this;
     }

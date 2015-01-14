@@ -12,6 +12,7 @@ import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
@@ -26,7 +27,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     final private String goalKey;
     final private String player;
     final private String goal;
-    final private Date startDate;
+    final private DateTime startDate;
     final private ConstructionState state;
     final private GoalConfiguration configuration;
 
@@ -35,7 +36,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
-        @JsonProperty("startDate") Date startDate,
+        @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("state") ConstructionState state) {
         this.goalKey = goalKey;
@@ -66,7 +67,7 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
         return goalKey;
     }
 
-    public Date getStartDate() {
+    public DateTime getStartDate() {
         return startDate;
     }
 

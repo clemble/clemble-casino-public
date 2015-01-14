@@ -7,6 +7,8 @@ import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.Date;
 import java.util.Set;
@@ -26,9 +28,9 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
     final private String goalKey;
     final private Set<String> supporters;
     final private GoalConfiguration configuration;
-    final private Date startDate;
+    final private DateTime startDate;
     final private long deadline;
-    final private Date created;
+    final private DateTime created;
 
     @JsonCreator
     public GoalCreatedPost(
@@ -38,10 +40,10 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
-        @JsonProperty("startDate") Date startDate,
+        @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("deadline") long deadline,
         @JsonProperty("supporters") Set<String> supporters,
-        @JsonProperty("created") Date created) {
+        @JsonProperty("created") DateTime created) {
         this.key = key;
         this.goalKey = goalKey;
         this.player = player;
@@ -79,7 +81,7 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
         return supporters;
     }
 
-    public Date getStartDate() {
+    public DateTime getStartDate() {
         return startDate;
     }
 
@@ -99,7 +101,7 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
     }
 
     @Override
-    public Date getCreated() {
+    public DateTime getCreated() {
         return created;
     }
 
@@ -139,9 +141,9 @@ public class GoalCreatedPost implements GoalPost, GoalConfigurationAware {
             initiation.getConfiguration(),
             initiation.getGoal(),
             initiation.getStartDate(),
-            initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getTime()),
+            initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getMillis()),
             initiation.getSupporters(),
-            new Date()
+            DateTime.now(DateTimeZone.UTC)
         );
     }
 

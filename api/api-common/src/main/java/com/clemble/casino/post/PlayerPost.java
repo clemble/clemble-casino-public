@@ -2,6 +2,7 @@ package com.clemble.casino.post;
 
 import com.clemble.casino.CreatedAware;
 import com.clemble.casino.player.event.PlayerEvent;
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ public interface PlayerPost extends PlayerEvent, CreatedAware {
 
     String getPlayer();
 
-    Date getCreated();
+    @Override
+    DateTime getCreated();
 
 }

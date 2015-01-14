@@ -11,6 +11,8 @@ import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
@@ -83,7 +85,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
             goal,
             configuration,
             new HashSet<String>(),
-            new Date());
+            DateTime.now(DateTimeZone.UTC));
     }
 
     public GoalSuggestion copyWithStatus(GoalSuggestionState state) {

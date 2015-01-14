@@ -4,6 +4,7 @@ import com.clemble.casino.payment.PaymentSource;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.joda.time.DateTime;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,22 +18,22 @@ public class DailyBonusPaymentSource implements BonusPaymentSource {
 
     final public static String JSON_TYPE = "payment:bonus:daily";
 
-    final private static DateFormat DATE_FORMAT = new SimpleDateFormat("ddmmyy");
+    final private static String DATE_FORMAT = "ddMMyy";
 
-    final private Date created;
+    final private DateTime created;
 
     @JsonCreator
-    public DailyBonusPaymentSource(@JsonProperty("created") Date created) {
+    public DailyBonusPaymentSource(@JsonProperty("created") DateTime created) {
         this.created = created;
     }
 
-    public Date getCreated() {
+    public DateTime getCreated() {
         return created;
     }
 
     @Override
     public String toTransactionKey(String player) {
-        return player + ":dailybonus:" + DATE_FORMAT.format(created);
+        return player + ":dailybonus:" + created.toString(DATE_FORMAT);
     }
 
     @Override

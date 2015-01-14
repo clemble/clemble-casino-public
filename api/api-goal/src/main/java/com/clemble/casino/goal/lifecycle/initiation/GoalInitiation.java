@@ -14,6 +14,7 @@ import com.clemble.casino.payment.BankAware;
 import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class GoalInitiation implements
     final private String goal;
     final private String player;
     final private Bank bank;
-    final private Date startDate;
+    final private DateTime startDate;
     final private InitiationState state;
     final private Set<String> supporters;
     final private GoalConfiguration configuration;
@@ -49,7 +50,7 @@ public class GoalInitiation implements
         @JsonProperty("goal") String goal,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("supporters") Set<String> supporters,
-        @JsonProperty("startDate") Date startDate) {
+        @JsonProperty("startDate") DateTime startDate) {
         this.goal = goal;
         this.state = state;
         this.bank = bank;
@@ -85,7 +86,7 @@ public class GoalInitiation implements
         return player;
     }
 
-    public Date getStartDate() {
+    public DateTime getStartDate() {
         return startDate;
     }
 

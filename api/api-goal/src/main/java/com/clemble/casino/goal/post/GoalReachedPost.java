@@ -5,6 +5,8 @@ import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.Date;
 import java.util.Set;
@@ -24,7 +26,7 @@ public class GoalReachedPost implements GoalPost {
     final private String goalKey;
     final private Set<String> supporters;
     final private long deadline;
-    final private Date created;
+    final private DateTime created;
 
     @JsonCreator
     public GoalReachedPost(
@@ -36,7 +38,7 @@ public class GoalReachedPost implements GoalPost {
         @JsonProperty("status") String status,
         @JsonProperty("deadline") long deadline,
         @JsonProperty("supporters") Set<String> supporters,
-        @JsonProperty("created") Date created
+        @JsonProperty("created") DateTime created
     ) {
         this.key = key;
         this.goalKey = goalKey;
@@ -89,7 +91,7 @@ public class GoalReachedPost implements GoalPost {
     }
 
     @Override
-    public Date getCreated() {
+    public DateTime getCreated() {
         return created;
     }
 
@@ -103,7 +105,7 @@ public class GoalReachedPost implements GoalPost {
             state.getStatus(),
             state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
             state.getSupporters(),
-            new Date()
+            DateTime.now(DateTimeZone.UTC)
         );
     }
 
