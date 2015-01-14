@@ -19,6 +19,8 @@ public abstract class RegistrationWebMapping implements WebMapping {
 
     final public static String REGISTRATION_BASIC_PROFILE = "/base/signin";
 
+    final public static String REGISTRATION_SIGN_OUT = "/signout";
+
     public static String toRegistrationUrl(String host, String path) {
         return REGISTRATION_URL.replace("{host}", host) + path;
     }

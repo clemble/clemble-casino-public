@@ -13,6 +13,7 @@ import com.clemble.casino.json.ObjectMapperUtils;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
+import com.clemble.casino.registration.service.PlayerSignOutService;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -67,6 +68,8 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private GameActionOperationsFactory actionOperationsFactory;
 
     final private GoalOperations goalOperations;
+
+    final private PlayerSignOutService signOutService;
 
     @SuppressWarnings({ "rawtypes" })
     public ClembleCasinoTemplate(
@@ -127,6 +130,9 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.goalOperations = new AndroidGoalOperations(host, restTemplate);
         // Step 7. Creating account service
         this.accountService = new AndroidPlayerAccountService(restTemplate, host);
+
+        // Step 8. Creating signOut service
+        this.signOutService = new AndroidPlayerSignOutService(restTemplate, host);
     }
 
     @Override
@@ -225,6 +231,16 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     @Override
     protected void configureRestTemplate(RestTemplate restTemplate) {
         restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ObjectMapperUtils.OBJECT_MAPPER));
+    }
+
+    @Override
+    public void signOut() {
+        // Step 1. Close listeners
+        try {
+            close();
+        } catch (Throwable throwable) { }
+        // Step 2. Sign out
+        signOutService.signOut();
     }
 
     @Override

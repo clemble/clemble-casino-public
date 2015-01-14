@@ -51,6 +51,8 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
     // TODO safety concern, since RestTemplate is reused all over the place, make a deep copy of returned rest template
     RestTemplate getRestTemplate();
 
+    void signOut();
+
     @Override
     void close();
 
