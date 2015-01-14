@@ -24,11 +24,6 @@ public abstract class GoalWebMapping implements WebMapping {
     final public static String MY_GOAL_INITIATION = "/initiation/my";
     final public static String GOAL_INITIATION_CONFIRM = "/initiation/{goalKey}/confirm";
 
-    final public static String MY_FRIEND_INITIATIONS = "/initiation/timeline/my";
-    final public static String MY_FRIEND_INITIATION = "/initiation/timeline/my/{goalKey}";
-    final public static String PLAYER_FRIEND_INITIATIONS = "/initiation/timeline/{player}";
-    final public static String PLAYER_FRIEND_INITIATION = "/initiation/timeline/{player}/{goalKey}";
-
     public static String toGoalConstructionUrl(String path) {
         return GOAL_CONSTRUCTION_URL + path;
     }
@@ -37,19 +32,14 @@ public abstract class GoalWebMapping implements WebMapping {
 
     final public static String GOAL_RECORD = "/record/{goalKey}";
 
+    final public static String GOAL_STATE = "/active/{goalKey}";
+    final public static String GOAL_ACTIONS = "/active/{goalKey}/action";
+
     final public static String MY_RECORDS = "/player/record/my";
-    final public static String MY_RECORDS_STATE = "player/record/my/{state}";
+    final public static String MY_RECORDS_STATE = "/player/record/my/{state}";
 
-    final public static String GOAL_STATE = "/active/my/{goalKey}/context";
-    final public static String GOAL_ACTIONS = "/active/my/{goalKey}/action";
-
-    final public static String PLAYER_ACTIVE_GOALS = "/active/{player}";
-    final public static String MY_ACTIVE_GOALS = "/active/my";
-
-    final public static String MY_FRIEND_GOALS = "/connections/timeline/my";
-    final public static String MY_FRIEND_GOAL = "/connections/timeline/my/{goalKey}";
-    final public static String PLAYER_FRIEND_GOALS = "/connections/timeline/{player}";
-    final public static String PLAYER_FRIEND_GOAL = "/connections/timeline/{player}/{goalKey}";
+    final public static String PLAYER_ACTIVE_GOALS = "/player/active/{player}";
+    final public static String MY_ACTIVE_GOALS = "/player/active/my";
 
     public static String toGoalManagementUrl(String path) {
         return GOAL_MANAGEMENT_URL + path;
