@@ -50,7 +50,7 @@ public class PendingOperation implements AccountOperation, PaymentTransactionAwa
 
     @Override
     public String toString() {
-        return "pending:" + operation + ":" + player + ":" + amount;
+        return "pending:" + transactionKey + ":" + operation + ":" + player + ":" + amount;
     }
 
     @Override

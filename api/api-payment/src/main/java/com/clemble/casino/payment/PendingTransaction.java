@@ -99,4 +99,8 @@ public class PendingTransaction implements AccountTransaction, VersionAware {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return transactionKey + ":" + operations + ":" + version;
+    }
 }
