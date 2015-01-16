@@ -7,6 +7,7 @@ import com.clemble.casino.money.Money;
 import com.clemble.casino.money.Operation;
 import com.clemble.casino.payment.PaymentSource;
 import com.clemble.casino.payment.PaymentSourceAware;
+import com.clemble.casino.payment.PlayerAccount;
 import com.clemble.casino.payment.notification.PaymentNotification;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,13 +28,15 @@ public class PaymentCompleteEvent implements PaymentEvent, PaymentSourceAware, P
     final private Money amount;
     final private Operation operation;
     final private PaymentSource source;
+    final private PlayerAccount account;
 
-    public PaymentCompleteEvent(String transactionKey, PaymentOperation paymentOperation, PaymentSource source) {
+    public PaymentCompleteEvent(String transactionKey, PaymentOperation paymentOperation, PaymentSource source, PlayerAccount account) {
         this.player = paymentOperation.getPlayer();
         this.amount = paymentOperation.getAmount();
         this.operation = paymentOperation.getOperation();
         this.transactionKey = transactionKey;
         this.source = source;
+        this.account = account;
     }
 
     @JsonCreator
@@ -42,12 +45,14 @@ public class PaymentCompleteEvent implements PaymentEvent, PaymentSourceAware, P
         @JsonProperty("amount") Money amount,
         @JsonProperty("operation") Operation operation,
         @JsonProperty(TRANSACTION_KEY) String transactionKey,
-        @JsonProperty("source") PaymentSource source) {
+        @JsonProperty("source") PaymentSource source,
+        @JsonProperty("account") PlayerAccount account) {
         this.player = player;
         this.amount = amount;
+        this.source = source;
+        this.account = account;
         this.operation = operation;
         this.transactionKey = transactionKey;
-        this.source = source;
     }
 
     @Override
@@ -72,6 +77,10 @@ public class PaymentCompleteEvent implements PaymentEvent, PaymentSourceAware, P
     @Override
     public PaymentSource getSource() {
         return source;
+    }
+
+    public PlayerAccount getAccount() {
+        return account;
     }
 
     @Override

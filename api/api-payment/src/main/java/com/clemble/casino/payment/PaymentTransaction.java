@@ -14,12 +14,12 @@ public class PaymentTransaction implements AccountTransaction, PaymentTransactio
      */
     private static final long serialVersionUID = 2610517770966910840L;
 
-
     @Id
     private String transactionKey;
 
-    private Set<PaymentOperation> operations = new HashSet<PaymentOperation>();
     private PaymentSource source;
+    private Set<PaymentOperation> operations = new HashSet<PaymentOperation>();
+
     private DateTime transactionDate;
     private DateTime processingDate = DateTime.now(DateTimeZone.UTC);
 
