@@ -51,6 +51,17 @@ public class Money implements Serializable {
         return Money.create(currency, amount + more.amount);
     }
 
+    public Money process(Operation operation, Money amount) {
+        switch (operation) {
+            case Credit:
+                return subtract(amount);
+            case Debit:
+                return add(amount);
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
     public Money add(long additionalAmount) {
         return Money.create(currency, this.amount + additionalAmount);
     }

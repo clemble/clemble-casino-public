@@ -57,6 +57,36 @@ public class PlayerAccount implements PlayerAware, VersionAware {
         return pendingOperations;
     }
 
+    public void process(PaymentOperation operation) {
+        Money originalAmount = getMoney(operation.getAmount().getCurrency());
+        if (originalAmount == null) {
+            PaymentOperation debitOperation = operation.toDebit();
+            money.put(debitOperation.getAmount().getCurrency(), debitOperation.getAmount());
+        } else {
+            money.put(originalAmount.getCurrency(), originalAmount.process(operation.getOperation(), operation.getAmount()));
+        }
+    }
+
+    public void freeze(String transactionKey, PaymentOperation operation) {
+        // Step 1. Adding to pending operations
+        pendingOperations.add(PendingOperation.fromOperation(transactionKey, operation));
+        // Step 2. Performing actual debit operation
+        process(operation);
+    }
+
+    public void unFreeze(String transactionKey) {
+        PendingOperation pendingOperation = null;
+        for(PendingOperation pOperation: pendingOperations) {
+            if (transactionKey.equals(pOperation.getTransactionKey()))
+                pendingOperation = pOperation;
+        }
+        if (pendingOperation != null) {
+            pendingOperations.remove(pendingOperation);
+            PaymentOperation unFreezeOp = new PaymentOperation(player, pendingOperation.getAmount(), pendingOperation.getOperation().toOpposite());
+            process(unFreezeOp);
+        }
+    }
+
     @Override
     public Integer getVersion() {
         return version;
