@@ -142,26 +142,26 @@ public class GoalState implements
         if(actionEvent instanceof LifecycleStartedEvent) {
             return new GoalStartedEvent(player, this);
         } else if(actionEvent instanceof PlayerAction<?>) {
-            String player = ((PlayerAction) actionEvent).getPlayer();
+            String actor = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
             if (action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 String newStatus = statusUpdateAction.getStatus();
                 return new GoalChangedStatusEvent(player, this.copy(newStatus));
             } else if (action instanceof SurrenderAction) {
-                return new GoalEndedEvent(player, this, new PlayerLostOutcome(player));
+                return new GoalEndedEvent(player, this, new PlayerLostOutcome(actor));
             } else if (action instanceof BidAction) {
-                if(!this.betsAllowed || this.supporters.contains(player) || this.player.equals(player))
+                if(!this.betsAllowed || this.supporters.contains(actor) || this.player.equals(actor))
                     throw new IllegalArgumentException();
                 Bid bid = configuration.getSupporterConfiguration().getBid();
-                PlayerBid playerBid = new PlayerBid(player, bid);
+                PlayerBid playerBid = new PlayerBid(actor, bid);
                 this.bank.add(playerBid);
-                this.supporters.add(player);
+                this.supporters.add(actor);
                 return new GoalChangedBetEvent(player, this, playerBid);
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 String newStatus = reachedAction.getStatus();
-                return new GoalEndedEvent(player, this.copy(newStatus), new PlayerWonOutcome(player));
+                return new GoalEndedEvent(player, this.copy(newStatus), new PlayerWonOutcome(actor));
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
                 bank.add(new PlayerBid(player, new Bid(Money.create(Currency.FakeMoney, 0), punishmentAction.getAmount().negate())));
