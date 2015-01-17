@@ -32,6 +32,7 @@ public class GoalBetOffPost implements GoalPost, GoalConfigurationAware {
     final private DateTime startDate;
     final private long deadline;
     final private DateTime created;
+    final private boolean betsAllowed;
 
     @JsonCreator
     public GoalBetOffPost(
@@ -44,7 +45,8 @@ public class GoalBetOffPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("deadline") long deadline,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate,
-        @JsonProperty("created") DateTime created
+        @JsonProperty("created") DateTime created,
+        @JsonProperty("betsAllowed") boolean betsAllowed
     ) {
         this.key = key;
         this.goalKey = goalKey;
@@ -56,6 +58,7 @@ public class GoalBetOffPost implements GoalPost, GoalConfigurationAware {
         this.startDate = startDate;
         this.deadline = deadline;
         this.created = created;
+        this.betsAllowed = betsAllowed;
     }
 
     @Override
@@ -103,6 +106,11 @@ public class GoalBetOffPost implements GoalPost, GoalConfigurationAware {
     }
 
     @Override
+    public boolean getBetsAllowed() {
+        return betsAllowed;
+    }
+
+    @Override
     public DateTime getCreated() {
         return created;
     }
@@ -118,7 +126,8 @@ public class GoalBetOffPost implements GoalPost, GoalConfigurationAware {
             state.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(state.getStartDate().getMillis()),
             state.getSupporters(),
             state.getStartDate(),
-            DateTime.now(DateTimeZone.UTC)
+            DateTime.now(DateTimeZone.UTC),
+            state.getBetsAllowed()
         );
     }
 

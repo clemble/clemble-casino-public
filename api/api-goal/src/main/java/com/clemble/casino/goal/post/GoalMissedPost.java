@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.post;
 
+import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -22,12 +23,14 @@ public class GoalMissedPost implements GoalPost {
     final private String key;
     final private String player;
     final private Bank bank;
+    final private GoalConfiguration configuration;
     final private String goal;
     final private String status;
     final private String goalKey;
     final private Set<String> supporters;
     final private long deadline;
     final private DateTime created;
+    final private boolean betsAllowed;
 
 
     @JsonCreator
@@ -36,21 +39,25 @@ public class GoalMissedPost implements GoalPost {
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
+        @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
         @JsonProperty("status") String status,
         @JsonProperty("deadline") long deadline,
         @JsonProperty("supporters") Set<String> supporters,
-        @JsonProperty("created") DateTime created
+        @JsonProperty("created") DateTime created,
+        @JsonProperty("betsAllowed") boolean betsAllowed
     ) {
         this.key = key;
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
         this.bank = bank;
+        this.configuration = configuration;
         this.status = status;
         this.deadline = deadline;
         this.supporters = supporters;
         this.created = created;
+        this.betsAllowed = betsAllowed;
     }
 
     @Override
@@ -78,6 +85,11 @@ public class GoalMissedPost implements GoalPost {
         return supporters;
     }
 
+    @Override
+    public GoalConfiguration getConfiguration() {
+        return configuration;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -93,6 +105,11 @@ public class GoalMissedPost implements GoalPost {
     }
 
     @Override
+    public boolean getBetsAllowed() {
+        return betsAllowed;
+    }
+
+    @Override
     public DateTime getCreated() {
         return created;
     }
@@ -103,11 +120,13 @@ public class GoalMissedPost implements GoalPost {
             state.getGoalKey(),
             state.getPlayer(),
             state.getBank(),
+            state.getConfiguration(),
             state.getGoal(),
             state.getStatus(),
             state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
             state.getSupporters(),
-            DateTime.now(DateTimeZone.UTC)
+            DateTime.now(DateTimeZone.UTC),
+            state.getBetsAllowed()
         );
     }
 

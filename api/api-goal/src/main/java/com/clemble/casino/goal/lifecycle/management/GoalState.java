@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.management;
 
+import com.clemble.casino.bet.BetsAllowedAware;
 import com.clemble.casino.bet.Bid;
 import com.clemble.casino.bet.PlayerBid;
 import com.clemble.casino.event.Event;
@@ -36,12 +37,14 @@ import java.util.Set;
 /**
  * Created by mavarazy on 10/9/14.
  */
-public class GoalState implements State<GoalEvent, GoalContext>,
+public class GoalState implements
+    State<GoalEvent, GoalContext>,
     GoalAware,
     GoalDescriptionAware,
     GoalConfigurationAware,
     GoalStatusAware,
     GoalRoleAware,
+    BetsAllowedAware,
     BankAware {
 
     @Id
@@ -49,12 +52,12 @@ public class GoalState implements State<GoalEvent, GoalContext>,
     final private String player;
     final private String goal;
     final private Bank bank;
-    final private GoalConfiguration configuration;
     final private GoalContext context;
+    final private GoalConfiguration configuration;
     final private Set<String> supporters;
     final private DateTime startDate;
     final private boolean betsAllowed;
-    private String status;
+    final private String status;
 
     @JsonCreator
     public GoalState(
@@ -105,6 +108,7 @@ public class GoalState implements State<GoalEvent, GoalContext>,
         return status;
     }
 
+    @Override
     public boolean getBetsAllowed() {
         return betsAllowed;
     }
@@ -142,8 +146,8 @@ public class GoalState implements State<GoalEvent, GoalContext>,
             Action action = ((PlayerAction) actionEvent).getAction();
             if (action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
-                this.status = statusUpdateAction.getStatus();
-                return new GoalChangedStatusEvent(player, this);
+                String newStatus = statusUpdateAction.getStatus();
+                return new GoalChangedStatusEvent(player, this.copy(newStatus));
             } else if (action instanceof SurrenderAction) {
                 return new GoalEndedEvent(player, this, new PlayerLostOutcome(player));
             } else if (action instanceof BidAction) {
@@ -151,12 +155,13 @@ public class GoalState implements State<GoalEvent, GoalContext>,
                     throw new IllegalArgumentException();
                 Bid bid = configuration.getSupporterConfiguration().getBid();
                 PlayerBid playerBid = new PlayerBid(player, bid);
+                this.bank.add(playerBid);
                 this.supporters.add(player);
                 return new GoalChangedBetEvent(player, this, playerBid);
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
-                this.status = reachedAction.getStatus();
-                return new GoalEndedEvent(player, this, new PlayerWonOutcome(player));
+                String newStatus = reachedAction.getStatus();
+                return new GoalEndedEvent(player, this.copy(newStatus), new PlayerWonOutcome(player));
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
                 bank.add(new PlayerBid(player, new Bid(Money.create(Currency.FakeMoney, 0), punishmentAction.getAmount().negate())));
@@ -171,6 +176,21 @@ public class GoalState implements State<GoalEvent, GoalContext>,
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    public GoalState copy(String newStatus) {
+        return new GoalState(
+            goalKey,
+            startDate,
+            player,
+            bank,
+            goal,
+            configuration,
+            context,
+            supporters,
+            betsAllowed,
+            newStatus
+        );
     }
 
     public GoalState forbidBet() {

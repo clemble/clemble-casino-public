@@ -33,6 +33,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
     final private DateTime startDate;
     final private long deadline;
     final private DateTime created;
+    final private boolean betsAllowed;
 
     @JsonCreator
     public GoalBetPost(
@@ -46,13 +47,15 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("playerBid") PlayerBid playerBid,
-        @JsonProperty("created") DateTime created
+        @JsonProperty("created") DateTime created,
+        @JsonProperty("betsAllowed") boolean betsAllowed
     ) {
         this.key = key;
         this.goalKey = goalKey;
         this.player = player;
         this.playerBid = playerBid;
         this.supporters = supporters;
+        this.betsAllowed = betsAllowed;
         this.goal = goal;
         this.bank = bank;
         this.configuration = configuration;
@@ -105,6 +108,11 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
     }
 
     @Override
+    public boolean getBetsAllowed() {
+        return betsAllowed;
+    }
+
+    @Override
     public long getDeadline() {
         return deadline;
     }
@@ -126,7 +134,8 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
             initiation.getSupporters(),
             initiation.getStartDate(),
             bid,
-            DateTime.now(DateTimeZone.UTC)
+            DateTime.now(DateTimeZone.UTC),
+            true
         );
     }
 
@@ -142,7 +151,8 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
             state.getSupporters(),
             state.getStartDate(),
             bid,
-            DateTime.now(DateTimeZone.UTC)
+            DateTime.now(DateTimeZone.UTC),
+            true
         );
     }
 
