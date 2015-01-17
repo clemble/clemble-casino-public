@@ -1,5 +1,7 @@
 package com.clemble.casino.player.event;
 
-public interface PlayerInvitationAction extends PlayerAction {
+import com.clemble.casino.lifecycle.management.event.action.Action;
+
+public interface PlayerInvitationAction extends Action {
 
 }

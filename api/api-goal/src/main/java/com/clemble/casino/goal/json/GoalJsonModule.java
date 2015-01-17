@@ -14,9 +14,7 @@ import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionDeclin
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationChangedEvent;
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCompleteEvent;
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCreatedEvent;
-import com.clemble.casino.goal.lifecycle.management.event.GoalChangedEvent;
-import com.clemble.casino.goal.lifecycle.management.event.GoalEndedEvent;
-import com.clemble.casino.goal.lifecycle.management.event.GoalStartedEvent;
+import com.clemble.casino.goal.lifecycle.management.event.*;
 import com.clemble.casino.goal.lifecycle.record.event.GoalRecordCreatedEvent;
 import com.clemble.casino.goal.post.*;
 import com.clemble.casino.json.ClembleJsonModule;
@@ -38,8 +36,11 @@ public class GoalJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GoalInitiationChangedEvent.class, GoalInitiationChangedEvent.JSON_TYPE));
 
         module.registerSubtypes(new NamedType(GoalStartedEvent.class, GoalStartedEvent.JSON_TYPE));
-        module.registerSubtypes(new NamedType(GoalChangedEvent.class, GoalChangedEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalChangedStatusEvent.class, GoalChangedStatusEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalEndedEvent.class, GoalEndedEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalChangedBetEvent.class, GoalChangedBetEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalChangedBetOffEvent.class, GoalChangedBetOffEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalChangedStatusUpdateMissedEvent.class, GoalChangedStatusUpdateMissedEvent.JSON_TYPE));
 
 
         module.registerSubtypes(new NamedType(GoalSuggestionAcceptedEvent.class, GoalSuggestionAcceptedEvent.JSON_TYPE));
@@ -55,7 +56,9 @@ public class GoalJsonModule implements ClembleJsonModule {
 
         module.registerSubtypes(new NamedType(GoalCreatedPost.class, GoalCreatedPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalStartedPost.class, GoalStartedPost.JSON_TYPE));
-        module.registerSubtypes(new NamedType(GoalBidPost.class, GoalBidPost.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalBetPost.class, GoalBetPost.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalBetOffPost.class, GoalBetOffPost.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalStatusMissedPost.class, GoalStatusMissedPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalUpdatedPost.class, GoalUpdatedPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalReachedPost.class, GoalReachedPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalMissedPost.class, GoalMissedPost.JSON_TYPE));

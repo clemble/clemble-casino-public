@@ -4,6 +4,7 @@ import com.clemble.casino.bet.PlayerBid;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,16 +12,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import java.util.Date;
 import java.util.Set;
 
 /**
  * Created by mavarazy on 11/29/14.
  */
-@JsonTypeName(GoalBidPost.JSON_TYPE)
-public class GoalBidPost implements GoalPost, GoalConfigurationAware {
+@JsonTypeName(GoalBetPost.JSON_TYPE)
+public class GoalBetPost implements GoalPost, GoalConfigurationAware {
 
-    final public static String JSON_TYPE = "post:goal:bid";
+    final public static String JSON_TYPE = "post:goal:bet:changed";
 
     final private String key;
     final private String goalKey;
@@ -35,7 +35,7 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
     final private DateTime created;
 
     @JsonCreator
-    public GoalBidPost(
+    public GoalBetPost(
         @JsonProperty("key") String key,
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
@@ -114,8 +114,8 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
         return created;
     }
 
-    public static GoalBidPost create(PlayerBid bid, GoalInitiation initiation) {
-        return new GoalBidPost(
+    public static GoalBetPost create(PlayerBid bid, GoalInitiation initiation) {
+        return new GoalBetPost(
             initiation.getGoalKey(),
             initiation.getGoalKey(),
             initiation.getPlayer(),
@@ -130,12 +130,28 @@ public class GoalBidPost implements GoalPost, GoalConfigurationAware {
         );
     }
 
+    public static GoalBetPost create(PlayerBid bid, GoalState state) {
+        return new GoalBetPost(
+            state.getGoalKey(),
+            state.getGoalKey(),
+            state.getPlayer(),
+            state.getBank(),
+            state.getConfiguration(),
+            state.getGoal(),
+            state.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(state.getStartDate().getMillis()),
+            state.getSupporters(),
+            state.getStartDate(),
+            bid,
+            DateTime.now(DateTimeZone.UTC)
+        );
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalBidPost that = (GoalBidPost) o;
+        GoalBetPost that = (GoalBetPost) o;
 
         if (deadline != that.deadline) return false;
         if (!bank.equals(that.bank)) return false;

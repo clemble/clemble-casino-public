@@ -26,4 +26,6 @@ public interface GoalActionService extends ActionService {
     @Override
     public GoalState getState(String goalKey);
 
+    public GoalState bet(String goalKey);
+
 }

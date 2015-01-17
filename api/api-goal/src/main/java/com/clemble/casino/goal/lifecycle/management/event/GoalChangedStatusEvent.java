@@ -3,10 +3,6 @@ package com.clemble.casino.goal.lifecycle.management.event;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.goal.post.GoalPost;
 import com.clemble.casino.goal.post.GoalUpdatedPost;
-import com.clemble.casino.notification.PlayerNotification;
-import com.clemble.casino.notification.PlayerNotificationConvertible;
-import com.clemble.casino.post.PlayerPost;
-import com.clemble.casino.post.PlayerPostConvertible;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -14,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 10/9/14.
  */
-@JsonTypeName(GoalChangedEvent.JSON_TYPE)
-public class GoalChangedEvent implements GoalManagementEvent {
+@JsonTypeName(GoalChangedStatusEvent.JSON_TYPE)
+public class GoalChangedStatusEvent implements GoalManagementEvent {
 
-    final public static String JSON_TYPE = "goal:management:changed";
+    final public static String JSON_TYPE = "goal:management:changed:status";
 
     final private String player;
     final private GoalState state;
 
     @JsonCreator
-    public GoalChangedEvent(
+    public GoalChangedStatusEvent(
         @JsonProperty("player") String player,
         @JsonProperty("body") GoalState state) {
         this.player = player;
@@ -50,7 +46,7 @@ public class GoalChangedEvent implements GoalManagementEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalChangedEvent that = (GoalChangedEvent) o;
+        GoalChangedStatusEvent that = (GoalChangedStatusEvent) o;
 
         if (!player.equals(that.player)) return false;
         if (!state.equals(that.state)) return false;
