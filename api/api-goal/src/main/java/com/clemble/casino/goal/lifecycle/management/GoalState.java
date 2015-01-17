@@ -18,7 +18,7 @@ import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
-import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
+import com.clemble.casino.lifecycle.management.event.action.bet.BetOffAction;
 import com.clemble.casino.lifecycle.management.event.action.bet.BidAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
 import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
@@ -144,7 +144,9 @@ public class GoalState implements
         } else if(actionEvent instanceof PlayerAction<?>) {
             String actor = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
-            if (action instanceof GoalStatusUpdateAction) {
+            if (action instanceof BetOffAction) {
+                return new GoalChangedBetOffEvent(player, this.forbidBet());
+            } else if (action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 String newStatus = statusUpdateAction.getStatus();
                 return new GoalChangedStatusEvent(player, this.copy(newStatus));
