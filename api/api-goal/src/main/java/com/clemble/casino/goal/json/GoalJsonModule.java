@@ -54,7 +54,6 @@ public class GoalJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GoalStatusUpdateAction.class, GoalStatusUpdateAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalReachedAction.class, GoalReachedAction.JSON_TYPE));
 
-        module.registerSubtypes(new NamedType(GoalCreatedPost.class, GoalCreatedPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalStartedPost.class, GoalStartedPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalBetPost.class, GoalBetPost.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalBetOffPost.class, GoalBetOffPost.JSON_TYPE));

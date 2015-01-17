@@ -7,6 +7,7 @@ import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.Date;
 
@@ -16,16 +17,16 @@ import java.util.Date;
 public class GoalConstructionRequest implements ConstructionRequest<GoalConfiguration>, GoalDescriptionAware {
 
     final private String goal;
-    final private DateTime startDate;
+    final private DateTimeZone timezone;
     final private GoalConfiguration configuration;
 
     @JsonCreator
     public GoalConstructionRequest(
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
-        @JsonProperty("startDate") DateTime startDate) {
+        @JsonProperty("timezone") DateTimeZone timezone) {
         this.configuration = configuration;
-        this.startDate = startDate;
+        this.timezone = timezone;
         this.goal = goal;
     }
 
@@ -34,8 +35,8 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
         return configuration;
     }
 
-    public DateTime getStartDate() {
-        return startDate;
+    public DateTimeZone getTimezone() {
+        return timezone;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
 
     @Override
     public GoalConstruction toConstruction(String player, String goalKey) {
-        return new GoalConstruction(goalKey, player, goal, startDate, configuration, ConstructionState.pending);
+        return new GoalConstruction(goalKey, player, goal, DateTime.now(timezone), configuration, ConstructionState.pending);
     }
 
     @Override

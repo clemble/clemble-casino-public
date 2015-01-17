@@ -57,11 +57,4 @@ public class AndroidGoalActionService extends AbstractClembleCasinoOperations im
         return restTemplate.getForObject(actionUrl, GoalState.class);
     }
 
-    @Override
-    public GoalState bet(String goalKey) {
-        // Step 1. Generating goal construction URI
-        URI betUrl = buildUri(toGoalManagementUrl(GOAL_STATE_BET), goalKey);
-        // Step 2. Creating new GoalConstruction
-        return restTemplate.postForObject(betUrl, null, GoalState.class);
-    }
 }

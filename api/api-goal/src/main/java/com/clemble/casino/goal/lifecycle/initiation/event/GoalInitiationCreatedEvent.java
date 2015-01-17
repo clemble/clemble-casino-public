@@ -1,11 +1,6 @@
 package com.clemble.casino.goal.lifecycle.initiation.event;
 
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
-import com.clemble.casino.goal.post.GoalCreatedPost;
-import com.clemble.casino.notification.PlayerNotification;
-import com.clemble.casino.notification.PlayerNotificationConvertible;
-import com.clemble.casino.post.PlayerPost;
-import com.clemble.casino.post.PlayerPostConvertible;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -14,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 9/13/14.
  */
 @JsonTypeName(GoalInitiationCreatedEvent.JSON_TYPE)
-public class GoalInitiationCreatedEvent implements GoalInitiationEvent, PlayerPostConvertible {
+public class GoalInitiationCreatedEvent implements GoalInitiationEvent {
 
     final public static String JSON_TYPE = "goal:initiation:created";
 
@@ -52,11 +47,6 @@ public class GoalInitiationCreatedEvent implements GoalInitiationEvent, PlayerPo
         if (initiation != null ? !initiation.equals(that.initiation) : that.initiation != null) return false;
 
         return true;
-    }
-
-    @Override
-    public PlayerPost toPost() {
-        return GoalCreatedPost.create(initiation);
     }
 
     @Override
