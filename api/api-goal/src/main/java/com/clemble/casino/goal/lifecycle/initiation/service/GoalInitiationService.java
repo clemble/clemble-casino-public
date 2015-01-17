@@ -9,6 +9,4 @@ import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
  */
 public interface GoalInitiationService extends InitiationService<GoalInitiation> {
 
-    public GoalInitiation bid(String goalKey, GoalRole role);
-
 }
