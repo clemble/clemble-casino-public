@@ -5,7 +5,6 @@ import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
-import com.clemble.casino.lifecycle.construction.Construction;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
@@ -15,9 +14,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by mavarazy on 1/3/15.
@@ -80,7 +77,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
         return new GoalInitiation(
             goalKey,
             InitiationState.pending,
-            Bank.create(getPlayer(), getConfiguration().getBid()),
+            Bank.create(getPlayer(), getConfiguration().getBet()),
             player,
             goal,
             configuration,

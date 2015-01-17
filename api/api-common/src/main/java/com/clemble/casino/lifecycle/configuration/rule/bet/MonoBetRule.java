@@ -1,7 +1,7 @@
 package com.clemble.casino.lifecycle.configuration.rule.bet;
 
-import com.clemble.casino.bet.Bid;
-import com.clemble.casino.bet.BidAware;
+import com.clemble.casino.bet.Bet;
+import com.clemble.casino.bet.BetAware;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,27 +11,27 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 11/22/14.
  */
 @JsonTypeName("rule:bet:bid:mono")
-public class MonoBidRule implements BidRule, BidAware {
+public class MonoBetRule implements BidRule, BetAware {
 
-    final private Bid bid;
+    final private Bet bet;
 
     @JsonCreator
-    public MonoBidRule(@JsonProperty("bid") Bid bid) {
-        this.bid = bid;
+    public MonoBetRule(@JsonProperty("bid") Bet bet) {
+        this.bet = bet;
     }
 
     @Override
-    public Bid getBid() {
-        return bid;
+    public Bet getBet() {
+        return bet;
     }
 
     @Override
     public boolean isValid(BetAction betAction) {
-        return betAction.getBet() == bid.getAmount().getAmount();
+        return betAction.getBet() == bet.getAmount().getAmount();
     }
 
-    public static MonoBidRule create(Bid bid) {
-        return new MonoBidRule(bid);
+    public static MonoBetRule create(Bet bet) {
+        return new MonoBetRule(bet);
     }
 
     @Override
@@ -39,16 +39,16 @@ public class MonoBidRule implements BidRule, BidAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MonoBidRule that = (MonoBidRule) o;
+        MonoBetRule that = (MonoBetRule) o;
 
-        if (!bid.equals(that.bid)) return false;
+        if (!bet.equals(that.bet)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return bid.hashCode();
+        return bet.hashCode();
     }
 
 }

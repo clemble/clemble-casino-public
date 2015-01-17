@@ -32,9 +32,9 @@ public class BetSpecification {
         return rate;
     }
 
-    public Bid toBid(Money amount) {
+    public Bet toBid(Money amount) {
         // TODO add exceptions on invalid Bids
-        return new Bid(amount, amount.add((amount.getAmount() * rate / 100)));
+        return new Bet(amount, amount.add((amount.getAmount() * rate / 100)));
     }
 
     @Override

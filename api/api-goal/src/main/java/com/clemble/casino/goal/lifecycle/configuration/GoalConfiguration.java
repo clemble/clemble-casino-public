@@ -1,6 +1,6 @@
 package com.clemble.casino.goal.lifecycle.configuration;
 
-import com.clemble.casino.bet.Bid;
+import com.clemble.casino.bet.Bet;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
@@ -20,7 +20,7 @@ public class GoalConfiguration implements
 
     final private String configurationKey;
     final private String name;
-    final private Bid bid;
+    final private Bet bet;
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
     final private PrivacyRule privacyRule;
@@ -33,7 +33,7 @@ public class GoalConfiguration implements
     public GoalConfiguration(
         @JsonProperty("configurationKey") String configurationKey,
         @JsonProperty("name") String name,
-        @JsonProperty("bid") Bid bid,
+        @JsonProperty("bid") Bet bet,
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule,
         @JsonProperty("moveTimeRule") TimeoutRule moveTimeoutRule,
@@ -44,7 +44,7 @@ public class GoalConfiguration implements
     ) {
         this.configurationKey = configurationKey;
         this.name = name;
-        this.bid = bid;
+        this.bet = bet;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
         this.moveTimeoutRule = moveTimeoutRule;
@@ -63,8 +63,8 @@ public class GoalConfiguration implements
         return name;
     }
 
-    public Bid getBid() {
-        return bid;
+    public Bet getBet() {
+        return bet;
     }
 
     public ReminderRule getEmailReminderRule() {

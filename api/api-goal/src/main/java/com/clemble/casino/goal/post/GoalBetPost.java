@@ -1,6 +1,6 @@
 package com.clemble.casino.goal.post;
 
-import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
@@ -27,7 +27,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
     final private String player;
     final private Bank bank;
     final private GoalConfiguration configuration;
-    final private PlayerBid playerBid;
+    final private PlayerBet playerBid;
     final private String goal;
     final private Set<String> supporters;
     final private DateTime startDate;
@@ -46,7 +46,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("deadline") long deadline,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate,
-        @JsonProperty("playerBid") PlayerBid playerBid,
+        @JsonProperty("playerBid") PlayerBet playerBid,
         @JsonProperty("created") DateTime created,
         @JsonProperty("betsAllowed") boolean betsAllowed
     ) {
@@ -89,7 +89,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
         return supporters;
     }
 
-    public PlayerBid getPlayerBid() {
+    public PlayerBet getPlayerBid() {
         return playerBid;
     }
 
@@ -122,7 +122,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
         return created;
     }
 
-    public static GoalBetPost create(PlayerBid bid, GoalInitiation initiation) {
+    public static GoalBetPost create(PlayerBet bet, GoalInitiation initiation) {
         return new GoalBetPost(
             initiation.getGoalKey(),
             initiation.getGoalKey(),
@@ -133,13 +133,13 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
             initiation.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(initiation.getStartDate().getMillis()),
             initiation.getSupporters(),
             initiation.getStartDate(),
-            bid,
+            bet,
             DateTime.now(DateTimeZone.UTC),
             true
         );
     }
 
-    public static GoalBetPost create(PlayerBid bid, GoalState state) {
+    public static GoalBetPost create(PlayerBet bet, GoalState state) {
         return new GoalBetPost(
             state.getGoalKey(),
             state.getGoalKey(),
@@ -150,7 +150,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
             state.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(state.getStartDate().getMillis()),
             state.getSupporters(),
             state.getStartDate(),
-            bid,
+            bet,
             DateTime.now(DateTimeZone.UTC),
             true
         );

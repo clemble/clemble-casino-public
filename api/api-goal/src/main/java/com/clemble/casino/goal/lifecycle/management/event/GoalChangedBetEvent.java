@@ -1,6 +1,6 @@
 package com.clemble.casino.goal.lifecycle.management.event;
 
-import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.goal.post.GoalBetPost;
 import com.clemble.casino.goal.post.GoalPost;
@@ -17,15 +17,15 @@ public class GoalChangedBetEvent implements GoalManagementEvent {
     final public static String JSON_TYPE = "goal:management:changed:bet";
 
     final private String player;
-    final private PlayerBid bid;
+    final private PlayerBet bet;
     final private GoalState body;
 
     @JsonCreator
     public GoalChangedBetEvent(
         @JsonProperty(PLAYER) String player,
         @JsonProperty("body") GoalState body,
-        @JsonProperty("bid") PlayerBid bid) {
-        this.bid = bid;
+        @JsonProperty("bet") PlayerBet bet) {
+        this.bet = bet;
         this.body = body;
         this.player = player;
     }
@@ -40,13 +40,13 @@ public class GoalChangedBetEvent implements GoalManagementEvent {
         return body;
     }
 
-    public PlayerBid getBid() {
-        return bid;
+    public PlayerBet getBet() {
+        return bet;
     }
 
     @Override
     public GoalPost toPost() {
-        return GoalBetPost.create(bid, body);
+        return GoalBetPost.create(bet, body);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class GoalChangedBetEvent implements GoalManagementEvent {
 
         GoalChangedBetEvent that = (GoalChangedBetEvent) o;
 
-        if (!bid.equals(that.bid)) return false;
+        if (!bet.equals(that.bet)) return false;
         if (!body.equals(that.body)) return false;
         if (!player.equals(that.player)) return false;
 
@@ -66,7 +66,7 @@ public class GoalChangedBetEvent implements GoalManagementEvent {
     @Override
     public int hashCode() {
         int result = player.hashCode();
-        result = 31 * result + bid.hashCode();
+        result = 31 * result + bet.hashCode();
         result = 31 * result + body.hashCode();
         return result;
     }

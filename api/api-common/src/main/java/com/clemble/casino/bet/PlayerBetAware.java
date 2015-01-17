@@ -5,8 +5,8 @@ import java.util.Collection;
 /**
  * Created by mavarazy on 11/22/14.
  */
-public interface PlayerBidAware {
+public interface PlayerBetAware {
 
-    public Collection<PlayerBid> getBids();
+    public Collection<PlayerBet> getBets();
 
 }

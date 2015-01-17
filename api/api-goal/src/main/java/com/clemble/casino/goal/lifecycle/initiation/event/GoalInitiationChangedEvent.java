@@ -1,6 +1,6 @@
 package com.clemble.casino.goal.lifecycle.initiation.event;
 
-import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.goal.post.GoalBetPost;
 import com.clemble.casino.post.PlayerPost;
@@ -17,15 +17,15 @@ public class GoalInitiationChangedEvent implements GoalInitiationEvent, PlayerPo
     final public static String JSON_TYPE = "goal:initiation:changed";
 
     final private String player;
-    final private PlayerBid bid;
+    final private PlayerBet bet;
     final private GoalInitiation initiation;
 
     @JsonCreator
     public GoalInitiationChangedEvent(
         @JsonProperty(PLAYER) String player,
         @JsonProperty("body") GoalInitiation initiation,
-        @JsonProperty("bid") PlayerBid bid) {
-        this.bid = bid;
+        @JsonProperty("bet") PlayerBet bet) {
+        this.bet = bet;
         this.player = player;
         this.initiation = initiation;
     }
@@ -40,8 +40,8 @@ public class GoalInitiationChangedEvent implements GoalInitiationEvent, PlayerPo
         return initiation;
     }
 
-    public PlayerBid getBid() {
-        return bid;
+    public PlayerBet getBet() {
+        return bet;
     }
 
     @Override
@@ -64,13 +64,13 @@ public class GoalInitiationChangedEvent implements GoalInitiationEvent, PlayerPo
         return result;
     }
 
-    public static GoalInitiationChangedEvent create(PlayerBid bid, GoalInitiation initiation) {
-        return new GoalInitiationChangedEvent(initiation.getPlayer(), initiation, bid);
+    public static GoalInitiationChangedEvent create(PlayerBet bet, GoalInitiation initiation) {
+        return new GoalInitiationChangedEvent(initiation.getPlayer(), initiation, bet);
     }
 
     @Override
     public PlayerPost toPost() {
-        return GoalBetPost.create(bid, initiation);
+        return GoalBetPost.create(bet, initiation);
     }
 
 }

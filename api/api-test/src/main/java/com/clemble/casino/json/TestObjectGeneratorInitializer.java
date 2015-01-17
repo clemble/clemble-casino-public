@@ -9,7 +9,7 @@ import java.util.*;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-import com.clemble.casino.bet.Bid;
+import com.clemble.casino.bet.Bet;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationValue;
 import com.clemble.casino.lifecycle.configuration.rule.bet.*;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
@@ -91,7 +91,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(FixedBidRule.class, new AbstractValueGenerator<FixedBidRule>() {
             @Override
             public FixedBidRule generate() {
-                return FixedBidRule.create(ObjectGenerator.generate(Bid.class));
+                return FixedBidRule.create(ObjectGenerator.generate(Bet.class));
             }
         });
         ObjectGenerator.register(SortedSet.class, new AbstractValueGenerator<SortedSet>() {

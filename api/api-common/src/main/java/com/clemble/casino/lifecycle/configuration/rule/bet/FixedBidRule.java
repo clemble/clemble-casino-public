@@ -1,6 +1,6 @@
 package com.clemble.casino.lifecycle.configuration.rule.bet;
 
-import com.clemble.casino.bet.Bid;
+import com.clemble.casino.bet.Bet;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,25 +14,25 @@ import java.util.Arrays;
 @JsonTypeName("rule:bet:bid:fixed")
 public class FixedBidRule implements BidRule {
 
-    final private Bid[] bids;
+    final private Bet[] bets;
 
     @JsonCreator
-    public FixedBidRule(@JsonProperty("bids") Bid[] bids) {
-        this.bids = bids;
+    public FixedBidRule(@JsonProperty("bids") Bet[] bets) {
+        this.bets = bets;
     }
 
-    public Bid[] getBids() {
-        return bids;
+    public Bet[] getBets() {
+        return bets;
     }
 
-    public static FixedBidRule create(Bid ... bids) {
-        return new FixedBidRule(bids);
+    public static FixedBidRule create(Bet... bets) {
+        return new FixedBidRule(bets);
     }
 
     @Override
     public boolean isValid(BetAction betAction) {
-        for (Bid bid : bids) {
-            if (bid.getAmount().getAmount() == betAction.getBet())
+        for (Bet bet : bets) {
+            if (bet.getAmount().getAmount() == betAction.getBet())
                 return true;
         }
         return false;
@@ -45,13 +45,13 @@ public class FixedBidRule implements BidRule {
 
         FixedBidRule that = (FixedBidRule) o;
 
-        if (!Arrays.equals(bids, that.bids)) return false;
+        if (!Arrays.equals(bets, that.bets)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return bids != null ? Arrays.hashCode(bids) : 0;
+        return bets != null ? Arrays.hashCode(bets) : 0;
     }
 }

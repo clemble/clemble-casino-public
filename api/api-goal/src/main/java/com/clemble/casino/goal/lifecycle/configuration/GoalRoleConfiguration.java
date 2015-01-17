@@ -1,10 +1,8 @@
 package com.clemble.casino.goal.lifecycle.configuration;
 
-import com.clemble.casino.bet.Bid;
+import com.clemble.casino.bet.Bet;
 import com.clemble.casino.goal.lifecycle.configuration.rule.GoalRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
-import com.clemble.casino.goal.lifecycle.management.GoalRole;
-import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -15,26 +13,26 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("rule:role:configuration")
 public class GoalRoleConfiguration implements GoalRule {
 
-    final private Bid bid;
+    final private Bet bet;
     final private int betDays;
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
 
     @JsonCreator
     public GoalRoleConfiguration(
-        @JsonProperty("bid") Bid bid,
+        @JsonProperty("bid") Bet bet,
         @JsonProperty("betDays") int betDays,
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule
     ) {
-        this.bid = bid;
+        this.bet = bet;
         this.betDays = betDays;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
     }
 
-    public Bid getBid() {
-        return bid;
+    public Bet getBet() {
+        return bet;
     }
 
     public int getBetDays() {
@@ -58,7 +56,7 @@ public class GoalRoleConfiguration implements GoalRule {
 
         if (!emailReminderRule.equals(that.emailReminderRule)) return false;
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
-        if (!bid.equals(that.bid)) return false;
+        if (!bet.equals(that.bet)) return false;
 
         return true;
     }
@@ -67,7 +65,7 @@ public class GoalRoleConfiguration implements GoalRule {
     public int hashCode() {
         int result = emailReminderRule.hashCode();
         result = 31 * result + phoneReminderRule.hashCode();
-        result = 31 * result + bid.hashCode();
+        result = 31 * result + bet.hashCode();
         return result;
     }
 

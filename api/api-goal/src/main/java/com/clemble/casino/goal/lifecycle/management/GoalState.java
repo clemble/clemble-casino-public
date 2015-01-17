@@ -1,8 +1,8 @@
 package com.clemble.casino.goal.lifecycle.management;
 
 import com.clemble.casino.bet.BetsAllowedAware;
-import com.clemble.casino.bet.Bid;
-import com.clemble.casino.bet.PlayerBid;
+import com.clemble.casino.bet.Bet;
+import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
@@ -155,8 +155,8 @@ public class GoalState implements
             } else if (action instanceof BidAction) {
                 if(!this.betsAllowed || this.supporters.contains(actor) || this.player.equals(actor))
                     throw new IllegalArgumentException();
-                Bid bid = configuration.getSupporterConfiguration().getBid();
-                PlayerBid playerBid = new PlayerBid(actor, bid);
+                Bet bet = configuration.getSupporterConfiguration().getBet();
+                PlayerBet playerBid = new PlayerBet(actor, bet);
                 this.bank.add(playerBid);
                 this.supporters.add(actor);
                 return new GoalChangedBetEvent(player, this, playerBid);
@@ -166,8 +166,8 @@ public class GoalState implements
                 return new GoalEndedEvent(player, this.copy(newStatus), new PlayerWonOutcome(actor));
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
-                bank.add(new PlayerBid(player, new Bid(Money.create(Currency.FakeMoney, 0), punishmentAction.getAmount().negate())));
-                if (bank.getBid(player).getBid().getInterest().getAmount() == 0) {
+                bank.add(new PlayerBet(player, new Bet(Money.create(Currency.FakeMoney, 0), punishmentAction.getAmount().negate())));
+                if (bank.getBet(player).getBet().getInterest().getAmount() == 0) {
                     return new GoalEndedEvent(player, this, new PlayerLostOutcome(player));
                 } else {
                     return new GoalChangedStatusUpdateMissedEvent(player, this);
