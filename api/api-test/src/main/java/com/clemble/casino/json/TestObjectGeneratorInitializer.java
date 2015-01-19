@@ -28,7 +28,6 @@ import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.lifecycle.management.unit.Chip;
 import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
-import com.clemble.casino.payment.PendingOperation;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
@@ -151,7 +150,6 @@ public class TestObjectGeneratorInitializer {
             return new PlayerAccount(
                 RandomStringUtils.random(5),
                 ImmutableMap.of(Currency.FakeMoney, Money.create(Currency.FakeMoney, 500)),
-                Collections.<PendingOperation>emptyList(),
                 null);
             }
         });

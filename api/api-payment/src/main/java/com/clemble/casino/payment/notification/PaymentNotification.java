@@ -96,7 +96,6 @@ public class PaymentNotification implements
         if (!amount.equals(that.amount)) return false;
         if (operation != that.operation) return false;
         if (!player.equals(that.player)) return false;
-        if (!source.equals(that.source)) return false;
         if (!key.equals(that.key)) return false;
 
         return true;
@@ -108,7 +107,6 @@ public class PaymentNotification implements
         result = 31 * result + key.hashCode();
         result = 31 * result + amount.hashCode();
         result = 31 * result + operation.hashCode();
-        result = 31 * result + source.hashCode();
         return result;
     }
 

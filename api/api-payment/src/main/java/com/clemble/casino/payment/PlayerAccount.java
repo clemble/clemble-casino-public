@@ -23,17 +23,14 @@ public class PlayerAccount implements PlayerAware, VersionAware {
     @Id
     final private String player;
     final private Map<Currency, Money> money;
-    final private List<PendingOperation> pendingOperations;
     final private Integer version;
 
     @JsonCreator
     public PlayerAccount(
         @JsonProperty(PLAYER) String player,
         @JsonProperty("money") Map<Currency, Money> money,
-        @JsonProperty("pendingOperations") List<PendingOperation> pendingOperations,
         @JsonProperty("version") Integer version) {
         this.player = player;
-        this.pendingOperations = pendingOperations;
         this.money = new HashMap<Currency, Money>(money);
         this.version = version;
     }
@@ -53,11 +50,7 @@ public class PlayerAccount implements PlayerAware, VersionAware {
         return money.get(currency);
     }
 
-    public List<PendingOperation> getPendingOperations(){
-        return pendingOperations;
-    }
-
-    public void process(PaymentOperation operation) {
+    public PlayerAccount process(PaymentOperation operation) {
         Money originalAmount = getMoney(operation.getAmount().getCurrency());
         if (originalAmount == null) {
             PaymentOperation debitOperation = operation.toDebit();
@@ -65,26 +58,7 @@ public class PlayerAccount implements PlayerAware, VersionAware {
         } else {
             money.put(originalAmount.getCurrency(), originalAmount.process(operation.getOperation(), operation.getAmount()));
         }
-    }
-
-    public void freeze(String transactionKey, PaymentOperation operation) {
-        // Step 1. Adding to pending operations
-        pendingOperations.add(PendingOperation.fromOperation(transactionKey, operation));
-        // Step 2. Performing actual debit operation
-        process(operation);
-    }
-
-    public void unFreeze(String transactionKey) {
-        PendingOperation pendingOperation = null;
-        for(PendingOperation pOperation: pendingOperations) {
-            if (transactionKey.equals(pOperation.getTransactionKey()))
-                pendingOperation = pOperation;
-        }
-        if (pendingOperation != null) {
-            pendingOperations.remove(pendingOperation);
-            PaymentOperation unFreezeOp = new PaymentOperation(player, pendingOperation.getAmount(), pendingOperation.getOperation().toOpposite());
-            process(unFreezeOp);
-        }
+        return this;
     }
 
     @Override
@@ -106,7 +80,6 @@ public class PlayerAccount implements PlayerAware, VersionAware {
 
         if (version != that.version) return false;
         if (!money.equals(that.money)) return false;
-        if (!pendingOperations.equals(that.pendingOperations)) return false;
         if (!player.equals(that.player)) return false;
 
         return true;
@@ -116,7 +89,6 @@ public class PlayerAccount implements PlayerAware, VersionAware {
     public int hashCode() {
         int result = player.hashCode();
         result = 31 * result + money.hashCode();
-        result = 31 * result + pendingOperations.hashCode();
         result = 31 * result + version;
         return result;
     }

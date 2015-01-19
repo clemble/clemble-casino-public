@@ -60,6 +60,10 @@ public class PaymentOperation implements AccountOperation {
         return operation == Operation.Debit ? this : new PaymentOperation(player, amount.negate(), Operation.Debit);
     }
 
+    public PaymentOperation toOpposite() {
+        return new PaymentOperation(player, amount, operation.toOpposite());
+    }
+
     @Override
     public String toString() {
         return operation + ":" + player + ":" + amount;
