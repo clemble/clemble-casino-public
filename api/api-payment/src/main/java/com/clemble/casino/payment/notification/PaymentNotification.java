@@ -19,7 +19,6 @@ import java.util.Date;
 public class PaymentNotification implements
     PlayerNotification,
     AmountAware,
-    // PaymentTransactionAware,
     PaymentSourceAware {
 
     final public static String JSON_TYPE = "notification:payment";

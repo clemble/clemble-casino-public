@@ -10,7 +10,7 @@ import com.clemble.casino.money.Operation;
 import com.clemble.casino.player.PlayerAware;
 
 @Embeddable
-public class PaymentOperation implements AccountOperation {
+public class PaymentOperation implements AmountAware, PlayerAware {
 
     /**
      * Generated 05/05/13

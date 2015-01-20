@@ -1,6 +1,7 @@
 package com.clemble.casino.payment;
 
 import com.clemble.casino.VersionAware;
+import com.clemble.casino.money.Currency;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
@@ -46,13 +47,13 @@ public class PendingTransaction implements AccountTransaction, VersionAware {
     }
 
     @Override
-    public PaymentOperation getOperation(String player) {
+    public PaymentOperation getOperation(String player, Currency currency) {
         // Step 1. Sanity check
         if (player == null)
             return null;
         // Step 2. Processing payment
         for (PaymentOperation paymentOperation : operations)
-            if (paymentOperation.getPlayer().equals(player))
+            if (paymentOperation.getPlayer().equals(player) && paymentOperation.getAmount().getCurrency() == currency)
                 return paymentOperation;
         // Step 3. Returning nothing
         return null;
@@ -60,7 +61,7 @@ public class PendingTransaction implements AccountTransaction, VersionAware {
 
     public PendingTransaction addOperation(PaymentOperation paymentOperation) {
         if (paymentOperation != null) {
-            PaymentOperation playerOperation = getOperation(paymentOperation.getPlayer());
+            PaymentOperation playerOperation = getOperation(paymentOperation.getPlayer(), paymentOperation.getAmount().getCurrency());
             if(playerOperation != null) {
                 operations.remove(playerOperation);
                 operations.add(playerOperation.combine(paymentOperation));

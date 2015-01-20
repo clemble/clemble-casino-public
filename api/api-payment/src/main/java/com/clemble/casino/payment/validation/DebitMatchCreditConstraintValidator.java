@@ -1,5 +1,8 @@
 package com.clemble.casino.payment.validation;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintValidator;
@@ -22,8 +25,24 @@ public class DebitMatchCreditConstraintValidator implements ConstraintValidator<
 
     @Override
     public boolean isValid(Set<PaymentOperation> paymentOperations, ConstraintValidatorContext context) {
+        // Step 1. Separating by currency
+        Map<Currency, Set<PaymentOperation>> currencyToOperations = new HashMap<Currency, Set<PaymentOperation>>();
+        for (PaymentOperation operation : paymentOperations) {
+            Currency currency = operation.getAmount().getCurrency();
+            if (currencyToOperations.get(currency) == null)
+                currencyToOperations.put(currency, new HashSet<PaymentOperation>());
+            currencyToOperations.get(operation.getAmount().getCurrency()).add(operation);
+        }
+        // Step 2. Checking each currency
+        boolean isValid = true;
+        for(Map.Entry<Currency, Set<PaymentOperation>> currencyToOperation: currencyToOperations.entrySet()) {
+            isValid = isValid(currencyToOperation.getKey(), currencyToOperation.getValue(), context) && isValid;
+        }
+        return isValid;
+    }
+
+    public boolean isValid(Currency currency, Set<PaymentOperation> paymentOperations, ConstraintValidatorContext context) {
         // Step 1. Checking currency
-        Currency currency = null;
         for (PaymentOperation paymentOperation : paymentOperations) {
             if (currency == null) {
                 currency = paymentOperation.getAmount().getCurrency();

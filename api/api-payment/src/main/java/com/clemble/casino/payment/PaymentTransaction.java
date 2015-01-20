@@ -3,6 +3,7 @@ package com.clemble.casino.payment;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.clemble.casino.money.Currency;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
@@ -48,13 +49,13 @@ public class PaymentTransaction implements AccountTransaction, PaymentTransactio
     }
 
     @Override
-    public PaymentOperation getOperation(String player) {
+    public PaymentOperation getOperation(String player, Currency currency) {
         // Step 1. Sanity check
         if (player == null)
             return null;
         // Step 2. Processing payment
         for (PaymentOperation paymentOperation : operations)
-            if (paymentOperation.getPlayer().equals(player))
+            if (paymentOperation.getPlayer().equals(player) && paymentOperation.getAmount().getCurrency() == currency)
                 return paymentOperation;
         // Step 3. Returning nothing
         return null;
@@ -67,7 +68,7 @@ public class PaymentTransaction implements AccountTransaction, PaymentTransactio
 
     public PaymentTransaction addOperation(PaymentOperation paymentOperation) {
         if (paymentOperation != null) {
-            PaymentOperation playerOperation = getOperation(paymentOperation.getPlayer());
+            PaymentOperation playerOperation = getOperation(paymentOperation.getPlayer(), paymentOperation.getAmount().getCurrency());
             if(playerOperation != null) {
                 operations.remove(playerOperation);
                 operations.add(playerOperation.combine(paymentOperation));
