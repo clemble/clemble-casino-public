@@ -27,7 +27,7 @@ public class GoalStartedPost implements GoalPost {
     final private String goal;
     final private String goalKey;
     final private Set<String> supporters;
-    final private long deadline;
+    final private DateTime deadline;
     final private DateTime created;
     final private boolean betsAllowed;
 
@@ -39,7 +39,7 @@ public class GoalStartedPost implements GoalPost {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
-        @JsonProperty("deadline") long deadline,
+        @JsonProperty("deadline") DateTime deadline,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("created") DateTime created,
         @JsonProperty("betsAllowed") boolean betsAllowed
@@ -92,7 +92,7 @@ public class GoalStartedPost implements GoalPost {
     }
 
     @Override
-    public long getDeadline() {
+    public DateTime getDeadline() {
         return deadline;
     }
 
@@ -114,7 +114,7 @@ public class GoalStartedPost implements GoalPost {
             state.getBank(),
             state.getConfiguration(),
             state.getGoal(),
-            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
+            state.getDeadline(),
             state.getSupporters(),
             DateTime.now(DateTimeZone.UTC),
             state.getBetsAllowed()
@@ -128,7 +128,7 @@ public class GoalStartedPost implements GoalPost {
 
         GoalStartedPost that = (GoalStartedPost) o;
 
-        if (deadline != that.deadline) return false;
+        if (!deadline.equals(that.deadline)) return false;
         if (!bank.equals(that.bank)) return false;
         if (!goal.equals(that.goal)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
@@ -143,7 +143,7 @@ public class GoalStartedPost implements GoalPost {
         result = 31 * result + bank.hashCode();
         result = 31 * result + goal.hashCode();
         result = 31 * result + goalKey.hashCode();
-        result = 31 * result + (int) (deadline ^ (deadline >>> 32));
+        result = 31 * result + deadline.hashCode();
         return result;
     }
 }

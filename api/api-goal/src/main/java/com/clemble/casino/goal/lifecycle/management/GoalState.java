@@ -14,6 +14,7 @@ import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.management.event.*;
 import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
+import com.clemble.casino.lifecycle.configuration.rule.time.DeadlineAware;
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
@@ -45,7 +46,8 @@ public class GoalState implements
     GoalStatusAware,
     GoalRoleAware,
     BetsAllowedAware,
-    BankAware {
+    BankAware,
+    DeadlineAware {
 
     @Id
     final private String goalKey;
@@ -56,6 +58,7 @@ public class GoalState implements
     final private GoalConfiguration configuration;
     final private Set<String> supporters;
     final private DateTime startDate;
+    final private DateTime deadline;
     final private boolean betsAllowed;
     final private String status;
 
@@ -63,6 +66,7 @@ public class GoalState implements
     public GoalState(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("startDate") DateTime startDate,
+        @JsonProperty("deadline") DateTime deadline,
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
@@ -74,6 +78,7 @@ public class GoalState implements
         this.goalKey = goalKey;
         this.player = player;
         this.startDate = startDate;
+        this.deadline = deadline;
         this.supporters = supporters;
         this.betsAllowed = betsAllowed;
         this.configuration = configuration;
@@ -125,6 +130,11 @@ public class GoalState implements
 
     public DateTime getStartDate() {
         return startDate;
+    }
+
+    @Override
+    public DateTime getDeadline() {
+        return deadline;
     }
 
     @Override
@@ -184,6 +194,7 @@ public class GoalState implements
         return new GoalState(
             goalKey,
             startDate,
+            deadline,
             player,
             bank,
             goal,
@@ -202,6 +213,7 @@ public class GoalState implements
             return new GoalState(
                 goalKey,
                 startDate,
+                deadline,
                 player,
                 bank,
                 goal,

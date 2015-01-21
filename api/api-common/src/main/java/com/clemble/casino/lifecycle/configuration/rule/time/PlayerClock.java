@@ -7,6 +7,7 @@ import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishmentAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTime;
 
 /**
  * Created by mavarazy on 24/12/13.
@@ -20,7 +21,7 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
 
     private long moveStart;
     private long timeSpent;
-    private long deadline;
+    private DateTime deadline;
     private long breachTime;
     private BreachPunishment punishment;
 
@@ -28,7 +29,7 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
     public PlayerClock(
         @JsonProperty("moveStart") long moveStart,
         @JsonProperty("timeSpent") long timeSpent,
-        @JsonProperty("deadline") long deadline,
+        @JsonProperty("deadline") DateTime deadline,
         @JsonProperty("breachTime") long breachTime,
         @JsonProperty("punishment") BreachPunishment punishment) {
         this.moveStart = moveStart;
@@ -47,7 +48,7 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
     }
 
     @Override
-    public long getDeadline() {
+    public DateTime getDeadline() {
         return deadline;
     }
 
@@ -69,7 +70,7 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
     }
 
     // TODO this is used as a hack, really bad practice
-    public void start(long moveStart, long breachTime, long deadline, BreachPunishment breachPunishment) {
+    public void start(long moveStart, long breachTime, DateTime deadline, BreachPunishment breachPunishment) {
         if (this.moveStart == 0) {
             this.moveStart = moveStart;
             this.breachTime = breachTime;
@@ -82,7 +83,6 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
         if (moveStart != 0) {
             long add = System.currentTimeMillis() - moveStart;
             deduce(add > 0 ? add : 0);
-            deadline = 0;
             this.moveStart = 0;
         }
     }
@@ -112,6 +112,6 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
     }
 
     public static PlayerClock create(Configuration configuration) {
-        return new PlayerClock(0, 0, 0, 0, null);
+        return new PlayerClock(0, 0, new DateTime(0), 0, null);
     }
 }

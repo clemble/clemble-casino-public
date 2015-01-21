@@ -26,7 +26,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
     final private String goal;
     final private Set<String> supporters;
     final private DateTime startDate;
-    final private long deadline;
+    final private DateTime deadline;
     final private DateTime created;
     final private boolean betsAllowed;
 
@@ -38,7 +38,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
-        @JsonProperty("deadline") long deadline,
+        @JsonProperty("deadline") DateTime deadline,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("created") DateTime created,
@@ -102,7 +102,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
     }
 
     @Override
-    public long getDeadline() {
+    public DateTime getDeadline() {
         return deadline;
     }
 
@@ -119,7 +119,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
             state.getBank(),
             state.getConfiguration(),
             state.getGoal(),
-            state.getConfiguration().getTotalTimeoutRule().getTimeoutCalculator().calculate(state.getStartDate().getMillis()),
+            state.getDeadline(),
             state.getSupporters(),
             state.getStartDate(),
             DateTime.now(DateTimeZone.UTC),
@@ -134,7 +134,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
 
         GoalStatusMissedPost that = (GoalStatusMissedPost) o;
 
-        if (deadline != that.deadline) return false;
+        if (!deadline.equals(that.deadline)) return false;
         if (!bank.equals(that.bank)) return false;
         if (!goal.equals(that.goal)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
@@ -149,7 +149,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
         result = 31 * result + bank.hashCode();
         result = 31 * result + goal.hashCode();
         result = 31 * result + goalKey.hashCode();
-        result = 31 * result + (int) (deadline ^ (deadline >>> 32));
+        result = 31 * result + deadline.hashCode();
         return result;
     }
 
