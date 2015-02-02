@@ -21,7 +21,6 @@ public class AndroidPlayerSignOutService implements PlayerSignOutService {
         this.restTemplate = checkNotNull(restClientService);
     }
 
-
     @Override
     public void signOut() {
         // Step 1. Sending signOut request

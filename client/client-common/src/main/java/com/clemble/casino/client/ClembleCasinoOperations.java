@@ -7,6 +7,7 @@ import com.clemble.casino.game.lifecycle.record.service.GameRecordService;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
+import com.clemble.casino.registration.service.PlayerPasswordResetService;
 import org.springframework.social.ApiBinding;
 import org.springframework.web.client.RestTemplate;
 
@@ -47,6 +48,8 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
     GameRecordService gameRecordOperations();
 
     GoalOperations goalOperations();
+
+    PlayerPasswordResetService passwordResetService();
 
     // TODO safety concern, since RestTemplate is reused all over the place, make a deep copy of returned rest template
     RestTemplate getRestTemplate();
