@@ -7,6 +7,8 @@ import com.clemble.casino.ClembleService;
  */
 public interface PlayerEmailService extends ClembleService {
 
+    String myEmail();
+
     boolean verify(String verificationCode);
 
 }

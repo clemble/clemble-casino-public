@@ -4,16 +4,16 @@ import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.MinSize;
 import com.clemble.casino.error.validation.PasswordConstraint;
-import com.clemble.casino.player.PlayerAware;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by mavarazy on 2/2/15.
  */
-public class PlayerPasswordResetRequest implements PlayerAware {
+public class PlayerPasswordResetRequest {
 
-    final private String player;
     final private String token;
     @PasswordConstraint // TODO unite all requirements for password in @PasswordConstraint
     @MinSize(min = 6, message = ClembleCasinoError.Code.PASSWORD_TOO_SHORT_CODE)
@@ -21,16 +21,12 @@ public class PlayerPasswordResetRequest implements PlayerAware {
     @NotNull(message = ClembleCasinoError.Code.PASSWORD_MISSING_CODE)
     final private String password;
 
-    public PlayerPasswordResetRequest(String player, String token, String password) {
-        this.player = player;
+    @JsonCreator
+    public PlayerPasswordResetRequest(
+        @JsonProperty("token") String token,
+        @JsonProperty("password") String password) {
         this.token = token;
         this.password = password;
-    }
-
-    @Override
-    public String getPlayer() {
-        return player;
-
     }
 
     public String getPassword() {
@@ -49,7 +45,6 @@ public class PlayerPasswordResetRequest implements PlayerAware {
         PlayerPasswordResetRequest that = (PlayerPasswordResetRequest) o;
 
         if (!password.equals(that.password)) return false;
-        if (!player.equals(that.player)) return false;
         if (!token.equals(that.token)) return false;
 
         return true;
@@ -57,8 +52,7 @@ public class PlayerPasswordResetRequest implements PlayerAware {
 
     @Override
     public int hashCode() {
-        int result = player.hashCode();
-        result = 31 * result + token.hashCode();
+        int result = token.hashCode();
         result = 31 * result + password.hashCode();
         return result;
     }

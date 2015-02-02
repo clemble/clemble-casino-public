@@ -52,7 +52,6 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
      */
     private static final long serialVersionUID = 103204849955372481L;
 
-    final private String host;
     final private String player;
     final private EventListenerOperations listenerOperations;
     final private PlayerNotificationService notificationService;
@@ -74,6 +73,8 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerSignOutService signOutService;
     final private PlayerPasswordResetService passwordResetService;
 
+    final private PlayerEmailService emailService;
+
     @SuppressWarnings({ "rawtypes" })
     public ClembleCasinoTemplate(
         String consumerKey,
@@ -93,7 +94,6 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
             }
         });
 
-        this.host = host;
         this.player = player;
         this.playerSessionOperations = new AndroidPlayerSessionService(restTemplate, host);
         this.playerSessionOperations.create();
@@ -138,6 +138,8 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.signOutService = new AndroidPlayerSignOutService(restTemplate, host);
         // Step 9. Creating password reset service
         this.passwordResetService = new AndroidPlayerPasswordResetService(restTemplate, host);
+        // Step 10. Creating email service
+        this.emailService = new AndroidPlayerEmailService(restTemplate, host);
     }
 
     @Override
@@ -203,6 +205,11 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     @Override
     public PlayerPasswordResetService passwordResetService() {
         return passwordResetService;
+    }
+
+    @Override
+    public PlayerEmailService emailService() {
+        return emailService;
     }
 
     @Override
