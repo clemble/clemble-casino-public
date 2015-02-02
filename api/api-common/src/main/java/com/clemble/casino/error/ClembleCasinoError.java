@@ -33,6 +33,7 @@ public enum ClembleCasinoError {
     EmailNotConfirmed(Code.EMAIL_NOT_CONFIRMED_CODE, "Email not confirmed"),
     EmailNotRegistered(Code.EMAIL_NOT_REGISTERED_CODE, "Email not registered"),
     EmailAlreadyRegistered(Code.EMAIL_ALREADY_REGISTERED_CODE, "Email already registered"),
+
     PasswordMissingCode(Code.PASSWORD_MISSING_CODE, "Password is missing"),
     PasswordTooShort(Code.PASSWORD_TOO_SHORT_CODE, "Password too short"),
     PasswordTooWeak(Code.PASSWORD_TOO_WEAK_CODE, "Password too weak"),
@@ -60,7 +61,7 @@ public enum ClembleCasinoError {
     ClientJsonInvalidError(Code.CLIENT_JSON_INVALID_ERROR_CODE, "Invalid Json"),
     ClientJsonFormatError(Code.CLIENT_JSON_FORMAT_ERROR_CODE, "Incorrect Json"),
 
-    GameSpecificationInvalid(Code.GAME_SPECIFICATION_INVAID_CODE, "Provided game specification is invalid"),
+    GameSpecificationInvalid(Code.GAME_SPECIFICATION_INVALID_CODE, "Provided game specification is invalid"),
     GameConstructionInsufficientMoney(Code.GAME_CONSTRUCTION_INSUFFICIENT_MONEY_CODE, "Not enough money for this game"),
     GameConstructionTableQueuePutError(Code.GAME_CONSTRUCTION_TABLE_QUEUE_PUT_ERROR_CODE, "Table Queue put error"),
     GameConstructionTableQueueAddError(Code.GAME_CONSTRUCTION_TABLE_QUEUE_ADD_ERROR_CODE, "Table Queue add error"),
@@ -89,14 +90,14 @@ public enum ClembleCasinoError {
     GamePlayUnitMissing(Code.GAMEPLAY_UNIT_MISSING_CODE, "Player does not have required unit"),
     GamePlayMoveInvalid(Code.GAMEPLAY_MOVE_INVALID, "This move is invalid"),
 
-    CellOwned(Code.TIC_TAC_TOE_CELL_OWNED_CODE, "Cell already Owned"),
+    CellOwned(Code.CELL_OWNED_CODE, "Cell already Owned"),
 
     GameStateReCreationFailure(Code.GAME_STATE_RECREATION_FAILURE_CODE, "Can't create state from provided session"),
 
     PaymentTransactionInvalid(Code.PAYMENT_TRANSACTION_INVALID_CODE, "Payment transaction invalid"),
     PaymentTransactionEmpty(Code.PAYMENT_TRANSACTION_EMPTY_CODE, "Payment transaction empty"),
     // TODO PaymentTransactionUnknownPlayers is no longer controlled, by the system
-    PaymentTransactionUnknownPlayers(Code.PAYMENT_TRANSACTION_UNKNWON_PLAYERS_ERROR_CODE, "Players are not registered in the system"),
+    PaymentTransactionUnknownPlayers(Code.PAYMENT_TRANSACTION_UNKNOWN_PLAYERS_ERROR_CODE, "Players are not registered in the system"),
     PaymentTransactionAccessDenied(Code.PAYMENT_TRANSACTION_ACCESS_DENIED, "Player payment transaction access denied"),
     PaymentTransactionNotExists(Code.PAYMENT_TRANSACTION_DOES_NOT_EXISTS, "Player payment transaction does not exists"),
     PaymentTransactionDebitAndCreditNotMatched(Code.PAYMENT_TRANSACTION_DEBIT_AND_CREDIT_NOT_MATCHED, "Payment credit and debit must match"),
@@ -241,7 +242,7 @@ public enum ClembleCasinoError {
         // Generic Match errors
         final public static String GAMEMATCH_PLAYER_HAS_PENDING_SESSIONS_CODE = "0K0";
         // Generic Game configuration errors
-        final public static String GAME_SPECIFICATION_INVAID_CODE = "0E0";
+        final public static String GAME_SPECIFICATION_INVALID_CODE = "0E0";
         final public static String GAME_CONSTRUCTION_INSUFFICIENT_MONEY_CODE = "0E1";
         final public static String GAME_CONSTRUCTION_TABLE_QUEUE_PUT_ERROR_CODE = "0E2";
         final public static String GAME_CONSTRUCTION_TABLE_QUEUE_ADD_ERROR_CODE = "0E3";
@@ -269,13 +270,13 @@ public enum ClembleCasinoError {
         final public static String GAMEPLAY_UNIT_MISSING_CODE = "0FB";
         final public static String GAMEPLAY_MOVE_INVALID = "0FC";
         // Errors specific for TicTacToe
-        final public static String TIC_TAC_TOE_CELL_OWNED_CODE = "0G0";
+        final public static String CELL_OWNED_CODE = "0G0";
         // Session recreation failure
         final public static String GAME_STATE_RECREATION_FAILURE_CODE = "0H0";
         // Wallet transaction related errors
         final public static String PAYMENT_TRANSACTION_EMPTY_CODE = "0I0";
         final public static String PAYMENT_TRANSACTION_INVALID_CODE = "0I1";
-        final public static String PAYMENT_TRANSACTION_UNKNWON_PLAYERS_ERROR_CODE = "0I2";
+        final public static String PAYMENT_TRANSACTION_UNKNOWN_PLAYERS_ERROR_CODE = "0I2";
         final public static String PAYMENT_TRANSACTION_ACCESS_DENIED = "0I3";
         final public static String PAYMENT_TRANSACTION_DOES_NOT_EXISTS = "0I4";
         final public static String PAYMENT_TRANSACTION_DEBIT_AND_CREDIT_NOT_MATCHED = "0I5";

@@ -1,6 +1,7 @@
 package com.clemble.casino.android;
 
 import com.clemble.casino.registration.PlayerPasswordResetRequest;
+import com.clemble.casino.registration.PlayerPasswordRestoreRequest;
 import com.clemble.casino.registration.service.PlayerPasswordResetService;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,11 +22,11 @@ public class AndroidPlayerPasswordResetService implements PlayerPasswordResetSer
     }
 
     @Override
-    public boolean restore(String email) {
+    public boolean restore(PlayerPasswordRestoreRequest restoreRequest) {
         // Step 1. Generating url
         String url = toRegistrationUrl(host, RESTORE_PASSWORD);
         // Step 2. Sending appropriate request
-        return restTemplate.postForObject(url, email, Boolean.class);
+        return restTemplate.postForObject(url, restoreRequest, Boolean.class);
     }
 
     @Override
@@ -34,6 +35,6 @@ public class AndroidPlayerPasswordResetService implements PlayerPasswordResetSer
         String url = toRegistrationUrl(host, RESET_PASSWORD);
         // Step 2. Sending appropriate request
         return restTemplate.postForObject(url, resetRequest, Boolean.class);
-
     }
+
 }
