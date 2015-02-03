@@ -28,6 +28,10 @@
         </dependency>
         <dependency>
             <groupId>com.clemble.casino</groupId>
+            <artifactId>api-tag</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.clemble.casino</groupId>
             <artifactId>api-game</artifactId>
         </dependency>
         <dependency>
