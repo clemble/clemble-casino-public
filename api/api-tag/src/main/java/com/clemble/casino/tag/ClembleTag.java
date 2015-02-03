@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 2/3/15.
  */
-public class ClembleTag {
+public class ClembleTag implements TagAware {
 
     final private String tag;
     final private int power;
@@ -17,6 +17,7 @@ public class ClembleTag {
         this.power = power;
     }
 
+    @Override
     public String getTag() {
         return tag;
     }

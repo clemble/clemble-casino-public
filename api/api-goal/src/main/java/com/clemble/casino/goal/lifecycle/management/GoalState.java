@@ -28,6 +28,7 @@ import com.clemble.casino.money.Currency;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.payment.BankAware;
+import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
@@ -47,12 +48,14 @@ public class GoalState implements
     GoalRoleAware,
     BetsAllowedAware,
     BankAware,
-    DeadlineAware {
+    DeadlineAware,
+    TagAware {
 
     @Id
     final private String goalKey;
     final private String player;
     final private String goal;
+    final private String tag;
     final private Bank bank;
     final private GoalContext context;
     final private GoalConfiguration configuration;
@@ -70,6 +73,7 @@ public class GoalState implements
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
+        @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
         @JsonProperty("supporters") Set<String> supporters,
@@ -85,6 +89,7 @@ public class GoalState implements
         this.context = context;
         this.bank = bank;
         this.goal = goal;
+        this.tag = tag;
         this.status = status;
     }
 
@@ -106,6 +111,11 @@ public class GoalState implements
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getTag() {
+        return tag;
     }
 
     @Override
@@ -198,6 +208,7 @@ public class GoalState implements
             player,
             bank,
             goal,
+            tag,
             configuration,
             context,
             supporters,
@@ -217,6 +228,7 @@ public class GoalState implements
                 player,
                 bank,
                 goal,
+                tag,
                 configuration,
                 context,
                 supporters,

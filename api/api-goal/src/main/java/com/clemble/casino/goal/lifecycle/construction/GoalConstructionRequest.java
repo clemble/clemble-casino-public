@@ -4,6 +4,7 @@ import com.clemble.casino.lifecycle.construction.ConstructionRequest;
 import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.tag.TagUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
@@ -46,7 +47,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
 
     @Override
     public GoalConstruction toConstruction(String player, String goalKey) {
-        return new GoalConstruction(goalKey, player, goal, DateTime.now(timezone), configuration, ConstructionState.pending);
+        return new GoalConstruction(goalKey, player, goal, TagUtils.getTag(goal), DateTime.now(timezone), configuration, ConstructionState.pending);
     }
 
     @Override

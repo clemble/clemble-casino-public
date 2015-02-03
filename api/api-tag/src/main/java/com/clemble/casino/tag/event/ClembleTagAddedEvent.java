@@ -19,6 +19,7 @@ public class ClembleTagAddedEvent implements ClembleTagEvent {
         this.tag = tag;
     }
 
+    @Override
     public String getTag() {
         return tag;
     }

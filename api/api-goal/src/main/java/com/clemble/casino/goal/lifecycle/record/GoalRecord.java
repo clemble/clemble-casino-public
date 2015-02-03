@@ -11,6 +11,7 @@ import com.clemble.casino.lifecycle.record.RecordState;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.payment.BankAware;
 import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
@@ -28,13 +29,15 @@ public class GoalRecord implements
     GoalDescriptionAware,
     PlayerAware,
     BankAware,
-    GoalConfigurationAware {
+    GoalConfigurationAware,
+    TagAware {
 
     @Id
     final private String goalKey;
     final private RecordState state;
     final private String player;
     final private String goal;
+    final private String tag;
     final private Bank bank;
     final private GoalConfiguration configuration;
     final private SortedSet<EventRecord> eventRecords = new TreeSet<EventRecord>();
@@ -47,10 +50,12 @@ public class GoalRecord implements
         @JsonProperty("state") RecordState state,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
+        @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("eventRecords") Set<EventRecord> eventRecords,
         @JsonProperty("outcome") Outcome outcome) {
         this.goal = goal;
+        this.tag = tag;
         this.state = state;
         this.player = player;
         this.goalKey = goalKey;
@@ -97,6 +102,11 @@ public class GoalRecord implements
     }
 
     @Override
+    public String getTag() {
+        return tag;
+    }
+
+    @Override
     public Outcome getOutcome() {
         return outcome;
     }
@@ -107,6 +117,7 @@ public class GoalRecord implements
             state,
             bank,
             goal,
+            tag,
             configuration,
             eventRecords,
             outcome);
@@ -122,6 +133,7 @@ public class GoalRecord implements
         if (!configuration.equals(that.configuration)) return false;
         if (!eventRecords.equals(that.eventRecords)) return false;
         if (!goal.equals(that.goal)) return false;
+        if (!tag.equals(that.tag)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
         if (!player.equals(that.player)) return false;
         if (state != that.state) return false;
@@ -135,6 +147,7 @@ public class GoalRecord implements
         int result = goalKey.hashCode();
         result = 31 * result + player.hashCode();
         result = 31 * result + goal.hashCode();
+        result = 31 * result + tag.hashCode();
         result = 31 * result + configuration.hashCode();
         result = 31 * result + eventRecords.hashCode();
         result = 31 * result + state.hashCode();

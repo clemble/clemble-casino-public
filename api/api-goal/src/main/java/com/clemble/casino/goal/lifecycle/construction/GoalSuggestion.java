@@ -8,6 +8,7 @@ import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
@@ -19,11 +20,12 @@ import java.util.HashSet;
 /**
  * Created by mavarazy on 1/3/15.
  */
-public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAware, GoalConfigurationAware {
+public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAware, GoalConfigurationAware, TagAware {
 
     @Id
     final private String goalKey;
     final private String goal;
+    final private String tag;
     final private String player;
     final private String suggester;
     final private GoalConfiguration configuration;
@@ -33,6 +35,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
     public GoalSuggestion(
         @JsonProperty(GOAL_KEY) String goalKey,
         @JsonProperty("goal") String goal,
+        @JsonProperty("tag") String tag,
         @JsonProperty("player") String player,
         @JsonProperty("suggester") String suggester,
         @JsonProperty("configuration") GoalConfiguration configuration,
@@ -41,6 +44,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
         this.player = player;
         this.suggester = suggester;
         this.goal = goal;
+        this.tag = tag;
         this.configuration = configuration;
         this.state = state;
     }
@@ -53,6 +57,11 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getTag() {
+        return tag;
     }
 
     @Override
@@ -80,13 +89,14 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
             Bank.create(getPlayer(), getConfiguration().getBet()),
             player,
             goal,
+            tag,
             configuration,
             new HashSet<String>(),
             DateTime.now(DateTimeZone.UTC));
     }
 
     public GoalSuggestion copyWithStatus(GoalSuggestionState state) {
-        return new GoalSuggestion(goalKey, goal, player, suggester, configuration, state);
+        return new GoalSuggestion(goalKey, goal, tag, player, suggester, configuration, state);
     }
 
     @Override

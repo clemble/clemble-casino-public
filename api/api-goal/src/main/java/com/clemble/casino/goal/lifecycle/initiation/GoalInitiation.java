@@ -12,8 +12,10 @@ import com.clemble.casino.lifecycle.record.RecordState;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.payment.BankAware;
 import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
@@ -29,11 +31,13 @@ public class GoalInitiation implements
     GoalDescriptionAware,
     GoalRoleAware,
     Initiation<GoalConfiguration>,
-    BankAware {
+    BankAware,
+    TagAware {
 
     @Id
     final private String goalKey;
     final private String goal;
+    final private String tag;
     final private String player;
     final private Bank bank;
     final private DateTime startDate;
@@ -48,10 +52,12 @@ public class GoalInitiation implements
         @JsonProperty("bank") Bank bank,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
+        @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate) {
         this.goal = goal;
+        this.tag = tag;
         this.state = state;
         this.bank = bank;
         this.player = player;
@@ -69,6 +75,11 @@ public class GoalInitiation implements
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getTag() {
+        return tag;
     }
 
     @Override
@@ -107,13 +118,14 @@ public class GoalInitiation implements
             RecordState.active,
             bank,
             goal,
+            tag,
             configuration,
             Collections.<EventRecord>emptySet(),
             null);
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
-        return new GoalInitiation(goalKey, state, bank, player, goal, configuration, supporters, startDate);
+        return new GoalInitiation(goalKey, state, bank, player, goal, tag, configuration, supporters, startDate);
     }
 
     @Override

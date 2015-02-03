@@ -9,6 +9,7 @@ import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
+import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
@@ -19,12 +20,18 @@ import java.util.HashSet;
 /**
  * Created by mavarazy on 9/7/14.
  */
-public class GoalConstruction implements Construction<GoalConfiguration>, GoalAware, GoalDescriptionAware, PlayerAware {
+public class GoalConstruction implements
+    Construction<GoalConfiguration>,
+    GoalAware,
+    GoalDescriptionAware,
+    PlayerAware,
+    TagAware {
 
     @Id
     final private String goalKey;
     final private String player;
     final private String goal;
+    final private String tag;
     final private DateTime startDate;
     final private ConstructionState state;
     final private GoalConfiguration configuration;
@@ -34,12 +41,14 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
+        @JsonProperty("tag") String tag,
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("state") ConstructionState state) {
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
+        this.tag = tag;
         this.startDate = startDate;
         this.configuration = configuration;
         this.state = state;
@@ -75,17 +84,22 @@ public class GoalConstruction implements Construction<GoalConfiguration>, GoalAw
     }
 
     @Override
+    public String getTag() {
+        return tag;
+    }
+
+    @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBet()), player, goal, configuration, new HashSet<String>(), startDate);
+        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBet()), player, goal, tag, configuration, new HashSet<String>(), startDate);
     }
 
     public GoalConstruction clone(ConstructionState state) {
-        return new GoalConstruction(goalKey, player, goal, startDate, configuration, state);
+        return new GoalConstruction(goalKey, player, goal, tag, startDate, configuration, state);
     }
 
     public GoalConstruction clone(String goalKey, ConstructionState state) {
-        return new GoalConstruction(goalKey, player, goal, startDate, configuration, state);
+        return new GoalConstruction(goalKey, player, goal, tag, startDate, configuration, state);
     }
 
     @Override
