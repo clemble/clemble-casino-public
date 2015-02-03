@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 2/3/15.
  */
-public class ClembleTag implements TagAware {
+public class ClembleTag implements TagAware, Comparable<ClembleTag>{
 
     final private String tag;
     final private int power;
@@ -44,6 +44,11 @@ public class ClembleTag implements TagAware {
         int result = tag.hashCode();
         result = 31 * result + power;
         return result;
+    }
+
+    @Override
+    public int compareTo(ClembleTag o) {
+        return this.tag.compareTo(o.getTag());
     }
 
 }
