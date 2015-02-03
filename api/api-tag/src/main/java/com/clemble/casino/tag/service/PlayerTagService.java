@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by mavarazy on 2/3/15.
  */
-public interface ClembleTagService extends ClembleService {
+public interface PlayerTagService extends ClembleService {
 
     public Set<ClembleTag> myTags();
 
