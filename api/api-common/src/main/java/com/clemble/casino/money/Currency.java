@@ -3,9 +3,8 @@ package com.clemble.casino.money;
 
 public enum Currency  {
 
-    FakeMoney,
-    Victory,
-    Supporter;
+    FakeMoney;
 
     final public static Currency DEFAULT = Currency.FakeMoney;
+
 }
