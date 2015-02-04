@@ -25,6 +25,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
     @Id
     final private String goalKey;
     final private String goal;
+    final private String reward;
     final private String tag;
     final private String player;
     final private String suggester;
@@ -35,6 +36,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
     public GoalSuggestion(
         @JsonProperty(GOAL_KEY) String goalKey,
         @JsonProperty("goal") String goal,
+        @JsonProperty("reward") String reward,
         @JsonProperty("tag") String tag,
         @JsonProperty("player") String player,
         @JsonProperty("suggester") String suggester,
@@ -44,6 +46,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
         this.player = player;
         this.suggester = suggester;
         this.goal = goal;
+        this.reward = reward;
         this.tag = tag;
         this.configuration = configuration;
         this.state = state;
@@ -57,6 +60,11 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getReward() {
+        return reward;
     }
 
     @Override
@@ -89,6 +97,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
             Bank.create(getPlayer(), getConfiguration().getBet()),
             player,
             goal,
+            reward,
             tag,
             configuration,
             new HashSet<String>(),
@@ -96,7 +105,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
     }
 
     public GoalSuggestion copyWithStatus(GoalSuggestionState state) {
-        return new GoalSuggestion(goalKey, goal, tag, player, suggester, configuration, state);
+        return new GoalSuggestion(goalKey, goal, reward, tag, player, suggester, configuration, state);
     }
 
     @Override

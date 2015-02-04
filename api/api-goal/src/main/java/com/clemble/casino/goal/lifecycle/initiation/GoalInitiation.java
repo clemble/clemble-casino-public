@@ -37,6 +37,7 @@ public class GoalInitiation implements
     @Id
     final private String goalKey;
     final private String goal;
+    final private String reward;
     final private String tag;
     final private String player;
     final private Bank bank;
@@ -52,11 +53,13 @@ public class GoalInitiation implements
         @JsonProperty("bank") Bank bank,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
+        @JsonProperty("reward") String reward,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate) {
         this.goal = goal;
+        this.reward = reward;
         this.tag = tag;
         this.state = state;
         this.bank = bank;
@@ -75,6 +78,11 @@ public class GoalInitiation implements
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getReward() {
+        return reward;
     }
 
     @Override
@@ -118,6 +126,7 @@ public class GoalInitiation implements
             RecordState.active,
             bank,
             goal,
+            reward,
             tag,
             configuration,
             Collections.<EventRecord>emptySet(),
@@ -125,7 +134,7 @@ public class GoalInitiation implements
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
-        return new GoalInitiation(goalKey, state, bank, player, goal, tag, configuration, supporters, startDate);
+        return new GoalInitiation(goalKey, state, bank, player, goal, reward, tag, configuration, supporters, startDate);
     }
 
     @Override

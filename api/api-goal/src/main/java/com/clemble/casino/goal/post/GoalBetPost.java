@@ -29,6 +29,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
     final private GoalConfiguration configuration;
     final private PlayerBet playerBid;
     final private String goal;
+    final private String reward;
     final private Set<String> supporters;
     final private DateTime startDate;
     final private DateTime deadline;
@@ -43,6 +44,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
+        @JsonProperty("reward") String reward,
         @JsonProperty("deadline") DateTime deadline,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate,
@@ -57,6 +59,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
         this.supporters = supporters;
         this.betsAllowed = betsAllowed;
         this.goal = goal;
+        this.reward = reward;
         this.bank = bank;
         this.configuration = configuration;
         this.startDate = startDate;
@@ -82,6 +85,11 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getReward() {
+        return reward;
     }
 
     @Override
@@ -130,6 +138,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
             state.getBank(),
             state.getConfiguration(),
             state.getGoal(),
+            state.getReward(),
             state.getDeadline(),
             state.getSupporters(),
             state.getStartDate(),

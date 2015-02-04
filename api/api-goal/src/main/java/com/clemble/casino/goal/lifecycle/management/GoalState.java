@@ -55,6 +55,7 @@ public class GoalState implements
     final private String goalKey;
     final private String player;
     final private String goal;
+    final private String reward;
     final private String tag;
     final private Bank bank;
     final private GoalContext context;
@@ -73,6 +74,7 @@ public class GoalState implements
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
+        @JsonProperty("reward") String reward,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
@@ -89,6 +91,7 @@ public class GoalState implements
         this.context = context;
         this.bank = bank;
         this.goal = goal;
+        this.reward = reward;
         this.tag = tag;
         this.status = status;
     }
@@ -111,6 +114,11 @@ public class GoalState implements
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getReward() {
+        return reward;
     }
 
     @Override
@@ -208,6 +216,7 @@ public class GoalState implements
             player,
             bank,
             goal,
+            reward,
             tag,
             configuration,
             context,
@@ -228,6 +237,7 @@ public class GoalState implements
                 player,
                 bank,
                 goal,
+                reward,
                 tag,
                 configuration,
                 context,

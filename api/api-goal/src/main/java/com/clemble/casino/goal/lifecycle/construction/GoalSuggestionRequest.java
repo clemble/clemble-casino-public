@@ -12,17 +12,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class GoalSuggestionRequest implements GoalConfigurationAware, GoalDescriptionAware {
 
     final private String goal;
+    final private String reward;
     final private GoalConfiguration configuration;
 
     @JsonCreator
-    public GoalSuggestionRequest(@JsonProperty("goal") String goal, @JsonProperty("configuration") GoalConfiguration configuration) {
+    public GoalSuggestionRequest(
+        @JsonProperty("goal") String goal,
+        @JsonProperty("reward") String reward,
+        @JsonProperty("configuration") GoalConfiguration configuration) {
         this.goal = goal;
+        this.reward = reward;
         this.configuration = configuration;
     }
 
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public String getReward() {
+        return reward;
     }
 
     @Override
