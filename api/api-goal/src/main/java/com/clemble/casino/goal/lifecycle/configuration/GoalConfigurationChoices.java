@@ -1,7 +1,9 @@
 package com.clemble.casino.goal.lifecycle.configuration;
 
+import com.clemble.casino.goal.lifecycle.configuration.rule.GoalRuleValue;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
+import com.clemble.casino.lifecycle.configuration.ConfigurationBuilder;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Money;
@@ -13,27 +15,27 @@ import java.util.List;
 /**
  * Created by mavarazy on 1/10/15.
  */
-public class GoalConfigurationChoices {
+public class GoalConfigurationChoices implements ConfigurationBuilder {
 
     final private List<Money> bid;
-    final private List<GoalConfigurationValue<TimeoutRule>> totalTimeoutRule;
-    final private List<GoalConfigurationValue<ReminderRule>> emailReminderRule;
-    final private List<GoalConfigurationValue<ReminderRule>> phoneReminderRule;
-    final private List<GoalConfigurationValue<PrivacyRule>> privacyRule;
-    final private List<GoalConfigurationValue<TimeoutRule>> moveTimeoutRule;
-    final private List<GoalConfigurationValue<GoalRoleConfiguration>> supporterConfiguration;
-    final private List<GoalConfigurationValue<ShareRule>> shareRule;
+    final private List<GoalRuleValue<TimeoutRule>> totalTimeoutRule;
+    final private List<GoalRuleValue<ReminderRule>> emailReminderRule;
+    final private List<GoalRuleValue<ReminderRule>> phoneReminderRule;
+    final private List<GoalRuleValue<PrivacyRule>> privacyRule;
+    final private List<GoalRuleValue<TimeoutRule>> moveTimeoutRule;
+    final private List<GoalRuleValue<GoalRoleConfiguration>> supporterConfiguration;
+    final private List<GoalRuleValue<ShareRule>> shareRule;
 
     @JsonCreator
     public GoalConfigurationChoices(
         @JsonProperty("bid") List<Money> bid,
-        @JsonProperty("totalTimeoutRule") List<GoalConfigurationValue<TimeoutRule>> totalTimeoutRule,
-        @JsonProperty("moveTimeoutRule") List<GoalConfigurationValue<TimeoutRule>> moveTimeoutRule,
-        @JsonProperty("emailReminderRule") List<GoalConfigurationValue<ReminderRule>> emailReminderRule,
-        @JsonProperty("phoneReminderRule") List<GoalConfigurationValue<ReminderRule>> phoneReminderRule,
-        @JsonProperty("privacyRule") List<GoalConfigurationValue<PrivacyRule>> privacyRule,
-        @JsonProperty("supporterConfiguration") List<GoalConfigurationValue<GoalRoleConfiguration>> supporterConfiguration,
-        @JsonProperty("shareRule") List<GoalConfigurationValue<ShareRule>> shareRule
+        @JsonProperty("totalTimeoutRule") List<GoalRuleValue<TimeoutRule>> totalTimeoutRule,
+        @JsonProperty("moveTimeoutRule") List<GoalRuleValue<TimeoutRule>> moveTimeoutRule,
+        @JsonProperty("emailReminderRule") List<GoalRuleValue<ReminderRule>> emailReminderRule,
+        @JsonProperty("phoneReminderRule") List<GoalRuleValue<ReminderRule>> phoneReminderRule,
+        @JsonProperty("privacyRule") List<GoalRuleValue<PrivacyRule>> privacyRule,
+        @JsonProperty("supporterConfiguration") List<GoalRuleValue<GoalRoleConfiguration>> supporterConfiguration,
+        @JsonProperty("shareRule") List<GoalRuleValue<ShareRule>> shareRule
     ) {
         this.bid = bid;
         this.totalTimeoutRule = totalTimeoutRule;
@@ -49,31 +51,31 @@ public class GoalConfigurationChoices {
         return bid;
     }
 
-    public List<GoalConfigurationValue<TimeoutRule>> getTotalTimeoutRule() {
+    public List<GoalRuleValue<TimeoutRule>> getTotalTimeoutRule() {
         return totalTimeoutRule;
     }
 
-    public List<GoalConfigurationValue<ReminderRule>> getEmailReminderRule() {
+    public List<GoalRuleValue<ReminderRule>> getEmailReminderRule() {
         return emailReminderRule;
     }
 
-    public List<GoalConfigurationValue<ReminderRule>> getPhoneReminderRule() {
+    public List<GoalRuleValue<ReminderRule>> getPhoneReminderRule() {
         return phoneReminderRule;
     }
 
-    public List<GoalConfigurationValue<PrivacyRule>> getPrivacyRule() {
+    public List<GoalRuleValue<PrivacyRule>> getPrivacyRule() {
         return privacyRule;
     }
 
-    public List<GoalConfigurationValue<TimeoutRule>> getMoveTimeoutRule() {
+    public List<GoalRuleValue<TimeoutRule>> getMoveTimeoutRule() {
         return moveTimeoutRule;
     }
 
-    public List<GoalConfigurationValue<GoalRoleConfiguration>> getSupporterConfiguration() {
+    public List<GoalRuleValue<GoalRoleConfiguration>> getSupporterConfiguration() {
         return supporterConfiguration;
     }
 
-    public List<GoalConfigurationValue<ShareRule>> getShareRule() {
+    public List<GoalRuleValue<ShareRule>> getShareRule() {
         return shareRule;
     }
 

@@ -10,7 +10,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import com.clemble.casino.bet.Bet;
-import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationValue;
+import com.clemble.casino.goal.lifecycle.configuration.rule.GoalRuleValue;
 import com.clemble.casino.lifecycle.configuration.rule.bet.*;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
 import com.clemble.casino.player.event.PlayerInvitationAcceptedAction;
@@ -81,10 +81,10 @@ public class TestObjectGeneratorInitializer {
                     0);
             }
         });
-        ObjectGenerator.register(GoalConfigurationValue.class, new AbstractValueGenerator<GoalConfigurationValue>() {
+        ObjectGenerator.register(GoalRuleValue.class, new AbstractValueGenerator<GoalRuleValue>() {
             @Override
-            public GoalConfigurationValue generate() {
-                return new GoalConfigurationValue(ObjectGenerator.generate(TotalTimeRule.class), ObjectGenerator.generate(Integer.class));
+            public GoalRuleValue generate() {
+                return new GoalRuleValue(ObjectGenerator.generate(TotalTimeRule.class), ObjectGenerator.generate(Integer.class));
             }
         });
         ObjectGenerator.register(FixedBidRule.class, new AbstractValueGenerator<FixedBidRule>() {

@@ -5,6 +5,7 @@ import com.clemble.casino.game.GameAware;
 import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.DrawRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.WonRule;
+import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRuleAware;
 import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
 import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
@@ -15,7 +16,7 @@ import org.springframework.data.annotation.Id;
 import java.util.List;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "configuration")
-public interface GameConfiguration extends GameConfigurationKeyAware, GameAware, Configuration {
+public interface GameConfiguration extends GameConfigurationKeyAware, PrivacyRuleAware, GameAware, Configuration {
 
     @Id
     String getConfigurationKey();

@@ -1,5 +1,6 @@
 package com.clemble.casino.bet;
 
+import com.clemble.casino.money.Currency;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.AmountAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -29,6 +30,12 @@ public class Bet implements AmountAware {
 
     public Bet add(Bet another) {
         return new Bet(amount.add(another.amount), interest.add(another.interest));
+    }
+
+    public static Bet create(Currency currency, int amount, int percentage) {
+        Money moneyAmount = Money.create(currency, amount);
+        Money moneyInterest = moneyAmount.add((amount * percentage) / 100);
+        return new Bet(moneyAmount, moneyInterest);
     }
 
     @Override

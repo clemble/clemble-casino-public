@@ -4,8 +4,11 @@ import com.clemble.casino.bet.Bet;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
+import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
+import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRuleAware;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
+import com.clemble.casino.money.Currency;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -15,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonTypeName("short")
 public class GoalConfiguration implements
+    PrivacyRuleAware,
     Configuration,
     GoalConfigurationKeyAware {
 
@@ -94,6 +98,69 @@ public class GoalConfiguration implements
 
     public ShareRule getShareRule() {
         return shareRule;
+    }
+
+    public GoalConfiguration setRule(ConfigurationRule rule) {
+        if (rule instanceof PrivacyRule) {
+            return new GoalConfiguration(
+                configurationKey,
+                name,
+                bet,
+                emailReminderRule,
+                phoneReminderRule,
+                moveTimeoutRule,
+                totalTimeoutRule,
+                (PrivacyRule) rule,
+                supporterConfiguration,
+                shareRule
+            );
+        } else if (rule instanceof TimeoutRule) {
+            return new GoalConfiguration(
+                configurationKey,
+                name,
+                bet,
+                emailReminderRule,
+                phoneReminderRule,
+                (TimeoutRule) rule,
+                totalTimeoutRule,
+                privacyRule,
+                supporterConfiguration,
+                shareRule
+            );
+        } else if (rule instanceof ShareRule) {
+            return new GoalConfiguration(
+                configurationKey,
+                name,
+                bet,
+                emailReminderRule,
+                phoneReminderRule,
+                moveTimeoutRule,
+                totalTimeoutRule,
+                privacyRule,
+                supporterConfiguration,
+                (ShareRule) rule
+            );
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    public GoalConfiguration setBet(int amount, int percentage) {
+        // Step 1. Generating new bet
+        Currency currency = bet.getAmount().getCurrency();
+        Bet newBet = Bet.create(currency, amount, percentage);
+        // Step 2. Returnign new configuration
+        return new GoalConfiguration(
+            configurationKey,
+            name,
+            newBet,
+            emailReminderRule,
+            phoneReminderRule,
+            moveTimeoutRule,
+            totalTimeoutRule,
+            privacyRule,
+            supporterConfiguration,
+            shareRule
+        );
     }
 
     @Override

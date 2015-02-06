@@ -3,13 +3,14 @@ package com.clemble.casino.bet.configuration;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
+import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRuleAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 9/6/14.
  */
-public class BetConfiguration implements Configuration {
+public class BetConfiguration implements Configuration, PrivacyRuleAware {
 
     final private BetRule betRule;
     final private PrivacyRule privacyRule;
