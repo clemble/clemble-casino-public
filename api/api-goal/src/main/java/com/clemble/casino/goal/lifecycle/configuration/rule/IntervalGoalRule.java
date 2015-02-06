@@ -7,15 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 2/6/15.
  */
-public class IntervalGoalRule<T extends ConfigurationRule> implements GoalRuleValueAware<T> {
+public class IntervalGoalRule implements GoalRuleValueAware<ConfigurationRule> {
 
-    final private T rule;
+    final private ConfigurationRule rule;
     final private int interval;
     final private int percentage;
 
     @JsonCreator
     public IntervalGoalRule(
-        @JsonProperty("rule") T rule,
+        @JsonProperty("rule") ConfigurationRule rule,
         @JsonProperty("interval") int interval,
         @JsonProperty("percentage") int percentage) {
         this.rule = rule;
@@ -24,7 +24,7 @@ public class IntervalGoalRule<T extends ConfigurationRule> implements GoalRuleVa
     }
 
     @Override
-    public T getRule() {
+    public ConfigurationRule getRule() {
         return rule;
     }
 

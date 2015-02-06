@@ -17,7 +17,7 @@ public class IntervalGoalConfigurationBuilder implements ConfigurationBuilder {
     final private int basePercentage;
     final private int baseInterval;
     final private GoalConfiguration base;
-    final private List<IntervalGoalRule<?>> intervalRules;
+    final private List<IntervalGoalRule> intervalRules;
 
     @JsonCreator
     public IntervalGoalConfigurationBuilder(
@@ -25,7 +25,7 @@ public class IntervalGoalConfigurationBuilder implements ConfigurationBuilder {
         @JsonProperty("basePrice") int basePrice,
         @JsonProperty("baseInterval") int baseInterval,
         @JsonProperty("basePercentage") int basePercentage,
-        @JsonProperty("intervalRules") List<IntervalGoalRule<?>> intervalRules) {
+        @JsonProperty("intervalRules") List<IntervalGoalRule> intervalRules) {
         this.base = base;
         this.basePrice = basePrice;
         this.baseInterval = baseInterval;
@@ -49,11 +49,13 @@ public class IntervalGoalConfigurationBuilder implements ConfigurationBuilder {
         return basePercentage;
     }
 
-    public List<IntervalGoalRule<?>> getIntervalRules() {
+    public List<IntervalGoalRule> getIntervalRules() {
         return intervalRules;
     }
 
     public GoalConfiguration toConfiguration(final int bet) {
+        if (bet < basePrice)
+            throw new IllegalArgumentException();
         // Step 1. Fetching appropriate bet
         GoalConfiguration configuration = base;
         int totalPercentage = basePercentage;
@@ -63,7 +65,7 @@ public class IntervalGoalConfigurationBuilder implements ConfigurationBuilder {
         for(int i = 0; betInterval > currentInterval; i++) {
             betInterval -= currentInterval;
 
-            IntervalGoalRule<?> intervalRule = intervalRules.get(i);
+            IntervalGoalRule intervalRule = intervalRules.get(i);
             totalPercentage += intervalRule.getPercentage();
             currentInterval = intervalRule.getInterval();
             configuration = configuration.setRule(intervalRule.getRule());

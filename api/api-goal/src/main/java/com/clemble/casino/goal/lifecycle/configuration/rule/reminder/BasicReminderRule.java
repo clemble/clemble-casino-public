@@ -36,6 +36,11 @@ public class BasicReminderRule implements ReminderRule {
     }
 
     @Override
+    public String toString() {
+        return "basicReminderRule:" + reminder;
+    }
+
+    @Override
     public int hashCode() {
         return (int) (reminder ^ (reminder >>> 32));
     }
