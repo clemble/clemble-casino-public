@@ -3,6 +3,7 @@ package com.clemble.casino.android.goal;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationChoices;
+import com.clemble.casino.goal.lifecycle.configuration.IntervalGoalConfigurationBuilder;
 import com.clemble.casino.goal.lifecycle.configuration.service.GoalConfigurationService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +26,7 @@ public class AndroidGoalConfigurationService extends AbstractClembleCasinoOperat
     }
 
     @Override
-    public GoalConfigurationChoices getChoices() {
+    public GoalConfigurationChoices getDEFAULT_CHOICES() {
         // Step 1. Generating choices URI
         URI myConfigurationsUrl = buildUri(toGoalConfigurationUrl(MY_CONFIGURATIONS_CHOICES));
         // Step 2. GET available Goal configurations
@@ -38,6 +39,14 @@ public class AndroidGoalConfigurationService extends AbstractClembleCasinoOperat
         URI myConfigurationsUrl = buildUri(toGoalConfigurationUrl(MY_CONFIGURATIONS));
         // Step 2. GET available Goal configurations
         return CollectionUtils.<GoalConfiguration>immutableList(restTemplate.getForObject(myConfigurationsUrl, GoalConfiguration[].class));
+    }
+
+    @Override
+    public IntervalGoalConfigurationBuilder getIntervalConfigurationBuilder() {
+        // Step 1. Generating choices URI
+        URI myConfigurationsUrl = buildUri(toGoalConfigurationUrl(MY_CONFIGURATIONS_INTERVAL));
+        // Step 2. GET available Goal configurations
+        return restTemplate.getForObject(myConfigurationsUrl, IntervalGoalConfigurationBuilder.class);
     }
 
 }
