@@ -26,7 +26,7 @@ public class AndroidGoalConfigurationService extends AbstractClembleCasinoOperat
     }
 
     @Override
-    public GoalConfigurationChoices getDEFAULT_CHOICES() {
+    public GoalConfigurationChoices getChoises() {
         // Step 1. Generating choices URI
         URI myConfigurationsUrl = buildUri(toGoalConfigurationUrl(MY_CONFIGURATIONS_CHOICES));
         // Step 2. GET available Goal configurations
@@ -42,7 +42,7 @@ public class AndroidGoalConfigurationService extends AbstractClembleCasinoOperat
     }
 
     @Override
-    public IntervalGoalConfigurationBuilder getIntervalConfigurationBuilder() {
+    public IntervalGoalConfigurationBuilder getIntervalBuilder() {
         // Step 1. Generating choices URI
         URI myConfigurationsUrl = buildUri(toGoalConfigurationUrl(MY_CONFIGURATIONS_INTERVAL));
         // Step 2. GET available Goal configurations

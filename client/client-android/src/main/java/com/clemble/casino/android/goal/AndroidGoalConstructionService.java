@@ -3,6 +3,7 @@ package com.clemble.casino.android.goal;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.lifecycle.construction.GoalConstruction;
 import com.clemble.casino.goal.lifecycle.construction.GoalConstructionRequest;
+import com.clemble.casino.goal.lifecycle.construction.IntervalGoalConstructionRequest;
 import com.clemble.casino.goal.lifecycle.construction.service.GoalConstructionService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +31,14 @@ public class AndroidGoalConstructionService extends AbstractClembleCasinoOperati
         URI constructionUrl = buildUri(toGoalConstructionUrl(GOAL_CONSTRUCTION));
         // Step 2. Creating new GoalConstruction
         return restTemplate.postForObject(constructionUrl, request, GoalConstruction.class);
+    }
+
+    @Override
+    public GoalConstruction construct(IntervalGoalConstructionRequest intervalRequest) {
+        // Step 1. Generating goal construction URI
+        URI constructionUrl = buildUri(toGoalConstructionUrl(GOAL_CONSTRUCTION_INTERVAL));
+        // Step 2. Creating new GoalConstruction
+        return restTemplate.postForObject(constructionUrl, intervalRequest, GoalConstruction.class);
     }
 
     @Override

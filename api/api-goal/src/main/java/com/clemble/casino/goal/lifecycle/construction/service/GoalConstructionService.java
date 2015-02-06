@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.construction.service;
 
+import com.clemble.casino.goal.lifecycle.construction.IntervalGoalConstructionRequest;
 import com.clemble.casino.lifecycle.construction.service.ConstructionService;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.construction.GoalConstruction;
@@ -14,6 +15,8 @@ public interface GoalConstructionService extends ConstructionService<GoalConfigu
 
     @Override
     public GoalConstruction construct(GoalConstructionRequest request);
+
+    public GoalConstruction construct(IntervalGoalConstructionRequest intervalRequest);
 
     @Override
     public Collection<GoalConstruction> getPending(String player);
