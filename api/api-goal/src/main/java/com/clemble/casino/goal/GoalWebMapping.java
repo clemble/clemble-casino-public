@@ -19,8 +19,6 @@ public abstract class GoalWebMapping implements WebMapping {
     final private static String GOAL_CONSTRUCTION_URL = "http://{host}/construction";
 
     final public static String GOAL_CONSTRUCTION = "/construction";
-    final public static String GOAL_CONSTRUCTION_INTERVAL = "/interval";
-
     final public static String MY_GOAL_CONSTRUCTION_PENDING = "/player/construction/my";
 
     final public static String GOAL_INITIATION = "/initiation/{goalKey}";
