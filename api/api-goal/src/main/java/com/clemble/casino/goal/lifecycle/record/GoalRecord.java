@@ -142,7 +142,6 @@ public class GoalRecord implements
         if (!configuration.equals(that.configuration)) return false;
         if (!eventRecords.equals(that.eventRecords)) return false;
         if (!goal.equals(that.goal)) return false;
-        if (!tag.equals(that.tag)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
         if (!player.equals(that.player)) return false;
         if (state != that.state) return false;
@@ -156,7 +155,6 @@ public class GoalRecord implements
         int result = goalKey.hashCode();
         result = 31 * result + player.hashCode();
         result = 31 * result + goal.hashCode();
-        result = 31 * result + tag.hashCode();
         result = 31 * result + configuration.hashCode();
         result = 31 * result + eventRecords.hashCode();
         result = 31 * result + state.hashCode();
