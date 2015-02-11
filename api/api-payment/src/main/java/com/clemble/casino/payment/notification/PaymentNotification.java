@@ -77,7 +77,7 @@ public class PaymentNotification implements
 
     public static PaymentNotification create(PaymentCompleteEvent completeEvent) {
         return new PaymentNotification(
-            completeEvent.getTransactionKey(),
+            completeEvent.getPlayer() + ":" + completeEvent.getTransactionKey(),
             completeEvent.getPlayer(),
             completeEvent.getAmount(),
             completeEvent.getOperation(),
