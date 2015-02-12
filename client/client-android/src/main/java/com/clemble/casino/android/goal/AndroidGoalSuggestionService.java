@@ -41,6 +41,22 @@ public class AndroidGoalSuggestionService extends AbstractClembleCasinoOperation
     }
 
     @Override
+    public List<GoalSuggestion> listMySuggested() {
+        // Step 1. Generating URI
+        URI uri = buildUri(toGoalSuggestionUrl(MY_SUGGESTED));
+        // Step 2. Processing Request
+        return CollectionUtils.immutableList(restTemplate.getForObject(uri, GoalSuggestion[].class));
+    }
+
+    @Override
+    public List<GoalSuggestion> listSuggested(String player) {
+        // Step 1. Generating URI
+        URI uri = buildUri(toGoalSuggestionUrl(PLAYER_SUGGESTED), player);
+        // Step 2. Processing Request
+        return CollectionUtils.immutableList(restTemplate.getForObject(uri, GoalSuggestion[].class));
+    }
+
+    @Override
     public GoalSuggestion getSuggestion(String goalKey) {
         // Step 1. Generate URI
         URI uri = buildUri(toGoalSuggestionUrl(SUGGESTION), goalKey);

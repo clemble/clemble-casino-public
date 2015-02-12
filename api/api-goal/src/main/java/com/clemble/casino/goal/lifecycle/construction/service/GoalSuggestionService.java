@@ -15,6 +15,10 @@ public interface GoalSuggestionService extends ClembleService {
 
     List<GoalSuggestion> list(String player);
 
+    List<GoalSuggestion> listMySuggested();
+
+    List<GoalSuggestion> listSuggested(String player);
+
     GoalSuggestion getSuggestion(String goalKey);
 
     GoalSuggestion addSuggestion(String player, GoalSuggestionRequest suggestionRequest);
