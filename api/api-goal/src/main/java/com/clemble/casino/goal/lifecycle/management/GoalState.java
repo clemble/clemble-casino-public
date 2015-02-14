@@ -55,6 +55,7 @@ public class GoalState implements
     final private String goalKey;
     final private String player;
     final private String goal;
+    final private String status;
     final private String reward;
     final private String tag;
     final private Bank bank;
@@ -64,7 +65,6 @@ public class GoalState implements
     final private DateTime startDate;
     final private DateTime deadline;
     final private boolean betsAllowed;
-    final private String status;
 
     @JsonCreator
     public GoalState(

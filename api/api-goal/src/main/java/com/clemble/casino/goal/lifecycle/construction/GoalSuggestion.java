@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.construction;
 
+import com.clemble.casino.CreatedAware;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
@@ -20,7 +21,13 @@ import java.util.HashSet;
 /**
  * Created by mavarazy on 1/3/15.
  */
-public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAware, GoalConfigurationAware, TagAware {
+public class GoalSuggestion implements
+    GoalDescriptionAware,
+    PlayerAware,
+    GoalAware,
+    GoalConfigurationAware,
+    TagAware,
+    CreatedAware {
 
     @Id
     final private String goalKey;
@@ -31,6 +38,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
     final private String suggester;
     final private GoalConfiguration configuration;
     final private GoalSuggestionState state;
+    final private DateTime created;
 
     @JsonCreator
     public GoalSuggestion(
@@ -41,7 +49,8 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
         @JsonProperty("player") String player,
         @JsonProperty("suggester") String suggester,
         @JsonProperty("configuration") GoalConfiguration configuration,
-        @JsonProperty("state") GoalSuggestionState state) {
+        @JsonProperty("state") GoalSuggestionState state,
+        @JsonProperty("created") DateTime created) {
         this.goalKey = goalKey;
         this.player = player;
         this.suggester = suggester;
@@ -50,6 +59,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
         this.tag = tag;
         this.configuration = configuration;
         this.state = state;
+        this.created = created;
     }
 
     @Override
@@ -86,6 +96,11 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
         return configuration;
     }
 
+    @Override
+    public DateTime getCreated() {
+        return created;
+    }
+
     public GoalSuggestionState getState() {
         return  state;
     }
@@ -105,7 +120,7 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
     }
 
     public GoalSuggestion copyWithStatus(GoalSuggestionState state) {
-        return new GoalSuggestion(goalKey, goal, reward, tag, player, suggester, configuration, state);
+        return new GoalSuggestion(goalKey, goal, reward, tag, player, suggester, configuration, state, DateTime.now());
     }
 
     @Override
@@ -135,4 +150,5 @@ public class GoalSuggestion implements GoalDescriptionAware, PlayerAware, GoalAw
         result = 31 * result + player.hashCode();
         return result;
     }
+
 }
