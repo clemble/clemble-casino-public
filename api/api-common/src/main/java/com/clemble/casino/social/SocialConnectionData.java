@@ -26,7 +26,7 @@ public class SocialConnectionData implements Serializable {
 
     @JsonProperty("providerId")
     @NotNull(message = Code.SOCIAL_CONNECTION_PROVIDER_ID_NULL_CODE)
-    final private String providerId;
+    final private SocialProvider providerId;
 
     @JsonProperty("providerUserId")
     @NotNull(message = Code.SOCIAL_CONNECTION_PROVIDER_USER_NULL_CODE)
@@ -45,7 +45,7 @@ public class SocialConnectionData implements Serializable {
     final private long expireTime;
 
     @JsonCreator
-    public SocialConnectionData(@JsonProperty("providerId") final String providerId,
+    public SocialConnectionData(@JsonProperty("providerId") final SocialProvider providerId,
             @JsonProperty("providerUserId") final String providerUserId,
             @JsonProperty("accessToken") final String accessToken,
             @JsonProperty("secret") final String secret,
@@ -62,7 +62,7 @@ public class SocialConnectionData implements Serializable {
     /**
      * The id of the provider the connection is associated with.
      */
-    public String getProviderId() {
+    public SocialProvider getProviderId() {
         return providerId;
     }
 

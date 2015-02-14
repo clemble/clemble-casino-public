@@ -161,7 +161,7 @@ public class GoalUpdatedPost implements GoalPost {
         result = 31 * result + bank.hashCode();
         result = 31 * result + goal.hashCode();
         result = 31 * result + goalKey.hashCode();
-        result = 31 * result + status.hashCode();
+        result = 31 * result + status != null ? status.hashCode() : 0;
         result = 31 * result + deadline.hashCode();
         return result;
     }

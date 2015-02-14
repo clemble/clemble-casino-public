@@ -3,6 +3,7 @@ package com.clemble.casino.android.player;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.player.service.PlayerFeedService;
 import com.clemble.casino.post.PlayerPost;
+import com.clemble.casino.social.SocialProvider;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -38,7 +39,7 @@ public class AndroidPlayerFeedService extends AbstractClembleCasinoOperations im
     }
 
     @Override
-    public PlayerPost share(String key, String provider) {
+    public PlayerPost share(String key, SocialProvider provider) {
         // Step 1. Fetching player notifications
         URI shareUri = buildUri(toPostUrl(POST_SHARE), key);
         // Step 2. Requesting through RestTemplate

@@ -16,7 +16,7 @@ public class SocialAccessGrant implements Serializable {
      */
     private static final long serialVersionUID = -7119702755972096215L;
 
-    private final String provider;
+    private final SocialProvider provider;
     
     private final String accessToken;
 
@@ -28,12 +28,12 @@ public class SocialAccessGrant implements Serializable {
     
     private final Long expireTime;
 
-    public SocialAccessGrant(String provider, String accessToken) {
+    public SocialAccessGrant(SocialProvider provider, String accessToken) {
         this(provider, accessToken, null, null, null, null);
     }
 
     @JsonCreator
-    public SocialAccessGrant(@JsonProperty("provider") String provider,
+    public SocialAccessGrant(@JsonProperty("provider") SocialProvider provider,
             @JsonProperty("accessToken") String accessToken,
             @JsonProperty("secret") String secret,
             @JsonProperty("scope") String scope,
@@ -47,7 +47,7 @@ public class SocialAccessGrant implements Serializable {
         this.expireTime = expireTime;
     }
 
-    public String getProvider() {
+    public SocialProvider getProvider() {
         return provider;
     }
 

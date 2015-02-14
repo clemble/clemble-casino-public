@@ -16,7 +16,7 @@ public class GoalStatusUpdateAction implements GoalAction, GoalStatusAware {
     final private String status;
 
     @JsonCreator
-    public GoalStatusUpdateAction(@JsonProperty("status") String status) {
+    public GoalStatusUpdateAction(@JsonProperty(value = "status", defaultValue = "") String status) {
         this.status = status;
     }
 
