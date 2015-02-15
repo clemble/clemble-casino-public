@@ -24,7 +24,7 @@ public class ShareRule implements GoalRule {
     final private Set<SocialProvider> providers;
 
     @JsonCreator
-    public ShareRule(@JsonProperty("provider") Collection<SocialProvider> providers) {
+    public ShareRule(@JsonProperty("providers") Collection<SocialProvider> providers) {
         this.providers = CollectionUtils.immutableSet(providers);
     }
 
