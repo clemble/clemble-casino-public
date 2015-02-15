@@ -9,9 +9,13 @@ import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRuleAware;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Currency;
+import com.clemble.casino.social.SocialProvider;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Created by mavarazy on 12/13/14.
@@ -100,7 +104,7 @@ public class GoalConfiguration implements
         return shareRule;
     }
 
-    public GoalConfiguration setRule(ConfigurationRule rule) {
+    public GoalConfiguration appendRule(ConfigurationRule rule) {
         if (rule instanceof PrivacyRule) {
             return new GoalConfiguration(
                 configurationKey,
@@ -128,6 +132,8 @@ public class GoalConfiguration implements
                 shareRule
             );
         } else if (rule instanceof ShareRule) {
+            Collection<SocialProvider> newShareRule = new HashSet<SocialProvider>(shareRule.getProviders());
+            newShareRule.addAll(((ShareRule) rule).getProviders());
             return new GoalConfiguration(
                 configurationKey,
                 name,
@@ -138,7 +144,7 @@ public class GoalConfiguration implements
                 totalTimeoutRule,
                 privacyRule,
                 supporterConfiguration,
-                (ShareRule) rule
+                new ShareRule(newShareRule)
             );
         }
         throw new UnsupportedOperationException();

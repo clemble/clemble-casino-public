@@ -68,7 +68,7 @@ public class IntervalGoalConfigurationBuilder implements ConfigurationBuilder {
             IntervalGoalRule intervalRule = intervalRules.get(i);
             totalPercentage += intervalRule.getPercentage();
             currentInterval = intervalRule.getInterval();
-            configuration = configuration.setRule(intervalRule.getRule());
+            configuration = configuration.appendRule(intervalRule.getRule());
         }
         // Step 2. Checking configuration
         return configuration.setBet(bet, totalPercentage);
