@@ -16,10 +16,9 @@ public class PlayerRegistrationRequest
 
     @JsonCreator
     public PlayerRegistrationRequest(
-            @JsonProperty("consumerDetails") ClembleConsumerDetails consumerDetails,
             @JsonProperty("playerCredential") PlayerCredential playerCredential,
             @JsonProperty("playerProfile") PlayerProfile playerProfile) {
-        super(consumerDetails, playerCredential);
+        super(playerCredential);
         this.playerProfile = playerProfile;
     }
 

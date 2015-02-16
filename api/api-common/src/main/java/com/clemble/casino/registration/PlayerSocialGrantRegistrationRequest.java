@@ -18,10 +18,9 @@ public class PlayerSocialGrantRegistrationRequest
 
     @JsonCreator
     public PlayerSocialGrantRegistrationRequest(
-            @JsonProperty("consumerDetails") final ClembleConsumerDetails consumerDetails,
             @JsonProperty("playerCredential") final PlayerCredential playerCredential,
             @JsonProperty("accessGrant") final SocialAccessGrant accessGrant) {
-        super(consumerDetails, playerCredential);
+        super(playerCredential);
         this.accessGrant = checkNotNull(accessGrant);
     }
 

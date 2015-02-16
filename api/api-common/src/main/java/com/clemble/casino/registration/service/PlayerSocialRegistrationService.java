@@ -9,8 +9,8 @@ import com.clemble.casino.registration.PlayerSocialRegistrationRequest;
  */
 public interface PlayerSocialRegistrationService extends PlayerRegistrationService {
 
-    public PlayerToken createSocialPlayer(PlayerSocialRegistrationRequest socialRegistrationRequest);
+    public String createSocialPlayer(PlayerSocialRegistrationRequest socialRegistrationRequest);
 
-    public PlayerToken createSocialGrantPlayer(PlayerSocialGrantRegistrationRequest grantRegistrationRequest);
+    public String createSocialGrantPlayer(PlayerSocialGrantRegistrationRequest grantRegistrationRequest);
 
 }

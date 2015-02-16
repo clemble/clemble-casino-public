@@ -40,23 +40,23 @@ public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegis
     }
 
     @Override
-    public PlayerToken login(PlayerLoginRequest playerLoginRequest) {
-        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_LOGIN), playerLoginRequest, PlayerToken.class);
+    public String login(PlayerLoginRequest playerLoginRequest) {
+        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_LOGIN), playerLoginRequest, String.class);
     }
 
     @Override
-    public PlayerToken createPlayer(PlayerRegistrationRequest registrationRequest) {
-        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_PROFILE), registrationRequest, PlayerToken.class);
+    public String createPlayer(PlayerRegistrationRequest registrationRequest) {
+        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_PROFILE), registrationRequest, String.class);
     }
 
     @Override
-    public PlayerToken createSocialPlayer(PlayerSocialRegistrationRequest socialConnectionData) {
-        return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_DESCRIPTION), socialConnectionData, PlayerToken.class);
+    public String createSocialPlayer(PlayerSocialRegistrationRequest socialConnectionData) {
+        return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_DESCRIPTION), socialConnectionData, String.class);
     }
 
     @Override
-    public PlayerToken createSocialGrantPlayer(PlayerSocialGrantRegistrationRequest socialConnectionData) {
-        return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_GRANT), socialConnectionData, PlayerToken.class);
+    public String createSocialGrantPlayer(PlayerSocialGrantRegistrationRequest socialConnectionData) {
+        return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_GRANT), socialConnectionData, String.class);
     }
 
 }

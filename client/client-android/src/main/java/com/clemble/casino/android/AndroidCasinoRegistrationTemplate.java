@@ -34,54 +34,63 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
     @Override
     public ClembleCasinoOperations login(PlayerCredential playerCredential) {
         // Step 1. Generating consumer details
-        ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
+        // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
-        PlayerLoginRequest loginRequest = new PlayerLoginRequest(consumerDetails, playerCredential);
+        PlayerLoginRequest loginRequest = new PlayerLoginRequest(playerCredential);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerFacadeRegistrationService.login(loginRequest), consumerDetails);
+        return casinoTemplate(playerFacadeRegistrationService.login(loginRequest));
     }
 
     @Override
     public ClembleCasinoOperations createPlayer(PlayerCredential playerCredential, PlayerProfile playerProfile) {
         // Step 1. Generating consumer details
-        ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
+        // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
-        PlayerRegistrationRequest loginRequest = new PlayerRegistrationRequest(consumerDetails, playerCredential, playerProfile);
+        PlayerRegistrationRequest loginRequest = new PlayerRegistrationRequest(playerCredential, playerProfile);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerFacadeRegistrationService.createPlayer(loginRequest), consumerDetails);
+        return casinoTemplate(playerFacadeRegistrationService.createPlayer(loginRequest));
     }
 
     @Override
     public ClembleCasinoOperations createSocialPlayer(PlayerCredential playerCredential, SocialConnectionData socialConnectionData) {
         // Step 1. Generating consumer details
-        ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
+        // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
-        PlayerSocialRegistrationRequest socialRegistrationRequest = new PlayerSocialRegistrationRequest(consumerDetails, playerCredential, socialConnectionData);
+        PlayerSocialRegistrationRequest socialRegistrationRequest = new PlayerSocialRegistrationRequest(playerCredential, socialConnectionData);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerFacadeRegistrationService.createSocialPlayer(socialRegistrationRequest), consumerDetails);
+        return casinoTemplate(playerFacadeRegistrationService.createSocialPlayer(socialRegistrationRequest));
     }
 
     @Override
     public ClembleCasinoOperations createSocialPlayer(PlayerCredential playerCredential, SocialAccessGrant accessGrant) {
         // Step 1. Generating consumer details
-        ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
+        // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
-        PlayerSocialGrantRegistrationRequest socialRegistrationRequest = new PlayerSocialGrantRegistrationRequest(consumerDetails, playerCredential, accessGrant);
+        PlayerSocialGrantRegistrationRequest socialRegistrationRequest = new PlayerSocialGrantRegistrationRequest(playerCredential, accessGrant);
         // Step 3. Generating ClembleTemplate
-        return casinoTemplate(playerFacadeRegistrationService.createSocialGrantPlayer(socialRegistrationRequest), consumerDetails);
+        return casinoTemplate(playerFacadeRegistrationService.createSocialGrantPlayer(socialRegistrationRequest));
     }
 
-    private ClembleCasinoTemplate casinoTemplate(PlayerToken token, ClembleConsumerDetails consumerDetails) {
-        String consumerKey = token.getConsumerKey();
-        String consumerSecret = new String(Base64.encodeBase64(consumerDetails.getSignatureSecret().getPrivateKey().getEncoded()), Charset.forName("UTF-8"));
-        String accessToken = token.getValue();
-        String accessTokenSecret = String.valueOf(token.getSecretKey().getEncoded());
-        String player = token.getPlayer();
+    private ClembleCasinoTemplate casinoTemplate(String player) {
         try {
-            return new ClembleCasinoTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret, player, host);
+            return new ClembleCasinoTemplate("", "", "", "", player, host);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+//    private ClembleCasinoTemplate casinoTemplate(PlayerToken token, ClembleConsumerDetails consumerDetails) {
+//        TODO this is disabled temporely since, it's not active in the system, can deal with it later
+//        String consumerKey = token.getConsumerKey();
+//        String consumerSecret = new String(Base64.encodeBase64(consumerDetails.getSignatureSecret().getPrivateKey().getEncoded()), Charset.forName("UTF-8"));
+//        String accessToken = token.getValue();
+//        String accessTokenSecret = String.valueOf(token.getSecretKey().getEncoded());
+//        String player = token.getPlayer();
+//        try {
+//            return new ClembleCasinoTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret, player, host);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 }

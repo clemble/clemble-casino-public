@@ -9,8 +9,8 @@ import com.clemble.casino.registration.PlayerBaseRegistrationRequest;
  */
 public interface PlayerBaseRegistrationService extends PlayerRegistrationService {
 
-    public PlayerToken login(PlayerCredential credentials);
+    public String login(PlayerCredential credentials);
 
-    public PlayerToken register(PlayerBaseRegistrationRequest registrationRequest);
+    public String register(PlayerBaseRegistrationRequest registrationRequest);
 
 }

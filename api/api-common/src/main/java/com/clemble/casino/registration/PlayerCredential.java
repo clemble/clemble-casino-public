@@ -2,18 +2,17 @@ package com.clemble.casino.registration;
 
 import javax.validation.constraints.NotNull;
 
+import com.clemble.casino.player.EmailAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import com.clemble.casino.error.ClembleCasinoError.Code;
 import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.MinSize;
 import com.clemble.casino.error.validation.PasswordConstraint;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
-import org.springframework.data.annotation.Id;
 
-public class PlayerCredential {
+public class PlayerCredential implements EmailAware {
 
     /**
      * Generated 15/02/13
@@ -35,6 +34,7 @@ public class PlayerCredential {
         this.password = password;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
