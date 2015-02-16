@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.clemble.casino.error.validation.MinSize;
+import com.clemble.casino.error.validation.NoWhiteSpaces;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
@@ -28,6 +29,7 @@ public class PlayerProfile implements PlayerAware {
     private String player;
 
     @JsonProperty("nickName")
+    @NoWhiteSpaces(message = Code.NICK_NO_WHITE_SPACES_ALLOWED_CODE)
     @NickNameConstraint(message = Code.NICK_INVALID_CODE)
     @MaxSize(max = 64, message = Code.NICK_TOO_LONG_CODE)
     @MinSize(min = 6, message = Code.NICK_TOO_SHORT_CODE)
