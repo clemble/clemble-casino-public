@@ -10,10 +10,10 @@ public interface ClembleCasinoRegistrationOperations {
 
     public ClembleCasinoOperations login(final PlayerLoginRequest playerCredentials);
 
-    public ClembleCasinoOperations createPlayer(final PlayerCredential playerCredential, final PlayerProfile playerProfile);
+    public ClembleCasinoOperations register(final PlayerCredential playerCredential, final PlayerProfile playerProfile);
 
-    public ClembleCasinoOperations createSocialPlayer(final PlayerCredential playerCredential, final SocialConnectionData socialConnectionData);
+    public ClembleCasinoOperations register(final PlayerCredential playerCredential, final SocialConnectionData socialConnectionData);
 
-    public ClembleCasinoOperations createSocialPlayer(final PlayerCredential playerCredential, final SocialAccessGrant accessGrant);
+    public ClembleCasinoOperations register(final PlayerCredential playerCredential, final SocialAccessGrant accessGrant);
 
 }

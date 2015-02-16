@@ -8,6 +8,8 @@ import com.clemble.casino.security.ClembleConsumerDetails;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.Valid;
+
 public class PlayerSocialGrantRegistrationRequest
     implements PlayerCredentialAware, SocialAccessGrantAware {
 
@@ -25,11 +27,13 @@ public class PlayerSocialGrantRegistrationRequest
     }
 
     @Override
+    @Valid
     public PlayerCredential getPlayerCredential() {
         return playerCredential;
     }
 
     @Override
+    @Valid
     public SocialAccessGrant getAccessGrant() {
         return accessGrant;
     }

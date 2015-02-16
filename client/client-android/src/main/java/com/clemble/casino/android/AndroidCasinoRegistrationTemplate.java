@@ -32,7 +32,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
     }
 
     @Override
-    public ClembleCasinoOperations createPlayer(PlayerCredential playerCredential, PlayerProfile playerProfile) {
+    public ClembleCasinoOperations register(PlayerCredential playerCredential, PlayerProfile playerProfile) {
         // Step 1. Generating consumer details
         // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
@@ -42,7 +42,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
     }
 
     @Override
-    public ClembleCasinoOperations createSocialPlayer(PlayerCredential playerCredential, SocialConnectionData socialConnectionData) {
+    public ClembleCasinoOperations register(PlayerCredential playerCredential, SocialConnectionData socialConnectionData) {
         // Step 1. Generating consumer details
         // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
@@ -52,7 +52,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
     }
 
     @Override
-    public ClembleCasinoOperations createSocialPlayer(PlayerCredential playerCredential, SocialAccessGrant accessGrant) {
+    public ClembleCasinoOperations register(PlayerCredential playerCredential, SocialAccessGrant accessGrant) {
         // Step 1. Generating consumer details
         // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
