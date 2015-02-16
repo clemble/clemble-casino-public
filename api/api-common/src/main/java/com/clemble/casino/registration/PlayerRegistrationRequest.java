@@ -68,7 +68,6 @@ public class PlayerRegistrationRequest
         this.birthDate = birthDate;
     }
 
-    @JsonCreator
     public static PlayerRegistrationRequest create(PlayerCredential playerCredential, PlayerProfile playerProfile) {
         return new PlayerRegistrationRequest(
             null,
