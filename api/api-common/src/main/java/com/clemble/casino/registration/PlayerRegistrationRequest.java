@@ -7,48 +7,49 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PlayerRegistrationRequest
-    extends PlayerLoginRequest
-    implements PlayerProfileAware {
+    implements PlayerProfileAware, PlayerCredentialAware {
 
     private static final long serialVersionUID = -7419091879616342442L;
 
+    final private PlayerCredential playerCredential;
     final private PlayerProfile playerProfile;
 
     @JsonCreator
     public PlayerRegistrationRequest(
             @JsonProperty("playerCredential") PlayerCredential playerCredential,
             @JsonProperty("playerProfile") PlayerProfile playerProfile) {
-        super(playerCredential);
+        this.playerCredential = playerCredential;
         this.playerProfile = playerProfile;
     }
 
+    @Override
+    public PlayerCredential getPlayerCredential() {
+        return playerCredential;
+    }
+
+    @Override
     final public PlayerProfile getPlayerProfile() {
         return playerProfile;
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((playerProfile == null) ? 0 : playerProfile.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlayerRegistrationRequest)) return false;
+
+        PlayerRegistrationRequest that = (PlayerRegistrationRequest) o;
+
+        if (!playerCredential.equals(that.playerCredential)) return false;
+        if (!playerProfile.equals(that.playerProfile)) return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PlayerRegistrationRequest other = (PlayerRegistrationRequest) obj;
-        if (playerProfile == null) {
-            if (other.playerProfile != null)
-                return false;
-        } else if (!playerProfile.equals(other.playerProfile))
-            return false;
-        return true;
+    public int hashCode() {
+        int result = playerCredential.hashCode();
+        result = 31 * result + playerProfile.hashCode();
+        return result;
     }
 
 }

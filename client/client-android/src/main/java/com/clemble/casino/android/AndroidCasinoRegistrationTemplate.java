@@ -1,34 +1,27 @@
 package com.clemble.casino.android;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
-import org.apache.commons.codec.binary.Base64;
-
-import com.clemble.casino.android.player.AndroidPlayerFacadeRegistrationService;
+import com.clemble.casino.android.player.AndroidFacadeRegistrationService;
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.ClembleCasinoRegistrationOperations;
 import com.clemble.casino.social.SocialAccessGrant;
 import com.clemble.casino.social.SocialConnectionData;
 import com.clemble.casino.player.PlayerProfile;
-import com.clemble.casino.security.ClembleConsumerDetails;
 import com.clemble.casino.registration.PlayerCredential;
-import com.clemble.casino.registration.PlayerToken;
-import com.clemble.casino.registration.service.PlayerFacadeRegistrationService;
-import com.clemble.casino.registration.PlayerLoginRequest;
+import com.clemble.casino.registration.service.FacadeRegistrationService;
 import com.clemble.casino.registration.PlayerRegistrationRequest;
 import com.clemble.casino.registration.PlayerSocialGrantRegistrationRequest;
 import com.clemble.casino.registration.PlayerSocialRegistrationRequest;
-import com.clemble.casino.utils.ClembleConsumerDetailUtils;
 
 public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrationOperations {
 
     final private String host;
-    final private PlayerFacadeRegistrationService playerFacadeRegistrationService;
+    final private FacadeRegistrationService facadeRegistrationService;
 
     public AndroidCasinoRegistrationTemplate(String host) {
         this.host = host;
-        this.playerFacadeRegistrationService = new AndroidPlayerFacadeRegistrationService(host);
+        this.facadeRegistrationService = new AndroidFacadeRegistrationService(host);
     }
 
     @Override
@@ -38,7 +31,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         // PlayerLoginRequest loginRequest = new PlayerLoginRequest(playerCredential);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerFacadeRegistrationService.login(playerCredential));
+        return casinoTemplate(facadeRegistrationService.login(playerCredential));
     }
 
     @Override
@@ -48,7 +41,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         PlayerRegistrationRequest loginRequest = new PlayerRegistrationRequest(playerCredential, playerProfile);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerFacadeRegistrationService.createPlayer(loginRequest));
+        return casinoTemplate(facadeRegistrationService.register(loginRequest));
     }
 
     @Override
@@ -58,7 +51,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         PlayerSocialRegistrationRequest socialRegistrationRequest = new PlayerSocialRegistrationRequest(playerCredential, socialConnectionData);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerFacadeRegistrationService.createSocialPlayer(socialRegistrationRequest));
+        return casinoTemplate(facadeRegistrationService.register(socialRegistrationRequest));
     }
 
     @Override
@@ -68,7 +61,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         PlayerSocialGrantRegistrationRequest socialRegistrationRequest = new PlayerSocialGrantRegistrationRequest(playerCredential, accessGrant);
         // Step 3. Generating ClembleTemplate
-        return casinoTemplate(playerFacadeRegistrationService.createSocialGrantPlayer(socialRegistrationRequest));
+        return casinoTemplate(facadeRegistrationService.register(socialRegistrationRequest));
     }
 
     private ClembleCasinoTemplate casinoTemplate(String player) {

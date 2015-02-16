@@ -9,19 +9,24 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PlayerSocialGrantRegistrationRequest
-    extends PlayerLoginRequest
-    implements SocialAccessGrantAware {
+    implements PlayerCredentialAware, SocialAccessGrantAware {
 
     private static final long serialVersionUID = -8802470944397014969L;
 
+    final private PlayerCredential playerCredential;
     final private SocialAccessGrant accessGrant;
 
     @JsonCreator
     public PlayerSocialGrantRegistrationRequest(
             @JsonProperty("playerCredential") final PlayerCredential playerCredential,
             @JsonProperty("accessGrant") final SocialAccessGrant accessGrant) {
-        super(playerCredential);
+        this.playerCredential = checkNotNull(playerCredential);
         this.accessGrant = checkNotNull(accessGrant);
+    }
+
+    @Override
+    public PlayerCredential getPlayerCredential() {
+        return playerCredential;
     }
 
     @Override
@@ -30,28 +35,23 @@ public class PlayerSocialGrantRegistrationRequest
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((accessGrant == null) ? 0 : accessGrant.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlayerSocialGrantRegistrationRequest)) return false;
+
+        PlayerSocialGrantRegistrationRequest that = (PlayerSocialGrantRegistrationRequest) o;
+
+        if (!accessGrant.equals(that.accessGrant)) return false;
+        if (!playerCredential.equals(that.playerCredential)) return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PlayerSocialGrantRegistrationRequest other = (PlayerSocialGrantRegistrationRequest) obj;
-        if (accessGrant == null) {
-            if (other.accessGrant != null)
-                return false;
-        } else if (!accessGrant.equals(other.accessGrant))
-            return false;
-        return true;
+    public int hashCode() {
+        int result = playerCredential.hashCode();
+        result = 31 * result + accessGrant.hashCode();
+        return result;
     }
 
 }

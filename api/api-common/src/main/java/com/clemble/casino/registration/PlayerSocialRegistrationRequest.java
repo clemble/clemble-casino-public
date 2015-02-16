@@ -7,19 +7,24 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PlayerSocialRegistrationRequest
-    extends PlayerLoginRequest
-    implements SocialConnectionDataAware {
+    implements PlayerCredentialAware, SocialConnectionDataAware {
 
     private static final long serialVersionUID = 709897454794810031L;
 
+    final private PlayerCredential playerCredential;
     final private SocialConnectionData socialConnectionData;
 
     @JsonCreator
     public PlayerSocialRegistrationRequest(
             @JsonProperty("playerCredential") PlayerCredential playerCredential,
             @JsonProperty("socialConnectionData") SocialConnectionData socialConnectionData) {
-        super(playerCredential);
+        this.playerCredential = playerCredential;
         this.socialConnectionData = socialConnectionData;
+    }
+
+    @Override
+    public PlayerCredential getPlayerCredential() {
+        return playerCredential;
     }
 
     @Override
@@ -28,28 +33,23 @@ public class PlayerSocialRegistrationRequest
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((socialConnectionData == null) ? 0 : socialConnectionData.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlayerSocialRegistrationRequest)) return false;
+
+        PlayerSocialRegistrationRequest that = (PlayerSocialRegistrationRequest) o;
+
+        if (!playerCredential.equals(that.playerCredential)) return false;
+        if (!socialConnectionData.equals(that.socialConnectionData)) return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PlayerSocialRegistrationRequest other = (PlayerSocialRegistrationRequest) obj;
-        if (socialConnectionData == null) {
-            if (other.socialConnectionData != null)
-                return false;
-        } else if (!socialConnectionData.equals(other.socialConnectionData))
-            return false;
-        return true;
+    public int hashCode() {
+        int result = playerCredential.hashCode();
+        result = 31 * result + socialConnectionData.hashCode();
+        return result;
     }
 
 }

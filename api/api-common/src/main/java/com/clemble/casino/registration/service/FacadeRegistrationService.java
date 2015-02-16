@@ -2,9 +2,9 @@ package com.clemble.casino.registration.service;
 
 import com.clemble.casino.ClembleService;
 
-public interface PlayerFacadeRegistrationService
+public interface FacadeRegistrationService
     extends ClembleService,
-    PlayerManualRegistrationService,
+    PlayerRegistrationService,
     PlayerSocialRegistrationService {
 
 }

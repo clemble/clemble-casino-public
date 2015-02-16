@@ -15,14 +15,14 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
-import com.clemble.casino.registration.service.PlayerFacadeRegistrationService;
+import com.clemble.casino.registration.service.FacadeRegistrationService;
 
-public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegistrationService {
+public class AndroidFacadeRegistrationService implements FacadeRegistrationService {
 
     final private String host;
     final private RestTemplate restTemplate;
 
-    public AndroidPlayerFacadeRegistrationService(String host) {
+    public AndroidFacadeRegistrationService(String host) {
         this.host = checkNotNull(host);
         this.restTemplate = new RestTemplate();
 
@@ -41,17 +41,17 @@ public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegis
     }
 
     @Override
-    public String createPlayer(PlayerRegistrationRequest registrationRequest) {
+    public String register(PlayerRegistrationRequest registrationRequest) {
         return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_PROFILE), registrationRequest, String.class);
     }
 
     @Override
-    public String createSocialPlayer(PlayerSocialRegistrationRequest socialConnectionData) {
+    public String register(PlayerSocialRegistrationRequest socialConnectionData) {
         return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_DESCRIPTION), socialConnectionData, String.class);
     }
 
     @Override
-    public String createSocialGrantPlayer(PlayerSocialGrantRegistrationRequest socialConnectionData) {
+    public String register(PlayerSocialGrantRegistrationRequest socialConnectionData) {
         return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_GRANT), socialConnectionData, String.class);
     }
 
