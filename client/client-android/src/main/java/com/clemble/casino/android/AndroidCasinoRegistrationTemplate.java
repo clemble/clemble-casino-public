@@ -5,14 +5,11 @@ import java.io.IOException;
 import com.clemble.casino.android.player.AndroidFacadeRegistrationService;
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.ClembleCasinoRegistrationOperations;
+import com.clemble.casino.registration.*;
 import com.clemble.casino.social.SocialAccessGrant;
 import com.clemble.casino.social.SocialConnectionData;
 import com.clemble.casino.player.PlayerProfile;
-import com.clemble.casino.registration.PlayerCredential;
 import com.clemble.casino.registration.service.FacadeRegistrationService;
-import com.clemble.casino.registration.PlayerRegistrationRequest;
-import com.clemble.casino.registration.PlayerSocialGrantRegistrationRequest;
-import com.clemble.casino.registration.PlayerSocialRegistrationRequest;
 
 public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrationOperations {
 
@@ -25,7 +22,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
     }
 
     @Override
-    public ClembleCasinoOperations login(PlayerCredential playerCredential) {
+    public ClembleCasinoOperations login(PlayerLoginRequest playerCredential) {
         // Step 1. Generating consumer details
         // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request

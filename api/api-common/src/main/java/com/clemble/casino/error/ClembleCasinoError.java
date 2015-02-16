@@ -48,6 +48,9 @@ public enum ClembleCasinoError {
 
     NickInvalid(Code.NICK_INVALID_CODE, "Nick invalid"),
     NickTooLong(Code.NICK_TOO_LONG_CODE, "Nick too long"),
+    NickTooShort(Code.NICK_TOO_SHORT_CODE, "Nick too short"),
+    NickAlreadyOccupied(Code.NICK_ALREADY_OCCUPIED_CODE, "Nick already occupied"),
+    NickMustNotBeNull(Code.NICK_MUST_NOT_BE_NULL_CODE, "Nick must not be null"),
     FirstNameTooLong(Code.FIRST_NAME_TOO_LONG_CODE, "First name too long"),
     LastNameTooLong(Code.LAST_NAME_TOO_LONG_CODE, "Last name too long"),
     BirthDateInvalid(Code.BIRTH_DATE_INVALID_CODE, "Birth date invalid"),
@@ -224,6 +227,9 @@ public enum ClembleCasinoError {
         // Nickname
         final public static String NICK_INVALID_CODE = "040";
         final public static String NICK_TOO_LONG_CODE = "041";
+        final public static String NICK_TOO_SHORT_CODE = "042";
+        final public static String NICK_ALREADY_OCCUPIED_CODE = "043";
+        final public static String NICK_MUST_NOT_BE_NULL_CODE = "044";
         // First name
         final public static String FIRST_NAME_TOO_LONG_CODE = "050";
         // Last name

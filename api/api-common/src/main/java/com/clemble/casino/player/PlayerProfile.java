@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.clemble.casino.error.validation.MinSize;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
@@ -29,6 +30,7 @@ public class PlayerProfile implements PlayerAware {
     @JsonProperty("nickName")
     @NickNameConstraint(message = Code.NICK_INVALID_CODE)
     @MaxSize(max = 64, message = Code.NICK_TOO_LONG_CODE)
+    @MinSize(min = 6, message = Code.NICK_TOO_SHORT_CODE)
     private String nickName;
 
     @JsonProperty("firstName")
