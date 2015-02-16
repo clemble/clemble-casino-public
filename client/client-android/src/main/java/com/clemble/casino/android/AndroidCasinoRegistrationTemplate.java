@@ -36,9 +36,9 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 1. Generating consumer details
         // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
-        PlayerLoginRequest loginRequest = new PlayerLoginRequest(playerCredential);
+        // PlayerLoginRequest loginRequest = new PlayerLoginRequest(playerCredential);
         // Step 3. Constructing casino operations
-        return casinoTemplate(playerFacadeRegistrationService.login(loginRequest));
+        return casinoTemplate(playerFacadeRegistrationService.login(playerCredential));
     }
 
     @Override

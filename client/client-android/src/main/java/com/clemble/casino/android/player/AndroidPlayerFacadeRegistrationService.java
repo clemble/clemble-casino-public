@@ -9,17 +9,13 @@ import static com.clemble.casino.social.SocialWebMapping.*;
 import static com.clemble.casino.registration.RegistrationWebMapping.*;
 
 import com.clemble.casino.json.ObjectMapperUtils;
+import com.clemble.casino.registration.*;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
-import com.clemble.casino.registration.PlayerToken;
 import com.clemble.casino.registration.service.PlayerFacadeRegistrationService;
-import com.clemble.casino.registration.PlayerLoginRequest;
-import com.clemble.casino.registration.PlayerRegistrationRequest;
-import com.clemble.casino.registration.PlayerSocialGrantRegistrationRequest;
-import com.clemble.casino.registration.PlayerSocialRegistrationRequest;
 
 public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegistrationService {
 
@@ -40,8 +36,8 @@ public class AndroidPlayerFacadeRegistrationService implements PlayerFacadeRegis
     }
 
     @Override
-    public String login(PlayerLoginRequest playerLoginRequest) {
-        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_LOGIN), playerLoginRequest, String.class);
+    public String login(PlayerCredential playerCredential) {
+        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_LOGIN), playerCredential, String.class);
     }
 
     @Override

@@ -1,16 +1,15 @@
 package com.clemble.casino.registration.service;
 
-import com.clemble.casino.registration.PlayerToken;
-import com.clemble.casino.registration.PlayerLoginRequest;
-import com.clemble.casino.registration.PlayerRegistrationRequest;
+import com.clemble.casino.registration.*;
 
 /**
  * Created by mavarazy on 7/4/14.
  */
 public interface PlayerManualRegistrationService extends PlayerRegistrationService {
 
-    public String login(PlayerLoginRequest loginRequest);
+    public String login(PlayerCredential credentials);
 
-    public String createPlayer(final PlayerRegistrationRequest registrationRequest);
+    public String createPlayer(PlayerRegistrationRequest registrationRequest);
+
 
 }
