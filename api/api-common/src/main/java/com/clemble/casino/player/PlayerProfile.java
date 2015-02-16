@@ -17,7 +17,7 @@ import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.NickNameConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayerProfile implements PlayerAware {
+public class PlayerProfile implements PlayerAware, PlayerNickNameAware {
 
     /**
      * Generated 03/11/13
@@ -32,7 +32,7 @@ public class PlayerProfile implements PlayerAware {
     @NoWhiteSpaces(message = Code.NICK_NO_WHITE_SPACES_ALLOWED_CODE)
     @NickNameConstraint(message = Code.NICK_INVALID_CODE)
     @MaxSize(max = 64, message = Code.NICK_TOO_LONG_CODE)
-    @MinSize(min = 6, message = Code.NICK_TOO_SHORT_CODE)
+    @MinSize(min = 5, message = Code.NICK_TOO_SHORT_CODE)
     private String nickName;
 
     @JsonProperty("firstName")
@@ -89,6 +89,7 @@ public class PlayerProfile implements PlayerAware {
         return this;
     }
 
+    @Override
     public String getNickName() {
         return nickName;
     }

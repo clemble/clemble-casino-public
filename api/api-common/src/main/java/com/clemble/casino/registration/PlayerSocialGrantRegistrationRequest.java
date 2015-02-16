@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.Valid;
 
 public class PlayerSocialGrantRegistrationRequest
-    implements PlayerCredentialAware, SocialAccessGrantAware {
+    implements RegistrationRequest, PlayerCredentialAware, SocialAccessGrantAware {
 
     private static final long serialVersionUID = -8802470944397014969L;
 

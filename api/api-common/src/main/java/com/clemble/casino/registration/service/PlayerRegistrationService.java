@@ -7,9 +7,9 @@ import com.clemble.casino.registration.*;
  */
 public interface PlayerRegistrationService extends RegistrationService {
 
-    public String login(PlayerLoginRequest loginRequest);
+    public PlayerLoginRequest login(PlayerLoginRequest loginRequest);
 
-    public String register(PlayerRegistrationRequest registrationRequest);
+    public PlayerRegistrationRequest register(PlayerRegistrationRequest registrationRequest);
 
 
 }

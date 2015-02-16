@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.Valid;
 
 public class PlayerSocialRegistrationRequest
-    implements PlayerCredentialAware, SocialConnectionDataAware {
+    implements RegistrationRequest, PlayerCredentialAware, SocialConnectionDataAware {
 
     private static final long serialVersionUID = 709897454794810031L;
 

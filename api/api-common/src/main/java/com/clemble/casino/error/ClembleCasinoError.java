@@ -40,8 +40,6 @@ public enum ClembleCasinoError {
     PasswordTooLong(Code.PASSWORD_TOO_LONG_CODE, "Password too long"),
     EmailOrPasswordIncorrect(Code.EMAIL_OR_PASSWORD_INCORRECT_CODE, "Email or password is incorrect"),
 
-    ProfileInvalid(Code.PROFILE_INVALID_CODE, "Profile is invalid"),
-    ProfileSocialMustBeEmpty(Code.PROFILE_SOCIAL_MUST_BE_EMPTY, "There muste be no social connections in profile"),
     ProfileSocialCantBeEdited(Code.PROFILE_SOCIAL_CANT_BE_EDITED, "Social connections can't be edited by the user"),
 
     IdentityInvalid(Code.IDENTITY_INVALID_CODE, "Identity invalid"),
@@ -221,8 +219,6 @@ public enum ClembleCasinoError {
         // Identity errors
         // Processing problems
         final public static String IDENTITY_INVALID_CODE = "030";
-        final public static String PROFILE_INVALID_CODE = "031";
-        final public static String PROFILE_SOCIAL_MUST_BE_EMPTY = "032";
         final public static String PROFILE_SOCIAL_CANT_BE_EDITED = "033";
         // Gamer Profile management errors
         // Nickname

@@ -36,13 +36,13 @@ public class AndroidFacadeRegistrationService implements FacadeRegistrationServi
     }
 
     @Override
-    public String login(PlayerLoginRequest loginRequest) {
-        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_LOGIN), loginRequest, String.class);
+    public PlayerLoginRequest login(PlayerLoginRequest loginRequest) {
+        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_LOGIN), loginRequest, PlayerLoginRequest.class);
     }
 
     @Override
-    public String register(PlayerRegistrationRequest registrationRequest) {
-        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_PROFILE), registrationRequest, String.class);
+    public PlayerRegistrationRequest register(PlayerRegistrationRequest registrationRequest) {
+        return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_PROFILE), registrationRequest, PlayerRegistrationRequest.class);
     }
 
     @Override
