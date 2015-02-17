@@ -1,6 +1,7 @@
 package com.clemble.casino.goal.post;
 
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.goal.lifecycle.management.GoalPhase;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -9,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -30,7 +30,7 @@ public class GoalStartedPost implements GoalPost {
     final private Set<String> supporters;
     final private DateTime deadline;
     final private DateTime created;
-    final private boolean betsAllowed;
+    final private GoalPhase phase;
 
     @JsonCreator
     public GoalStartedPost(
@@ -44,7 +44,7 @@ public class GoalStartedPost implements GoalPost {
         @JsonProperty("deadline") DateTime deadline,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("created") DateTime created,
-        @JsonProperty("betsAllowed") boolean betsAllowed
+        @JsonProperty("phase") GoalPhase phase
     ) {
         this.key = key;
         this.goalKey = goalKey;
@@ -56,7 +56,7 @@ public class GoalStartedPost implements GoalPost {
         this.deadline = deadline;
         this.supporters = supporters;
         this.created = created;
-        this.betsAllowed = betsAllowed;
+        this.phase = phase;
     }
 
     @Override
@@ -110,8 +110,8 @@ public class GoalStartedPost implements GoalPost {
     }
 
     @Override
-    public boolean getBetsAllowed() {
-        return betsAllowed;
+    public GoalPhase getPhase() {
+        return phase;
     }
 
     public static GoalStartedPost create(GoalState state) {
@@ -126,7 +126,7 @@ public class GoalStartedPost implements GoalPost {
             state.getDeadline(),
             state.getSupporters(),
             DateTime.now(DateTimeZone.UTC),
-            state.getBetsAllowed()
+            state.getPhase()
         );
     }
 

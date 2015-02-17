@@ -1,12 +1,11 @@
 package com.clemble.casino.goal.post;
 
-import com.clemble.casino.bet.BetsAllowedAware;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
+import com.clemble.casino.goal.lifecycle.management.GoalPhaseAware;
 import com.clemble.casino.goal.lifecycle.management.GoalRoleAware;
 import com.clemble.casino.lifecycle.configuration.rule.time.DeadlineAware;
-import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.payment.BankAware;
 import com.clemble.casino.post.PlayerPost;
 
@@ -19,8 +18,8 @@ public interface GoalPost extends
     GoalAware,
     GoalDescriptionAware,
     GoalConfigurationAware,
+    GoalPhaseAware,
     BankAware,
-    BetsAllowedAware,
     GoalRoleAware,
     DeadlineAware {
 }

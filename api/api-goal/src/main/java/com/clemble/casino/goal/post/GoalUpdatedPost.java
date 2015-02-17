@@ -1,6 +1,7 @@
 package com.clemble.casino.goal.post;
 
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.goal.lifecycle.management.GoalPhase;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,7 +32,7 @@ public class GoalUpdatedPost implements GoalPost {
     final private Set<String> supporters;
     final private DateTime deadline;
     final private DateTime created;
-    final private boolean betsAllowed;
+    final private GoalPhase phase;
 
     @JsonCreator
     public GoalUpdatedPost(
@@ -46,7 +47,7 @@ public class GoalUpdatedPost implements GoalPost {
         @JsonProperty("deadline") DateTime deadline,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("created") DateTime created,
-        @JsonProperty("betsAllowed") boolean betsAllowed
+        @JsonProperty("phase") GoalPhase phase
     ) {
         this.key = key;
         this.goalKey = goalKey;
@@ -59,7 +60,7 @@ public class GoalUpdatedPost implements GoalPost {
         this.deadline = deadline;
         this.supporters = supporters;
         this.created = created;
-        this.betsAllowed = betsAllowed;
+        this.phase = phase;
     }
 
     @Override
@@ -102,8 +103,8 @@ public class GoalUpdatedPost implements GoalPost {
     }
 
     @Override
-    public boolean getBetsAllowed() {
-        return betsAllowed;
+    public GoalPhase getPhase() {
+        return phase;
     }
 
     @Override
@@ -134,7 +135,7 @@ public class GoalUpdatedPost implements GoalPost {
             state.getDeadline(),
             state.getSupporters(),
             DateTime.now(),
-            state.getBetsAllowed()
+            state.getPhase()
         );
     }
 

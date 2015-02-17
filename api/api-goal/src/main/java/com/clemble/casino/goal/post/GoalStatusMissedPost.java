@@ -2,6 +2,7 @@ package com.clemble.casino.goal.post;
 
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
+import com.clemble.casino.goal.lifecycle.management.GoalPhase;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -29,7 +30,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
     final private DateTime startDate;
     final private DateTime deadline;
     final private DateTime created;
-    final private boolean betsAllowed;
+    final private GoalPhase phase;
 
     @JsonCreator
     public GoalStatusMissedPost(
@@ -44,7 +45,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("created") DateTime created,
-        @JsonProperty("betsAllowed") boolean betsAllowed
+        @JsonProperty("phase") GoalPhase phase
     ) {
         this.key = key;
         this.goalKey = goalKey;
@@ -54,7 +55,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
         this.reward = reward;
         this.bank = bank;
         this.configuration = configuration;
-        this.betsAllowed = betsAllowed;
+        this.phase = phase;
         this.startDate = startDate;
         this.deadline = deadline;
         this.created = created;
@@ -105,8 +106,8 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
     }
 
     @Override
-    public boolean getBetsAllowed() {
-        return betsAllowed;
+    public GoalPhase getPhase() {
+        return phase;
     }
 
     @Override
@@ -132,7 +133,7 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
             state.getSupporters(),
             state.getStartDate(),
             DateTime.now(DateTimeZone.UTC),
-            state.getBetsAllowed()
+            state.getPhase()
         );
     }
 

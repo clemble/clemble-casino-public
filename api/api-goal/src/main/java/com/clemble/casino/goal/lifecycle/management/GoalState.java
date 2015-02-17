@@ -1,6 +1,5 @@
 package com.clemble.casino.goal.lifecycle.management;
 
-import com.clemble.casino.bet.BetsAllowedAware;
 import com.clemble.casino.bet.Bet;
 import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.event.Event;
@@ -42,11 +41,11 @@ import java.util.Set;
 public class GoalState implements
     State<GoalEvent, GoalContext>,
     GoalAware,
+    GoalPhaseAware,
     GoalDescriptionAware,
     GoalConfigurationAware,
     GoalStatusAware,
     GoalRoleAware,
-    BetsAllowedAware,
     BankAware,
     DeadlineAware,
     TagAware {
@@ -59,12 +58,12 @@ public class GoalState implements
     final private String reward;
     final private String tag;
     final private Bank bank;
+    final private GoalPhase phase;
     final private GoalContext context;
     final private GoalConfiguration configuration;
     final private Set<String> supporters;
     final private DateTime startDate;
     final private DateTime deadline;
-    final private boolean betsAllowed;
 
     @JsonCreator
     public GoalState(
@@ -79,14 +78,14 @@ public class GoalState implements
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
         @JsonProperty("supporters") Set<String> supporters,
-        @JsonProperty("betsAllowed") boolean betsAllowed,
-        @JsonProperty("status") String status) {
+        @JsonProperty("status") String status,
+        @JsonProperty("phase") GoalPhase phase) {
         this.goalKey = goalKey;
         this.player = player;
+        this.phase = phase;
         this.startDate = startDate;
         this.deadline = deadline;
         this.supporters = supporters;
-        this.betsAllowed = betsAllowed;
         this.configuration = configuration;
         this.context = context;
         this.bank = bank;
@@ -132,8 +131,8 @@ public class GoalState implements
     }
 
     @Override
-    public boolean getBetsAllowed() {
-        return betsAllowed;
+    public GoalPhase getPhase() {
+        return phase;
     }
 
     @Override
@@ -181,7 +180,12 @@ public class GoalState implements
             } else if (action instanceof SurrenderAction) {
                 return new GoalEndedEvent(player, this, new PlayerLostOutcome(actor));
             } else if (action instanceof BidAction) {
-                if(!this.betsAllowed || this.supporters.contains(actor) || this.player.equals(actor))
+                switch (phase) {
+                    case betOff:
+                    case reached:
+                        throw new IllegalArgumentException();
+                }
+                if(this.supporters.contains(actor) || this.player.equals(actor))
                     throw new IllegalArgumentException();
                 Bet bet = configuration.getSupporterConfiguration().getBet();
                 PlayerBet playerBid = new PlayerBet(actor, bet);
@@ -221,30 +225,32 @@ public class GoalState implements
             configuration,
             context,
             supporters,
-            betsAllowed,
-            newStatus
+            newStatus,
+            phase
         );
     }
 
     public GoalState forbidBet() {
-        if (!betsAllowed) {
-            return this;
-        } else {
-            return new GoalState(
-                goalKey,
-                startDate,
-                deadline,
-                player,
-                bank,
-                goal,
-                reward,
-                tag,
-                configuration,
-                context,
-                supporters,
-                false,
-                status
-            );
+        switch (phase) {
+            case started:
+                return new GoalState(
+                    goalKey,
+                    startDate,
+                    deadline,
+                    player,
+                    bank,
+                    goal,
+                    reward,
+                    tag,
+                    configuration,
+                    context,
+                    supporters,
+                    status,
+                    GoalPhase.betOff
+                );
+            default:
+                return this;
+
         }
     }
 

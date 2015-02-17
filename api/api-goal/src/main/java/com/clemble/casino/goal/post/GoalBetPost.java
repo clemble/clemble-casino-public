@@ -4,6 +4,7 @@ import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.goal.lifecycle.management.GoalPhase;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
     final private DateTime startDate;
     final private DateTime deadline;
     final private DateTime created;
-    final private boolean betsAllowed;
+    final private GoalPhase phase;
 
     @JsonCreator
     public GoalBetPost(
@@ -50,14 +51,14 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("playerBid") PlayerBet playerBid,
         @JsonProperty("created") DateTime created,
-        @JsonProperty("betsAllowed") boolean betsAllowed
+        @JsonProperty("phase") GoalPhase phase
     ) {
         this.key = key;
         this.goalKey = goalKey;
         this.player = player;
         this.playerBid = playerBid;
         this.supporters = supporters;
-        this.betsAllowed = betsAllowed;
+        this.phase = phase;
         this.goal = goal;
         this.reward = reward;
         this.bank = bank;
@@ -116,8 +117,8 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
     }
 
     @Override
-    public boolean getBetsAllowed() {
-        return betsAllowed;
+    public GoalPhase getPhase() {
+        return phase;
     }
 
     @Override
@@ -144,7 +145,7 @@ public class GoalBetPost implements GoalPost, GoalConfigurationAware {
             state.getStartDate(),
             bet,
             DateTime.now(DateTimeZone.UTC),
-            true
+            state.getPhase()
         );
     }
 
