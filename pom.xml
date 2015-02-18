@@ -18,7 +18,7 @@
         <commons-codec.version>1.10</commons-codec.version>
         <guava.version>18.0</guava.version>
         <!-- AMQP dependencies -->
-        <spring.amqp.version>1.4.1.RELEASE</spring.amqp.version>
+        <spring.amqp.version>1.4.3.RELEASE</spring.amqp.version>
         <rabbitmq.driver.version>3.4.2</rabbitmq.driver.version>
         <!-- Dependencies for ORM -->
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
