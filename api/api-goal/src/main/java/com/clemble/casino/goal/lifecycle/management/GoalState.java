@@ -175,13 +175,13 @@ public class GoalState implements
             } else if (action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 String newStatus = statusUpdateAction.getStatus();
-                return new GoalChangedStatusEvent(player, this.copy(newStatus, action));
+                return new GoalChangedStatusEvent(player, this.copyWithStatus(newStatus, action));
             } else if (action instanceof SurrenderAction) {
-                return new GoalEndedEvent(player, this, new PlayerLostOutcome(actor));
+                return new GoalEndedEvent(player, this.finish(), new PlayerLostOutcome(actor));
             } else if (action instanceof BidAction) {
                 switch (phase) {
                     case betOff:
-                    case reached:
+                    case finished:
                         throw new IllegalArgumentException();
                 }
                 if(this.supporters.contains(actor) || this.player.equals(actor))
@@ -194,12 +194,12 @@ public class GoalState implements
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 String newStatus = reachedAction.getStatus();
-                return new GoalEndedEvent(player, this.copy(newStatus, reachedAction), new PlayerWonOutcome(actor));
+                return new GoalEndedEvent(player, this.copyWithStatus(newStatus, reachedAction).finish(), new PlayerWonOutcome(actor));
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
                 bank.add(new PlayerBet(player, new Bet(Money.create(Currency.FakeMoney, 0), punishmentAction.getAmount().negate())));
                 if (bank.getBet(player).getBet().getInterest().getAmount() == 0) {
-                    return new GoalEndedEvent(player, this.copy("Missed", (Action) action), new PlayerLostOutcome(player));
+                    return new GoalEndedEvent(player, this.copyWithStatus("Missed", action).finish(), new PlayerLostOutcome(player));
                 } else {
                     return new GoalChangedStatusUpdateMissedEvent(player, this);
                 }
@@ -211,7 +211,7 @@ public class GoalState implements
         }
     }
 
-    public GoalState copy(String newStatus, Action latestAction) {
+    public GoalState copyWithStatus(String newStatus, Action latestAction) {
         return new GoalState(
             goalKey,
             startDate,
@@ -227,6 +227,30 @@ public class GoalState implements
             phase,
             latestAction
         );
+    }
+
+    public GoalState finish() {
+         switch (phase) {
+            case started:
+            case betOff:
+                return new GoalState(
+                    goalKey,
+                    startDate,
+                    deadline,
+                    player,
+                    bank,
+                    goal,
+                    tag,
+                    configuration,
+                    context,
+                    supporters,
+                    status,
+                    GoalPhase.finished,
+                    lastAction
+                );
+            default:
+                return this;
+        }
     }
 
     public GoalState forbidBet() {
@@ -249,7 +273,6 @@ public class GoalState implements
                 );
             default:
                 return this;
-
         }
     }
 
