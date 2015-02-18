@@ -18,7 +18,6 @@ import java.util.Date;
 public class GoalConstructionRequest implements ConstructionRequest<GoalConfiguration>, GoalDescriptionAware {
 
     final private String goal;
-    final private String reward;
     final private DateTimeZone timezone;
     final private GoalConfiguration configuration;
 
@@ -26,12 +25,10 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
     public GoalConstructionRequest(
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
-        @JsonProperty("reward") String reward,
         @JsonProperty("timezone") DateTimeZone timezone) {
         this.configuration = configuration;
         this.timezone = timezone;
         this.goal = goal;
-        this.reward = reward;
     }
 
     @Override
@@ -49,13 +46,8 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
     }
 
     @Override
-    public String getReward() {
-        return reward;
-    }
-
-    @Override
     public GoalConstruction toConstruction(String player, String goalKey) {
-        return new GoalConstruction(goalKey, player, goal, reward, TagUtils.getTag(goal), DateTime.now(timezone), configuration, ConstructionState.pending);
+        return new GoalConstruction(goalKey, player, goal, TagUtils.getTag(goal), DateTime.now(timezone), configuration, ConstructionState.pending);
     }
 
     @Override

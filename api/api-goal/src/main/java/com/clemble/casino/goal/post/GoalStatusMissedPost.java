@@ -25,7 +25,6 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
     final private Bank bank;
     final private GoalConfiguration configuration;
     final private String goal;
-    final private String reward;
     final private Set<String> supporters;
     final private DateTime startDate;
     final private DateTime deadline;
@@ -40,7 +39,6 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
         @JsonProperty("bank") Bank bank,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
-        @JsonProperty("reward") String reward,
         @JsonProperty("deadline") DateTime deadline,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate,
@@ -52,7 +50,6 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
         this.player = player;
         this.supporters = supporters;
         this.goal = goal;
-        this.reward = reward;
         this.bank = bank;
         this.configuration = configuration;
         this.phase = phase;
@@ -79,11 +76,6 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
     @Override
     public String getGoal() {
         return goal;
-    }
-
-    @Override
-    public String getReward() {
-        return reward;
     }
 
     @Override
@@ -128,7 +120,6 @@ public class GoalStatusMissedPost implements GoalPost, GoalConfigurationAware  {
             state.getBank(),
             state.getConfiguration(),
             state.getGoal(),
-            state.getReward(),
             state.getDeadline(),
             state.getSupporters(),
             state.getStartDate(),

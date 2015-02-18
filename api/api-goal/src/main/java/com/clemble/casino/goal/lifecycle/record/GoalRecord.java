@@ -37,7 +37,6 @@ public class GoalRecord implements
     final private RecordState state;
     final private String player;
     final private String goal;
-    final private String reward;
     final private String tag;
     final private Bank bank;
     final private GoalConfiguration configuration;
@@ -51,13 +50,11 @@ public class GoalRecord implements
         @JsonProperty("state") RecordState state,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
-        @JsonProperty("reward") String reward,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("eventRecords") Set<EventRecord> eventRecords,
         @JsonProperty("outcome") Outcome outcome) {
         this.goal = goal;
-        this.reward = reward;
         this.tag = tag;
         this.state = state;
         this.player = player;
@@ -105,11 +102,6 @@ public class GoalRecord implements
     }
 
     @Override
-    public String getReward() {
-        return reward;
-    }
-
-    @Override
     public String getTag() {
         return tag;
     }
@@ -125,7 +117,6 @@ public class GoalRecord implements
             state,
             bank,
             goal,
-            reward,
             tag,
             configuration,
             eventRecords,
