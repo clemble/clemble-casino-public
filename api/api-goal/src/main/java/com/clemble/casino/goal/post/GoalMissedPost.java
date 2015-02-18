@@ -23,42 +23,20 @@ public class GoalMissedPost implements GoalPost {
 
     final private String key;
     final private String player;
-    final private Bank bank;
-    final private GoalConfiguration configuration;
-    final private String goal;
-    final private String status;
-    final private String goalKey;
-    final private Set<String> supporters;
-    final private DateTime deadline;
+    final private GoalState state;
     final private DateTime created;
-    final private GoalPhase phase;
-
 
     @JsonCreator
     public GoalMissedPost(
         @JsonProperty("key") String key,
-        @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
-        @JsonProperty("bank") Bank bank,
-        @JsonProperty("configuration") GoalConfiguration configuration,
-        @JsonProperty("goal") String goal,
-        @JsonProperty("status") String status,
-        @JsonProperty("deadline") DateTime deadline,
-        @JsonProperty("supporters") Set<String> supporters,
-        @JsonProperty("created") DateTime created,
-        @JsonProperty("phase") GoalPhase phase
+        @JsonProperty("state") GoalState state,
+        @JsonProperty("created") DateTime created
     ) {
         this.key = key;
-        this.goalKey = goalKey;
         this.player = player;
-        this.goal = goal;
-        this.bank = bank;
-        this.configuration = configuration;
-        this.status = status;
-        this.deadline = deadline;
-        this.supporters = supporters;
+        this.state = state;
         this.created = created;
-        this.phase = phase;
     }
 
     @Override
@@ -72,42 +50,8 @@ public class GoalMissedPost implements GoalPost {
     }
 
     @Override
-    public String getGoalKey() {
-        return goalKey;
-    }
-
-    @Override
-    public String getGoal() {
-        return goal;
-    }
-
-    @Override
-    public Set<String> getSupporters() {
-        return supporters;
-    }
-
-    @Override
-    public GoalConfiguration getConfiguration() {
-        return configuration;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    @Override
-    public Bank getBank() {
-        return bank;
-    }
-
-    @Override
-    public DateTime getDeadline() {
-        return deadline;
-    }
-
-    @Override
-    public GoalPhase getPhase() {
-        return phase;
+    public GoalState getState() {
+        return state;
     }
 
     @Override
@@ -118,46 +62,34 @@ public class GoalMissedPost implements GoalPost {
     public static GoalMissedPost create(GoalState state) {
         return new GoalMissedPost(
             state.getGoalKey(),
-            state.getGoalKey(),
             state.getPlayer(),
-            state.getBank(),
-            state.getConfiguration(),
-            state.getGoal(),
-            state.getStatus(),
-            state.getContext().getPlayerContext(state.getPlayer()).getClock().getDeadline(),
-            state.getSupporters(),
-            DateTime.now(DateTimeZone.UTC),
-            state.getPhase()
+            state,
+            DateTime.now(DateTimeZone.UTC)
         );
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof GoalMissedPost)) return false;
 
         GoalMissedPost that = (GoalMissedPost) o;
 
-        if (!deadline.equals(that.deadline)) return false;
-        if (!bank.equals(that.bank)) return false;
-        if (!goal.equals(that.goal)) return false;
-        if (!goalKey.equals(that.goalKey)) return false;
+        if (!created.equals(that.created)) return false;
+        if (!key.equals(that.key)) return false;
         if (!player.equals(that.player)) return false;
-        if (!status.equals(that.status)) return false;
+        if (!state.equals(that.state)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = player.hashCode();
-        result = 31 * result + bank.hashCode();
-        result = 31 * result + goal.hashCode();
-        result = 31 * result + goalKey.hashCode();
-        result = 31 * result + status.hashCode();
-        result = 31 * result + deadline.hashCode();
+        int result = key.hashCode();
+        result = 31 * result + player.hashCode();
+        result = 31 * result + state.hashCode();
+        result = 31 * result + created.hashCode();
         return result;
     }
-
 
 }

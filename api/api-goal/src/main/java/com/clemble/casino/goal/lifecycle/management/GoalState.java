@@ -61,6 +61,7 @@ public class GoalState implements
     final private GoalContext context;
     final private GoalConfiguration configuration;
     final private Set<String> supporters;
+    final private Action lastAction;
     final private DateTime startDate;
     final private DateTime deadline;
 
@@ -77,7 +78,8 @@ public class GoalState implements
         @JsonProperty("context") GoalContext context,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("status") String status,
-        @JsonProperty("phase") GoalPhase phase) {
+        @JsonProperty("phase") GoalPhase phase,
+        @JsonProperty("lastAction") Action lastAction) {
         this.goalKey = goalKey;
         this.player = player;
         this.phase = phase;
@@ -90,6 +92,7 @@ public class GoalState implements
         this.goal = goal;
         this.tag = tag;
         this.status = status;
+        this.lastAction = lastAction;
     }
 
     @Override
@@ -120,6 +123,10 @@ public class GoalState implements
     @Override
     public String getStatus() {
         return status;
+    }
+
+    public Action getLastAction() {
+        return lastAction;
     }
 
     @Override
@@ -168,7 +175,7 @@ public class GoalState implements
             } else if (action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 String newStatus = statusUpdateAction.getStatus();
-                return new GoalChangedStatusEvent(player, this.copy(newStatus));
+                return new GoalChangedStatusEvent(player, this.copy(newStatus, action));
             } else if (action instanceof SurrenderAction) {
                 return new GoalEndedEvent(player, this, new PlayerLostOutcome(actor));
             } else if (action instanceof BidAction) {
@@ -187,12 +194,12 @@ public class GoalState implements
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 String newStatus = reachedAction.getStatus();
-                return new GoalEndedEvent(player, this.copy(newStatus), new PlayerWonOutcome(actor));
+                return new GoalEndedEvent(player, this.copy(newStatus, reachedAction), new PlayerWonOutcome(actor));
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
                 bank.add(new PlayerBet(player, new Bet(Money.create(Currency.FakeMoney, 0), punishmentAction.getAmount().negate())));
                 if (bank.getBet(player).getBet().getInterest().getAmount() == 0) {
-                    return new GoalEndedEvent(player, this, new PlayerLostOutcome(player));
+                    return new GoalEndedEvent(player, this.copy("Missed", (Action) action), new PlayerLostOutcome(player));
                 } else {
                     return new GoalChangedStatusUpdateMissedEvent(player, this);
                 }
@@ -204,7 +211,7 @@ public class GoalState implements
         }
     }
 
-    public GoalState copy(String newStatus) {
+    public GoalState copy(String newStatus, Action latestAction) {
         return new GoalState(
             goalKey,
             startDate,
@@ -217,7 +224,8 @@ public class GoalState implements
             context,
             supporters,
             newStatus,
-            phase
+            phase,
+            latestAction
         );
     }
 
@@ -236,7 +244,8 @@ public class GoalState implements
                     context,
                     supporters,
                     status,
-                    GoalPhase.betOff
+                    GoalPhase.betOff,
+                    lastAction
                 );
             default:
                 return this;
