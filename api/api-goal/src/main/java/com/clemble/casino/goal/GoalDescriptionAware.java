@@ -9,6 +9,6 @@ public interface GoalDescriptionAware {
 
     public String getGoal();
 
-    public DateTimeZone getTimezone();
+    public String getTimezone();
 
 }

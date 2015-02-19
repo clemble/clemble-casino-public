@@ -17,8 +17,8 @@ import org.joda.time.DateTimeZone;
 })
 public interface TimeoutCalculator {
 
-    public long calculate(DateTimeZone timezone, long moveStart);
+    public long calculate(String timezone, long moveStart);
 
-    public long calculate(DateTimeZone timezone, long moveStart, long timeSpent);
+    public long calculate(String timezone, long moveStart, long timeSpent);
 
 }

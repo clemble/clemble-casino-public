@@ -65,7 +65,7 @@ public class GoalState implements
     final private Action lastAction;
     final private DateTime startDate;
     final private DateTime deadline;
-    final private DateTimeZone timezone;
+    final private String timezone;
 
     @JsonCreator
     public GoalState(
@@ -75,7 +75,7 @@ public class GoalState implements
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") DateTimeZone timezone,
+        @JsonProperty("timezone") String timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
@@ -120,7 +120,7 @@ public class GoalState implements
     }
 
     @Override
-    public DateTimeZone getTimezone() {
+    public String getTimezone() {
         return timezone;
     }
 

@@ -14,12 +14,12 @@ public class GoalSuggestionRequest implements GoalConfigurationAware, GoalDescri
 
     final private String goal;
     final private GoalConfiguration configuration;
-    final private DateTimeZone timezone;
+    final private String timezone;
 
     @JsonCreator
     public GoalSuggestionRequest(
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") DateTimeZone timezone,
+        @JsonProperty("timezone") String timezone,
         @JsonProperty("configuration") GoalConfiguration configuration) {
         this.goal = goal;
         this.timezone = timezone;
@@ -32,7 +32,7 @@ public class GoalSuggestionRequest implements GoalConfigurationAware, GoalDescri
     }
 
     @Override
-    public DateTimeZone getTimezone() {
+    public String getTimezone() {
         return timezone;
     }
 

@@ -38,7 +38,7 @@ public class GoalInitiation implements
     @Id
     final private String goalKey;
     final private String goal;
-    final private DateTimeZone timezone;
+    final private String timezone;
     final private String tag;
     final private String player;
     final private Bank bank;
@@ -54,7 +54,7 @@ public class GoalInitiation implements
         @JsonProperty("bank") Bank bank,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") DateTimeZone timezone,
+        @JsonProperty("timezone") String timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("supporters") Set<String> supporters,
@@ -82,7 +82,7 @@ public class GoalInitiation implements
     }
 
     @Override
-    public DateTimeZone getTimezone() {
+    public String getTimezone() {
         return timezone;
     }
 

@@ -32,18 +32,18 @@ public class GoalConstruction implements
     final private String goalKey;
     final private String player;
     final private String goal;
+    final private String timezone;
     final private String tag;
     final private DateTime startDate;
     final private ConstructionState state;
     final private GoalConfiguration configuration;
-    final private DateTimeZone timezone;
 
     @JsonCreator
     public GoalConstruction(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") DateTimeZone timezone,
+        @JsonProperty("timezone") String timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("configuration") GoalConfiguration configuration,
@@ -88,7 +88,7 @@ public class GoalConstruction implements
     }
 
     @Override
-    public DateTimeZone getTimezone() {
+    public String getTimezone() {
         return timezone;
     }
 

@@ -22,13 +22,13 @@ public class EODTimeoutCalculator implements TimeoutCalculator {
     }
 
     @Override
-    public long calculate(DateTimeZone timezone, long moveStart) {
+    public long calculate(String timezone, long moveStart) {
         return calculate(timezone, moveStart, 0);
     }
 
     @Override
-    public long calculate(DateTimeZone timezone, long moveStart, long timeSpent) {
-        return new DateTime(moveStart, timezone).withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0).plusDays(days).getMillis();
+    public long calculate(String timezone, long moveStart, long timeSpent) {
+        return new DateTime(moveStart, DateTimeZone.forID(timezone)).withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0).plusDays(days).getMillis();
     }
 
     @Override
