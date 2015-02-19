@@ -7,6 +7,7 @@ package com.clemble.casino.lifecycle.configuration.rule.timeout;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.joda.time.DateTimeZone;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes(value = {
@@ -16,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public interface TimeoutCalculator {
 
-    public long calculate(long moveStart);
+    public long calculate(DateTimeZone timezone, long moveStart);
 
-    public long calculate(long moveStart, long timeSpent);
+    public long calculate(DateTimeZone timezone, long moveStart, long timeSpent);
 
 }
