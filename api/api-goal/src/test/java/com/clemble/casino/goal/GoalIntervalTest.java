@@ -8,7 +8,6 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.IntervalGoalRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.BasicReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.NoReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
-import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.PenaltyBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
@@ -17,11 +16,9 @@ import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.social.SocialProvider;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.junit.Assert;
-import org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.List;
@@ -35,14 +32,14 @@ public class GoalIntervalTest {
     final private GoalConfiguration base = new GoalConfiguration(
         "week",
         "Week",
-        new Bet(Money.create(Currency.FakeMoney, 0), Money.create(Currency.FakeMoney, 0)),
+        new Bet(Money.create(Currency.point, 0), Money.create(Currency.point, 0)),
         new BasicReminderRule(TimeUnit.HOURS.toMillis(4)),
         new BasicReminderRule(TimeUnit.HOURS.toMillis(2)),
-        new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 10)), new EODTimeoutCalculator(7)),
+        new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new EODTimeoutCalculator(7)),
         new TimeoutRule(LooseBreachPunishment.getInstance(), new EODTimeoutCalculator(7)),
         PrivacyRule.me,
         new GoalRoleConfiguration(
-            new Bet(Money.create(Currency.FakeMoney, 50), Money.create(Currency.FakeMoney, 70)),
+            new Bet(Money.create(Currency.point, 50), Money.create(Currency.point, 70)),
             3,
             NoReminderRule.INSTANCE,
             NoReminderRule.INSTANCE
@@ -53,8 +50,8 @@ public class GoalIntervalTest {
     final private List<IntervalGoalRule> intervalRules = ImmutableList.<IntervalGoalRule>of(
         new IntervalGoalRule(PrivacyRule.friends, 50, 5),
         new IntervalGoalRule(PrivacyRule.world, 50, 5),
-        new IntervalGoalRule(new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 10)), new EODTimeoutCalculator(2)), 50, 5),
-        new IntervalGoalRule(new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 20)), new EODTimeoutCalculator(1)), 50, 5),
+        new IntervalGoalRule(new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new EODTimeoutCalculator(2)), 50, 5),
+        new IntervalGoalRule(new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 20)), new EODTimeoutCalculator(1)), 50, 5),
         new IntervalGoalRule(new ShareRule(ImmutableSet.of(SocialProvider.twitter)), 50, 5),
         new IntervalGoalRule(new ShareRule(ImmutableSet.of(SocialProvider.facebook)), 50, 5)
     );
@@ -77,7 +74,7 @@ public class GoalIntervalTest {
     @Test
     public void testDefaultConfiguration() {
         GoalConfiguration configuration = goalBuilder.toConfiguration(150);
-        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 10)), new EODTimeoutCalculator(7)));
+        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new EODTimeoutCalculator(7)));
         Assert.assertEquals(configuration.getPrivacyRule(), PrivacyRule.me);
         Assert.assertEquals(configuration.getShareRule(), ShareRule.EMPTY);
     }
@@ -85,7 +82,7 @@ public class GoalIntervalTest {
     @Test
     public void testPrivacyAsFriends() {
         GoalConfiguration configuration = goalBuilder.toConfiguration(425);
-        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 10)), new EODTimeoutCalculator(7)));
+        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new EODTimeoutCalculator(7)));
         Assert.assertEquals(configuration.getPrivacyRule(), PrivacyRule.friends);
         Assert.assertEquals(configuration.getShareRule(), ShareRule.EMPTY);
     }
@@ -93,7 +90,7 @@ public class GoalIntervalTest {
     @Test
     public void testPrivacyAsWorld() {
         GoalConfiguration configuration = goalBuilder.toConfiguration(475);
-        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 10)), new EODTimeoutCalculator(7)));
+        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new EODTimeoutCalculator(7)));
         Assert.assertEquals(configuration.getPrivacyRule(), PrivacyRule.world);
         Assert.assertEquals(configuration.getShareRule(), ShareRule.EMPTY);
     }
@@ -101,7 +98,7 @@ public class GoalIntervalTest {
     @Test
     public void testMoveTime2DaysRule() {
         GoalConfiguration configuration = goalBuilder.toConfiguration(525);
-        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 10)), new EODTimeoutCalculator(2)));
+        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new EODTimeoutCalculator(2)));
         Assert.assertEquals(configuration.getPrivacyRule(), PrivacyRule.world);
         Assert.assertEquals(configuration.getShareRule(), ShareRule.EMPTY);
     }
@@ -109,7 +106,7 @@ public class GoalIntervalTest {
     @Test
     public void testMoveTimeDailyRule() {
         GoalConfiguration configuration = goalBuilder.toConfiguration(575);
-        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 20)), new EODTimeoutCalculator(1)));
+        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 20)), new EODTimeoutCalculator(1)));
         Assert.assertEquals(configuration.getPrivacyRule(), PrivacyRule.world);
         Assert.assertEquals(configuration.getShareRule(), ShareRule.EMPTY);
     }
@@ -117,7 +114,7 @@ public class GoalIntervalTest {
     @Test
     public void testShareFacebook() {
         GoalConfiguration configuration = goalBuilder.toConfiguration(625);
-        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 20)), new EODTimeoutCalculator(1)));
+        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 20)), new EODTimeoutCalculator(1)));
         Assert.assertEquals(configuration.getPrivacyRule(), PrivacyRule.world);
         Assert.assertEquals(configuration.getShareRule(), new ShareRule(ImmutableSet.of(SocialProvider.twitter)));
     }
@@ -125,7 +122,7 @@ public class GoalIntervalTest {
     @Test
     public void testShareTwitter() {
         GoalConfiguration configuration = goalBuilder.toConfiguration(675);
-        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.FakeMoney, 20)), new EODTimeoutCalculator(1)));
+        Assert.assertEquals(configuration.getMoveTimeoutRule(), new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 20)), new EODTimeoutCalculator(1)));
         Assert.assertEquals(configuration.getPrivacyRule(), PrivacyRule.world);
         Assert.assertEquals(configuration.getShareRule(), new ShareRule(ImmutableSet.of(SocialProvider.twitter, SocialProvider.facebook)));
     }

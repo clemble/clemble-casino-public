@@ -197,7 +197,7 @@ public class GoalState implements
                 return new GoalEndedEvent(player, this.copyWithStatus(newStatus, reachedAction).finish(), new PlayerWonOutcome(actor));
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
-                bank.add(new PlayerBet(player, new Bet(Money.create(Currency.FakeMoney, 0), punishmentAction.getAmount().negate())));
+                bank.add(new PlayerBet(player, new Bet(Money.create(Currency.point, 0), punishmentAction.getAmount().negate())));
                 if (bank.getBet(player).getBet().getInterest().getAmount() == 0) {
                     return new GoalEndedEvent(player, this.copyWithStatus("Missed", action).finish(), new PlayerLostOutcome(player));
                 } else {

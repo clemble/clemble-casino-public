@@ -117,7 +117,7 @@ public class JsonCreationTest {
 
     @Test
     public void test() throws JsonProcessingException {
-        RoundGameConfiguration configuration = new RoundGameConfiguration(Game.num, "low", new Money(Currency.FakeMoney, 50),
+        RoundGameConfiguration configuration = new RoundGameConfiguration(Game.num, "low", new Money(Currency.point, 50),
                 UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, LooseBreachPunishment.getInstance()), new TotalTimeRule(4000, LooseBreachPunishment.getInstance()), PrivacyRule.world, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
                 ImmutableList.<String> of("A", "B"), null);
 

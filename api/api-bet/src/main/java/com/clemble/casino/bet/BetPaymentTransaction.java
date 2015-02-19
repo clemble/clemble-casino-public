@@ -47,7 +47,7 @@ public class BetPaymentTransaction implements PaymentTransactionAware, PlayerBet
 
     public PaymentTransaction toTransaction(String winner) {
         // Step 1. Converting bids to operations
-        Money balance = Money.create(Currency.FakeMoney, 0);
+        Money balance = Money.create(Currency.point, 0);
         PaymentTransaction transaction = new PaymentTransaction().
             setTransactionKey(transactionKey);
         for(PlayerBet bet: bets) {

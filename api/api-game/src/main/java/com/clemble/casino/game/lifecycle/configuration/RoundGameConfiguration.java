@@ -35,7 +35,7 @@ public class RoundGameConfiguration implements GameConfiguration {
     final public static RoundGameConfiguration DEFAULT = new RoundGameConfiguration(
         Game.pic,
         "DEFAULT",
-        Money.create(Currency.FakeMoney, 50),
+        Money.create(Currency.point, 50),
         FixedBetRule.DEFAULT,
         GiveUpRule.lost,
         new MoveTimeRule(4000, LooseBreachPunishment.getInstance()),

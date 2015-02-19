@@ -149,7 +149,7 @@ public class TestObjectGeneratorInitializer {
             public PlayerAccount generate() {
             return new PlayerAccount(
                 RandomStringUtils.random(5),
-                ImmutableMap.of(Currency.FakeMoney, Money.create(Currency.FakeMoney, 500)),
+                ImmutableMap.of(Currency.point, Money.create(Currency.point, 500)),
                 null);
             }
         });
@@ -160,8 +160,8 @@ public class TestObjectGeneratorInitializer {
                 setTransactionKey(RandomStringUtils.random(5)).
                 setTransactionDate(DateTime.now(DateTimeZone.UTC)).
                 setProcessingDate(DateTime.now(DateTimeZone.UTC)).
-                addOperation(new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Credit)).
-                addOperation(new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.FakeMoney, 50), Operation.Debit));
+                addOperation(new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.point, 50), Operation.Credit)).
+                addOperation(new PaymentOperation(RandomStringUtils.random(5), Money.create(Currency.point, 50), Operation.Debit));
             }
         });
         ObjectGenerator.register(PlayerCredential.class, new AbstractValueGenerator<PlayerCredential>() {
@@ -232,7 +232,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
             @Override
             public TournamentGameConfiguration generate() {
-            return new TournamentGameConfiguration(Game.pic, "AAA", new Money(Currency.FakeMoney, 50), PrivacyRule.me, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
+            return new TournamentGameConfiguration(Game.pic, "AAA", new Money(Currency.point, 50), PrivacyRule.me, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
             }
         });
 
