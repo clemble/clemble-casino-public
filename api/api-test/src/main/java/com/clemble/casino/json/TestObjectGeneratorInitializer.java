@@ -60,6 +60,12 @@ import com.google.common.collect.ImmutableList;
 public class TestObjectGeneratorInitializer {
 
     public static void init() {
+        ObjectGenerator.register(DateTimeZone.class, new AbstractValueGenerator<DateTimeZone>() {
+            @Override
+            public DateTimeZone generate() {
+                return DateTimeZone.UTC;
+            }
+        });
         ObjectGenerator.register(DateTime.class, new AbstractValueGenerator<DateTime>() {
             @Override
             public DateTime generate() {

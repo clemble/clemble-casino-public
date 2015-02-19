@@ -14,6 +14,7 @@ import com.clemble.casino.game.lifecycle.construction.GameConstruction;
 import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.test.random.AbstractValueGenerator;
+import org.joda.time.DateTimeZone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +49,12 @@ public class JsonCreationTest {
     @Before
     public void initialize() {
         TestObjectGeneratorInitializer.init();
+        ObjectGenerator.register(DateTimeZone.class, new AbstractValueGenerator<DateTimeZone>() {
+            @Override
+            public DateTimeZone generate() {
+                return DateTimeZone.UTC;
+            }
+        });
         ObjectGenerator.register(RoundGameState.class, new AbstractValueGenerator<RoundGameState>() {
             @Override
             public RoundGameState generate() {

@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 import java.util.Collections;
@@ -37,6 +38,7 @@ public class GoalInitiation implements
     @Id
     final private String goalKey;
     final private String goal;
+    final private DateTimeZone timezone;
     final private String tag;
     final private String player;
     final private Bank bank;
@@ -52,11 +54,13 @@ public class GoalInitiation implements
         @JsonProperty("bank") Bank bank,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
+        @JsonProperty("timezone") DateTimeZone timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("startDate") DateTime startDate) {
         this.goal = goal;
+        this.timezone = timezone;
         this.tag = tag;
         this.state = state;
         this.bank = bank;
@@ -75,6 +79,11 @@ public class GoalInitiation implements
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public DateTimeZone getTimezone() {
+        return timezone;
     }
 
     @Override
@@ -118,6 +127,7 @@ public class GoalInitiation implements
             RecordState.active,
             bank,
             goal,
+            timezone,
             tag,
             configuration,
             Collections.<EventRecord>emptySet(),
@@ -125,7 +135,7 @@ public class GoalInitiation implements
     }
 
     public GoalInitiation copyWithState(InitiationState state) {
-        return new GoalInitiation(goalKey, state, bank, player, goal, tag, configuration, supporters, startDate);
+        return new GoalInitiation(goalKey, state, bank, player, goal, timezone, tag, configuration, supporters, startDate);
     }
 
     @Override

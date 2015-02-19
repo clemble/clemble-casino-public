@@ -31,6 +31,7 @@ import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 import java.util.Set;
@@ -64,6 +65,7 @@ public class GoalState implements
     final private Action lastAction;
     final private DateTime startDate;
     final private DateTime deadline;
+    final private DateTimeZone timezone;
 
     @JsonCreator
     public GoalState(
@@ -73,6 +75,7 @@ public class GoalState implements
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
+        @JsonProperty("timezone") DateTimeZone timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,
@@ -93,6 +96,7 @@ public class GoalState implements
         this.tag = tag;
         this.status = status;
         this.lastAction = lastAction;
+        this.timezone = timezone;
     }
 
     @Override
@@ -113,6 +117,11 @@ public class GoalState implements
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public DateTimeZone getTimezone() {
+        return timezone;
     }
 
     @Override
@@ -219,6 +228,7 @@ public class GoalState implements
             player,
             bank,
             goal,
+            timezone,
             tag,
             configuration,
             context,
@@ -240,6 +250,7 @@ public class GoalState implements
                     player,
                     bank,
                     goal,
+                    timezone,
                     tag,
                     configuration,
                     context,
@@ -263,6 +274,7 @@ public class GoalState implements
                     player,
                     bank,
                     goal,
+                    timezone,
                     tag,
                     configuration,
                     context,

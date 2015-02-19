@@ -5,6 +5,7 @@ import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTimeZone;
 
 /**
  * Created by mavarazy on 1/3/15.
@@ -13,18 +14,26 @@ public class GoalSuggestionRequest implements GoalConfigurationAware, GoalDescri
 
     final private String goal;
     final private GoalConfiguration configuration;
+    final private DateTimeZone timezone;
 
     @JsonCreator
     public GoalSuggestionRequest(
         @JsonProperty("goal") String goal,
+        @JsonProperty("timezone") DateTimeZone timezone,
         @JsonProperty("configuration") GoalConfiguration configuration) {
         this.goal = goal;
+        this.timezone = timezone;
         this.configuration = configuration;
     }
 
     @Override
     public String getGoal() {
         return goal;
+    }
+
+    @Override
+    public DateTimeZone getTimezone() {
+        return timezone;
     }
 
     @Override

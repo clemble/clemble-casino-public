@@ -14,6 +14,7 @@ import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 import java.util.Set;
@@ -37,6 +38,7 @@ public class GoalRecord implements
     final private RecordState state;
     final private String player;
     final private String goal;
+    final private DateTimeZone timezone;
     final private String tag;
     final private Bank bank;
     final private GoalConfiguration configuration;
@@ -50,11 +52,13 @@ public class GoalRecord implements
         @JsonProperty("state") RecordState state,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
+        @JsonProperty("timezone") DateTimeZone timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("eventRecords") Set<EventRecord> eventRecords,
         @JsonProperty("outcome") Outcome outcome) {
         this.goal = goal;
+        this.timezone = timezone;
         this.tag = tag;
         this.state = state;
         this.player = player;
@@ -102,6 +106,11 @@ public class GoalRecord implements
     }
 
     @Override
+    public DateTimeZone getTimezone() {
+        return timezone;
+    }
+
+    @Override
     public String getTag() {
         return tag;
     }
@@ -117,6 +126,7 @@ public class GoalRecord implements
             state,
             bank,
             goal,
+            timezone,
             tag,
             configuration,
             eventRecords,

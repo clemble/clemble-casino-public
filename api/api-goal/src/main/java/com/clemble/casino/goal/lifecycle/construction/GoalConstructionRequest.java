@@ -36,6 +36,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
         return configuration;
     }
 
+    @Override
     public DateTimeZone getTimezone() {
         return timezone;
     }
@@ -47,7 +48,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
 
     @Override
     public GoalConstruction toConstruction(String player, String goalKey) {
-        return new GoalConstruction(goalKey, player, goal, TagUtils.getTag(goal), DateTime.now(timezone), configuration, ConstructionState.pending);
+        return new GoalConstruction(goalKey, player, goal, timezone, TagUtils.getTag(goal), DateTime.now(timezone), configuration, ConstructionState.pending);
     }
 
     @Override

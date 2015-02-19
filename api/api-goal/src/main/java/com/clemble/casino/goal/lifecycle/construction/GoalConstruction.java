@@ -13,6 +13,7 @@ import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 import java.util.HashSet;
@@ -35,12 +36,14 @@ public class GoalConstruction implements
     final private DateTime startDate;
     final private ConstructionState state;
     final private GoalConfiguration configuration;
+    final private DateTimeZone timezone;
 
     @JsonCreator
     public GoalConstruction(
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
+        @JsonProperty("timezone") DateTimeZone timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("configuration") GoalConfiguration configuration,
@@ -48,6 +51,7 @@ public class GoalConstruction implements
         this.goalKey = goalKey;
         this.player = player;
         this.goal = goal;
+        this.timezone = timezone;
         this.tag = tag;
         this.startDate = startDate;
         this.configuration = configuration;
@@ -84,6 +88,11 @@ public class GoalConstruction implements
     }
 
     @Override
+    public DateTimeZone getTimezone() {
+        return timezone;
+    }
+
+    @Override
     public String getTag() {
         return tag;
     }
@@ -91,15 +100,15 @@ public class GoalConstruction implements
     @Override
     public GoalInitiation toInitiation(){
         // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBet()), player, goal, tag, configuration, new HashSet<String>(), startDate);
+        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBet()), player, goal, timezone, tag, configuration, new HashSet<String>(), startDate);
     }
 
     public GoalConstruction clone(ConstructionState state) {
-        return new GoalConstruction(goalKey, player, goal, tag, startDate, configuration, state);
+        return new GoalConstruction(goalKey, player, goal, timezone, tag, startDate, configuration, state);
     }
 
     public GoalConstruction clone(String goalKey, ConstructionState state) {
-        return new GoalConstruction(goalKey, player, goal, tag, startDate, configuration, state);
+        return new GoalConstruction(goalKey, player, goal, timezone, tag, startDate, configuration, state);
     }
 
     @Override
