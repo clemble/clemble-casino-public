@@ -66,4 +66,28 @@ public class GoalReachedPost implements GoalPost {
         );
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GoalReachedPost)) return false;
+
+        GoalReachedPost that = (GoalReachedPost) o;
+
+        if (!created.equals(that.created)) return false;
+        if (!key.equals(that.key)) return false;
+        if (!player.equals(that.player)) return false;
+        if (!state.equals(that.state)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = key.hashCode();
+        result = 31 * result + player.hashCode();
+        result = 31 * result + state.hashCode();
+        result = 31 * result + created.hashCode();
+        return result;
+    }
+
 }
