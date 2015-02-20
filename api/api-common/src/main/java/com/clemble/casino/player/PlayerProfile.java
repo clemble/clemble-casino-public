@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.clemble.casino.error.validation.MinSize;
 import com.clemble.casino.error.validation.NoWhiteSpaces;
+import com.clemble.casino.social.SocialProvider;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
@@ -67,13 +68,13 @@ public class PlayerProfile implements PlayerAware, PlayerNickNameAware {
         return socialConnections;
     }
     
-    public ConnectionKey getSocialConnection(String socialNetwork) {
+    public ConnectionKey getSocialConnection(SocialProvider provider) {
         // Step 1. Sanity check
-        if(socialNetwork == null)
+        if(provider == null)
             return null;
         // Step 2. Filtering social connections
         for(ConnectionKey key: socialConnections)
-            if(key.getProviderId().equals(socialNetwork))
+            if(key.getProviderId().equals(provider.name()))
                 return key;
         // Step 3. No connection found returning null
         return null;
