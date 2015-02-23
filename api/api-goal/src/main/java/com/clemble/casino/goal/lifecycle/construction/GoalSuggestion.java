@@ -4,7 +4,6 @@ import com.clemble.casino.CreatedAware;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
-import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
 import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.payment.Bank;
@@ -25,7 +24,6 @@ public class GoalSuggestion implements
     GoalDescriptionAware,
     PlayerAware,
     GoalAware,
-    GoalConfigurationAware,
     TagAware,
     CreatedAware {
 
@@ -36,7 +34,6 @@ public class GoalSuggestion implements
     final private String tag;
     final private String player;
     final private String suggester;
-    final private GoalConfiguration configuration;
     final private GoalSuggestionState state;
     final private DateTime created;
 
@@ -48,7 +45,6 @@ public class GoalSuggestion implements
         @JsonProperty("tag") String tag,
         @JsonProperty("player") String player,
         @JsonProperty("suggester") String suggester,
-        @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("state") GoalSuggestionState state,
         @JsonProperty("created") DateTime created) {
         this.goalKey = goalKey;
@@ -57,7 +53,6 @@ public class GoalSuggestion implements
         this.goal = goal;
         this.timezone = timezone;
         this.tag = tag;
-        this.configuration = configuration;
         this.state = state;
         this.created = created;
     }
@@ -92,11 +87,6 @@ public class GoalSuggestion implements
     }
 
     @Override
-    public GoalConfiguration getConfiguration() {
-        return configuration;
-    }
-
-    @Override
     public DateTime getCreated() {
         return created;
     }
@@ -105,11 +95,11 @@ public class GoalSuggestion implements
         return  state;
     }
 
-    public GoalInitiation toInitiation() {
+    public GoalInitiation toInitiation(GoalConfiguration configuration) {
         return new GoalInitiation(
             goalKey,
             InitiationState.pending,
-            Bank.create(getPlayer(), getConfiguration().getBet()),
+            Bank.create(getPlayer(), configuration.getBet()),
             player,
             goal,
             timezone,
@@ -120,7 +110,7 @@ public class GoalSuggestion implements
     }
 
     public GoalSuggestion copyWithStatus(GoalSuggestionState state) {
-        return new GoalSuggestion(goalKey, goal, timezone, tag, player, suggester, configuration, state, DateTime.now());
+        return new GoalSuggestion(goalKey, goal, timezone, tag, player, suggester, state, DateTime.now());
     }
 
     @Override
@@ -130,7 +120,6 @@ public class GoalSuggestion implements
 
         GoalSuggestion that = (GoalSuggestion) o;
 
-        if (!configuration.equals(that.configuration)) return false;
         if (!goal.equals(that.goal)) return false;
         if (!goalKey.equals(that.goalKey)) return false;
         if (!suggester.equals(that.suggester)) return false;
@@ -144,7 +133,6 @@ public class GoalSuggestion implements
     public int hashCode() {
         int result = goalKey.hashCode();
         result = 31 * result + goal.hashCode();
-        result = 31 * result + configuration.hashCode();
         result = 31 * result + state.hashCode();
         result = 31 * result + suggester.hashCode();
         result = 31 * result + player.hashCode();

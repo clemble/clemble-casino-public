@@ -4,7 +4,6 @@ import com.clemble.casino.player.event.*;
 import com.clemble.casino.player.notification.PlayerConnectedNotification;
 import com.clemble.casino.player.notification.PlayerDiscoveredNotification;
 import com.clemble.casino.player.notification.PlayerInvitedNotification;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -20,7 +19,7 @@ public class PlayerJsonModule implements ClembleJsonModule {
         SimpleModule module = new SimpleModule("Player");
         module.registerSubtypes(new NamedType(PlayerDiscoveredConnectionEvent.class, PlayerDiscoveredConnectionEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(PlayerInvitedConnectionEvent.class, PlayerInvitedConnectionEvent.JSON_TYPE));
-        module.registerSubtypes(new NamedType(PlayerConnectedEvent.class, PlayerConnectedEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(PlayerConnectionAddEvent.class, PlayerConnectionAddEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(PlayerProfileChangedEvent.class, PlayerProfileChangedEvent.JSON_TYPE));
 
         module.registerSubtypes(new NamedType(PlayerInvitationAcceptedAction.class, PlayerInvitationAcceptedAction.JSON_TYPE));

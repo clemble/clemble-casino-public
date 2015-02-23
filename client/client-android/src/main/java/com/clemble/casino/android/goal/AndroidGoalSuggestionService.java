@@ -3,6 +3,7 @@ package com.clemble.casino.android.goal;
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestion;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestionRequest;
+import com.clemble.casino.goal.lifecycle.construction.GoalSuggestionResponse;
 import com.clemble.casino.goal.lifecycle.construction.service.GoalSuggestionService;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -73,11 +74,11 @@ public class AndroidGoalSuggestionService extends AbstractClembleCasinoOperation
     }
 
     @Override
-    public GoalSuggestion reply(String goalKey, boolean accept) {
+    public GoalSuggestion reply(String goalKey, GoalSuggestionResponse response) {
         // Step 1. Generating URI
         URI uri = buildUri(toGoalSuggestionUrl(MY_SUGGESTIONS_GOAL), goalKey);
         // Step 2. Publishing response
-        return restTemplate.postForObject(uri, accept, GoalSuggestion.class);
+        return restTemplate.postForObject(uri, response, GoalSuggestion.class);
     }
 
 }

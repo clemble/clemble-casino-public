@@ -10,20 +10,17 @@ import org.joda.time.DateTimeZone;
 /**
  * Created by mavarazy on 1/3/15.
  */
-public class GoalSuggestionRequest implements GoalConfigurationAware, GoalDescriptionAware {
+public class GoalSuggestionRequest implements GoalDescriptionAware {
 
     final private String goal;
-    final private GoalConfiguration configuration;
     final private String timezone;
 
     @JsonCreator
     public GoalSuggestionRequest(
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") String timezone,
-        @JsonProperty("configuration") GoalConfiguration configuration) {
+        @JsonProperty("timezone") String timezone) {
         this.goal = goal;
         this.timezone = timezone;
-        this.configuration = configuration;
     }
 
     @Override
@@ -37,18 +34,12 @@ public class GoalSuggestionRequest implements GoalConfigurationAware, GoalDescri
     }
 
     @Override
-    public GoalConfiguration getConfiguration() {
-        return configuration;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         GoalSuggestionRequest that = (GoalSuggestionRequest) o;
 
-        if (!configuration.equals(that.configuration)) return false;
         if (!goal.equals(that.goal)) return false;
 
         return true;
@@ -57,7 +48,6 @@ public class GoalSuggestionRequest implements GoalConfigurationAware, GoalDescri
     @Override
     public int hashCode() {
         int result = goal.hashCode();
-        result = 31 * result + configuration.hashCode();
         return result;
     }
 }

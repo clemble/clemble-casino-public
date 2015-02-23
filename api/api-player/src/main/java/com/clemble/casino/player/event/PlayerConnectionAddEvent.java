@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 11/29/14.
  */
-@JsonTypeName(PlayerConnectedEvent.JSON_TYPE)
-public class PlayerConnectedEvent implements PlayerConnectionAware, PlayerNotificationConvertible, PlayerEvent {
+@JsonTypeName(PlayerConnectionAddEvent.JSON_TYPE)
+public class PlayerConnectionAddEvent implements PlayerConnectionAware, PlayerNotificationConvertible, PlayerEvent {
 
     final public static String JSON_TYPE = "player:connection:add";
 
@@ -20,7 +20,7 @@ public class PlayerConnectedEvent implements PlayerConnectionAware, PlayerNotifi
     final private String connection;
 
     @JsonCreator
-    public PlayerConnectedEvent(@JsonProperty(PLAYER) String player, @JsonProperty("connection") String connection) {
+    public PlayerConnectionAddEvent(@JsonProperty(PLAYER) String player, @JsonProperty("connection") String connection) {
         this.player = player;
         this.connection = connection;
     }
@@ -45,7 +45,7 @@ public class PlayerConnectedEvent implements PlayerConnectionAware, PlayerNotifi
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlayerConnectedEvent that = (PlayerConnectedEvent) o;
+        PlayerConnectionAddEvent that = (PlayerConnectionAddEvent) o;
 
         if (!connection.equals(that.connection)) return false;
         if (!player.equals(that.player)) return false;

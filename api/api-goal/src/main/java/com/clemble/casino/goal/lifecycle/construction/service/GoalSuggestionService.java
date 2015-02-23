@@ -3,6 +3,7 @@ package com.clemble.casino.goal.lifecycle.construction.service;
 import com.clemble.casino.ClembleService;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestion;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestionRequest;
+import com.clemble.casino.goal.lifecycle.construction.GoalSuggestionResponse;
 
 import java.util.List;
 
@@ -23,6 +24,6 @@ public interface GoalSuggestionService extends ClembleService {
 
     GoalSuggestion addSuggestion(String player, GoalSuggestionRequest suggestionRequest);
 
-    GoalSuggestion reply(String goalKey, boolean accept);
+    GoalSuggestion reply(String goalKey, GoalSuggestionResponse response);
 
 }

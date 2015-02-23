@@ -1,15 +1,11 @@
 package com.clemble.casino.player.notification;
 
-import com.clemble.casino.notification.PlayerNotification;
-import com.clemble.casino.player.event.PlayerConnectedEvent;
 import com.clemble.casino.player.event.PlayerDiscoveredConnectionEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-
-import java.util.Date;
 
 /**
  * Created by mavarazy on 11/29/14.

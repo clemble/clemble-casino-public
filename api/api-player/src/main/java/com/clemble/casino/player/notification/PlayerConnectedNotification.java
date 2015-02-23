@@ -1,13 +1,11 @@
 package com.clemble.casino.player.notification;
 
-import com.clemble.casino.player.event.PlayerConnectedEvent;
+import com.clemble.casino.player.event.PlayerConnectionAddEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-
-import java.util.Date;
 
 /**
  * Created by mavarazy on 11/29/14.
@@ -54,7 +52,7 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
         return created;
     }
 
-    public static PlayerConnectedNotification create(PlayerConnectedEvent connectedEvent) {
+    public static PlayerConnectedNotification create(PlayerConnectionAddEvent connectedEvent) {
         String key = connectedEvent.getPlayer() + ":" + connectedEvent.getConnection();
         return new PlayerConnectedNotification(key, connectedEvent.getPlayer(), connectedEvent.getConnection(), DateTime.now(DateTimeZone.UTC));
     }
