@@ -4,7 +4,6 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.GoalRuleValue;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.ConfigurationBuilder;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -21,7 +20,6 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
     final private List<GoalRuleValue<TimeoutRule>> totalTimeoutRule;
     final private List<GoalRuleValue<ReminderRule>> emailReminderRule;
     final private List<GoalRuleValue<ReminderRule>> phoneReminderRule;
-    final private List<GoalRuleValue<PrivacyRule>> privacyRule;
     final private List<GoalRuleValue<TimeoutRule>> moveTimeoutRule;
     final private List<GoalRuleValue<GoalRoleConfiguration>> supporterConfiguration;
     final private List<GoalRuleValue<ShareRule>> shareRule;
@@ -33,7 +31,6 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
         @JsonProperty("moveTimeoutRule") List<GoalRuleValue<TimeoutRule>> moveTimeoutRule,
         @JsonProperty("emailReminderRule") List<GoalRuleValue<ReminderRule>> emailReminderRule,
         @JsonProperty("phoneReminderRule") List<GoalRuleValue<ReminderRule>> phoneReminderRule,
-        @JsonProperty("privacyRule") List<GoalRuleValue<PrivacyRule>> privacyRule,
         @JsonProperty("supporterConfiguration") List<GoalRuleValue<GoalRoleConfiguration>> supporterConfiguration,
         @JsonProperty("shareRule") List<GoalRuleValue<ShareRule>> shareRule
     ) {
@@ -41,7 +38,6 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
         this.totalTimeoutRule = totalTimeoutRule;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
-        this.privacyRule = privacyRule;
         this.moveTimeoutRule = moveTimeoutRule;
         this.supporterConfiguration = supporterConfiguration;
         this.shareRule = shareRule;
@@ -61,10 +57,6 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
 
     public List<GoalRuleValue<ReminderRule>> getPhoneReminderRule() {
         return phoneReminderRule;
-    }
-
-    public List<GoalRuleValue<PrivacyRule>> getPrivacyRule() {
-        return privacyRule;
     }
 
     public List<GoalRuleValue<TimeoutRule>> getMoveTimeoutRule() {
@@ -90,7 +82,6 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
         if (!emailReminderRule.equals(that.emailReminderRule)) return false;
         if (!moveTimeoutRule.equals(that.moveTimeoutRule)) return false;
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
-        if (!privacyRule.equals(that.privacyRule)) return false;
         if (!shareRule.equals(that.shareRule)) return false;
         if (!supporterConfiguration.equals(that.supporterConfiguration)) return false;
         if (!totalTimeoutRule.equals(that.totalTimeoutRule)) return false;
@@ -104,7 +95,6 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
         result = 31 * result + totalTimeoutRule.hashCode();
         result = 31 * result + emailReminderRule.hashCode();
         result = 31 * result + phoneReminderRule.hashCode();
-        result = 31 * result + privacyRule.hashCode();
         result = 31 * result + moveTimeoutRule.hashCode();
         result = 31 * result + supporterConfiguration.hashCode();
         result = 31 * result + shareRule.hashCode();

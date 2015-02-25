@@ -39,7 +39,6 @@ import com.clemble.casino.game.lifecycle.construction.AutomaticGameRequest;
 import com.clemble.casino.game.lifecycle.construction.GameConstruction;
 import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
 import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
 import com.clemble.casino.game.lifecycle.configuration.TournamentGameConfiguration;
 import com.clemble.casino.payment.PaymentOperation;
@@ -208,12 +207,6 @@ public class TestObjectGeneratorInitializer {
             return RoundGameConfiguration.DEFAULT;
             }
         });
-        ObjectGenerator.register(PrivacyRule.class, new AbstractValueGenerator<PrivacyRule>() {
-            @Override
-            public PrivacyRule generate() {
-                return PrivacyRule.world;
-            }
-        });
         ObjectGenerator.register(VersionAware.class, "version", new ValueGenerator<Integer>() {
             @Override
             public Integer generate() {
@@ -238,7 +231,7 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
             @Override
             public TournamentGameConfiguration generate() {
-            return new TournamentGameConfiguration(Game.pic, "AAA", new Money(Currency.point, 50), PrivacyRule.me, PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
+            return new TournamentGameConfiguration(Game.pic, "AAA", new Money(Currency.point, 50), PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
             }
         });
 

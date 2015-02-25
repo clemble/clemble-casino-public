@@ -24,7 +24,6 @@ import com.clemble.casino.game.Game;
 import com.clemble.casino.game.lifecycle.initiation.event.GameInitiationCanceledEvent;
 import com.clemble.casino.lifecycle.configuration.rule.bet.UnlimitedBetRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.DrawRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.WonRule;
@@ -125,7 +124,7 @@ public class JsonCreationTest {
     @Test
     public void test() throws JsonProcessingException {
         RoundGameConfiguration configuration = new RoundGameConfiguration(Game.num, "low", new Money(Currency.point, 50),
-                UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, LooseBreachPunishment.getInstance()), new TotalTimeRule(4000, LooseBreachPunishment.getInstance()), PrivacyRule.world, PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
+                UnlimitedBetRule.INSTANCE, GiveUpRule.all, new MoveTimeRule(2000, LooseBreachPunishment.getInstance()), new TotalTimeRule(4000, LooseBreachPunishment.getInstance()), PlayerNumberRule.two, VisibilityRule.visible, DrawRule.owned, WonRule.price,
                 ImmutableList.<String> of("A", "B"), null);
 
         System.out.println(objectMapper.writeValueAsString(configuration));

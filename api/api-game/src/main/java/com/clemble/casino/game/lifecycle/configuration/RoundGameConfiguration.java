@@ -9,7 +9,6 @@ import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.FixedBetRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.giveup.GiveUpRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.DrawRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.WonRule;
@@ -40,7 +39,6 @@ public class RoundGameConfiguration implements GameConfiguration {
         GiveUpRule.lost,
         new MoveTimeRule(4000, LooseBreachPunishment.getInstance()),
         new TotalTimeRule(4000, LooseBreachPunishment.getInstance()),
-        PrivacyRule.world,
         PlayerNumberRule.two,
         VisibilityRule.hidden,
         DrawRule.owned,
@@ -56,7 +54,6 @@ public class RoundGameConfiguration implements GameConfiguration {
     final private GiveUpRule giveUpRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
-    final private PrivacyRule privacyRule;
     final private PlayerNumberRule numberRule;
     final private VisibilityRule visibilityRule;
     final private DrawRule drawRule;
@@ -73,7 +70,6 @@ public class RoundGameConfiguration implements GameConfiguration {
         @JsonProperty("giveUpRule") GiveUpRule giveUpRule,
         @JsonProperty("moveTimeRule") MoveTimeRule moveTimeRule,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
-        @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("numberRule") PlayerNumberRule numberRule,
         @JsonProperty("visibilityRule") VisibilityRule visibilityRule,
         @JsonProperty("drawRule") DrawRule drawRule,
@@ -88,7 +84,6 @@ public class RoundGameConfiguration implements GameConfiguration {
         this.giveUpRule = giveUpRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
-        this.privacyRule = privacyRule;
         this.numberRule = numberRule;
         this.visibilityRule = visibilityRule;
         this.drawRule = drawRule;
@@ -105,11 +100,6 @@ public class RoundGameConfiguration implements GameConfiguration {
     @Override
     public String getConfigurationKey() {
         return configurationKey;
-    }
-
-    @Override
-    public PrivacyRule getPrivacyRule() {
-        return privacyRule;
     }
 
     @Override
@@ -179,7 +169,6 @@ public class RoundGameConfiguration implements GameConfiguration {
         if (numberRule != that.numberRule) return false;
         if (playerUnits != null ? !playerUnits.equals(that.playerUnits) : that.playerUnits != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (privacyRule != that.privacyRule) return false;
         if (roles != null ? !roles.equals(that.roles) : that.roles != null) return false;
         if (totalTimeRule != null ? !totalTimeRule.equals(that.totalTimeRule) : that.totalTimeRule != null)
             return false;
@@ -197,7 +186,6 @@ public class RoundGameConfiguration implements GameConfiguration {
         result = 31 * result + (giveUpRule != null ? giveUpRule.hashCode() : 0);
         result = 31 * result + (moveTimeRule != null ? moveTimeRule.hashCode() : 0);
         result = 31 * result + (totalTimeRule != null ? totalTimeRule.hashCode() : 0);
-        result = 31 * result + (privacyRule != null ? privacyRule.hashCode() : 0);
         result = 31 * result + (numberRule != null ? numberRule.hashCode() : 0);
         result = 31 * result + (visibilityRule != null ? visibilityRule.hashCode() : 0);
         result = 31 * result + (drawRule != null ? drawRule.hashCode() : 0);

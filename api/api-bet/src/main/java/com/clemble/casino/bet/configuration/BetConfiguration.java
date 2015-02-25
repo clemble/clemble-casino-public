@@ -2,34 +2,24 @@ package com.clemble.casino.bet.configuration;
 
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRuleAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 9/6/14.
  */
-public class BetConfiguration implements Configuration, PrivacyRuleAware {
+public class BetConfiguration implements Configuration {
 
     final private BetRule betRule;
-    final private PrivacyRule privacyRule;
 
     @JsonCreator
     public BetConfiguration(
-        @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("betRule") BetRule betRule) {
-        this.privacyRule = privacyRule;
         this.betRule = betRule;
     }
 
     public BetRule getBetRule() {
         return betRule;
-    }
-
-    @Override
-    public PrivacyRule getPrivacyRule() {
-        return privacyRule;
     }
 
     @Override
@@ -39,14 +29,12 @@ public class BetConfiguration implements Configuration, PrivacyRuleAware {
 
         BetConfiguration that = (BetConfiguration) o;
 
-        if (privacyRule != that.privacyRule) return false;
-
-        return true;
+        return that.betRule.equals(this.betRule);
     }
 
     @Override
     public int hashCode() {
-        return privacyRule.hashCode();
+        return betRule.hashCode();
     }
 
 }

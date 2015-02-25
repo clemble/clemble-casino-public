@@ -2,7 +2,6 @@ package com.clemble.casino.game.lifecycle.configuration;
 
 import com.clemble.casino.game.Game;
 import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.DrawRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.outcome.WonRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;
@@ -32,7 +31,6 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
 
     final private WonRule wonRule;
     final private DrawRule drawRule;
-    final private PrivacyRule privacyRule;
     final private MoveTimeRule moveTimeRule;
     final private TotalTimeRule totalTimeRule;
     final private PlayerNumberRule numberRule;
@@ -45,7 +43,6 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
         @JsonProperty("game") Game game,
         @JsonProperty("configurationKey") String configurationKey,
         @JsonProperty("price") Money price,
-        @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("numberRule") PlayerNumberRule numberRule,
         @JsonProperty("configuration") GameConfiguration configuration,
         @JsonProperty("totalTimeRule") TotalTimeRule totalTimeRule,
@@ -58,7 +55,6 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
         this.wonRule = wonRule;
         this.drawRule = drawRule;
         this.numberRule = numberRule;
-        this.privacyRule = privacyRule;
         this.moveTimeRule = moveTimeRule;
         this.totalTimeRule = totalTimeRule;
         this.configuration = configuration;
@@ -89,11 +85,6 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
     @Override
     public GameConfiguration getConfiguration() {
         return configuration;
-    }
-
-    @Override
-    public PrivacyRule getPrivacyRule() {
-        return privacyRule;
     }
 
     @Override
@@ -130,7 +121,6 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
         result = prime * result + ((moveTimeRule == null) ? 0 : moveTimeRule.hashCode());
         result = prime * result + ((numberRule == null) ? 0 : numberRule.hashCode());
         result = prime * result + ((price == null) ? 0 : price.hashCode());
-        result = prime * result + ((privacyRule == null) ? 0 : privacyRule.hashCode());
         result = prime * result + ((totalTimeRule == null) ? 0 : totalTimeRule.hashCode());
         return result;
     }
@@ -165,8 +155,6 @@ public class TournamentGameConfiguration implements GameConfiguration, GameConfi
             if (other.price != null)
                 return false;
         } else if (!price.equals(other.price))
-            return false;
-        if (privacyRule != other.privacyRule)
             return false;
         if (totalTimeRule == null) {
             if (other.totalTimeRule != null)

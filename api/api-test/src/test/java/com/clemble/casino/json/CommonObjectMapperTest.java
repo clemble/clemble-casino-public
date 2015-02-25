@@ -8,7 +8,6 @@ import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.payment.bonus.DailyBonusPaymentSource;
 import com.clemble.casino.player.PlayerProfile;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.player.notification.PlayerDiscoveredNotification;
 import com.clemble.casino.player.notification.PlayerInvitedNotification;
 import com.clemble.casino.utils.CollectionUtils;
@@ -47,7 +46,6 @@ public class CommonObjectMapperTest extends AbstractObjectMapperTest {
     public void testSpecialCases() {
         assertNull(checkSerialization(DailyBonusPaymentSource.class));
         assertNull(checkSerialization(PlayerProfile.class));
-        assertNull(checkSerialization(PrivacyRule.class));
         assertNull(checkSerialization(GoalState.class));
         assertNull(checkSerialization(PlayerProfile.class));
     }

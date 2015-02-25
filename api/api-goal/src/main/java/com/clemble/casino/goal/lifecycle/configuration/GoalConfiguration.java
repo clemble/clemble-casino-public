@@ -5,8 +5,6 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRul
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRuleAware;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.social.SocialProvider;
@@ -22,7 +20,6 @@ import java.util.HashSet;
  */
 @JsonTypeName("short")
 public class GoalConfiguration implements
-    PrivacyRuleAware,
     Configuration,
     GoalConfigurationKeyAware {
 
@@ -31,7 +28,6 @@ public class GoalConfiguration implements
     final private Bet bet;
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
-    final private PrivacyRule privacyRule;
     final private TimeoutRule moveTimeoutRule;
     final private TimeoutRule totalTimeoutRule;
     final private GoalRoleConfiguration supporterConfiguration;
@@ -46,7 +42,6 @@ public class GoalConfiguration implements
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule,
         @JsonProperty("moveTimeRule") TimeoutRule moveTimeoutRule,
         @JsonProperty("totalTimeRule") TimeoutRule totalTimeoutRule,
-        @JsonProperty("privacyRule") PrivacyRule privacyRule,
         @JsonProperty("supporterConfiguration") GoalRoleConfiguration supporterConfiguration,
         @JsonProperty("shareRule") ShareRule shareRule
     ) {
@@ -57,7 +52,6 @@ public class GoalConfiguration implements
         this.phoneReminderRule = phoneReminderRule;
         this.moveTimeoutRule = moveTimeoutRule;
         this.totalTimeoutRule = totalTimeoutRule;
-        this.privacyRule = privacyRule;
         this.supporterConfiguration = supporterConfiguration;
         this.shareRule = shareRule;
     }
@@ -95,30 +89,12 @@ public class GoalConfiguration implements
         return supporterConfiguration;
     }
 
-    @Override
-    public PrivacyRule getPrivacyRule() {
-        return privacyRule;
-    }
-
     public ShareRule getShareRule() {
         return shareRule;
     }
 
     public GoalConfiguration appendRule(ConfigurationRule rule) {
-        if (rule instanceof PrivacyRule) {
-            return new GoalConfiguration(
-                configurationKey,
-                name,
-                bet,
-                emailReminderRule,
-                phoneReminderRule,
-                moveTimeoutRule,
-                totalTimeoutRule,
-                (PrivacyRule) rule,
-                supporterConfiguration,
-                shareRule
-            );
-        } else if (rule instanceof TimeoutRule) {
+        if (rule instanceof TimeoutRule) {
             return new GoalConfiguration(
                 configurationKey,
                 name,
@@ -127,7 +103,6 @@ public class GoalConfiguration implements
                 phoneReminderRule,
                 (TimeoutRule) rule,
                 totalTimeoutRule,
-                privacyRule,
                 supporterConfiguration,
                 shareRule
             );
@@ -142,7 +117,6 @@ public class GoalConfiguration implements
                 phoneReminderRule,
                 moveTimeoutRule,
                 totalTimeoutRule,
-                privacyRule,
                 supporterConfiguration,
                 new ShareRule(newShareRule)
             );
@@ -163,7 +137,6 @@ public class GoalConfiguration implements
             phoneReminderRule,
             moveTimeoutRule,
             totalTimeoutRule,
-            privacyRule,
             supporterConfiguration,
             shareRule
         );
@@ -177,7 +150,6 @@ public class GoalConfiguration implements
         GoalConfiguration that = (GoalConfiguration) o;
 
         if (!moveTimeoutRule.equals(that.moveTimeoutRule)) return false;
-        if (privacyRule != that.privacyRule) return false;
         if (!totalTimeoutRule.equals(that.totalTimeoutRule)) return false;
 
         return true;
@@ -185,8 +157,7 @@ public class GoalConfiguration implements
 
     @Override
     public int hashCode() {
-        int result = privacyRule.hashCode();
-        result = 31 * result + moveTimeoutRule.hashCode();
+        int result = moveTimeoutRule.hashCode();
         result = 31 * result + totalTimeoutRule.hashCode();
         return result;
     }

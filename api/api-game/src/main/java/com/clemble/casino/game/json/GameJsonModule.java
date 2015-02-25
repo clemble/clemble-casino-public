@@ -10,7 +10,6 @@ import com.clemble.casino.game.lifecycle.configuration.rule.outcome.WonRule;
 import com.clemble.casino.game.lifecycle.configuration.rule.visibility.VisibilityRule;
 import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.game.lifecycle.management.event.*;
-import com.clemble.casino.lifecycle.configuration.rule.privacy.PrivacyRule;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.TimeoutSurrenderAction;
