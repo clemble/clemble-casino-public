@@ -8,6 +8,7 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.IntervalGoalRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.BasicReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.NoReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
+import com.clemble.casino.lifecycle.configuration.rule.bet.LimitedBetRule;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.PenaltyBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.EODTimeoutCalculator;
@@ -33,6 +34,7 @@ public class GoalIntervalTest {
         "week",
         "Week",
         new Bet(Money.create(Currency.point, 0), Money.create(Currency.point, 0)),
+        LimitedBetRule.create(50, 100),
         new BasicReminderRule(TimeUnit.HOURS.toMillis(4)),
         new BasicReminderRule(TimeUnit.HOURS.toMillis(2)),
         new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new EODTimeoutCalculator(7)),
