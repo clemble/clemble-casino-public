@@ -34,14 +34,14 @@ public class GoalIntervalTest {
         "week",
         "Week",
         new Bet(Money.create(Currency.point, 0), Money.create(Currency.point, 0)),
-        LimitedBetRule.create(50, 100),
         new BasicReminderRule(TimeUnit.HOURS.toMillis(4)),
         new BasicReminderRule(TimeUnit.HOURS.toMillis(2)),
         new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new EODTimeoutCalculator(7)),
         new TimeoutRule(LooseBreachPunishment.getInstance(), new EODTimeoutCalculator(7)),
         new GoalRoleConfiguration(
-            new Bet(Money.create(Currency.point, 50), Money.create(Currency.point, 70)),
             3,
+            LimitedBetRule.create(50, 100),
+            50,
             NoReminderRule.INSTANCE,
             NoReminderRule.INSTANCE
         ),

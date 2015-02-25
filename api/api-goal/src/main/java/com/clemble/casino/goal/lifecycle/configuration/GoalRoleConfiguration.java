@@ -3,6 +3,7 @@ package com.clemble.casino.goal.lifecycle.configuration;
 import com.clemble.casino.bet.Bet;
 import com.clemble.casino.goal.lifecycle.configuration.rule.GoalRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
+import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -13,30 +14,37 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("rule:role:configuration")
 public class GoalRoleConfiguration implements GoalRule {
 
-    final private Bet bet;
     final private int betDays;
+    final private BetRule betRule;
+    final private int percentage;
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
 
     @JsonCreator
     public GoalRoleConfiguration(
-        @JsonProperty("bid") Bet bet,
         @JsonProperty("betDays") int betDays,
+        @JsonProperty("betRule") BetRule betRule,
+        @JsonProperty("percentage") int percentage,
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule
     ) {
-        this.bet = bet;
+        this.betRule = betRule;
         this.betDays = betDays;
+        this.percentage = percentage;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
     }
 
-    public Bet getBet() {
-        return bet;
+    public BetRule getBetRule() {
+        return betRule;
     }
 
     public int getBetDays() {
         return betDays;
+    }
+
+    public int getPercentage() {
+        return percentage;
     }
 
     public ReminderRule getEmailReminderRule() {
@@ -56,7 +64,8 @@ public class GoalRoleConfiguration implements GoalRule {
 
         if (!emailReminderRule.equals(that.emailReminderRule)) return false;
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
-        if (!bet.equals(that.bet)) return false;
+        if (!betRule.equals(that.betRule)) return false;
+        if (percentage != percentage) return false;
 
         return true;
     }
@@ -65,7 +74,8 @@ public class GoalRoleConfiguration implements GoalRule {
     public int hashCode() {
         int result = emailReminderRule.hashCode();
         result = 31 * result + phoneReminderRule.hashCode();
-        result = 31 * result + bet.hashCode();
+        result = 31 * result + betRule.hashCode();
+        result = 31 * result + percentage;
         return result;
     }
 

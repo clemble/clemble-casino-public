@@ -11,6 +11,7 @@ import com.clemble.casino.goal.event.action.GoalReachedAction;
 import com.clemble.casino.goal.event.action.GoalStatusUpdateAction;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
+import com.clemble.casino.goal.lifecycle.configuration.GoalRoleConfiguration;
 import com.clemble.casino.goal.lifecycle.management.event.*;
 import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
 import com.clemble.casino.lifecycle.configuration.rule.time.DeadlineAware;
@@ -18,6 +19,7 @@ import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
+import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetOffAction;
 import com.clemble.casino.lifecycle.management.event.action.bet.BidAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
@@ -187,7 +189,7 @@ public class GoalState implements
                 return new GoalChangedStatusEvent(player, this.copyWithStatus(newStatus, action));
             } else if (action instanceof SurrenderAction) {
                 return new GoalEndedEvent(player, this.finish(), new PlayerLostOutcome(actor));
-            } else if (action instanceof BidAction) {
+            } else if (action instanceof BetAction) {
                 switch (phase) {
                     case betOff:
                     case finished:
@@ -195,7 +197,10 @@ public class GoalState implements
                 }
                 if(this.supporters.contains(actor) || this.player.equals(actor))
                     throw new IllegalArgumentException();
-                Bet bet = configuration.getSupporterConfiguration().getBet();
+                GoalRoleConfiguration roleConfiguration = configuration.getSupporterConfiguration();
+                int amount = ((BetAction) action).getBet();
+                int interest = ((100 + roleConfiguration.getPercentage()) * amount) / 100;
+                Bet bet = new Bet(Money.create(Currency.point, amount), Money.create(Currency.point, interest));
                 PlayerBet playerBid = new PlayerBet(actor, bet);
                 this.bank.add(playerBid);
                 this.supporters.add(actor);

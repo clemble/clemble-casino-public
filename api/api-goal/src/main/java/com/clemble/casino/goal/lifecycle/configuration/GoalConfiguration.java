@@ -5,7 +5,6 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRul
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
-import com.clemble.casino.lifecycle.configuration.rule.bet.BetRule;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.social.SocialProvider;
@@ -27,7 +26,6 @@ public class GoalConfiguration implements
     final private String configurationKey;
     final private String name;
     final private Bet bet;
-    final private BetRule betRule;
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
     final private TimeoutRule moveTimeoutRule;
@@ -40,7 +38,6 @@ public class GoalConfiguration implements
         @JsonProperty("configurationKey") String configurationKey,
         @JsonProperty("name") String name,
         @JsonProperty("bid") Bet bet,
-        @JsonProperty("betRule") BetRule betRule,
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule,
         @JsonProperty("moveTimeRule") TimeoutRule moveTimeoutRule,
@@ -51,7 +48,6 @@ public class GoalConfiguration implements
         this.configurationKey = configurationKey;
         this.name = name;
         this.bet = bet;
-        this.betRule = betRule;
         this.emailReminderRule = emailReminderRule;
         this.phoneReminderRule = phoneReminderRule;
         this.moveTimeoutRule = moveTimeoutRule;
@@ -81,10 +77,6 @@ public class GoalConfiguration implements
         return phoneReminderRule;
     }
 
-    public BetRule getBetRule() {
-        return betRule;
-    }
-
     public TimeoutRule getMoveTimeoutRule() {
         return moveTimeoutRule;
     }
@@ -107,7 +99,6 @@ public class GoalConfiguration implements
                 configurationKey,
                 name,
                 bet,
-                betRule,
                 emailReminderRule,
                 phoneReminderRule,
                 (TimeoutRule) rule,
@@ -122,7 +113,6 @@ public class GoalConfiguration implements
                 configurationKey,
                 name,
                 bet,
-                betRule,
                 emailReminderRule,
                 phoneReminderRule,
                 moveTimeoutRule,
@@ -130,17 +120,16 @@ public class GoalConfiguration implements
                 supporterConfiguration,
                 new ShareRule(newShareRule)
             );
-        } else if (rule instanceof BetRule){
+        } else if (rule instanceof GoalRoleConfiguration){
             return new GoalConfiguration(
                 configurationKey,
                 name,
                 bet,
-                (BetRule) rule,
                 emailReminderRule,
                 phoneReminderRule,
                 moveTimeoutRule,
                 totalTimeoutRule,
-                supporterConfiguration,
+                (GoalRoleConfiguration) rule,
                 shareRule
             );
         }
@@ -156,7 +145,6 @@ public class GoalConfiguration implements
             configurationKey,
             name,
             newBet,
-            betRule,
             emailReminderRule,
             phoneReminderRule,
             moveTimeoutRule,
