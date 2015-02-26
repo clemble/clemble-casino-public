@@ -127,7 +127,9 @@ public enum ClembleCasinoError {
 
     GoalJudgeOnlyJudgeCanReplay(Code.GOAL_JUDGE_ONLY_JUDGE_CAN_REPLY, "Only judge can reply to invitation"),
     GoalNotExists(Code.GOAL_DOES_NOT_EXIST, "Goal does not exist"),
-    GoalNotOwnedByPlayer(Code.GOAL_NOT_OWNED_BY_PLAYER, "Goal is not owned by this player")
+    GoalNotOwnedByPlayer(Code.GOAL_NOT_OWNED_BY_PLAYER, "Goal is not owned by this player"),
+
+    AccountInsufficientAmount(Code.ACCOUNT_INSUFFICIENT_CODE, "Insufficient amount on your account")
     ;
 
 
@@ -302,7 +304,6 @@ public enum ClembleCasinoError {
         final public static String PLAYER_SESSION_CLOSED_ERROR_CODE = "0M6";
         final public static String PLAYER_ACCOUNT_ACCESS_DENIED = "0M7";
         final public static String PLAYER_NO_INVITATION = "0M8";
-        // Payment errors
 
         // Goal errors
         final public static String GOAL_STATE_INCORRECT = "0N0";
@@ -315,5 +316,8 @@ public enum ClembleCasinoError {
 
         // Goal judge errors
         final public static String GOAL_JUDGE_ONLY_JUDGE_CAN_REPLY = "0P0";
+
+        // Payment errors
+        final public static String ACCOUNT_INSUFFICIENT_CODE = "0Q0";
     }
 }
