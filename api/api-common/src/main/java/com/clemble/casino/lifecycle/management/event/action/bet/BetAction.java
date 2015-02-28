@@ -2,10 +2,12 @@ package com.clemble.casino.lifecycle.management.event.action.bet;
 
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName(BetAction.JSON_TYPE)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BetAction implements Action {
 
     final public static String JSON_TYPE = "player:bet:action";
