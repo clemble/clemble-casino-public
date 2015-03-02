@@ -3,6 +3,8 @@ package com.clemble.casino.payment;
 import com.clemble.casino.bet.Bet;
 import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.bet.PlayerBetAware;
+import com.clemble.casino.money.*;
+import com.clemble.casino.money.Currency;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,17 +22,18 @@ public class Bank implements PlayerBetAware {
             return o1.getPlayer().compareTo(o2.getPlayer());
         }
     });
+
     private Bet total;
+    private Money penalty;
 
     @JsonCreator
-    public Bank(@JsonProperty("bets") Collection<PlayerBet> bets, @JsonProperty("total") Bet total) {
+    public Bank(
+        @JsonProperty("bets") Collection<PlayerBet> bets,
+        @JsonProperty("total") Bet total,
+        @JsonProperty("penalty") Money penalty) {
         this.total = total;
+        this.penalty = penalty;
         this.bets.addAll(bets);
-    }
-
-    @Override
-    public Collection<PlayerBet> getBets() {
-        return bets;
     }
 
     public PlayerBet getBet(String player) {
@@ -42,8 +45,23 @@ public class Bank implements PlayerBetAware {
         return null;
     }
 
+    @Override
+    public Collection<PlayerBet> getBets() {
+        return bets;
+    }
+
     public Bet getTotal() {
         return total;
+    }
+
+    public Money getPenalty() {
+        return penalty;
+    }
+
+    public Bank punish(String player, Money amount) {
+        Bank bank =  add(new PlayerBet(player, new Bet(Money.create(Currency.point, 0), amount.negate())));
+        bank.penalty = bank.penalty.add(amount);
+        return bank;
     }
 
     public Bank add(PlayerBet playerBet) {
@@ -56,11 +74,6 @@ public class Bank implements PlayerBetAware {
         }
         this.total = total.add(playerBet.getBet());
         return this;
-    }
-
-    public static Bank create(String player, Bet total) {
-        Collection<PlayerBet> bets = Collections.singleton(new PlayerBet(player, total));
-        return new Bank(bets, total);
     }
 
     @Override
@@ -81,6 +94,11 @@ public class Bank implements PlayerBetAware {
         int result = bets.hashCode();
         result = 31 * result + total.hashCode();
         return result;
+    }
+
+    public static Bank create(String player, Bet total) {
+        Collection<PlayerBet> bets = Collections.singleton(new PlayerBet(player, total));
+        return new Bank(bets, total, Money.create(Currency.DEFAULT, 0));
     }
 
 }

@@ -211,11 +211,11 @@ public class GoalState implements
                 return new GoalEndedEvent(player, this.copyWithStatus(newStatus, reachedAction).finish(), new PlayerWonOutcome(actor));
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
-                bank.add(new PlayerBet(player, new Bet(Money.create(Currency.point, 0), punishmentAction.getAmount().negate())));
+                bank.punish(player, punishmentAction.getAmount().negate());
                 if (bank.getBet(player).getBet().getInterest().getAmount() == 0) {
-                    return new GoalEndedEvent(player, this.copyWithStatus("Out of cash", action).finish(), new PlayerLostOutcome(player));
+                    return new GoalEndedEvent(player, this.copyWithAction(action).finish(), new PlayerLostOutcome(player));
                 } else {
-                    return new GoalChangedStatusUpdateMissedEvent(player, this.copyWithStatus("Missed update", action));
+                    return new GoalChangedStatusUpdateMissedEvent(player, this.copyWithAction(action));
                 }
             } else {
                 throw new IllegalArgumentException();
@@ -239,6 +239,25 @@ public class GoalState implements
             context,
             supporters,
             newStatus,
+            phase,
+            latestAction
+        );
+    }
+
+    public GoalState copyWithAction(Action latestAction) {
+        return new GoalState(
+            goalKey,
+            startDate,
+            deadline,
+            player,
+            bank,
+            goal,
+            timezone,
+            tag,
+            configuration,
+            context,
+            supporters,
+            status,
             phase,
             latestAction
         );
