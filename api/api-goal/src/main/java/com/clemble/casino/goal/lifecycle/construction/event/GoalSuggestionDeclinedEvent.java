@@ -1,6 +1,9 @@
 package com.clemble.casino.goal.lifecycle.construction.event;
 
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestion;
+import com.clemble.casino.goal.lifecycle.construction.notification.GoalSuggestionNotification;
+import com.clemble.casino.notification.PlayerNotification;
+import com.clemble.casino.notification.PlayerNotificationConvertible;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -9,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 1/3/15.
  */
 @JsonTypeName(GoalSuggestionDeclinedEvent.JSON_TYPE)
-public class GoalSuggestionDeclinedEvent implements GoalSuggestionEvent {
+public class GoalSuggestionDeclinedEvent implements GoalSuggestionEvent, PlayerNotificationConvertible {
 
     final public static String JSON_TYPE = "goal:suggestion:declined";
 
@@ -52,4 +55,8 @@ public class GoalSuggestionDeclinedEvent implements GoalSuggestionEvent {
         return result;
     }
 
+    @Override
+    public PlayerNotification toNotification() {
+        return GoalSuggestionNotification.create(body, false);
+    }
 }

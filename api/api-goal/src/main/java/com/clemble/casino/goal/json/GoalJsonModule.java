@@ -11,6 +11,7 @@ import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionComp
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionAcceptedEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionCreatedEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionDeclinedEvent;
+import com.clemble.casino.goal.lifecycle.construction.notification.GoalSuggestionNotification;
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCompleteEvent;
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCreatedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.*;
@@ -67,6 +68,8 @@ public class GoalJsonModule implements ClembleJsonModule {
 
         module.registerSubtypes(new NamedType(GoalRoleConfiguration.class, GoalRoleConfiguration.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(ShareRule.class, ShareRule.class.getAnnotation(JsonTypeName.class).value()));
+
+        module.registerSubtypes(new NamedType(GoalSuggestionNotification.class, GoalSuggestionNotification.class.getAnnotation(JsonTypeName.class).value()));
 
         return module;
     }
