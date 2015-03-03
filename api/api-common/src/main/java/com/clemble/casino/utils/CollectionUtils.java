@@ -46,12 +46,38 @@ public class CollectionUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static <S, T> Collection<T> filter(Collection<S> sourceCollection, Class<T> target) {
+    public static <S, T> Collection<T> filter(Class<T> target, Collection<S> sourceCollection) {
         Collection<T> filtered = new ArrayList<T>();
         for (S source : sourceCollection)
             if (source.getClass() == target)
                 filtered.add((T) source);
         return filtered;
+    }
+
+
+    public static <S, T> Collection<T> filter(Class<T> target, S ... sourceCollection) {
+        Collection<T> filtered = new ArrayList<T>();
+        for (S source : sourceCollection)
+            if (source.getClass() == target)
+                filtered.add((T) source);
+        return filtered;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <S, T> T find(Class<T> target, Collection<S> sourceCollection) {
+        Collection<T> filtered = new ArrayList<T>();
+        for (S source : sourceCollection)
+            if (source.getClass() == target)
+                return (T) source;
+        return null;
+    }
+
+    public static <S, T> T find(Class<T> target, S ... sourceCollection) {
+        Collection<T> filtered = new ArrayList<T>();
+        for (S source : sourceCollection)
+            if (source.getClass() == target)
+                return (T) source;
+        return null;
     }
 
 }
