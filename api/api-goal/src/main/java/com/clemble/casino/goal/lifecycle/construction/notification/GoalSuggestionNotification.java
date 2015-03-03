@@ -84,7 +84,7 @@ public class GoalSuggestionNotification implements GoalNotification {
 
     public static GoalSuggestionNotification create(GoalSuggestion suggestion, boolean accepted) {
         return new GoalSuggestionNotification(
-            suggestion.getPlayer(),
+            suggestion.getGoalKey(),
             suggestion.getSuggester(),
             suggestion,
             accepted,
