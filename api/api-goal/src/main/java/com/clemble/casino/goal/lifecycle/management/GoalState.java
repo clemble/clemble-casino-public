@@ -21,7 +21,6 @@ import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetOffAction;
-import com.clemble.casino.lifecycle.management.event.action.bet.BidAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
 import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
 import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
@@ -33,7 +32,6 @@ import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 import java.util.Set;
@@ -211,7 +209,7 @@ public class GoalState implements
                 return new GoalEndedEvent(player, this.copyWithStatus(newStatus, reachedAction).finish(), new PlayerWonOutcome(actor));
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
-                bank.punish(player, punishmentAction.getAmount().negate());
+                bank.addPenalty(player, punishmentAction.getAmount());
                 if (bank.getBet(player).getBet().getInterest().getAmount() == 0) {
                     return new GoalEndedEvent(player, this.copyWithAction(action).finish(), new PlayerLostOutcome(player));
                 } else {

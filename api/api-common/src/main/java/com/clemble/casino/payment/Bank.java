@@ -58,7 +58,7 @@ public class Bank implements PlayerBetAware {
         return penalty;
     }
 
-    public Bank punish(String player, Money amount) {
+    public Bank addPenalty(String player, Money amount) {
         Bank bank =  add(new PlayerBet(player, new Bet(Money.create(Currency.point, 0), amount.negate())));
         bank.penalty = bank.penalty.add(amount);
         return bank;
