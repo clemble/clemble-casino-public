@@ -28,7 +28,7 @@ public class EODTimeoutCalculator implements TimeoutCalculator {
 
     @Override
     public long calculate(String timezone, long moveStart, long timeSpent) {
-        return new DateTime(moveStart, DateTimeZone.forID(timezone)).withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0).plusDays(days).getMillis();
+        return new DateTime(moveStart, DateTimeZone.forID(timezone)).withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0).plusDays(days).minusMillis(1).getMillis();
     }
 
     @Override
