@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.clemble.casino</groupId>
     <artifactId>public</artifactId>
@@ -42,6 +42,7 @@
         <jackson.jsonSchema.version>2.5.1</jackson.jsonSchema.version>
         <!-- Test dependencies -->
         <com.clemble.test.version>0.1.4-SNAPSHOT</com.clemble.test.version>
+        <com.clemble.test.object-generator.version>0.1.5</com.clemble.test.object-generator.version>
         <junit.version>4.12</junit.version>
         <weberknecht.version>0.1.1</weberknecht.version>
         <gozirra-client.version>0.4.1</gozirra-client.version>
@@ -355,8 +356,14 @@
             <dependency>
                 <groupId>com.clemble.test</groupId>
                 <artifactId>object-generator</artifactId>
+                <version>${com.clemble.test.object-generator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.clemble.test</groupId>
+                <artifactId>common</artifactId>
                 <version>${com.clemble.test.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.ning</groupId>
                 <artifactId>async-http-client</artifactId>
@@ -464,6 +471,11 @@
         <dependency>
             <groupId>com.clemble.test</groupId>
             <artifactId>object-generator</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.clemble.test</groupId>
+            <artifactId>common</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -52,6 +52,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.clemble.test</groupId>
+            <artifactId>common</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jsonSchema</artifactId>
         </dependency>
