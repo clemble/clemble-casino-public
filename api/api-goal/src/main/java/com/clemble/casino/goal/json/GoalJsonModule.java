@@ -7,12 +7,12 @@ import com.clemble.casino.goal.lifecycle.configuration.GoalRoleConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.BasicReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.NoReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
-import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionCompleteEvent;
+import com.clemble.casino.goal.lifecycle.construction.event.GoalConstructionCompletedEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionAcceptedEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionCreatedEvent;
 import com.clemble.casino.goal.lifecycle.construction.event.GoalSuggestionDeclinedEvent;
 import com.clemble.casino.goal.lifecycle.construction.notification.GoalSuggestionNotification;
-import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCompleteEvent;
+import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCompletedEvent;
 import com.clemble.casino.goal.lifecycle.initiation.event.GoalInitiationCreatedEvent;
 import com.clemble.casino.goal.lifecycle.management.event.*;
 import com.clemble.casino.goal.lifecycle.record.event.GoalRecordCreatedEvent;
@@ -32,7 +32,7 @@ public class GoalJsonModule implements ClembleJsonModule {
     public Module construct() {
         SimpleModule module = new SimpleModule("Goal");
         module.registerSubtypes(new NamedType(GoalInitiationCreatedEvent.class, GoalInitiationCreatedEvent.JSON_TYPE));
-        module.registerSubtypes(new NamedType(GoalInitiationCompleteEvent.class, GoalInitiationCompleteEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalInitiationCompletedEvent.class, GoalInitiationCompletedEvent.JSON_TYPE));
 
         module.registerSubtypes(new NamedType(GoalStartedEvent.class, GoalStartedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalChangedStatusEvent.class, GoalChangedStatusEvent.JSON_TYPE));
@@ -46,7 +46,7 @@ public class GoalJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GoalSuggestionDeclinedEvent.class, GoalSuggestionDeclinedEvent.JSON_TYPE));
         module.registerSubtypes(new NamedType(GoalSuggestionCreatedEvent.class, GoalSuggestionCreatedEvent.JSON_TYPE));
 
-        module.registerSubtypes(new NamedType(GoalConstructionCompleteEvent.class, GoalConstructionCompleteEvent.JSON_TYPE));
+        module.registerSubtypes(new NamedType(GoalConstructionCompletedEvent.class, GoalConstructionCompletedEvent.JSON_TYPE));
 
         module.registerSubtypes(new NamedType(GoalRecordCreatedEvent.class, GoalRecordCreatedEvent.JSON_TYPE));
 
