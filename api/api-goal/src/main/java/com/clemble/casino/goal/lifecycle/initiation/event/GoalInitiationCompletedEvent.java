@@ -1,7 +1,6 @@
 package com.clemble.casino.goal.lifecycle.initiation.event;
 
 import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
-import com.clemble.casino.player.PlayerAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -9,16 +8,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 11/16/14.
  */
-@JsonTypeName(GoalInitiationCompleteEvent.JSON_TYPE)
-public class GoalInitiationCompleteEvent implements GoalInitiationEvent {
+@JsonTypeName(GoalInitiationCompletedEvent.JSON_TYPE)
+public class GoalInitiationCompletedEvent implements GoalInitiationEvent {
 
-    final public static String JSON_TYPE = "goal:initiation:complete";
+    final public static String JSON_TYPE = "goal:initiation:completed";
 
     final private String player;
     final private GoalInitiation initiation;
 
     @JsonCreator
-    public GoalInitiationCompleteEvent(@JsonProperty(PLAYER) String player, @JsonProperty("body") GoalInitiation initiation) {
+    public GoalInitiationCompletedEvent(@JsonProperty(PLAYER) String player, @JsonProperty("body") GoalInitiation initiation) {
         this.player = player;
         this.initiation = initiation;
     }
@@ -38,7 +37,7 @@ public class GoalInitiationCompleteEvent implements GoalInitiationEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalInitiationCompleteEvent that = (GoalInitiationCompleteEvent) o;
+        GoalInitiationCompletedEvent that = (GoalInitiationCompletedEvent) o;
 
         if (!initiation.equals(that.initiation)) return false;
         if (!player.equals(that.player)) return false;
@@ -56,8 +55,8 @@ public class GoalInitiationCompleteEvent implements GoalInitiationEvent {
         return player + " > " + initiation.getGoalKey() + " > " + JSON_TYPE;
     }
 
-    public static GoalInitiationCompleteEvent create(GoalInitiation initiation) {
-        return new GoalInitiationCompleteEvent(initiation.getPlayer(), initiation);
+    public static GoalInitiationCompletedEvent create(GoalInitiation initiation) {
+        return new GoalInitiationCompletedEvent(initiation.getPlayer(), initiation);
     }
 
 }

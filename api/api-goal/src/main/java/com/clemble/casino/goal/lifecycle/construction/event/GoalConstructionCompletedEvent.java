@@ -3,22 +3,21 @@ package com.clemble.casino.goal.lifecycle.construction.event;
 import com.clemble.casino.goal.lifecycle.construction.GoalConstruction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Created by mavarazy on 10/9/14.
  */
-@JsonTypeName(GoalConstructionCompleteEvent.JSON_TYPE)
-public class GoalConstructionCompleteEvent implements GoalConstructionEvent {
+@JsonTypeName(GoalConstructionCompletedEvent.JSON_TYPE)
+public class GoalConstructionCompletedEvent implements GoalConstructionEvent {
 
-    final public static String JSON_TYPE = "goal:construction:complete";
+    final public static String JSON_TYPE = "goal:construction:completed";
 
     final private String player;
     final private GoalConstruction construction;
 
     @JsonCreator
-    public GoalConstructionCompleteEvent(@JsonProperty(PLAYER) String player, @JsonProperty("body") GoalConstruction construction) {
+    public GoalConstructionCompletedEvent(@JsonProperty(PLAYER) String player, @JsonProperty("body") GoalConstruction construction) {
         this.player = player;
         this.construction = construction;
     }
@@ -38,7 +37,7 @@ public class GoalConstructionCompleteEvent implements GoalConstructionEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoalConstructionCompleteEvent that = (GoalConstructionCompleteEvent) o;
+        GoalConstructionCompletedEvent that = (GoalConstructionCompletedEvent) o;
 
         if (!construction.equals(that.construction)) return false;
         if (!player.equals(that.player)) return false;

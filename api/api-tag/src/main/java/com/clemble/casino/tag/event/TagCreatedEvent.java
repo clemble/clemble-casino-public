@@ -7,15 +7,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 /**
  * Created by mavarazy on 2/3/15.
  */
-@JsonTypeName(ClembleTagAddedEvent.JSON_TYPE)
-public class ClembleTagAddedEvent implements ClembleTagEvent {
+@JsonTypeName(TagCreatedEvent.JSON_TYPE)
+public class TagCreatedEvent implements TagEvent {
 
-    final public static String JSON_TYPE = "tag:added";
+    final public static String JSON_TYPE = "tag:created";
 
     final private String tag;
 
     @JsonCreator
-    public ClembleTagAddedEvent(@JsonProperty("tag") String tag) {
+    public TagCreatedEvent(@JsonProperty("tag") String tag) {
         this.tag = tag;
     }
 
@@ -27,9 +27,9 @@ public class ClembleTagAddedEvent implements ClembleTagEvent {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ClembleTagAddedEvent)) return false;
+        if (!(o instanceof TagCreatedEvent)) return false;
 
-        ClembleTagAddedEvent that = (ClembleTagAddedEvent) o;
+        TagCreatedEvent that = (TagCreatedEvent) o;
 
         if (!tag.equals(that.tag)) return false;
 

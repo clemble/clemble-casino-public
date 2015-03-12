@@ -6,6 +6,6 @@ import com.clemble.casino.tag.TagAware;
 /**
  * Created by mavarazy on 2/3/15.
  */
-public interface ClembleTagEvent extends Event, TagAware {
+public interface TagEvent extends Event, TagAware {
 
 }
