@@ -6,6 +6,7 @@ import com.clemble.casino.goal.lifecycle.construction.service.GoalConstructionSe
 import com.clemble.casino.goal.lifecycle.construction.service.GoalSuggestionService;
 import com.clemble.casino.goal.lifecycle.initiation.service.GoalInitiationService;
 import com.clemble.casino.goal.lifecycle.management.service.GoalActionService;
+import com.clemble.casino.goal.lifecycle.management.service.GoalVictoryService;
 import com.clemble.casino.goal.lifecycle.record.service.GoalRecordService;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +21,7 @@ public class AndroidGoalOperations implements GoalOperations{
     final private GoalInitiationService initiationService;
     final private GoalActionService actionService;
     final private GoalRecordService recordService;
+    final private GoalVictoryService victoryService;
 
     public AndroidGoalOperations(String host, RestTemplate restTemplate) {
         this.configurationService = new AndroidGoalConfigurationService(host, restTemplate);
@@ -28,6 +30,7 @@ public class AndroidGoalOperations implements GoalOperations{
         this.initiationService = new AndroidGoalInitiationService(host, restTemplate);
         this.actionService = new AndroidGoalActionService(host, restTemplate);
         this.recordService = new AndroidGoalRecordService(host, restTemplate);
+        this.victoryService = new AndroidGoalVictoryService(host, restTemplate);
     }
 
     @Override
@@ -58,6 +61,11 @@ public class AndroidGoalOperations implements GoalOperations{
     @Override
     public GoalRecordService recordService() {
         return recordService;
+    }
+
+    @Override
+    public GoalVictoryService victoryService() {
+        return victoryService;
     }
 
 }
