@@ -13,12 +13,9 @@ import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.fasterxml.jackson.core.*;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -54,7 +51,9 @@ public class RSAKeySecretFormat {
             jgen.writeStartObject();
             jgen.writeStringField(KEY_ALGORITHM_TAG, value.getAlgorithm());
             jgen.writeStringField(KEY_FORMAT_TAG, value.getFormat());
-            jgen.writeBinaryField(KEY_ENCODING_TAG, value.getEncoded());
+            byte[] encoded = value.getEncoded();
+            jgen.writeFieldName(KEY_ENCODING_TAG);
+            jgen.writeBinary(Base64Variants.PEM, encoded, 0, encoded.length);
             jgen.writeEndObject();
         }
 
@@ -75,7 +74,7 @@ public class RSAKeySecretFormat {
                     algorithm = jp.nextTextValue();
                 } else if (jp.getText().equals(KEY_ENCODING_TAG)) {
                     jp.nextToken();
-                    encoded = jp.getBinaryValue();
+                    encoded = jp.getBinaryValue(Base64Variants.PEM);
                 } else if (jp.getText().equals(KEY_FORMAT_TAG)) {
                     format = jp.nextTextValue();
                 }
