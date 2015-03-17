@@ -1,9 +1,8 @@
 package com.clemble.casino.json;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SecureRandom;
+import java.math.BigInteger;
+import java.security.*;
+import java.security.cert.*;
 import java.util.*;
 
 import javax.crypto.KeyGenerator;
@@ -28,10 +27,17 @@ import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
 import com.clemble.casino.game.lifecycle.management.unit.Chip;
 import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
+import com.clemble.casino.security.ClembleConsumerDetails;
+import com.clemble.casino.security.ClientDetails;
+import com.clemble.casino.security.RSAKeySecretFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
 import com.clemble.casino.VersionAware;
@@ -239,13 +245,13 @@ public class TestObjectGeneratorInitializer {
         ObjectGenerator.register(PrivateKey.class, new AbstractValueGenerator<PrivateKey>() {
             @Override
             public PrivateKey generate() {
-            return rsaKey.getPrivateKey();
+                return rsaKey.getPrivateKey();
             }
         });
         ObjectGenerator.register(PublicKey.class, new AbstractValueGenerator<PublicKey>() {
             @Override
             public PublicKey generate() {
-            return rsaKey.getPublicKey();
+                return rsaKey.getPublicKey();
             }
         });
         ObjectGenerator.register(MatchGameContext.class, new AbstractValueGenerator<MatchGameContext>() {
@@ -258,6 +264,18 @@ public class TestObjectGeneratorInitializer {
             @Override
             public TournamentGameContext generate() {
             return new TournamentGameContext(GameSessionAware.DEFAULT_SESSION, null, null, null);
+            }
+        });
+        ObjectGenerator.register(ClembleConsumerDetails.class, new AbstractValueGenerator<ClembleConsumerDetails>() {
+            @Override
+            public ClembleConsumerDetails generate() {
+                return new ClembleConsumerDetails(
+                    "consumerKey",
+                    "consumer",
+                    rsaKey,
+                    Collections.<GrantedAuthority>emptyList(),
+                    new ClientDetails("consumer")
+                );
             }
         });
         try {

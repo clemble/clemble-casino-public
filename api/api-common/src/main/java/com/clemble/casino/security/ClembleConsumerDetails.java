@@ -26,7 +26,8 @@ public class ClembleConsumerDetails implements ConsumerDetails, ConsumerAware {
     final private ClientDetails clientDetail;
 
     @JsonCreator
-    public ClembleConsumerDetails(@JsonProperty("consumerKey") String consumerKey,
+    public ClembleConsumerDetails(
+            @JsonProperty("consumerKey") String consumerKey,
             @JsonProperty("consumerName") String consumerName,
             @JsonSerialize(using = RSAKeySecretFormat.RSAKeySecretSerializer.class)
             @JsonDeserialize(using = RSAKeySecretFormat.RSAKeySecretDeserializer.class)
