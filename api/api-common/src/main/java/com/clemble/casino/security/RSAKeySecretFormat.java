@@ -53,7 +53,7 @@ public class RSAKeySecretFormat {
             jgen.writeStringField(KEY_FORMAT_TAG, value.getFormat());
             byte[] encoded = value.getEncoded();
             jgen.writeFieldName(KEY_ENCODING_TAG);
-            jgen.writeBinary(Base64Variants.PEM, encoded, 0, encoded.length);
+            jgen.writeBinary(Base64Variants.MIME, encoded, 0, encoded.length);
             jgen.writeEndObject();
         }
 
@@ -74,7 +74,7 @@ public class RSAKeySecretFormat {
                     algorithm = jp.nextTextValue();
                 } else if (jp.getText().equals(KEY_ENCODING_TAG)) {
                     jp.nextToken();
-                    encoded = jp.getBinaryValue(Base64Variants.PEM);
+                    encoded = jp.getBinaryValue(Base64Variants.MIME);
                 } else if (jp.getText().equals(KEY_FORMAT_TAG)) {
                     format = jp.nextTextValue();
                 }
