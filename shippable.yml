@@ -1,3 +1,13 @@
 language: java
 jdk:
     - oraclejdk8
+
+env:
+  global:
+    # AWS_ACCESS_KEY_ID
+    - secure: JJcW5jsdzeF5LwuZWXoCdXINYeZS2hBkflGwYshVsMtodYkN3UeoAug17w90UE1VvoAXdALeklLWa0TVngw68wVGZuO5ZxjCRyPnNhqjYGlToiS2NI/Iv8fVGg9f3zdKp5OtUYytKml60mIbluVgeaBekDArfjGv3R5rV7Ykmc1f++jYuiu4rfGKVswr1OIqvtXEe8a+gOKUZ8gAdSH9iDf8JTf/DMrLPMpVXMxkeAAbvcgVTNI2SMjO5TSVeTnBHOYU3kebAVa8aVcsmyqsu9OaamgmuxBeFc9lSWmW/5brfZIYLIawaiD2t5wWRz+cbNhP2uuBH4vbsYP7rI/bGA==
+    # AWS_SECRET_ACCESS_KEY
+    - secure: LS/X2viomQ6NRRpniUmJF2T9MuHt0laBsj4PYooZ7pQfalXr0DqdMUU3IRaOKD6+pb5v1KfkiQi/ZmmQkPbSSJeBjqQgQmy3eT1ItH4o+d5Mcp3bNJqUvR1CxCU5lEDKHt0qLCFThjz9ZrisDo0WYNMcnPT7XCAah26lCXxYbKZn3mMFdFa0L4s+p2L2hFACeJfvo+MOPZRDJehz7JU48FdtIP/UyDFdBkao4OYNlolChSw3vyPmbBTX4Xi0hMCXRnuOGYBHpNQzVOgCp8bsLpTsMoqiAGB87st2xphn8wN+reIP+dpW4C3UmWilZWySJn9FKEhcMfvOL0MuvxlUow==
+
+after_success:
+  - mvn deploy
