@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>api</artifactId>
-        <groupId>com.clemble.casino</groupId>
+        <groupId>com.clemble.casino.api</groupId>
         <version>0.17.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -11,36 +11,28 @@
     <artifactId>api-test</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
-            <artifactId>api-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-player</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-payment</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-goal</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-tag</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
-            <artifactId>api-game</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-bet</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
-            <artifactId>api-presence</artifactId>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jsonSchema</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -55,10 +47,6 @@
             <groupId>com.clemble.test</groupId>
             <artifactId>common</artifactId>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jsonSchema</artifactId>
         </dependency>
     </dependencies>
 

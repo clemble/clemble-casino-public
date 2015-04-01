@@ -26,7 +26,6 @@ public class ObjectMapperUtils {
         loadJsonModule("com.clemble.casino.json.CommonJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.player.json.PlayerJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.player.json.PresenceJsonModule", objectMapper);
-        loadJsonModule("com.clemble.casino.game.json.GameJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.bet.json.BetJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.goal.json.GoalJsonModule", objectMapper);
         loadJsonModule("com.clemble.casino.payment.json.PaymentJsonModule", objectMapper);

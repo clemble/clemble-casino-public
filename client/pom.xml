@@ -25,31 +25,23 @@
             <artifactId>javax.el-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-goal</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-tag</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
-            <artifactId>api-game</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-player</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.clemble.casino</groupId>
-            <artifactId>api-presence</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.clemble.casino</groupId>
+            <groupId>com.clemble.casino.api</groupId>
             <artifactId>api-payment</artifactId>
         </dependency>
     </dependencies>

@@ -2,19 +2,14 @@ package com.clemble.casino.client.event;
 
 import java.io.Closeable;
 import java.util.Collection;
-import java.util.List;
 
 import com.clemble.casino.event.Event;
-import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.payment.event.PaymentEvent;
 import com.clemble.casino.player.PlayerAware;
-import com.clemble.casino.player.event.PlayerPresenceChangedEvent;
 
 public interface EventListenerOperations extends PlayerAware, Closeable {
 
     public EventListenerController subscribe(EventListener<Event> listener);
-
-    public EventListenerController subscribeToGameSession(String sessionKey, EventListener<GameEvent> listener);
 
     public EventListenerController subscribe(EventSelector selector, EventListener<? extends Event> listener);
 
@@ -23,10 +18,6 @@ public interface EventListenerOperations extends PlayerAware, Closeable {
     public EventListenerController subscribe(String channel, EventSelector selector, EventListener<? extends Event> listener);
 
     public EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener);
-
-    public EventListenerController subscribeToPresenceEvents(String player, EventListener<PlayerPresenceChangedEvent> listener);
-
-    public EventListenerController subscribeToPresenceEvents(List<String> players, EventListener<PlayerPresenceChangedEvent> listener);
 
     /**
      * Event that emulates server event.

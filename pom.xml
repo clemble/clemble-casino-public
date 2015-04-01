@@ -169,42 +169,32 @@
             <!-- Api dependencies -->
 
             <dependency>
-                <groupId>com.clemble.casino</groupId>
+                <groupId>com.clemble.casino.api</groupId>
                 <artifactId>api-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.clemble.casino</groupId>
+                <groupId>com.clemble.casino.api</groupId>
                 <artifactId>api-goal</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.clemble.casino</groupId>
+                <groupId>com.clemble.casino.api</groupId>
                 <artifactId>api-player</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.clemble.casino</groupId>
+                <groupId>com.clemble.casino.api</groupId>
                 <artifactId>api-bet</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.clemble.casino</groupId>
-                <artifactId>api-presence</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.clemble.casino</groupId>
+                <groupId>com.clemble.casino.api</groupId>
                 <artifactId>api-payment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.clemble.casino</groupId>
-                <artifactId>api-game</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.clemble.casino</groupId>
+                <groupId>com.clemble.casino.api</groupId>
                 <artifactId>api-tag</artifactId>
                 <version>${project.version}</version>
             </dependency>

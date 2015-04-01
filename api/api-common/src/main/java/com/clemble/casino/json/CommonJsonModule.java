@@ -16,6 +16,7 @@ import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpActi
 import com.clemble.casino.lifecycle.configuration.rule.breach.CountdownBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.PenaltyBreachPunishment;
+import com.clemble.casino.lifecycle.management.event.action.surrender.TimeoutSurrenderAction;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
@@ -35,6 +36,7 @@ public class CommonJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(GiveUpAction.class, GiveUpAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(BetOffAction.class, BetOffAction.JSON_TYPE));
         module.registerSubtypes(new NamedType(TimeoutPunishmentAction.class, TimeoutPunishmentAction.JSON_TYPE));
+        module.registerSubtypes(new NamedType(TimeoutSurrenderAction.class, TimeoutSurrenderAction.JSON_TYPE));
 
         module.registerSubtypes(new NamedType(CountdownBreachPunishment.class, CountdownBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(PenaltyBreachPunishment.class, PenaltyBreachPunishment.class.getAnnotation(JsonTypeName.class).value()));

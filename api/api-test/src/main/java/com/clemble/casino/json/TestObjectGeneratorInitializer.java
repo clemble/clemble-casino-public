@@ -9,11 +9,12 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import com.clemble.casino.bet.Bet;
+import com.clemble.casino.bet.configuration.BetConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.rule.GoalRuleValue;
+import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.bet.*;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
 import com.clemble.casino.player.event.PlayerInvitationAcceptedAction;
-import com.clemble.casino.game.lifecycle.management.*;
 import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.goal.lifecycle.management.GoalContext;
 import com.clemble.casino.goal.lifecycle.management.GoalPlayerContext;
@@ -22,10 +23,6 @@ import com.clemble.casino.event.action.PlayerExpectedAction;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.GiveUpAction;
-import com.clemble.casino.game.*;
-import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
-import com.clemble.casino.game.lifecycle.management.unit.Chip;
-import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
 import com.clemble.casino.security.ClembleConsumerDetails;
 import com.clemble.casino.security.ClientDetails;
@@ -41,12 +38,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth.common.signature.RSAKeySecret;
 
 import com.clemble.casino.VersionAware;
-import com.clemble.casino.game.lifecycle.construction.AutomaticGameRequest;
-import com.clemble.casino.game.lifecycle.construction.GameConstruction;
-import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
-import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
-import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
-import com.clemble.casino.game.lifecycle.configuration.TournamentGameConfiguration;
+//import com.clemble.casino.game.lifecycle.management.*;
+//import com.clemble.casino.game.*;
+//import com.clemble.casino.game.lifecycle.configuration.RoundGameConfiguration;
+//import com.clemble.casino.game.lifecycle.management.unit.Chip;
+//import com.clemble.casino.game.lifecycle.management.unit.GameUnit;
+//import com.clemble.casino.game.lifecycle.construction.AutomaticGameRequest;
+//import com.clemble.casino.game.lifecycle.construction.GameConstruction;
+//import com.clemble.casino.game.lifecycle.initiation.GameInitiation;
+//import com.clemble.casino.game.lifecycle.configuration.rule.construct.PlayerNumberRule;
+//import com.clemble.casino.game.lifecycle.configuration.GameConfiguration;
+//import com.clemble.casino.game.lifecycle.configuration.TournamentGameConfiguration;
 import com.clemble.casino.payment.PaymentOperation;
 import com.clemble.casino.payment.PaymentTransaction;
 import com.clemble.casino.payment.PlayerAccount;
@@ -77,21 +79,27 @@ public class TestObjectGeneratorInitializer {
                 return new DateTime(ObjectGenerator.generate(long.class));
             }
         });
-        ObjectGenerator.register(TournamentGameState.class, new AbstractValueGenerator<TournamentGameState>() {
+        ObjectGenerator.register(Configuration.class, new AbstractValueGenerator<Configuration>() {
             @Override
-            public TournamentGameState generate() {
-                TournamentGameContext context = new TournamentGameContext(
-                    "",
-                    null,
-                    ObjectGenerator.generateList(TournamentGamePlayerContext.class, 10),
-                    null);
-                return new TournamentGameState(
-                    ObjectGenerator.generate(TournamentGameConfiguration.class),
-                    context,
-                    null,
-                    0);
+            public Configuration generate() {
+                return new BetConfiguration(UnlimitedBetRule.INSTANCE);
             }
         });
+//        ObjectGenerator.register(TournamentGameState.class, new AbstractValueGenerator<TournamentGameState>() {
+//            @Override
+//            public TournamentGameState generate() {
+//                TournamentGameContext context = new TournamentGameContext(
+//                    "",
+//                    null,
+//                    ObjectGenerator.generateList(TournamentGamePlayerContext.class, 10),
+//                    null);
+//                return new TournamentGameState(
+//                    ObjectGenerator.generate(TournamentGameConfiguration.class),
+//                    context,
+//                    null,
+//                    0);
+//            }
+//        });
         ObjectGenerator.register(GoalRuleValue.class, new AbstractValueGenerator<GoalRuleValue>() {
             @Override
             public GoalRuleValue generate() {
@@ -110,12 +118,12 @@ public class TestObjectGeneratorInitializer {
                 return new TreeSet();
             }
         });
-        ObjectGenerator.register(GameUnit.class, new AbstractValueGenerator<GameUnit>() {
-            @Override
-            public GameUnit generate() {
-                return Chip.zero;
-            }
-        });
+//        ObjectGenerator.register(GameUnit.class, new AbstractValueGenerator<GameUnit>() {
+//            @Override
+//            public GameUnit generate() {
+//                return Chip.zero;
+//            }
+//        });
         ObjectGenerator.register(PlayerExpectedAction.class, new AbstractValueGenerator<PlayerExpectedAction>() {
             @Override
             public PlayerExpectedAction generate() {
@@ -129,14 +137,14 @@ public class TestObjectGeneratorInitializer {
                 return new GoalContext(null, playerContexts);
             }
         });
-        ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {
-            @Override
-            public RoundGameContext generate() {
-            GameInitiation initiation = new GameInitiation(GameSessionAware.DEFAULT_SESSION, InitiationState.pending, ImmutableList.of("A", "B"), RoundGameConfiguration.DEFAULT);
-            return RoundGameContext.fromInitiation(initiation, null);
-            }
-
-        });
+//        ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {
+//            @Override
+//            public RoundGameContext generate() {
+//            GameInitiation initiation = new GameInitiation(GameSessionAware.DEFAULT_SESSION, InitiationState.pending, ImmutableList.of("A", "B"), RoundGameConfiguration.DEFAULT);
+//            return RoundGameContext.fromInitiation(initiation, null);
+//            }
+//
+//        });
         ObjectGenerator.register(FixedBetRule.class, new AbstractValueGenerator<FixedBetRule>() {
             @Override
             public FixedBetRule generate() {
@@ -195,24 +203,24 @@ public class TestObjectGeneratorInitializer {
                 return UnlimitedBetRule.INSTANCE;
             }
         });
-        ObjectGenerator.register(GameConstruction.class, new AbstractValueGenerator<GameConstruction>() {
-            @Override
-            public GameConstruction generate() {
-            return new AutomaticGameRequest(RoundGameConfiguration.DEFAULT).toConstruction(RandomStringUtils.random(5), RandomStringUtils.random(5));
-            }
-        });
+//        ObjectGenerator.register(GameConstruction.class, new AbstractValueGenerator<GameConstruction>() {
+//            @Override
+//            public GameConstruction generate() {
+//            return new AutomaticGameRequest(RoundGameConfiguration.DEFAULT).toConstruction(RandomStringUtils.random(5), RandomStringUtils.random(5));
+//            }
+//        });
         ObjectGenerator.register(LimitedBetRule.class, new AbstractValueGenerator<LimitedBetRule>() {
             @Override
             public LimitedBetRule generate() {
             return LimitedBetRule.create(10, 200);
             }
         });
-        ObjectGenerator.register(RoundGameConfiguration.class, new AbstractValueGenerator<RoundGameConfiguration>() {
-            @Override
-            public RoundGameConfiguration generate() {
-            return RoundGameConfiguration.DEFAULT;
-            }
-        });
+//        ObjectGenerator.register(RoundGameConfiguration.class, new AbstractValueGenerator<RoundGameConfiguration>() {
+//            @Override
+//            public RoundGameConfiguration generate() {
+//            return RoundGameConfiguration.DEFAULT;
+//            }
+//        });
         ObjectGenerator.register(VersionAware.class, "version", new ValueGenerator<Integer>() {
             @Override
             public Integer generate() {
@@ -228,18 +236,18 @@ public class TestObjectGeneratorInitializer {
                 return this;
             }
         });
-        ObjectGenerator.register(GameConfiguration.class, new AbstractValueGenerator<GameConfiguration>() {
-            @Override
-            public GameConfiguration generate() {
-            return RoundGameConfiguration.DEFAULT;
-            }
-        });
-        ObjectGenerator.register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
-            @Override
-            public TournamentGameConfiguration generate() {
-            return new TournamentGameConfiguration(Game.pic, "AAA", new Money(Currency.point, 50), PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
-            }
-        });
+//        ObjectGenerator.register(GameConfiguration.class, new AbstractValueGenerator<GameConfiguration>() {
+//            @Override
+//            public GameConfiguration generate() {
+//            return RoundGameConfiguration.DEFAULT;
+//            }
+//        });
+//        ObjectGenerator.register(TournamentGameConfiguration.class, new AbstractValueGenerator<TournamentGameConfiguration>() {
+//            @Override
+//            public TournamentGameConfiguration generate() {
+//            return new TournamentGameConfiguration(Game.pic, "AAA", new Money(Currency.point, 50), PlayerNumberRule.two, RoundGameConfiguration.DEFAULT, null, null, null, null, null);
+//            }
+//        });
 
         final RSAKeySecret rsaKey = ClembleConsumerDetailUtils.randomKey();
         ObjectGenerator.register(PrivateKey.class, new AbstractValueGenerator<PrivateKey>() {
@@ -254,18 +262,18 @@ public class TestObjectGeneratorInitializer {
                 return rsaKey.getPublicKey();
             }
         });
-        ObjectGenerator.register(MatchGameContext.class, new AbstractValueGenerator<MatchGameContext>() {
-            @Override
-            public MatchGameContext generate() {
-            return new MatchGameContext(GameSessionAware.DEFAULT_SESSION, null, Collections.<MatchGamePlayerContext>emptyList(), null, 0, Collections.<Outcome>emptyList());
-            }
-        });
-        ObjectGenerator.register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {
-            @Override
-            public TournamentGameContext generate() {
-            return new TournamentGameContext(GameSessionAware.DEFAULT_SESSION, null, null, null);
-            }
-        });
+//        ObjectGenerator.register(MatchGameContext.class, new AbstractValueGenerator<MatchGameContext>() {
+//            @Override
+//            public MatchGameContext generate() {
+//            return new MatchGameContext(GameSessionAware.DEFAULT_SESSION, null, Collections.<MatchGamePlayerContext>emptyList(), null, 0, Collections.<Outcome>emptyList());
+//            }
+//        });
+//        ObjectGenerator.register(TournamentGameContext.class, new AbstractValueGenerator<TournamentGameContext>() {
+//            @Override
+//            public TournamentGameContext generate() {
+//            return new TournamentGameContext(GameSessionAware.DEFAULT_SESSION, null, null, null);
+//            }
+//        });
         ObjectGenerator.register(ClembleConsumerDetails.class, new AbstractValueGenerator<ClembleConsumerDetails>() {
             @Override
             public ClembleConsumerDetails generate() {

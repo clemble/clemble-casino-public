@@ -16,10 +16,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.clemble.casino.ImmutablePair;
 import com.clemble.casino.client.payment.PaymentEventSelector;
 import com.clemble.casino.event.Event;
-import com.clemble.casino.event.NotificationMapping;
-import com.clemble.casino.game.event.GameEvent;
 import com.clemble.casino.payment.event.PaymentEvent;
-import com.clemble.casino.player.event.PlayerPresenceChangedEvent;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 abstract public class AbstractEventListenerTemplate implements EventListenerOperations, Closeable {
@@ -58,11 +55,6 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     }
 
     @Override
-    final public EventListenerController subscribeToGameSession(String sessionKey, EventListener<GameEvent> listener) {
-        return subscribe(new GameSessionEventSelector(sessionKey), listener);
-    }
-
-    @Override
     final public EventListenerController subscribe(EventSelector selector, EventListener<? extends Event> listener) {
         return subscribe(player, selector, listener);
     }
@@ -86,22 +78,6 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
     final public EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener) {
         return subscribe(new PaymentEventSelector(), listener);
     }
-
-    @Override
-    final public EventListenerController subscribeToPresenceEvents(String player, EventListener<PlayerPresenceChangedEvent> listener) {
-        if(player == null || listener == null)
-            throw new IllegalArgumentException();
-        return subscribe(NotificationMapping.toPresenceChannel(player), listener);
-    }
-
-    @Override
-    final public EventListenerController subscribeToPresenceEvents(List<String> players, EventListener<PlayerPresenceChangedEvent> listener) {
-        Collection<EventListenerController> listenerControllers = new ArrayList<EventListenerController>(players.size());
-        for(String player: players)
-            listenerControllers.add(subscribeToPresenceEvents(player, listener));
-        return new EventListenerControllerAgregate(listenerControllers);
-    }
-
 
     abstract public void subscribe(String channel);
 
