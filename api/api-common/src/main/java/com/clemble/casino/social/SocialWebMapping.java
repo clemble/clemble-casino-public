@@ -9,8 +9,7 @@ public abstract class SocialWebMapping implements WebMapping {
 
     final private static String SOCIAL_URL = "http://{host}/social";
 
-    final public static String SOCIAL_REGISTRATION_BASE = "/social/registration";
-    final public static String SOCIAL_SIGN_IN_BASE = "/social/signin";
+    final public static String SOCIAL_SIGN_IN_BASE = "/signin";
 
     final public static String SOCIAL_PLAYER = "/{player}";
     final public static String SOCIAL_REGISTRATION_GRANT = "/registration/grant";
