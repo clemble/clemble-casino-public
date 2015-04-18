@@ -7,7 +7,6 @@ machine:
 dependencies:
   override:
     - rm -rf ~/.m2/repository/com/clemble
-    - mvn --version
     - mvn install
 
 deployment:
