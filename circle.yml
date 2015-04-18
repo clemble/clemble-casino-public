@@ -6,7 +6,7 @@ machine:
 
 dependencies:
   override:
-    - mvn version
+    - mvn --version
     - mvn install
 
 deployment:
