@@ -1,0 +1,15 @@
+machine:
+  java:
+    version: oraclejdk8
+  services:
+    - docker
+
+dependencies:
+  override:
+    - mvn install -Dmaven.test.skip=true
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - mvn deploy
