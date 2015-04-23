@@ -14,6 +14,8 @@ public class EODTimeoutCalculator implements TimeoutCalculator {
 
     @JsonCreator
     public EODTimeoutCalculator(@JsonProperty("days") int days) {
+        if (days < 0)
+            throw new IllegalArgumentException("Days must be positive");
         this.days = days;
     }
 
@@ -23,10 +25,13 @@ public class EODTimeoutCalculator implements TimeoutCalculator {
 
     @Override
     public long calculate(String timezone, long moveStart, long timeSpent) {
-        return new DateTime(moveStart, DateTimeZone.forID(timezone)).
+        DateTime breachTime = new DateTime(moveStart, DateTimeZone.forID(timezone)).
                 withTime(23, 59, 59, 00). // EOD of move start
-                plusDays(days). // This is the end of today, plus days should be next day
-                getMillis();
+                plusDays(days);
+        // This is the end of today, plus days should be next day
+        return breachTime.isAfterNow()
+                ? breachTime.getMillis() // If breach time is after now, it's valid
+                : breachTime.plusDays(1).getMillis(); // Breach time can't be in the past
     }
 
     @Override
