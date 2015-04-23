@@ -21,11 +21,6 @@ public class MoveTimeoutCalculator implements TimeoutCalculator {
     }
 
     @Override
-    public long calculate(String timezone, long moveStart) {
-        return calculate(timezone, moveStart, 0);
-    }
-
-    @Override
     public long calculate(String timezone, long moveStart, long timeSpent) {
         return System.currentTimeMillis() + (limit - (System.currentTimeMillis() - moveStart));
     }

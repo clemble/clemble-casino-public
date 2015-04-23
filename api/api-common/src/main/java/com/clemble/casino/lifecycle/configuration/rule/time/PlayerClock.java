@@ -70,13 +70,11 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
     }
 
     // TODO this is used as a hack, really bad practice
-    public void start(long moveStart, long breachTime, DateTime deadline, BreachPunishment breachPunishment) {
-        if (this.moveStart == 0) {
-            this.moveStart = moveStart;
-            this.breachTime = breachTime;
-            this.deadline = deadline;
-            this.punishment = breachPunishment;
-        }
+    public void set(long moveStart, long breachTime, DateTime deadline, BreachPunishment breachPunishment) {
+        this.moveStart = moveStart;
+        this.breachTime = breachTime;
+        this.deadline = deadline;
+        this.punishment = breachPunishment;
     }
 
     public void stop() {
