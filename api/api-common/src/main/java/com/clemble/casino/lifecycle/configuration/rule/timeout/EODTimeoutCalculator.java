@@ -33,8 +33,7 @@ public class EODTimeoutCalculator implements TimeoutCalculator {
                 withMinuteOfHour(0).
                 withSecondOfMinute(0).
                 withMillis(0).
-                minusMillis(1).
-                plusDays(days + 1). // This is the end of today, plus days should be next day
+                plusDays(days). // This is the end of today, plus days should be next day
                 minusMillis(1).
                 getMillis();
     }
