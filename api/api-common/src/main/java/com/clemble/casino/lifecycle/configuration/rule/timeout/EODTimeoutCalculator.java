@@ -5,17 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import javax.validation.constraints.Min;
+
 /**
  * Created by mavarazy on 1/4/15.
  */
 public class EODTimeoutCalculator implements TimeoutCalculator {
 
+    @Min(0)
     final private int days;
 
     @JsonCreator
     public EODTimeoutCalculator(@JsonProperty("days") int days) {
-        if (days < 0)
-            throw new IllegalArgumentException("Days must be positive");
         this.days = days;
     }
 
