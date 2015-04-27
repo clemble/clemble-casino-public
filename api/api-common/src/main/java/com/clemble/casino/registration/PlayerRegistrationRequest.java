@@ -1,5 +1,6 @@
 package com.clemble.casino.registration;
 
+import com.clemble.casino.TimeZoneAware;
 import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.validation.*;
 import com.clemble.casino.player.*;
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 public class PlayerRegistrationRequest
-    implements RegistrationRequest, EmailAware, PlayerNickNameAware, PlayerAware {
+    implements RegistrationRequest, EmailAware, PlayerNickNameAware, PlayerAware, TimeZoneAware {
 
     private static final long serialVersionUID = -7419091879616342442L;
 
@@ -47,6 +48,8 @@ public class PlayerRegistrationRequest
     @JsonProperty("birthDate")
     final private DateTime birthDate;
 
+    final private String timezone;
+
     @JsonCreator
     public PlayerRegistrationRequest(
         @JsonProperty(value = "player",defaultValue = "") String player,
@@ -56,7 +59,8 @@ public class PlayerRegistrationRequest
         @JsonProperty("firstName") String firstName,
         @JsonProperty("lastName") String lastName,
         @JsonProperty("gender") PlayerGender gender,
-        @JsonProperty("birthDate") DateTime birthDate
+        @JsonProperty("birthDate") DateTime birthDate,
+        @JsonProperty(TIME_ZONE) String timezone
     ) {
         this.player = player;
         this.nickName = nickName;
@@ -65,6 +69,7 @@ public class PlayerRegistrationRequest
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
+        this.timezone = timezone;
         this.birthDate = birthDate;
     }
 
@@ -77,7 +82,8 @@ public class PlayerRegistrationRequest
             playerProfile.getFirstName(),
             playerProfile.getLastName(),
             playerProfile.getGender(),
-            playerProfile.getBirthDate()
+            playerProfile.getBirthDate(),
+            playerProfile.getTimezone()
         );
     }
 
@@ -116,6 +122,11 @@ public class PlayerRegistrationRequest
         return birthDate;
     }
 
+    @Override
+    public String getTimezone() {
+        return timezone;
+    }
+
     public PlayerRegistrationRequest copyWithPlayer(String player) {
         return new PlayerRegistrationRequest(
             player,
@@ -125,7 +136,8 @@ public class PlayerRegistrationRequest
             firstName,
             lastName,
             gender,
-            birthDate
+            birthDate,
+            timezone
         );
     }
 
@@ -140,7 +152,8 @@ public class PlayerRegistrationRequest
             setLastName(lastName).
             setGender(gender).
             setPlayer(player).
-            setNickName(nickName);
+            setNickName(nickName).
+            setTimezone(timezone);
     }
 
     @Override

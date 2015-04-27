@@ -18,7 +18,7 @@ public class GoalSuggestionRequest implements GoalDescriptionAware {
     @JsonCreator
     public GoalSuggestionRequest(
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") String timezone) {
+        @JsonProperty(TIME_ZONE) String timezone) {
         this.goal = goal;
         this.timezone = timezone;
     }

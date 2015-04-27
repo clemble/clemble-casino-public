@@ -1,14 +1,12 @@
 package com.clemble.casino.goal;
 
-import org.joda.time.DateTimeZone;
+import com.clemble.casino.TimeZoneAware;
 
 /**
  * Created by mavarazy on 8/16/14.
  */
-public interface GoalDescriptionAware {
+public interface GoalDescriptionAware extends TimeZoneAware {
 
-    public String getGoal();
-
-    public String getTimezone();
+    String getGoal();
 
 }

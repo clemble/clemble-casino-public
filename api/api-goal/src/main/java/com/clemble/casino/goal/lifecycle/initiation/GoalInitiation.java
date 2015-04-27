@@ -54,7 +54,7 @@ public class GoalInitiation implements
         @JsonProperty("bank") Bank bank,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") String timezone,
+        @JsonProperty(TIME_ZONE) String timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("supporters") Set<String> supporters,

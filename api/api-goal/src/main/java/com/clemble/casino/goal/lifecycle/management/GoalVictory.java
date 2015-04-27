@@ -30,7 +30,7 @@ public class GoalVictory implements GoalDescriptionAware, GoalAware, GoalRoleAwa
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("goal") String goal,
         @JsonProperty("bank") Bank bank,
-        @JsonProperty("timezone") String timezone
+        @JsonProperty(TIME_ZONE) String timezone
     ) {
         this.goalKey = goalKey;
         this.player = player;

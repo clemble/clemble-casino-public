@@ -25,7 +25,7 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
     public GoalConstructionRequest(
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") String timezone) {
+        @JsonProperty(TIME_ZONE) String timezone) {
         this.configuration = configuration;
         this.timezone = timezone;
         this.goal = goal;

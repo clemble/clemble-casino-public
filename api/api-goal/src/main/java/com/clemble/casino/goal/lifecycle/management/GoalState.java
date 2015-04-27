@@ -75,7 +75,7 @@ public class GoalState implements
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") String timezone,
+        @JsonProperty(TIME_ZONE) String timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("context") GoalContext context,

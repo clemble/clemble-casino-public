@@ -194,7 +194,8 @@ public class TestObjectGeneratorInitializer {
             public PlayerProfile generate() {
             return new PlayerProfile().setBirthDate(new DateTime(0)).setFirstName(RandomStringUtils.randomAlphabetic(10))
                 .setGender(PlayerGender.M).setLastName(RandomStringUtils.randomAlphabetic(10)).setNickName(RandomStringUtils.randomAlphabetic(10))
-                .setPlayer(RandomStringUtils.random(5));
+                .setPlayer(RandomStringUtils.random(5)).
+                setTimezone("UTC");
             }
         });
         ObjectGenerator.register(ConfigurationRule.class, new AbstractValueGenerator<ConfigurationRule>() {

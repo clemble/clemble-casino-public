@@ -43,7 +43,7 @@ public class GoalConstruction implements
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") String timezone,
+        @JsonProperty(TIME_ZONE) String timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("configuration") GoalConfiguration configuration,

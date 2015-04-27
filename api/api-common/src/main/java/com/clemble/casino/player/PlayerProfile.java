@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.clemble.casino.TimeZoneAware;
 import com.clemble.casino.error.validation.MinSize;
 import com.clemble.casino.error.validation.NoWhiteSpaces;
 import com.clemble.casino.social.SocialProvider;
@@ -18,7 +19,7 @@ import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.NickNameConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayerProfile implements PlayerAware, PlayerNickNameAware {
+public class PlayerProfile implements PlayerAware, PlayerNickNameAware, TimeZoneAware {
 
     /**
      * Generated 03/11/13
@@ -51,6 +52,8 @@ public class PlayerProfile implements PlayerAware, PlayerNickNameAware {
     private DateTime birthDate;
 
     private Set<ConnectionKey> socialConnections = new HashSet<ConnectionKey>();
+
+    private String timezone;
 
     public PlayerProfile() {
     }
@@ -87,6 +90,16 @@ public class PlayerProfile implements PlayerAware, PlayerNickNameAware {
 
     public PlayerProfile addSocialConnection(ConnectionKey newConnectionKey) {
         socialConnections.add(newConnectionKey);
+        return this;
+    }
+
+    @Override
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public PlayerProfile setTimezone(String timezone) {
+        this.timezone = timezone;
         return this;
     }
 

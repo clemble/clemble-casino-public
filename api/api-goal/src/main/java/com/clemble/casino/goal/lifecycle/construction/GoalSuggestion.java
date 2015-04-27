@@ -41,7 +41,7 @@ public class GoalSuggestion implements
     public GoalSuggestion(
         @JsonProperty(GOAL_KEY) String goalKey,
         @JsonProperty("goal") String goal,
-        @JsonProperty("timezone") String timezone,
+        @JsonProperty(TIME_ZONE) String timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("player") String player,
         @JsonProperty("suggester") String suggester,
