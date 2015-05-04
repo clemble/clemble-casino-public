@@ -15,7 +15,7 @@ import javax.validation.Payload;
  * @author mavarazy
  *
  */
-@Target({ ElementType.METHOD, ElementType.FIELD })
+@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = MinSizeValidator.class)
 public @interface MinSize {

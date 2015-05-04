@@ -39,6 +39,7 @@ public enum ClembleCasinoError {
     PasswordTooWeak(Code.PASSWORD_TOO_WEAK_CODE, "Password too weak"),
     PasswordTooLong(Code.PASSWORD_TOO_LONG_CODE, "Password too long"),
     EmailOrPasswordIncorrect(Code.EMAIL_OR_PASSWORD_INCORRECT_CODE, "Email or password is incorrect"),
+    PasswordIncorrect(Code.PASSWORD_INCORRECT, "Password incorrect"),
 
     ProfileSocialCantBeEdited(Code.PROFILE_SOCIAL_CANT_BE_EDITED, "Social connections can't be edited by the user"),
 
@@ -216,6 +217,7 @@ public enum ClembleCasinoError {
         final public static String PASSWORD_TOO_SHORT_CODE = "011";
         final public static String PASSWORD_TOO_WEAK_CODE = "012";
         final public static String PASSWORD_TOO_LONG_CODE = "013";
+        final public static String PASSWORD_INCORRECT = "014";
         // Credentials authentication codes
         final public static String EMAIL_OR_PASSWORD_INCORRECT_CODE = "020";
         // Identity errors

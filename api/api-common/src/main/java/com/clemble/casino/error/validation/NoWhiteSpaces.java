@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 /**
  * Created by mavarazy on 2/16/15.
  */
-@Target({ ElementType.METHOD, ElementType.FIELD })
+@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NoWhiteSpacesValidator.class)
 public @interface NoWhiteSpaces {

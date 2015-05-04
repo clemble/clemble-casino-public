@@ -30,10 +30,7 @@ public class PlayerRegistrationRequest
     @Email(message = ClembleCasinoError.Code.EMAIL_INVALID_CODE)
     final private String email;
 
-    @PasswordConstraint
-    @MinSize(min = 6, message = ClembleCasinoError.Code.PASSWORD_TOO_SHORT_CODE)
-    @MaxSize(max = 64, message = ClembleCasinoError.Code.PASSWORD_TOO_LONG_CODE)
-    @NotNull(message = ClembleCasinoError.Code.PASSWORD_MISSING_CODE)
+    @ClemblePasswordConstraint
     final private String password;
 
 

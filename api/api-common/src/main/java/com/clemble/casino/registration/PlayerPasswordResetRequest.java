@@ -1,6 +1,7 @@
 package com.clemble.casino.registration;
 
 import com.clemble.casino.error.ClembleCasinoError;
+import com.clemble.casino.error.validation.ClemblePasswordConstraint;
 import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.MinSize;
 import com.clemble.casino.error.validation.PasswordConstraint;
@@ -15,10 +16,7 @@ import javax.validation.constraints.NotNull;
 public class PlayerPasswordResetRequest {
 
     final private String token;
-    @PasswordConstraint // TODO unite all requirements for password in @PasswordConstraint
-    @MinSize(min = 6, message = ClembleCasinoError.Code.PASSWORD_TOO_SHORT_CODE)
-    @MaxSize(max = 64, message = ClembleCasinoError.Code.PASSWORD_TOO_LONG_CODE)
-    @NotNull(message = ClembleCasinoError.Code.PASSWORD_MISSING_CODE)
+    @ClemblePasswordConstraint
     final private String password;
 
     @JsonCreator

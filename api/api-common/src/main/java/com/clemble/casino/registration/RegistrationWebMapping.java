@@ -17,6 +17,7 @@ public abstract class RegistrationWebMapping implements WebMapping {
 
     final public static String RESTORE_PASSWORD = "/restore";
     final public static String RESET_PASSWORD = "/reset";
+    final public static String CHANGE_PASSWORD = "/change";
 
     public static String toRegistrationUrl(String host, String path) {
         return REGISTRATION_URL.replace("{host}", host) + path;

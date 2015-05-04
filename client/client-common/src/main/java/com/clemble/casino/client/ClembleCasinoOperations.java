@@ -6,7 +6,7 @@ import com.clemble.casino.client.goal.GoalOperations;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
-import com.clemble.casino.registration.service.PlayerPasswordResetService;
+import com.clemble.casino.registration.service.PlayerPasswordService;
 import com.clemble.casino.tag.service.PlayerTagService;
 import org.springframework.social.ApiBinding;
 import org.springframework.web.client.RestTemplate;
@@ -36,7 +36,7 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
 
     GoalOperations goalOperations();
 
-    PlayerPasswordResetService passwordResetService();
+    PlayerPasswordService passwordResetService();
 
     PlayerEmailService emailService();
 

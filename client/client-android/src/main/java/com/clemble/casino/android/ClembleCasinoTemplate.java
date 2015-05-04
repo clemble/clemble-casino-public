@@ -10,7 +10,7 @@ import com.clemble.casino.json.ObjectMapperUtils;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
-import com.clemble.casino.registration.service.PlayerPasswordResetService;
+import com.clemble.casino.registration.service.PlayerPasswordService;
 import com.clemble.casino.registration.service.PlayerSignOutService;
 import com.clemble.casino.tag.service.PlayerTagService;
 import org.springframework.http.HttpRequest;
@@ -48,7 +48,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private GoalOperations goalOperations;
 
     final private PlayerSignOutService signOutService;
-    final private PlayerPasswordResetService passwordResetService;
+    final private PlayerPasswordService passwordResetService;
 
     final private PlayerEmailService emailService;
     final private PlayerTagService tagService;
@@ -99,7 +99,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         // Step 8. Creating signOut service
         this.signOutService = new AndroidPlayerSignOutService(restTemplate, host);
         // Step 9. Creating password reset service
-        this.passwordResetService = new AndroidPlayerPasswordResetService(restTemplate, host);
+        this.passwordResetService = new AndroidPlayerPasswordService(restTemplate, host);
         // Step 10. Creating email service
         this.emailService = new AndroidPlayerEmailService(restTemplate, host);
         // Step 11. Creating tag service
@@ -152,7 +152,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public PlayerPasswordResetService passwordResetService() {
+    public PlayerPasswordService passwordResetService() {
         return passwordResetService;
     }
 

@@ -10,7 +10,7 @@ import javax.validation.Payload;
 
 import com.clemble.casino.error.ClembleCasinoError.Code;
 
-@Target({ ElementType.METHOD, ElementType.FIELD })
+@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PasswordConstraintValidator.class)
 public @interface PasswordConstraint {
