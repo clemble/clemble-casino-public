@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface GoalConfigurationService extends ConfigurationService<GoalConfiguration> {
 
-    public GoalConfigurationChoices getChoises();
+    public GoalConfigurationChoices getChoices();
 
     public List<GoalConfiguration> getConfigurations();
 

@@ -26,7 +26,7 @@ public class AndroidGoalConfigurationService extends AbstractClembleCasinoOperat
     }
 
     @Override
-    public GoalConfigurationChoices getChoises() {
+    public GoalConfigurationChoices getChoices() {
         // Step 1. Generating choices URI
         URI myConfigurationsUrl = buildUri(toGoalConfigurationUrl(MY_CONFIGURATIONS_CHOICES));
         // Step 2. GET available Goal configurations
