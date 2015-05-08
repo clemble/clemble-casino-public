@@ -7,7 +7,6 @@ import com.clemble.casino.android.payment.AndroidPlayerAccountService;
 import com.clemble.casino.android.player.*;
 import com.clemble.casino.client.goal.GoalOperations;
 import com.clemble.casino.json.ObjectMapperUtils;
-import com.clemble.casino.payment.service.PaymentTransactionOperations;
 import com.clemble.casino.payment.service.PaymentTransactionService;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
