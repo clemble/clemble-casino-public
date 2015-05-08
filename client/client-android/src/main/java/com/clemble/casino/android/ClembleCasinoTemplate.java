@@ -8,6 +8,7 @@ import com.clemble.casino.android.player.*;
 import com.clemble.casino.client.goal.GoalOperations;
 import com.clemble.casino.json.ObjectMapperUtils;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
+import com.clemble.casino.payment.service.PaymentTransactionService;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
 import com.clemble.casino.registration.service.PlayerPasswordService;
@@ -42,7 +43,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerConnectionService connectionOperations;
     final private PlayerFeedService feedService;
     final private PlayerFriendInvitationService friendInvitationService;
-    final private PaymentTransactionOperations transactionOperations;
+    final private PaymentTransactionService transactionOperations;
     final private PlayerAccountService accountService;
 
     final private GoalOperations goalOperations;
@@ -89,7 +90,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         this.feedService = new AndroidPlayerFeedService(restTemplate, host);
         // Step 2. Creating PlayerPresence service
         // Step 3. Creating PaymentTransaction service
-        this.transactionOperations = new PaymentTransactionOperations(new AndroidPaymentTransactionService(restTemplate, host));
+        this.transactionOperations = new AndroidPaymentTransactionService(restTemplate, host);
         // Step 4. Creating GameConstruction services
         // Step 6. Creating goal service
         this.goalOperations = new AndroidGoalOperations(host, restTemplate);
@@ -142,7 +143,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public PaymentTransactionOperations paymentOperations() {
+    public PaymentTransactionService paymentOperations() {
         return transactionOperations;
     }
 

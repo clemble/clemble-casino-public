@@ -4,6 +4,7 @@ import java.io.Closeable;
 
 import com.clemble.casino.client.goal.GoalOperations;
 import com.clemble.casino.payment.service.PaymentTransactionOperations;
+import com.clemble.casino.payment.service.PaymentTransactionService;
 import com.clemble.casino.payment.service.PlayerAccountService;
 import com.clemble.casino.player.service.*;
 import com.clemble.casino.registration.service.PlayerPasswordService;
@@ -30,7 +31,7 @@ public interface ClembleCasinoOperations extends ApiBinding, Closeable, PlayerAw
 
     PlayerAccountService accountService();
 
-    PaymentTransactionOperations paymentOperations();
+    PaymentTransactionService paymentOperations();
 
     EventListenerOperations listenerOperations();
 

@@ -1,11 +1,17 @@
 package com.clemble.casino.player.service;
 
+import java.util.Collection;
 import java.util.List;
 
+import com.clemble.casino.ClembleService;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.player.PlayerProfile;
 
-public interface PlayerProfileService extends PlayerProfileServiceContract {
+public interface PlayerProfileService extends ClembleService {
+
+    public PlayerProfile getProfile(String player);
+
+    public List<PlayerProfile> getProfiles(Collection<String> players);
 
     public PlayerProfile myProfile();
 
