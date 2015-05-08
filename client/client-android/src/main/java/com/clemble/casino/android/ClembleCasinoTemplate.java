@@ -113,7 +113,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public PlayerImageService imageOperations() {
+    public PlayerImageService imageService() {
         return imageOperations;
     }
 
@@ -143,7 +143,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public PaymentTransactionService paymentOperations() {
+    public PaymentTransactionService paymentService() {
         return transactionOperations;
     }
 
