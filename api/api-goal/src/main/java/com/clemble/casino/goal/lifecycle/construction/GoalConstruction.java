@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.construction;
 
+import com.clemble.casino.bet.Bet;
 import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.goal.lifecycle.record.GoalRecord;
 import com.clemble.casino.lifecycle.construction.Construction;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -102,16 +104,18 @@ public class GoalConstruction implements
     }
 
     public GoalRecord toRecord() {
-    return new GoalRecord(goalKey,
-        player,
-        RecordState.active,
-        new Bank(new ArrayList<PlayerBet>(), configuration.getBet(), Money.create(Currency.DEFAULT, 0L)),
-        goal,
-        timezone,
-        tag,
-        configuration,
-        Collections.<EventRecord>emptySet(),
-        null);
+        Bank bank = new Bank(new ArrayList<PlayerBet>(), new Bet(Money.ZERO, Money.ZERO), Money.ZERO);
+        bank.add(new PlayerBet(player, configuration.getBet()));
+        return new GoalRecord(goalKey,
+            player,
+            RecordState.active,
+            bank,
+            goal,
+            timezone,
+            tag,
+            configuration,
+            Collections.<EventRecord>emptySet(),
+            null);
     }
 
     public GoalConstruction clone(ConstructionState state) {

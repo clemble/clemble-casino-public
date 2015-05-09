@@ -210,7 +210,8 @@ public class GoalState implements
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
                 bank.addPenalty(player, punishmentAction.getAmount());
-                if (bank.getBet(player).getBet().getInterest().getAmount() == 0) {
+                long interest = bank.getBet(player).getBet().getInterest().getAmount();
+                if (interest <= 0L) {
                     return new GoalEndedEvent(player, this.copyWithAction(action).finish(), new PlayerLostOutcome(player));
                 } else {
                     return new GoalChangedStatusUpdateMissedEvent(player, this.copyWithAction(action));
