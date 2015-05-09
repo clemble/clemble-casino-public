@@ -34,14 +34,14 @@ public class ClembleTag implements TagAware, Comparable<ClembleTag>{
         ClembleTag that = (ClembleTag) o;
 
         if (power != that.power) return false;
-        if (!tag.equals(that.tag)) return false;
+        if (tag != null ? !tag.equals(that.tag) : that.tag != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = tag.hashCode();
+        int result = tag != null ? tag.hashCode() : 0;
         result = 31 * result + power;
         return result;
     }

@@ -5,7 +5,6 @@ import com.clemble.casino.goal.lifecycle.construction.service.GoalConstructionSe
 import com.clemble.casino.goal.lifecycle.construction.service.GoalSuggestionService;
 import com.clemble.casino.goal.lifecycle.management.service.GoalActionService;
 import com.clemble.casino.goal.lifecycle.management.service.GoalVictoryService;
-import com.clemble.casino.goal.lifecycle.record.service.GoalRecordService;
 
 /**
  * Created by mavarazy on 9/15/14.
@@ -19,8 +18,6 @@ public interface GoalOperations {
     GoalSuggestionService suggestionService();
 
     GoalActionService actionService();
-
-    GoalRecordService recordService();
 
     GoalVictoryService victoryService();
 

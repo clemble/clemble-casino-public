@@ -1,9 +1,8 @@
 package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
-import com.clemble.casino.goal.lifecycle.management.GoalVictory;
+import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.goal.lifecycle.management.service.GoalVictoryService;
-import com.clemble.casino.goal.lifecycle.record.GoalRecord;
 import com.clemble.casino.utils.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,19 +24,19 @@ public class AndroidGoalVictoryService extends AbstractClembleCasinoOperations i
     }
 
     @Override
-    public List<GoalRecord> listMy() {
+    public List<GoalState> listMy() {
         // Step 1. Generating URL
         URI myVictories = buildUri(toGoalManagementUrl(MY_VICTORIES));
         // Step 2. Requesting for list of victories
-        return CollectionUtils.immutableList(restTemplate.getForObject(myVictories, GoalRecord[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(myVictories, GoalState[].class));
     }
 
     @Override
-    public List<GoalRecord> list(String player) {
+    public List<GoalState> list(String player) {
         // Step 1. Generating URL
         URI victories = buildUri(toGoalManagementUrl(PLAYER_VICTORIES), player);
         // Step 2. Requesting for list of victories
-        return CollectionUtils.immutableList(restTemplate.getForObject(victories, GoalRecord[].class));
+        return CollectionUtils.immutableList(restTemplate.getForObject(victories, GoalState[].class));
     }
 
 }

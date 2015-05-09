@@ -1,28 +1,16 @@
 package com.clemble.casino.goal.lifecycle.construction;
 
-import com.clemble.casino.bet.Bet;
-import com.clemble.casino.bet.PlayerBet;
-import com.clemble.casino.goal.lifecycle.record.GoalRecord;
 import com.clemble.casino.lifecycle.construction.Construction;
 import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
-import com.clemble.casino.lifecycle.record.EventRecord;
-import com.clemble.casino.lifecycle.record.RecordState;
-import com.clemble.casino.money.Currency;
-import com.clemble.casino.money.Money;
-import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by mavarazy on 9/7/14.
@@ -101,21 +89,6 @@ public class GoalConstruction implements
     @Override
     public String getTag() {
         return tag;
-    }
-
-    public GoalRecord toRecord() {
-        Bank bank = new Bank(new ArrayList<PlayerBet>(), new Bet(Money.ZERO, Money.ZERO), Money.ZERO);
-        bank.add(new PlayerBet(player, configuration.getBet()));
-        return new GoalRecord(goalKey,
-            player,
-            RecordState.active,
-            bank,
-            goal,
-            timezone,
-            tag,
-            configuration,
-            Collections.<EventRecord>emptySet(),
-            null);
     }
 
     public GoalConstruction clone(ConstructionState state) {

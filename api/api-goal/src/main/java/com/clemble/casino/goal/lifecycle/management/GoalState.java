@@ -22,8 +22,12 @@ import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAct
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetOffAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
+import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
 import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
+import com.clemble.casino.lifecycle.record.EventRecord;
+import com.clemble.casino.lifecycle.record.Record;
+import com.clemble.casino.lifecycle.record.RecordState;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.Bank;
@@ -34,12 +38,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Created by mavarazy on 10/9/14.
  */
 public class GoalState implements
+    Record<GoalConfiguration>,
     State<GoalEvent, GoalContext>,
     GoalAware,
     GoalPhaseAware,
@@ -66,6 +74,9 @@ public class GoalState implements
     final private DateTime startDate;
     final private DateTime deadline;
     final private String timezone;
+    final private RecordState state;
+    final private SortedSet<EventRecord> eventRecords;
+    final private Outcome outcome;
 
     @JsonCreator
     public GoalState(
@@ -82,7 +93,10 @@ public class GoalState implements
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("status") String status,
         @JsonProperty("phase") GoalPhase phase,
-        @JsonProperty("lastAction") Action lastAction) {
+        @JsonProperty("lastAction") Action lastAction,
+        @JsonProperty("eventRecords") SortedSet<EventRecord> eventRecords,
+        @JsonProperty("state") RecordState state,
+        @JsonProperty("outcome") Outcome outcome) {
         this.goalKey = goalKey;
         this.player = player;
         this.phase = phase;
@@ -97,6 +111,9 @@ public class GoalState implements
         this.status = status;
         this.lastAction = lastAction;
         this.timezone = timezone;
+        this.eventRecords = eventRecords;
+        this.state = state;
+        this.outcome = outcome;
     }
 
     @Override
@@ -168,6 +185,21 @@ public class GoalState implements
     }
 
     @Override
+    public RecordState getState() {
+        return state;
+    }
+
+    @Override
+    public SortedSet<EventRecord> getEventRecords() {
+        return eventRecords;
+    }
+
+    @Override
+    public Outcome getOutcome() {
+        return outcome;
+    }
+
+    @Override
     public GoalStartedEvent start() {
         return new GoalStartedEvent(player, this);
     }
@@ -186,7 +218,8 @@ public class GoalState implements
                 String newStatus = statusUpdateAction.getStatus();
                 return new GoalChangedStatusEvent(player, this.copyWithStatus(newStatus, action));
             } else if (action instanceof SurrenderAction) {
-                return new GoalEndedEvent(player, this.finish(), new PlayerLostOutcome(actor));
+                Outcome outcome = new PlayerLostOutcome(actor);
+                return new GoalEndedEvent(player, this.finish(outcome), outcome);
             } else if (action instanceof BetAction) {
                 switch (phase) {
                     case betOff:
@@ -206,13 +239,15 @@ public class GoalState implements
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 String newStatus = reachedAction.getStatus();
-                return new GoalEndedEvent(player, this.copyWithStatus(newStatus, reachedAction).finish(), new PlayerWonOutcome(actor));
+                Outcome outcome = new PlayerWonOutcome(actor);
+                return new GoalEndedEvent(player, this.copyWithStatus(newStatus, reachedAction).finish(outcome), outcome);
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
                 bank.addPenalty(player, punishmentAction.getAmount());
                 long interest = bank.getBet(player).getBet().getInterest().getAmount();
                 if (interest <= 0L) {
-                    return new GoalEndedEvent(player, this.copyWithAction(action).finish(), new PlayerLostOutcome(player));
+                    Outcome outcome = new PlayerLostOutcome(player);
+                    return new GoalEndedEvent(player, this.copyWithAction(action).finish(outcome), outcome);
                 } else {
                     return new GoalChangedStatusUpdateMissedEvent(player, this.copyWithAction(action));
                 }
@@ -225,6 +260,8 @@ public class GoalState implements
     }
 
     public GoalState copyWithStatus(String newStatus, Action latestAction) {
+        TreeSet<EventRecord> newRecords = new TreeSet<EventRecord>(eventRecords);
+        newRecords.add(new EventRecord(latestAction, DateTime.now()));
         return new GoalState(
             goalKey,
             startDate,
@@ -239,11 +276,16 @@ public class GoalState implements
             supporters,
             newStatus,
             phase,
-            latestAction
+            latestAction,
+            newRecords,
+            state,
+            outcome
         );
     }
 
     public GoalState copyWithAction(Action latestAction) {
+        TreeSet<EventRecord> newRecords = new TreeSet<EventRecord>(eventRecords);
+        newRecords.add(new EventRecord(latestAction, DateTime.now()));
         return new GoalState(
             goalKey,
             startDate,
@@ -258,14 +300,19 @@ public class GoalState implements
             supporters,
             status,
             phase,
-            latestAction
+            latestAction,
+            newRecords,
+            state,
+            outcome
         );
     }
 
-    public GoalState finish() {
+    public GoalState finish(Outcome outcome) {
          switch (phase) {
             case started:
             case betOff:
+                TreeSet<EventRecord> newRecords = new TreeSet<EventRecord>(eventRecords);
+                newRecords.add(new EventRecord(new GoalEndedEvent(player, this, outcome), DateTime.now()));
                 return new GoalState(
                     goalKey,
                     startDate,
@@ -280,7 +327,10 @@ public class GoalState implements
                     supporters,
                     status,
                     GoalPhase.finished,
-                    lastAction
+                    lastAction,
+                    newRecords,
+                    RecordState.finished,
+                    outcome
                 );
             default:
                 return this;
@@ -290,6 +340,8 @@ public class GoalState implements
     public GoalState forbidBet() {
         switch (phase) {
             case started:
+                TreeSet<EventRecord> newRecords = new TreeSet<EventRecord>(eventRecords);
+                newRecords.add(new EventRecord(new GoalStartedEvent(player, this), DateTime.now()));
                 return new GoalState(
                     goalKey,
                     startDate,
@@ -304,7 +356,10 @@ public class GoalState implements
                     supporters,
                     status,
                     GoalPhase.betOff,
-                    lastAction
+                    lastAction,
+                    newRecords,
+                    state,
+                    outcome
                 );
             default:
                 return this;
