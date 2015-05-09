@@ -4,8 +4,7 @@ import com.clemble.casino.CreatedAware;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
-import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
-import com.clemble.casino.lifecycle.initiation.InitiationState;
+import com.clemble.casino.lifecycle.construction.ConstructionState;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.tag.TagAware;
@@ -95,18 +94,17 @@ public class GoalSuggestion implements
         return  state;
     }
 
-    public GoalInitiation toInitiation(GoalConfiguration configuration) {
-        return new GoalInitiation(
+    public GoalConstruction toConstruction(GoalConfiguration configuration) {
+        return new GoalConstruction(
             goalKey,
-            InitiationState.pending,
-            Bank.create(getPlayer(), configuration.getBet()),
             player,
             goal,
             timezone,
             tag,
+            DateTime.now(DateTimeZone.forID(timezone)),
             configuration,
-            new HashSet<String>(),
-            DateTime.now(DateTimeZone.UTC));
+            ConstructionState.constructed
+        );
     }
 
     public GoalSuggestion copyWithStatus(GoalSuggestionState state) {

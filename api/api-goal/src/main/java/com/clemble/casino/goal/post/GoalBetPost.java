@@ -1,19 +1,12 @@
 package com.clemble.casino.goal.post;
 
 import com.clemble.casino.bet.PlayerBet;
-import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
-import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
-import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
-import com.clemble.casino.goal.lifecycle.management.GoalPhase;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
-import com.clemble.casino.payment.Bank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-
-import java.util.Set;
 
 /**
  * Created by mavarazy on 11/29/14.

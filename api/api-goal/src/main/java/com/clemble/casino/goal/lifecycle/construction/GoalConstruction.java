@@ -1,22 +1,26 @@
 package com.clemble.casino.goal.lifecycle.construction;
 
-import com.clemble.casino.goal.lifecycle.initiation.GoalInitiation;
+import com.clemble.casino.bet.PlayerBet;
+import com.clemble.casino.goal.lifecycle.record.GoalRecord;
 import com.clemble.casino.lifecycle.construction.Construction;
 import com.clemble.casino.lifecycle.construction.ConstructionState;
-import com.clemble.casino.lifecycle.initiation.InitiationState;
 import com.clemble.casino.goal.GoalAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
+import com.clemble.casino.lifecycle.record.EventRecord;
+import com.clemble.casino.lifecycle.record.RecordState;
+import com.clemble.casino.money.Currency;
+import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.Bank;
 import com.clemble.casino.player.PlayerAware;
 import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by mavarazy on 9/7/14.
@@ -97,10 +101,17 @@ public class GoalConstruction implements
         return tag;
     }
 
-    @Override
-    public GoalInitiation toInitiation(){
-        // TODO make this more intelligent
-        return new GoalInitiation(goalKey, InitiationState.pending, Bank.create(getPlayer(), getConfiguration().getBet()), player, goal, timezone, tag, configuration, new HashSet<String>(), startDate);
+    public GoalRecord toRecord() {
+    return new GoalRecord(goalKey,
+        player,
+        RecordState.active,
+        new Bank(new ArrayList<PlayerBet>(), configuration.getBet(), Money.create(Currency.DEFAULT, 0L)),
+        goal,
+        timezone,
+        tag,
+        configuration,
+        Collections.<EventRecord>emptySet(),
+        null);
     }
 
     public GoalConstruction clone(ConstructionState state) {
