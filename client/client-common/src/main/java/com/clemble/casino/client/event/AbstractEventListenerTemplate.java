@@ -28,14 +28,14 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
 
     final private String player;
 
-    final private GameNotificationThread notificationService;
+    final private NotificationThread notificationService;
 
     final protected ScheduledExecutorService executor;
     final protected AtomicReference<Closeable> connectionCleaner = new AtomicReference<Closeable>();
 
     public AbstractEventListenerTemplate(String player) {
         this.player = checkNotNull(player);
-        this.notificationService = new GameNotificationThread();
+        this.notificationService = new NotificationThread();
         this.executor = Executors.newScheduledThreadPool(2, new ThreadFactoryBuilder().setNameFormat(player + "_listener_%d").build());
         this.executor.execute(notificationService);
     }
@@ -120,7 +120,7 @@ abstract public class AbstractEventListenerTemplate implements EventListenerOper
         }
     }
 
-    private class GameNotificationThread implements Runnable {
+    private class NotificationThread implements Runnable {
 
         final private Map<String, List<Entry<EventSelector, EventListener<?>>>> channelToListeners = new HashMap<String, List<Entry<EventSelector, EventListener<?>>>>();
         final private BlockingQueue<Entry<String, Event>> events = new LinkedBlockingQueue<Entry<String, Event>>();
