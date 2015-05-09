@@ -1,7 +1,7 @@
 package com.clemble.casino.goal.lifecycle.management.service;
 
 import com.clemble.casino.ClembleService;
-import com.clemble.casino.goal.lifecycle.management.GoalVictory;
+import com.clemble.casino.goal.lifecycle.record.GoalRecord;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface GoalVictoryService extends ClembleService {
 
-    public List<GoalVictory> listMy();
+    public List<GoalRecord> listMy();
 
-    public List<GoalVictory> list(String player);
+    public List<GoalRecord> list(String player);
 
 }
