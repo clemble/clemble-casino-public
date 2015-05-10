@@ -27,7 +27,6 @@ import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
 import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.Record;
-import com.clemble.casino.lifecycle.record.RecordState;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.money.Money;
 import com.clemble.casino.payment.Bank;
@@ -38,7 +37,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -74,7 +72,6 @@ public class GoalState implements
     final private DateTime startDate;
     final private DateTime deadline;
     final private String timezone;
-    final private RecordState state;
     final private SortedSet<EventRecord> eventRecords;
     final private Outcome outcome;
 
@@ -95,7 +92,6 @@ public class GoalState implements
         @JsonProperty("phase") GoalPhase phase,
         @JsonProperty("lastAction") Action lastAction,
         @JsonProperty("eventRecords") SortedSet<EventRecord> eventRecords,
-        @JsonProperty("state") RecordState state,
         @JsonProperty("outcome") Outcome outcome) {
         this.goalKey = goalKey;
         this.player = player;
@@ -112,7 +108,6 @@ public class GoalState implements
         this.lastAction = lastAction;
         this.timezone = timezone;
         this.eventRecords = eventRecords;
-        this.state = state;
         this.outcome = outcome;
     }
 
@@ -182,11 +177,6 @@ public class GoalState implements
     @Override
     public GoalConfiguration getConfiguration() {
         return configuration;
-    }
-
-    @Override
-    public RecordState getState() {
-        return state;
     }
 
     @Override
@@ -278,7 +268,6 @@ public class GoalState implements
             phase,
             latestAction,
             newRecords,
-            state,
             outcome
         );
     }
@@ -302,7 +291,6 @@ public class GoalState implements
             phase,
             latestAction,
             newRecords,
-            state,
             outcome
         );
     }
@@ -329,7 +317,6 @@ public class GoalState implements
                     GoalPhase.finished,
                     lastAction,
                     newRecords,
-                    RecordState.finished,
                     outcome
                 );
             default:
@@ -358,7 +345,6 @@ public class GoalState implements
                     GoalPhase.betOff,
                     lastAction,
                     newRecords,
-                    state,
                     outcome
                 );
             default:

@@ -14,6 +14,4 @@ public interface Record<T extends Configuration> extends ConfigurationAware<T>, 
 
     SortedSet<EventRecord> getEventRecords();
 
-    RecordState getState();
-
 }
