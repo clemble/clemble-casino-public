@@ -65,7 +65,6 @@ public enum ClembleCasinoError {
     ClientJsonFormatError(Code.CLIENT_JSON_FORMAT_ERROR_CODE, "Incorrect Json"),
 
     GameSpecificationInvalid(Code.GAME_SPECIFICATION_INVALID_CODE, "Provided game specification is invalid"),
-    GameConstructionInsufficientMoney(Code.GAME_CONSTRUCTION_INSUFFICIENT_MONEY_CODE, "Not enough money for this game"),
     GameConstructionTableQueuePutError(Code.GAME_CONSTRUCTION_TABLE_QUEUE_PUT_ERROR_CODE, "Table Queue put error"),
     GameConstructionTableQueueAddError(Code.GAME_CONSTRUCTION_TABLE_QUEUE_ADD_ERROR_CODE, "Table Queue add error"),
     GameConstructionTableQueueInvalidateError(Code.GAME_CONSTRUCTION_TABLE_QUEUE_INVALIDATE_ERROR_CODE, "Table Queue invalidate error"),
@@ -106,6 +105,7 @@ public enum ClembleCasinoError {
     PaymentTransactionDebitAndCreditNotMatched(Code.PAYMENT_TRANSACTION_DEBIT_AND_CREDIT_NOT_MATCHED, "Payment credit and debit must match"),
     PaymentTransactionTransactionDateMissing(Code.PAYMENT_TRANSACTION_TRANSACTION_DATE_MISSING, "Payment transaction date missing"),
     PaymentTransactionProcessingDateMissing(Code.PAYMENT_TRANSACTION_PROCESSING_DATE_MISSING, "Payment transaction processing date missing"),
+    PaymentTransactionInsufficientMoney(Code.PAYMENT_TRANSACTION_INSUFFICIENT_MONEY_CODE, "Not enough money for this game"),
 
     TimeoutProcessingFailure(Code.TIMEOUT_PROCESSING_FAILURE_CODE, "Failed to invoke timeout events in Scheduler"),
 
@@ -251,7 +251,6 @@ public enum ClembleCasinoError {
         final public static String GAMEMATCH_PLAYER_HAS_PENDING_SESSIONS_CODE = "0K0";
         // Generic Game configuration errors
         final public static String GAME_SPECIFICATION_INVALID_CODE = "0E0";
-        final public static String GAME_CONSTRUCTION_INSUFFICIENT_MONEY_CODE = "0E1";
         final public static String GAME_CONSTRUCTION_TABLE_QUEUE_PUT_ERROR_CODE = "0E2";
         final public static String GAME_CONSTRUCTION_TABLE_QUEUE_ADD_ERROR_CODE = "0E3";
         final public static String GAME_CONSTRUCTION_TABLE_QUEUE_INVALIDATE_ERROR_CODE = "0E4";
@@ -290,6 +289,7 @@ public enum ClembleCasinoError {
         final public static String PAYMENT_TRANSACTION_DEBIT_AND_CREDIT_NOT_MATCHED = "0I5";
         final public static String PAYMENT_TRANSACTION_TRANSACTION_DATE_MISSING = "0I6";
         final public static String PAYMENT_TRANSACTION_PROCESSING_DATE_MISSING = "0I7";
+        final public static String PAYMENT_TRANSACTION_INSUFFICIENT_MONEY_CODE = "0I8";
         // Player id description
         final public static String BAD_REQUEST_PLAYER_ID_HEADER_MISSING = "0J0";
         final public static String BAD_REQUEST_SESSION_ID_HEADER_MISSING = "0J1";

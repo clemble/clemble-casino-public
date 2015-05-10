@@ -3,9 +3,10 @@ package com.clemble.casino.payment.service;
 import java.util.List;
 
 import com.clemble.casino.ClembleService;
+import com.clemble.casino.PaymentService;
 import com.clemble.casino.payment.PaymentTransaction;
 
-public interface PaymentTransactionService extends ClembleService {
+public interface PaymentTransactionService extends PaymentService {
 
     public List<PaymentTransaction> myTransactions();
 

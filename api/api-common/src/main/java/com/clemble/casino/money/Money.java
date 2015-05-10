@@ -15,6 +15,7 @@ public class Money implements Serializable {
     private static final long serialVersionUID = -2196796622087364501L;
 
     final public static Money ZERO = Money.create(Currency.DEFAULT, 0);
+    final public static Money INSPIRATION = Money.create(Currency.inspiration, 1);
 
     final private Currency currency;
 

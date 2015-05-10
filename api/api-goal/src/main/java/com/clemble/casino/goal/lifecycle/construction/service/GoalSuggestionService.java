@@ -1,6 +1,7 @@
 package com.clemble.casino.goal.lifecycle.construction.service;
 
 import com.clemble.casino.ClembleService;
+import com.clemble.casino.GoalService;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestion;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestionRequest;
 import com.clemble.casino.goal.lifecycle.construction.GoalSuggestionResponse;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by mavarazy on 1/3/15.
  */
-public interface GoalSuggestionService extends ClembleService {
+public interface GoalSuggestionService extends GoalService {
 
     List<GoalSuggestion> listMy();
 

@@ -2,6 +2,7 @@ package com.clemble.casino.android.goal;
 
 import com.clemble.casino.android.AbstractClembleCasinoOperations;
 import com.clemble.casino.goal.event.GoalEvent;
+import com.clemble.casino.goal.lifecycle.management.GoalInspiration;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.goal.lifecycle.management.service.GoalActionService;
 import com.clemble.casino.lifecycle.management.event.action.Action;
@@ -55,6 +56,14 @@ public class AndroidGoalActionService extends AbstractClembleCasinoOperations im
         URI actionUrl = buildUri(toGoalManagementUrl(GOAL_STATE), goalKey);
         // Step 2. Creating new GoalConstruction
         return restTemplate.getForObject(actionUrl, GoalState.class);
+    }
+
+    @Override
+    public GoalInspiration inspire(String goalKey, String inspirationText) {
+        // Step 1. Generating goal construction URI
+        URI actionUrl = buildUri(toGoalManagementUrl(GOAL_STATE_INSPIRATIONS), goalKey);
+        // Step 2. Creating new GoalConstruction
+        return restTemplate.postForObject(actionUrl, inspirationText, GoalInspiration.class);
     }
 
 }

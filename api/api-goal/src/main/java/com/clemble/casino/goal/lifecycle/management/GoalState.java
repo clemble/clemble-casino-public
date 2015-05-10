@@ -37,6 +37,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -73,6 +74,7 @@ public class GoalState implements
     final private DateTime deadline;
     final private String timezone;
     final private SortedSet<EventRecord> eventRecords;
+    final private SortedSet<GoalInspiration> inspirations;
     final private Outcome outcome;
 
     @JsonCreator
@@ -92,7 +94,8 @@ public class GoalState implements
         @JsonProperty("phase") GoalPhase phase,
         @JsonProperty("lastAction") Action lastAction,
         @JsonProperty("eventRecords") SortedSet<EventRecord> eventRecords,
-        @JsonProperty("outcome") Outcome outcome) {
+        @JsonProperty("outcome") Outcome outcome,
+        @JsonProperty("inspirations") SortedSet<GoalInspiration> inspirations) {
         this.goalKey = goalKey;
         this.player = player;
         this.phase = phase;
@@ -109,6 +112,7 @@ public class GoalState implements
         this.timezone = timezone;
         this.eventRecords = eventRecords;
         this.outcome = outcome;
+        this.inspirations = inspirations;
     }
 
     @Override
@@ -194,6 +198,10 @@ public class GoalState implements
         return new GoalStartedEvent(player, this);
     }
 
+    public SortedSet<GoalInspiration> getInspirations() {
+        return inspirations;
+    }
+
     @Override
     public GoalEvent process(Event actionEvent){
         if(actionEvent instanceof LifecycleStartedEvent) {
@@ -268,7 +276,8 @@ public class GoalState implements
             phase,
             latestAction,
             newRecords,
-            outcome
+            outcome,
+            inspirations
         );
     }
 
@@ -291,7 +300,8 @@ public class GoalState implements
             phase,
             latestAction,
             newRecords,
-            outcome
+            outcome,
+            inspirations
         );
     }
 
@@ -317,7 +327,8 @@ public class GoalState implements
                     GoalPhase.finished,
                     lastAction,
                     newRecords,
-                    outcome
+                    outcome,
+                    inspirations
                 );
             default:
                 return this;
@@ -345,7 +356,8 @@ public class GoalState implements
                     GoalPhase.betOff,
                     lastAction,
                     newRecords,
-                    outcome
+                    outcome,
+                    inspirations
                 );
             default:
                 return this;

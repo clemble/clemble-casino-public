@@ -1,11 +1,12 @@
 package com.clemble.casino.player.service;
 
 import com.clemble.casino.ClembleService;
+import com.clemble.casino.PlayerService;
 
 /**
  * Created by mavarazy on 8/5/14.
  */
-public interface PlayerImageService extends ClembleService {
+public interface PlayerImageService extends PlayerService {
 
     public byte[] myImage();
 

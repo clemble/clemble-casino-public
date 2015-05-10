@@ -21,24 +21,16 @@ public abstract class GoalWebMapping implements WebMapping {
     final public static String GOAL_CONSTRUCTION = "/construction";
     final public static String MY_GOAL_CONSTRUCTION_PENDING = "/player/construction/my";
 
-    final public static String GOAL_INITIATION = "/initiation/{goalKey}";
-    final public static String GOAL_INITIATION_CONFIRM = "/initiation/{goalKey}/confirm";
-
-    final public static String MY_GOAL_INITIATION = "/player/initiation/my";
-
     public static String toGoalConstructionUrl(String path) {
         return GOAL_CONSTRUCTION_URL + path;
     }
 
     final private static String GOAL_MANAGEMENT_URL = "http://{host}/management";
 
-    final public static String GOAL_RECORD = "/record/{goalKey}";
-
     final public static String GOAL_STATE = "/active/{goalKey}";
     final public static String GOAL_STATE_ACTION = "/active/{goalKey}/action";
 
-    final public static String MY_RECORDS = "/player/record/my";
-    final public static String MY_RECORDS_STATE = "/player/record/my/{state}";
+    final public static String GOAL_STATE_INSPIRATIONS = "/active/{goalKey}/inspirations";
 
     final public static String MY_ACTIVE_GOALS = "/player/active/my";
     final public static String PLAYER_ACTIVE_GOALS = "/player/active/{player}";
