@@ -38,7 +38,7 @@ public class TagCreatedEvent implements TagEvent {
 
     @Override
     public int hashCode() {
-        return tag.hashCode();
+        return tag != null ? tag.hashCode() : 0;
     }
 
 }
