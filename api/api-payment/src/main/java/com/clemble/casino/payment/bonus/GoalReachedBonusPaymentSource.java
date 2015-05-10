@@ -24,9 +24,27 @@ public class GoalReachedBonusPaymentSource implements BonusPaymentSource, GoalAw
     public String getGoalKey() {
         return goalKey;
     }
+
     @Override
     public String toTransactionKey(String player) {
         return goalKey + ":reachedbonus";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GoalReachedBonusPaymentSource)) return false;
+
+        GoalReachedBonusPaymentSource that = (GoalReachedBonusPaymentSource) o;
+
+        if (!goalKey.equals(that.goalKey)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return goalKey.hashCode();
     }
 
 }
