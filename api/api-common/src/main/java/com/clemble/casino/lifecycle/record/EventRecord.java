@@ -35,7 +35,7 @@ public class EventRecord implements Comparable<EventRecord>, CreatedAware {
 
     @Override
     public int compareTo(EventRecord o) {
-        return created.compareTo(o.created);
+        return o.created.compareTo(created);
     }
 
     @Override
@@ -58,5 +58,9 @@ public class EventRecord implements Comparable<EventRecord>, CreatedAware {
         return result;
     }
 
+    @Override
+    public String toString(){
+        return "record:" + created + ":" + event;
+    }
 
 }
