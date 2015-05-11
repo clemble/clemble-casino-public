@@ -55,7 +55,7 @@ public class GoalState implements
     GoalStatusAware,
     GoalRoleAware,
     BankAware,
-        GoalTimeSpanAware,
+    GoalTimeSpanAware,
     TagAware {
 
     @Id
