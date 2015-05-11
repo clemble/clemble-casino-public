@@ -69,7 +69,6 @@ public class GoalState implements
     final private GoalContext context;
     final private GoalConfiguration configuration;
     final private Set<String> supporters;
-    final private Action lastAction;
     final private DateTime startDate;
     final private DateTime deadline;
     final private String timezone;
@@ -92,7 +91,6 @@ public class GoalState implements
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("status") String status,
         @JsonProperty("phase") GoalPhase phase,
-        @JsonProperty("lastAction") Action lastAction,
         @JsonProperty("eventRecords") SortedSet<EventRecord> eventRecords,
         @JsonProperty("outcome") Outcome outcome,
         @JsonProperty("inspirations") SortedSet<GoalInspiration> inspirations) {
@@ -108,7 +106,6 @@ public class GoalState implements
         this.goal = goal;
         this.tag = tag;
         this.status = status;
-        this.lastAction = lastAction;
         this.timezone = timezone;
         this.eventRecords = eventRecords;
         this.outcome = outcome;
@@ -148,10 +145,6 @@ public class GoalState implements
     @Override
     public String getStatus() {
         return status;
-    }
-
-    public Action getLastAction() {
-        return lastAction;
     }
 
     @Override
@@ -274,7 +267,6 @@ public class GoalState implements
             supporters,
             newStatus,
             phase,
-            latestAction,
             newRecords,
             outcome,
             inspirations
@@ -298,7 +290,6 @@ public class GoalState implements
             supporters,
             status,
             phase,
-            latestAction,
             newRecords,
             outcome,
             inspirations
@@ -325,7 +316,6 @@ public class GoalState implements
                     supporters,
                     status,
                     GoalPhase.finished,
-                    lastAction,
                     newRecords,
                     outcome,
                     inspirations
@@ -354,7 +344,6 @@ public class GoalState implements
                     supporters,
                     status,
                     GoalPhase.betOff,
-                    lastAction,
                     newRecords,
                     outcome,
                     inspirations
