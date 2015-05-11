@@ -8,13 +8,11 @@ import com.clemble.casino.lifecycle.configuration.ConfigurationAware;
 /**
  * Created by mavarazy on 10/8/14.
  */
-public interface State<R extends Event, C extends StateContext> {
+public interface State<R extends Event> {
 
     R start();
 
     R process(Event action);
-
-    C getContext();
 
     Configuration getConfiguration();
 

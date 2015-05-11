@@ -5,12 +5,14 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRul
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.GoalTimeframeAware;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.social.SocialProvider;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.joda.time.DateTime;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -83,6 +85,11 @@ public class GoalConfiguration implements
 
     public TimeoutRule getTotalTimeoutRule() {
         return totalTimeoutRule;
+    }
+
+    public DateTime getNextBreachTime(GoalTimeframeAware timeframeAware) {
+        DateTime moveTimeout = moveTimeoutRule.getTimeoutCalculator().calculate(timeframeAware);
+        return moveTimeout.isAfter(timeframeAware.getDeadline()) ? timeframeAware.getDeadline() : moveTimeout;
     }
 
     public GoalRoleConfiguration getSupporterConfiguration() {

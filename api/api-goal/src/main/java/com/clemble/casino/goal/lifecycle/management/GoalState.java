@@ -15,6 +15,7 @@ import com.clemble.casino.goal.lifecycle.configuration.GoalRoleConfiguration;
 import com.clemble.casino.goal.lifecycle.management.event.*;
 import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
 import com.clemble.casino.lifecycle.configuration.rule.time.DeadlineAware;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.GoalTimeframeAware;
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
@@ -48,7 +49,7 @@ import java.util.TreeSet;
  */
 public class GoalState implements
     Record<GoalConfiguration>,
-    State<GoalEvent, GoalContext>,
+    State<GoalEvent>,
     GoalAware,
     GoalPhaseAware,
     GoalDescriptionAware,
@@ -56,7 +57,7 @@ public class GoalState implements
     GoalStatusAware,
     GoalRoleAware,
     BankAware,
-    DeadlineAware,
+    GoalTimeframeAware,
     TagAware {
 
     @Id
@@ -67,7 +68,6 @@ public class GoalState implements
     final private String tag;
     final private Bank bank;
     final private GoalPhase phase;
-    final private GoalContext context;
     final private GoalConfiguration configuration;
     final private Set<String> supporters;
     final private DateTime startDate;
@@ -89,7 +89,6 @@ public class GoalState implements
         @JsonProperty(TIME_ZONE) String timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
-        @JsonProperty("context") GoalContext context,
         @JsonProperty("supporters") Set<String> supporters,
         @JsonProperty("status") String status,
         @JsonProperty("phase") GoalPhase phase,
@@ -104,7 +103,6 @@ public class GoalState implements
         this.deadline = deadline;
         this.supporters = supporters;
         this.configuration = configuration;
-        this.context = context;
         this.bank = bank;
         this.goal = goal;
         this.tag = tag;
@@ -162,10 +160,6 @@ public class GoalState implements
     }
 
     @Override
-    public GoalContext getContext() {
-        return context;
-    }
-
     public DateTime getStartDate() {
         return startDate;
     }
@@ -175,6 +169,7 @@ public class GoalState implements
         return deadline;
     }
 
+    @Override
     public DateTime getLastUpdated() {
         return lastUpdated;
     }
@@ -271,7 +266,6 @@ public class GoalState implements
             timezone,
             tag,
             configuration,
-            context,
             supporters,
             newStatus,
             phase,
@@ -295,7 +289,6 @@ public class GoalState implements
             timezone,
             tag,
             configuration,
-            context,
             supporters,
             status,
             phase,
@@ -322,7 +315,6 @@ public class GoalState implements
                     timezone,
                     tag,
                     configuration,
-                    context,
                     supporters,
                     status,
                     GoalPhase.finished,
@@ -351,7 +343,6 @@ public class GoalState implements
                     timezone,
                     tag,
                     configuration,
-                    context,
                     supporters,
                     status,
                     GoalPhase.betOff,
@@ -373,7 +364,6 @@ public class GoalState implements
         GoalState that = (GoalState) o;
 
         if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null) return false;
-        if (context != null ? !context.equals(that.context) : that.context != null) return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
@@ -388,7 +378,6 @@ public class GoalState implements
         result = 31 * result + (player != null ? player.hashCode() : 0);
         result = 31 * result + (configuration != null ? configuration.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (context != null ? context.hashCode() : 0);
         result = 31 * result + (bank != null ? bank.hashCode() : 0);
         return result;
     }

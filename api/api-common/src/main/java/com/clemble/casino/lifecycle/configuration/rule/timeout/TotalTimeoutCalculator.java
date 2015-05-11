@@ -3,6 +3,7 @@ package com.clemble.casino.lifecycle.configuration.rule.timeout;
 import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 /**
@@ -24,6 +25,11 @@ public class TotalTimeoutCalculator implements TimeoutCalculator {
     @Override
     public long calculate(String timezone, long moveStart, long timeSpent) {
         return  System.currentTimeMillis() + (limit - ((System.currentTimeMillis() - moveStart) + timeSpent));
+    }
+
+    @Override
+    public DateTime calculate(GoalTimeframeAware timeframe) {
+        return timeframe.getStartDate().plusMillis((int) limit);
     }
 
     @Override

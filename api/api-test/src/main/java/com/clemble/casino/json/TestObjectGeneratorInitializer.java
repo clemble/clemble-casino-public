@@ -15,7 +15,6 @@ import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.bet.*;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
 import com.clemble.casino.player.event.PlayerInvitationAcceptedAction;
-import com.clemble.casino.goal.lifecycle.management.GoalContext;
 import com.clemble.casino.goal.lifecycle.management.GoalPlayerContext;
 import com.clemble.casino.event.action.PlayerExpectedAction;
 import com.clemble.casino.event.Event;
@@ -122,13 +121,6 @@ public class TestObjectGeneratorInitializer {
             @Override
             public PlayerExpectedAction generate() {
             return PlayerExpectedAction.fromClass(PlayerInvitationAcceptedAction.class);
-            }
-        });
-        ObjectGenerator.register(GoalContext.class, new AbstractValueGenerator<GoalContext>() {
-            @Override
-            public GoalContext generate() {
-                List<GoalPlayerContext> playerContexts = Collections.emptyList();
-                return new GoalContext(null, playerContexts);
             }
         });
 //        ObjectGenerator.register(RoundGameContext.class, new AbstractValueGenerator<RoundGameContext>() {

@@ -10,13 +10,13 @@ import javax.validation.constraints.Min;
 /**
  * Created by mavarazy on 1/4/15.
  */
-public class EODTimeoutCalculator implements TimeoutCalculator {
+public class TotalEODTimeoutCalculator implements TimeoutCalculator {
 
     @Min(0)
     final private int days;
 
     @JsonCreator
-    public EODTimeoutCalculator(@JsonProperty("days") int days) {
+    public TotalEODTimeoutCalculator(@JsonProperty("days") int days) {
         this.days = days;
     }
 
@@ -36,11 +36,16 @@ public class EODTimeoutCalculator implements TimeoutCalculator {
     }
 
     @Override
+    public DateTime calculate(GoalTimeframeAware timeframe) {
+        return timeframe.getStartDate().plusDays(days).withTime(23, 59, 59, 00);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EODTimeoutCalculator that = (EODTimeoutCalculator) o;
+        TotalEODTimeoutCalculator that = (TotalEODTimeoutCalculator) o;
 
         if (days != that.days) return false;
 
