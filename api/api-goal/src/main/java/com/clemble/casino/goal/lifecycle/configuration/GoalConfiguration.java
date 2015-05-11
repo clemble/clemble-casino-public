@@ -5,7 +5,9 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRul
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
+import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.GoalTimeframeAware;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.MoveTimeoutRule;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.social.SocialProvider;
@@ -30,7 +32,7 @@ public class GoalConfiguration implements
     final private Bet bet;
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
-    final private TimeoutRule moveTimeoutRule;
+    final private MoveTimeoutRule moveTimeoutRule;
     final private TimeoutRule totalTimeoutRule;
     final private GoalRoleConfiguration supporterConfiguration;
     final private ShareRule shareRule;
@@ -42,7 +44,7 @@ public class GoalConfiguration implements
         @JsonProperty("bid") Bet bet,
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule,
-        @JsonProperty("moveTimeRule") TimeoutRule moveTimeoutRule,
+        @JsonProperty("moveTimeRule") MoveTimeoutRule moveTimeoutRule,
         @JsonProperty("totalTimeRule") TimeoutRule totalTimeoutRule,
         @JsonProperty("supporterConfiguration") GoalRoleConfiguration supporterConfiguration,
         @JsonProperty("shareRule") ShareRule shareRule
@@ -79,7 +81,7 @@ public class GoalConfiguration implements
         return phoneReminderRule;
     }
 
-    public TimeoutRule getMoveTimeoutRule() {
+    public MoveTimeoutRule getMoveTimeoutRule() {
         return moveTimeoutRule;
     }
 
@@ -101,15 +103,27 @@ public class GoalConfiguration implements
     }
 
     public GoalConfiguration appendRule(ConfigurationRule rule) {
-        if (rule instanceof TimeoutRule) {
+        if (rule instanceof MoveTimeoutRule) {
             return new GoalConfiguration(
                 configurationKey,
                 name,
                 bet,
                 emailReminderRule,
                 phoneReminderRule,
-                (TimeoutRule) rule,
+                (MoveTimeoutRule) rule,
                 totalTimeoutRule,
+                supporterConfiguration,
+                shareRule
+            );
+        } else if (rule instanceof TimeoutRule) {
+            return new GoalConfiguration(
+                configurationKey,
+                name,
+                bet,
+                emailReminderRule,
+                phoneReminderRule,
+                moveTimeoutRule,
+                (TimeoutRule) rule,
                 supporterConfiguration,
                 shareRule
             );

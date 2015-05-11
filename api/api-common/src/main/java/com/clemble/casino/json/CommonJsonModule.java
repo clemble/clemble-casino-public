@@ -6,6 +6,7 @@ import com.clemble.casino.lifecycle.configuration.rule.bet.*;
 import com.clemble.casino.lifecycle.configuration.rule.breach.DefaultBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.time.MoveTimeRule;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.MoveTimeoutRule;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
@@ -51,6 +52,7 @@ public class CommonJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(ForbiddenBetRule.class, ForbiddenBetRule.class.getAnnotation(JsonTypeName.class).value()));
 
         module.registerSubtypes(new NamedType(TimeoutRule.class, TimeoutRule.class.getAnnotation(JsonTypeName.class).value()));
+        module.registerSubtypes(new NamedType(MoveTimeoutRule.class, MoveTimeoutRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(MoveTimeRule.class, MoveTimeRule.class.getAnnotation(JsonTypeName.class).value()));
         module.registerSubtypes(new NamedType(TotalTimeRule.class, TotalTimeRule.class.getAnnotation(JsonTypeName.class).value()));
 

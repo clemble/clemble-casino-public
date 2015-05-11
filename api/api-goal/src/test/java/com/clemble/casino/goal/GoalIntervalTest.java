@@ -11,6 +11,8 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.rule.bet.LimitedBetRule;
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.PenaltyBreachPunishment;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.MoveEODTimeoutCalculator;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.MoveTimeoutRule;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TotalEODTimeoutCalculator;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
 import com.clemble.casino.money.Currency;
@@ -36,7 +38,7 @@ public class GoalIntervalTest {
         new Bet(Money.create(Currency.point, 0), Money.create(Currency.point, 0)),
         new BasicReminderRule(TimeUnit.HOURS.toMillis(4)),
         new BasicReminderRule(TimeUnit.HOURS.toMillis(2)),
-        new TimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new TotalEODTimeoutCalculator(7)),
+        new MoveTimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new MoveEODTimeoutCalculator(7)),
         new TimeoutRule(LooseBreachPunishment.getInstance(), new TotalEODTimeoutCalculator(7)),
         new GoalRoleConfiguration(
             3,

@@ -3,17 +3,16 @@ package com.clemble.casino.lifecycle.configuration.rule.timeout;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 /**
- * Created by mavarazy on 1/4/15.
+ * Created by mavarazy on 5/11/15.
  */
-public class MoveTimeoutCalculator implements TimeoutCalculator {
+public class LimitMoveTimeoutCalculator implements MoveTimeoutCalculator {
 
     final private long limit;
 
     @JsonCreator
-    public MoveTimeoutCalculator(@JsonProperty("limit") long limit) {
+    public LimitMoveTimeoutCalculator(@JsonProperty("limit") long limit) {
         this.limit = limit;
     }
 
@@ -36,7 +35,7 @@ public class MoveTimeoutCalculator implements TimeoutCalculator {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MoveTimeoutCalculator that = (MoveTimeoutCalculator) o;
+        LimitMoveTimeoutCalculator that = (LimitMoveTimeoutCalculator) o;
 
         if (limit != that.limit) return false;
 

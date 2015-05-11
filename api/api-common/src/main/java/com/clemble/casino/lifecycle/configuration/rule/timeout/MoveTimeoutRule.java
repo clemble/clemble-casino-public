@@ -8,18 +8,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * Created by mavarazy on 1/4/15.
+ * Created by mavarazy on 5/11/15.
  */
-@JsonTypeName("rule:timeout:total")
-public class TimeoutRule implements ConfigurationRule, BreachPunishmentAware {
+@JsonTypeName("rule:timeout:move")
+public class MoveTimeoutRule implements ConfigurationRule, BreachPunishmentAware {
 
     final private BreachPunishment punishment;
-    final private TimeoutCalculator timeoutCalculator;
+    final private MoveTimeoutCalculator timeoutCalculator;
 
     @JsonCreator
-    public TimeoutRule(
+    public MoveTimeoutRule(
         @JsonProperty("punishment") BreachPunishment punishment,
-        @JsonProperty("timeoutCalculator") TimeoutCalculator timeoutCalculator) {
+        @JsonProperty("timeoutCalculator") MoveTimeoutCalculator timeoutCalculator) {
         this.punishment = punishment;
         this.timeoutCalculator = timeoutCalculator;
     }
@@ -38,7 +38,7 @@ public class TimeoutRule implements ConfigurationRule, BreachPunishmentAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TimeoutRule that = (TimeoutRule) o;
+        MoveTimeoutRule that = (MoveTimeoutRule) o;
 
         if (!punishment.equals(that.punishment)) return false;
         if (!timeoutCalculator.equals(that.timeoutCalculator)) return false;
