@@ -35,6 +35,7 @@ import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
@@ -71,6 +72,7 @@ public class GoalState implements
     final private Set<String> supporters;
     final private DateTime startDate;
     final private DateTime deadline;
+    final private DateTime lastUpdated;
     final private String timezone;
     final private SortedSet<EventRecord> eventRecords;
     final private SortedSet<GoalInspiration> inspirations;
@@ -93,7 +95,8 @@ public class GoalState implements
         @JsonProperty("phase") GoalPhase phase,
         @JsonProperty("eventRecords") SortedSet<EventRecord> eventRecords,
         @JsonProperty("outcome") Outcome outcome,
-        @JsonProperty("inspirations") SortedSet<GoalInspiration> inspirations) {
+        @JsonProperty("inspirations") SortedSet<GoalInspiration> inspirations,
+        @JsonProperty("lastUpdated") DateTime lastUpdated) {
         this.goalKey = goalKey;
         this.player = player;
         this.phase = phase;
@@ -110,6 +113,7 @@ public class GoalState implements
         this.eventRecords = eventRecords;
         this.outcome = outcome;
         this.inspirations = inspirations;
+        this.lastUpdated = lastUpdated;
     }
 
     @Override
@@ -169,6 +173,10 @@ public class GoalState implements
     @Override
     public DateTime getDeadline() {
         return deadline;
+    }
+
+    public DateTime getLastUpdated() {
+        return lastUpdated;
     }
 
     @Override
@@ -269,7 +277,8 @@ public class GoalState implements
             phase,
             newRecords,
             outcome,
-            inspirations
+            inspirations,
+            DateTime.now(DateTimeZone.forID(timezone))
         );
     }
 
@@ -292,7 +301,8 @@ public class GoalState implements
             phase,
             newRecords,
             outcome,
-            inspirations
+            inspirations,
+            DateTime.now(DateTimeZone.forID(timezone))
         );
     }
 
@@ -318,7 +328,8 @@ public class GoalState implements
                     GoalPhase.finished,
                     newRecords,
                     outcome,
-                    inspirations
+                    inspirations,
+                    DateTime.now(DateTimeZone.forID(timezone))
                 );
             default:
                 return this;
@@ -346,7 +357,8 @@ public class GoalState implements
                     GoalPhase.betOff,
                     newRecords,
                     outcome,
-                    inspirations
+                    inspirations,
+                    DateTime.now(DateTimeZone.forID(timezone))
                 );
             default:
                 return this;
