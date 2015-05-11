@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 /**
  * Created by mavarazy on 5/11/15.
  */
-public interface GoalTimeframeAware extends DeadlineAware {
+public interface GoalTimeSpanAware extends DeadlineAware {
 
     public DateTime getStartDate();
 

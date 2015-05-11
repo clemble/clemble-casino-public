@@ -5,10 +5,9 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRul
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.ConfigurationRule;
-import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
-import com.clemble.casino.lifecycle.configuration.rule.timeout.GoalTimeframeAware;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.GoalTimeSpanAware;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.MoveTimeoutRule;
-import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.TotalTimeoutRule;
 import com.clemble.casino.money.Currency;
 import com.clemble.casino.social.SocialProvider;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,7 +32,7 @@ public class GoalConfiguration implements
     final private ReminderRule emailReminderRule;
     final private ReminderRule phoneReminderRule;
     final private MoveTimeoutRule moveTimeoutRule;
-    final private TimeoutRule totalTimeoutRule;
+    final private TotalTimeoutRule totalTimeoutRule;
     final private GoalRoleConfiguration supporterConfiguration;
     final private ShareRule shareRule;
 
@@ -45,7 +44,7 @@ public class GoalConfiguration implements
         @JsonProperty("emailReminderRule") ReminderRule emailReminderRule,
         @JsonProperty("phoneReminderRule") ReminderRule phoneReminderRule,
         @JsonProperty("moveTimeRule") MoveTimeoutRule moveTimeoutRule,
-        @JsonProperty("totalTimeRule") TimeoutRule totalTimeoutRule,
+        @JsonProperty("totalTimeRule") TotalTimeoutRule totalTimeoutRule,
         @JsonProperty("supporterConfiguration") GoalRoleConfiguration supporterConfiguration,
         @JsonProperty("shareRule") ShareRule shareRule
     ) {
@@ -85,11 +84,11 @@ public class GoalConfiguration implements
         return moveTimeoutRule;
     }
 
-    public TimeoutRule getTotalTimeoutRule() {
+    public TotalTimeoutRule getTotalTimeoutRule() {
         return totalTimeoutRule;
     }
 
-    public DateTime getNextBreachTime(GoalTimeframeAware timeframeAware) {
+    public DateTime getBreachTime(GoalTimeSpanAware timeframeAware) {
         DateTime moveTimeout = moveTimeoutRule.getTimeoutCalculator().calculate(timeframeAware);
         return moveTimeout.isAfter(timeframeAware.getDeadline()) ? timeframeAware.getDeadline() : moveTimeout;
     }
@@ -115,7 +114,7 @@ public class GoalConfiguration implements
                 supporterConfiguration,
                 shareRule
             );
-        } else if (rule instanceof TimeoutRule) {
+        } else if (rule instanceof TotalTimeoutRule) {
             return new GoalConfiguration(
                 configurationKey,
                 name,
@@ -123,7 +122,7 @@ public class GoalConfiguration implements
                 emailReminderRule,
                 phoneReminderRule,
                 moveTimeoutRule,
-                (TimeoutRule) rule,
+                (TotalTimeoutRule) rule,
                 supporterConfiguration,
                 shareRule
             );

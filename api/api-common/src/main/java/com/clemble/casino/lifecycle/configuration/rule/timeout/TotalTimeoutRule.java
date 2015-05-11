@@ -11,15 +11,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * Created by mavarazy on 1/4/15.
  */
 @JsonTypeName("rule:timeout:total")
-public class TimeoutRule implements ConfigurationRule, BreachPunishmentAware {
+public class TotalTimeoutRule implements ConfigurationRule, BreachPunishmentAware {
 
     final private BreachPunishment punishment;
-    final private TimeoutCalculator timeoutCalculator;
+    final private TotalTimeoutCalculator timeoutCalculator;
 
     @JsonCreator
-    public TimeoutRule(
+    public TotalTimeoutRule(
         @JsonProperty("punishment") BreachPunishment punishment,
-        @JsonProperty("timeoutCalculator") TimeoutCalculator timeoutCalculator) {
+        @JsonProperty("timeoutCalculator") TotalTimeoutCalculator timeoutCalculator) {
         this.punishment = punishment;
         this.timeoutCalculator = timeoutCalculator;
     }
@@ -29,7 +29,7 @@ public class TimeoutRule implements ConfigurationRule, BreachPunishmentAware {
         return punishment;
     }
 
-    public TimeoutCalculator getTimeoutCalculator() {
+    public TotalTimeoutCalculator getTimeoutCalculator() {
         return timeoutCalculator;
     }
 
@@ -38,7 +38,7 @@ public class TimeoutRule implements ConfigurationRule, BreachPunishmentAware {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TimeoutRule that = (TimeoutRule) o;
+        TotalTimeoutRule that = (TotalTimeoutRule) o;
 
         if (!punishment.equals(that.punishment)) return false;
         if (!timeoutCalculator.equals(that.timeoutCalculator)) return false;

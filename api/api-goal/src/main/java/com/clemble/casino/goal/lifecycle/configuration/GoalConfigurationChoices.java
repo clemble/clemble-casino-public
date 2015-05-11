@@ -4,7 +4,7 @@ import com.clemble.casino.goal.lifecycle.configuration.rule.GoalRuleValue;
 import com.clemble.casino.goal.lifecycle.configuration.rule.reminder.ReminderRule;
 import com.clemble.casino.goal.lifecycle.configuration.rule.share.ShareRule;
 import com.clemble.casino.lifecycle.configuration.ConfigurationBuilder;
-import com.clemble.casino.lifecycle.configuration.rule.timeout.TimeoutRule;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.TotalTimeoutRule;
 import com.clemble.casino.money.Money;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,18 +17,18 @@ import java.util.List;
 public class GoalConfigurationChoices implements ConfigurationBuilder {
 
     final private List<Money> bid;
-    final private List<GoalRuleValue<TimeoutRule>> totalTimeoutRule;
+    final private List<GoalRuleValue<TotalTimeoutRule>> totalTimeoutRule;
     final private List<GoalRuleValue<ReminderRule>> emailReminderRule;
     final private List<GoalRuleValue<ReminderRule>> phoneReminderRule;
-    final private List<GoalRuleValue<TimeoutRule>> moveTimeoutRule;
+    final private List<GoalRuleValue<TotalTimeoutRule>> moveTimeoutRule;
     final private List<GoalRuleValue<GoalRoleConfiguration>> supporterConfiguration;
     final private List<GoalRuleValue<ShareRule>> shareRule;
 
     @JsonCreator
     public GoalConfigurationChoices(
         @JsonProperty("bid") List<Money> bid,
-        @JsonProperty("totalTimeoutRule") List<GoalRuleValue<TimeoutRule>> totalTimeoutRule,
-        @JsonProperty("moveTimeoutRule") List<GoalRuleValue<TimeoutRule>> moveTimeoutRule,
+        @JsonProperty("totalTimeoutRule") List<GoalRuleValue<TotalTimeoutRule>> totalTimeoutRule,
+        @JsonProperty("moveTimeoutRule") List<GoalRuleValue<TotalTimeoutRule>> moveTimeoutRule,
         @JsonProperty("emailReminderRule") List<GoalRuleValue<ReminderRule>> emailReminderRule,
         @JsonProperty("phoneReminderRule") List<GoalRuleValue<ReminderRule>> phoneReminderRule,
         @JsonProperty("supporterConfiguration") List<GoalRuleValue<GoalRoleConfiguration>> supporterConfiguration,
@@ -47,7 +47,7 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
         return bid;
     }
 
-    public List<GoalRuleValue<TimeoutRule>> getTotalTimeoutRule() {
+    public List<GoalRuleValue<TotalTimeoutRule>> getTotalTimeoutRule() {
         return totalTimeoutRule;
     }
 
@@ -59,7 +59,7 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
         return phoneReminderRule;
     }
 
-    public List<GoalRuleValue<TimeoutRule>> getMoveTimeoutRule() {
+    public List<GoalRuleValue<TotalTimeoutRule>> getMoveTimeoutRule() {
         return moveTimeoutRule;
     }
 

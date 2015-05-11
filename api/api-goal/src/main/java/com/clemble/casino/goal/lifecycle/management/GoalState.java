@@ -14,8 +14,7 @@ import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalRoleConfiguration;
 import com.clemble.casino.goal.lifecycle.management.event.*;
 import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
-import com.clemble.casino.lifecycle.configuration.rule.time.DeadlineAware;
-import com.clemble.casino.lifecycle.configuration.rule.timeout.GoalTimeframeAware;
+import com.clemble.casino.lifecycle.configuration.rule.timeout.GoalTimeSpanAware;
 import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
@@ -39,7 +38,6 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -57,7 +55,7 @@ public class GoalState implements
     GoalStatusAware,
     GoalRoleAware,
     BankAware,
-    GoalTimeframeAware,
+        GoalTimeSpanAware,
     TagAware {
 
     @Id

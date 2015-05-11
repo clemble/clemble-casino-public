@@ -29,7 +29,7 @@ public class MoveTimeoutRule implements ConfigurationRule, BreachPunishmentAware
         return punishment;
     }
 
-    public TimeoutCalculator getTimeoutCalculator() {
+    public MoveTimeoutCalculator getTimeoutCalculator() {
         return timeoutCalculator;
     }
 

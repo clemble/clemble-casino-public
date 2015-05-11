@@ -10,13 +10,13 @@ import javax.validation.constraints.Min;
 /**
  * Created by mavarazy on 1/4/15.
  */
-public class TotalEODTimeoutCalculator implements TimeoutCalculator {
+public class TotalTimeoutCalculatorByEOD implements TotalTimeoutCalculator {
 
     @Min(0)
     final private int days;
 
     @JsonCreator
-    public TotalEODTimeoutCalculator(@JsonProperty("days") int days) {
+    public TotalTimeoutCalculatorByEOD(@JsonProperty("days") int days) {
         this.days = days;
     }
 
@@ -25,19 +25,17 @@ public class TotalEODTimeoutCalculator implements TimeoutCalculator {
     }
 
     @Override
-    public long calculate(String timezone, long moveStart, long timeSpent) {
-        DateTime breachTime = new DateTime(moveStart, DateTimeZone.forID(timezone)).
-                withTime(23, 59, 59, 00). // EOD of move start
-                plusDays(days);
+    public DateTime calculate(DateTime startDate) {
+        DateTime breachTime = startDate.plusDays(days).withTime(23, 59, 59, 00);
         // This is the end of today, plus days should be next day
         return breachTime.isAfterNow()
-                ? breachTime.getMillis() // If breach time is after now, it's valid
-                : breachTime.plusDays(1).getMillis(); // Breach time can't be in the past
+                ? breachTime // If breach time is after now, it's valid
+                : breachTime.plusDays(1); // Breach time can't be in the past
     }
 
     @Override
-    public DateTime calculate(GoalTimeframeAware timeframe) {
-        return timeframe.getStartDate().plusDays(days).withTime(23, 59, 59, 00);
+    public DateTime calculate(GoalTimeSpanAware timeframe) {
+        return calculate(timeframe.getStartDate());
     }
 
     @Override
@@ -45,7 +43,7 @@ public class TotalEODTimeoutCalculator implements TimeoutCalculator {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TotalEODTimeoutCalculator that = (TotalEODTimeoutCalculator) o;
+        TotalTimeoutCalculatorByEOD that = (TotalTimeoutCalculatorByEOD) o;
 
         if (days != that.days) return false;
 

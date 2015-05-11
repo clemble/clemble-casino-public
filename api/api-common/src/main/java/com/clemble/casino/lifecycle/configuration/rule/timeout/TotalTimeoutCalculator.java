@@ -1,52 +1,22 @@
 package com.clemble.casino.lifecycle.configuration.rule.timeout;
 
-import com.clemble.casino.lifecycle.configuration.rule.time.PlayerClock;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-
 /**
  * Created by mavarazy on 1/4/15.
  */
-public class TotalTimeoutCalculator implements TimeoutCalculator {
 
-    final private long limit;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.joda.time.DateTime;
 
-    @JsonCreator
-    public TotalTimeoutCalculator(@JsonProperty("limit") long limit) {
-        this.limit = limit;
-    }
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes(value = {
+    @JsonSubTypes.Type(name = "total", value = TotalTimeoutCalculatorByLimit.class),
+    @JsonSubTypes.Type(name = "eod", value = TotalTimeoutCalculatorByEOD.class)
+})
+public interface TotalTimeoutCalculator {
 
-    public long getLimit() {
-        return limit;
-    }
+    public DateTime calculate(DateTime startTime);
 
-    @Override
-    public long calculate(String timezone, long moveStart, long timeSpent) {
-        return  System.currentTimeMillis() + (limit - ((System.currentTimeMillis() - moveStart) + timeSpent));
-    }
-
-    @Override
-    public DateTime calculate(GoalTimeframeAware timeframe) {
-        return timeframe.getStartDate().plusMillis((int) limit);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TotalTimeoutCalculator that = (TotalTimeoutCalculator) o;
-
-        if (limit != that.limit) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (limit ^ (limit >>> 32));
-    }
+    public DateTime calculate(GoalTimeSpanAware timeframe);
 
 }
