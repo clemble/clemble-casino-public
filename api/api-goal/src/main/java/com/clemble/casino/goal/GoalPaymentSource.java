@@ -28,7 +28,7 @@ public class GoalPaymentSource implements PaymentSource, GoalAware, OutcomeAware
     @JsonCreator
     public GoalPaymentSource(
         @JsonProperty(GOAL_KEY) String goalKey,
-        @JsonProperty("player") String player,
+        @JsonProperty(PLAYER) String player,
         @JsonProperty("goal") String goal,
         @JsonProperty("outcome") Outcome outcome) {
         this.goal = goal;

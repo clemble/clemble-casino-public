@@ -10,6 +10,7 @@ import com.clemble.casino.tag.TagAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -26,9 +27,9 @@ public class GoalConstruction implements
     final private String goalKey;
     final private String player;
     final private String goal;
-    final private String timezone;
     final private String tag;
     final private DateTime startDate;
+    final private DateTimeZone timezone;
     final private ConstructionState state;
     final private GoalConfiguration configuration;
 
@@ -37,7 +38,7 @@ public class GoalConstruction implements
         @JsonProperty("goalKey") String goalKey,
         @JsonProperty("player") String player,
         @JsonProperty("goal") String goal,
-        @JsonProperty(TIME_ZONE) String timezone,
+        @JsonProperty(TIME_ZONE) DateTimeZone timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("startDate") DateTime startDate,
         @JsonProperty("configuration") GoalConfiguration configuration,
@@ -82,7 +83,7 @@ public class GoalConstruction implements
     }
 
     @Override
-    public String getTimezone() {
+    public DateTimeZone getTimezone() {
         return timezone;
     }
 

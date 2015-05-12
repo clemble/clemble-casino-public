@@ -10,6 +10,7 @@ import com.clemble.casino.error.validation.MinSize;
 import com.clemble.casino.error.validation.NoWhiteSpaces;
 import com.clemble.casino.social.SocialProvider;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
 
@@ -53,7 +54,7 @@ public class PlayerProfile implements PlayerAware, PlayerNickNameAware, TimeZone
 
     private Set<ConnectionKey> socialConnections = new HashSet<ConnectionKey>();
 
-    private String timezone;
+    private DateTimeZone timezone;
 
     public PlayerProfile() {
     }
@@ -94,11 +95,11 @@ public class PlayerProfile implements PlayerAware, PlayerNickNameAware, TimeZone
     }
 
     @Override
-    public String getTimezone() {
+    public DateTimeZone getTimezone() {
         return timezone;
     }
 
-    public PlayerProfile setTimezone(String timezone) {
+    public PlayerProfile setTimezone(DateTimeZone timezone) {
         this.timezone = timezone;
         return this;
     }

@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.construction;
 
+import com.clemble.casino.TimeZoneAware;
 import com.clemble.casino.goal.GoalDescriptionAware;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfiguration;
 import com.clemble.casino.goal.lifecycle.configuration.GoalConfigurationAware;
@@ -13,12 +14,12 @@ import org.joda.time.DateTimeZone;
 public class GoalSuggestionRequest implements GoalDescriptionAware {
 
     final private String goal;
-    final private String timezone;
+    final private DateTimeZone timezone;
 
     @JsonCreator
     public GoalSuggestionRequest(
         @JsonProperty("goal") String goal,
-        @JsonProperty(TIME_ZONE) String timezone) {
+        @JsonProperty(TIME_ZONE) DateTimeZone timezone) {
         this.goal = goal;
         this.timezone = timezone;
     }
@@ -29,7 +30,7 @@ public class GoalSuggestionRequest implements GoalDescriptionAware {
     }
 
     @Override
-    public String getTimezone() {
+    public DateTimeZone getTimezone() {
         return timezone;
     }
 

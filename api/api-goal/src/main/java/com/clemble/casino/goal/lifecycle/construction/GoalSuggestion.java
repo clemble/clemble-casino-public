@@ -29,18 +29,18 @@ public class GoalSuggestion implements
     @Id
     final private String goalKey;
     final private String goal;
-    final private String timezone;
     final private String tag;
     final private String player;
     final private String suggester;
     final private GoalSuggestionState state;
     final private DateTime created;
+    final private DateTimeZone timezone;
 
     @JsonCreator
     public GoalSuggestion(
         @JsonProperty(GOAL_KEY) String goalKey,
         @JsonProperty("goal") String goal,
-        @JsonProperty(TIME_ZONE) String timezone,
+        @JsonProperty(TIME_ZONE) DateTimeZone timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("player") String player,
         @JsonProperty("suggester") String suggester,
@@ -67,7 +67,7 @@ public class GoalSuggestion implements
     }
 
     @Override
-    public String getTimezone() {
+    public DateTimeZone getTimezone() {
         return timezone;
     }
 
@@ -101,7 +101,7 @@ public class GoalSuggestion implements
             goal,
             timezone,
             tag,
-            DateTime.now(DateTimeZone.forID(timezone)),
+            DateTime.now(timezone),
             configuration,
             ConstructionState.constructed
         );

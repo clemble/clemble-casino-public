@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -45,7 +46,7 @@ public class PlayerRegistrationRequest
     @JsonProperty("birthDate")
     final private DateTime birthDate;
 
-    final private String timezone;
+    final private DateTimeZone timezone;
 
     @JsonCreator
     public PlayerRegistrationRequest(
@@ -57,7 +58,7 @@ public class PlayerRegistrationRequest
         @JsonProperty("lastName") String lastName,
         @JsonProperty("gender") PlayerGender gender,
         @JsonProperty("birthDate") DateTime birthDate,
-        @JsonProperty(TIME_ZONE) String timezone
+        @JsonProperty(TIME_ZONE) DateTimeZone timezone
     ) {
         this.player = player;
         this.nickName = nickName;
@@ -120,7 +121,7 @@ public class PlayerRegistrationRequest
     }
 
     @Override
-    public String getTimezone() {
+    public DateTimeZone getTimezone() {
         return timezone;
     }
 

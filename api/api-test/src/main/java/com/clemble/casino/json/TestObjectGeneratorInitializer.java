@@ -15,7 +15,6 @@ import com.clemble.casino.lifecycle.configuration.Configuration;
 import com.clemble.casino.lifecycle.configuration.rule.bet.*;
 import com.clemble.casino.lifecycle.configuration.rule.time.TotalTimeRule;
 import com.clemble.casino.player.event.PlayerInvitationAcceptedAction;
-import com.clemble.casino.goal.lifecycle.management.GoalPlayerContext;
 import com.clemble.casino.event.action.PlayerExpectedAction;
 import com.clemble.casino.event.Event;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
@@ -181,7 +180,7 @@ public class TestObjectGeneratorInitializer {
             return new PlayerProfile().setBirthDate(new DateTime(0)).setFirstName(RandomStringUtils.randomAlphabetic(10))
                 .setGender(PlayerGender.M).setLastName(RandomStringUtils.randomAlphabetic(10)).setNickName(RandomStringUtils.randomAlphabetic(10))
                 .setPlayer(RandomStringUtils.random(5)).
-                setTimezone("UTC");
+                setTimezone(DateTimeZone.UTC);
             }
         });
         ObjectGenerator.register(ConfigurationRule.class, new AbstractValueGenerator<ConfigurationRule>() {

@@ -1,6 +1,7 @@
 package com.clemble.casino.goal.lifecycle.management;
 
 import com.clemble.casino.ImmutablePair;
+import com.clemble.casino.TimeZoneAware;
 import com.clemble.casino.bet.Bet;
 import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.event.Event;
@@ -71,7 +72,7 @@ public class GoalState implements
     final private DateTime startDate;
     final private DateTime deadline;
     final private DateTime lastUpdated;
-    final private String timezone;
+    final private DateTimeZone timezone;
     final private SortedSet<EventRecord> eventRecords;
     final private SortedSet<GoalInspiration> inspirations;
     final private Outcome outcome;
@@ -84,7 +85,7 @@ public class GoalState implements
         @JsonProperty("player") String player,
         @JsonProperty("bank") Bank bank,
         @JsonProperty("goal") String goal,
-        @JsonProperty(TIME_ZONE) String timezone,
+        @JsonProperty(TIME_ZONE) DateTimeZone timezone,
         @JsonProperty("tag") String tag,
         @JsonProperty("configuration") GoalConfiguration configuration,
         @JsonProperty("supporters") Set<String> supporters,
@@ -133,7 +134,7 @@ public class GoalState implements
     }
 
     @Override
-    public String getTimezone() {
+    public DateTimeZone getTimezone() {
         return timezone;
     }
 
@@ -272,7 +273,7 @@ public class GoalState implements
             newRecords,
             outcome,
             inspirations,
-            DateTime.now(DateTimeZone.forID(timezone))
+            DateTime.now(timezone)
         );
     }
 
@@ -295,7 +296,7 @@ public class GoalState implements
             newRecords,
             outcome,
             inspirations,
-            DateTime.now(DateTimeZone.forID(timezone))
+            DateTime.now(timezone)
         );
     }
 
@@ -321,7 +322,7 @@ public class GoalState implements
                     newRecords,
                     outcome,
                     inspirations,
-                    DateTime.now(DateTimeZone.forID(timezone))
+                    DateTime.now(timezone)
                 );
             default:
                 return this;
