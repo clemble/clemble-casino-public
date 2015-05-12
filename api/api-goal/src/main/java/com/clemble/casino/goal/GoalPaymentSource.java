@@ -82,13 +82,12 @@ public class GoalPaymentSource implements PaymentSource, GoalAware, OutcomeAware
         return result;
     }
 
-    public static GoalPaymentSource create(GoalEndedEvent endedEvent) {
-        GoalState state = endedEvent.getBody();
+    public static GoalPaymentSource create(GoalState state) {
         return new GoalPaymentSource(
             state.getGoalKey(),
             state.getPlayer(),
             state.getGoal(),
-            endedEvent.getOutcome()
+            state.getOutcome()
         );
     }
 }

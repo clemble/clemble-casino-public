@@ -1,5 +1,6 @@
 package com.clemble.casino.goal.lifecycle.management;
 
+import com.clemble.casino.ImmutablePair;
 import com.clemble.casino.bet.Bet;
 import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.event.Event;
@@ -15,7 +16,6 @@ import com.clemble.casino.goal.lifecycle.configuration.GoalRoleConfiguration;
 import com.clemble.casino.goal.lifecycle.management.event.*;
 import com.clemble.casino.event.lifecycle.LifecycleStartedEvent;
 import com.clemble.casino.lifecycle.configuration.rule.timeout.GoalTimeSpanAware;
-import com.clemble.casino.lifecycle.management.State;
 import com.clemble.casino.lifecycle.management.event.action.Action;
 import com.clemble.casino.lifecycle.management.event.action.PlayerAction;
 import com.clemble.casino.lifecycle.management.event.action.TimeoutPunishmentAction;
@@ -38,6 +38,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -47,7 +48,6 @@ import java.util.TreeSet;
  */
 public class GoalState implements
     Record<GoalConfiguration>,
-    State<GoalEvent>,
     GoalAware,
     GoalPhaseAware,
     GoalDescriptionAware,
@@ -187,7 +187,6 @@ public class GoalState implements
         return outcome;
     }
 
-    @Override
     public GoalStartedEvent start() {
         return new GoalStartedEvent(player, this);
     }
@@ -196,29 +195,32 @@ public class GoalState implements
         return inspirations;
     }
 
-    @Override
-    public GoalEvent process(Event actionEvent){
+    public Map.Entry<GoalEvent, GoalState> process(Event actionEvent){
         if(actionEvent instanceof LifecycleStartedEvent) {
-            return new GoalStartedEvent(player, this);
-        } else if(actionEvent instanceof PlayerAction<?>) {
+            return new ImmutablePair<GoalEvent, GoalState>(new GoalStartedEvent(player, this), this);
+        }
+        if(actionEvent instanceof PlayerAction<?>) {
             String actor = ((PlayerAction) actionEvent).getPlayer();
             Action action = ((PlayerAction) actionEvent).getAction();
             if (action instanceof BetOffAction) {
-                return new GoalChangedBetOffEvent(player, this.forbidBet());
+                GoalState newState = this.forbidBet();
+                return new ImmutablePair<GoalEvent, GoalState>(new GoalChangedBetOffEvent(player, newState), newState);
             } else if (action instanceof GoalStatusUpdateAction) {
                 GoalStatusUpdateAction statusUpdateAction = ((GoalStatusUpdateAction) action);
                 String newStatus = statusUpdateAction.getStatus();
-                return new GoalChangedStatusEvent(player, this.copyWithStatus(newStatus, action));
+                GoalState newState = this.copyWithStatus(newStatus, action);
+                return new ImmutablePair<GoalEvent, GoalState>(new GoalChangedStatusEvent(player, this.copyWithStatus(newStatus, action)), newState);
             } else if (action instanceof SurrenderAction) {
                 Outcome outcome = new PlayerLostOutcome(actor);
-                return new GoalEndedEvent(player, this.finish(outcome), outcome);
+                GoalState newState = this.finish(outcome);
+                return new ImmutablePair<GoalEvent, GoalState>(new GoalEndedEvent(player, newState, outcome), newState);
             } else if (action instanceof BetAction) {
                 switch (phase) {
                     case betOff:
                     case finished:
                         throw new IllegalArgumentException();
                 }
-                if(this.supporters.contains(actor) || this.player.equals(actor))
+                if (this.supporters.contains(actor) || this.player.equals(actor))
                     throw new IllegalArgumentException();
                 GoalRoleConfiguration roleConfiguration = configuration.getSupporterConfiguration();
                 int amount = ((BetAction) action).getBet();
@@ -227,31 +229,31 @@ public class GoalState implements
                 PlayerBet playerBid = new PlayerBet(actor, bet);
                 this.bank.add(playerBid);
                 this.supporters.add(actor);
-                return new GoalChangedBetEvent(player, this, playerBid);
+                return new ImmutablePair<GoalEvent, GoalState>(new GoalChangedBetEvent(player, this, playerBid), this);
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 String newStatus = reachedAction.getStatus();
                 Outcome outcome = new PlayerWonOutcome(actor);
-                return new GoalEndedEvent(player, this.copyWithStatus(newStatus, reachedAction).finish(outcome), outcome);
+                GoalState newState = this.copyWithStatus(newStatus, reachedAction).finish(outcome);
+                return new ImmutablePair<GoalEvent, GoalState>(new GoalEndedEvent(player, newState, outcome), newState);
             } else if (action instanceof TimeoutPunishmentAction) {
                 TimeoutPunishmentAction punishmentAction = (TimeoutPunishmentAction) action;
                 bank.addPenalty(player, punishmentAction.getAmount());
                 long interest = bank.getBet(player).getBet().getInterest().getAmount();
                 if (interest <= 0L) {
                     Outcome outcome = new PlayerLostOutcome(player);
-                    return new GoalEndedEvent(player, this.copyWithAction(action).finish(outcome), outcome);
+                    GoalState newState = this.copyWithAction(action).finish(outcome);
+                    return new ImmutablePair<GoalEvent, GoalState>(new GoalEndedEvent(player, newState, outcome), newState);
                 } else {
-                    return new GoalChangedStatusUpdateMissedEvent(player, this.copyWithAction(action));
+                    GoalState newState = this.copyWithAction(action);
+                    return new ImmutablePair<GoalEvent, GoalState>(new GoalChangedStatusUpdateMissedEvent(player, this.copyWithAction(action)), newState);
                 }
-            } else {
-                throw new IllegalArgumentException();
             }
-        } else {
-            throw new IllegalArgumentException();
         }
+        throw new IllegalArgumentException();
     }
 
-    public GoalState copyWithStatus(String newStatus, Action latestAction) {
+    private GoalState copyWithStatus(String newStatus, Action latestAction) {
         TreeSet<EventRecord> newRecords = new TreeSet<EventRecord>(eventRecords);
         newRecords.add(new EventRecord(latestAction, DateTime.now()));
         return new GoalState(
@@ -274,7 +276,7 @@ public class GoalState implements
         );
     }
 
-    public GoalState copyWithAction(Action latestAction) {
+    private GoalState copyWithAction(Action latestAction) {
         TreeSet<EventRecord> newRecords = new TreeSet<EventRecord>(eventRecords);
         newRecords.add(new EventRecord(latestAction, DateTime.now()));
         return new GoalState(
@@ -297,7 +299,7 @@ public class GoalState implements
         );
     }
 
-    public GoalState finish(Outcome outcome) {
+    private GoalState finish(Outcome outcome) {
          switch (phase) {
             case started:
             case betOff:
@@ -326,11 +328,9 @@ public class GoalState implements
         }
     }
 
-    public GoalState forbidBet() {
+    private GoalState forbidBet() {
         switch (phase) {
             case started:
-                TreeSet<EventRecord> newRecords = new TreeSet<EventRecord>(eventRecords);
-                newRecords.add(new EventRecord(new GoalStartedEvent(player, this), DateTime.now()));
                 return new GoalState(
                     goalKey,
                     startDate,
@@ -344,10 +344,10 @@ public class GoalState implements
                     supporters,
                     status,
                     GoalPhase.betOff,
-                    newRecords,
+                    eventRecords,
                     outcome,
                     inspirations,
-                    DateTime.now(DateTimeZone.forID(timezone))
+                    lastUpdated
                 );
             default:
                 return this;
