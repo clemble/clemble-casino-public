@@ -64,34 +64,6 @@ public enum ClembleCasinoError {
     ClientJsonInvalidError(Code.CLIENT_JSON_INVALID_ERROR_CODE, "Invalid Json"),
     ClientJsonFormatError(Code.CLIENT_JSON_FORMAT_ERROR_CODE, "Incorrect Json"),
 
-    GameSpecificationInvalid(Code.GAME_SPECIFICATION_INVALID_CODE, "Provided game specification is invalid"),
-    GameConstructionTableQueuePutError(Code.GAME_CONSTRUCTION_TABLE_QUEUE_PUT_ERROR_CODE, "Table Queue put error"),
-    GameConstructionTableQueueAddError(Code.GAME_CONSTRUCTION_TABLE_QUEUE_ADD_ERROR_CODE, "Table Queue add error"),
-    GameConstructionTableQueueInvalidateError(Code.GAME_CONSTRUCTION_TABLE_QUEUE_INVALIDATE_ERROR_CODE, "Table Queue invalidate error"),
-    GameConstructionInvalidInvitationResponse(Code.GAME_CONSTRUCTION_INVALID_INVITATION_RESPONSE_ERROR_CODE, "Invalid invitation response"),
-    GameConstructionInvalidRequest(Code.GAME_CONSTRUCTION_INVALID_REQUEST_ERROR_CODE, "Game Request is invalid"),
-    GameConstructionInvalidState(Code.GAME_CONSTRUCTION_INVALID_STATE_ERROR_CODE, "State invalid for Construction"),
-    GameConstructionDoesNotExistent(Code.GAME_CONSTRUCTION_DOES_NOT_EXISTENT_ERROR_CODE, "Construction does not existent"),
-    GameConstructionNotPartOfGame(Code.GAME_CONSTRUCTION_NOT_PART_OF_GAME_ERROR_CODE, "Not part of the game"),
-    GameMatchPlayerHasPendingSessions(Code.GAMEMATCH_PLAYER_HAS_PENDING_SESSIONS_CODE, "Player has opened sessions"),
-    GameInitiationInActive(Code.GAME_INITIATION_IN_ACTIVE, "Game not yet initiated"),
-    GameInitiationInvalidPlayer(Code.GAME_INITIATION_INVALID_PLAYER, "Invalid player for game initiation"),
-
-    GamePlayGameEnded(Code.GAMEPLAY_GAME_ENDED_CODE, "Game already ended"),
-    GamePlayGameNotStarted(Code.GAMEPLAY_GAME_NOT_STARTED_CODE, "Game has not started yet"),
-
-    GamePlayStayUndefined(Code.GAMEPLAY_STATE_UNDEFINED_CODE, "State is missing or illegal"),
-    GamePlayMoveUndefined(Code.GAMEPLAY_MOVE_UNDEFINED_CODE, "Move was not defined properly"),
-    GamePlayMoveAlreadyMade(Code.GAMEPLAY_MOVE_ALREADY_MADE_CODE, "Player already made a move, this one will be ignored"),
-    GamePlayNoMoveExpected(Code.GAMEPLAY_NO_MOVE_EXPECTED_CODE, "No move expected from the player"),
-    GamePlayPlayerNotParticipate(Code.GAMEPLAY_PLAYER_NOT_PARTICIPATING, "Player is not part of the current game"),
-    GamePlayWrongMoveType(Code.GAMEPLAY_WRONG_MOVE_TYPE_CODE, "Wrong move type"),
-    GamePlayMoveNotSupported(Code.GAMEPLAY_MOVE_NOT_SUPPORTED_CODE, "Game does not support this move"),
-    GamePlayBetOverflow(Code.GAMEPLAY_BET_OVERFLOW_CODE, "Bet amount overflow"),
-    GamePlayBetInvalid(Code.GAMEPLAY_BET_INVALID_CODE, "Bet invalid event"),
-    GamePlayUnitMissing(Code.GAMEPLAY_UNIT_MISSING_CODE, "Player does not have required unit"),
-    GamePlayMoveInvalid(Code.GAMEPLAY_MOVE_INVALID, "This move is invalid"),
-
     CellOwned(Code.CELL_OWNED_CODE, "Cell already Owned"),
 
     GameStateReCreationFailure(Code.GAME_STATE_RECREATION_FAILURE_CODE, "Can't create state from provided session"),
@@ -129,6 +101,7 @@ public enum ClembleCasinoError {
     GoalJudgeOnlyJudgeCanReplay(Code.GOAL_JUDGE_ONLY_JUDGE_CAN_REPLY, "Only judge can reply to invitation"),
     GoalNotExists(Code.GOAL_DOES_NOT_EXIST, "Goal does not exist"),
     GoalNotOwnedByPlayer(Code.GOAL_NOT_OWNED_BY_PLAYER, "Goal is not owned by this player"),
+    GoalActionInvalid(Code.GOAL_ACTION_INVALID, "Goal action invalid"),
 
     AccountInsufficientAmount(Code.ACCOUNT_INSUFFICIENT_CODE, "Insufficient amount on your account")
     ;
@@ -247,35 +220,6 @@ public enum ClembleCasinoError {
         // Generic Client errors
         final public static String CLIENT_JSON_INVALID_ERROR_CODE = "0D0";
         final public static String CLIENT_JSON_FORMAT_ERROR_CODE = "0D1";
-        // Generic Match errors
-        final public static String GAMEMATCH_PLAYER_HAS_PENDING_SESSIONS_CODE = "0K0";
-        // Generic Game configuration errors
-        final public static String GAME_SPECIFICATION_INVALID_CODE = "0E0";
-        final public static String GAME_CONSTRUCTION_TABLE_QUEUE_PUT_ERROR_CODE = "0E2";
-        final public static String GAME_CONSTRUCTION_TABLE_QUEUE_ADD_ERROR_CODE = "0E3";
-        final public static String GAME_CONSTRUCTION_TABLE_QUEUE_INVALIDATE_ERROR_CODE = "0E4";
-        final public static String GAME_CONSTRUCTION_INVALID_STATE_ERROR_CODE = "0E5";
-        final public static String GAME_CONSTRUCTION_INVALID_REQUEST_ERROR_CODE = "0E6";
-        final public static String GAME_CONSTRUCTION_INVALID_INVITATION_RESPONSE_ERROR_CODE = "0E7";
-        final public static String GAME_CONSTRUCTION_DOES_NOT_EXISTENT_ERROR_CODE = "0E8";
-        final public static String GAME_CONSTRUCTION_NOT_PART_OF_GAME_ERROR_CODE = "0E9";
-        // Generic Game initiation errors
-        final public static String GAME_INITIATION_IN_ACTIVE = "0EA";
-        final public static String GAME_INITIATION_INVALID_PLAYER = "0EB";
-        // Generic Game play errors
-        final public static String GAMEPLAY_MOVE_ALREADY_MADE_CODE = "0F0";
-        final public static String GAMEPLAY_NO_MOVE_EXPECTED_CODE = "0F1";
-        final public static String GAMEPLAY_WRONG_MOVE_TYPE_CODE = "0F2";
-        final public static String GAMEPLAY_MOVE_UNDEFINED_CODE = "0F3";
-        final public static String GAMEPLAY_STATE_UNDEFINED_CODE = "0F4";
-        final public static String GAMEPLAY_MOVE_NOT_SUPPORTED_CODE = "0F5";
-        final public static String GAMEPLAY_PLAYER_NOT_PARTICIPATING = "0F6";
-        final public static String GAMEPLAY_GAME_NOT_STARTED_CODE = "0F7";
-        final public static String GAMEPLAY_GAME_ENDED_CODE = "0F8";
-        final public static String GAMEPLAY_BET_OVERFLOW_CODE = "0F9";
-        final public static String GAMEPLAY_BET_INVALID_CODE = "0FA";
-        final public static String GAMEPLAY_UNIT_MISSING_CODE = "0FB";
-        final public static String GAMEPLAY_MOVE_INVALID = "0FC";
         // Errors specific for TicTacToe
         final public static String CELL_OWNED_CODE = "0G0";
         // Session recreation failure
@@ -315,6 +259,7 @@ public enum ClembleCasinoError {
         final public static String GOAL_IS_EMPTY = "0N4";
         final public static String GOAL_DOES_NOT_EXIST = "0N5";
         final public static String GOAL_NOT_OWNED_BY_PLAYER = "0N6";
+        final public static String GOAL_ACTION_INVALID = "0N7";
 
         // Goal judge errors
         final public static String GOAL_JUDGE_ONLY_JUDGE_CAN_REPLY = "0P0";

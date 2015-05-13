@@ -41,8 +41,8 @@ public class ClembleCasinoResponseErrorHandler implements ResponseErrorHandler {
             response.getBody().read(buffer);
             String errorMessage = new String(buffer);
             // Step 2. Checking that response is of JSON type
-            ClembleCasinoFailure[] failures = objectMapper.readValue(errorMessage, ClembleCasinoFailure[].class);
-            exception = ClembleCasinoException.fromDescription(new ClembleCasinoFailureDescription().setProblems(Arrays.asList(failures)));
+            ClembleCasinoFailureDescription failureDescription = objectMapper.readValue(errorMessage, ClembleCasinoFailureDescription.class);
+            exception = ClembleCasinoException.fromDescription(failureDescription);
         } catch (Throwable throwable) {
             LOG.error("Failed to read failure descriptions, falling back to error codes", throwable);
             List<String> errorCodes = response.getHeaders().get(ERROR_CODES_HEADER);

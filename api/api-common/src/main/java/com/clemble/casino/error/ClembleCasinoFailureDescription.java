@@ -1,81 +1,61 @@
 package com.clemble.casino.error;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ClembleCasinoFailureDescription {
 
-    final public static ClembleCasinoFailureDescription SERVER_ERROR = new ClembleCasinoFailureDescription().addProblem(new ClembleCasinoFailure(ClembleCasinoError.ServerError));
+    final public static ClembleCasinoFailureDescription SERVER_ERROR = ClembleCasinoFailureDescription.withErrors(Collections.singleton(ClembleCasinoError.ServerError));
 
-    final Set<ClembleCasinoFailure> failures = new HashSet<ClembleCasinoFailure>();
+    final private Set<ClembleCasinoFieldError> fields;
+    final private Set<ClembleCasinoError> server;
 
-    public ClembleCasinoFailureDescription() {
+    @JsonCreator
+    public ClembleCasinoFailureDescription(
+        @JsonProperty("fields") Set<ClembleCasinoFieldError> fields,
+        @JsonProperty("server") Set<ClembleCasinoError> server) {
+        this.fields = fields;
+        this.server = server;
     }
 
-    public ClembleCasinoFailureDescription(Set<String> errorCodes) {
-        this(ClembleCasinoError.forCodes(errorCodes));
+    public Set<ClembleCasinoFieldError> getFields() {
+        return fields;
     }
 
-    public ClembleCasinoFailureDescription(Collection<ClembleCasinoError> errors) {
-        for (ClembleCasinoError error : errors)
-            this.failures.add(new ClembleCasinoFailure(error));
+    public Set<ClembleCasinoError> getServer() {
+        return server;
     }
 
-    public Set<ClembleCasinoFailure> getProblems() {
-        return failures;
+    public static ClembleCasinoFailureDescription withErrorCodes(Collection<String> errorCodes) {
+        return withErrors(ClembleCasinoError.forCodes(errorCodes));
     }
 
-    public ClembleCasinoFailureDescription setProblems(Collection<ClembleCasinoFailure> failures) {
-        this.failures.addAll(failures);
-        return this;
-    }
-
-    public ClembleCasinoFailureDescription addProblem(ClembleCasinoFailure failure) {
-        if (failure != null)
-            this.failures.add(failure);
-        return this;
-    }
-
-    public ClembleCasinoFailureDescription addError(ClembleCasinoError error) {
-        this.failures.add(new ClembleCasinoFailure(error));
-        return this;
-    }
-
-    public ClembleCasinoFailureDescription setErrors(Collection<ClembleCasinoError> errors) {
-        for (ClembleCasinoError error : errors)
-            this.failures.add(new ClembleCasinoFailure(error));
-        return this;
+    public static ClembleCasinoFailureDescription withErrors(Collection<ClembleCasinoError> errors) {
+        return new ClembleCasinoFailureDescription(new HashSet<ClembleCasinoFieldError>(), new HashSet<ClembleCasinoError>(errors));
     }
 
     @Override
-    public String toString() {
-        return "GogomayaFailureDescription [failures=" + failures + "]";
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ClembleCasinoFailureDescription)) return false;
+
+        ClembleCasinoFailureDescription that = (ClembleCasinoFailureDescription) o;
+
+        if (fields != null ? !fields.equals(that.fields) : that.fields != null) return false;
+        if (server != null ? !server.equals(that.server) : that.server != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((failures == null) ? 0 : failures.hashCode());
+        int result = fields != null ? fields.hashCode() : 0;
+        result = 31 * result + (server != null ? server.hashCode() : 0);
         return result;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ClembleCasinoFailureDescription other = (ClembleCasinoFailureDescription) obj;
-        if (failures == null) {
-            if (other.failures != null)
-                return false;
-        } else if (!failures.equals(other.failures))
-            return false;
-        return true;
-    }
-
 }

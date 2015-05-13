@@ -4,14 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.clemble.casino.error.*;
 import org.hamcrest.CustomMatcher;
 import org.hamcrest.Matcher;
 
-import com.clemble.casino.error.ClembleCasinoError;
-import com.clemble.casino.error.ClembleCasinoException;
-import com.clemble.casino.error.ClembleCasinoFailure;
-import com.clemble.casino.error.ClembleCasinoFailureDescription;
-import com.clemble.casino.error.ClembleCasinoServerException;
 import com.clemble.casino.utils.CollectionUtils;
 
 public class ClembleCasinoExceptionMatcherFactory {
@@ -31,10 +27,14 @@ public class ClembleCasinoExceptionMatcherFactory {
                     return false;
                 // Step 2. Checking value
                 ClembleCasinoFailureDescription failureDescription = ((ClembleCasinoException) item).getFailureDescription();
-                if (failureDescription == null || failureDescription.getProblems() == null || failureDescription.getProblems().isEmpty())
+                if (failureDescription == null || (failureDescription.getServer().isEmpty() && failureDescription.getFields().isEmpty()))
                     return false;
                 // Step 3. Accumulating errors
-                for (ClembleCasinoFailure failure : failureDescription.getProblems()) {
+                for (ClembleCasinoError failure : failureDescription.getServer()) {
+                    if (expectedErrors.contains(failure))
+                        return true;
+                }
+                for (ClembleCasinoFieldError failure : failureDescription.getFields()) {
                     if (expectedErrors.contains(failure.getError()))
                         return true;
                 }
@@ -58,11 +58,14 @@ public class ClembleCasinoExceptionMatcherFactory {
                     return false;
                 // Step 2. Checking value
                 ClembleCasinoFailureDescription failureDescription = ((ClembleCasinoException) item).getFailureDescription();
-                if (failureDescription == null || failureDescription.getProblems() == null || failureDescription.getProblems().isEmpty())
+                if (failureDescription == null || (failureDescription.getServer().isEmpty() && failureDescription.getFields().isEmpty()))
                     return false;
                 // Step 3. Accumulating errors
                 Collection<ClembleCasinoError> actualErrors = new ArrayList<ClembleCasinoError>();
-                for (ClembleCasinoFailure failure : failureDescription.getProblems()) {
+                for (ClembleCasinoError failure : failureDescription.getServer()) {
+                    actualErrors.add(failure);
+                }
+                for (ClembleCasinoFieldError failure : failureDescription.getFields()) {
                     actualErrors.add(failure.getError());
                 }
                 // Step 4. Checking errors
