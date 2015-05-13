@@ -7,19 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.clemble.casino.event.action.PlayerExpectedAction;
 import com.clemble.test.random.AbstractValueGenerator;
 import org.joda.time.DateTimeZone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.clemble.casino.error.ClembleCasinoFailure;
 import com.clemble.test.random.ObjectGenerator;
 import com.clemble.test.reflection.AnnotationReflectionUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonCreationTest {
@@ -35,23 +31,6 @@ public class JsonCreationTest {
                 return DateTimeZone.UTC;
             }
         });
-    }
-
-    // final private String ERROR_FORMAT_JSON = "{\"problems\":["
-    // + "{\"error\":"
-    // + "{\"code\":\"040\",\"description\":\"Nick invalid\"},"
-    // + "\"player\":\"casino\","
-    // + "\"session\":{\"game\":null,\"session\":null}"
-    // + "}]}";
-    final private String ERROR_JSON = "{\"error\":{\"code\":\"0C1\",\"description\":\"Server critical error\"},\"player\":\"f>RvzG{LHn\"}";
-
-    @Test
-    public void testSpecial() throws JsonParseException, JsonMappingException, IOException {
-        Assert.assertEquals(checkSerialization(PlayerExpectedAction.class), null);
-        ClembleCasinoFailure casinoFailure = objectMapper.readValue(ERROR_JSON, ClembleCasinoFailure.class);
-        assertEquals(casinoFailure.getError().getCode(), "0C1");
-        assertEquals(casinoFailure.getPlayer(), "f>RvzG{LHn");
-        // objectMapper.readValue(ERROR_FORMAT_JSON, ClembleCasinoFailureDescription.class);
     }
 
     @Test

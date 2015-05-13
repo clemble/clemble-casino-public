@@ -14,23 +14,23 @@ public class ClembleCasinoException extends RuntimeException {
      */
     private static final long serialVersionUID = -8129180501783483734L;
 
-    final private ClembleCasinoFailureDescription failure;
+    final private ClembleCasinoFailure failure;
 
-    private ClembleCasinoException(ClembleCasinoFailureDescription failure) {
+    private ClembleCasinoException(ClembleCasinoFailure failure) {
         super(failure.toString());
         this.failure = failure;
     }
 
-    public ClembleCasinoFailureDescription getFailureDescription() {
+    public ClembleCasinoFailure getFailureDescription() {
         return failure;
     }
 
     public static ClembleCasinoException fromError(ClembleCasinoError error) {
-        return new ClembleCasinoException(ClembleCasinoFailureDescription.withErrors(Collections.singleton(error)));
+        return new ClembleCasinoException(ClembleCasinoFailure.withErrors(Collections.singleton(error)));
     }
 
     public static ClembleCasinoException fromCodes(Collection<String> errors) {
-        return new ClembleCasinoException(ClembleCasinoFailureDescription.withErrorCodes(errors));
+        return new ClembleCasinoException(ClembleCasinoFailure.withErrorCodes(errors));
     }
 
     public static <T> ClembleCasinoException fromConstraintViolations(Set<ConstraintViolation<T>> violations){
@@ -54,7 +54,7 @@ public class ClembleCasinoException extends RuntimeException {
         return ClembleCasinoException.fromCodes(errorCodes);
     }
 
-    public static ClembleCasinoException fromDescription(ClembleCasinoFailureDescription description) {
+    public static ClembleCasinoException fromDescription(ClembleCasinoFailure description) {
         return new ClembleCasinoException(description);
     }
 

@@ -26,7 +26,7 @@ public class ClembleCasinoExceptionMatcherFactory {
                 if (!(item instanceof ClembleCasinoException))
                     return false;
                 // Step 2. Checking value
-                ClembleCasinoFailureDescription failureDescription = ((ClembleCasinoException) item).getFailureDescription();
+                ClembleCasinoFailure failureDescription = ((ClembleCasinoException) item).getFailureDescription();
                 if (failureDescription == null || (failureDescription.getServer().isEmpty() && failureDescription.getFields().isEmpty()))
                     return false;
                 // Step 3. Accumulating errors
@@ -57,7 +57,7 @@ public class ClembleCasinoExceptionMatcherFactory {
                 if (!(item instanceof ClembleCasinoException))
                     return false;
                 // Step 2. Checking value
-                ClembleCasinoFailureDescription failureDescription = ((ClembleCasinoException) item).getFailureDescription();
+                ClembleCasinoFailure failureDescription = ((ClembleCasinoException) item).getFailureDescription();
                 if (failureDescription == null || (failureDescription.getServer().isEmpty() && failureDescription.getFields().isEmpty()))
                     return false;
                 // Step 3. Accumulating errors
