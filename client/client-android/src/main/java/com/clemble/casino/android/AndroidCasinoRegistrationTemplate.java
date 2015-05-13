@@ -1,20 +1,36 @@
 package com.clemble.casino.android;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.clemble.casino.android.player.AndroidFacadeRegistrationService;
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.ClembleCasinoRegistrationOperations;
+import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
+import com.clemble.casino.json.ObjectMapperUtils;
 import com.clemble.casino.registration.*;
+import com.clemble.casino.registration.service.PlayerRegistrationService;
+import com.clemble.casino.registration.service.PlayerSocialRegistrationService;
+import com.clemble.casino.registration.service.RegistrationService;
 import com.clemble.casino.social.SocialAccessGrant;
 import com.clemble.casino.social.SocialConnectionData;
 import com.clemble.casino.player.PlayerProfile;
-import com.clemble.casino.registration.service.FacadeRegistrationService;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import static com.clemble.casino.registration.RegistrationWebMapping.REGISTRATION_LOGIN;
+import static com.clemble.casino.registration.RegistrationWebMapping.REGISTRATION_PROFILE;
+import static com.clemble.casino.registration.RegistrationWebMapping.toRegistrationUrl;
+import static com.clemble.casino.social.SocialWebMapping.SOCIAL_REGISTRATION_DESCRIPTION;
+import static com.clemble.casino.social.SocialWebMapping.SOCIAL_REGISTRATION_GRANT;
+import static com.clemble.casino.social.SocialWebMapping.toSocialUrl;
+import static com.clemble.casino.utils.Preconditions.checkNotNull;
 
 public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrationOperations {
 
     final private String host;
-    final private FacadeRegistrationService facadeRegistrationService;
+    final private AndroidFacadeRegistrationService facadeRegistrationService;
 
     public AndroidCasinoRegistrationTemplate(String host) {
         this.host = host;
@@ -22,13 +38,13 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
     }
 
     @Override
-    public ClembleCasinoOperations login(PlayerLoginRequest playerCredential) {
+    public ClembleCasinoOperations login(PlayerCredential playerCredential) {
         // Step 1. Generating consumer details
         // ClembleConsumerDetails consumerDetails = ClembleConsumerDetailUtils.generateDetails();
         // Step 2. Generating login request
         // PlayerLoginRequest loginRequest = new PlayerLoginRequest(playerCredential);
         // Step 3. Constructing casino operations
-        return casinoTemplate(facadeRegistrationService.login(playerCredential).getPlayer());
+        return casinoTemplate(facadeRegistrationService.login(playerCredential));
     }
 
     @Override
@@ -38,7 +54,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         // Step 2. Generating login request
         PlayerRegistrationRequest loginRequest = PlayerRegistrationRequest.create(playerCredential, playerProfile);
         // Step 3. Constructing casino operations
-        return casinoTemplate(facadeRegistrationService.register(loginRequest).getPlayer());
+        return casinoTemplate(facadeRegistrationService.register(loginRequest));
     }
 
     @Override
@@ -69,18 +85,44 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
         }
     }
 
-//    private ClembleCasinoTemplate casinoTemplate(PlayerToken token, ClembleConsumerDetails consumerDetails) {
-//        TODO this is disabled temporely since, it's not active in the system, can deal with it later
-//        String consumerKey = token.getConsumerKey();
-//        String consumerSecret = new String(Base64.encodeBase64(consumerDetails.getSignatureSecret().getPrivateKey().getEncoded()), Charset.forName("UTF-8"));
-//        String accessToken = token.getValue();
-//        String accessTokenSecret = String.valueOf(token.getSecretKey().getEncoded());
-//        String player = token.getPlayer();
-//        try {
-//            return new ClembleCasinoTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret, player, host);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public class AndroidFacadeRegistrationService implements PlayerRegistrationService, PlayerSocialRegistrationService {
+
+        final private String host;
+        final private RestTemplate restTemplate;
+
+        public AndroidFacadeRegistrationService(String host) {
+            this.host = checkNotNull(host);
+            this.restTemplate = new RestTemplate();
+
+            this.restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ObjectMapperUtils.OBJECT_MAPPER));
+            MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+            jackson2HttpMessageConverter.setObjectMapper(ObjectMapperUtils.OBJECT_MAPPER);
+            List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
+            messageConverters.add(jackson2HttpMessageConverter);
+
+            this.restTemplate.setMessageConverters(messageConverters);
+        }
+
+        @Override
+        public String login(PlayerCredential loginRequest) {
+            return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_LOGIN), loginRequest, String.class);
+        }
+
+        @Override
+        public String register(PlayerRegistrationRequest registrationRequest) {
+            return restTemplate.postForObject(toRegistrationUrl(host, REGISTRATION_PROFILE), registrationRequest, String.class);
+        }
+
+        @Override
+        public String register(PlayerSocialRegistrationRequest socialConnectionData) {
+            return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_DESCRIPTION), socialConnectionData, String.class);
+        }
+
+        @Override
+        public String register(PlayerSocialGrantRegistrationRequest socialConnectionData) {
+            return restTemplate.postForObject(toSocialUrl(host, SOCIAL_REGISTRATION_GRANT), socialConnectionData, String.class);
+        }
+
+    }
 
 }

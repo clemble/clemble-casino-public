@@ -30,6 +30,7 @@ public class GoalChangedBetOffEvent implements GoalManagementEvent {
     public String getPlayer() {
         return player;
     }
+
     @Override
     public GoalState getBody() {
         return body;
