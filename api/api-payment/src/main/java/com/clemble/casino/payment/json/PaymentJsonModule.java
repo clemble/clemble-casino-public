@@ -27,6 +27,7 @@ public class PaymentJsonModule implements ClembleJsonModule {
         module.registerSubtypes(new NamedType(PhoneVerifiedBonusPaymentSource.class, PhoneVerifiedBonusPaymentSource.JSON_TYPE));
         module.registerSubtypes(new NamedType(DiscoveryBonusPaymentSource.class, DiscoveryBonusPaymentSource.JSON_TYPE));
         module.registerSubtypes(new NamedType(RegistrationBonusPaymentSource.class, RegistrationBonusPaymentSource.JSON_TYPE));
+        module.registerSubtypes(new NamedType(ClientErrorBonusPaymentSource.class, ClientErrorBonusPaymentSource.JSON_TYPE));
 
         return module;
     }

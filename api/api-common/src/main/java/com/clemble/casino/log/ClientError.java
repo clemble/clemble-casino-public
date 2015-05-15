@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 5/15/15.
  */
-public class ClembleLogError {
+public class ClientError {
 
     final private String field;
     final private String location;
@@ -15,7 +15,7 @@ public class ClembleLogError {
     final private String error;
 
     @JsonCreator
-    public ClembleLogError(
+    public ClientError(
             @JsonProperty("field") String field,
             @JsonProperty("location") String location,
             @JsonProperty("module") String module,
@@ -51,9 +51,9 @@ public class ClembleLogError {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ClembleLogError)) return false;
+        if (!(o instanceof ClientError)) return false;
 
-        ClembleLogError that = (ClembleLogError) o;
+        ClientError that = (ClientError) o;
 
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (error != null ? !error.equals(that.error) : that.error != null) return false;

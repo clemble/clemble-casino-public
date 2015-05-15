@@ -1,5 +1,6 @@
 package com.clemble.casino.payment.bonus;
 
+import com.clemble.casino.CreatedAware;
 import com.clemble.casino.payment.PaymentSource;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,7 +15,7 @@ import java.util.Date;
  * Created by mavarazy on 12/1/14.
  */
 @JsonTypeName(DailyBonusPaymentSource.JSON_TYPE)
-public class DailyBonusPaymentSource implements BonusPaymentSource {
+public class DailyBonusPaymentSource implements BonusPaymentSource, CreatedAware {
 
     final public static String JSON_TYPE = "payment:bonus:daily";
 
@@ -27,6 +28,7 @@ public class DailyBonusPaymentSource implements BonusPaymentSource {
         this.created = created;
     }
 
+    @Override
     public DateTime getCreated() {
         return created;
     }
