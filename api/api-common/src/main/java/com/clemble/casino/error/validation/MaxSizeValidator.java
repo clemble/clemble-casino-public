@@ -14,7 +14,7 @@ public class MaxSizeValidator implements ConstraintValidator<MaxSize, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return value == null || value.length() < max;
+        return value == null || value.length() <= max;
     }
 
 }

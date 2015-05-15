@@ -16,11 +16,38 @@ public class ClembleCasinoErrorFormat {
 
     /**
      * Custom {@link Date} Serializer, used by Jackson, through {@link JsonSerializer} annotation.
+     *
+     * @author Anton Oparin
+     *
+     */
+    public static class ClembleCasinoCodeErrorSerializer extends JsonSerializer<ClembleCasinoError> {
+
+        @Override
+        public void serialize(ClembleCasinoError error, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+            if (error == null)
+                return;
+
+            jsonGenerator.writeString(error.getCode());
+        }
+
+    }
+
+     public static class ClembleCasinoCodeErrorDeserializer extends JsonDeserializer<ClembleCasinoError> {
+
+        @Override
+        public ClembleCasinoError deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            String code = jp.getText();
+            return ClembleCasinoError.forCode(code);
+        }
+    }
+
+    /**
+     * Custom {@link Date} Serializer, used by Jackson, through {@link JsonSerializer} annotation.
      * 
      * @author Anton Oparin
      * 
      */
-    public static class ClembleCasinoErrorSerializer extends JsonSerializer<ClembleCasinoError> {
+    public static class ClembleCasinoObjectErrorSerializer extends JsonSerializer<ClembleCasinoError> {
 
         @Override
         public void serialize(ClembleCasinoError error, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
@@ -37,7 +64,7 @@ public class ClembleCasinoErrorFormat {
 
     }
 
-    public static class ClembleCasinoErrorDeserializer extends JsonDeserializer<ClembleCasinoError> {
+    public static class ClembleCasinoObjectErrorDeserializer extends JsonDeserializer<ClembleCasinoError> {
 
         @Override
         public ClembleCasinoError deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {

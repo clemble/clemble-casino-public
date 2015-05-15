@@ -14,7 +14,7 @@ public class MinSizeValidator implements ConstraintValidator<MinSize, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return value == null || value.length() > min;
+        return value == null || value.length() >= min;
     }
 
 }

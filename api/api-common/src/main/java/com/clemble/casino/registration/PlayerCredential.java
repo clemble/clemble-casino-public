@@ -1,14 +1,10 @@
 package com.clemble.casino.registration;
 
-import javax.validation.constraints.NotNull;
-
+import com.clemble.casino.error.validation.*;
 import com.clemble.casino.player.EmailAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import com.clemble.casino.error.ClembleCasinoError.Code;
-import com.clemble.casino.error.validation.MaxSize;
-import com.clemble.casino.error.validation.MinSize;
-import com.clemble.casino.error.validation.PasswordConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 
@@ -22,10 +18,7 @@ public class PlayerCredential implements EmailAware {
     @Email(message = Code.EMAIL_INVALID_CODE)
     final private String email;
 
-    @PasswordConstraint
-    @MinSize(min = 6, message = Code.PASSWORD_TOO_SHORT_CODE)
-    @MaxSize(max = 64, message = Code.PASSWORD_TOO_LONG_CODE)
-    @NotNull(message = Code.PASSWORD_MISSING_CODE)
+    @ClemblePasswordConstraint
     final private String password;
 
     @JsonCreator

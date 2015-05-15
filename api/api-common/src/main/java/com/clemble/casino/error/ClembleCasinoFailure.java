@@ -36,7 +36,11 @@ public class ClembleCasinoFailure {
     }
 
     public static ClembleCasinoFailure withErrors(Collection<ClembleCasinoError> errors) {
-        return new ClembleCasinoFailure(new HashSet<ClembleCasinoFieldError>(), new HashSet<ClembleCasinoError>(errors));
+        return new ClembleCasinoFailure(Collections.<ClembleCasinoFieldError>emptySet(), new HashSet<ClembleCasinoError>(errors));
+    }
+
+    public static ClembleCasinoFailure withFieldError(String field, ClembleCasinoError error) {
+        return new ClembleCasinoFailure(Collections.singleton(new ClembleCasinoFieldError(field, error)), Collections.<ClembleCasinoError>emptySet());
     }
 
     @Override

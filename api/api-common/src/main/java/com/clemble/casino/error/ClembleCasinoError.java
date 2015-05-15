@@ -9,14 +9,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.clemble.casino.error.ClembleCasinoErrorFormat.ClembleCasinoErrorDeserializer;
-import com.clemble.casino.error.ClembleCasinoErrorFormat.ClembleCasinoErrorSerializer;
+import com.clemble.casino.error.ClembleCasinoErrorFormat.ClembleCasinoObjectErrorDeserializer;
+import com.clemble.casino.error.ClembleCasinoErrorFormat.ClembleCasinoObjectErrorSerializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonSerialize(using = ClembleCasinoErrorSerializer.class)
-@JsonDeserialize(using = ClembleCasinoErrorDeserializer.class)
+@JsonSerialize(using = ClembleCasinoObjectErrorSerializer.class)
+@JsonDeserialize(using = ClembleCasinoObjectErrorDeserializer.class)
 public enum ClembleCasinoError {
 
     ServerError(Code.SERVER_ERROR_CODE, "Server error"),
@@ -183,14 +183,14 @@ public enum ClembleCasinoError {
         // Email
         final public static String EMAIL_INVALID_CODE = "001";
         final public static String EMAIL_NOT_CONFIRMED_CODE = "002";
-        final public static String EMAIL_NOT_REGISTERED_CODE = "003";
+        final public static String EMAIL_NOT_REGISTERED_CODE = "unknown";
         final public static String EMAIL_ALREADY_REGISTERED_CODE = "004";
         // Password
-        final public static String PASSWORD_MISSING_CODE = "010";
-        final public static String PASSWORD_TOO_SHORT_CODE = "011";
-        final public static String PASSWORD_TOO_WEAK_CODE = "012";
-        final public static String PASSWORD_TOO_LONG_CODE = "013";
-        final public static String PASSWORD_INCORRECT = "014";
+        final public static String PASSWORD_MISSING_CODE = "required";
+        final public static String PASSWORD_TOO_SHORT_CODE = "minlength";
+        final public static String PASSWORD_TOO_WEAK_CODE = "s-weak";
+        final public static String PASSWORD_TOO_LONG_CODE = "maxlength";
+        final public static String PASSWORD_INCORRECT = "incorrect";
         // Credentials authentication codes
         final public static String EMAIL_OR_PASSWORD_INCORRECT_CODE = "020";
         // Identity errors
