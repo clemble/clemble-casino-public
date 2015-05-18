@@ -35,7 +35,7 @@ public class ClembleCasinoExceptionMatcherFactory {
                         return true;
                 }
                 for (ClembleFieldError failure : failureDescription.getFields()) {
-                    if (expectedErrors.contains(failure.getError()))
+                    if (expectedErrors.contains(failure.getCode()))
                         return true;
                 }
                 // Step 4. No possible errors found
@@ -66,7 +66,7 @@ public class ClembleCasinoExceptionMatcherFactory {
                     actualErrors.add(failure);
                 }
                 for (ClembleFieldError failure : failureDescription.getFields()) {
-                    actualErrors.add(failure.getError());
+                    actualErrors.add(failure.getCode());
                 }
                 // Step 4. Checking errors
                 return expectedErrors.containsAll(actualErrors) && actualErrors.containsAll(expectedErrors);
