@@ -1,18 +1,14 @@
 package com.clemble.casino.registration;
 
 import com.clemble.casino.TimeZoneAware;
-import com.clemble.casino.error.ClembleCasinoError;
+import com.clemble.casino.error.ClembleErrorCode;
 import com.clemble.casino.error.validation.*;
 import com.clemble.casino.player.*;
-import com.clemble.casino.security.ClembleConsumerDetails;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 public class PlayerRegistrationRequest
     implements RegistrationRequest, EmailAware, PlayerNickNameAware, PlayerAware, TimeZoneAware {
@@ -22,13 +18,13 @@ public class PlayerRegistrationRequest
     final private String player;
 
     @JsonProperty("nickName")
-    @NoWhiteSpaces(message = ClembleCasinoError.Code.NICK_NO_WHITE_SPACES_ALLOWED_CODE)
-    @NickNameConstraint(message = ClembleCasinoError.Code.NICK_INVALID_CODE)
-    @MaxSize(max = 64, message = ClembleCasinoError.Code.NICK_TOO_LONG_CODE)
-    @MinSize(min = 5, message = ClembleCasinoError.Code.NICK_TOO_SHORT_CODE)
+    @NoWhiteSpaces(message = ClembleErrorCode.Code.NICK_NO_WHITE_SPACES_ALLOWED)
+    @NickNameConstraint(message = ClembleErrorCode.Code.NICK_INVALID)
+    @MaxSize(max = 64, message = ClembleErrorCode.Code.NICK_TOO_LONG)
+    @MinSize(min = 5, message = ClembleErrorCode.Code.NICK_TOO_SHORT)
     final private String nickName;
 
-    @Email(message = ClembleCasinoError.Code.EMAIL_INVALID_CODE)
+    @Email(message = ClembleErrorCode.Code.EMAIL_INVALID)
     final private String email;
 
     @ClemblePasswordConstraint
@@ -36,10 +32,10 @@ public class PlayerRegistrationRequest
 
 
     @JsonProperty("firstName")
-    @MaxSize(max = 64, message = ClembleCasinoError.Code.FIRST_NAME_TOO_LONG_CODE)
+    @MaxSize(max = 64, message = ClembleErrorCode.Code.FIRST_NAME_TOO_LONG)
     final private String firstName;
     @JsonProperty("lastName")
-    @MaxSize(max = 64, message = ClembleCasinoError.Code.LAST_NAME_TOO_LONG_CODE)
+    @MaxSize(max = 64, message = ClembleErrorCode.Code.LAST_NAME_TOO_LONG)
     final private String lastName;
     @JsonProperty("gender")
     final private PlayerGender gender;

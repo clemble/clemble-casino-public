@@ -6,12 +6,11 @@ import java.util.List;
 
 import com.clemble.casino.client.ClembleCasinoOperations;
 import com.clemble.casino.client.ClembleCasinoRegistrationOperations;
-import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
+import com.clemble.casino.client.error.ClembleResponseErrorHandler;
 import com.clemble.casino.json.ObjectMapperUtils;
 import com.clemble.casino.registration.*;
 import com.clemble.casino.registration.service.PlayerRegistrationService;
 import com.clemble.casino.registration.service.PlayerSocialRegistrationService;
-import com.clemble.casino.registration.service.RegistrationService;
 import com.clemble.casino.social.SocialAccessGrant;
 import com.clemble.casino.social.SocialConnectionData;
 import com.clemble.casino.player.PlayerProfile;
@@ -94,7 +93,7 @@ public class AndroidCasinoRegistrationTemplate implements ClembleCasinoRegistrat
             this.host = checkNotNull(host);
             this.restTemplate = new RestTemplate();
 
-            this.restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ObjectMapperUtils.OBJECT_MAPPER));
+            this.restTemplate.setErrorHandler(new ClembleResponseErrorHandler(ObjectMapperUtils.OBJECT_MAPPER));
             MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
             jackson2HttpMessageConverter.setObjectMapper(ObjectMapperUtils.OBJECT_MAPPER);
             List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();

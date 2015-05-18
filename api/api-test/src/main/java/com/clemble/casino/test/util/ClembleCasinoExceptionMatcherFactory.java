@@ -16,27 +16,26 @@ public class ClembleCasinoExceptionMatcherFactory {
         throw new IllegalAccessError();
     }
 
-    public static Matcher<ClembleCasinoException> fromPossibleErrors(final ClembleCasinoError... errors) {
-        final Collection<ClembleCasinoError> expectedErrors = CollectionUtils.<ClembleCasinoError> immutableList(Arrays.asList(errors));
-        return new CustomMatcher<ClembleCasinoException>(Arrays.toString(errors)) {
+    public static Matcher<ClembleException> fromPossibleErrors(final ClembleErrorCode... errors) {
+        final Collection<ClembleErrorCode> expectedErrors = CollectionUtils.<ClembleErrorCode> immutableList(Arrays.asList(errors));
+        return new CustomMatcher<ClembleException>(Arrays.toString(errors)) {
 
             @Override
             public boolean matches(Object item) {
                 // Step 1. Sanity check
-                if (!(item instanceof ClembleCasinoException))
+                if (!(item instanceof ClembleException))
                     return false;
                 // Step 2. Checking value
-                ClembleCasinoFailure failureDescription = ((ClembleCasinoException) item).getFailureDescription();
+                ClembleError failureDescription = ((ClembleException) item).getFailureDescription();
                 if (failureDescription == null || (failureDescription.getServer().isEmpty() && failureDescription.getFields().isEmpty()))
                     return false;
                 // Step 3. Accumulating errors
-                for (ClembleCasinoError failure : failureDescription.getServer()) {
+                for (ClembleErrorCode failure : failureDescription.getServer()) {
                     if (expectedErrors.contains(failure))
                         return true;
                 }
-                for (ClembleCasinoFieldError failure : failureDescription.getFields()) {
-                    ClembleCasinoError error = ClembleCasinoError.forCode(failure.getCode());
-                    if (expectedErrors.contains(error))
+                for (ClembleFieldError failure : failureDescription.getFields()) {
+                    if (expectedErrors.contains(failure.getError()))
                         return true;
                 }
                 // Step 4. No possible errors found
@@ -46,29 +45,28 @@ public class ClembleCasinoExceptionMatcherFactory {
 
     }
 
-    public static Matcher<ClembleCasinoException> fromErrors(final ClembleCasinoError... errors) {
-        final Collection<ClembleCasinoError> expectedErrors = CollectionUtils.<ClembleCasinoError> immutableList(Arrays.asList(errors));
-        return new CustomMatcher<ClembleCasinoException>(Arrays.toString(errors)) {
+    public static Matcher<ClembleException> fromErrors(final ClembleErrorCode... errors) {
+        final Collection<ClembleErrorCode> expectedErrors = CollectionUtils.<ClembleErrorCode> immutableList(Arrays.asList(errors));
+        return new CustomMatcher<ClembleException>(Arrays.toString(errors)) {
 
             @Override
             public boolean matches(Object item) {
                 // Step 1. Unwrapping exception
-                if (item instanceof ClembleCasinoServerException)
-                    item = ((ClembleCasinoServerException) item).getCasinoException();
-                if (!(item instanceof ClembleCasinoException))
+                if (item instanceof ClembleServerException)
+                    item = ((ClembleServerException) item).getCasinoException();
+                if (!(item instanceof ClembleException))
                     return false;
                 // Step 2. Checking value
-                ClembleCasinoFailure failureDescription = ((ClembleCasinoException) item).getFailureDescription();
+                ClembleError failureDescription = ((ClembleException) item).getFailureDescription();
                 if (failureDescription == null || (failureDescription.getServer().isEmpty() && failureDescription.getFields().isEmpty()))
                     return false;
                 // Step 3. Accumulating errors
-                Collection<ClembleCasinoError> actualErrors = new ArrayList<ClembleCasinoError>();
-                for (ClembleCasinoError failure : failureDescription.getServer()) {
+                Collection<ClembleErrorCode> actualErrors = new ArrayList<ClembleErrorCode>();
+                for (ClembleErrorCode failure : failureDescription.getServer()) {
                     actualErrors.add(failure);
                 }
-                for (ClembleCasinoFieldError failure : failureDescription.getFields()) {
-                    ClembleCasinoError error = ClembleCasinoError.forCode(failure.getCode());
-                    actualErrors.add(error);
+                for (ClembleFieldError failure : failureDescription.getFields()) {
+                    actualErrors.add(failure.getError());
                 }
                 // Step 4. Checking errors
                 return expectedErrors.containsAll(actualErrors) && actualErrors.containsAll(expectedErrors);

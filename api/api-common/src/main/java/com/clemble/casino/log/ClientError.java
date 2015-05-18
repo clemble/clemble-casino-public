@@ -1,17 +1,20 @@
 package com.clemble.casino.log;
 
+import com.clemble.casino.error.ClembleError;
+import com.clemble.casino.error.ClembleErrorCode;
+import com.clemble.casino.error.ClembleErrorCodeAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by mavarazy on 5/15/15.
  */
-public class ClientError {
+public class ClientError implements ClembleErrorCodeAware {
 
     final private String field;
     final private String location;
     final private String module;
-    final private String code;
+    final private ClembleErrorCode code;
     final private String error;
 
     @JsonCreator
@@ -19,7 +22,7 @@ public class ClientError {
             @JsonProperty("field") String field,
             @JsonProperty("location") String location,
             @JsonProperty("module") String module,
-            @JsonProperty("code") String code,
+            @JsonProperty("code") ClembleErrorCode code,
             @JsonProperty("error") String error) {
         this.location = location;
         this.field = field;
@@ -40,7 +43,8 @@ public class ClientError {
         return module;
     }
 
-    public String getCode() {
+    @Override
+    public ClembleErrorCode getCode() {
         return code;
     }
 

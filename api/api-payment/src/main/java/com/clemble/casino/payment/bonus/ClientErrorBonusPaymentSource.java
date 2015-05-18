@@ -1,7 +1,7 @@
 package com.clemble.casino.payment.bonus;
 
 import com.clemble.casino.CreatedAware;
-import com.clemble.casino.error.ClembleCasinoError;
+import com.clemble.casino.error.ClembleErrorCode;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -17,18 +17,18 @@ public class ClientErrorBonusPaymentSource implements BonusPaymentSource, Create
 
     final private static String DATE_FORMAT = "ddMMyy";
 
-    final private ClembleCasinoError code;
+    final private ClembleErrorCode code;
     final private DateTime created;
 
     @JsonCreator
     public ClientErrorBonusPaymentSource(
-        @JsonProperty("code") ClembleCasinoError code,
+        @JsonProperty("code") ClembleErrorCode code,
         @JsonProperty("created") DateTime created) {
         this.code = code;
         this.created = created;
     }
 
-    public ClembleCasinoError getCode() {
+    public ClembleErrorCode getCode() {
         return code;
     }
 
@@ -39,7 +39,7 @@ public class ClientErrorBonusPaymentSource implements BonusPaymentSource, Create
 
     @Override
     public String toTransactionKey(String player) {
-        return player + ":" + "client:error:" + code.getCode() + ":" + created.toString(DATE_FORMAT);
+        return player + ":" + "client:error:" + code + ":" + created.toString(DATE_FORMAT);
     }
 
     @Override

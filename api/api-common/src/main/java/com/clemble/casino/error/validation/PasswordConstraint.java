@@ -8,14 +8,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.clemble.casino.error.ClembleCasinoError.Code;
+import com.clemble.casino.error.ClembleErrorCode.Code;
 
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PasswordConstraintValidator.class)
 public @interface PasswordConstraint {
 
-    String message() default Code.PASSWORD_TOO_WEAK_CODE;
+    String message() default Code.PASSWORD_TOO_WEAK;
 
     Class<?>[] groups() default {};
 

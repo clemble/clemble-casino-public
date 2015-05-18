@@ -4,7 +4,7 @@ import com.clemble.casino.error.validation.*;
 import com.clemble.casino.player.EmailAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import com.clemble.casino.error.ClembleCasinoError.Code;
+import com.clemble.casino.error.ClembleErrorCode.Code;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 
@@ -15,7 +15,7 @@ public class PlayerCredential implements EmailAware {
      */
     private static final long serialVersionUID = 6796999437224779009L;
 
-    @Email(message = Code.EMAIL_INVALID_CODE)
+    @Email(message = Code.EMAIL_INVALID)
     final private String email;
 
     @ClemblePasswordConstraint

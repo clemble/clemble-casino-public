@@ -5,11 +5,11 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidatorFactory;
 
-public class ClembleCasinoValidationService {
+public class ClembleValidationService {
 
     final private ValidatorFactory validatorFactory;
 
-    public ClembleCasinoValidationService(ValidatorFactory validatorFactory) {
+    public ClembleValidationService(ValidatorFactory validatorFactory) {
         if (validatorFactory == null)
             throw new NullPointerException();
         this.validatorFactory = validatorFactory;
@@ -21,7 +21,7 @@ public class ClembleCasinoValidationService {
         if (violations.isEmpty())
             return;
         // Step 2. Accumulating error codes
-        ClembleCasinoException exception = ClembleCasinoException.fromConstraintViolations(violations);
+        ClembleException exception = ClembleException.fromConstraintViolations(violations);
         // Step 3. Generating Clemble error
         if (exception != null)
             throw exception;

@@ -1,6 +1,6 @@
 package com.clemble.casino.error.validation;
 
-import com.clemble.casino.error.ClembleCasinoError;
+import com.clemble.casino.error.ClembleErrorCode;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NoWhiteSpacesValidator.class)
 public @interface NoWhiteSpaces {
-    String message() default ClembleCasinoError.Code.NICK_INVALID_CODE;
+    String message() default ClembleErrorCode.Code.NICK_INVALID;
 
     Class<?>[] groups() default {};
 

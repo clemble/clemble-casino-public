@@ -1,14 +1,8 @@
 package com.clemble.casino.registration;
 
-import com.clemble.casino.error.ClembleCasinoError;
 import com.clemble.casino.error.validation.ClemblePasswordConstraint;
-import com.clemble.casino.error.validation.MaxSize;
-import com.clemble.casino.error.validation.MinSize;
-import com.clemble.casino.error.validation.PasswordConstraint;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by mavarazy on 2/2/15.

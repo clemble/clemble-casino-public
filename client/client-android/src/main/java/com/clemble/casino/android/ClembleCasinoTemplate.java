@@ -23,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.clemble.casino.android.payment.AndroidPaymentTransactionService;
 import com.clemble.casino.client.ClembleCasinoOperations;
-import com.clemble.casino.client.error.ClembleCasinoResponseErrorHandler;
+import com.clemble.casino.client.error.ClembleResponseErrorHandler;
 import com.clemble.casino.client.event.EventListenerOperations;
 import com.clemble.casino.client.event.RabbitEventListenerTemplate;
 
@@ -190,7 +190,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
 
     @Override
     protected void configureRestTemplate(RestTemplate restTemplate) {
-        restTemplate.setErrorHandler(new ClembleCasinoResponseErrorHandler(ObjectMapperUtils.OBJECT_MAPPER));
+        restTemplate.setErrorHandler(new ClembleResponseErrorHandler(ObjectMapperUtils.OBJECT_MAPPER));
     }
 
     @Override

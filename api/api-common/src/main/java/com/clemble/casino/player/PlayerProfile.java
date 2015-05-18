@@ -1,7 +1,6 @@
 package com.clemble.casino.player;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +13,7 @@ import org.joda.time.DateTimeZone;
 import org.springframework.data.annotation.Id;
 import org.springframework.social.connect.ConnectionKey;
 
-import com.clemble.casino.VersionAware;
-import com.clemble.casino.error.ClembleCasinoError.Code;
+import com.clemble.casino.error.ClembleErrorCode.Code;
 import com.clemble.casino.error.validation.MaxSize;
 import com.clemble.casino.error.validation.NickNameConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,18 +30,18 @@ public class PlayerProfile implements PlayerAware, PlayerNickNameAware, TimeZone
     private String player;
 
     @JsonProperty("nickName")
-    @NoWhiteSpaces(message = Code.NICK_NO_WHITE_SPACES_ALLOWED_CODE)
-    @NickNameConstraint(message = Code.NICK_INVALID_CODE)
-    @MaxSize(max = 64, message = Code.NICK_TOO_LONG_CODE)
-    @MinSize(min = 5, message = Code.NICK_TOO_SHORT_CODE)
+    @NoWhiteSpaces(message = Code.NICK_NO_WHITE_SPACES_ALLOWED)
+    @NickNameConstraint(message = Code.NICK_INVALID)
+    @MaxSize(max = 64, message = Code.NICK_TOO_LONG)
+    @MinSize(min = 5, message = Code.NICK_TOO_SHORT)
     private String nickName;
 
     @JsonProperty("firstName")
-    @MaxSize(max = 64, message = Code.FIRST_NAME_TOO_LONG_CODE)
+    @MaxSize(max = 64, message = Code.FIRST_NAME_TOO_LONG)
     private String firstName;
 
     @JsonProperty("lastName")
-    @MaxSize(max = 64, message = Code.LAST_NAME_TOO_LONG_CODE)
+    @MaxSize(max = 64, message = Code.LAST_NAME_TOO_LONG)
     private String lastName;
 
     @JsonProperty("gender")

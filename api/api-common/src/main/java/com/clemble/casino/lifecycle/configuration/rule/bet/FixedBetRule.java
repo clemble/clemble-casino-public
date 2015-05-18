@@ -2,8 +2,8 @@ package com.clemble.casino.lifecycle.configuration.rule.bet;
 
 import java.util.Arrays;
 
-import com.clemble.casino.error.ClembleCasinoError;
-import com.clemble.casino.error.ClembleCasinoException;
+import com.clemble.casino.error.ClembleErrorCode;
+import com.clemble.casino.error.ClembleException;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,11 +40,11 @@ public class FixedBetRule implements BetRule {
 
     public static FixedBetRule create(long ... useBets) {
         if (useBets == null || useBets.length == 0)
-            throw ClembleCasinoException.fromError(ClembleCasinoError.ClientJsonFormatError);
+            throw ClembleException.fromError(ClembleErrorCode.ClientJsonFormatError);
         long[] bets = new long[useBets.length];
         for (int i = 0; i < useBets.length; i++) {
             if (useBets[i] <= 0)
-                throw ClembleCasinoException.fromError(ClembleCasinoError.ClientJsonFormatError);
+                throw ClembleException.fromError(ClembleErrorCode.ClientJsonFormatError);
             bets[i] = useBets[i];
         }
         return new FixedBetRule(bets);

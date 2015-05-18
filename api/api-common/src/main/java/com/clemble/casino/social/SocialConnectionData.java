@@ -4,11 +4,10 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import com.clemble.casino.error.ClembleCasinoError.Code;
+import com.clemble.casino.error.ClembleErrorCode.Code;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import oracle.jrockit.jfr.StringConstantPool;
 
 /**
  * Minimum social ConnectionData, that is sufficient to create a user profile in internal network.
@@ -25,11 +24,11 @@ public class SocialConnectionData implements Serializable {
     private static final long serialVersionUID = -6236465246404418965L;
 
     @JsonProperty("providerId")
-    @NotNull(message = Code.SOCIAL_CONNECTION_PROVIDER_ID_NULL_CODE)
+    @NotNull(message = Code.SOCIAL_CONNECTION_PROVIDER_ID_NULL)
     final private SocialProvider providerId;
 
     @JsonProperty("providerUserId")
-    @NotNull(message = Code.SOCIAL_CONNECTION_PROVIDER_USER_NULL_CODE)
+    @NotNull(message = Code.SOCIAL_CONNECTION_PROVIDER_USER_NULL)
     final private String providerUserId;
 
     @JsonProperty("accessToken")

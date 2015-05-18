@@ -1,6 +1,6 @@
 package com.clemble.casino.error.validation;
 
-import com.clemble.casino.error.ClembleCasinoError;
+import com.clemble.casino.error.ClembleErrorCode;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,9 +15,9 @@ import static java.lang.annotation.ElementType.*;
  * Created by mavarazy on 5/4/15.
  */
 @PasswordConstraint // TODO unite all requirements for password in @PasswordConstraint
-@MinSize(min = 6, message = ClembleCasinoError.Code.PASSWORD_TOO_SHORT_CODE)
-@MaxSize(max = 64, message = ClembleCasinoError.Code.PASSWORD_TOO_LONG_CODE)
-@NotNull(message = ClembleCasinoError.Code.PASSWORD_MISSING_CODE)
+@MinSize(min = 6, message = ClembleErrorCode.Code.PASSWORD_TOO_SHORT)
+@MaxSize(max = 64, message = ClembleErrorCode.Code.PASSWORD_TOO_LONG)
+@NotNull(message = ClembleErrorCode.Code.PASSWORD_MISSING)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE })
 @Constraint(validatedBy = { })
