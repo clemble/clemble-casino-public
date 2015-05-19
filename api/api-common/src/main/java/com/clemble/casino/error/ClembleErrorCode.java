@@ -6,15 +6,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@JsonSerialize(using = ClembleErrorFormat.Serializer.class)
-@JsonDeserialize(using = ClembleErrorFormat.Deserializer.class)
+@JsonSerialize(using = ClembleErrorCodeFormat.Serializer.class)
+@JsonDeserialize(using = ClembleErrorCodeFormat.Deserializer.class)
 public enum ClembleErrorCode {
 
-    ServerError,
-    ServerCriticalError,
-    ServerSessionProcessingError,
-    ServerCacheError,
-    ServerLatchError,
+    GeneralError,
+    CriticalError,
+    SessionProcessingError,
+    CacheError,
+    LatchError,
 
     BadRequestPlayerIdHeaderMissing,
     BadRequestSessionIdHeaderMissing,

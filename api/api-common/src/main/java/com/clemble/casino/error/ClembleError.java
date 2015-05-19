@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class ClembleError {
 
-    final public static ClembleError SERVER_ERROR = ClembleError.withErrors(Collections.singleton(ClembleErrorCode.ServerError));
+    final public static ClembleError SERVER_ERROR = ClembleError.withErrors(Collections.singleton(ClembleErrorCode.GeneralError));
 
     final private Set<ClembleFieldError> fields;
     final private Set<ClembleErrorCode> server;
