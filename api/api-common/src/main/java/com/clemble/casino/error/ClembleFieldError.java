@@ -11,8 +11,8 @@ public class ClembleFieldError implements ClembleErrorCodeAware {
     final private ClembleErrorCode code;
 
     public ClembleFieldError(
-            @JsonProperty("field") String field,
-            @JsonProperty("code") ClembleErrorCode error
+        @JsonProperty("field") String field,
+        @JsonProperty("code") ClembleErrorCode error
     ) {
         this.field = field;
         this.code = error;

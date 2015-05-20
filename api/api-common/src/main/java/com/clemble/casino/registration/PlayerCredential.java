@@ -1,6 +1,5 @@
 package com.clemble.casino.registration;
 
-import com.clemble.casino.error.ClembleErrorCode;
 import com.clemble.casino.error.validation.*;
 import com.clemble.casino.player.EmailAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -10,8 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-public class PlayerCredential implements EmailAware {
+public class PlayerCredential implements EmailAware, Serializable {
 
     /**
      * Generated 15/02/13

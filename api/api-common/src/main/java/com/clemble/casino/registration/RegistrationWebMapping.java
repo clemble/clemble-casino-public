@@ -10,7 +10,7 @@ public abstract class RegistrationWebMapping implements WebMapping {
     final public static String REGISTRATION_URL = "http://{host}/registration";
 
     final public static String REGISTRATION_LOGIN = "/login";
-    final public static String REGISTRATION_PROFILE = "/signin";
+    final public static String REGISTRATION_PROFILE = "/signup";
     final public static String REGISTRATION_SIGN_OUT = "/signout";
 
     final public static String RESTORE_PASSWORD = "/restore";

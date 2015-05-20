@@ -18,7 +18,7 @@ public class NoWhiteSpacesValidator implements ConstraintValidator<NoWhiteSpaces
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         // TODO consider CharMatcher.WHITESPACE.matchesAnyOf(testCode);
-        return !WHITE_SPACES.matcher(value).matches();
+        return value != null && !WHITE_SPACES.matcher(value).matches();
     }
 
 }
