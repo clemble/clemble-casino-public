@@ -20,6 +20,7 @@ public enum ClembleErrorCode {
     BadRequestSessionIdHeaderMissing,
     BadRequestTableIdHeaderMissing,
 
+    EmailMissing,
     EmailInvalid,
     EmailNotConfirmed,
     EmailNotRegistered,
@@ -108,6 +109,7 @@ public enum ClembleErrorCode {
      */
     public static class Code {
 
+        final public static String EMAIL_MISSING = "EmailMissing";
         final public static String EMAIL_INVALID = "EmailInvalid";
         final public static String PASSWORD_TOO_SHORT = "PasswordTooShort";
         final public static String PASSWORD_TOO_LONG = "PasswordTooLong";

@@ -1,5 +1,6 @@
 package com.clemble.casino.registration;
 
+import com.clemble.casino.error.ClembleErrorCode;
 import com.clemble.casino.error.validation.*;
 import com.clemble.casino.player.EmailAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -8,6 +9,8 @@ import com.clemble.casino.error.ClembleErrorCode.Code;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Email;
 
+import javax.validation.constraints.NotNull;
+
 public class PlayerCredential implements EmailAware {
 
     /**
@@ -15,6 +18,8 @@ public class PlayerCredential implements EmailAware {
      */
     private static final long serialVersionUID = 6796999437224779009L;
 
+    @MinSize(min = 1, message = Code.EMAIL_MISSING)
+    @NotNull(message = Code.EMAIL_MISSING)
     @Email(message = Code.EMAIL_INVALID)
     final private String email;
 

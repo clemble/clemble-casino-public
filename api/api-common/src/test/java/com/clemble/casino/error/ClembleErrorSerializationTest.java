@@ -17,10 +17,21 @@ public class ClembleErrorSerializationTest {
         ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
         for(ClembleErrorCode error: ClembleErrorCode.values()) {
             String strPresentation = objectMapper.writeValueAsString(error);
-            System.out.println(strPresentation);
             ClembleErrorCode deserializedError = objectMapper.readValue(strPresentation, ClembleErrorCode.class);
             Assert.assertEquals(deserializedError, error);
         }
+    }
+
+    @Test
+    public void generateAngularModuleInitiation() throws IOException {
+        ObjectMapper objectMapper = ObjectMapperUtils.OBJECT_MAPPER;
+        for(ClembleErrorCode error: ClembleErrorCode.values()) {
+            String strPresentation = objectMapper.writeValueAsString(error);
+            System.out.printf("app.directive('%s', server('%s'))\n", "server" + error.name(), strPresentation);
+            ClembleErrorCode deserializedError = objectMapper.readValue(strPresentation, ClembleErrorCode.class);
+            Assert.assertEquals(deserializedError, error);
+        }
+
     }
 
 }
