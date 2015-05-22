@@ -15,8 +15,8 @@ public class PlayerPasswordChangeRequest {
 
     @JsonCreator
     public PlayerPasswordChangeRequest(
-            @JsonProperty("oldPassword") String oldPassword,
-            @JsonProperty("password") String password) {
+        @JsonProperty("oldPassword") String oldPassword,
+        @JsonProperty("password") String password) {
         this.oldPassword = oldPassword;
         this.password = password;
     }

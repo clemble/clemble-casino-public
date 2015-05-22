@@ -1,14 +1,18 @@
 package com.clemble.casino.registration;
 
+import com.clemble.casino.error.ClembleErrorCode;
 import com.clemble.casino.error.validation.ClemblePasswordConstraint;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by mavarazy on 2/2/15.
  */
 public class PlayerPasswordResetRequest {
 
+    @NotNull(message = ClembleErrorCode.Code.TOKEN_REQUIRED)
     final private String token;
     @ClemblePasswordConstraint
     final private String password;
@@ -36,16 +40,16 @@ public class PlayerPasswordResetRequest {
 
         PlayerPasswordResetRequest that = (PlayerPasswordResetRequest) o;
 
-        if (!password.equals(that.password)) return false;
-        if (!token.equals(that.token)) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        if (token != null ? !token.equals(that.token) : that.token != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = token.hashCode();
-        result = 31 * result + password.hashCode();
+        int result = token != null ? token.hashCode() : 0;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
 

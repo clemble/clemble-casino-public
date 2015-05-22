@@ -1,6 +1,5 @@
 package com.clemble.casino.log;
 
-import com.clemble.casino.error.ClembleError;
 import com.clemble.casino.error.ClembleErrorCode;
 import com.clemble.casino.error.ClembleErrorCodeAware;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,6 +13,7 @@ public class ClientError implements ClembleErrorCodeAware {
     final private String field;
     final private String location;
     final private String module;
+    final private ClientErrorType type;
     final private ClembleErrorCode code;
     final private String error;
 
@@ -23,11 +23,13 @@ public class ClientError implements ClembleErrorCodeAware {
             @JsonProperty("location") String location,
             @JsonProperty("module") String module,
             @JsonProperty("code") ClembleErrorCode code,
+            @JsonProperty("type") ClientErrorType type,
             @JsonProperty("error") String error) {
         this.location = location;
         this.field = field;
         this.module = module;
         this.code = code;
+        this.type = type;
         this.error = error;
     }
 
@@ -48,6 +50,10 @@ public class ClientError implements ClembleErrorCodeAware {
         return code;
     }
 
+    public ClientErrorType getType() {
+        return type;
+    }
+
     public String getError() {
         return error;
     }
@@ -59,11 +65,12 @@ public class ClientError implements ClembleErrorCodeAware {
 
         ClientError that = (ClientError) o;
 
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (code != that.code) return false;
         if (error != null ? !error.equals(that.error) : that.error != null) return false;
         if (field != null ? !field.equals(that.field) : that.field != null) return false;
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (module != null ? !module.equals(that.module) : that.module != null) return false;
+        if (type != that.type) return false;
 
         return true;
     }
@@ -73,6 +80,7 @@ public class ClientError implements ClembleErrorCodeAware {
         int result = field != null ? field.hashCode() : 0;
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (module != null ? module.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
         result = 31 * result + (error != null ? error.hashCode() : 0);
         return result;

@@ -26,6 +26,8 @@ public enum ClembleErrorCode {
     EmailNotRegistered,
     EmailAlreadyRegistered,
 
+    TokenRequired,
+
     PasswordMissing,
     PasswordTooShort,
     PasswordTooWeak,
@@ -123,6 +125,8 @@ public enum ClembleErrorCode {
 
         final public static String FIRST_NAME_TOO_LONG = "FirstNameTooLong";
         final public static String LAST_NAME_TOO_LONG = "LastNameTooLong";
+
+        final public static String TOKEN_REQUIRED = "TokenRequired";
 
         final public static String SOCIAL_CONNECTION_PROVIDER_ID_NULL = "SocialConnectionProviderIdNull";
         final public static String SOCIAL_CONNECTION_PROVIDER_USER_NULL = "SocialConnectionProviderUserNull";
