@@ -21,7 +21,7 @@ public class ClembleValidationService {
         if (violations.isEmpty())
             return;
         // Step 2. Accumulating error codes
-        ClembleException exception = ClembleException.fromConstraintViolations(violations);
+        ClembleException exception = ClembleException.withViolations(violations);
         // Step 3. Generating Clemble error
         if (exception != null)
             throw exception;

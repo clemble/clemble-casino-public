@@ -40,11 +40,11 @@ public class FixedBetRule implements BetRule {
 
     public static FixedBetRule create(long ... useBets) {
         if (useBets == null || useBets.length == 0)
-            throw ClembleException.fromError(ClembleErrorCode.ClientJsonFormatError);
+            throw ClembleException.withServerError(ClembleErrorCode.ClientJsonFormatError);
         long[] bets = new long[useBets.length];
         for (int i = 0; i < useBets.length; i++) {
             if (useBets[i] <= 0)
-                throw ClembleException.fromError(ClembleErrorCode.ClientJsonFormatError);
+                throw ClembleException.withServerError(ClembleErrorCode.ClientJsonFormatError);
             bets[i] = useBets[i];
         }
         return new FixedBetRule(bets);

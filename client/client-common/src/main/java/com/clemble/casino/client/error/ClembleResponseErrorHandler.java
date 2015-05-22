@@ -44,7 +44,7 @@ public class ClembleResponseErrorHandler implements ResponseErrorHandler {
         } catch (Throwable throwable) {
             LOG.error("Failed to read failure descriptions, falling back to error codes", throwable);
             List<String> errorCodes = response.getHeaders().get(ERROR_CODES_HEADER);
-            exception = ClembleException.fromCodes(errorCodes);
+            exception = ClembleException.withCodes(errorCodes);
         }
         // Step 3. Generating ClembleCasinoException
         throw exception;

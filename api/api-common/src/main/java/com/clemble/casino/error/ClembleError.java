@@ -31,15 +31,15 @@ public class ClembleError {
         return server;
     }
 
-    public static ClembleError withErrorCodes(Collection<String> errorCodes) {
+    static ClembleError withErrorCodes(Collection<String> errorCodes) {
         return withErrors(ClembleErrorCode.forCodes(errorCodes));
     }
 
-    public static ClembleError withErrors(Collection<ClembleErrorCode> errors) {
+    static ClembleError withErrors(Collection<ClembleErrorCode> errors) {
         return new ClembleError(Collections.<ClembleFieldError>emptySet(), new HashSet<ClembleErrorCode>(errors));
     }
 
-    public static ClembleError withFieldError(String field, ClembleErrorCode error) {
+    static ClembleError withFieldError(String field, ClembleErrorCode error) {
         return new ClembleError(Collections.singleton(new ClembleFieldError(field, error)), Collections.<ClembleErrorCode>emptySet());
     }
 

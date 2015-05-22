@@ -25,22 +25,26 @@ public class ClembleException extends RuntimeException {
         return failure;
     }
 
-    public static ClembleException fromError(ClembleErrorCode error) {
+    public static ClembleException withServerError(ClembleErrorCode error) {
         return new ClembleException(ClembleError.withErrors(Collections.singleton(error)));
     }
 
-    public static ClembleException fromCodes(Collection<String> errors) {
+    public static ClembleException withFieldError(String field, ClembleErrorCode error) {
+        return new ClembleException(ClembleError.withFieldError(field, error));
+    }
+
+    public static ClembleException withCodes(Collection<String> errors) {
         return new ClembleException(ClembleError.withErrorCodes(errors));
     }
 
-    public static <T> ClembleException fromConstraintViolations(Set<ConstraintViolation<T>> violations){
+    public static <T> ClembleException withViolations(Set<ConstraintViolation<T>> violations){
         // Step 1. Accumulating error messages
         Set<String> errorCodes = new HashSet<String>();
         for (ConstraintViolation<T> error : violations) {
             errorCodes.add(error.getMessage());
         }
         // Step 2. Generating Clemble error
-        return ClembleException.fromCodes(errorCodes);
+        return ClembleException.withCodes(errorCodes);
     }
 
     // TODO get rid of this 
@@ -51,7 +55,7 @@ public class ClembleException extends RuntimeException {
             errorCodes.add(error.getMessage());
         }
         // Step 2. Generating Clemble error
-        return ClembleException.fromCodes(errorCodes);
+        return ClembleException.withCodes(errorCodes);
     }
 
     public static ClembleException fromDescription(ClembleError description) {
