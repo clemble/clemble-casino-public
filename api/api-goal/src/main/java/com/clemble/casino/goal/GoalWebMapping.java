@@ -7,16 +7,16 @@ import com.clemble.casino.WebMapping;
  */
 public abstract class GoalWebMapping implements WebMapping {
 
-    final private static String GOAL_CONFIGURATIONS_URL = "http://{host}/configuration";
-    final public static String MY_CONFIGURATIONS = "/my";
-    final public static String MY_CONFIGURATIONS_CHOICES = "/my/choice";
-    final public static String MY_CONFIGURATIONS_INTERVAL = "/my/interval";
+    final private static String GOAL_CONFIGURATIONS_URL = "http://{host}/";
+    final public static String MY_CONFIGURATIONS = "/configuration/my";
+    final public static String MY_CONFIGURATIONS_CHOICES = "/configuration/my/choice";
+    final public static String MY_CONFIGURATIONS_INTERVAL = "/configuration/my/interval";
 
     public static String toGoalConfigurationUrl(String path) {
         return GOAL_CONFIGURATIONS_URL + path;
     }
 
-    final private static String GOAL_CONSTRUCTION_URL = "http://{host}/construction";
+    final private static String GOAL_CONSTRUCTION_URL = "http://{host}/";
 
     final public static String GOAL_CONSTRUCTION = "/construction";
     final public static String MY_GOAL_CONSTRUCTION_PENDING = "/player/construction/my";
@@ -25,7 +25,7 @@ public abstract class GoalWebMapping implements WebMapping {
         return GOAL_CONSTRUCTION_URL + path;
     }
 
-    final private static String GOAL_MANAGEMENT_URL = "http://{host}/management";
+    final private static String GOAL_MANAGEMENT_URL = "http://{host}/";
 
     final public static String GOAL_STATE = "/active/{goalKey}";
     final public static String GOAL_STATE_ACTION = "/active/{goalKey}/action";
