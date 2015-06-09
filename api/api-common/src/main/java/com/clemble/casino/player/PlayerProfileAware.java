@@ -5,6 +5,6 @@ package com.clemble.casino.player;
  */
 public interface PlayerProfileAware {
 
-    public PlayerProfile getPlayerProfile();
+    PlayerProfile getPlayerProfile();
 
 }

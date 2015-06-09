@@ -17,6 +17,7 @@
         <module>api-goal</module>
         <module>api-test</module>
         <module>api-tag</module>
+        <module>api-search</module>
     </modules>
     <dependencies>
         <dependency>

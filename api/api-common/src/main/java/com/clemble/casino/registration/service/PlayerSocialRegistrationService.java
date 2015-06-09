@@ -8,8 +8,8 @@ import com.clemble.casino.registration.PlayerSocialRegistrationRequest;
  */
 public interface PlayerSocialRegistrationService extends RegistrationService {
 
-    public String register(PlayerSocialRegistrationRequest socialRegistrationRequest);
+    String register(PlayerSocialRegistrationRequest socialRegistrationRequest);
 
-    public String register(PlayerSocialGrantRegistrationRequest grantRegistrationRequest);
+    String register(PlayerSocialGrantRegistrationRequest grantRegistrationRequest);
 
 }
