@@ -26,9 +26,8 @@ public class PlayerPhone {
 
         PlayerPhone that = (PlayerPhone) o;
 
-        if (!phone.equals(that.phone)) return false;
+        return phone.equals(that.phone);
 
-        return true;
     }
 
     @Override

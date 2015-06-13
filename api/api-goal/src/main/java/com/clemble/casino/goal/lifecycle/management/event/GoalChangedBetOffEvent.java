@@ -50,9 +50,8 @@ public class GoalChangedBetOffEvent implements GoalManagementEvent {
         GoalChangedBetOffEvent that = (GoalChangedBetOffEvent) o;
 
         if (!body.equals(that.body)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override

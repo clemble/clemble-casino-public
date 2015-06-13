@@ -26,9 +26,8 @@ public class PlayerPasswordRestoreRequest {
 
         PlayerPasswordRestoreRequest that = (PlayerPasswordRestoreRequest) o;
 
-        if (!email.equals(that.email)) return false;
+        return email.equals(that.email);
 
-        return true;
     }
 
     @Override

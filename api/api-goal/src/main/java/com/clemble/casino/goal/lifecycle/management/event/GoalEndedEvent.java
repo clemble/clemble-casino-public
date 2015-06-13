@@ -7,10 +7,6 @@ import com.clemble.casino.goal.post.GoalReachedPost;
 import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.management.outcome.OutcomeAware;
 import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
-import com.clemble.casino.notification.PlayerNotification;
-import com.clemble.casino.notification.PlayerNotificationConvertible;
-import com.clemble.casino.post.PlayerPost;
-import com.clemble.casino.post.PlayerPostConvertible;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -24,16 +20,16 @@ public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware {
     final public static String JSON_TYPE = "goal:management:complete";
 
     final private String player;
-    final private GoalState state;
+    final private GoalState body;
     final private Outcome outcome;
 
     @JsonCreator
     public GoalEndedEvent(
         @JsonProperty(PLAYER) String player,
-        @JsonProperty("body") GoalState state,
+        @JsonProperty("body") GoalState body,
         @JsonProperty("outcome") Outcome outcome) {
         this.player = player;
-        this.state = state;
+        this.body = body;
         this.outcome = outcome;
     }
 
@@ -44,7 +40,7 @@ public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware {
 
     @Override
     public GoalState getBody() {
-        return state;
+        return body;
     }
 
     @Override
@@ -55,9 +51,9 @@ public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware {
     @Override
     public GoalPost toPost() {
         if (outcome instanceof PlayerWonOutcome)
-            return GoalReachedPost.create(state);
+            return GoalReachedPost.create(body);
         else
-            return GoalMissedPost.create(state);
+            return GoalMissedPost.create(body);
     }
 
     @Override
@@ -68,16 +64,15 @@ public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware {
         GoalEndedEvent that = (GoalEndedEvent) o;
 
         if (!player.equals(that.player)) return false;
-        if (!state.equals(that.state)) return false;
-        if (!outcome.equals(that.outcome)) return false;
+        if (!body.equals(that.body)) return false;
+        return outcome.equals(that.outcome);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = player.hashCode();
-        result = 31 * result + state.hashCode();
+        result = 31 * result + body.hashCode();
         result = 31 * result + outcome.hashCode();
         return result;
     }

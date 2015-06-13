@@ -5,6 +5,6 @@ package com.clemble.casino.post;
  */
 public interface PlayerPostAware {
 
-    public PlayerPost getPost();
+    PlayerPost getPost();
 
 }

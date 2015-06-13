@@ -51,9 +51,8 @@ public class ClembleError {
         ClembleError that = (ClembleError) o;
 
         if (fields != null ? !fields.equals(that.fields) : that.fields != null) return false;
-        if (server != null ? !server.equals(that.server) : that.server != null) return false;
+        return !(server != null ? !server.equals(that.server) : that.server != null);
 
-        return true;
     }
 
     @Override

@@ -9,31 +9,31 @@ import com.clemble.casino.player.PlayerAware;
 
 public interface EventListenerOperations extends PlayerAware, Closeable {
 
-    public EventListenerController subscribe(EventListener<Event> listener);
+    EventListenerController subscribe(EventListener<Event> listener);
 
-    public EventListenerController subscribe(EventSelector selector, EventListener<? extends Event> listener);
+    EventListenerController subscribe(EventSelector selector, EventListener<? extends Event> listener);
 
-    public EventListenerController subscribe(String channel, EventListener<? extends Event> listener);
+    EventListenerController subscribe(String channel, EventListener<? extends Event> listener);
 
-    public EventListenerController subscribe(String channel, EventSelector selector, EventListener<? extends Event> listener);
+    EventListenerController subscribe(String channel, EventSelector selector, EventListener<? extends Event> listener);
 
-    public EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener);
+    EventListenerController subscribeToPaymentEvents(EventListener<PaymentEvent> listener);
 
     /**
      * Event that emulates server event.
      * 
      * @param event Event, that emulates system event
      */
-    public void update(Event event);
+    void update(Event event);
     
     /**
      * @param events List of events to use for notification
      */
-    public void update(Collection<? extends Event> events);
+    void update(Collection<? extends Event> events);
 
-    public boolean isAlive();
+    boolean isAlive();
 
     @Override
-    public void close();
+    void close();
 
 }

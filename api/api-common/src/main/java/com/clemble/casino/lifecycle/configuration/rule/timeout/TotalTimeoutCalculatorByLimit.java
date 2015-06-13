@@ -37,9 +37,8 @@ public class TotalTimeoutCalculatorByLimit implements TotalTimeoutCalculator {
 
         TotalTimeoutCalculatorByLimit that = (TotalTimeoutCalculatorByLimit) o;
 
-        if (limit != that.limit) return false;
+        return limit == that.limit;
 
-        return true;
     }
 
     @Override

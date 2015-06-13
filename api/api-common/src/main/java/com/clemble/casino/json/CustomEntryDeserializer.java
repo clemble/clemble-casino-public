@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 public class CustomEntryDeserializer extends JsonDeserializer<Entry<String, String>>{
 
     @Override
-    public Entry<String, String> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Entry<String, String> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         String key;
         String value;
         jp.nextToken();// Move to field name

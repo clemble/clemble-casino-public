@@ -41,9 +41,8 @@ public class MoveTimeoutRule implements ConfigurationRule, BreachPunishmentAware
         MoveTimeoutRule that = (MoveTimeoutRule) o;
 
         if (!punishment.equals(that.punishment)) return false;
-        if (!timeoutCalculator.equals(that.timeoutCalculator)) return false;
+        return timeoutCalculator.equals(that.timeoutCalculator);
 
-        return true;
     }
 
     @Override

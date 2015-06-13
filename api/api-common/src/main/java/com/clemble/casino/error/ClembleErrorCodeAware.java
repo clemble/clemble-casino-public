@@ -5,6 +5,6 @@ package com.clemble.casino.error;
  */
 public interface ClembleErrorCodeAware {
 
-    public ClembleErrorCode getCode();
+    ClembleErrorCode getCode();
 
 }

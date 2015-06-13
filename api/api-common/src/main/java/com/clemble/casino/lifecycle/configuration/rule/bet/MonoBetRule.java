@@ -41,9 +41,8 @@ public class MonoBetRule implements BidRule, BetAware {
 
         MonoBetRule that = (MonoBetRule) o;
 
-        if (!bet.equals(that.bet)) return false;
+        return bet.equals(that.bet);
 
-        return true;
     }
 
     @Override

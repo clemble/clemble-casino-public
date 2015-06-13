@@ -38,9 +38,8 @@ public class PlayerBet implements PlayerAware, BetAware {
         PlayerBet payerBid = (PlayerBet) o;
 
         if (!player.equals(payerBid.player)) return false;
-        if (!bet.equals(payerBid.bet)) return false;
+        return bet.equals(payerBid.bet);
 
-        return true;
     }
 
     @Override

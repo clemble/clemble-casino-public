@@ -8,6 +8,6 @@ import com.clemble.casino.lifecycle.configuration.ConfigurationAware;
  */
 public interface ConstructionRequest<T extends Configuration> extends ConfigurationAware<T> {
 
-    public Construction<T> toConstruction(String player, String key);
+    Construction<T> toConstruction(String player, String key);
 
 }

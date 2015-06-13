@@ -36,9 +36,8 @@ public class GoalRuleValue<T extends ConfigurationRule> implements GoalRuleValue
         GoalRuleValue that = (GoalRuleValue) o;
 
         if (percentage != that.percentage) return false;
-        if (!rule.equals(that.rule)) return false;
+        return rule.equals(that.rule);
 
-        return true;
     }
 
     @Override

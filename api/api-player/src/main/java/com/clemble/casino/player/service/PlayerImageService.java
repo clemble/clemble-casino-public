@@ -1,6 +1,5 @@
 package com.clemble.casino.player.service;
 
-import com.clemble.casino.ClembleService;
 import com.clemble.casino.PlayerService;
 
 /**
@@ -8,12 +7,12 @@ import com.clemble.casino.PlayerService;
  */
 public interface PlayerImageService extends PlayerService {
 
-    public byte[] myImage();
+    byte[] myImage();
 
-    public byte[] mySmallImage();
+    byte[] mySmallImage();
 
-    public byte[] getImage(String player);
+    byte[] getImage(String player);
 
-    public byte[] getSmallImage(String player);
+    byte[] getSmallImage(String player);
 
 }

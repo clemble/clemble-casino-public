@@ -46,9 +46,8 @@ public class Bet implements AmountAware {
         Bet bet = (Bet) o;
 
         if (!amount.equals(bet.amount)) return false;
-        if (!interest.equals(bet.interest)) return false;
+        return interest.equals(bet.interest);
 
-        return true;
     }
 
     @Override

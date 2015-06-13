@@ -44,9 +44,8 @@ public class PlayerSocialRegistrationRequest
         PlayerSocialRegistrationRequest that = (PlayerSocialRegistrationRequest) o;
 
         if (!playerCredential.equals(that.playerCredential)) return false;
-        if (!socialConnectionData.equals(that.socialConnectionData)) return false;
+        return socialConnectionData.equals(that.socialConnectionData);
 
-        return true;
     }
 
     @Override

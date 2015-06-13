@@ -41,9 +41,8 @@ public class PlayerProfileChangedEvent implements PlayerEvent, PlayerProfileAwar
         PlayerProfileChangedEvent that = (PlayerProfileChangedEvent) o;
 
         if (!player.equals(that.player)) return false;
-        if (!playerProfile.equals(that.playerProfile)) return false;
+        return playerProfile.equals(that.playerProfile);
 
-        return true;
     }
 
     @Override

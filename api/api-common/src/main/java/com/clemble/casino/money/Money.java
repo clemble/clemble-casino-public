@@ -121,9 +121,7 @@ public class Money implements Serializable {
         Money other = (Money) obj;
         if (amount != other.amount)
             return false;
-        if (currency != other.currency)
-            return false;
-        return true;
+        return currency == other.currency;
     }
 
 }

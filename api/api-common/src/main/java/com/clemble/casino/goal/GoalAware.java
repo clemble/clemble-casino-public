@@ -8,8 +8,8 @@ import com.clemble.casino.player.PlayerAware;
  */
 public interface GoalAware extends KeyAware {
 
-    final public static String GOAL_KEY = "goalKey";
+    String GOAL_KEY = "goalKey";
 
-    public String getGoalKey();
+    String getGoalKey();
 
 }

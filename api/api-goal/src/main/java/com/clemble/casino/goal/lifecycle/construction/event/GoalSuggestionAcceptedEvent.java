@@ -43,9 +43,8 @@ public class GoalSuggestionAcceptedEvent implements GoalSuggestionEvent, PlayerN
         GoalSuggestionAcceptedEvent that = (GoalSuggestionAcceptedEvent) o;
 
         if (!body.equals(that.body)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override

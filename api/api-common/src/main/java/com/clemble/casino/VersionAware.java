@@ -7,6 +7,6 @@ import java.io.Serializable;
 public interface VersionAware extends Serializable {
 
     @Version
-    public Integer getVersion();
+    Integer getVersion();
 
 }

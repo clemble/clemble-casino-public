@@ -41,9 +41,8 @@ public class PlayerPasswordResetRequest {
         PlayerPasswordResetRequest that = (PlayerPasswordResetRequest) o;
 
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (token != null ? !token.equals(that.token) : that.token != null) return false;
+        return !(token != null ? !token.equals(that.token) : that.token != null);
 
-        return true;
     }
 
     @Override

@@ -9,6 +9,6 @@ import com.clemble.casino.player.PlayerAware;
  */
 public interface GoalEvent<T extends GoalAware> extends Event, PlayerAware {
 
-    public T getBody();
+    T getBody();
 
 }

@@ -34,7 +34,7 @@ public class BetAction implements Action {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) (bet ^ (bet >>> 32));
+        result = prime * result + (bet ^ (bet >>> 32));
         return result;
     }
 
@@ -47,9 +47,7 @@ public class BetAction implements Action {
         if (getClass() != obj.getClass())
             return false;
         BetAction other = (BetAction) obj;
-        if (bet != other.bet)
-            return false;
-        return true;
+        return bet == other.bet;
     }
 
     @Override

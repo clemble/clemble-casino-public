@@ -4,6 +4,6 @@ import com.clemble.casino.event.Event;
 
 public interface EventListener<T extends Event> {
 
-    public void onEvent(T event);
+    void onEvent(T event);
 
 }

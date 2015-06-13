@@ -80,9 +80,8 @@ public class PlayerAccount implements PlayerAware, VersionAware {
 
         if (version != that.version) return false;
         if (!money.equals(that.money)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override

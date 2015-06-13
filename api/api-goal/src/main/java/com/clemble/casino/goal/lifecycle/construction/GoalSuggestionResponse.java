@@ -38,9 +38,8 @@ public class GoalSuggestionResponse implements GoalConfigurationAware {
         GoalSuggestionResponse that = (GoalSuggestionResponse) o;
 
         if (accepted != that.accepted) return false;
-        if (!configuration.equals(that.configuration)) return false;
+        return configuration.equals(that.configuration);
 
-        return true;
     }
 
     @Override

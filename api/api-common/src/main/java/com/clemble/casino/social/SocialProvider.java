@@ -9,6 +9,6 @@ public enum SocialProvider {
     vkontakte,
     linkedin,
     google,
-    twitter;
+    twitter
 
 }

@@ -15,8 +15,8 @@ import org.joda.time.DateTime;
 })
 public interface TotalTimeoutCalculator {
 
-    public DateTime calculate(DateTime startTime);
+    DateTime calculate(DateTime startTime);
 
-    public DateTime calculate(GoalTimeSpanAware timeframe);
+    DateTime calculate(GoalTimeSpanAware timeframe);
 
 }

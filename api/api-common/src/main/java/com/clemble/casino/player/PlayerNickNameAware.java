@@ -5,6 +5,6 @@ package com.clemble.casino.player;
  */
 public interface PlayerNickNameAware {
 
-    public String getNickName();
+    String getNickName();
 
 }

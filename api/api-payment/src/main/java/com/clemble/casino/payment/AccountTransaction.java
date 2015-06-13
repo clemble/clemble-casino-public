@@ -11,8 +11,8 @@ import java.util.Set;
 public interface AccountTransaction extends PaymentTransactionAware{
 
     @DebitMatchCreditConstraint
-    public Set<PaymentOperation> getOperations();
+    Set<PaymentOperation> getOperations();
 
-    public PaymentOperation getOperation(String player, Currency currency);
+    PaymentOperation getOperation(String player, Currency currency);
 
 }

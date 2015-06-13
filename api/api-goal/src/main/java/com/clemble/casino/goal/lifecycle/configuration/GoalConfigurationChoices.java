@@ -84,9 +84,8 @@ public class GoalConfigurationChoices implements ConfigurationBuilder {
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
         if (!shareRule.equals(that.shareRule)) return false;
         if (!supporterConfiguration.equals(that.supporterConfiguration)) return false;
-        if (!totalTimeoutRule.equals(that.totalTimeoutRule)) return false;
+        return totalTimeoutRule.equals(that.totalTimeoutRule);
 
-        return true;
     }
 
     @Override

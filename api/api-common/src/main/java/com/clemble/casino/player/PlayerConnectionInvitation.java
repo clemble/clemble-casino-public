@@ -6,14 +6,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by mavarazy on 11/10/14.
  */
-public class Invitation implements PlayerAware {
+public class PlayerConnectionInvitation implements PlayerAware, PlayerConnectionAware {
 
     final private String player;
+    final private PlayerConnection connection;
 
     @JsonCreator
-    public Invitation(@JsonProperty(PLAYER) String player) {
+    public PlayerConnectionInvitation(
+            @JsonProperty(PLAYER) String player,
+            @JsonProperty("connection") PlayerConnection connection) {
         this.player = player;
+        this.connection = connection;
     }
+
 
     @Override
     public String getPlayer() {
@@ -21,15 +26,18 @@ public class Invitation implements PlayerAware {
     }
 
     @Override
+    public PlayerConnection getConnection() {
+        return connection;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Invitation that = (Invitation) o;
+        PlayerConnectionInvitation that = (PlayerConnectionInvitation) o;
 
-        if (!player.equals(that.player)) return false;
-
-        return true;
+        return player.equals(that.player);
     }
 
     @Override

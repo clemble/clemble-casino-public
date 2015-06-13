@@ -5,6 +5,6 @@ package com.clemble.casino.lifecycle.management.outcome;
  */
 public interface OutcomeAware {
 
-    public Outcome getOutcome();
+    Outcome getOutcome();
 
 }

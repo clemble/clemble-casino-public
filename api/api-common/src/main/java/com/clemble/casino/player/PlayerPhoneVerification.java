@@ -26,9 +26,8 @@ public class PlayerPhoneVerification {
 
         PlayerPhoneVerification that = (PlayerPhoneVerification) o;
 
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        return !(code != null ? !code.equals(that.code) : that.code != null);
 
-        return true;
     }
 
     @Override

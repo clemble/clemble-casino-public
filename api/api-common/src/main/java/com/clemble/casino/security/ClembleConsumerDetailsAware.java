@@ -5,6 +5,6 @@ package com.clemble.casino.security;
  */
 public interface ClembleConsumerDetailsAware {
 
-    public ClembleConsumerDetails getConsumerDetails();
+    ClembleConsumerDetails getConsumerDetails();
 
 }

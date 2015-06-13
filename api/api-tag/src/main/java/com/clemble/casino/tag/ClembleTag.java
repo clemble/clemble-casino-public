@@ -34,9 +34,8 @@ public class ClembleTag implements TagAware, Comparable<ClembleTag>{
         ClembleTag that = (ClembleTag) o;
 
         if (power != that.power) return false;
-        if (tag != null ? !tag.equals(that.tag) : that.tag != null) return false;
+        return !(tag != null ? !tag.equals(that.tag) : that.tag != null);
 
-        return true;
     }
 
     @Override

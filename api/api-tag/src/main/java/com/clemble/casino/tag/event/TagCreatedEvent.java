@@ -31,9 +31,8 @@ public class TagCreatedEvent implements TagEvent {
 
         TagCreatedEvent that = (TagCreatedEvent) o;
 
-        if (!tag.equals(that.tag)) return false;
+        return tag.equals(that.tag);
 
-        return true;
     }
 
     @Override

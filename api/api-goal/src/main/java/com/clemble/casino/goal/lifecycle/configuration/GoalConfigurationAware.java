@@ -7,6 +7,6 @@ import com.clemble.casino.lifecycle.configuration.ConfigurationAware;
  */
 public interface GoalConfigurationAware extends ConfigurationAware<GoalConfiguration> {
 
-    public GoalConfiguration getConfiguration();
+    GoalConfiguration getConfiguration();
 
 }

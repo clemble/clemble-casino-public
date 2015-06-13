@@ -51,9 +51,8 @@ public class PaymentFreezeEvent implements PaymentEvent {
 
         if (!amount.equals(that.amount)) return false;
         if (!player.equals(that.player)) return false;
-        if (!transactionKey.equals(that.transactionKey)) return false;
+        return transactionKey.equals(that.transactionKey);
 
-        return true;
     }
 
     @Override

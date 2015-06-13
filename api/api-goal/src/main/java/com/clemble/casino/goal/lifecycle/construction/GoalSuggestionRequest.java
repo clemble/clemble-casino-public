@@ -41,9 +41,8 @@ public class GoalSuggestionRequest implements GoalDescriptionAware {
 
         GoalSuggestionRequest that = (GoalSuggestionRequest) o;
 
-        if (!goal.equals(that.goal)) return false;
+        return goal.equals(that.goal);
 
-        return true;
     }
 
     @Override

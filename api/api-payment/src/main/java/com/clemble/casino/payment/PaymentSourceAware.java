@@ -5,6 +5,6 @@ package com.clemble.casino.payment;
  */
 public interface PaymentSourceAware {
 
-    public PaymentSource getSource();
+    PaymentSource getSource();
 
 }

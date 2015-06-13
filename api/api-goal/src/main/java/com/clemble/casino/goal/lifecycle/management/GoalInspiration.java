@@ -54,9 +54,8 @@ public class GoalInspiration implements PlayerAware, CreatedAware, Comparable<Go
 
         if (!inspiration.equals(that.inspiration)) return false;
         if (!player.equals(that.player)) return false;
-        if (!created.equals(that.created)) return false;
+        return created.equals(that.created);
 
-        return true;
     }
 
     @Override

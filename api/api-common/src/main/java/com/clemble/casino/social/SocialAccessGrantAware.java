@@ -5,6 +5,6 @@ package com.clemble.casino.social;
  */
 public interface SocialAccessGrantAware {
 
-    public SocialAccessGrant getAccessGrant();
+    SocialAccessGrant getAccessGrant();
 
 }

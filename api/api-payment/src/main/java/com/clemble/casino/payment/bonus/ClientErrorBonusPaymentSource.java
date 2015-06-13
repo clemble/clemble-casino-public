@@ -50,9 +50,8 @@ public class ClientErrorBonusPaymentSource implements BonusPaymentSource, Create
         ClientErrorBonusPaymentSource that = (ClientErrorBonusPaymentSource) o;
 
         if (code != that.code) return false;
-        if (created != null ? !created.equals(that.created) : that.created != null) return false;
+        return !(created != null ? !created.equals(that.created) : that.created != null);
 
-        return true;
     }
 
     @Override

@@ -182,9 +182,8 @@ public class GoalConfiguration implements
         GoalConfiguration that = (GoalConfiguration) o;
 
         if (!moveTimeoutRule.equals(that.moveTimeoutRule)) return false;
-        if (!totalTimeoutRule.equals(that.totalTimeoutRule)) return false;
+        return totalTimeoutRule.equals(that.totalTimeoutRule);
 
-        return true;
     }
 
     @Override

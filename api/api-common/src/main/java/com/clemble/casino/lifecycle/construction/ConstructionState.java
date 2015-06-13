@@ -6,6 +6,6 @@ public enum ConstructionState implements LifecycleState {
 
     pending,
     constructed,
-    canceled;
+    canceled
 
 }

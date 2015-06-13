@@ -96,10 +96,8 @@ public class PlayerClock implements BreachPunishmentAware, DeadlineAware, Serial
 
         if (moveStart != that.moveStart)
             return false;
-        if (timeSpent != that.timeSpent)
-            return false;
+        return timeSpent == that.timeSpent;
 
-        return true;
     }
 
     @Override

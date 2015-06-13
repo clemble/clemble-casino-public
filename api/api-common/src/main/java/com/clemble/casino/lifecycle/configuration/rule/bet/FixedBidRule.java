@@ -45,9 +45,8 @@ public class FixedBidRule implements BidRule {
 
         FixedBidRule that = (FixedBidRule) o;
 
-        if (!Arrays.equals(bets, that.bets)) return false;
+        return Arrays.equals(bets, that.bets);
 
-        return true;
     }
 
     @Override

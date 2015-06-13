@@ -8,10 +8,10 @@ import org.joda.time.DateTime;
  */
 public interface GoalTimeSpanAware extends DeadlineAware {
 
-    public DateTime getStartDate();
+    DateTime getStartDate();
 
-    public DateTime getLastUpdated();
+    DateTime getLastUpdated();
 
-    public DateTime getDeadline();
+    DateTime getDeadline();
 
 }

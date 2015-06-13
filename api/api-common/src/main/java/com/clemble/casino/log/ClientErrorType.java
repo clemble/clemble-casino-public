@@ -6,5 +6,5 @@ package com.clemble.casino.log;
 public enum ClientErrorType {
     general,
     validationMissing,
-    fieldMissing;
+    fieldMissing
 }

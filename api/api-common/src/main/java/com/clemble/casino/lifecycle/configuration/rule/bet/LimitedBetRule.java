@@ -65,9 +65,7 @@ public class LimitedBetRule implements BetRule {
         LimitedBetRule other = (LimitedBetRule) obj;
         if (maxBet != other.maxBet)
             return false;
-        if (minBet != other.minBet)
-            return false;
-        return true;
+        return minBet == other.minBet;
     }
 
 }

@@ -58,9 +58,8 @@ public class GoalChangedBetEvent implements GoalManagementEvent {
 
         if (!bet.equals(that.bet)) return false;
         if (!body.equals(that.body)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override

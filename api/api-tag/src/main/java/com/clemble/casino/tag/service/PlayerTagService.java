@@ -12,8 +12,8 @@ import java.util.Set;
  */
 public interface PlayerTagService extends PlayerService {
 
-    public Set<ClembleTag> myTags();
+    Set<ClembleTag> myTags();
 
-    public Set<ClembleTag> getTags(String player);
+    Set<ClembleTag> getTags(String player);
 
 }

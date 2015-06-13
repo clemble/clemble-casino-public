@@ -1,6 +1,5 @@
 package com.clemble.casino.player.service;
 
-import com.clemble.casino.ClembleService;
 import com.clemble.casino.PlayerService;
 import com.clemble.casino.player.PlayerPhone;
 import com.clemble.casino.player.PlayerPhoneVerification;
@@ -10,10 +9,10 @@ import com.clemble.casino.player.PlayerPhoneVerification;
  */
 public interface PlayerPhoneService extends PlayerService {
 
-    public boolean add(PlayerPhone phone);
+    boolean add(PlayerPhone phone);
 
-    public boolean remove();
+    boolean remove();
 
-    public boolean verify(PlayerPhoneVerification code);
+    boolean verify(PlayerPhoneVerification code);
 
 }

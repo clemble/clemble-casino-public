@@ -5,6 +5,6 @@ package com.clemble.casino.payment;
  */
 public interface BankAware {
 
-    public Bank getBank();
+    Bank getBank();
 
 }

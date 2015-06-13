@@ -5,6 +5,6 @@ package com.clemble.casino.notification;
  */
 public interface PlayerNotificationAware {
 
-    public PlayerNotification getNotification();
+    PlayerNotification getNotification();
 
 }

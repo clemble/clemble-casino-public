@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface BetService {
 
-    public List<BetPaymentTransaction> myBets();
+    List<BetPaymentTransaction> myBets();
 
-    public BetSpecification getBetSpecification(String transactionKey);
+    BetSpecification getBetSpecification(String transactionKey);
 
-    public BetPaymentTransaction getBet(String transaction);
+    BetPaymentTransaction getBet(String transaction);
 
 }

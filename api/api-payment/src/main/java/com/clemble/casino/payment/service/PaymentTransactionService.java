@@ -8,12 +8,12 @@ import com.clemble.casino.payment.PaymentTransaction;
 
 public interface PaymentTransactionService extends PaymentService {
 
-    public List<PaymentTransaction> myTransactions();
+    List<PaymentTransaction> myTransactions();
 
-    public List<PaymentTransaction> myTransactionsBySource(String source);
+    List<PaymentTransaction> myTransactionsBySource(String source);
 
-    public PaymentTransaction getTransaction(String transactionKey);
+    PaymentTransaction getTransaction(String transactionKey);
 
-    public List<PaymentTransaction> getPlayerTransactions(String player);
+    List<PaymentTransaction> getPlayerTransactions(String player);
 
 }

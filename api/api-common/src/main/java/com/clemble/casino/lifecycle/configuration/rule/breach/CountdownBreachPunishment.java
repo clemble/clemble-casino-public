@@ -46,9 +46,8 @@ public class CountdownBreachPunishment extends BreachPunishment implements Amoun
         CountdownBreachPunishment that = (CountdownBreachPunishment) o;
 
         if (timeInMinutes != that.timeInMinutes) return false;
-        if (!amount.equals(that.amount)) return false;
+        return amount.equals(that.amount);
 
-        return true;
     }
 
     @Override

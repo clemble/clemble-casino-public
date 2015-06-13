@@ -82,9 +82,8 @@ public class GoalBetPost implements GoalPost {
         if (!key.equals(that.key)) return false;
         if (!player.equals(that.player)) return false;
         if (!playerBet.equals(that.playerBet)) return false;
-        if (!state.equals(that.state)) return false;
+        return state.equals(that.state);
 
-        return true;
     }
 
     @Override

@@ -46,9 +46,8 @@ public class BetSpecification {
 
         if (maxBet != that.maxBet) return false;
         if (minBet != that.minBet) return false;
-        if (rate != that.rate) return false;
+        return rate == that.rate;
 
-        return true;
     }
 
     @Override

@@ -11,19 +11,19 @@ public class CollectionUtils {
     }
 
     public static <T> Set<T> immutableSet(Collection<? extends T> set) {
-        return Collections.<T> unmodifiableSet(set instanceof Set ? (Set<? extends T>) set : new HashSet<T>(set));
+        return Collections.unmodifiableSet(set instanceof Set ? (Set<? extends T>) set : new HashSet<T>(set));
     }
 
     public static <T> Set<T> immutableSet(T ... set) {
         if (set == null)
             return Collections.emptySet();
-        return Collections.<T> unmodifiableSet(new HashSet<T>(Arrays.asList(set)));
+        return Collections.unmodifiableSet(new HashSet<T>(Arrays.asList(set)));
     }
 
     public static <T> List<T> immutableList(Collection<? extends T> list) {
         if (list == null)
             return Collections.emptyList();
-        return Collections.<T> unmodifiableList(list instanceof List ? (List<? extends T>) list : new ArrayList<T>(list));
+        return Collections.unmodifiableList(list instanceof List ? (List<? extends T>) list : new ArrayList<T>(list));
     }
 
     public static <T> List<T> immutableList(T... list) {

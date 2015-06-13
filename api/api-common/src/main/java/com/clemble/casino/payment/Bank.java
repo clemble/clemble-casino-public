@@ -84,9 +84,8 @@ public class Bank implements PlayerBetAware {
         Bank bank = (Bank) o;
 
         if (!bets.containsAll(bank.bets) || bets.size() != bank.bets.size()) return false;
-        if (!total.equals(bank.total)) return false;
+        return total.equals(bank.total);
 
-        return true;
     }
 
     @Override

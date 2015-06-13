@@ -17,7 +17,7 @@ public class ClembleCasinoExceptionMatcherFactory {
     }
 
     public static Matcher<ClembleException> fromPossibleErrors(final ClembleErrorCode... errors) {
-        final Collection<ClembleErrorCode> expectedErrors = CollectionUtils.<ClembleErrorCode> immutableList(Arrays.asList(errors));
+        final Collection<ClembleErrorCode> expectedErrors = CollectionUtils.immutableList(Arrays.asList(errors));
         return new CustomMatcher<ClembleException>(Arrays.toString(errors)) {
 
             @Override
@@ -46,7 +46,7 @@ public class ClembleCasinoExceptionMatcherFactory {
     }
 
     public static Matcher<ClembleException> fromErrors(final ClembleErrorCode... errors) {
-        final Collection<ClembleErrorCode> expectedErrors = CollectionUtils.<ClembleErrorCode> immutableList(Arrays.asList(errors));
+        final Collection<ClembleErrorCode> expectedErrors = CollectionUtils.immutableList(Arrays.asList(errors));
         return new CustomMatcher<ClembleException>(Arrays.toString(errors)) {
 
             @Override

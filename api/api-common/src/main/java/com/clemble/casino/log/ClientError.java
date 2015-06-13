@@ -70,9 +70,8 @@ public class ClientError implements ClembleErrorCodeAware {
         if (field != null ? !field.equals(that.field) : that.field != null) return false;
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (module != null ? !module.equals(that.module) : that.module != null) return false;
-        if (type != that.type) return false;
+        return type == that.type;
 
-        return true;
     }
 
     @Override

@@ -82,9 +82,8 @@ public class IntervalGoalConfigurationBuilder implements ConfigurationBuilder {
         IntervalGoalConfigurationBuilder that = (IntervalGoalConfigurationBuilder) o;
 
         if (!base.equals(that.base)) return false;
-        if (!intervalRules.equals(that.intervalRules)) return false;
+        return intervalRules.equals(that.intervalRules);
 
-        return true;
     }
 
     @Override

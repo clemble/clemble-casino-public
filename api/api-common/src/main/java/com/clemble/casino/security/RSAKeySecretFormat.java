@@ -42,7 +42,7 @@ public class RSAKeySecretFormat {
     public static class KeySerializer extends JsonSerializer<Key> {
 
         @Override
-        public void serialize(Key value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(Key value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
             if (value == null) {
                 jgen.writeNull();
                 return;
@@ -62,7 +62,7 @@ public class RSAKeySecretFormat {
     abstract public static class AbstractKeyDeserializer<T extends Key> extends JsonDeserializer<T> {
 
         @Override
-        public T deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public T deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
             if (jp.getCurrentToken() == JsonToken.VALUE_NULL)
                 return null;
 
@@ -138,7 +138,7 @@ public class RSAKeySecretFormat {
         final public static JsonSerializer<Key> keySerializer = new KeySerializer();
 
         @Override
-        public void serialize(RSAKeySecret value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(RSAKeySecret value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
             if (value == null) {
                 jgen.writeNull();
                 return;
@@ -159,7 +159,7 @@ public class RSAKeySecretFormat {
         private JsonDeserializer<PrivateKey> privateKeyDeserializer = new PrivateKeyDeserializer();
 
         @Override
-        public RSAKeySecret deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public RSAKeySecret deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
             if (jp.getCurrentToken() == JsonToken.VALUE_NULL)
                 return null;
             PrivateKey privateKey = null;

@@ -2,13 +2,13 @@ package com.clemble.casino.player.service;
 
 import java.util.Set;
 
-import com.clemble.casino.ClembleService;
 import com.clemble.casino.PlayerService;
+import com.clemble.casino.player.PlayerConnection;
 
 public interface PlayerConnectionService extends PlayerService {
 
-    public Set<String> getConnections(String player);
+    Set<PlayerConnection> getConnections(String player);
 
-    public Set<String> myConnections();
+    Set<PlayerConnection> myConnections();
 
 }

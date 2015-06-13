@@ -48,9 +48,8 @@ public class PlayerAction<T extends Action> implements Event, PlayerAware, KeyAw
 
         if (!action.equals(that.action)) return false;
         if (!key.equals(that.key)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     public String toString() {

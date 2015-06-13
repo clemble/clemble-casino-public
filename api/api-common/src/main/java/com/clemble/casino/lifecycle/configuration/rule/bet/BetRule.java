@@ -9,6 +9,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 public interface BetRule extends ConfigurationRule {
 
-    public boolean isValid(BetAction betAction);
+    boolean isValid(BetAction betAction);
 
 }

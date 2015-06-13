@@ -46,9 +46,8 @@ public class PlayerSocialGrantRegistrationRequest
         PlayerSocialGrantRegistrationRequest that = (PlayerSocialGrantRegistrationRequest) o;
 
         if (!accessGrant.equals(that.accessGrant)) return false;
-        if (!playerCredential.equals(that.playerCredential)) return false;
+        return playerCredential.equals(that.playerCredential);
 
-        return true;
     }
 
     @Override

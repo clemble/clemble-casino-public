@@ -12,8 +12,8 @@ import java.util.Collection;
  */
 public interface GoalConstructionService extends GoalService {
 
-    public GoalConstruction construct(GoalConstructionRequest request);
+    GoalConstruction construct(GoalConstructionRequest request);
 
-    public Collection<GoalConstruction> getPending(String player);
+    Collection<GoalConstruction> getPending(String player);
 
 }

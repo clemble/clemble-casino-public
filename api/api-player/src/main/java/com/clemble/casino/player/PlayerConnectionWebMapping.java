@@ -12,8 +12,8 @@ public class PlayerConnectionWebMapping implements WebMapping {
     final public static String PLAYER_CONNECTIONS = "/{player}";
     final public static String MY_CONNECTIONS = "/my";
 
-    final public static String MY_INVITATIONS = "/my/invitations";
-    final public static String MY_INVITATIONS_REPLY = "/my/invitations/{player}";
+    final public static String MY_INVITATIONS = "/my/invitation";
+    final public static String MY_INVITATIONS_REPLY = "/my/invitation/{player}";
 
     public static String toConnectionUrl(String path) {
         return CONNECTION_URL + path;

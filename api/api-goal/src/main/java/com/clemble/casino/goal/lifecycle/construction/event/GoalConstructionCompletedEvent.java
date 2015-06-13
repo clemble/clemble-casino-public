@@ -40,9 +40,8 @@ public class GoalConstructionCompletedEvent implements GoalConstructionEvent {
         GoalConstructionCompletedEvent that = (GoalConstructionCompletedEvent) o;
 
         if (!construction.equals(that.construction)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override

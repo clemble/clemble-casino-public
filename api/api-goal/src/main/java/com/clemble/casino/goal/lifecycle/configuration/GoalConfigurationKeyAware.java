@@ -5,6 +5,6 @@ package com.clemble.casino.goal.lifecycle.configuration;
  */
 public interface GoalConfigurationKeyAware {
 
-    public String getConfigurationKey();
+    String getConfigurationKey();
 
 }

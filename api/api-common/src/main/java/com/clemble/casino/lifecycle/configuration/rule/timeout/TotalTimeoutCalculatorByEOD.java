@@ -45,9 +45,8 @@ public class TotalTimeoutCalculatorByEOD implements TotalTimeoutCalculator {
 
         TotalTimeoutCalculatorByEOD that = (TotalTimeoutCalculatorByEOD) o;
 
-        if (days != that.days) return false;
+        return days == that.days;
 
-        return true;
     }
 
     @Override

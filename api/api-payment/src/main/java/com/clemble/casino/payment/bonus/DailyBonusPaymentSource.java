@@ -45,9 +45,8 @@ public class DailyBonusPaymentSource implements BonusPaymentSource, CreatedAware
 
         DailyBonusPaymentSource that = (DailyBonusPaymentSource) o;
 
-        if (created != null ? !created.equals(that.created) : that.created != null) return false;
+        return !(created != null ? !created.equals(that.created) : that.created != null);
 
-        return true;
     }
 
     @Override

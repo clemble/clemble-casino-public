@@ -3,11 +3,7 @@ package com.clemble.casino.goal.lifecycle.management.event;
 import com.clemble.casino.goal.lifecycle.management.GoalState;
 import com.clemble.casino.goal.post.GoalPost;
 import com.clemble.casino.goal.post.GoalStartedPost;
-import com.clemble.casino.notification.PlayerNotification;
-import com.clemble.casino.notification.PlayerNotificationConvertible;
 import com.clemble.casino.player.PlayerAware;
-import com.clemble.casino.post.PlayerPost;
-import com.clemble.casino.post.PlayerPostConvertible;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -21,14 +17,14 @@ public class GoalStartedEvent implements GoalManagementEvent, PlayerAware {
     final public static String JSON_TYPE = "goal:management:created";
 
     final private String player;
-    final private GoalState state;
+    final private GoalState body;
 
     @JsonCreator
     public GoalStartedEvent(
         @JsonProperty(PLAYER) String player,
-        @JsonProperty("body") GoalState state) {
+        @JsonProperty("body") GoalState body) {
         this.player = player;
-        this.state = state;
+        this.body = body;
     }
 
     @Override
@@ -38,12 +34,12 @@ public class GoalStartedEvent implements GoalManagementEvent, PlayerAware {
 
     @Override
     public GoalState getBody() {
-        return state;
+        return body;
     }
 
     @Override
     public GoalPost toPost() {
-        return GoalStartedPost.create(state);
+        return GoalStartedPost.create(body);
     }
 
     @Override
@@ -53,22 +49,21 @@ public class GoalStartedEvent implements GoalManagementEvent, PlayerAware {
 
         GoalStartedEvent that = (GoalStartedEvent) o;
 
-        if (!state.equals(that.state)) return false;
-        if (!player.equals(that.player)) return false;
+        if (!body.equals(that.body)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = state.hashCode();
+        int result = body.hashCode();
         result = 31 * result + player.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return player + " > " + state.getGoalKey() + " > " + JSON_TYPE;
+        return player + " > " + body.getGoalKey() + " > " + JSON_TYPE;
     }
 
 }

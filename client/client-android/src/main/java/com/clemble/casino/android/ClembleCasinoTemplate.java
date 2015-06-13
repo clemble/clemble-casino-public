@@ -41,7 +41,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     final private PlayerImageService imageOperations;
     final private PlayerConnectionService connectionOperations;
     final private PlayerFeedService feedService;
-    final private PlayerFriendInvitationService friendInvitationService;
+    final private PlayerConnectionInvitationService friendInvitationService;
     final private PaymentTransactionService transactionOperations;
     final private PlayerAccountService accountService;
 
@@ -82,7 +82,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
         // Step 1.1. Creating Player connections service
         this.connectionOperations = new AndroidPlayerConnectionService(restTemplate, host);
         // Step 1.2. Creating friend invitation service
-        this.friendInvitationService = new AndroidPlayerFriendInvitationService(restTemplate, host);
+        this.friendInvitationService = new AndroidPlayerConnectionInvitationService(restTemplate, host);
         // Step 1.3. Creating notification service
         this.notificationService = new AndroidPlayerNotificationService(restTemplate, host);
         // Step 1.4. Creating feed service
@@ -122,7 +122,7 @@ public class ClembleCasinoTemplate extends AbstractOAuth1ApiBinding implements C
     }
 
     @Override
-    public PlayerFriendInvitationService friendInvitationService() {
+    public PlayerConnectionInvitationService friendInvitationService() {
         return friendInvitationService;
     }
 

@@ -5,6 +5,6 @@ package com.clemble.casino.goal.lifecycle.management;
  */
 public interface GoalPhaseAware {
 
-    public GoalPhase getPhase();
+    GoalPhase getPhase();
 
 }

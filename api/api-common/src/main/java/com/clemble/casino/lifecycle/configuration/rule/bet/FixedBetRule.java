@@ -67,8 +67,6 @@ public class FixedBetRule implements BetRule {
         if (getClass() != obj.getClass())
             return false;
         FixedBetRule other = (FixedBetRule) obj;
-        if (!Arrays.equals(bets, other.bets))
-            return false;
-        return true;
+        return Arrays.equals(bets, other.bets);
     }
 }

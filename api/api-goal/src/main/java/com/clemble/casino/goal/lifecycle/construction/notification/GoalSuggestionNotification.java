@@ -68,9 +68,8 @@ public class GoalSuggestionNotification implements GoalNotification {
         if (!created.equals(that.created)) return false;
         if (!key.equals(that.key)) return false;
         if (!player.equals(that.player)) return false;
-        if (!suggestion.equals(that.suggestion)) return false;
+        return suggestion.equals(that.suggestion);
 
-        return true;
     }
 
     @Override

@@ -46,9 +46,8 @@ public class EventRecord implements Comparable<EventRecord>, CreatedAware {
         EventRecord that = (EventRecord) o;
 
         if (!created.equals(that.created)) return false;
-        if (!event.equals(that.event)) return false;
+        return event.equals(that.event);
 
-        return true;
     }
 
     @Override

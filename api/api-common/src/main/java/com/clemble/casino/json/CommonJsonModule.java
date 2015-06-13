@@ -18,6 +18,7 @@ import com.clemble.casino.lifecycle.configuration.rule.breach.CountdownBreachPun
 import com.clemble.casino.lifecycle.configuration.rule.breach.LooseBreachPunishment;
 import com.clemble.casino.lifecycle.configuration.rule.breach.PenaltyBreachPunishment;
 import com.clemble.casino.lifecycle.management.event.action.surrender.TimeoutSurrenderAction;
+import com.clemble.casino.player.PlayerConnection;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.jsontype.NamedType;

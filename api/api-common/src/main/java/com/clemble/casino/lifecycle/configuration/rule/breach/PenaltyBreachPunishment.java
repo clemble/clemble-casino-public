@@ -40,9 +40,8 @@ public class PenaltyBreachPunishment extends BreachPunishment implements AmountA
 
         PenaltyBreachPunishment that = (PenaltyBreachPunishment) o;
 
-        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
+        return !(amount != null ? !amount.equals(that.amount) : that.amount != null);
 
-        return true;
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.joda.time.DateTimeZone;
  */
 public interface TimeZoneAware {
 
-    final public static String TIME_ZONE = "timezone";
+    String TIME_ZONE = "timezone";
 
     DateTimeZone getTimezone();
 

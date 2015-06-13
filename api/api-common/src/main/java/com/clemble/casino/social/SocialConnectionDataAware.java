@@ -5,6 +5,6 @@ package com.clemble.casino.social;
  */
 public interface SocialConnectionDataAware {
 
-    public SocialConnectionData getSocialConnectionData();
+    SocialConnectionData getSocialConnectionData();
 
 }

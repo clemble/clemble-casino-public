@@ -122,9 +122,8 @@ public class GoalSuggestion implements
         if (!goalKey.equals(that.goalKey)) return false;
         if (!suggester.equals(that.suggester)) return false;
         if (!player.equals(that.player)) return false;
-        if (state != that.state) return false;
+        return state == that.state;
 
-        return true;
     }
 
     @Override

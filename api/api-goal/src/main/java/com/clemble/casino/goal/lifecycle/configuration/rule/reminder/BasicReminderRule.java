@@ -30,9 +30,8 @@ public class BasicReminderRule implements ReminderRule {
 
         BasicReminderRule that = (BasicReminderRule) o;
 
-        if (reminder != that.reminder) return false;
+        return reminder == that.reminder;
 
-        return true;
     }
 
     @Override

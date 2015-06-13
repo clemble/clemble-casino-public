@@ -34,9 +34,8 @@ public class ClembleFieldError implements ClembleErrorCodeAware {
         ClembleFieldError that = (ClembleFieldError) o;
 
         if (!code.equals(that.code)) return false;
-        if (!field.equals(that.field)) return false;
+        return field.equals(that.field);
 
-        return true;
     }
 
     @Override

@@ -7,12 +7,12 @@ import com.clemble.casino.registration.PlayerCredential;
 
 public interface ClembleCasinoRegistrationOperations {
 
-    public ClembleCasinoOperations login(final PlayerCredential playerCredentials);
+    ClembleCasinoOperations login(final PlayerCredential playerCredentials);
 
-    public ClembleCasinoOperations register(final PlayerCredential playerCredential, final PlayerProfile playerProfile);
+    ClembleCasinoOperations register(final PlayerCredential playerCredential, final PlayerProfile playerProfile);
 
-    public ClembleCasinoOperations register(final PlayerCredential playerCredential, final SocialConnectionData socialConnectionData);
+    ClembleCasinoOperations register(final PlayerCredential playerCredential, final SocialConnectionData socialConnectionData);
 
-    public ClembleCasinoOperations register(final PlayerCredential playerCredential, final SocialAccessGrant accessGrant);
+    ClembleCasinoOperations register(final PlayerCredential playerCredential, final SocialAccessGrant accessGrant);
 
 }

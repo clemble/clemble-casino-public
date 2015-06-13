@@ -16,14 +16,14 @@ public class GoalChangedStatusEvent implements GoalManagementEvent {
     final public static String JSON_TYPE = "goal:management:changed:status";
 
     final private String player;
-    final private GoalState state;
+    final private GoalState body;
 
     @JsonCreator
     public GoalChangedStatusEvent(
         @JsonProperty("player") String player,
-        @JsonProperty("body") GoalState state) {
+        @JsonProperty("body") GoalState body) {
         this.player = player;
-        this.state = state;
+        this.body = body;
     }
 
     @Override
@@ -33,12 +33,12 @@ public class GoalChangedStatusEvent implements GoalManagementEvent {
 
     @Override
     public GoalState getBody() {
-        return state;
+        return body;
     }
 
     @Override
     public GoalPost toPost() {
-        return GoalUpdatedPost.create(state);
+        return GoalUpdatedPost.create(body);
     }
 
     @Override
@@ -49,15 +49,14 @@ public class GoalChangedStatusEvent implements GoalManagementEvent {
         GoalChangedStatusEvent that = (GoalChangedStatusEvent) o;
 
         if (!player.equals(that.player)) return false;
-        if (!state.equals(that.state)) return false;
+        return body.equals(that.body);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = player.hashCode();
-        result = 31 * result + state.hashCode();
+        result = 31 * result + body.hashCode();
         return result;
     }
 

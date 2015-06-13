@@ -2,11 +2,13 @@ package com.clemble.casino.player.event;
 
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.notification.PlayerNotificationConvertible;
+import com.clemble.casino.player.PlayerConnection;
 import com.clemble.casino.player.PlayerConnectionAware;
-import com.clemble.casino.player.notification.PlayerConnectedNotification;
+import com.clemble.casino.player.notification.PlayerConnectionAddNotification;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Created by mavarazy on 11/29/14.
@@ -17,10 +19,10 @@ public class PlayerConnectionAddEvent implements PlayerConnectionAware, PlayerNo
     final public static String JSON_TYPE = "player:connection:add";
 
     final private String player;
-    final private String connection;
+    final private PlayerConnection connection;
 
     @JsonCreator
-    public PlayerConnectionAddEvent(@JsonProperty(PLAYER) String player, @JsonProperty("connection") String connection) {
+    public PlayerConnectionAddEvent(@JsonProperty(PLAYER) String player, @JsonProperty("connection") PlayerConnection connection) {
         this.player = player;
         this.connection = connection;
     }
@@ -31,13 +33,13 @@ public class PlayerConnectionAddEvent implements PlayerConnectionAware, PlayerNo
     }
 
     @Override
-    public String getConnection() {
+    public PlayerConnection getConnection() {
         return connection;
     }
 
     @Override
     public PlayerNotification toNotification() {
-        return PlayerConnectedNotification.create(this);
+        return PlayerConnectionAddNotification.create(this);
     }
 
     @Override
@@ -48,9 +50,8 @@ public class PlayerConnectionAddEvent implements PlayerConnectionAware, PlayerNo
         PlayerConnectionAddEvent that = (PlayerConnectionAddEvent) o;
 
         if (!connection.equals(that.connection)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override

@@ -14,14 +14,14 @@ import java.util.List;
  */
 public interface GoalActionService extends GoalService {
 
-    public List<GoalState> myActive();
+    List<GoalState> myActive();
 
-    public List<GoalState> getActive(String player);
+    List<GoalState> getActive(String player);
 
-    public GoalEvent process(String goalKey, Action action);
+    GoalEvent process(String goalKey, Action action);
 
-    public GoalState getState(String goalKey);
+    GoalState getState(String goalKey);
 
-    public GoalInspiration inspire(String goalKey, String inspirationText);
+    GoalInspiration inspire(String goalKey, String inspirationText);
 
 }

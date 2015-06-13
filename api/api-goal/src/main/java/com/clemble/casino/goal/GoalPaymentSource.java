@@ -70,9 +70,8 @@ public class GoalPaymentSource implements PaymentSource, GoalAware, OutcomeAware
         GoalPaymentSource that = (GoalPaymentSource) o;
 
         if (!goalKey.equals(that.goalKey)) return false;
-        if (!outcome.equals(that.outcome)) return false;
+        return outcome.equals(that.outcome);
 
-        return true;
     }
 
     @Override

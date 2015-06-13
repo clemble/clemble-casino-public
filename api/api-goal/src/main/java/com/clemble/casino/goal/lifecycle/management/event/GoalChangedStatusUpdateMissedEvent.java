@@ -50,9 +50,8 @@ public class GoalChangedStatusUpdateMissedEvent implements GoalManagementEvent{
         GoalChangedStatusUpdateMissedEvent that = (GoalChangedStatusUpdateMissedEvent) o;
 
         if (body != null ? !body.equals(that.body) : that.body != null) return false;
-        if (player != null ? !player.equals(that.player) : that.player != null) return false;
+        return !(player != null ? !player.equals(that.player) : that.player != null);
 
-        return true;
     }
 
     @Override

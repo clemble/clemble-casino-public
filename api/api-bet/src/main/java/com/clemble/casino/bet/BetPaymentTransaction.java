@@ -76,9 +76,8 @@ public class BetPaymentTransaction implements PaymentTransactionAware, PlayerBet
         BetPaymentTransaction bet = (BetPaymentTransaction) o;
 
         if (!transactionKey.equals(bet.transactionKey)) return false;
-        if (!bets.equals(bet.bets)) return false;
+        return bets.equals(bet.bets);
 
-        return true;
     }
 
     @Override

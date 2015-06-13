@@ -5,6 +5,6 @@ package com.clemble.casino.player;
  */
 public interface EmailAware {
 
-    public String getEmail();
+    String getEmail();
 
 }

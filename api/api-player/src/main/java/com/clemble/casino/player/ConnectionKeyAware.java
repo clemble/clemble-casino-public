@@ -7,6 +7,6 @@ import org.springframework.social.connect.ConnectionKey;
  */
 public interface ConnectionKeyAware {
 
-    public ConnectionKey getConnection();
+    ConnectionKey getConnection();
 
 }

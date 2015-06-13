@@ -32,9 +32,8 @@ public class GoalStatusUpdateAction implements GoalAction, GoalStatusAware {
 
         GoalStatusUpdateAction that = (GoalStatusUpdateAction) o;
 
-        if (!status.equals(that.status)) return false;
+        return status.equals(that.status);
 
-        return true;
     }
 
     @Override

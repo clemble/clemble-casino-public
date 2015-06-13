@@ -5,6 +5,6 @@ package com.clemble.casino.player;
  */
 public interface PlayerConnectionAware extends PlayerAware {
 
-    public String getConnection();
+    PlayerConnection getConnection();
 
 }

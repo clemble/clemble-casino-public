@@ -65,9 +65,8 @@ public class GoalRoleConfiguration implements GoalRule {
         if (!emailReminderRule.equals(that.emailReminderRule)) return false;
         if (!phoneReminderRule.equals(that.phoneReminderRule)) return false;
         if (!betRule.equals(that.betRule)) return false;
-        if (percentage != percentage) return false;
+        return percentage == percentage;
 
-        return true;
     }
 
     @Override

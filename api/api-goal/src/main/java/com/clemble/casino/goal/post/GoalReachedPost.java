@@ -76,9 +76,8 @@ public class GoalReachedPost implements GoalPost {
         if (!created.equals(that.created)) return false;
         if (!key.equals(that.key)) return false;
         if (!player.equals(that.player)) return false;
-        if (!state.equals(that.state)) return false;
+        return state.equals(that.state);
 
-        return true;
     }
 
     @Override

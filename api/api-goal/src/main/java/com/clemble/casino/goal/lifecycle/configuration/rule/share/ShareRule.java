@@ -43,9 +43,8 @@ public class ShareRule implements GoalRule {
 
         ShareRule shareRule = (ShareRule) o;
 
-        if (providers != null ? !providers.equals(shareRule.providers) : shareRule.providers != null) return false;
+        return !(providers != null ? !providers.equals(shareRule.providers) : shareRule.providers != null);
 
-        return true;
     }
 
     @Override

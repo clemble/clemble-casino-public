@@ -5,9 +5,9 @@ package com.clemble.casino.tag;
  */
 public interface TagAware {
 
-    final public static String VICTORY_TAG = "victory";
-    final public static String SUPPORTER_TAG = "supporter";
+    String VICTORY_TAG = "victory";
+    String SUPPORTER_TAG = "supporter";
 
-    public String getTag();
+    String getTag();
 
 }

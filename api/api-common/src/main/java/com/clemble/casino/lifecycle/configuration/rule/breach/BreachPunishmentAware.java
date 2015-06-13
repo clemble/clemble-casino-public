@@ -5,6 +5,6 @@ package com.clemble.casino.lifecycle.configuration.rule.breach;
  */
 public interface BreachPunishmentAware {
 
-    public BreachPunishment getPunishment();
+    BreachPunishment getPunishment();
 
 }

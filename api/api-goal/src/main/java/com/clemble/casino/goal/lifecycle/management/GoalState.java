@@ -366,9 +366,8 @@ public class GoalState implements
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
-        if (bank != null ? !bank.equals(that.bank) : that.bank != null) return false;
+        return !(bank != null ? !bank.equals(that.bank) : that.bank != null);
 
-        return true;
     }
 
     @Override

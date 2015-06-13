@@ -60,9 +60,8 @@ public class GoalConstructionRequest implements ConstructionRequest<GoalConfigur
 
         if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
             return false;
-        if (goal != null ? !goal.equals(that.goal) : that.goal != null) return false;
+        return !(goal != null ? !goal.equals(that.goal) : that.goal != null);
 
-        return true;
     }
 
     @Override

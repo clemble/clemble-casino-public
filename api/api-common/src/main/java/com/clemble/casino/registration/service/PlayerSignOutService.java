@@ -1,6 +1,5 @@
 package com.clemble.casino.registration.service;
 
-import com.clemble.casino.ClembleService;
 import com.clemble.casino.PlayerService;
 
 /**
@@ -8,6 +7,6 @@ import com.clemble.casino.PlayerService;
  */
 public interface PlayerSignOutService extends PlayerService {
 
-    public void signOut();
+    void signOut();
 
 }

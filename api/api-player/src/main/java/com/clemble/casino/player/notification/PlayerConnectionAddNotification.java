@@ -1,5 +1,6 @@
 package com.clemble.casino.player.notification;
 
+import com.clemble.casino.player.PlayerConnection;
 import com.clemble.casino.player.event.PlayerConnectionAddEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,22 +11,22 @@ import org.joda.time.DateTimeZone;
 /**
  * Created by mavarazy on 11/29/14.
  */
-@JsonTypeName(PlayerConnectedNotification.JSON_TYPE)
-public class PlayerConnectedNotification implements PlayerConnectionNotification {
+@JsonTypeName(PlayerConnectionAddNotification.JSON_TYPE)
+public class PlayerConnectionAddNotification implements PlayerConnectionNotification {
 
     final public static String JSON_TYPE = "notification:player:connected";
 
     final private String key;
     final private String player;
-    final private String connection;
+    final private PlayerConnection connection;
     final private DateTime created;
 
     @JsonCreator
-    public PlayerConnectedNotification(
-        @JsonProperty("key") String key,
-        @JsonProperty("player") String player,
-        @JsonProperty("connection")String connection,
-        @JsonProperty("created") DateTime created) {
+    public PlayerConnectionAddNotification(
+            @JsonProperty("key") String key,
+            @JsonProperty("player") String player,
+            @JsonProperty("connection") PlayerConnection connection,
+            @JsonProperty("created") DateTime created) {
         this.key = key;
         this.player = player;
         this.connection = connection;
@@ -43,7 +44,7 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
     }
 
     @Override
-    public String getConnection() {
+    public PlayerConnection getConnection() {
         return connection;
     }
 
@@ -52,9 +53,9 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
         return created;
     }
 
-    public static PlayerConnectedNotification create(PlayerConnectionAddEvent connectedEvent) {
+    public static PlayerConnectionAddNotification create(PlayerConnectionAddEvent connectedEvent) {
         String key = connectedEvent.getPlayer() + ":" + connectedEvent.getConnection();
-        return new PlayerConnectedNotification(key, connectedEvent.getPlayer(), connectedEvent.getConnection(), DateTime.now(DateTimeZone.UTC));
+        return new PlayerConnectionAddNotification(key, connectedEvent.getPlayer(), connectedEvent.getConnection(), DateTime.now(DateTimeZone.UTC));
     }
 
     @Override
@@ -62,13 +63,12 @@ public class PlayerConnectedNotification implements PlayerConnectionNotification
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlayerConnectedNotification that = (PlayerConnectedNotification) o;
+        PlayerConnectionAddNotification that = (PlayerConnectionAddNotification) o;
 
         if (!created.equals(that.created)) return false;
         if (!connection.equals(that.connection)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override

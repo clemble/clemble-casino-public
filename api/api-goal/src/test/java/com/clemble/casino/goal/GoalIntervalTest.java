@@ -50,11 +50,11 @@ public class GoalIntervalTest {
         ShareRule.EMPTY
     );
 
-    final private List<IntervalGoalRule> intervalRules = ImmutableList.<IntervalGoalRule>of(
-        new IntervalGoalRule(new MoveTimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new MoveTimeoutCalculatorByEOD(2)), 50, 5),
-        new IntervalGoalRule(new MoveTimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 20)), new MoveTimeoutCalculatorByEOD(1)), 50, 5),
-        new IntervalGoalRule(new ShareRule(ImmutableSet.of(SocialProvider.twitter)), 50, 5),
-        new IntervalGoalRule(new ShareRule(ImmutableSet.of(SocialProvider.facebook)), 50, 5)
+    final private List<IntervalGoalRule> intervalRules = ImmutableList.of(
+            new IntervalGoalRule(new MoveTimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 10)), new MoveTimeoutCalculatorByEOD(2)), 50, 5),
+            new IntervalGoalRule(new MoveTimeoutRule(new PenaltyBreachPunishment(Money.create(Currency.point, 20)), new MoveTimeoutCalculatorByEOD(1)), 50, 5),
+            new IntervalGoalRule(new ShareRule(ImmutableSet.of(SocialProvider.twitter)), 50, 5),
+            new IntervalGoalRule(new ShareRule(ImmutableSet.of(SocialProvider.facebook)), 50, 5)
     );
 
     final private IntervalGoalConfigurationBuilder goalBuilder = new IntervalGoalConfigurationBuilder(

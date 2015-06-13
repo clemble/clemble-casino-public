@@ -164,9 +164,8 @@ public class PlayerRegistrationRequest
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (nickName != null ? !nickName.equals(that.nickName) : that.nickName != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (player != null ? !player.equals(that.player) : that.player != null) return false;
+        return !(player != null ? !player.equals(that.player) : that.player != null);
 
-        return true;
     }
 
     @Override

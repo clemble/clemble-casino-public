@@ -9,6 +9,6 @@ import java.util.Set;
  */
 public interface GoalRoleAware extends PlayerAware {
 
-    public Set<String> getSupporters();
+    Set<String> getSupporters();
 
 }

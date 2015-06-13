@@ -34,9 +34,8 @@ public class DiscoveryBonusPaymentSource implements BonusPaymentSource {
 
         DiscoveryBonusPaymentSource that = (DiscoveryBonusPaymentSource) o;
 
-        if (!discovered.equals(that.discovered)) return false;
+        return discovered.equals(that.discovered);
 
-        return true;
     }
 
     @Override

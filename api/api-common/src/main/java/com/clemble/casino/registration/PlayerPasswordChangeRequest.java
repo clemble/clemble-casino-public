@@ -37,9 +37,8 @@ public class PlayerPasswordChangeRequest {
         PlayerPasswordChangeRequest that = (PlayerPasswordChangeRequest) o;
 
         if (oldPassword != null ? !oldPassword.equals(that.oldPassword) : that.oldPassword != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        return !(password != null ? !password.equals(that.password) : that.password != null);
 
-        return true;
     }
 
     @Override

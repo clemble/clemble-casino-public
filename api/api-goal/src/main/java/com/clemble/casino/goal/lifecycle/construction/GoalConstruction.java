@@ -112,9 +112,8 @@ public class GoalConstruction implements
         if (goal != null ? !goal.equals(that.goal) : that.goal != null) return false;
         if (goalKey != null ? !goalKey.equals(that.goalKey) : that.goalKey != null) return false;
         if (player != null ? !player.equals(that.player) : that.player != null) return false;
-        if (state != that.state) return false;
+        return state == that.state;
 
-        return true;
     }
 
     @Override

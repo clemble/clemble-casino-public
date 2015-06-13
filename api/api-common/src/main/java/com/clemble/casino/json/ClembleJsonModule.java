@@ -4,6 +4,6 @@ import com.fasterxml.jackson.databind.Module;
 
 public interface ClembleJsonModule {
 
-    public Module construct();
+    Module construct();
 
 }

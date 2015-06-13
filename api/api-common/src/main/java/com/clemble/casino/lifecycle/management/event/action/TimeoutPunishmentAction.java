@@ -34,9 +34,8 @@ public class TimeoutPunishmentAction implements Action, AmountAware {
 
         TimeoutPunishmentAction that = (TimeoutPunishmentAction) o;
 
-        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
+        return !(amount != null ? !amount.equals(that.amount) : that.amount != null);
 
-        return true;
     }
 
     @Override

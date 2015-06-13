@@ -37,9 +37,8 @@ public class GoalReachedBonusPaymentSource implements BonusPaymentSource, GoalAw
 
         GoalReachedBonusPaymentSource that = (GoalReachedBonusPaymentSource) o;
 
-        if (!goalKey.equals(that.goalKey)) return false;
+        return goalKey.equals(that.goalKey);
 
-        return true;
     }
 
     @Override

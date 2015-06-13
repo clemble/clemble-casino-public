@@ -40,9 +40,8 @@ public class BetConstruction implements Construction<BetConfiguration> {
         BetConstruction that = (BetConstruction) o;
 
         if (!configuration.equals(that.configuration)) return false;
-        if (state != that.state) return false;
+        return state == that.state;
 
-        return true;
     }
 
     @Override

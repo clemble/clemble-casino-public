@@ -6,10 +6,10 @@ import com.clemble.casino.lifecycle.configuration.rule.breach.BreachPunishmentAw
 
 public interface TimeRule extends ConfigurationRule, BreachPunishmentAware {
 
-    public BreachPunishment getPunishment();
+    BreachPunishment getPunishment();
 
-    public long getLimit();
+    long getLimit();
 
-    public long timeUntilBreach(PlayerClock clock);
+    long timeUntilBreach(PlayerClock clock);
 
 }

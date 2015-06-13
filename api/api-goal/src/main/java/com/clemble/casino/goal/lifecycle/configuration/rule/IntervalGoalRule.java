@@ -46,9 +46,8 @@ public class IntervalGoalRule implements GoalRuleValueAware<ConfigurationRule> {
 
         if (interval != that.interval) return false;
         if (percentage != that.percentage) return false;
-        if (!rule.equals(that.rule)) return false;
+        return rule.equals(that.rule);
 
-        return true;
     }
 
     @Override

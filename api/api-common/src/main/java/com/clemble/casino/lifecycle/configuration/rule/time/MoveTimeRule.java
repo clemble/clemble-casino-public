@@ -44,9 +44,8 @@ public class MoveTimeRule implements TimeRule {
         MoveTimeRule that = (MoveTimeRule) o;
 
         if (limit != that.limit) return false;
-        if (!punishment.equals(that.punishment)) return false;
+        return punishment.equals(that.punishment);
 
-        return true;
     }
 
     @Override

@@ -5,6 +5,6 @@ package com.clemble.casino.post;
  */
 public interface PlayerPostConvertible {
 
-    public PlayerPost toPost();
+    PlayerPost toPost();
 
 }

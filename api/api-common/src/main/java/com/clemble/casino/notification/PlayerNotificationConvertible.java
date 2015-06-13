@@ -5,6 +5,6 @@ package com.clemble.casino.notification;
  */
 public interface PlayerNotificationConvertible {
 
-    public PlayerNotification toNotification();
+    PlayerNotification toNotification();
 
 }

@@ -35,9 +35,8 @@ public class SocialAddedBonusPaymentSource implements BonusPaymentSource {
 
         SocialAddedBonusPaymentSource that = (SocialAddedBonusPaymentSource) o;
 
-        if (provider != null ? !provider.equals(that.provider) : that.provider != null) return false;
+        return !(provider != null ? !provider.equals(that.provider) : that.provider != null);
 
-        return true;
     }
 
     @Override

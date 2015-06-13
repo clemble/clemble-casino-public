@@ -13,8 +13,8 @@ import org.joda.time.DateTime;
 })
 public interface MoveTimeoutCalculator {
 
-    public DateTime calculate(DateTime lastUpdate);
+    DateTime calculate(DateTime lastUpdate);
 
-    public DateTime calculate(GoalTimeSpanAware timeSpanAware);
+    DateTime calculate(GoalTimeSpanAware timeSpanAware);
 
 }

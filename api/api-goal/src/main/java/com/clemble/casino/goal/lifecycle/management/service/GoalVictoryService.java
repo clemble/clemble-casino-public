@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface GoalVictoryService extends GoalService {
 
-    public List<GoalState> listMy();
+    List<GoalState> listMy();
 
-    public List<GoalState> list(String player);
+    List<GoalState> list(String player);
 
 }

@@ -12,10 +12,10 @@ import java.util.List;
  */
 public interface PlayerAccountService extends PaymentService {
 
-    public PlayerAccount myAccount();
+    PlayerAccount myAccount();
 
-    public PlayerAccount getAccount(String playerWalletId);
+    PlayerAccount getAccount(String playerWalletId);
 
-    public List<String> canAfford(Collection<String> players, Currency currency, Long amount);
+    List<String> canAfford(Collection<String> players, Currency currency, Long amount);
 
 }

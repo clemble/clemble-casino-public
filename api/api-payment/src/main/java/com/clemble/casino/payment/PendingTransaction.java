@@ -87,9 +87,8 @@ public class PendingTransaction implements AccountTransaction, VersionAware {
         if (operations != null ? !operations.equals(that.operations) : that.operations != null) return false;
         if (transactionKey != null ? !transactionKey.equals(that.transactionKey) : that.transactionKey != null)
             return false;
-        if (version != null ? !version.equals(that.version) : that.version != null) return false;
+        return !(version != null ? !version.equals(that.version) : that.version != null);
 
-        return true;
     }
 
     @Override

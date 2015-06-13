@@ -95,9 +95,8 @@ public class PaymentNotification implements
         if (!amount.equals(that.amount)) return false;
         if (operation != that.operation) return false;
         if (!player.equals(that.player)) return false;
-        if (!key.equals(that.key)) return false;
+        return key.equals(that.key);
 
-        return true;
     }
 
     @Override

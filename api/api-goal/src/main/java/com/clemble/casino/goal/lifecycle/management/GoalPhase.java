@@ -7,6 +7,6 @@ public enum GoalPhase {
 
     started,
     betOff,
-    finished;
+    finished
 
 }

@@ -5,6 +5,6 @@ package com.clemble.casino.goal;
  */
 public interface GoalStatusAware {
 
-    public String getStatus();
+    String getStatus();
 
 }

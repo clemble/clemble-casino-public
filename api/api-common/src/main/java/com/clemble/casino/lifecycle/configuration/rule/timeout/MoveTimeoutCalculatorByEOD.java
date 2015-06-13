@@ -40,9 +40,8 @@ public class MoveTimeoutCalculatorByEOD implements MoveTimeoutCalculator {
 
         MoveTimeoutCalculatorByEOD that = (MoveTimeoutCalculatorByEOD) o;
 
-        if (days != that.days) return false;
+        return days == that.days;
 
-        return true;
     }
 
     @Override

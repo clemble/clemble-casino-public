@@ -32,9 +32,8 @@ public class GoalReachedAction implements GoalAction, GoalStatusAware {
 
         GoalReachedAction that = (GoalReachedAction) o;
 
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        return !(status != null ? !status.equals(that.status) : that.status != null);
 
-        return true;
     }
 
     @Override

@@ -5,6 +5,6 @@ package com.clemble.casino.payment;
  */
 public interface PaymentTransactionConvertible extends PaymentTransactionAware {
 
-    public PaymentTransaction toTransaction();
+    PaymentTransaction toTransaction();
 
 }

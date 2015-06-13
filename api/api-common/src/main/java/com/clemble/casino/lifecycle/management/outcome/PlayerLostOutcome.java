@@ -29,9 +29,8 @@ public class PlayerLostOutcome extends Outcome implements PlayerAware {
 
         PlayerLostOutcome that = (PlayerLostOutcome) o;
 
-        if (player != null ? !player.equals(that.player) : that.player != null) return false;
+        return !(player != null ? !player.equals(that.player) : that.player != null);
 
-        return true;
     }
 
     @Override

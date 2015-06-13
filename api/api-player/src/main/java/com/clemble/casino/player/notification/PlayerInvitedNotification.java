@@ -1,13 +1,12 @@
 package com.clemble.casino.player.notification;
 
+import com.clemble.casino.player.PlayerConnection;
 import com.clemble.casino.player.event.PlayerInvitedConnectionEvent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-
-import java.util.Date;
 
 /**
  * Created by mavarazy on 11/29/14.
@@ -19,7 +18,7 @@ public class PlayerInvitedNotification implements PlayerConnectionNotification {
 
     final private String key;
     final private String player;
-    final private String connection;
+    final private PlayerConnection connection;
     final private DateTime created;
 
     // TODO remove extra player reference
@@ -27,7 +26,7 @@ public class PlayerInvitedNotification implements PlayerConnectionNotification {
     public PlayerInvitedNotification(
         @JsonProperty("key") String key,
         @JsonProperty(PLAYER) String player,
-        @JsonProperty("connection") String connection,
+        @JsonProperty("connection") PlayerConnection connection,
         @JsonProperty("created") DateTime created) {
         this.key = key;
         this.player = player;
@@ -41,7 +40,7 @@ public class PlayerInvitedNotification implements PlayerConnectionNotification {
     }
 
     @Override
-    public String getConnection() {
+    public PlayerConnection getConnection() {
         return connection;
     }
 
@@ -69,9 +68,8 @@ public class PlayerInvitedNotification implements PlayerConnectionNotification {
 
         if (!created.equals(that.created)) return false;
         if (!connection.equals(that.connection)) return false;
-        if (!player.equals(that.player)) return false;
+        return player.equals(that.player);
 
-        return true;
     }
 
     @Override

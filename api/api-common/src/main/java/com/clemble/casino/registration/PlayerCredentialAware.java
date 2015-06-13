@@ -7,6 +7,6 @@ import javax.validation.Valid;
  */
 public interface PlayerCredentialAware {
 
-    public PlayerCredential getPlayerCredential();
+    PlayerCredential getPlayerCredential();
 
 }

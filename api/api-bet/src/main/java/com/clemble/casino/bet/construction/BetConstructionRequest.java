@@ -34,10 +34,8 @@ public class BetConstructionRequest implements BetConfigurationAware, Constructi
 
         BetConstructionRequest that = (BetConstructionRequest) o;
 
-        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
-            return false;
+        return !(configuration != null ? !configuration.equals(that.configuration) : that.configuration != null);
 
-        return true;
     }
 
     @Override

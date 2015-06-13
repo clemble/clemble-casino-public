@@ -6,6 +6,6 @@ import com.clemble.casino.social.SocialConnectionData;
 
 public interface PlayerSocialProfileService extends PlayerService {
 
-    public SocialConnectionData add(String player, SocialConnectionData socialConnectionData);
+    SocialConnectionData add(String player, SocialConnectionData socialConnectionData);
 
 }

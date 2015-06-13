@@ -13,10 +13,10 @@ import java.util.List;
  */
 public interface GoalConfigurationService extends GoalService {
 
-    public GoalConfigurationChoices getChoices();
+    GoalConfigurationChoices getChoices();
 
-    public List<GoalConfiguration> getConfigurations();
+    List<GoalConfiguration> getConfigurations();
 
-    public IntervalGoalConfigurationBuilder getIntervalBuilder();
+    IntervalGoalConfigurationBuilder getIntervalBuilder();
 
 }

@@ -2,6 +2,7 @@ package com.clemble.casino.player.event;
 
 import com.clemble.casino.notification.PlayerNotification;
 import com.clemble.casino.notification.PlayerNotificationConvertible;
+import com.clemble.casino.player.PlayerConnection;
 import com.clemble.casino.player.PlayerConnectionAware;
 import com.clemble.casino.player.notification.PlayerInvitedNotification;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,12 +21,12 @@ public class PlayerInvitedConnectionEvent implements PlayerEvent, PlayerConnecti
     private static final long serialVersionUID = 1039045766016769682L;
 
     final private String player;
-    final private String connection;
+    final private PlayerConnection connection;
 
     @JsonCreator
     public PlayerInvitedConnectionEvent(
         @JsonProperty(PLAYER) String player,
-        @JsonProperty("connection") String connection) {
+        @JsonProperty("connection") PlayerConnection connection) {
         this.player = player;
         this.connection = connection;
     }
@@ -36,7 +37,7 @@ public class PlayerInvitedConnectionEvent implements PlayerEvent, PlayerConnecti
     }
 
     @Override
-    public String getConnection() {
+    public PlayerConnection getConnection() {
         return connection;
     }
 

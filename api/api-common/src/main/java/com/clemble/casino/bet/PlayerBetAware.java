@@ -7,6 +7,6 @@ import java.util.Collection;
  */
 public interface PlayerBetAware {
 
-    public Collection<PlayerBet> getBets();
+    Collection<PlayerBet> getBets();
 
 }

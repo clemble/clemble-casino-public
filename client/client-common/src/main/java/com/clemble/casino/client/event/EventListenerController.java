@@ -4,6 +4,6 @@ import java.io.Closeable;
 
 public interface EventListenerController extends Closeable {
 
-    public void close();
+    void close();
 
 }

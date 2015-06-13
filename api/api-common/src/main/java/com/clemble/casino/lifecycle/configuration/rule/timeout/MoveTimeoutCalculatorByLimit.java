@@ -37,9 +37,8 @@ public class MoveTimeoutCalculatorByLimit implements MoveTimeoutCalculator {
 
         MoveTimeoutCalculatorByLimit that = (MoveTimeoutCalculatorByLimit) o;
 
-        if (limit != that.limit) return false;
+        return limit == that.limit;
 
-        return true;
     }
 
     @Override
