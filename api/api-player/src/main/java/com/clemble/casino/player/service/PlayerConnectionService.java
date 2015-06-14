@@ -7,8 +7,13 @@ import com.clemble.casino.player.PlayerConnection;
 
 public interface PlayerConnectionService extends PlayerService {
 
+    Set<PlayerConnection> myConnections();
+
+    Integer myConnectionsCount();
+
     Set<PlayerConnection> getConnections(String player);
 
-    Set<PlayerConnection> myConnections();
+    Integer getConnectionsCount(String player);
+
 
 }
