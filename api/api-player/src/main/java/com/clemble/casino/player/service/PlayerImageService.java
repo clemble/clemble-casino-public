@@ -9,10 +9,6 @@ public interface PlayerImageService extends PlayerService {
 
     byte[] myImage();
 
-    byte[] mySmallImage();
-
     byte[] getImage(String player);
-
-    byte[] getSmallImage(String player);
 
 }
