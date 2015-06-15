@@ -9,15 +9,15 @@ import com.clemble.casino.lifecycle.management.outcome.OutcomeAware;
  */
 public class OutcomeTypeSelector<T extends Outcome> implements EventSelector {
 
-    final private Class<T> eventType;
+    final private Outcome outcome;
 
-    public OutcomeTypeSelector(Class<T> eventType) {
-        this.eventType = eventType;
+    public OutcomeTypeSelector(Outcome outcome) {
+        this.outcome = outcome;
     }
 
     @Override
     public boolean filter(Event event) {
-        return event != null && event instanceof OutcomeAware && ((OutcomeAware) event).getOutcome().getClass() == eventType;
+        return event != null && event instanceof OutcomeAware && ((OutcomeAware) event).getOutcome() == outcome;
     }
 
 }

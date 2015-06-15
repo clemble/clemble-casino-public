@@ -1,7 +1,6 @@
 package com.clemble.casino.goal.lifecycle.management;
 
 import com.clemble.casino.ImmutablePair;
-import com.clemble.casino.TimeZoneAware;
 import com.clemble.casino.bet.Bet;
 import com.clemble.casino.bet.PlayerBet;
 import com.clemble.casino.event.Event;
@@ -24,8 +23,6 @@ import com.clemble.casino.lifecycle.management.event.action.bet.BetAction;
 import com.clemble.casino.lifecycle.management.event.action.bet.BetOffAction;
 import com.clemble.casino.lifecycle.management.event.action.surrender.SurrenderAction;
 import com.clemble.casino.lifecycle.management.outcome.Outcome;
-import com.clemble.casino.lifecycle.management.outcome.PlayerLostOutcome;
-import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.clemble.casino.lifecycle.record.EventRecord;
 import com.clemble.casino.lifecycle.record.Record;
 import com.clemble.casino.money.Currency;
@@ -212,7 +209,7 @@ public class GoalState implements
                 GoalState newState = this.copyWithStatus(newStatus, action);
                 return new ImmutablePair<GoalEvent, GoalState>(new GoalChangedStatusEvent(player, this.copyWithStatus(newStatus, action)), newState);
             } else if (action instanceof SurrenderAction) {
-                Outcome outcome = new PlayerLostOutcome(actor);
+                Outcome outcome = Outcome.lost;
                 GoalState newState = this.finish(outcome);
                 return new ImmutablePair<GoalEvent, GoalState>(new GoalEndedEvent(player, newState, outcome), newState);
             } else if (action instanceof BetAction) {
@@ -234,7 +231,7 @@ public class GoalState implements
             } else if (action instanceof GoalReachedAction) {
                 GoalReachedAction reachedAction = (GoalReachedAction) action;
                 String newStatus = reachedAction.getStatus();
-                Outcome outcome = new PlayerWonOutcome(actor);
+                Outcome outcome = Outcome.won;
                 GoalState newState = this.copyWithStatus(newStatus, reachedAction).finish(outcome);
                 return new ImmutablePair<GoalEvent, GoalState>(new GoalEndedEvent(player, newState, outcome), newState);
             } else if (action instanceof TimeoutPunishmentAction) {
@@ -242,7 +239,7 @@ public class GoalState implements
                 bank.addPenalty(player, punishmentAction.getAmount());
                 long interest = bank.getBet(player).getBet().getInterest().getAmount();
                 if (interest <= 0L) {
-                    Outcome outcome = new PlayerLostOutcome(player);
+                    Outcome outcome = Outcome.lost;
                     GoalState newState = this.copyWithAction(action).finish(outcome);
                     return new ImmutablePair<GoalEvent, GoalState>(new GoalEndedEvent(player, newState, outcome), newState);
                 } else {

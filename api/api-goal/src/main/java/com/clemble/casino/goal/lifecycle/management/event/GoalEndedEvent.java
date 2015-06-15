@@ -6,7 +6,6 @@ import com.clemble.casino.goal.post.GoalPost;
 import com.clemble.casino.goal.post.GoalReachedPost;
 import com.clemble.casino.lifecycle.management.outcome.Outcome;
 import com.clemble.casino.lifecycle.management.outcome.OutcomeAware;
-import com.clemble.casino.lifecycle.management.outcome.PlayerWonOutcome;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -50,7 +49,7 @@ public class GoalEndedEvent implements GoalManagementEvent, OutcomeAware {
 
     @Override
     public GoalPost toPost() {
-        if (outcome instanceof PlayerWonOutcome)
+        if (outcome == Outcome.won)
             return GoalReachedPost.create(body);
         else
             return GoalMissedPost.create(body);

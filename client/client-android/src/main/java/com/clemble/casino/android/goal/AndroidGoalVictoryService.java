@@ -32,11 +32,27 @@ public class AndroidGoalVictoryService extends AbstractClembleCasinoOperations i
     }
 
     @Override
+    public Integer countMy() {
+        // Step 1. Generating URL
+        URI myVictories = buildUri(toGoalManagementUrl(MY_VICTORIES_COUNT));
+        // Step 2. Requesting for list of victories
+        return restTemplate.getForObject(myVictories, Integer.class);
+    }
+
+    @Override
     public List<GoalState> list(String player) {
         // Step 1. Generating URL
         URI victories = buildUri(toGoalManagementUrl(PLAYER_VICTORIES), player);
         // Step 2. Requesting for list of victories
         return CollectionUtils.immutableList(restTemplate.getForObject(victories, GoalState[].class));
+    }
+
+    @Override
+    public Integer count(String player) {
+        // Step 1. Generating URL
+        URI countVictories = buildUri(toGoalManagementUrl(PLAYER_VICTORIES), player);
+        // Step 2. Requesting for list of victories
+        return restTemplate.getForObject(countVictories, Integer.class);
     }
 
 }
